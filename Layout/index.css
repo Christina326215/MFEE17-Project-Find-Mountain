@@ -1,4 +1,10 @@
 /*============below all============*/
+:root{
+  --info-color: #19634a;
+  --font-color: #FFFFFF;
+  --button-color: #6da77f;
+  --iconHover-color:rgb(249, 249, 173);
+}
 body {
   font-family: Roboto;
 }
@@ -10,7 +16,7 @@ body {
 /*============below header============*/
 .header {
   /* position: relative; */
-  background: #19634a;
+  background: var(--info-color);
   height: 78px;
 }
 .logo_top img {
@@ -26,21 +32,21 @@ body {
 .search_button,
 .shopping_button,
 .sign_button {
-  color: #fafafa;
+  color: var(--font-color);
   margin-right: 20px;
 }
 .search_button:hover,
 .shopping_button:hover,
 .sign_button:hover {
-  color: rgb(249, 249, 173);
+  color: var(--iconHover-color);
 }
 .sign_button {
-  border: 1px solid #fafafa;
+  border: 1px solid  var(--font-color);
   border-radius: 5px;
   padding: 5px 20px;
 }
 .sign_button:hover {
-  border: 1px solid rgb(249, 249, 173);
+  border: 1px solid var(--iconHover-color);
   border-radius: 5px;
   padding: 5px 20px;
 }
@@ -57,17 +63,55 @@ body {
   font-weight: bold;
   font-size: 18px;
   line-height: 21px;
-  color: #fafafa;
+  color: var(--font-color);
   margin-right: 20px;
 }
 .nav-font:hover {
-  color: #fafafa;
+  color: var(--font-color);
+}
+
+/*============below content============*/
+/* below part1 map */
+.bg_box{
+  position: relative;
+}
+.bg{
+  max-width: 100%;
+  width: 100%;
+}
+.maps{
+  position: absolute;
+  top: 92px;
+  right: 143px;
+}
+.maps_item{
+  position: relative;
+}
+.Xiangshan{
+  position: absolute;
+  top: 138px;
+  right: 192px;
+}
+.Jinmian{
+  position: absolute;
+  top: 79px;
+  right: 192px;
+}
+.Chi-hsing{
+  position: absolute;
+  top: 34px;
+  right: 230px;
+}
+.lowBear{
+  position: absolute;
+  bottom: -58px;
+  left: 92px;
 }
 
 /*============below footer============*/
 .footer {
   position: relative;
-  background: #19634a;
+  background: var(--info-color);
   height: 345px;
 }
 .footer_box {
@@ -86,32 +130,32 @@ body {
   font-weight: bold;
   font-size: 18px;
   line-height: 21px;
-  color: #fafafa;
+  color: var(--font-color);
 }
 .nav-font_footerLast:hover {
-  color: #fafafa;
+  color: var(--font-color);
 }
 .footer_logo {
   margin-right: 75px;
 }
 .footer_line {
-  border-top: 1px solid #fafafa;
+  border-top: 1px solid  var(--font-color);
   margin: 0 auto;
   margin-top: 40px;
-  width: 1000px;
+  max-width: 1000px;
 }
 .footer_info {
   font-style: normal;
   font-weight: bold;
   font-size: 18px;
   line-height: 21px;
-  color: #fafafa;
+  color:  var(--font-color);
   margin: 0 10px;
   margin-top: 50px;
 }
 .footer_copy {
   margin-top: 80px;
-  color: #fafafa;
+  color:  var(--font-color);
 }
 
 /*********** ============below media============ *************/
@@ -133,7 +177,7 @@ body {
     position: relative;
     width: 35px;
     height: 5px;
-    background-color: #fafafa;
+    background-color: var(--font-color);
     margin: 6px 0;
     transition: 0.4s;
   }
@@ -152,7 +196,7 @@ body {
   /*============below media nav============*/
   .nav {
     width: 100%;
-    background-color: #6da77f;
+    background-color: var(--button-color);
     position: absolute;
     top: 78px;
     left: 0;
@@ -168,14 +212,14 @@ body {
     overflow: hidden;
   }
   .nav ul li {
-    border-bottom: 1px solid #19634a;
+    border-bottom: 1px solid var(--info-color);
     width: 100%;
   }
   .nav ul li a {
     display: flex;
     justify-content: center;
     padding: 10px 40px;
-    color: #fafafa;
+    color:  var(--font-color);
     line-height: 36px;
     vertical-align: middle;
     font-size: 22px;
