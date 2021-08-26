@@ -36,9 +36,30 @@
 }
 /*category-bar end*/
 /*display-photo-box start*/
-.display-photo-box{
+.display-photo-box {
   margin: 20px auto;
   max-width: 1000px;
   height: 300px;
+}
+/*left arrow*/
+.caret-left {
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+}
+.caret-left i, .caret-right i {
+  color: white;
+  font-size: 30px;
+  opacity: .8;
+}
+.caret-left i:hover, .caret-right i:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+/*right arrow*/
+.caret-right {
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
 }
 /*display-photo-box end*/

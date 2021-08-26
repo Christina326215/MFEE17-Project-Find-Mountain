@@ -82,7 +82,14 @@
         </div>
         <!-- =========category bar end========= -->
         <!-- =========vegas start========= -->
-        <div class="display-photo-box"></div>
+        <div class="display-photo-box position-relative">
+          <div class="position-absolute caret-left">
+            <i class="bi bi-caret-left-fill" id="vegasPrev"></i>
+          </div>
+          <div class="position-absolute caret-right">
+            <i class="bi bi-caret-right-fill" id="vegasNext"></i>
+          </div>
+        </div>
         <!-- =========vegas end========= -->
         <p>123</p>
       </div>
@@ -143,7 +150,13 @@
           { src: "./img/display-photo2.jpeg" },
           { src: "./img/display-photo3.jpeg" },
         ],
-        transition: "slideLeft2",
+        transition: "fade",
+      });
+      $("#vegasPrev").on("click", function () {
+        $(".display-photo-box").vegas("previous");
+      });
+      $("#vegasNext").on("click", function () {
+        $(".display-photo-box").vegas("next");
       });
     </script>
   </body>
