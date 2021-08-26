@@ -6,8 +6,6 @@
 .category-bar ul {
   margin: 0;
 }
-.category-bar ul li {
-}
 .category-bar ul li a {
   display: block;
   width: 200px;
@@ -27,5 +25,13 @@
   text-decoration: none;
   color: #333;
   border-bottom: 4px solid #6da77f;
+}
+@media screen and (max-width: 768px) {
+  .category-bar {
+    max-width: 540px;
+  }
+  .category-bar ul li a {
+    width: 135px;
+  }
 }
 /*category-bar end*/
