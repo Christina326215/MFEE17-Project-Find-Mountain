@@ -35,3 +35,10 @@
   }
 }
 /*category-bar end*/
+/*display-photo-box start*/
+.display-photo-box{
+  margin: 20px auto;
+  max-width: 1000px;
+  height: 300px;
+}
+/*display-photo-box end*/
