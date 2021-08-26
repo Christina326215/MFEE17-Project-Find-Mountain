@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>vegas</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="vegas.css">
+  </head>
+  <body>
+      
+    <script src="http://code.jquery.com/jquery.min.js"></script>
+    <script src="vegas.min.js"></script>
+    <script>
+        $("body").vegas({
+            timer: false,
+            delay: 3000,
+        slides: [
+        { src: "../img/girl-918706_1280.jpeg" },
+        { src: "../img/mountains-3959204_1280.jpeg" },
+        { src: "../img/outlook-1844110_1280.jpeg" }
+    ],
+    transition: 'slideLeft2'
+});
+    </script>
+  </body>
+</html>
