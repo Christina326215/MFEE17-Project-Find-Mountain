@@ -1,9 +1,9 @@
 /*============below all============*/
-:root{
+:root {
   --info-color: #19634a;
-  --font-color: #FFFFFF;
+  --font-color: #ffffff;
   --button-color: #6da77f;
-  --iconHover-color:rgb(249, 249, 173);
+  --iconHover-color: rgb(249, 249, 173);
 }
 body {
   font-family: Roboto;
@@ -41,7 +41,7 @@ body {
   color: var(--iconHover-color);
 }
 .sign_button {
-  border: 1px solid  var(--font-color);
+  border: 1px solid var(--font-color);
   border-radius: 5px;
   padding: 5px 20px;
 }
@@ -72,40 +72,143 @@ body {
 
 /*============below content============*/
 /* below part1 map */
-.bg_box{
-  position: relative;
-}
-.bg{
+.bg {
   max-width: 100%;
   width: 100%;
 }
-.maps{
-  position: absolute;
-  top: 92px;
-  right: 143px;
-}
-.maps_item{
+.bg_box {
   position: relative;
 }
-.Xiangshan{
+.maps {
+  position: absolute;
+  /* top: 92px; */
+  bottom: 69px;
+  right: 143px;
+}
+.maps_item {
+  position: relative;
+}
+.circle{
+  clip-path:circle(50% at 50% 50%);
+}
+.Xiangshan {
   position: absolute;
   top: 138px;
   right: 192px;
+  border: 3px solid var(--button-color);
+  border-radius: 50%;
 }
-.Jinmian{
+.Xiangshan_box{
+  width:52px;
+  height:52px;
+  background:url(img/xiangshan.jpeg);
+  background-size: cover;
+}
+.Jinmian_box{
+  width:52px;
+  height:52px;
+  background:url(img/jinmianshan.jpeg);
+  background-size: cover;
+}
+.Jinmian {
   position: absolute;
   top: 79px;
   right: 192px;
+  border: 3px solid var(--button-color);
+  border-radius: 50%;
 }
-.Chi-hsing{
+.Chi-hsing_box{
+  width:52px;
+  height:52px;
+  background:url(img/sevenstar.jpeg);
+  background-size: cover;
+}
+.Chi-hsing {
   position: absolute;
   top: 34px;
   right: 230px;
+  border: 3px solid var(--button-color);
+  border-radius: 50%;
 }
-.lowBear{
+.lowBear {
   position: absolute;
   bottom: -58px;
-  left: 92px;
+  left: 70px;
+}
+
+.container {
+  padding: 0;
+}
+/* below map_btn */
+.map_btn {
+  position: absolute;
+  left: 368px;
+  margin-top: -96px;
+}
+.low_button,
+.middle_button {
+  padding: 8px 35px;
+  margin-right: 68px;
+  border: 0;
+}
+.high_button {
+  padding: 8px 35px;
+  margin-right: 0px;
+  border: 0;
+}
+/* below map list */
+.content_list h2{
+  margin-top: 108px;
+  margin-left: 16px;
+  margin-bottom: 10px;
+}
+.list{
+  width: 1110px;
+  height: 282px;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 15px auto 0 auto;
+}
+.Xiangshan_list{
+  width:350px;
+  height:280px;
+}
+.Xiangshan_pic{
+  border-radius: 10px;
+  object-fit: fill;
+  width:350px;
+  height:100%;
+}
+.Jinmian_list{
+  width:350px;
+  height:280px;
+}
+.Jinmian_pic{
+  border-radius: 10px;
+  object-fit: fill;
+  width:350px;
+  height:100%;
+}
+.Chi-hsing_list{
+  width:350px;
+  height:280px;
+}
+.Chi-hsing_pic{
+  border-radius: 10px;
+  object-fit: fill;
+  width:350px;
+  height:100%;
+}
+.list_last{
+  width: 1110px;
+  height: 282px;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 15px auto 36px auto;
+}
+/* below pages */
+.btn-toolbar{
+  margin-bottom: 36px;
 }
 
 /*============below footer============*/
@@ -139,7 +242,7 @@ body {
   margin-right: 75px;
 }
 .footer_line {
-  border-top: 1px solid  var(--font-color);
+  border-top: 1px solid var(--font-color);
   margin: 0 auto;
   margin-top: 40px;
   max-width: 1000px;
@@ -149,13 +252,13 @@ body {
   font-weight: bold;
   font-size: 18px;
   line-height: 21px;
-  color:  var(--font-color);
+  color: var(--font-color);
   margin: 0 10px;
   margin-top: 50px;
 }
 .footer_copy {
   margin-top: 80px;
-  color:  var(--font-color);
+  color: var(--font-color);
 }
 
 /*********** ============below media============ *************/
@@ -219,7 +322,7 @@ body {
     display: flex;
     justify-content: center;
     padding: 10px 40px;
-    color:  var(--font-color);
+    color: var(--font-color);
     line-height: 36px;
     vertical-align: middle;
     font-size: 22px;
