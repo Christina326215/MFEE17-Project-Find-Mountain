@@ -124,6 +124,12 @@
   border-radius: 50%;
   right: 10px;
   top: 10px;
+  color: white;
+
+}
+.heart-icon-bkg:hover, .cart-icon-bkg:hover {
+  background: #333;
+  color: #bdbdbd;
 }
 .heart-icon {
   top: 50%;
@@ -144,6 +150,27 @@
   border-radius: 50%;
   right: 10px;
   top: 50px;
-}
+  color: white;
 
+}
+.more-btn {
+  display: block;
+  font-family: Source Sans Pro;
+  font-weight: bold;
+  font-size: 18px;
+  color: #ffffff;
+  /* line-height: 23px; */
+  border: none;
+  width: 110px;
+  height: 48px;
+  background: #6da77f;
+  border-radius: 8px;
+  margin: 10px 0;
+}
+.more-btn:hover {
+  background: #bae29a;
+}
+.more-btn:active {
+  background: #24936e;
+}
 /*編輯嚴選 end*/
