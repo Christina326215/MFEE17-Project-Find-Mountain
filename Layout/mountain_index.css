@@ -71,7 +71,7 @@ body {
 }
 
 /*============below content============*/
-/* below part1 map */
+/* part1 map start */
 .bg {
   max-width: 100%;
   width: 100%;
@@ -101,13 +101,13 @@ body {
 .Xiangshan_box{
   width:52px;
   height:52px;
-  background:url(img/xiangshan.jpeg);
+  background:url(img/mountain-img/xiangshan.jpeg);
   background-size: cover;
 }
 .Jinmian_box{
   width:52px;
   height:52px;
-  background:url(img/jinmianshan.jpeg);
+  background:url(img/mountain-img/jinmianshan.jpeg);
   background-size: cover;
 }
 .Jinmian {
@@ -120,7 +120,7 @@ body {
 .Chi-hsing_box{
   width:52px;
   height:52px;
-  background:url(img/sevenstar.jpeg);
+  background:url(img/mountain-img/sevenstar.jpeg);
   background-size: cover;
 }
 .Chi-hsing {
@@ -135,14 +135,15 @@ body {
   bottom: -58px;
   left: 70px;
 }
-
+/* part1 map end */
 .container {
   padding: 0;
 }
-/* below map_btn */
+/* map_btn star */
 .map_btn {
   position: absolute;
-  left: 368px;
+  left: 50%;
+  transform: translateX(-50%);
   margin-top: -96px;
 }
 .low_button,
@@ -156,11 +157,12 @@ body {
   margin-right: 0px;
   border: 0;
 }
-/* below map list */
+/* map_btn end */
+/* map list star */
 .content_list h2{
   margin-top: 108px;
   margin-left: 16px;
-  margin-bottom: 10px;
+  margin-bottom: 24px;
 }
 .list{
   width: 1110px;
@@ -206,16 +208,121 @@ body {
   border-radius: 10px;
   margin: 15px auto 36px auto;
 }
-/* below pages */
+.list_detail{
+  margin: 16px 24px;
+}
+/* map list end */
+/* pages_btn star */
 .btn-toolbar{
   margin-bottom: 36px;
 }
+/* pages_btn end */
+
+.content_line {
+  border-top: 1px solid var(--button-color);
+  margin: 0 auto;
+  margin-bottom: 72px;
+  max-width: 1108px;
+}
+/*推薦商品 start*/
+.product_title h3 {
+  margin-left: 16px;
+}
+.product-list{
+  margin-left: 30px;
+}
+.product-card {
+  margin: 10px auto;
+  width: 160px;
+}
+.product-img-box {
+  width: 130px;
+  height: 130px;
+}
+.product-img-box img {
+  border-radius: 5px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+.cover-fit {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.product-name{
+  display: block;
+  margin: 10px 0;
+  font-family: Source Sans Pro;
+  font-size: 16px;
+  line-height: 22px;
+  color: #4e4e4e;
+}
+.product-price {
+  font-family: Source Sans Pro;
+  font-size: 14px;
+  line-height: 20px;
+  color: #414141;
+}
+.heart-icon-bkg {
+  width: 30px;
+  height: 30px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  right: 10px;
+  top: 10px;
+  color: white;
+
+}
+.heart-icon-bkg:hover, .cart-icon-bkg:hover {
+  background: #333;
+  color: #bdbdbd;
+}
+.heart-icon {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 15px;
+}
+.cart-icon {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+}
+.cart-icon-bkg {
+  width: 30px;
+  height: 30px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  right: 10px;
+  top: 50px;
+  color: white;
+}
+.downLowBear{
+  width: 150px;
+  height: 206px;
+  background: url(img/mountain-img/lowBear.png);
+  background-size: cover;
+  margin-left: 150px;
+  margin-top: 50px;
+  z-index: 1;
+}
+.bearSpeak{
+  width: 200px;
+  height: 130px;
+  background: url(img/mountain-img/lowSpeak.png);
+  background-size: cover;
+  margin-top: -45px;
+  margin-left: -100px;
+  z-index: 0;
+}
+/*推薦商品 end*/
 
 /*============below footer============*/
 .footer {
   position: relative;
   background: var(--info-color);
   height: 345px;
+  margin-top: 72px;
 }
 .footer_box {
   padding-top: 50px;
@@ -334,5 +441,15 @@ body {
   }
   .footer_logo {
     margin-right: 20px;
+  }
+}
+
+/*********** ============below media 900px============ *************/
+@media screen and (max-width: 900px) {
+  .nav {
+    left: 210px;
+  }
+  .nav-font {
+  font-size: 16px;
   }
 }
