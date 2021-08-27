@@ -1,0 +1,115 @@
+.wrapper {
+  margin: 35px 85px;
+}
+/* font style */
+h2 {
+  font-size: 34px;
+  font-weight: bold;
+}
+.body-content-big-bold {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 15px 0;
+}
+.body-content-bold {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 15px 0;
+}
+/* chatpage */
+.chatbg {
+  margin: auto;
+  border-radius: 10px;
+  background-image: url(./img/bg1_chat.jpg);
+  background-size: cover;
+}
+.bg-filter {
+  height: 984px;
+  margin: auto;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  position: relative;
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+}
+.firstbox {
+  /* border: 1px solid red; */
+  position: relative;
+  left: 0;
+  right: 0;
+  margin: 50px;
+  /* display: flex; */
+}
+.bear {
+  position: absolute;
+  /* margin-top: 20px; */
+}
+.chatbox {
+  /* border: 1px solid red; */
+  background: url(./img/chatbox.png);
+  width: 387px;
+  height: 123px;
+  margin-left: 142px;
+  position: relative;
+}
+.chatbox p {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.btngroup {
+  position: absolute;
+  right: 0;
+  display: flex;
+  /* border: 1px solid green; */
+}
+.startbtn {
+  width: 200px;
+  height: 58px;
+  /* position: absolute;
+  right: 0; */
+}
+.seasonbtn {
+  width: 120px;
+  height: 58px;
+  /* display: flex; */
+  justify-content: space-between;
+  /* position: absolute; */
+  /* right: 0; */
+  margin-left: 15px;
+}
+.equipmentbtn {
+  width: 150px;
+  height: 58px;
+  justify-content: space-between;
+  margin-left: 15px;
+}
+.firstchatbox {
+  background: url(./img/chatbox_long.png);
+  width: 420px;
+  height: 77px;
+  margin-left: 142px;
+  position: relative;
+}
+.firstchatbox p {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.secondchatbox {
+  background: url(./img/chatbox_short.png);
+  width: 205px;
+  height: 77px;
+  margin-left: 142px;
+  margin-top: 30px;
+  position: relative;
+}
+.secondchatbox p {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
