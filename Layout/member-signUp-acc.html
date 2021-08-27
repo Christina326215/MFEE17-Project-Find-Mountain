@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="index.css" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+    />
+    <style>
+      .content-all {
+        margin: 5% auto 15% auto;
+      }
+      /* title */
+      .title {
+        font-weight: bold;
+        font-size: 34px;
+        color: #19634a;
+      }
+      /* step */
+      .step {
+        padding-top: 60px;
+      }
+      .progressbar {
+        counter-reset: step;
+      }
+      .progressbar li {
+        list-style: none;
+        display: inline-block;
+        width: 30.33%;
+        position: relative;
+        text-align: center;
+        cursor: pointer;
+      }
+      .progressbar li:before {
+        content: counter(step);
+        counter-increment: step;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        border: 1px solid #ddd;
+        border-radius: 100%;
+        display: block;
+        text-align: center;
+        margin: 0 auto 10px auto;
+        background-color: #fff;
+      }
+      .progressbar li:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        background-color: #ddd;
+        top: 15px;
+        left: -50%;
+        z-index: -1;
+      }
+      .progressbar li:first-child:after {
+        content: none;
+      }
+      .progressbar li.active {
+        color: green;
+      }
+      .progressbar li.active:before {
+        border-color: green;
+      }
+      .progressbar li.active + li:after {
+        background-color: green;
+      }
+
+      /* sign up content */
+      .signUp {
+        position: relative;
+        width: 578px;
+        height: 694px;
+        left: 50px;
+        top: 20px;
+        border: 1px solid #19634a;
+        box-sizing: border-box;
+        border-radius: 10px;
+        padding: 50px 30px;
+      }
+      .signUp-btn {
+        background-color: #24936e;
+        color: #ffffff;
+      }
+    </style>
+    <title>find-mountain</title>
+  </head>
+  <body>
+    <!-- body star -->
+    <!-- =========header star========= -->
+    <header class="header sticky-top">
+      <a href="#" class="logo_top">
+        <img src="img/logo.png" alt="logo_top" />
+      </a>
+      <div class="btns">
+        <a href="#" class="search_button"><i class="bi bi-search h4"></i></a>
+        <a href="#" class="shopping_button"><i class="bi bi-cart h4"></i></a>
+        <a href="#" class="sign_button">Sign In</a>
+      </div>
+      <!-- =========nav star========= -->
+      <nav class="nav">
+        <ul class="list-unstyled d-flex">
+          <li>
+            <a class="nav-font" href="#">路線地圖</a>
+          </li>
+          <li>
+            <a class="nav-font" href="#">推薦攻略</a>
+          </li>
+          <li>
+            <a class="nav-font" href="#">購物商城</a>
+          </li>
+          <li>
+            <a class="nav-font" href="#">建議穿搭</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="btn_nav">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </div>
+      <!-- <a class="btn_nav btn_close"></a> -->
+      <!-- =========nav end========= -->
+    </header>
+    <!-- =========header end========= -->
+
+    <!-- =========content star========= -->
+    <main>
+      <div class="container"></div>
+      <div class="d-flex justify-content-center align-items-center">
+        <div class="content-all">
+          <div class="text-center">
+            <h1 class="h2 pt-3 title">註冊會員</h1>
+          </div>
+          <div class="step">
+            <ul class="progressbar d-flex justify-content-center">
+              <li class="active">會員資料</li>
+              <li>設定帳號密碼</li>
+            </ul>
+          </div>
+          <div class="signUp d-flex justify-content-center pt-5">
+            <form>
+              <div class="form-row">
+                <div class="form-group col-7 mb-3 account">
+                  <label for="inputEmail2">Email 帳號</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="inputEmail2"
+                    placeholder="請輸入您的email"
+                  />
+                </div>
+                <div class="form-group col-7 mb-3">
+                  <div class="row">
+                    <div class="col-7">
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="inputEmail3"
+                        placeholder="請輸入驗證碼"
+                      />
+                    </div>
+                    <div class="col-5">
+                      <button type="button" class="btn btn-outline-primary">
+                        發送驗證碼
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-7 mb-3">
+                  <label for="inputPassword4">設定密碼</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="inputPassword4"
+                    placeholder="請輸入您的密碼"
+                  />
+                </div>
+                <div class="form-group col-7">
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="inputPassword5"
+                    placeholder="請再次輸入您的密碼"
+                  />
+                </div>
+              </div>
+              <div class="mb-3 text-center">
+                <button type="submit" class="btn signUp-btn">完成</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- =========content end========= -->
+    <!-- body end -->
+
+    <script>
+      let btn_nav = document.querySelector(".btn_nav");
+      let nav = document.querySelector(".nav");
+
+      btn_nav.onclick = function () {
+        this.classList.toggle("change");
+        nav.classList.toggle("nav_show");
+      };
+
+      // Example starter JavaScript for disabling form submissions if there are invalid fields
+      (function () {
+        "use strict";
+        window.addEventListener(
+          "load",
+          function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName("needs-validation");
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(
+              forms,
+              function (form) {
+                form.addEventListener(
+                  "submit",
+                  function (event) {
+                    if (form.checkValidity() === false) {
+                      event.preventDefault();
+                      event.stopPropagation();
+                    }
+                    form.classList.add("was-validated");
+                  },
+                  false
+                );
+              }
+            );
+          },
+          false
+        );
+      })();
+    </script>
+  </body>
+</html>
