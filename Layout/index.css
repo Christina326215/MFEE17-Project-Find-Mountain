@@ -113,7 +113,14 @@ body {
   margin-top: 80px;
   color: #fafafa;
 }
-
+@media screen and (max-width: 900px) {
+  .nav {
+    left: 210px;
+  }
+  .nav-font {
+  font-size: 16px;
+  }
+}
 /*********** ============below media============ *************/
 @media screen and (max-width: 768px) {
   /*============below media header============*/
