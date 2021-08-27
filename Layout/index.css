@@ -98,7 +98,7 @@ body {
   border-top: 1px solid #fafafa;
   margin: 0 auto;
   margin-top: 40px;
-  width: 1000px;
+  max-width: 1000px;
 }
 .footer_info {
   font-style: normal;
@@ -115,6 +115,14 @@ body {
 }
 
 /*********** ============below media============ *************/
+@media screen and (max-width: 900px) {
+  .nav {
+    left: 210px;
+  }
+  .nav-font {
+    font-size: 16px;
+  }
+}
 @media screen and (max-width: 768px) {
   /*============below media header============*/
   .btns {
