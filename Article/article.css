@@ -1,18 +1,29 @@
+/* article-filter */
+
 .wrapper {
-  margin: 35px 85px;
+  margin: 35px 0;
 }
-@media screen and (max-width: 768px) {
-  .wrapper {
-    margin: 25px;
-  }
+body {
+  color: #414141;
 }
 /* font style */
-h2 {
-  font-size: 34px;
+.h2 {
+  font-family: "Inter", sans-serif;
+  font-style: normal;
   font-weight: bold;
+  font-size: 34px;
+  line-height: 41px;
+}
+.h3 {
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 24px;
 }
 .body-content-big-bold {
   font-size: 22px;
+  line-height: 22px;
   font-weight: bold;
   margin: 15px 0;
 }
@@ -20,6 +31,14 @@ h2 {
   font-size: 22px;
   font-weight: bold;
   margin: 15px 0;
+}
+.body-content {
+  font-size: 16px;
+  line-height: 22px;
+}
+.body-content-small {
+  font-size: 14px;
+  line-height: 20px;
 }
 
 /* chatpage */
@@ -30,17 +49,14 @@ h2 {
   background-size: cover;
 }
 .bg-filter {
-  /* height: 984px; */
   margin: auto;
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.5);
   position: relative;
-  /* border: 1px solid pink; */
   display: flex;
   flex-direction: column;
 }
 .firstbox {
-  /* border: 1px solid red; */
   position: relative;
   margin: 50px;
 }
@@ -48,23 +64,18 @@ h2 {
   display: flex;
 }
 .bearwrap {
-  /* position: absolute; */
   height: auto;
   width: auto;
 }
 .bear {
-  /* position: absolute; */
   width: 100%;
   height: 100%;
   object-fit: contain;
-  /* top: 20px; */
 }
 .chatbox {
-  /* border: 1px solid red; */
   background: url(./img/chatbox.png);
   width: 387px;
   height: 123px;
-  /* margin-left: 142px; */
   position: relative;
 }
 .chatbox p {
@@ -75,23 +86,17 @@ h2 {
 }
 .btngroup {
   display: flex;
-  /* border: 1px solid green; */
   justify-content: flex-end;
   margin-top: 25px;
 }
 .startbtn {
   width: 200px;
   height: 58px;
-  /* position: absolute;
-  right: 0; */
 }
 .seasonbtn {
   width: 120px;
   height: 58px;
-  /* display: flex; */
   justify-content: space-between;
-  /* position: absolute; */
-  /* right: 0; */
   margin-left: 15px;
 }
 .equipmentbtn {
@@ -134,12 +139,79 @@ h2 {
   .firstbox {
     position: relative;
     margin: 50px 25px 50px 25px;
-    /* border: 1px solid red; */
   }
   .btngroup {
     display: flex;
-    /* border: 1px solid green; */
     justify-content: flex-end;
     margin-top: 15px;
   }
+}
+
+/* article-recommend */
+.table th,
+.table td {
+  padding: 0.4rem;
+}
+.filter-wrapper {
+  margin: 35px 0 0 0;
+}
+.recommendbg {
+  background-image: url(./img/bg2_jungle.jpg);
+  background-size: cover;
+}
+.recommend-filter {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid transparent;
+}
+.bg-wrapper {
+  margin: 35px 0;
+}
+.inline {
+  display: inline;
+}
+.filterBtn {
+  width: 100px;
+}
+.card {
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.cardimg {
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px 0 0 10px;
+}
+.cardFirstLine {
+  display: flex;
+}
+@media screen and (max-width: 768px) {
+  .cardTitle {
+    font-size: 18px;
+    line-height: 18px;
+  }
+}
+.cardSecondLine {
+  display: flex;
+}
+.textBox {
+  height: 100px;
+
+  display: flex;
+  align-items: center;
+}
+.card-text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+}
+.cardLastLine {
+  display: flex;
+  justify-content: space-between;
+}
+.bi-star-fill {
+  font-size: 22px;
 }
