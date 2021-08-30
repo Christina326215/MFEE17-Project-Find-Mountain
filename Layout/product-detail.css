@@ -65,10 +65,6 @@
 /*left side end*/
 /*right side start*/
 
-.product-order-box {
-  border: 1px solid #000;
-  /* background: #828282; */
-}
 .size-btn {
   width: 35px;
   height: 35px;
@@ -80,8 +76,10 @@
   font-size: 18px;
   line-height: 23px;
   color: #6da77f;
+  background: none;
 }
 .size-btn:hover,
+.size-btn:active,
 .size-btn.active {
   color: #fff;
   background: #6da77f;
@@ -95,14 +93,13 @@
 .minus-btn,
 .add-btn {
   width: 50px;
-  height: 35px;
   border: none;
   background: none;
-  font-size: 18px;
+  font-size: 24px;
   color: #24936e;
 }
 .line-box {
-  border-bottom: 1px solid #bababa;
+  border-bottom: 1px solid #bdbdbd;
 }
 .price-box {
   font-family: Inter;
@@ -111,6 +108,75 @@
   line-height: 24px;
   color: #6da77f;
 }
+.addcart-box {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.like-btn {
+  display: block;
+  width: 48px;
+  height: 48px;
+  line-height: 48px;
+  border: 1px solid #9b9c9a;
+  border-radius: 8px;
+  color: #cc543a;
+  font-size: 18px;
+}
+.add-cart-btn {
+  display: block;
+  width: 207px;
+  height: 48px;
+  line-height: 48px;
+  background: #ffb943;
+  border-radius: 8px;
+  font-family: Source Sans Pro;
+  font-weight: bold;
+  font-size: 18px;
+  color: #fafafa;
+}
+.add-cart-btn:hover {
+  background: #ffdfa8;
+  color: #9b9c9a;
+  text-decoration: none;
+}
+.about-membership {
+  bottom: -30px;
+  right: 5px;
+}
+.about-membership a {
+  font-family: Source Sans Pro;
+  font-size: 14px;
+  line-height: 20px;
+  color: #000000;
+}
+.about-membership a:hover {
+  text-decoration: none;
+}
 /*right side end*/
-
+/*introduce part start*/
+.introduce-title {
+  width: 150px;
+  height: 60px;
+  line-height: 60px;
+  background: #9b9c9a;
+  color: #fafafa;
+  font-family: Source Sans Pro;
+  font-weight: bold;
+  font-size: 18px;
+}
+.introduce-img-box {
+  max-width: 600px;
+}
+.introduce {
+  font-family: Source Sans Pro;
+  font-size: 16px;
+  line-height: 22px;
+  color: #414141;
+  text-align: justify;
+}
+/*introduce part end*/
 /*product end*/
+/*guideline start*/
+
+/*guideline end*/
