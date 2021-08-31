@@ -6,22 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="index.css" type="text/css" />
-    <link rel="stylesheet" href="member-order-progress.css" type="text/css" />
+    <link rel="stylesheet" href="member-order-complete.css" type="text/css" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
     />
-    <!-- <style>
-      /* right-side */
-      .have-been {
-        float: left;
-      }
-      .switch-category {
-        /* display: inline-flexbox;
-        justify-self: right; */
-        float: right;
-      }
-    </style> -->
+
     <title>會員管理-我的訂單狀態(待完成)</title>
   </head>
   <body>
@@ -78,8 +68,6 @@
                   </div>
                   <h3 class="m-2 member-name">王小明</h3>
                   <i class="bi bi-caret-up-fill grade-icon"></i>
-                  <i class="bi bi-caret-up grade-icon"></i>
-                  <i class="bi bi-caret-up grade-icon"></i>
                   <i class="bi bi-caret-up grade-icon"></i>
                   <i class="bi bi-caret-up grade-icon"></i>
                   <div>
@@ -159,154 +147,220 @@
           <table class="table table-bordered m-5 table-all text-center">
             <tbody>
               <tr>
-                <td scope="row" class="text-weight-bold">訂單編號：</td>
-                <td scope="row" class="text-weight">20210621001</td>
+                <td scope="row" class="text-weight-top">訂單編號：</td>
+                <td scope="row" class="text-weight-top">20210621001</td>
               </tr>
               <tr>
-                <td scope="row" class="text-weight-bold">訂單日期：</td>
-                <td scope="row" class="text-weight">2021/06/21</td>
+                <td scope="row" class="text-weight-top">訂單日期：</td>
+                <td scope="row" class="text-weight-top">2021/06/21</td>
               </tr>
               <tr>
-                <td scope="row" class="text-weight-bold">訂單金額：</td>
-                <td scope="row" class="text-weight">$5,360</td>
+                <td scope="row" class="text-weight-top">訂單金額：</td>
+                <td scope="row" class="text-weight-top">$5,360</td>
               </tr>
               <tr>
-                <td scope="row" class="text-weight-bold">訂單狀態：</td>
-                <td scope="row" class="text-weight"></td>
+                <td scope="row" class="text-weight-top">訂單狀態：</td>
+                <td scope="row" class="text-weight-top"></td>
               </tr>
             </tbody>
           </table>
+          <!-- <hr /> -->
           <div class="ml-5">
             <h2>商品明細</h2>
             <table class="table table-borderless mt-2 text-center">
               <thead class="thead-tr-border">
                 <tr>
-                  <th scope="col">商品照片</th>
-                  <th scope="col">商品名稱</th>
-                  <th scope="col">尺寸</th>
-                  <th scope="col">單價</th>
-                  <th scope="col">數量</th>
-                  <th scope="col">小計</th>
-                  <th scope="col">刪除</th>
+                  <th scope="col" class="text-weight-top align-middle">
+                    商品照片
+                  </th>
+                  <th scope="col" class="text-weight-top align-middle">
+                    商品名稱
+                  </th>
+                  <th scope="col" class="text-weight-top align-middle">尺寸</th>
+                  <th scope="col" class="text-weight-top align-middle">單價</th>
+                  <th scope="col" class="text-weight-top align-middle">數量</th>
+                  <th scope="col" class="text-weight-top align-middle">小計</th>
+                  <th scope="col" class="text-weight-top align-middle">刪除</th>
                 </tr>
               </thead>
               <tbody class="tbody-tr-border">
                 <tr>
-                  <td scope="row">
-                    <!-- <figure class="product-img-box text-center">
-                    <img src="img/shoes-pic2.jpeg" alt="" class="cover-fit" />
-                  </figure> -->
+                  <td scope="row" class="picture-img-wrapper align-middle">
+                    <div class="picture-img-box">
+                      <img
+                        src="img/shoes-pic2.jpeg"
+                        alt=""
+                        class="picture-img"
+                      />
+                    </div>
                   </td>
-                  <td scope="row">MERRELL Tetrex Crest Wrap 女水陸三棲鞋</td>
-                  <td scope="row"><a href="" class="size">S</a></td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
+                  <td scope="row" class="text-weight-middle align-middle">
+                    MERRELL Tetrex Crest Wrap 女水陸三棲鞋
+                  </td>
+                  <td scope="row" class="text-weight-middle align-middle">
+                    <a href="" class="size">S</a>
+                  </td>
+                  <td scope="row" class="text-weight-middle align-middle">
+                    NT$ 5,000
+                  </td>
+                  <td scope="row" class="text-weight-middle align-middle">
                     <a href="" class="size"><i class="bi bi-dash"></i></a>
                     <span class="counts">1</span>
                     <a href="" class="size"><i class="bi bi-plus"></i></a>
                   </td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
+                  <td scope="row" class="text-weight-middle align-middle">
+                    NT$ 5,000
+                  </td>
+                  <td scope="row" class="text-weight-middle align-middle">
                     <a href=""><i class="bi bi-trash h5"></i></a>
                   </td>
                 </tr>
                 <tr>
-                  <td scope="row">
-                    <!-- <div class="product-img-box">
-                    <img src="img/shoes-pic7.jpeg" alt="" class="cover-fit" />
-                  </div> -->
+                  <td scope="row" class="picture-img-wrapper align-middle">
+                    <div class="picture-img-box">
+                      <img
+                        src="img/shoes-pic2.jpeg"
+                        alt=""
+                        class="picture-img"
+                      />
+                    </div>
                   </td>
-                  <td scope="row">MERRELL Tetrex Crest Wrap 女水陸三棲鞋</td>
-                  <td scope="row"><a href="" class="size">S</a></td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
+                  <td scope="row" class="text-weight-middle align-middle">
+                    MERRELL Tetrex Crest Wrap 女水陸三棲鞋
+                  </td>
+                  <td scope="row" class="text-weight-middle align-middle">
+                    <a href="" class="size">S</a>
+                  </td>
+                  <td scope="row" class="text-weight-middle align-middle">
+                    NT$ 5,000
+                  </td>
+                  <td scope="row" class="text-weight-middle align-middle">
                     <a href="" class="size"><i class="bi bi-dash"></i></a>
                     <span class="counts">1</span>
                     <a href="" class="size"><i class="bi bi-plus"></i></a>
                   </td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
+                  <td scope="row" class="text-weight-middle align-middle">
+                    NT$ 5,000
+                  </td>
+                  <td scope="row" class="text-weight-middle align-middle">
                     <a href=""><i class="bi bi-trash h5"></i></a>
                   </td>
                 </tr>
                 <tr>
-                  <td scope="row">
-                    <!-- <div class="product-img-box">
-                    <img src="img/shoes-pic8.jpeg" alt="" class="cover-fit" />
-                  </div> -->
+                  <td scope="row" class="picture-img-wrapper align-middle">
+                    <div class="picture-img-box">
+                      <img
+                        src="img/shoes-pic2.jpeg"
+                        alt=""
+                        class="picture-img"
+                      />
+                    </div>
                   </td>
-                  <td scope="row">MERRELL Tetrex Crest Wrap 女水陸三棲鞋</td>
-                  <td scope="row"><a href="" class="size">S</a></td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
+                  <td scope="row" class="text-weight-middle align-middle">
+                    MERRELL Tetrex Crest Wrap 女水陸三棲鞋
+                  </td>
+                  <td scope="row" class="text-weight-middle align-middle">
+                    <a href="" class="size">S</a>
+                  </td>
+                  <td scope="row" class="text-weight-middle align-middle">
+                    NT$ 5,000
+                  </td>
+                  <td scope="row" class="text-weight-middle align-middle">
                     <a href="" class="size"><i class="bi bi-dash"></i></a>
                     <span class="counts">1</span>
                     <a href="" class="size"><i class="bi bi-plus"></i></a>
                   </td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
+                  <td scope="row" class="text-weight-middle align-middle">
+                    NT$ 5,000
+                  </td>
+                  <td scope="row" class="text-weight-middle align-middle">
                     <a href=""><i class="bi bi-trash h5"></i></a>
                   </td>
                 </tr>
                 <tr>
-                  <td scope="row">
-                    <!-- <div class="product-img-box">
-                    <img src="img/shoes-pic2.jpeg" alt="" class="cover-fit" />
-                  </div> -->
+                  <td scope="row" class="picture-img-wrapper align-middle">
+                    <div class="picture-img-box">
+                      <img
+                        src="img/shoes-pic2.jpeg"
+                        alt=""
+                        class="picture-img"
+                      />
+                    </div>
                   </td>
-                  <td scope="row">MERRELL Tetrex Crest Wrap 女水陸三棲鞋</td>
-                  <td scope="row"><a href="" class="size">S</a></td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
+                  <td scope="row" class="text-weight-middle align-middle">
+                    MERRELL Tetrex Crest Wrap 女水陸三棲鞋
+                  </td>
+                  <td scope="row" class="text-weight-middle align-middle">
+                    <a href="" class="size">S</a>
+                  </td>
+                  <td scope="row" class="text-weight-middle align-middle">
+                    NT$ 5,000
+                  </td>
+                  <td scope="row" class="text-weight-middle align-middle">
                     <a href="" class="size"><i class="bi bi-dash"></i></a>
                     <span class="counts">1</span>
                     <a href="" class="size"><i class="bi bi-plus"></i></a>
                   </td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
+                  <td scope="row" class="text-weight-middle align-middle">
+                    NT$ 5,000
+                  </td>
+                  <td scope="row" class="text-weight-middle align-middle">
                     <a href=""><i class="bi bi-trash h5"></i></a>
                   </td>
                 </tr>
                 <tr>
-                  <td scope="row">
-                    <!-- <div class="product-img-box">
-                    <img src="img/shoes-pic7.jpeg" alt="" class="cover-fit" />
-                  </div> -->
+                  <td scope="row" class="picture-img-wrapper align-middle">
+                    <div class="picture-img-box">
+                      <img
+                        src="img/shoes-pic2.jpeg"
+                        alt=""
+                        class="picture-img"
+                      />
+                    </div>
                   </td>
-                  <td scope="row">MERRELL Tetrex Crest Wrap 女水陸三棲鞋</td>
-                  <td scope="row"><a href="" class="size">S</a></td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
+                  <td scope="row" class="text-weight-middle align-middle">
+                    MERRELL Tetrex Crest Wrap 女水陸三棲鞋
+                  </td>
+                  <td scope="row" class="text-weight-middle align-middle">
+                    <a href="" class="size">S</a>
+                  </td>
+                  <td scope="row" class="text-weight-middle align-middle">
+                    NT$ 5,000
+                  </td>
+                  <td scope="row" class="text-weight-middle align-middle">
                     <a href="" class="size"><i class="bi bi-dash"></i></a>
                     <span class="counts">1</span>
                     <a href="" class="size"><i class="bi bi-plus"></i></a>
                   </td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
+                  <td scope="row" class="text-weight-middle align-middle">
+                    NT$ 5,000
+                  </td>
+                  <td scope="row" class="text-weight-middle align-middle">
                     <a href=""><i class="bi bi-trash h5"></i></a>
                   </td>
                 </tr>
               </tbody>
             </table>
+            <hr />
             <div class="ml-2">
               <h2>配送資訊</h2>
               <table class="table table-borderless mt-2">
                 <tbody>
                   <tr>
-                    <td scope="row">收件人姓名：</td>
-                    <td scope="row">王小明</td>
+                    <td scope="row lass="text-weight-middle align-middle"">收件人姓名：</td>
+                    <td scope="row" lass="text-weight-middle align-middle">王小明</td>
                   </tr>
                   <tr>
-                    <td scope="row">收件地址（取件超商）：</td>
-                    <td scope="row">中央大學</td>
+                    <td scope="row lass="text-weight-middle align-middle"">收件地址（取件超商）：</td>
+                    <td scope="row" lass="text-weight-middle align-middle">中央大學</td>
                   </tr>
                   <tr>
-                    <td scope="row">收件人電話</td>
-                    <td scope="row">0900123456</td>
+                    <td scope="row" lass="text-weight-middle align-middle">收件人電話</td>
+                    <td scope="row" lass="text-weight-middle align-middle">0900123456</td>
                   </tr>
                   <tr>
-                    <td scope="row">付款方式</td>
-                    <td scope="row">信用卡繳費</td>
+                    <td scope="row" lass="text-weight-middle align-middle">付款方式</td>
+                    <td scope="row" lass="text-weight-middle align-middle">信用卡繳費</td>
                   </tr>
                 </tbody>
               </table>

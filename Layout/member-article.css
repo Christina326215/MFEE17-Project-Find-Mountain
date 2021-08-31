@@ -6,12 +6,6 @@
   box-shadow: 0 0 0 1px #000;
   border-radius: 10px;
 }
-.table-all td {
-  border: 1px solid #000;
-}
-.table-all th {
-  border: 1px solid #000;
-}
 /* 左邊管理區 */
 .left-href-color {
   color: black;
@@ -63,15 +57,6 @@
   /* display: inline-flexbox;
     justify-self: right; */
   float: right;
-}
-td:first-child {
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-}
-
-td:last-child {
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
 }
 .title-main {
   color: #19634a;
