@@ -98,7 +98,7 @@ body {
   border-top: 1px solid #fafafa;
   margin: 0 auto;
   margin-top: 40px;
-  width: 1000px;
+  max-width: 1000px;
 }
 .footer_info {
   font-style: normal;

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="index.css" type="text/css" />
+    <link rel="stylesheet" href="shopping-2-pay-ship.css" type="text/css" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
@@ -57,12 +58,12 @@
     <div class="container">
       <div class="row">
         <div class="col-12 mt-5">
-          <h2 class="text-center mb-5">付款與運送方式</h2>
+          <h2 class="text-center mb-2 title-dash">付款與運送方式</h2>
           <fieldset class="form-group row">
-            <legend class="col-form-label col-sm-2 float-sm-left pt-0">
-              請選擇收件方式
+            <legend class="col-form-label col-sm-2 float-sm-left pt-0 mb-4">
+              請選擇收件方式：
             </legend>
-            <div class="col-sm-10">
+            <div class="col-sm-10 mb-4">
               <div class="form-check">
                 <input
                   class="form-check-input"
@@ -87,15 +88,63 @@
                 <label class="form-check-label" for="gridRadios2">
                   超商取貨
                 </label>
+
+                <!-- Button trigger modal -->
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-toggle="modal"
+                  data-target="#exampleModal"
+                >
+                  選擇門市
+                </button>
+
+                <!-- Modal -->
+                <div
+                  class="modal fade"
+                  id="exampleModal"
+                  tabindex="-1"
+                  aria-labelledby="exampleModalLabel"
+                  aria-hidden="true"
+                >
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                          Modal title
+                        </h5>
+                        <button
+                          type="button"
+                          class="close"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">...</div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                        <button type="button" class="btn btn-primary">
+                          Save changes
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </fieldset>
-          <hr />
-          <fieldset class="form-group row">
-            <legend class="col-form-label col-sm-2 float-sm-left pt-0">
-              請填寫收件地址
+
+            <legend class="col-form-label col-sm-2 float-sm-left pt-0 mb-4">
+              請填寫收件地址：
             </legend>
-            <div class="col-sm-10">
+            <div class="col-sm-10 mb-4">
               <div class="form-check">
                 <input
                   class="form-check-input"
@@ -115,13 +164,11 @@
                 />
               </div>
             </div>
-          </fieldset>
-          <hr />
-          <fieldset class="form-group row">
-            <legend class="col-form-label col-sm-2 float-sm-left pt-0">
-              請填寫收件人資訊
+
+            <legend class="col-form-label col-sm-2 float-sm-left pt-0 mb-4">
+              請填寫收件人資訊：
             </legend>
-            <div class="col-sm-10">
+            <div class="col-sm-10 mb-4">
               <div class="form-group">
                 <input
                   type="text"
@@ -137,23 +184,21 @@
                 />
               </div>
             </div>
-          </fieldset>
-          <hr />
-          <fieldset class="form-group row">
-            <legend class="col-form-label col-sm-2 float-sm-left pt-0">
-              請選擇發票類型
+
+            <legend class="col-form-label col-sm-2 float-sm-left pt-0 mb-4">
+              請選擇發票類型：
             </legend>
-            <div class="col-sm-10">
+            <div class="col-sm-10 mb-4">
               <div class="form-check">
                 <input
                   class="form-check-input"
                   type="radio"
                   name="gridRadios"
-                  id="gridRadios1"
-                  value="option1"
+                  id="gridRadios3"
+                  value="option3"
                   checked
                 />
-                <label class="form-check-label" for="gridRadios1">
+                <label class="form-check-label" for="gridRadios3">
                   二聯式
                 </label>
               </div>
@@ -162,31 +207,29 @@
                   class="form-check-input"
                   type="radio"
                   name="gridRadios"
-                  id="gridRadios2"
-                  value="option2"
+                  id="gridRadios4"
+                  value="option4"
                 />
-                <label class="form-check-label" for="gridRadios2">
+                <label class="form-check-label" for="gridRadios4">
                   開立統編
                 </label>
               </div>
             </div>
-          </fieldset>
-          <hr />
-          <fieldset class="form-group row">
-            <legend class="col-form-label col-sm-2 float-sm-left pt-0">
-              請選擇付款方式
+
+            <legend class="col-form-label col-sm-2 float-sm-left pt-0 mb-4">
+              請選擇付款方式：
             </legend>
-            <div class="col-sm-10">
+            <div class="col-sm-10 mb-4">
               <div class="form-check">
                 <input
                   class="form-check-input"
                   type="radio"
                   name="gridRadios"
-                  id="gridRadios1"
-                  value="option1"
+                  id="gridRadios5"
+                  value="option5"
                   checked
                 />
-                <label class="form-check-label" for="gridRadios1">
+                <label class="form-check-label" for="gridRadios5">
                   信用卡
                 </label>
               </div>
@@ -195,10 +238,10 @@
                   class="form-check-input"
                   type="radio"
                   name="gridRadios"
-                  id="gridRadios2"
-                  value="option2"
+                  id="gridRadios6"
+                  value="option6"
                 />
-                <label class="form-check-label" for="gridRadios2">
+                <label class="form-check-label" for="gridRadios6">
                   貨到付款
                 </label>
               </div>
@@ -215,6 +258,7 @@
         </div>
       </div>
     </div>
+
     <!-- =========content end========= -->
 
     <!-- =========footer star========= -->

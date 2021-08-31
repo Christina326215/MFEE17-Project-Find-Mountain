@@ -1,4 +1,85 @@
+/* table */
+.table-all {
+  border-collapse: collapse;
+  width: 100%;
+  border-style: hidden;
+  box-shadow: 0 0 0 1px #000;
+  border-radius: 10px;
+}
+.table-all td {
+  border: 1px solid #000;
+}
+.table-all th {
+  border: 1px solid #000;
+}
+/* 左邊管理區 */
+.left-href-color {
+  color: black;
+  text-decoration: none;
+}
+.left-href-color:hover {
+  color: black;
+  text-decoration: none;
+}
+.member-name {
+  color: #6da77f;
+}
+.grade-icon {
+  color: #19634a;
+  font-size: larger;
+}
+.table-active {
+  background-color: #6da77f;
+  border-radius: 0;
+}
+.table-active:hover {
+  background-color: #bae29a;
+}
+
+/* 頭貼 */
+.cover-fit {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.headshot-img-box img {
+  border-radius: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.headshot-img-box {
+  margin: 0 auto;
+  width: 150px;
+  height: 150px;
+  text-align: center;
+}
+
 /* right-side */
-.right-side {
-  border: #c4c4c4 1px solid;
+.have-been {
+  float: left;
+}
+.switch-category {
+  /* display: inline-flexbox;
+    justify-self: right; */
+  float: right;
+}
+td:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+td:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.title-main {
+  color: #19634a;
+}
+.text-weight {
+  font-size: 18px;
+}
+.text-weight-bold {
+  font-weight: bold;
+  font-size: 18px;
 }

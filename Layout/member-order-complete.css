@@ -77,19 +77,9 @@ td:last-child {
   color: #19634a;
 }
 .text-weight {
-  font-size: 18px;
+  font-size: 12px;
 }
 .text-weight-bold {
   font-weight: bold;
-  font-size: 26px;
-}
-.counts {
-  padding: 12px;
-  border: #bae29a 1px solid;
-}
-.star-icon {
-  color: #ffb943;
-}
-.cancel-icon {
-  color: #5b7553;
+  font-size: 12px;
 }
