@@ -311,6 +311,7 @@
                     />
                   </a>
                   <a
+                    href="javascript:void(0)"
                     role="button"
                     class="position-absolute heart-icon-bkg position-relative"
                   >
@@ -453,6 +454,11 @@
       $("a.see-member").click((e) => {
         $(".about-membership-bubble").toggle("display");
       });
+      $("a.heart-icon-bkg").each(function(){
+        $(this).click(function(){
+          $(this).toggleClass("heart-icon-bkg-click");
+        })
+      })
     </script>
   </body>
 </html>
