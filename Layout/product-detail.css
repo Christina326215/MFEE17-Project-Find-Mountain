@@ -267,17 +267,22 @@
   right: 10px;
   top: 10px;
   color: white;
+  -webkit-text-stroke: 1px;
+  -webkit-text-stroke-color: #cc543a;
+  transition: .4s;
 }
 .heart-icon-bkg:hover {
   background: #333;
   color: #eea9a9;
+  -webkit-text-stroke: 1px;
+  -webkit-text-stroke-color: #eea9a9;
 }
 .cart-icon-bkg:hover {
   background: #333;
   color: white;
 }
 .heart-icon-bkg:active {
-  color: #eea9a9;
+  color: #cc543a;
 }
 .heart-icon-bkg-click {
   color: #cc543a;
