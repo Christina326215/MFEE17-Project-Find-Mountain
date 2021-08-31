@@ -244,7 +244,8 @@
   border-radius: 5px;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
-.product-name, .article-name {
+.product-name,
+.article-name {
   display: block;
   margin: 10px 0;
   font-family: Source Sans Pro;
@@ -266,9 +267,9 @@
   right: 10px;
   top: 10px;
   color: white;
-
 }
-.heart-icon-bkg:hover, .cart-icon-bkg:hover {
+.heart-icon-bkg:hover,
+.cart-icon-bkg:hover {
   background: #333;
   color: #bdbdbd;
 }
@@ -292,6 +293,41 @@
   right: 10px;
   top: 50px;
   color: white;
-
 }
 /*recommanded items end*/
+/*會員制度氣泡start*/
+.about-membership-bubble {
+  width: 300px;
+  background: #f2f2f2;
+  border-radius: 5px;
+  right: -45px;
+  top:40px;
+  display: none;
+}
+.about-membership-bubble-arrow {
+  width: 0px;
+  height: 0px;
+  border-width: 15px;
+  border-style: solid;
+  border-color: transparent transparent #f2f2f2 transparent;
+  position: absolute;
+  top: -29px;
+  right: 40px;
+}
+.membership {
+  font-family: Source Sans Pro;
+  font-size: 14px;
+  line-height: 20px;
+}
+.membership-low {
+  color: #4e4e4e;
+}
+.membership-medium {
+  color: #19634a;
+}
+.membership-high {
+  color: #ffb943;
+}
+/*會員制度氣泡end*/
+
+/*end*/

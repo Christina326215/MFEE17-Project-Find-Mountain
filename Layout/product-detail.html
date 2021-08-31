@@ -57,22 +57,32 @@
       <div class="container">
         <!-- =========history start========= -->
         <div class="position-fixed history-box position-relative">
-          <div class="position-absolute history-text">
-            瀏覽紀錄
-          </div>
+          <div class="position-absolute history-text">瀏覽紀錄</div>
           <figure class="history-img-box">
             <a href="#">
-              <img src="./img/product-img/bags-pic5.jpeg" alt="" class="cover-fit">
+              <img
+                src="./img/product-img/bags-pic5.jpeg"
+                alt=""
+                class="cover-fit"
+              />
             </a>
           </figure>
           <figure class="history-img-box">
             <a href="#">
-              <img src="./img/product-img/bags-pic6.png" alt="" class="cover-fit">
+              <img
+                src="./img/product-img/bags-pic6.png"
+                alt=""
+                class="cover-fit"
+              />
             </a>
           </figure>
           <figure class="history-img-box">
             <a href="#">
-              <img src="./img/product-img/shoes-pic5.jpeg" alt="" class="cover-fit">
+              <img
+                src="./img/product-img/shoes-pic5.jpeg"
+                alt=""
+                class="cover-fit"
+              />
             </a>
           </figure>
         </div>
@@ -167,12 +177,30 @@
                 <a href="#" role="button" class="add-cart-btn mx-1"
                   >加入購物車</a
                 >
-                <div class="position-absolute about-membership">
-                  <a href="#"
+                <div
+                  class="position-absolute about-membership position-relative"
+                >
+                  <a href="javascript:void(0)" id="seeMember" class="see-member"
                     >了解會員積分折扣制度<i class="bi bi-question-circle"></i
                   ></a>
+                  <!-- =========about-membership-bubble start========= -->
+                  <div class="about-membership-bubble p-3 position-absolute">
+                    <span class="about-membership-bubble-arrow"></span>
+                    <span class="membership">
+                      會員專區登記去過的路線以獲取積分 </span
+                    ><br />
+                    <span class="membership membership-low">
+                      肉腳：結帳時95折優惠 </span
+                    ><br />
+                    <span class="membership membership-medium">
+                      山友 ：結帳時93折優惠 </span
+                    ><br />
+                    <span class="membership membership-high">
+                      山神 ：結帳時9折優惠
+                    </span>
+                  </div>
+                  <!-- =========about-membership-bubble end========= -->
                 </div>
-                <div class="position-absolute"></div>
               </div>
             </div>
           </div>
@@ -368,7 +396,6 @@
               </div>
             </div>
           </div>
-          
         </div>
         <!-- =========recommanded items end========= -->
       </div>
@@ -409,8 +436,11 @@
     </footer>
     <!-- =========footer end========= -->
     <!-- body end -->
-
-    <script src="http://code.jquery.com/jquery.min.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
     <script>
       let btn_nav = document.querySelector(".btn_nav");
       let nav = document.querySelector(".nav");
@@ -419,6 +449,10 @@
         this.classList.toggle("change");
         nav.classList.toggle("nav_show");
       };
+
+      $("a.see-member").click((e) => {
+        $(".about-membership-bubble").toggle("display");
+      });
     </script>
   </body>
 </html>
