@@ -147,7 +147,7 @@ body {
   }
 }
 
-/* article-recommend */
+/* article-recommend start*/
 .table th,
 .table td {
   padding: 0.4rem;
@@ -214,4 +214,166 @@ body {
 }
 .bi-star-fill {
   font-size: 22px;
+}
+/* article-recommend end*/
+/* artcicle-detail start */
+.detailBg {
+  background: url(./img/xiangshan.jpeg);
+  background-size: cover;
+  border-radius: 10px;
+  background-position: center;
+}
+.detailBgShow {
+  height: 300px;
+}
+.detailFilter {
+  height: 450px;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.62),
+    rgba(0, 0, 0, 0.62)
+  );
+  border-radius: 0px 0px 10px 10px;
+  position: relative;
+}
+.detailContnet {
+  padding: 0 70px 20px;
+  position: absolute;
+  bottom: 0;
+}
+.table {
+  border: 1px solid white;
+}
+.tableHead {
+  /* height: auto; */
+  background: white;
+}
+.tableHead p {
+  line-height: 38px;
+  margin: 0;
+  /* align-content: center; */
+}
+.tableBody p {
+  color: white;
+  line-height: 38px;
+  margin: 0;
+}
+.productTagBg {
+  background: url(./img/hiking_1.jpg);
+  border-radius: 10px;
+  height: 360px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+.tag {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+  padding: 10px;
+  border-radius: 20px;
+  color: white;
+  background: rgba(109, 167, 127, 0.8);
+  position: absolute;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+}
+.tagHover {
+  border: 2px solid white;
+  display: flex;
+  justify-content: center;
+  width: 120px;
+  /* padding: 10px; */
+  border-radius: 10px;
+  color: white;
+  background: rgba(109, 167, 127, 0.8);
+  position: absolute;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+}
+.tagText {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+}
+.hatTag {
+  transform: translate(260px, 160px);
+}
+.alpenstockTag {
+  transform: translate(310px, 230px);
+}
+.bagTag {
+  transform: translate(10px, 10px);
+  width: 250px;
+  height: 150px;
+}
+.tagName {
+  margin: 0;
+  padding: 10px;
+  text-align: left;
+}
+.tagPrice {
+  margin: 0;
+  padding: 10px;
+  text-align: right;
+}
+.productTagWrap {
+  width: 150px;
+  height: auto;
+}
+.productTagHover {
+  border-radius: 0 10px 10px 0;
+  height: 100%;
+  width: 100%;
+}
+.commentBg {
+  background: url(./img/bg2_jungle.jpg);
+  background-size: cover;
+}
+.commentFilter {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid transparent;
+}
+.commentWhiteBox {
+  background: white;
+  border-radius: 10px;
+  /* delete */
+  /* height: 200px; */
+}
+.commentContent {
+  padding: 30px 70px;
+}
+.commentBox {
+  /* border: 1px solid red; */
+  /* padding: 5px 0 5px 5px; */
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgb(207, 207, 207);
+}
+.commentPic {
+  width: 150px;
+  margin-left: 15px;
+  /* margin: 5px 0 5px 10px; */
+}
+.commentPic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.bi-person-circle {
+  font-size: 44px;
+  margin-right: 10px;
+  /* margin-right: 5px;
+  margin-bottom: 5px;
+  margin-left: 5px; */
+}
+.memberLevel1 {
+  color: var(#414141);
+}
+.memberLevel2 {
+  color: var(--primary);
+}
+.memberLevel3 {
+  color: var(--warning);
 }
