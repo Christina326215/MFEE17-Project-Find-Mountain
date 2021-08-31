@@ -72,8 +72,23 @@ td:last-child {
 }
 .text-weight {
   font-size: 18px;
+  display: inline-block;
+  align-self: center;
+  justify-content: center;
 }
-.text-weight-bold {
-  font-weight: bold;
-  font-size: 26px;
+/* 圖片 */
+.picture-img {
+  border-radius: 10px;
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+.picture-img-box {
+  width: 150px;
+  height: auto;
+}
+.picture-img-wrapper {
+  display: flex;
+  align-self: center;
+  justify-content: center;
 }
