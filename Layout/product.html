@@ -481,8 +481,11 @@
     </footer>
     <!-- =========footer end========= -->
     <!-- body end -->
-
-    <script src="http://code.jquery.com/jquery.min.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
     <script src="vegas/vegas.min.js"></script>
     <script>
       let btn_nav = document.querySelector(".btn_nav");
@@ -508,6 +511,11 @@
       });
       $("#vegasNext").on("click", function () {
         $(".display-photo-box").vegas("next");
+      });
+      $("a.heart-icon-bkg").each(function () {
+        $(this).click(function () {
+          $(this).toggleClass("heart-icon-bkg-click");
+        });
       });
     </script>
   </body>
