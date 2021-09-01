@@ -384,6 +384,26 @@
   bottom: -10px;
   left: -50px;
 }
+.bear-bubble {
+  text-align: center;
+  width: 300px;
+  background: #f2f2f2;
+  border-radius: 15px;
+  font-size: 18px;
+  /* display: none; */
+  top: -100px;
+  left: -200px;
+}
+.bear-bubble-arrow {
+  width: 0px;
+  height: 0px;
+  border-width: 15px;
+  border-style: solid;
+  border-color: #f2f2f2 transparent transparent transparent;
+  position: absolute;
+  bottom: -29px;
+  right: 40px;
+}
 /* .bearbear img {
   width: 100px;
 } */
