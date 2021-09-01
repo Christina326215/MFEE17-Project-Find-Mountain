@@ -1,0 +1,328 @@
+#pagination {
+    position: absolute;
+    top: 80%;
+    transform: translateY(-80%);
+    left: 100px;
+    z-index: 6;
+}
+.sliderBtn {
+    display: block;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 0;
+    width: 16px;
+    height: 16px;
+    background-color: #111;
+    border-radius: 100%;
+    padding: 0;
+    margin: 30px 0;
+    cursor: pointer;
+    position: relative;
+    opacity: 0.2;
+    transition: opacity 0.2s ease-in-out;
+    outline: none;
+}
+.sliderBtn:hover {
+    opacity: 0.5;
+}
+
+.sliderBtn.active {
+    opacity: 1;
+}
+.sliderBtn::before {
+    width: 300%;
+    height: 300%;
+    opacity: 1;
+}
+.sliderBtn::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%;
+    height: 120%;
+    border-radius: 100%;
+    border: 2px dashed #111;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out, width 0.4s ease-in-out, height 0.4s ease-in-out;
+}
+
+.banner {
+    width: 100vw;
+    height: 500px;
+    position: relative;
+    overflow: hidden;
+}
+
+h2 {
+    position: absolute;
+    color: #fff;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0px 1px 2px rgba(black, 0.1);
+    font-size: 3vw;
+}
+.wave {
+    background-color: #ffe7bb;
+    width: 200vw;
+    height: 200vw;
+    opacity: 0.4;
+    position: absolute;
+    top: -75vw;
+    left: 50%;
+    margin-left: -100vw;
+    margin-top: -100vw;
+    border-radius: 43%;
+    animation: rotate 9000ms infinite linear;
+}
+
+.wave:nth-child(1) {
+    animation: rotate 12000ms infinite linear;
+}
+.wave:nth-child(2) {
+    animation: rotate 15000ms infinite linear;
+    opacity: 0.1;
+    background-color: #777;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Main styles */
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:800);
+.text2 {
+    stroke: #6da77f;
+    position: absolute;
+    left: 50px;
+}
+.text {
+    fill: #6da77f;
+    stroke-width: 8;
+    stroke-linecap: round;
+    /* stroke-linejoin: round; */
+    stroke-dasharray: 70 330;
+    stroke-dashoffset: 0;
+    -webkit-animation: stroke 6s infinite linear;
+    animation: stroke 10s infinite linear;
+}
+
+.text:nth-child(5n + 1) {
+    stroke: #ffe342;
+    -webkit-animation-delay: -1.2s;
+    animation-delay: -1.2s;
+}
+.text:nth-child(5n + 2) {
+    stroke: #42ad73;
+    -webkit-animation-delay: -2.4s;
+    animation-delay: -2.4s;
+}
+
+.text:nth-child(5n + 3) {
+    stroke: #e9f1df;
+    -webkit-animation-delay: -3.6s;
+    animation-delay: -3.6s;
+}
+
+.text:nth-child(5n + 4) {
+    stroke: #55854f;
+    -webkit-animation-delay: -4.8s;
+    animation-delay: -4.8s;
+}
+
+.text:nth-child(5n + 5) {
+    stroke: #30a754;
+    -webkit-animation-delay: -6s;
+    animation-delay: -6s;
+}
+
+@-webkit-keyframes stroke {
+    100% {
+        stroke-dashoffset: -400;
+    }
+}
+
+@keyframes stroke {
+    100% {
+        stroke-dashoffset: -400;
+    }
+}
+
+/* Other styles */
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background: rgb(194, 250, 177);
+    background-size: 0.2em 100%;
+    font: 13em/1 Open Sans, Impact;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+#m-text {
+    position: absolute;
+    left: 8px;
+    width: 100%;
+    height: 100%;
+}
+.text2 {
+    stroke: #fff;
+    stroke-width: 4px;
+    fill: none;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+ul,
+li {
+    list-style: none;
+} /*css reset end*/ /*css public start*/
+.floatfix {
+    *zoom: 1;
+}
+.floatfix:after {
+    content: '';
+    display: table;
+    clear: both;
+} /*css public end*/ /*slider start*/
+.slider-contaner {
+    width: 100%;
+    position: relative;
+}
+.slider-item + .slider-item {
+    opacity: 0;
+}
+.slider-item {
+    width: 100%;
+    position: absolute;
+    animation-timing-function: linear;
+    animation-name: fade;
+    animation-iteration-count: infinite;
+    background-size: 100%;
+}
+.focus-container {
+    position: absolute;
+    z-index: 7;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+}
+.focus-container li {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    float: left;
+    margin-right: 10px;
+    background: #fff;
+}
+.focus-item {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    animation-timing-function: linear;
+    animation-name: fade;
+    animation-iteration-count: infinite;
+}
+.focus-item2,
+.focus-item3,
+.focus-item4,
+.focus-item5 {
+    opacity: 0;
+}
+.focus-container ul {
+    margin-left: 46%;
+} /*設置輪播焦點的位置*/
+.focus-container {
+    bottom: 2%;
+} /*設置當前圖片焦點的顏色*/
+.focus-item {
+    background: #51b1d9;
+} /*設置動畫，請根據實際需要修改秒數*/
+.slider-item,
+.focus-item {
+    animation-duration: 20s;
+}
+.slider-item1,
+.focus-item1 {
+    animation-delay: -1s;
+}
+.slider-item2,
+.focus-item2 {
+    animation-delay: 3s;
+}
+.slider-item3,
+.focus-item3 {
+    animation-delay: 7s;
+}
+.slider-item4,
+.focus-item4 {
+    animation-delay: 11s;
+}
+.slider-item5,
+.focus-item5 {
+    animation-delay: 15s;
+}
+@keyframes fade {
+    0% {
+        opacity: 0;
+        z-index: 2;
+    }
+    5% {
+        opacity: 1;
+        z-index: 1;
+    }
+    20% {
+        opacity: 1;
+        z-index: 1;
+    }
+    25% {
+        opacity: 0;
+        z-index: 0;
+    }
+    100% {
+        opacity: 0;
+        z-index: 0;
+    }
+} /*設置背景，響應式請利用媒體查詢根據斷點修改路徑*/
+.slider-item1 {
+    background-image: url(imgs/1.jpg);
+}
+.slider-item2 {
+    background-image: url(imgs/2.jpg);
+}
+.slider-item3 {
+    background-image: url(imgs/3.jpg);
+}
+.slider-item4 {
+    background-image: url(imgs/4.jpg);
+}
+.slider-item5 {
+    background-image: url(imgs/5.jpg);
+} /*設置圖片的高度，請根據具體需要修改百分比，響應式及時修改此值*/
+.slider,
+.slider-item {
+    padding-bottom: 40%;
+}
+
+原文網址：https: ; //kknews.cc/code/ga95amm.html
