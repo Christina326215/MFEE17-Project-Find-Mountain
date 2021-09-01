@@ -87,3 +87,8 @@
   align-self: center;
   justify-content: center;
 }
+/* product-name */
+.product-name {
+  width: 200px;
+  max-width: 100%;
+}
