@@ -103,12 +103,18 @@
   line-height: 23px;
   color: #6da77f;
   background: none;
+  transition: 0.4s;
 }
-.size-btn:hover,
-.size-btn:active,
+.size-btn:hover {
+  color: #fff;
+  background: #bae29a;
+}
 .size-btn.active {
   color: #fff;
   background: #6da77f;
+}
+.size-btn:active {
+  background: #24936e;
 }
 .order-number {
   text-align: center;
@@ -269,7 +275,7 @@
   color: white;
   -webkit-text-stroke: 1px;
   /* -webkit-text-stroke-color: #cc543a; */
-  transition: .4s;
+  transition: 0.4s;
 }
 .heart-icon-bkg:hover {
   background: #333;
