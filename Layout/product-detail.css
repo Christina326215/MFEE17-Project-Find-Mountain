@@ -152,10 +152,24 @@
   line-height: 48px;
   border: 1px solid #9b9c9a;
   border-radius: 8px;
-  color: #cc543a;
+  color: #fff;
+  -webkit-text-stroke: 1px;
+  -webkit-text-stroke-color: #cc543a;
   font-size: 18px;
+  transition: .4s;
+}
+.like-btn:hover {
+  color: #eea9a9;
+}
+.like-btn.active {
+  color: #cc543a;
+}
+.like-btn:active {
+  color: #cc543a;
+  -webkit-text-stroke-color: #eea9a9;
 }
 .add-cart-btn {
+  padding: 0;
   display: block;
   width: 207px;
   height: 48px;
@@ -167,11 +181,11 @@
   font-size: 18px;
   color: #fafafa;
 }
-.add-cart-btn:hover {
+/* .add-cart-btn:hover {
   background: #ffdfa8;
   color: #9b9c9a;
   text-decoration: none;
-}
+} */
 .about-membership {
   bottom: -30px;
   right: 5px;

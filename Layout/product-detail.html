@@ -143,9 +143,12 @@
               <div class="size-box">
                 <p>SIZE 選擇</p>
                 <div class="button-box m-3">
-                  <button class="size-btn active mx-1">S</button>
+                  <!-- <button class="size-btn active mx-1">S</button>
                   <button class="size-btn mx-1">M</button>
-                  <button class="size-btn mx-1">L</button>
+                  <button class="size-btn mx-1">L</button> -->
+                  <input type="button" value="S" class="size-btn mx-1" />
+                  <input type="button" value="M" class="size-btn mx-1" />
+                  <input type="button" value="L" class="size-btn mx-1" />
                 </div>
               </div>
               <div class="number-box">
@@ -173,12 +176,13 @@
                   position-relative
                 "
               >
-                <a href="#" role="button" class="like-btn mx-1"
-                  ><i class="bi bi-heart"></i
+                <a href="javascript:void(0)" role="button" class="like-btn mx-1"
+                  ><i class="bi bi-heart-fill"></i
                 ></a>
-                <a href="#" role="button" class="add-cart-btn mx-1"
+                <!-- <a href="#" role="button" class="add-cart-btn mx-1"
                   >加入購物車</a
-                >
+                > -->
+                <button class="add-cart-btn mx-1 btn">加入購物車</button>
                 <div
                   class="position-absolute about-membership position-relative"
                 >
@@ -460,6 +464,9 @@
         $(this).click(function () {
           $(this).toggleClass("heart-icon-bkg-click");
         });
+      });
+      $(".like-btn").click(function(){
+        $(this).toggleClass("active");
       });
       $(".size-btn").each(function () {
         $(this).click(function () {
