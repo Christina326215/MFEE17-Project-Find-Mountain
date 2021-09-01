@@ -369,5 +369,23 @@
   color: #ffb943;
 }
 /*會員制度氣泡end*/
-
+/*outfit start*/
+.outfit-box {
+  width: 100%;
+  height: 400px;
+  background: rgb(253, 234, 198);
+}
+.shop-svg {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.bearbear {
+  bottom: -10px;
+  left: -50px;
+}
+/* .bearbear img {
+  width: 100px;
+} */
+/*outfit end*/
 /*end*/
