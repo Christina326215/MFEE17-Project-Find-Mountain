@@ -1,100 +1,3 @@
-.thead-tr-border {
-  border-bottom: 1px solid black;
-}
-.tbody-tr-border {
-  border-bottom: 1px solid black;
-}
-.product-img-box img {
-  border-radius: 5px;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-.product-img-box {
-  margin: 0 auto;
-  width: 100px;
-  height: 100px;
-  text-align: center;
-}
-.cover-fit {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.table > tbody > tr > td {
-  vertical-align: middle;
-  font-size: 20px;
-}
-.table > thead {
-  font-size: 22px;
-}
-.counts {
-  padding: 12px;
-  /* border: #bae29a 1px solid; */
-}
-.total {
-  font-weight: bold;
-  font-size: 20px;
-}
-.more-product-img-box img {
-  border-radius: 5px;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  /* display: block;
-  margin-left: auto;
-  margin-right: auto; */
-}
-.more-product-img-box {
-  /* margin: 0 auto; */
-  width: 100px;
-  height: 100px;
-  text-align: center;
-}
-/* product-name */
-.product-name {
-  width: 300px;
-  max-width: 100%;
-}
-.product-size {
-  width: 400px;
-  max-width: 100%;
-}
-.product-perprice {
-  width: 200px;
-  max-width: 100%;
-}
-.product-count {
-  width: 400px;
-  max-width: 100%;
-}
-.product-subtotal {
-  width: 200px;
-  max-width: 100%;
-}
-.product-delete {
-  width: 200px;
-  max-width: 100%;
-}
-.size-btn {
-  width: 30px;
-  height: 30px;
-  border: 1px solid #6da77f;
-  box-sizing: border-box;
-  border-radius: 8px;
-  /* font-family: Source Sans Pro; */
-  font-weight: bold;
-  font-size: 18px;
-  line-height: 23px;
-  color: #6da77f;
-  background: none;
-}
-.size-btn:hover,
-.size-btn:active,
-.size-btn.active {
-  color: #fff;
-  background: #6da77f;
-}
-/* progress bar step */
 .opaque {
   opacity: 0;
   -webkit-transition: 0.3s ease;
@@ -109,7 +12,7 @@
 #checkout-progress {
   width: 90%;
   margin: 0px auto;
-  font-size: 1.5em;
+  font-size: 2.5em;
   font-weight: 900;
   position: relative;
 }
@@ -162,7 +65,7 @@
   -webkit-transform: scaleX(1) translateY(-50%) perspective(1000px);
   transform: scaleX(1) translateY(-50%) perspective(1000px);
 }
-#checkout-progress .progress-bar {
+#checkout-progress .progress-bar1 {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -175,11 +78,11 @@
   -ms-flex-align: center;
   align-items: center;
 }
-#checkout-progress .progress-bar .step {
+#checkout-progress .progress-bar1 .step {
   z-index: 2;
   position: relative;
 }
-#checkout-progress .progress-bar .step .step-label {
+#checkout-progress .progress-bar1 .step .step-label {
   position: absolute;
   top: calc(100% + 25px);
   left: 50%;
@@ -193,11 +96,11 @@
   transition: 0.3s ease;
 }
 @media (max-width: 767px) {
-  #checkout-progress .progress-bar .step .step-label {
+  #checkout-progress .progress-bar1 .step .step-label {
     top: calc(100% + 15px);
   }
 }
-#checkout-progress .progress-bar .step span {
+#checkout-progress .progress-bar1 .step span {
   color: #ccc;
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
@@ -205,7 +108,7 @@
   -webkit-transform: translate3d(0, 0, 0) scale(1) perspective(1000px);
   transform: translate3d(0, 0, 0) scale(1) perspective(1000px);
 }
-#checkout-progress .progress-bar .step .fa-check {
+#checkout-progress .progress-bar1 .step .fa-check {
   color: #fff;
   position: absolute;
   left: 50%;
@@ -217,23 +120,23 @@
   -webkit-transform: translate3d(-50%, -50%, 0) scale(0) perspective(1000px);
   transform: translate3d(-50%, -50%, 0) scale(0) perspective(1000px);
 }
-#checkout-progress .progress-bar .step.active span,
-#checkout-progress .progress-bar .step.active .step-label {
+#checkout-progress .progress-bar1 .step.active span,
+#checkout-progress .progress-bar1 .step.active .step-label {
   color: #6da77f;
 }
-#checkout-progress .progress-bar .step.valid .fa-check {
+#checkout-progress .progress-bar1 .step.valid .fa-check {
   -webkit-transform: translate3d(-50%, -50%, 0) scale(1) perspective(1000px);
   transform: translate3d(-50%, -50%, 0) scale(1) perspective(1000px);
 }
-#checkout-progress .progress-bar .step.valid span {
+#checkout-progress .progress-bar1 .step.valid span {
   color: #6da77f;
   -webkit-transform: translate3d(0, 0, 0) scale(2) perspective(1000px);
   transform: translate3d(0, 0, 0) scale(2) perspective(1000px);
 }
-#checkout-progress .progress-bar .step.valid .step-label {
+#checkout-progress .progress-bar1 .step.valid .step-label {
   color: #2c3e50 !important;
 }
-#checkout-progress .progress-bar .step:after {
+#checkout-progress .progress-bar1 .step:after {
   content: "";
   position: absolute;
   z-index: -1;
@@ -250,15 +153,15 @@
   transition: 0.3s ease;
 }
 @media (max-width: 767px) {
-  #checkout-progress .progress-bar .step:after {
+  #checkout-progress .progress-bar1 .step:after {
     width: 40px;
     height: 40px;
   }
 }
-#checkout-progress .progress-bar .step.active:after {
+#checkout-progress .progress-bar1 .step.active:after {
   border: 5px solid #6da77f;
 }
-#checkout-progress .progress-bar .step.valid:after {
+#checkout-progress .progress-bar1 .step.valid:after {
   background-color: #6da77f;
   border: 5px solid #6da77f;
 }

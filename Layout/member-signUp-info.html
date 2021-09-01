@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="index.css" type="text/css" />
-    <link rel="stylesheet" href="member-signUp-acc.css" type="text/css" />
+    <link rel="stylesheet" href="member-signUp-info.css" type="text/css" />
     <link rel="stylesheet" href="bar2.css" type="text/css" />
     <link
       rel="stylesheet"
@@ -18,7 +18,7 @@
       integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk"
       crossorigin="anonymous"
     />
-    <title>會員註冊</title>
+    <title>會員註冊-info</title>
   </head>
   <body>
     <!-- body star -->
@@ -65,17 +65,17 @@
       <div class="container">
         <!-- progress-bar-step start -->
         <!-- class change to current "step-2" -->
-        <div class="step-2" id="checkout-progress" data-current-step="2">
+        <div class="step-1" id="checkout-progress" data-current-step="1">
           <div class="progress-bar1">
             <!-- "active" change to "valid" -->
-            <div class="step step-1 valid">
+            <div class="step step-1 active">
               <span> 1</span>
               <!-- "opaque" change to "" -->
-              <div class="fa fa-check"></div>
+              <div class="fa fa-check opaque"></div>
               <div class="step-label">填寫會員資料</div>
             </div>
             <!-- add class "active" -->
-            <div class="step step-2 active">
+            <div class="step step-2">
               <span> 2</span>
               <div class="fa fa-check opaque"></div>
               <div class="step-label">設定帳號密碼</div>
@@ -86,68 +86,79 @@
         <div class="d-flex justify-content-center align-items-center">
           <div class="content-all">
             <div class="text-center">
-              <h1 class="h2 pt-3 title">註冊會員</h1>
+              <h1 class="h2 title">註冊會員</h1>
             </div>
             <div class="signUp d-flex justify-content-center pt-5">
+              <!-- <div class=""> -->
               <form>
                 <div class="form-row d-flex justify-content-center">
-                  <div class="form-group col-7 mb-3 account">
-                    <label for="inputEmail2">Email 帳號</label>
+                  <div class="form-group col-7 mb-3 name">
+                    <label for="inputName">姓名</label>
                     <input
-                      type="email"
+                      type=""
                       class="form-control"
-                      id="inputEmail2"
-                      placeholder="請輸入您的email"
+                      id="inputName"
+                      placeholder="請輸入您的姓名"
                     />
                   </div>
                   <div class="form-group col-7 mb-3">
-                    <div class="row">
-                      <div class="col-7">
-                        <input
-                          type="email"
-                          class="form-control"
-                          id="inputEmail3"
-                          placeholder="請輸入驗證碼"
-                        />
-                      </div>
-                      <div class="col-5">
-                        <button type="button" class="btn btn-outline-primary">
-                          發送驗證碼
-                        </button>
-                      </div>
+                    <span>性別</span><br />
+                    <input type="radio" name="gender" class="" id="inputBoy" />
+                    <label for="inputBoy">男</label>
+                    <input type="radio" name="gender" class="" id="inputGirl" />
+                    <label for="inputGirl">女</label>
+                  </div>
+                  <div class="form-group col-7 mb-3 name">
+                    <label for="inputBirth">生日</label>
+                    <input type="date" class="form-control" id="inputBirth" />
+                  </div>
+                  <div class="form-group col-7 mb-3">
+                    <label for="inputTel">聯絡電話</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="inputTel"
+                      placeholder="請輸入您的手機號碼"
+                    />
+                  </div>
+                  <div class="form-group col-7 mb-3">
+                    <label for="inputAddr">聯絡地址</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="inputAddr"
+                      placeholder="請輸入您的聯絡地址"
+                    />
+                  </div>
+                  <div class="form-group col-7 mb-3">
+                    <div class="form-check">
+                      <input
+                        type="checkbox"
+                        class="form-check-input"
+                        id="inputAddr"
+                        placeholder="請輸入您的聯絡地址"
+                      />
+                      <label for="inputAddr" class="form-check-label"
+                        >是否作為會員訂單收件地址</label
+                      >
                     </div>
-                  </div>
-                  <div class="form-group col-7 mb-3">
-                    <label for="inputPassword4">設定密碼</label>
-                    <input
-                      type="password"
-                      class="form-control"
-                      id="inputPassword4"
-                      placeholder="請輸入您的密碼"
-                    />
-                  </div>
-                  <div class="form-group col-7">
-                    <input
-                      type="password"
-                      class="form-control"
-                      id="inputPassword5"
-                      placeholder="請再次輸入您的密碼"
-                    />
                   </div>
                 </div>
                 <!-- button -->
                 <div class="button-container text-right mb-5">
-                  <a
-                    href="member-signUp-info.html"
+                  <!-- <a
+                    href="shopping-1-content.html"
                     class="btn btn-prev btn btn-outline-primary mr-3"
                     >上一步</a
+                  > -->
+                  <a
+                    href="member-signUp-acc.html"
+                    class="btn btn-next btn btn-primary mr-3"
+                    >下一步</a
                   >
-                  <a href="" class="btn btn-next btn btn-primary mr-3">完成</a>
                 </div>
-                <!-- <div class="mb-3 text-center">
-                  <button type="submit" class="btn signUp-btn">完成</button>
-                </div> -->
               </form>
+              <!-- </div> -->
             </div>
           </div>
         </div>
@@ -156,6 +167,11 @@
     <!-- =========content end========= -->
     <!-- body end -->
 
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+      integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+      crossorigin="anonymous"
+    ></script>
     <script>
       let btn_nav = document.querySelector(".btn_nav");
       let nav = document.querySelector(".nav");
@@ -164,36 +180,7 @@
         this.classList.toggle("change");
         nav.classList.toggle("nav_show");
       };
-
-      // Example starter JavaScript for disabling form submissions if there are invalid fields
-      (function () {
-        "use strict";
-        window.addEventListener(
-          "load",
-          function () {
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.getElementsByClassName("needs-validation");
-            // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(
-              forms,
-              function (form) {
-                form.addEventListener(
-                  "submit",
-                  function (event) {
-                    if (form.checkValidity() === false) {
-                      event.preventDefault();
-                      event.stopPropagation();
-                    }
-                    form.classList.add("was-validated");
-                  },
-                  false
-                );
-              }
-            );
-          },
-          false
-        );
-      })();
     </script>
+    <script src="bar2.js"></script>
   </body>
 </html>
