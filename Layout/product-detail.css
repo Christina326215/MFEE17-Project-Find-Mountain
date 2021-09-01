@@ -268,7 +268,7 @@
   top: 10px;
   color: white;
   -webkit-text-stroke: 1px;
-  -webkit-text-stroke-color: #cc543a;
+  /* -webkit-text-stroke-color: #cc543a; */
   transition: .4s;
 }
 .heart-icon-bkg:hover {
