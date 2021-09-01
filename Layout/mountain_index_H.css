@@ -5,19 +5,19 @@
   --button-color: #6da77f;
   --iconHover-color: rgb(249, 249, 173);
   --listContent-font: Source Sans Pro;
-  --barShadow-color: #ccc;
-  --barBackground-color: #414141;
+  --barShadow-color: #FFEEB4;
+  --barBackground-color: #FFB943;
   --barBackgroundSecond-color: transparent;
   --barFont-color: white;
   --map_hover: #c4c4c4;
   --map_hover_font: rgba(0, 0, 0, 0.4);
   --progressLevelBarXiangshan-width: calc(33.3%);
-  --progressDistanceBarXiangshan-width: calc(2.3%);
-  --progressTimeBarXiangshan-width: calc(1.4 / 60 * 100%);
-  --progressDistanceBarJinmian-width: calc(3%);
-  --progressTimeBarJinmian-width: calc(1 / 60 * 100%);
-  --progressDistanceBarChi-hsing-width: calc(5%);
-  --progressTimeBarChi-hsing-width: calc(2.3 / 60 * 100%);
+  --progressDistanceBarXiangshan-width: calc(41.6%);
+  --progressTimeBarXiangshan-width: calc(96 / 100 * 100%);/* 4 days*/
+  --progressDistanceBarJinmian-width: calc(29.2%);
+  --progressTimeBarJinmian-width: calc(72 / 100 * 100%);/*3 days*/
+  --progressDistanceBarChi-hsing-width: calc(33.6%);
+  --progressTimeBarChi-hsing-width: calc(48 / 100 * 100%);/*2 days*/
 }
 body {
   font-family: Roboto;
@@ -107,19 +107,20 @@ body {
   clip-path: circle(50% at 50% 50%);
 }
 .triangle {
-  clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+  /* clip-path: polygon(0% 100%, 50% 0%, 100% 100%); */
+  clip-path: polygon(0% 0%, 100% 0%, 50% 50%);
 }
-.Xiangshan {
+.Xiangshan { /*大壩*/
   position: absolute;
-  top: 138px;
-  right: 192px;
+  top: 406px;
+  right: 293px;
   border: 3px solid var(--button-color);
   border-radius: 50%;
 }
 .Xiangshan_box {
   width: 52px;
   height: 52px;
-  background: url(img/mountain-img/xiangshan.jpeg);
+  background: url(img/mountain-img/Tapachien.jpeg);
   background-size: cover;
 }
 .Xiangshan:hover .Xiangshan_box_hover {
@@ -127,7 +128,8 @@ body {
 }
 .Xiangshan_box_hover {
   position: relative;
-  display: none;
+  display: none; /*here*/
+  z-index: 2;
 }
 .Xiangshan_hover {
   position: absolute;
@@ -135,7 +137,7 @@ body {
   height: 100px;
   background-color: var(--map_hover);
   opacity: 0.6;
-  top: -20px;
+  top: -80px;
   left: 55px;
   transform: translateX(-55%);
 }
@@ -144,9 +146,9 @@ body {
   width: 536px;
   height: 325px;
   border: 3px solid var(--barFont-color);
-  background: url(img/mountain-img/xiangshan.jpeg);
+  background: url(img/mountain-img/Tapachien.jpeg);
   background-size: cover;
-  top: 80px;
+  top: -405px;
   left: 55px;
   transform: translateX(-55%);
 }
@@ -166,13 +168,13 @@ body {
 .Jinmian_box {
   width: 52px;
   height: 52px;
-  background: url(img/mountain-img/jinmianshan.jpeg);
+  background: url(img/mountain-img/wuling.jpeg);
   background-size: cover;
 }
-.Jinmian {
+.Jinmian { /*武陵*/
   position: absolute;
-  top: 79px;
-  right: 192px;
+  top: 483px;
+  right: 350px;
   border: 3px solid var(--button-color);
   border-radius: 50%;
 }
@@ -181,7 +183,8 @@ body {
 }
 .Jinmian_box_hover {
   position: relative;
-  display: none;
+  display: none; /*here*/
+  z-index: 2;
 }
 .Jinmian_hover {
   position: absolute;
@@ -189,7 +192,7 @@ body {
   height: 100px;
   background-color: var(--map_hover);
   opacity: 0.6;
-  top: -20px;
+  top: -80px;
   left: 55px;
   transform: translateX(-55%);
 }
@@ -198,9 +201,9 @@ body {
   width: 536px;
   height: 325px;
   border: 3px solid var(--barFont-color);
-  background: url(img/mountain-img/jinmianshan.jpeg);
+  background: url(img/mountain-img/wuling.jpeg);
   background-size: cover;
-  top: 80px;
+  top: -405px;
   left: 55px;
   transform: translateX(-55%);
 }
@@ -220,15 +223,16 @@ body {
 .Chi-hsing_box {
   width: 52px;
   height: 52px;
-  background: url(img/mountain-img/sevenstar.jpeg);
+  background: url(img/mountain-img/Mayang.jpeg);
   background-size: cover;
 }
-.Chi-hsing {
+.Chi-hsing { /*馬洋*/
   position: absolute;
-  top: 34px;
-  right: 230px;
+  top: 424px;
+  right: 350px;
   border: 3px solid var(--button-color);
   border-radius: 50%;
+  z-index: 1;
 }
 .Chi-hsing:hover .Chi-hsing_box_hover {
   display: block; /*將區塊顯示*/
@@ -236,6 +240,7 @@ body {
 .Chi-hsing_box_hover {
   position: relative;
   display: none;
+  z-index: 1;
 }
 .Chi-hsing_hover {
   position: absolute;
@@ -243,7 +248,7 @@ body {
   height: 100px;
   background-color: var(--map_hover);
   opacity: 0.6;
-  top: -20px;
+  top: -80px;
   left: 55px;
   transform: translateX(-55%);
 }
@@ -252,9 +257,9 @@ body {
   width: 536px;
   height: 325px;
   border: 3px solid var(--barFont-color);
-  background: url(img/mountain-img/sevenstar.jpeg);
+  background: url(img/mountain-img/Mayang.jpeg);
   background-size: cover;
-  top: 80px;
+  top: -405px;
   left: 55px;
   transform: translateX(-55%);
 }
@@ -286,6 +291,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   margin-top: -96px;
+  z-index: 0;
 }
 .low_button,
 .middle_button {
@@ -412,8 +418,6 @@ body {
 }
 .progress-bar-M-Xiangshan {
   height: 32px;
-  /* border-radius: 10px 0 0 10px; */
-  border-right: 3px solid var(--barBackground-color);
   float: left;
   width: var(--progressLevelBarXiangshan-width);
   /* fallback */
@@ -422,8 +426,8 @@ body {
   /* Safari 5.1, Chrome 10+ */
   background: -webkit-linear-gradient(
     right,
-    var(--barBackgroundSecond-color),
-    var(--barBackgroundSecond-color)
+    var(--barBackground-color),
+    var(--barBackground-color)
   );
 }
 .progress-bar-H-Xiangshan {
@@ -437,8 +441,8 @@ body {
   /* Safari 5.1, Chrome 10+ */
   background: -webkit-linear-gradient(
     right,
-    var(--barBackgroundSecond-color),
-    var(--barBackgroundSecond-color)
+    var(--barBackground-color),
+    var(--barBackground-color)
   );
 }
 .progress-bg p.goal,
@@ -459,7 +463,7 @@ body {
   padding: 0 25px 0 0;
 }
 .progress-bg p.unraised {
-  color: var(--barBackground-color);
+  color: #414141;
   margin: 14px 25px 0 50px;
   padding: 0 25px 0 0;
 }
@@ -477,6 +481,9 @@ body {
   margin: 0;
   padding: 0;
   text-align: center;
+}
+.progress-bg-font-Xiangshan_day{
+  color: var(--font-color);
 }
 .progress_distance-bar {
   height: 32px;
@@ -646,9 +653,9 @@ body {
   color: white;
 }
 .downLowBear {
-  width: 150px;
+  width: 220px;
   height: 210px;
-  background: url(img/mountain-img/lowBear.png);
+  background: url(img/mountain-img/highBear.png);
   background-size: cover;
   /* margin-left: 150px; */
   left: 100%;
@@ -659,7 +666,7 @@ body {
 .bearSpeak {
   width: 200px;
   height: 130px;
-  background: url(img/mountain-img/lowSpeak.png);
+  background: url(img/mountain-img/highSpeak.png);
   background-size: cover;
   margin-top: -45px;
   left: 25%;
@@ -722,15 +729,45 @@ body {
 /*********** ============below media 1200px============ *************/
 @media screen and (max-width: 1200px) {
   .list_distance_title {
-    left: 30%;
+    left: 31%;
     transform: translateX(55%);
   }
   .downLowBear {
-    margin-left: -100px;
+    margin-left: -170px;
+  }
+
+  .Xiangshan_list,
+  .Jinmian_list,
+  .Chi-hsing_list {
+    height: 310px;
+  }
+  .list,
+  .list_last {
+    height: 311px;
+  }
+  .list_detail {
+    margin: 5px 0px;
+  }
+  .list_font_box {
+    justify-content: center;
+  }
+  .list_detail_box {
+    display: block;
+  }
+  .list_distance_title {
+    position: static;
+    left: 0%;
+    transform: translateX(0%);
+    justify-content: center;
+  }
+  .Xiangshan_pic,
+  .Jinmian_pic,
+  .Chi-hsing_pic {
+    object-fit: cover;
   }
 }
 /*********** ============below media 990px============ *************/
-@media screen and (max-width: 990px) {
+@media screen and (max-width: 991px) {
   /*============below media content============*/
   /* media map list start */
   .maps {
@@ -745,12 +782,12 @@ body {
     border: 0;
   }
   .lowBear {
-    width: 150px;
+    width: 250px;
   }
   .list {
     width: 680px;
     max-width: 100%;
-    height: 568px;
+    height: 600px;
     border-radius: 10px;
     margin: 15px auto 0 auto;
     display: block;
@@ -758,7 +795,7 @@ body {
   .list_last {
     width: 680px;
     max-width: 100%;
-    height: 568px;
+    height: 600px;
     border-radius: 10px;
     margin: 15px auto 36px auto;
     display: block;
@@ -774,7 +811,7 @@ body {
   .Jinmian_pic,
   .Chi-hsing_pic {
     border-radius: 10px 10px 0 0;
-    object-fit: fill;
+    /* object-fit: fill; */
     width: 678px;
     max-width: 100%;
     height: 100%;
@@ -786,8 +823,8 @@ body {
     max-width: 100%;
   }
   .list_distance_title {
-    left: 10%;
-    transform: translateX(30%);
+    left: 0%;
+    transform: translateX(0%);
   }
   .article_button {
     position: absolute;
@@ -805,7 +842,7 @@ body {
   }
   .downLowBear {
     position: absolute;
-    width: 130px;
+    width: 195px;
     height: 182px;
     right: 50%;
     transform: translateX(10%);
@@ -832,7 +869,8 @@ body {
   }
   .downLowBear {
     position: absolute;
-    width: 130px;
+    /* width: 130px; */
+    width: 195px;
     height: 182px;
     right: 50%;
     transform: translateX(-20%);
@@ -862,17 +900,20 @@ body {
   .low_map {
     width: 450px;
   }
-  .Xiangshan {
-    top: 103px;
-    right: 144px;
+  .lowBear{
+    width: 200px;
   }
-  .Jinmian {
-    top: 64px;
-    right: 144px;
+  .Xiangshan { /*大霸*/
+    top: 300px;
+    right: 220px;
   }
-  .Chi-hsing {
-    top: 34px;
-    right: 170px;
+  .Jinmian { /*武陵*/
+    top: 350px;
+    right: 260px;
+  }
+  .Chi-hsing { /*馬洋*/
+    top: 310px;
+    right: 260px;
   }
   .Xiangshan_box,
   .Jinmian_box,
@@ -886,6 +927,7 @@ body {
     width: 336px;
     height: 40px;
     left: 33px;
+    top: -40px;
   }
   .Xiangshan_hover_pic,
   .Jinmian_hover_pic,
@@ -893,7 +935,7 @@ body {
     width: 336px;
     height: 225px;
     transform: translateX(-65%);
-    top: 20px;
+    top: -265px;
     left: 65px;
   }
   .Xiangshan_hover_pic_font,
@@ -901,6 +943,11 @@ body {
   .Chi-hsing_hover_pic_font {
     width: 330px;
     transform: translateY(240%);
+  }
+  .Xiangshan_hover_pic_font_title,
+  .Jinmian_hover_pic_font_title,
+  .Chi-hsing_hover_pic_font_title {
+    font-size: 30px;
   }
   .map_btn {
     width: 350px;
@@ -947,7 +994,6 @@ body {
     transform: translateX(45%);
     top: 70%;
   }
-
 }
 
 @media screen and (max-width: 768px) {
