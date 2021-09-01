@@ -1,7 +1,11 @@
-/*============below all============*/
+/*body font*/
+
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;500;700&display=swap");
+
 body {
-  font-family: Roboto;
+  font-family: "Noto Sans TC", Arial, Helvetica, sans-serif;
 }
+/*============below all============*/
 .list-unstyled {
   padding-left: 0;
   list-style: none;
@@ -99,6 +103,7 @@ body {
   margin: 0 auto;
   margin-top: 40px;
   max-width: 1000px;
+
 }
 .footer_info {
   font-style: normal;
@@ -113,6 +118,7 @@ body {
   margin-top: 80px;
   color: #fafafa;
 }
+
 /*********** ============below media============ *************/
 @media screen and (max-width: 900px) {
   .nav {

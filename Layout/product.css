@@ -12,7 +12,7 @@
   padding: 10px 0;
   text-align: center;
   /* body-title */
-  font-family: Source Sans Pro;
+  /* font-family: Source Sans Pro; */
   font-style: normal;
   font-weight: bold;
   font-size: 20px;
@@ -71,7 +71,7 @@
   padding-bottom: 10px;
 }
 .selected-title {
-  font-family: Source Sans Pro;
+  /* font-family: Source Sans Pro; */
   font-style: normal;
   font-weight: bold;
   font-size: 20px;
@@ -104,19 +104,27 @@
   height: 100%;
   object-fit: cover;
 }
-.product-name, .article-name {
+.product-name,
+.article-name {
   display: block;
   margin: 10px 0;
-  font-family: Source Sans Pro;
+  /* font-family: Source Sans Pro; */
   font-size: 16px;
   line-height: 22px;
   color: #4e4e4e;
 }
 .product-price {
-  font-family: Source Sans Pro;
+  /* font-family: Source Sans Pro; */
   font-size: 14px;
   line-height: 20px;
   color: #414141;
+}
+/*icon start*/
+.heart-icon {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 15px;
 }
 .heart-icon-bkg {
   width: 30px;
@@ -126,17 +134,22 @@
   right: 10px;
   top: 10px;
   color: white;
-
+  -webkit-text-stroke: 1px;
+  /* -webkit-text-stroke-color: #cc543a; */
+  transition: 0.4s;
 }
-.heart-icon-bkg:hover, .cart-icon-bkg:hover {
+.heart-icon-bkg:hover {
   background: #333;
-  color: #bdbdbd;
+  color: #eea9a9;
+  -webkit-text-stroke: 1px;
+  -webkit-text-stroke-color: #eea9a9;
 }
-.heart-icon {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 15px;
+.heart-icon-bkg:active {
+  color: #cc543a;
+}
+.heart-icon-bkg-click {
+  color: #cc543a;
+  background: #bdbdbd;
 }
 .cart-icon {
   top: 50%;
@@ -151,14 +164,23 @@
   border-radius: 50%;
   right: 10px;
   top: 50px;
+  transition: 0.4s;
   color: white;
-
 }
+.cart-icon-bkg:hover {
+  background: #333;
+  color: #bae29a;
+}
+.cart-icon-bkg:active {
+  background: #333;
+  color: #24936e;
+}
+/*icon end*/
 /*產品結束*/
 /*更多商品開始*/
 .more-btn {
   display: block;
-  font-family: Source Sans Pro;
+  /* font-family: Source Sans Pro; */
   font-weight: bold;
   font-size: 18px;
   color: #ffffff;
@@ -206,4 +228,3 @@
 }
 
 /*熱門登山攻略結束*/
-
