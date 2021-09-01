@@ -81,13 +81,16 @@ body {
   background: url(./img/chatbox.png);
   width: 387px;
   height: 123px;
-  position: relative;
+  background-repeat: no-repeat;
+  /* position: relative; */
 }
-.chatbox p {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+
+.chatBoxText {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 60px;
+  /* justify-content: center; */
 }
 .btngroup {
   display: flex;
@@ -118,28 +121,16 @@ body {
   background: url(./img/chatbox_long.png);
   width: 420px;
   height: 77px;
-  /* margin-left: 142px; */
-  position: relative;
   margin-bottom: 25px;
-}
-.firstchatbox p {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  background-repeat: no-repeat;
 }
 .secondchatbox {
   background: url(./img/chatbox_short.png);
   width: 205px;
   height: 77px;
-  position: relative;
+  background-repeat: no-repeat;
 }
-.secondchatbox p {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
+
 @media screen and (max-width: 768px) {
   .firstbox {
     position: relative;
@@ -161,7 +152,7 @@ body {
   margin: 35px 0 0 0;
 }
 .recommendbg {
-  background-image: url(./img/bg2_jungle.jpg);
+  background-image: url(./img/bg2_jungle.png);
   background-size: cover;
 }
 .recommend-filter {
@@ -174,6 +165,7 @@ body {
 .inline {
   display: inline;
 }
+
 .filterBtn {
   width: 100px;
 }
@@ -370,7 +362,7 @@ body {
 }
 
 .commentBg {
-  background: url(./img/bg2_jungle.jpg);
+  background: url(./img/bg2_jungle.png);
   background-size: cover;
 }
 .commentFilter {
