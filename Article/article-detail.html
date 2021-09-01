@@ -86,7 +86,32 @@
                 <p class="body-content mr-2">加入收藏</p>
                 <i class="bi bi-flag mr-2 text-warning"></i>
                 <p class="mr-2">加入去過路線</p>
-                <i class="bi bi-question-circle"></i>
+                <!-- =========about-membership-bubble start========= -->
+                <div class="about-membership">
+                  <!-- <div
+                    class="position-absolute about-membership position-relative"
+                  > -->
+                  <a href="javascript:void(0)" id="seeMember" class="see-member"
+                    ><i class="bi bi-question-circle"></i
+                  ></a>
+                  <div class="about-membership-bubble p-3 position-absolute">
+                    <span class="about-membership-bubble-arrow"></span>
+                    <span class="membership">
+                      會員專區登記去過的路線以獲取積分 </span
+                    ><br />
+                    <span class="membership membership-low">
+                      肉腳：結帳時95折優惠 </span
+                    ><br />
+                    <span class="membership membership-medium">
+                      山友 ：結帳時93折優惠 </span
+                    ><br />
+                    <span class="membership membership-high">
+                      山神 ：結帳時9折優惠
+                    </span>
+                  </div>
+                  <!-- =========about-membership-bubble end========= -->
+                  <!-- </div> -->
+                </div>
               </div>
             </div>
           </div>
@@ -481,6 +506,12 @@
     <!-- =========footer end========= -->
     <!-- body end -->
 
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+
     <script>
       let btn_nav = document.querySelector(".btn_nav");
       let nav = document.querySelector(".nav");
@@ -489,6 +520,17 @@
         this.classList.toggle("change");
         nav.classList.toggle("nav_show");
       };
+
+      //  about-membership-bubble start
+      $("a.see-member").click((e) => {
+        $(".about-membership-bubble").toggle("display");
+      });
+      $("a.heart-icon-bkg").each(function () {
+        $(this).click(function () {
+          $(this).toggleClass("heart-icon-bkg-click");
+        });
+      });
+      //  about-membership-bubble end
     </script>
   </body>
 </html>

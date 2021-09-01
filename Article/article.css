@@ -447,7 +447,7 @@ body {
     /* margin: 5px 0 5px 10px; */
   }
 }
-/* artcicle-detail end */
+
 /*熱門登山攻略開始*/
 .article-card {
   margin: 10px auto;
@@ -490,3 +490,40 @@ body {
 }
 
 /*熱門登山攻略結束*/
+
+/*會員制度氣泡start*/
+.about-membership-bubble {
+  width: 300px;
+  background: #f2f2f2;
+  border-radius: 5px;
+  right: -45px;
+  top: 40px;
+  display: none;
+}
+.about-membership-bubble-arrow {
+  width: 0px;
+  height: 0px;
+  border-width: 15px;
+  border-style: solid;
+  border-color: transparent transparent #f2f2f2 transparent;
+  position: absolute;
+  top: -29px;
+  right: 40px;
+}
+.membership {
+  font-family: Source Sans Pro;
+  font-size: 14px;
+  line-height: 20px;
+}
+.membership-low {
+  color: #4e4e4e;
+}
+.membership-medium {
+  color: #19634a;
+}
+.membership-high {
+  color: #ffb943;
+}
+/*會員制度氣泡end*/
+
+/* artcicle-detail end */
