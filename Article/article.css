@@ -96,22 +96,13 @@ body {
   display: flex;
   justify-content: flex-end;
   margin-top: 25px;
+  padding-top: 15px;
 }
-.startbtn {
-  width: 200px;
-  height: 58px;
-}
-.seasonbtn {
-  width: 120px;
-  height: 58px;
-  justify-content: space-between;
-  margin-left: 15px;
-}
-.equipmentbtn {
+.btngroup a {
   width: 150px;
   height: 58px;
-  justify-content: space-between;
   margin-left: 15px;
+  padding-top: 15px;
 }
 .recommend {
   display: flex;
