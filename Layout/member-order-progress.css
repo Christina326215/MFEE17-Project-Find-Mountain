@@ -6,9 +6,6 @@
   box-shadow: 0 0 0 1px #000;
   border-radius: 10px;
 }
-/* .table-all td {
-  border: none;
-} */
 /* 左邊管理區 */
 .left-href-color {
   color: black;
@@ -51,6 +48,22 @@
   height: 150px;
   text-align: center;
 }
+/* 圖片 */
+.picture-img {
+  border-radius: 10px;
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+.picture-img-box {
+  width: 150px;
+  height: auto;
+}
+.picture-img-wrapper {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+}
 
 /* right-side */
 .have-been {
@@ -64,31 +77,34 @@
 .title-main {
   color: #19634a;
 }
-.text-weight {
-  font-size: 18px;
+.text-weight-top {
+  font-size: 20px;
 }
-.text-weight-bold {
-  font-weight: bold;
-  font-size: 26px;
-}
-/* 圖片 */
-.picture-img {
-  border-radius: 10px;
-  object-fit: cover;
-  height: 100%;
-  width: 100%;
-}
-.picture-img-box {
-  width: 100px;
-  height: auto;
-}
-.picture-img-wrapper {
-  display: flex;
-  align-self: center;
-  justify-content: center;
+.text-weight-middle {
+  font-size: 16px;
 }
 /* product-name */
 .product-name {
   width: 200px;
+  max-width: 100%;
+}
+.product-size {
+  width: 200px;
+  max-width: 100%;
+}
+.product-perprice {
+  width: 200px;
+  max-width: 100%;
+}
+.product-count {
+  width: 200px;
+  max-width: 100%;
+}
+.product-subtotal {
+  width: 200px;
+  max-width: 100%;
+}
+.product-delete {
+  width: 100px;
   max-width: 100%;
 }

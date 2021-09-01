@@ -63,69 +63,108 @@
     <div class="container">
       <div class="row">
         <!-- manage-left-side start -->
-        <div class="col-2">
-          <table class="table table-bordered m-5">
+        <div class="col-12 col-md-3 my-3">
+          <table
+            class="table table-hover table-bordered table-all p-md-4 p-lg-5"
+          >
             <thead>
               <tr>
-                <th scope="col" class="text-center">王小明</th>
+                <th scope="col" class="text-center">
+                  <div class="headshot-img-box">
+                    <img src="img/signin.jpg" alt="" class="cover-fit" />
+                  </div>
+                  <h3 class="m-2 member-name">王小明</h3>
+                  <i class="bi bi-caret-up-fill grade-icon"></i>
+                  <i class="bi bi-caret-up grade-icon"></i>
+                  <i class="bi bi-caret-up grade-icon"></i>
+                  <div>
+                    <h6 class="grade-icon">肉腳</h6>
+                    <i class="bi bi-question-circle"></i>
+                  </div>
+                </th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td scope="row" class="text-center">路線地圖</td>
+                <td scope="row" class="text-center">
+                  <a href="member-route.html" class="left-href-color"
+                    >路線地圖</a
+                  >
+                </td>
               </tr>
               <tr>
-                <td scope="row" class="text-center">收藏管理</td>
+                <td scope="row" class="text-center">
+                  <a href="member-product.html" class="left-href-color"
+                    >收藏管理</a
+                  >
+                </td>
               </tr>
               <tr>
-                <td scope="row" class="text-center">評論管理</td>
+                <td scope="row" class="text-center">
+                  <a href="member-comment.html" class="left-href-color"
+                    >評論管理</a
+                  >
+                </td>
               </tr>
               <tr>
-                <td scope="row" class="text-center">訂單管理</td>
+                <td scope="row" class="text-center">
+                  <a href="member-order-progress.html" class="left-href-color"
+                    >訂單管理</a
+                  >
+                </td>
+              </tr>
+              <tr class="table-active">
+                <td scope="row" class="text-center">
+                  <a href="member-info.html" class="left-href-color"
+                    >帳號設定</a
+                  >
+                </td>
               </tr>
               <tr>
-                <td scope="row" class="text-center">帳號設定</td>
-              </tr>
-              <tr>
-                <td scope="row" class="text-center">登出</td>
+                <td scope="row" class="text-center">
+                  <a href="" class="left-href-color">登出</a>
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
         <!-- manage-left-side end -->
         <!-- manage-right-side start-->
-        <div class="col-10 mt-5">
-          <table class="table table-borderless m-5 right-side">
-            <tbody>
-              <tr>
-                <th>姓名：</th>
-                <td scope="row">王小明</td>
-              </tr>
-              <tr>
-                <th>性別：</th>
-                <td scope="row">男</td>
-              </tr>
-              <tr>
-                <th>電話：</th>
-                <td scope="row">0900123456</td>
-              </tr>
-              <tr>
-                <th>生日：</th>
-                <td scope="row">1990/01/01</td>
-              </tr>
-              <tr>
-                <th>帳號：</th>
-                <td scope="row">abc123@test.com</td>
-              </tr>
-              <tr>
-                <th>密碼：</th>
-                <td scope="row"></td>
-                <td>
-                  <a type="button" class="btn btn-primary" href="">編輯</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="col-12 col-md-9 mt-5">
+          <h2 class="title-main">我的會員資料</h2>
+          <div class="right-side my-4">
+            <table class="table table-borderless m-5 p-md-4 p-lg-5">
+              <tbody>
+                <tr>
+                  <th class="text-weight-bold">姓名：</th>
+                  <td scope="row" class="text-weight">王小明</td>
+                </tr>
+                <tr>
+                  <th class="text-weight-bold">性別：</th>
+                  <td scope="row" class="text-weight">男</td>
+                </tr>
+                <tr>
+                  <th class="text-weight-bold">電話：</th>
+                  <td scope="row" class="text-weight">0900123456</td>
+                </tr>
+                <tr>
+                  <th class="text-weight-bold">生日：</th>
+                  <td scope="row" class="text-weight">1990/01/01</td>
+                </tr>
+                <tr>
+                  <th class="text-weight-bold">帳號：</th>
+                  <td scope="row" class="text-weight">abc123@test.com</td>
+                </tr>
+                <tr>
+                  <th class="text-weight-bold">密碼：</th>
+                  <td scope="row" class="text-weight"></td>
+                  <td class="border-bottom-left-radius">
+                    <a type="button" class="btn btn-primary" href="">編輯</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
         <!-- manage-right-side end-->
       </div>
