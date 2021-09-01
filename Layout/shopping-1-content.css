@@ -300,3 +300,10 @@
   -webkit-transform: scale(1.02) perspective(1000px);
   transform: scale(1.02) perspective(1000px);
 }
+
+/* progress-adj */
+.progress-adj {
+  margin: 30px auto;
+  width: 80%;
+  height: 80%;
+}

@@ -25,3 +25,8 @@
   background-color: #24936e;
   color: #ffffff;
 }
+.progress-adj {
+  margin: 30px auto;
+  width: 50%;
+  height: 50%;
+}

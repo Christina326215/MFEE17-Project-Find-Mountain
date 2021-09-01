@@ -18,7 +18,7 @@
       integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk"
       crossorigin="anonymous"
     />
-    <title>會員註冊</title>
+    <title>會員註冊-account</title>
   </head>
   <body>
     <!-- body star -->
@@ -63,26 +63,29 @@
     <!-- =========content star========= -->
     <main>
       <div class="container">
-        <!-- progress-bar-step start -->
-        <!-- class change to current "step-2" -->
-        <div class="step-2" id="checkout-progress" data-current-step="2">
-          <div class="progress-bar1">
-            <!-- "active" change to "valid" -->
-            <div class="step step-1 valid">
-              <span> 1</span>
-              <!-- "opaque" change to "" -->
-              <div class="fa fa-check"></div>
-              <div class="step-label">填寫會員資料</div>
-            </div>
-            <!-- add class "active" -->
-            <div class="step step-2 active">
-              <span> 2</span>
-              <div class="fa fa-check opaque"></div>
-              <div class="step-label">設定帳號密碼</div>
+        <div class="progress-adj">
+          <!-- progress-bar-step start -->
+          <!-- class change to current "step-2" -->
+          <div class="step-2" id="checkout-progress" data-current-step="2">
+            <div class="progress-bar1">
+              <!-- "active" change to "valid" -->
+              <div class="step step-1 valid">
+                <span> 1</span>
+                <!-- "opaque" change to "" -->
+                <div class="fa fa-check"></div>
+                <div class="step-label">填寫會員資料</div>
+              </div>
+              <!-- add class "active" -->
+              <div class="step step-2 active">
+                <span> 2</span>
+                <div class="fa fa-check opaque"></div>
+                <div class="step-label">設定帳號密碼</div>
+              </div>
             </div>
           </div>
+          <!-- progress-bar-step end -->
         </div>
-        <!-- progress-bar-step end -->
+
         <div class="d-flex justify-content-center align-items-center">
           <div class="content-all">
             <div class="text-center">
@@ -142,7 +145,11 @@
                     class="btn btn-prev btn btn-outline-primary mr-3"
                     >上一步</a
                   >
-                  <a href="" class="btn btn-next btn btn-primary mr-3">完成</a>
+                  <a
+                    href="member-login.html"
+                    class="btn btn-next btn btn-primary mr-3"
+                    >完成</a
+                  >
                 </div>
                 <!-- <div class="mb-3 text-center">
                   <button type="submit" class="btn signUp-btn">完成</button>
