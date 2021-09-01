@@ -12,7 +12,7 @@
   padding: 10px 0;
   text-align: center;
   /* body-title */
-  font-family: Source Sans Pro;
+  /* font-family: Source Sans Pro; */
   font-style: normal;
   font-weight: bold;
   font-size: 20px;
@@ -59,13 +59,13 @@
 .article-name {
   display: block;
   margin: 10px 0;
-  font-family: Source Sans Pro;
+  /* font-family: Source Sans Pro; */
   font-size: 16px;
   line-height: 22px;
   color: #4e4e4e;
 }
 .product-price {
-  font-family: Source Sans Pro;
+  /* font-family: Source Sans Pro; */
   font-size: 14px;
   line-height: 20px;
   color: #414141;
