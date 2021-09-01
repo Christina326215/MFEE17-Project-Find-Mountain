@@ -460,10 +460,15 @@
       $("a.see-member").click((e) => {
         $(".about-membership-bubble").toggle("display");
       });
+      //heart-icon
       $("a.heart-icon-bkg").each(function () {
         $(this).click(function () {
           $(this).toggleClass("heart-icon-bkg-click");
         });
+      });
+      //cart-icon
+      $(".cart-icon-bkg").click(function(){
+        alert("已將商品加入購物車！");
       });
       //product order收藏商品
       $(".like-btn").click(function(){

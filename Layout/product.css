@@ -104,7 +104,8 @@
   height: 100%;
   object-fit: cover;
 }
-.product-name, .article-name {
+.product-name,
+.article-name {
   display: block;
   margin: 10px 0;
   /* font-family: Source Sans Pro; */
@@ -135,7 +136,7 @@
   color: white;
   -webkit-text-stroke: 1px;
   /* -webkit-text-stroke-color: #cc543a; */
-  transition: .4s;
+  transition: 0.4s;
 }
 .heart-icon-bkg:hover {
   background: #333;
@@ -163,16 +164,16 @@
   border-radius: 50%;
   right: 10px;
   top: 50px;
-  transition: .4s;
+  transition: 0.4s;
   color: white;
 }
 .cart-icon-bkg:hover {
   background: #333;
-  color: white;
+  color: #bae29a;
 }
 .cart-icon-bkg:active {
   background: #333;
-  color: #6da77f;
+  color: #24936e;
 }
 /*icon end*/
 /*產品結束*/
@@ -227,4 +228,3 @@
 }
 
 /*熱門登山攻略結束*/
-

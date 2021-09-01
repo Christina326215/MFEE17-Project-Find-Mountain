@@ -444,10 +444,15 @@
       $("#vegasNext").on("click", function () {
         $(".display-photo-box").vegas("next");
       });
+      //heart-icon
       $("a.heart-icon-bkg").each(function () {
         $(this).click(function () {
           $(this).toggleClass("heart-icon-bkg-click");
         });
+      });
+      //cart-icon
+      $(".cart-icon-bkg").click(function(){
+        alert("已將商品加入購物車！");
       });
     </script>
   </body>

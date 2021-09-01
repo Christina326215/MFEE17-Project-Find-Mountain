@@ -279,6 +279,12 @@
   line-height: 20px;
   color: #414141;
 }
+.heart-icon {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 15px;
+}
 .heart-icon-bkg {
   width: 30px;
   height: 30px;
@@ -297,22 +303,12 @@
   -webkit-text-stroke: 1px;
   -webkit-text-stroke-color: #eea9a9;
 }
-.cart-icon-bkg:hover {
-  background: #333;
-  color: white;
-}
 .heart-icon-bkg:active {
   color: #cc543a;
 }
 .heart-icon-bkg-click {
   color: #cc543a;
   background: #bdbdbd;
-}
-.heart-icon {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 15px;
 }
 .cart-icon {
   top: 50%;
@@ -327,7 +323,16 @@
   border-radius: 50%;
   right: 10px;
   top: 50px;
+  transition: 0.4s;
   color: white;
+}
+.cart-icon-bkg:hover {
+  background: #333;
+  color: #bae29a;
+}
+.cart-icon-bkg:active {
+  background: #333;
+  color: #24936e;
 }
 /*recommanded items end*/
 /*會員制度氣泡start*/
