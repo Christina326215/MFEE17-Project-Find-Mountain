@@ -157,7 +157,7 @@
                   <button class="btn minus-btn">
                     <i class="bi bi-dash"></i>
                   </button>
-                  <input type="text" class="order-number" value="1" />
+                  <input type="text" class="order-number" value="1" readonly/>
                   <button class="btn add-btn">
                     <i class="bi bi-plus"></i>
                   </button>
@@ -456,7 +456,7 @@
         this.classList.toggle("change");
         nav.classList.toggle("nav_show");
       };
-
+      //會員制度泡泡
       $("a.see-member").click((e) => {
         $(".about-membership-bubble").toggle("display");
       });
@@ -465,14 +465,31 @@
           $(this).toggleClass("heart-icon-bkg-click");
         });
       });
+      //product order收藏商品
       $(".like-btn").click(function(){
         $(this).toggleClass("active");
       });
+      //product order size選擇
       $(".size-btn").each(function () {
         $(this).click(function () {
           $(this).toggleClass("active");
           $(this).siblings().removeClass("active");
         });
+      });
+      //product order 數量部分
+      $(".add-btn").click(function(){
+        let num = parseInt($(".order-number").val());
+        num+=1;
+        $(".order-number").val(num);
+        // console.log(num);
+      });
+      $(".minus-btn").click(function(){
+        let num = parseInt($(".order-number").val());
+        if(num > 1){
+          num-=1;
+          $(".order-number").val(num);
+        }
+        // console.log(num);
       });
     </script>
   </body>
