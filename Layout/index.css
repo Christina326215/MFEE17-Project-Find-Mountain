@@ -1,7 +1,11 @@
-/*============below all============*/
+/*body font*/
+
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;500;700&display=swap");
+
 body {
-  font-family: Roboto;
+  font-family: "Noto Sans TC", Arial, Helvetica, sans-serif;
 }
+/*============below all============*/
 .list-unstyled {
   padding-left: 0;
   list-style: none;
