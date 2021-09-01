@@ -456,7 +456,64 @@ h1 {
     line-height: 20px;
     color: #414141;
 }
-.heart-icon-bkg {
+/*icon start*/
+.heart-icon {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 15px;
+  }
+  .heart-icon-bkg {
+    width: 30px;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 50%;
+    right: 10px;
+    top: 10px;
+    color: white;
+    -webkit-text-stroke: 1px;
+    /* -webkit-text-stroke-color: #cc543a; */
+    transition: 0.4s;
+  }
+  .heart-icon-bkg:hover {
+    background: #333;
+    color: #eea9a9;
+    -webkit-text-stroke: 1px;
+    -webkit-text-stroke-color: #eea9a9;
+  }
+  .heart-icon-bkg:active {
+    color: #cc543a;
+  }
+  .heart-icon-bkg-click {
+    color: #cc543a;
+    background: #bdbdbd;
+  }
+  .cart-icon {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+  }
+  .cart-icon-bkg {
+    width: 30px;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 50%;
+    right: 10px;
+    top: 50px;
+    transition: 0.4s;
+    color: white;
+  }
+  .cart-icon-bkg:hover {
+    background: #333;
+    color: #bae29a;
+  }
+  .cart-icon-bkg:active {
+    background: #333;
+    color: #24936e;
+  }
+  /*icon end*/
+/* .heart-icon-bkg {
     width: 30px;
     height: 30px;
     background: rgba(0, 0, 0, 0.25);
@@ -505,7 +562,7 @@ h1 {
     right: 10px;
     top: 50px;
     color: white;
-}
+} */
 /* .heart-icon-bkg {
     width: 30px;
     height: 30px;
