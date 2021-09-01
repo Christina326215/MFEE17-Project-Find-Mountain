@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="index.css" type="text/css" />
+    <link rel="stylesheet" href="product-detail.css" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+    />
+    <title>產品詳細頁</title>
+  </head>
+  <body>
+    <!-- body star -->
+    <!-- =========header star========= -->
+    <header class="header sticky-top">
+      <a href="#" class="logo_top">
+        <img src="img/logo.png" alt="logo_top" />
+      </a>
+      <div class="btns">
+        <a href="#" class="search_button"><i class="bi bi-search h4"></i></a>
+        <a href="#" class="shopping_button"><i class="bi bi-cart h4"></i></a>
+        <a href="#" class="sign_button">Sign In</a>
+      </div>
+      <!-- =========nav star========= -->
+      <nav class="nav">
+        <ul class="list-unstyled d-flex">
+          <li>
+            <a class="nav-font" href="#">路線地圖</a>
+          </li>
+          <li>
+            <a class="nav-font" href="#">推薦攻略</a>
+          </li>
+          <li>
+            <a class="nav-font" href="#">購物商城</a>
+          </li>
+          <li>
+            <a class="nav-font" href="#">建議穿搭</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="btn_nav">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </div>
+      <!-- <a class="btn_nav btn_close"></a> -->
+      <!-- =========nav end========= -->
+    </header>
+    <!-- =========header end========= -->
+    <!-- =========main start========= -->
+    <main>
+      <div class="container">
+        <!-- =========history start========= -->
+        <div class="position-fixed history-box position-relative">
+          <div class="position-absolute history-text">瀏覽紀錄</div>
+          <figure class="history-img-box">
+            <a href="#">
+              <img
+                src="./img/product-img/bags-pic5.jpeg"
+                alt=""
+                class="cover-fit"
+              />
+            </a>
+          </figure>
+          <figure class="history-img-box">
+            <a href="#">
+              <img
+                src="./img/product-img/bags-pic6.png"
+                alt=""
+                class="cover-fit"
+              />
+            </a>
+          </figure>
+          <figure class="history-img-box">
+            <a href="#">
+              <img
+                src="./img/product-img/shoes-pic5.jpeg"
+                alt=""
+                class="cover-fit"
+              />
+            </a>
+          </figure>
+        </div>
+        <!-- =========history end========= -->
+
+        <!-- =========search bar start========= -->
+        <form class="form my-4">
+          <div class="form-row justify-content-center">
+            <input
+              type="search"
+              placeholder="搜尋"
+              class="form-control search-bar col-5"
+            />
+          </div>
+        </form>
+        <!-- =========search bar end========= -->
+        <!-- =========category bar start========= -->
+        <div class="category-bar">
+          <ul class="d-flex justify-content-center list-unstyled">
+            <div class="row">
+              <li class="col-3 px-0">
+                <a href="./product.html">商城首頁</a>
+              </li>
+              <li class="col-3 px-0">
+                <a href="./product-bag.html">機能背包</a>
+              </li>
+              <li class="col-3 px-0"><a href="#">登山鞋</a></li>
+              <li class="col-3 px-0"><a href="#">衣服</a></li>
+            </div>
+          </ul>
+        </div>
+        <!-- =========category bar end========= -->
+        <!-- =========product start========= -->
+        <!-- =========product order start========= -->
+        <div class="my-4">
+          <h3 class="product-title m-3">ASOLO 阿空加瓜牛皮冰攀靴</h3>
+          <div class="row">
+            <div class="col-lg-7 product-pic-box my-4">
+              <figure>
+                <img
+                  class="cover-fit"
+                  src="./img/product-img/shoes-pic8.jpeg"
+                  alt="ASOLO 阿空加瓜牛皮冰攀靴"
+                  title="ASOLO 阿空加瓜牛皮冰攀靴"
+                />
+              </figure>
+            </div>
+            <div class="col-lg-5 product-order-box my-4 position-relative">
+              <div class="simple-introduce-box">
+                <p>商品簡介</p>
+                <ul>
+                  <li>類型Alpin高山靴/男款</li>
+                  <li>冰爪卡槽〇</li>
+                  <li>重量990g</li>
+                  <li>顏色黑灰色</li>
+                </ul>
+              </div>
+              <div class="size-box">
+                <p>SIZE 選擇</p>
+                <div class="button-box m-3">
+                  <!-- <button class="size-btn active mx-1">S</button>
+                  <button class="size-btn mx-1">M</button>
+                  <button class="size-btn mx-1">L</button> -->
+                  <input type="button" value="S" class="size-btn mx-1" />
+                  <input type="button" value="M" class="size-btn mx-1" />
+                  <input type="button" value="L" class="size-btn mx-1" />
+                </div>
+              </div>
+              <div class="number-box">
+                <p>數量</p>
+                <div class="number-input-box m-3">
+                  <button class="btn minus-btn">
+                    <i class="bi bi-dash"></i>
+                  </button>
+                  <input type="text" class="order-number" value="1" readonly/>
+                  <button class="btn add-btn">
+                    <i class="bi bi-plus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="line-box my-4"></div>
+              <div class="price-box text-right pb-5">
+                <p>NT $1,000</p>
+              </div>
+              <div
+                class="
+                  addcart-box
+                  position-absolute
+                  text-center
+                  d-flex
+                  position-relative
+                "
+              >
+                <a href="javascript:void(0)" role="button" class="like-btn mx-1"
+                  ><i class="bi bi-heart-fill"></i
+                ></a>
+                <!-- <a href="#" role="button" class="add-cart-btn mx-1"
+                  >加入購物車</a
+                > -->
+                <button class="add-cart-btn mx-1 btn">加入購物車</button>
+                <div
+                  class="position-absolute about-membership position-relative"
+                >
+                  <a href="javascript:void(0)" id="seeMember" class="see-member"
+                    >了解會員積分折扣制度<i class="bi bi-question-circle"></i
+                  ></a>
+                  <!-- =========about-membership-bubble start========= -->
+                  <div class="about-membership-bubble p-3 position-absolute">
+                    <span class="about-membership-bubble-arrow"></span>
+                    <span class="membership">
+                      會員專區登記去過的路線以獲取積分 </span
+                    ><br />
+                    <span class="membership membership-low">
+                      肉腳：結帳時95折優惠 </span
+                    ><br />
+                    <span class="membership membership-medium">
+                      山友 ：結帳時93折優惠 </span
+                    ><br />
+                    <span class="membership membership-high">
+                      山神 ：結帳時9折優惠
+                    </span>
+                  </div>
+                  <!-- =========about-membership-bubble end========= -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- =========product order end========= -->
+        <!-- =========product introduce start========= -->
+        <div class="my-4">
+          <div class="line-box">
+            <div class="introduce-title text-center">商品介紹</div>
+          </div>
+          <div class="introduce-box">
+            <div class="introduce m-5">
+              <figure class="introduce-img-box">
+                <img
+                  alt=""
+                  src="https://www.asolo.com/modules/g_productinstagram/views/img/front/17940426415401752.jpg"
+                  class="cover-fit"
+                />
+              </figure>
+              <p>超高 CP值，經典款專業高山雪靴</p>
+              <p>
+                無論是初入雪地登山門徑或 是專業老手，這雙阿空加瓜
+                冰攀靴都可以成為您的最佳 夥伴。外部為一體式防水
+                Perwanger牛皮鞋面，具防 水、防刮、透氣及耐用等特 色;內部則為
+                GORE-TEX材 質，以及精研的人體工學鞋 墊，穿著與行走時的舒適度
+                無可挑惕。
+              </p>
+              <p>
+                搭配底部堅實的 Vibram Vertige大底，每個部位都有
+                專業雪登等級的配備，價格
+                卻只要萬元以內，堪稱高CP值首選。除了高山攀爬、重裝徒步旅行外，也可以穿上它進行冬季雪地工作，可說是一款相當實用的登山與工作兩用靴。
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- =========product introduce end========= -->
+        <!-- =========product end========= -->
+        <div class="line-box my-4"></div>
+        <!-- =========guideline start========= -->
+        <div class="my-4">
+          <h4 class="guideline-title m-3">
+            <i class="bi bi-chevron-right"></i><span>商品相關攻略</span>
+          </h4>
+          <div class="guideline-box row">
+            <div class="col-6 col-lg-3 px-0">
+              <div class="article-card">
+                <div class="article-img-box">
+                  <a href="#">
+                    <img
+                      class="cover-fit"
+                      src="./img/article-img/Tapachien.jpeg"
+                      alt="大霸北稜線"
+                      title="大霸北稜線"
+                    />
+                  </a>
+                </div>
+                <a href="#" class="article-name">大霸北稜線</a>
+              </div>
+            </div>
+            <div class="col-6 col-lg-3 px-0">
+              <div class="article-card">
+                <div class="article-img-box">
+                  <a href="#">
+                    <img
+                      class="cover-fit"
+                      src="./img/article-img/wuling.jpeg"
+                      alt="武陵四秀登山步道"
+                      title="武陵四秀登山步道"
+                    />
+                  </a>
+                </div>
+                <a href="#" class="article-name">武陵四秀登山步道</a>
+              </div>
+            </div>
+            <div class="col-6 col-lg-3 px-0">
+              <div class="article-card">
+                <div class="article-img-box">
+                  <a href="#">
+                    <img
+                      class="cover-fit"
+                      src="./img/article-img/Mayang.jpeg"
+                      alt="馬洋山登山步道"
+                      title="馬洋山登山步道"
+                    />
+                  </a>
+                </div>
+                <a href="#" class="article-name">馬洋山登山步道</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- =========guideline end========= -->
+        <!-- =========recommanded items start========= -->
+        <div class="my-4">
+          <h4 class="recommand-title m-3">
+            <i class="bi bi-chevron-right"></i><span>更多推薦好物</span>
+          </h4>
+          <div class="recommanded-items-box row">
+            <div class="col-6 col-lg-3 px-0">
+              <div class="product-card">
+                <div class="product-img-box position-relative">
+                  <a href="#">
+                    <img
+                      class="cover-fit"
+                      src="./img/product-img/bags-pic2.jpeg"
+                      alt="The North Face 黑灰色休閒後背包"
+                      title="The North Face 黑灰色休閒後背包"
+                    />
+                  </a>
+                  <a
+                    href="javascript:void(0)"
+                    role="button"
+                    class="position-absolute heart-icon-bkg position-relative"
+                  >
+                    <i
+                      class="bi bi-heart-fill position-absolute heart-icon"
+                    ></i>
+                  </a>
+                  <a
+                    role="button"
+                    class="position-absolute cart-icon-bkg position-relative"
+                  >
+                    <i class="bi bi-cart-fill position-absolute cart-icon"></i>
+                  </a>
+                </div>
+                <a href="#" class="text-left product-name">
+                  The North Face<br />黑灰色休閒後背包
+                </a>
+                <p class="text-right product-price">NT $2,180</p>
+              </div>
+            </div>
+            <div class="col-6 col-lg-3 px-0">
+              <div class="product-card">
+                <div class="product-img-box position-relative">
+                  <a href="#">
+                    <img
+                      class="cover-fit"
+                      src="./img/product-img/bags-pic8.jpeg"
+                      alt="The North Face 藍色專業登山後背包"
+                      title="The North Face 藍色專業登山後背包"
+                    />
+                  </a>
+                  <a
+                    role="button"
+                    class="position-absolute heart-icon-bkg position-relative"
+                  >
+                    <i
+                      class="bi bi-heart-fill position-absolute heart-icon"
+                    ></i>
+                  </a>
+                  <a
+                    role="button"
+                    class="position-absolute cart-icon-bkg position-relative"
+                  >
+                    <i class="bi bi-cart-fill position-absolute cart-icon"></i>
+                  </a>
+                </div>
+                <a href="#" class="text-left product-name"
+                  >The North Face<br />藍色專業登山後背包</a
+                >
+                <p class="text-right product-price">NT $8,380</p>
+              </div>
+            </div>
+            <div class="col-6 col-lg-3 px-0">
+              <div class="product-card">
+                <div class="product-img-box position-relative">
+                  <a href="#">
+                    <img
+                      class="cover-fit"
+                      src="./img/product-img/clothes-pic5.jpeg"
+                      alt="The North Face 戶外保暖羽絨外套"
+                      title="The North Face 戶外保暖羽絨外套"
+                    />
+                  </a>
+                  <a
+                    role="button"
+                    class="position-absolute heart-icon-bkg position-relative"
+                  >
+                    <i
+                      class="bi bi-heart-fill position-absolute heart-icon"
+                    ></i>
+                  </a>
+                  <a
+                    role="button"
+                    class="position-absolute cart-icon-bkg position-relative"
+                  >
+                    <i class="bi bi-cart-fill position-absolute cart-icon"></i>
+                  </a>
+                </div>
+                <a href="#" class="text-left product-name"
+                  >The North Face<br />戶外保暖羽絨外套</a
+                >
+                <p class="text-right product-price">NT $8,310</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- =========recommanded items end========= -->
+        <!-- =========outfit start========= -->
+        <div class="my-4 outfit-box position-relative">
+          <div class="position-absolute position-relative shop-svg">
+            <a href="#">
+              <img src="./img/product-img/illustration/shop.svg" alt="穿搭商店" title="穿搭商店">
+            </a>
+              <div class="position-absolute bearbear">
+                <img src="./img/product-img/illustration/bearbear.png" alt="吉祥物熊熊" title="吉祥物熊熊">
+                  <!-- =========about-membership-bubble start========= -->
+                  <div class="bear-bubble p-3 position-absolute">
+                    <span class="bear-bubble-arrow"></span>
+                    <span class="membership">
+                      不知道該買什麼裝備<br />也可以到我們的推薦穿搭看看呦！</span>
+                  </div>
+                  <!-- =========about-membership-bubble end========= -->
+              </div>
+          </div>
+        </div>
+        <!-- =========outfit end========= -->
+      </div>
+    </main>
+    <!-- =========main end========= -->
+    <!-- =========footer star========= -->
+    <footer class="footer">
+      <div class="footer_box">
+        <div class="d-flex justify-content-center">
+          <div class="footer_head">
+            <a class="nav-font" href="#">路線地圖</a>
+          </div>
+          <div class="footer_head">
+            <a class="nav-font" href="#">推薦攻略</a>
+          </div>
+          <a href="#" class="footer_logo">
+            <img src="img/logo.png" alt="footer_logo" />
+          </a>
+          <div class="footer_head">
+            <a class="nav-font" href="#">購物商城</a>
+          </div>
+          <div class="footer_head_last">
+            <a class="nav-font_footerLast" href="#">建議穿搭</a>
+          </div>
+        </div>
+
+        <div class="footer_line"></div>
+
+        <div class="d-flex justify-content-center">
+          <div class="footer_info">聯絡資訊</div>
+          <div class="footer_info">參考資訊</div>
+        </div>
+      </div>
+
+      <div class="footer_copy d-flex justify-content-center">
+        &copy;Copyright, Inc. 2021. MFEE17-第五組專題
+      </div>
+    </footer>
+    <!-- =========footer end========= -->
+    <!-- body end -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      let btn_nav = document.querySelector(".btn_nav");
+      let nav = document.querySelector(".nav");
+
+      btn_nav.onclick = function () {
+        this.classList.toggle("change");
+        nav.classList.toggle("nav_show");
+      };
+      //會員制度泡泡
+      $("a.see-member").click((e) => {
+        $(".about-membership-bubble").toggle("display");
+      });
+      //heart-icon
+      $("a.heart-icon-bkg").each(function () {
+        $(this).click(function () {
+          $(this).toggleClass("heart-icon-bkg-click");
+        });
+      });
+      //cart-icon
+      $(".cart-icon-bkg").click(function(){
+        alert("已將商品加入購物車！");
+      });
+      //product order收藏商品
+      $(".like-btn").click(function(){
+        $(this).toggleClass("active");
+      });
+      //product order size選擇
+      $(".size-btn").each(function () {
+        $(this).click(function () {
+          $(this).toggleClass("active");
+          $(this).siblings().removeClass("active");
+        });
+      });
+      //product order 數量部分
+      $(".add-btn").click(function(){
+        let num = parseInt($(".order-number").val());
+        num+=1;
+        $(".order-number").val(num);
+        // console.log(num);
+      });
+      $(".minus-btn").click(function(){
+        let num = parseInt($(".order-number").val());
+        if(num > 1){
+          num-=1;
+          $(".order-number").val(num);
+        }
+        // console.log(num);
+      });
+    </script>
+  </body>
+</html>
