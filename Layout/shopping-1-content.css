@@ -31,7 +31,7 @@
 }
 .counts {
   padding: 12px;
-  border: #bae29a 1px solid;
+  /* border: #bae29a 1px solid; */
 }
 .total {
   font-weight: bold;
@@ -50,4 +50,47 @@
   height: 100px;
   text-align: center;
 }
-/* progress bar */
+/* product-name */
+.product-name {
+  width: 300px;
+  max-width: 100%;
+}
+.product-size {
+  width: 400px;
+  max-width: 100%;
+}
+.product-perprice {
+  width: 200px;
+  max-width: 100%;
+}
+.product-count {
+  width: 400px;
+  max-width: 100%;
+}
+.product-subtotal {
+  width: 200px;
+  max-width: 100%;
+}
+.product-delete {
+  width: 200px;
+  max-width: 100%;
+}
+.size-btn {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #6da77f;
+  box-sizing: border-box;
+  border-radius: 8px;
+  /* font-family: Source Sans Pro; */
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 23px;
+  color: #6da77f;
+  background: none;
+}
+.size-btn:hover,
+.size-btn:active,
+.size-btn.active {
+  color: #fff;
+  background: #6da77f;
+}

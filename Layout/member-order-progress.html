@@ -58,8 +58,10 @@
     <div class="container">
       <div class="row">
         <!-- manage-left-side start -->
-        <div class="col-3">
-          <table class="table table-hover table-bordered m-5 table-all">
+        <div class="col-12 col-md-3 my-3">
+          <table
+            class="table table-hover table-bordered table-all p-md-4 p-lg-5"
+          >
             <thead>
               <tr>
                 <th scope="col" class="text-center">
@@ -123,9 +125,8 @@
         </div>
         <!-- manage-left-side end -->
         <!-- manage-right-side start-->
-        <div class="col-9 mt-5">
-          <h2 class="ml-5 title-main">我的訂單狀態</h2>
-          <!-- <div><h6>去過</h6></div> -->
+        <div class="col-12 col-md-9 mt-5">
+          <h2 class="title-main">我的訂單狀態</h2>
           <div
             class="btn-group switch-category"
             role="group"
@@ -144,7 +145,9 @@
               >已完成</a
             >
           </div>
-          <table class="table table-bordered m-5 table-all text-center">
+          <table
+            class="table table-bordered table-all text-center p-md-4 p-lg-5"
+          >
             <tbody>
               <tr>
                 <td scope="row" class="text-weight-top">訂單編號：</td>
@@ -165,22 +168,52 @@
             </tbody>
           </table>
           <!-- <hr /> -->
-          <div class="ml-5">
+          <div class="mt-5">
             <h2>商品明細</h2>
-            <table class="table table-borderless mt-2 text-center">
+            <table
+              class="table table-borderless mt-2 text-center p-md-4 p-lg-5"
+            >
               <thead class="thead-tr-border">
                 <tr>
-                  <th scope="col" class="text-weight-top align-middle">
-                    商品照片
+                  <th scope="col col-md-2" class="text-weight-top align-middle">
+                    照片
                   </th>
-                  <th scope="col" class="text-weight-top align-middle">
-                    商品名稱
+                  <th
+                    scope="col col-md-1"
+                    class="text-weight-top align-middle product-name"
+                  >
+                    名稱
                   </th>
-                  <th scope="col" class="text-weight-top align-middle">尺寸</th>
-                  <th scope="col" class="text-weight-top align-middle">單價</th>
-                  <th scope="col" class="text-weight-top align-middle">數量</th>
-                  <th scope="col" class="text-weight-top align-middle">小計</th>
-                  <th scope="col" class="text-weight-top align-middle">刪除</th>
+                  <th
+                    scope="col col-md-2"
+                    class="text-weight-top align-middle product-size"
+                  >
+                    尺寸
+                  </th>
+                  <th
+                    scope="col col-md-3"
+                    class="text-weight-top align-middle product-perprice"
+                  >
+                    單價
+                  </th>
+                  <th
+                    scope="col col-md-2"
+                    class="text-weight-top align-middle product-count"
+                  >
+                    數量
+                  </th>
+                  <th
+                    scope="col col-md-2"
+                    class="text-weight-top align-middle product-subtotal"
+                  >
+                    小計
+                  </th>
+                  <th
+                    scope="col col-md-1"
+                    class="text-weight-top align-middle product-delete"
+                  >
+                    刪除
+                  </th>
                 </tr>
               </thead>
               <tbody class="tbody-tr-border">
@@ -342,25 +375,41 @@
               </tbody>
             </table>
             <hr />
-            <div class="ml-2">
+            <div class="">
               <h2>配送資訊</h2>
-              <table class="table table-borderless mt-2">
+              <table class="table table-borderless mt-2 p-md-4 p-lg-5">
                 <tbody>
                   <tr>
-                    <td scope="row lass="text-weight-middle align-middle"">收件人姓名：</td>
-                    <td scope="row" lass="text-weight-middle align-middle">王小明</td>
+                    <td scope="row" class="text-weight-middle align-middle">
+                      收件人姓名：
+                    </td>
+                    <td scope="row" class="text-weight-middle align-middle">
+                      王小明
+                    </td>
                   </tr>
                   <tr>
-                    <td scope="row lass="text-weight-middle align-middle"">收件地址（取件超商）：</td>
-                    <td scope="row" lass="text-weight-middle align-middle">中央大學</td>
+                    <td scope="row" class="text-weight-middle align-middle">
+                      收件地址（取件超商）：
+                    </td>
+                    <td scope="row" class="text-weight-middle align-middle">
+                      中央大學
+                    </td>
                   </tr>
                   <tr>
-                    <td scope="row" lass="text-weight-middle align-middle">收件人電話：</td>
-                    <td scope="row" lass="text-weight-middle align-middle">0900123456</td>
+                    <td scope="row" class="text-weight-middle align-middle">
+                      收件人電話
+                    </td>
+                    <td scope="row" class="text-weight-middle align-middle">
+                      0900123456
+                    </td>
                   </tr>
                   <tr>
-                    <td scope="row" lass="text-weight-middle align-middle">付款方式：</td>
-                    <td scope="row" lass="text-weight-middle align-middle">信用卡繳費</td>
+                    <td scope="row" class="text-weight-middle align-middle">
+                      付款方式
+                    </td>
+                    <td scope="row" class="text-weight-middle align-middle">
+                      信用卡繳費
+                    </td>
                   </tr>
                 </tbody>
               </table>

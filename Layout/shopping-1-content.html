@@ -56,29 +56,35 @@
     <!-- =========content star========= -->
     <div class="container">
       <div class="row">
-        <div class="col-12 mt-5">
+        <div class="col-lg-12 mt-5">
           <h2 class="text-center">購物車明細</h2>
           <table class="table table-borderless mt-5 text-center">
             <thead class="thead-tr-border">
               <tr>
                 <th scope="col">商品照片</th>
-                <th scope="col">商品名稱</th>
-                <th scope="col">尺寸</th>
-                <th scope="col">單價</th>
-                <th scope="col">數量</th>
-                <th scope="col">小計</th>
-                <th scope="col">刪除</th>
+                <th scope="col" class="product-name">商品名稱</th>
+                <th scope="col" class="product-size">尺寸</th>
+                <th scope="col" class="product-perprice">單價</th>
+                <th scope="col" class="product-count">數量</th>
+                <th scope="col" class="product-subtotal">小計</th>
+                <th scope="col" class="product-delete">刪除</th>
               </tr>
             </thead>
             <tbody class="tbody-tr-border">
               <tr>
                 <td scope="row">
-                  <figure class="product-img-box text-center">
-                    <img src="img/shoes-pic2.jpeg" alt="" class="cover-fit" />
-                  </figure>
+                  <div class="product-img-box">
+                    <img src="img/shoes-pic7.jpeg" alt="" class="cover-fit" />
+                  </div>
                 </td>
                 <td scope="row">MERRELL Tetrex Crest Wrap 女水陸三棲鞋</td>
-                <td scope="row"><a href="" class="size">S</a></td>
+                <td scope="row">
+                  <div class="button-box m-3">
+                    <button class="size-btn active mx-1">S</button>
+                    <button class="size-btn mx-1">M</button>
+                    <button class="size-btn mx-1">L</button>
+                  </div>
+                </td>
                 <td scope="row">NT$ 5,000</td>
                 <td scope="row">
                   <a href="" class="size"><i class="bi bi-dash"></i></a>
@@ -97,45 +103,13 @@
                   </div>
                 </td>
                 <td scope="row">MERRELL Tetrex Crest Wrap 女水陸三棲鞋</td>
-                <td scope="row"><a href="" class="size">S</a></td>
-                <td scope="row">NT$ 5,000</td>
                 <td scope="row">
-                  <a href="" class="size"><i class="bi bi-dash"></i></a>
-                  <span class="counts">1</span>
-                  <a href="" class="size"><i class="bi bi-plus"></i></a>
-                </td>
-                <td scope="row">NT$ 5,000</td>
-                <td scope="row">
-                  <a href=""><i class="bi bi-trash h5"></i></a>
-                </td>
-              </tr>
-              <tr>
-                <td scope="row">
-                  <div class="product-img-box">
-                    <img src="img/shoes-pic8.jpeg" alt="" class="cover-fit" />
+                  <div class="button-box m-3">
+                    <button class="size-btn active mx-1">S</button>
+                    <button class="size-btn mx-1">M</button>
+                    <button class="size-btn mx-1">L</button>
                   </div>
                 </td>
-                <td scope="row">MERRELL Tetrex Crest Wrap 女水陸三棲鞋</td>
-                <td scope="row"><a href="" class="size">S</a></td>
-                <td scope="row">NT$ 5,000</td>
-                <td scope="row">
-                  <a href="" class="size"><i class="bi bi-dash"></i></a>
-                  <span class="counts">1</span>
-                  <a href="" class="size"><i class="bi bi-plus"></i></a>
-                </td>
-                <td scope="row">NT$ 5,000</td>
-                <td scope="row">
-                  <a href=""><i class="bi bi-trash h5"></i></a>
-                </td>
-              </tr>
-              <tr>
-                <td scope="row">
-                  <div class="product-img-box">
-                    <img src="img/shoes-pic2.jpeg" alt="" class="cover-fit" />
-                  </div>
-                </td>
-                <td scope="row">MERRELL Tetrex Crest Wrap 女水陸三棲鞋</td>
-                <td scope="row"><a href="" class="size">S</a></td>
                 <td scope="row">NT$ 5,000</td>
                 <td scope="row">
                   <a href="" class="size"><i class="bi bi-dash"></i></a>
@@ -154,7 +128,63 @@
                   </div>
                 </td>
                 <td scope="row">MERRELL Tetrex Crest Wrap 女水陸三棲鞋</td>
-                <td scope="row"><a href="" class="size">S</a></td>
+                <td scope="row">
+                  <div class="button-box m-3">
+                    <button class="size-btn active mx-1">S</button>
+                    <button class="size-btn mx-1">M</button>
+                    <button class="size-btn mx-1">L</button>
+                  </div>
+                </td>
+                <td scope="row">NT$ 5,000</td>
+                <td scope="row">
+                  <a href="" class="size"><i class="bi bi-dash"></i></a>
+                  <span class="counts">1</span>
+                  <a href="" class="size"><i class="bi bi-plus"></i></a>
+                </td>
+                <td scope="row">NT$ 5,000</td>
+                <td scope="row">
+                  <a href=""><i class="bi bi-trash h5"></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td scope="row">
+                  <div class="product-img-box">
+                    <img src="img/shoes-pic7.jpeg" alt="" class="cover-fit" />
+                  </div>
+                </td>
+                <td scope="row">MERRELL Tetrex Crest Wrap 女水陸三棲鞋</td>
+                <td scope="row">
+                  <div class="button-box m-3">
+                    <button class="size-btn active mx-1">S</button>
+                    <button class="size-btn mx-1">M</button>
+                    <button class="size-btn mx-1">L</button>
+                  </div>
+                </td>
+                <td scope="row">NT$ 5,000</td>
+                <td scope="row">
+                  <a href="" class="size"><i class="bi bi-dash"></i></a>
+                  <span class="counts">1</span>
+                  <a href="" class="size"><i class="bi bi-plus"></i></a>
+                </td>
+                <td scope="row">NT$ 5,000</td>
+                <td scope="row">
+                  <a href=""><i class="bi bi-trash h5"></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td scope="row">
+                  <div class="product-img-box">
+                    <img src="img/shoes-pic7.jpeg" alt="" class="cover-fit" />
+                  </div>
+                </td>
+                <td scope="row">MERRELL Tetrex Crest Wrap 女水陸三棲鞋</td>
+                <td scope="row">
+                  <div class="button-box m-3">
+                    <button class="size-btn active mx-1">S</button>
+                    <button class="size-btn mx-1">M</button>
+                    <button class="size-btn mx-1">L</button>
+                  </div>
+                </td>
                 <td scope="row">NT$ 5,000</td>
                 <td scope="row">
                   <a href="" class="size"><i class="bi bi-dash"></i></a>
@@ -191,7 +221,7 @@
             </div>
           </div>
           <!-- 分頁 end  -->
-          <div class="text-right">
+          <div class="text-right mt-3">
             <p class="total">商品總計： NT$ 5,000</p>
           </div>
           <div class="text-right mb-5">
@@ -207,25 +237,25 @@
           </div>
 
           <div>
-            <p>更多推薦</p>
+            <h5>更多推薦</h5>
             <hr />
             <div class="row">
-              <figure class="more-product-img-box">
+              <figure class="more-product-img-box ml-5">
                 <img src="img/shoes-pic2.jpeg" alt="" class="cover-fit" />
               </figure>
-              <figure class="more-product-img-box">
+              <figure class="more-product-img-box ml-5">
                 <img src="img/shoes-pic2.jpeg" alt="" class="cover-fit" />
               </figure>
             </div>
           </div>
           <div>
-            <p>瀏覽紀錄</p>
+            <h5 class="mt-5">瀏覽紀錄</h5>
             <hr />
             <div class="row">
-              <figure class="more-product-img-box">
+              <figure class="more-product-img-box ml-5 mb-5">
                 <img src="img/shoes-pic2.jpeg" alt="" class="cover-fit" />
               </figure>
-              <figure class="more-product-img-box">
+              <figure class="more-product-img-box ml-5 mb-5">
                 <img src="img/shoes-pic2.jpeg" alt="" class="cover-fit" />
               </figure>
             </div>

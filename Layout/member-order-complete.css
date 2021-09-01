@@ -83,3 +83,28 @@
 .text-weight-middle {
   font-size: 16px;
 }
+/* product-name */
+.product-name {
+  width: 200px;
+  max-width: 100%;
+}
+.product-size {
+  width: 200px;
+  max-width: 100%;
+}
+.product-perprice {
+  width: 200px;
+  max-width: 100%;
+}
+.product-count {
+  width: 200px;
+  max-width: 100%;
+}
+.product-subtotal {
+  width: 200px;
+  max-width: 100%;
+}
+.product-delete {
+  width: 100px;
+  max-width: 100%;
+}
