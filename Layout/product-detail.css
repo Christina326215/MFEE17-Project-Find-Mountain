@@ -10,7 +10,7 @@
 .history-text {
   top: -20px;
   left: 14px;
-  font-family: Source Sans Pro;
+  /* font-family: Source Sans Pro; */
   font-size: 14px;
   line-height: 20px;
   color: #414141;
@@ -38,7 +38,7 @@
   padding: 10px 0;
   text-align: center;
   /* body-title */
-  font-family: Source Sans Pro;
+  /* font-family: Source Sans Pro; */
   font-style: normal;
   font-weight: bold;
   font-size: 20px;
@@ -64,7 +64,7 @@
 /*product start*/
 /*left side start*/
 .product-title {
-  font-family: Inter;
+  /* font-family: Inter; */
   font-weight: bold;
   font-size: 20px;
   line-height: 24px;
@@ -97,7 +97,7 @@
   border: 1px solid #6da77f;
   box-sizing: border-box;
   border-radius: 8px;
-  font-family: Source Sans Pro;
+  /* font-family: Source Sans Pro; */
   font-weight: bold;
   font-size: 18px;
   line-height: 23px;
@@ -134,7 +134,7 @@
   border-bottom: 1px solid #bdbdbd;
 }
 .price-box {
-  font-family: Inter;
+  /* font-family: Inter; */
   font-weight: bold;
   font-size: 20px;
   line-height: 24px;
@@ -162,7 +162,7 @@
   line-height: 48px;
   background: #ffb943;
   border-radius: 8px;
-  font-family: Source Sans Pro;
+  /* font-family: Source Sans Pro; */
   font-weight: bold;
   font-size: 18px;
   color: #fafafa;
@@ -177,7 +177,7 @@
   right: 5px;
 }
 .about-membership a {
-  font-family: Source Sans Pro;
+  /* font-family: Source Sans Pro; */
   font-size: 14px;
   line-height: 20px;
   color: #000000;
@@ -193,7 +193,7 @@
   line-height: 60px;
   background: #9b9c9a;
   color: #fafafa;
-  font-family: Source Sans Pro;
+  /* font-family: Source Sans Pro; */
   font-weight: bold;
   font-size: 18px;
 }
@@ -201,7 +201,7 @@
   max-width: 600px;
 }
 .introduce {
-  font-family: Source Sans Pro;
+  /* font-family: Source Sans Pro; */
   font-size: 16px;
   line-height: 22px;
   color: #414141;
@@ -217,7 +217,7 @@
 }
 .guideline-title span,
 .recommand-title span {
-  font-family: Source Sans Pro;
+  /* font-family: Source Sans Pro; */
   font-weight: bold;
   font-size: 20px;
   line-height: 28px;
@@ -254,13 +254,13 @@
 .article-name {
   display: block;
   margin: 10px 0;
-  font-family: Source Sans Pro;
+  /* font-family: Source Sans Pro; */
   font-size: 16px;
   line-height: 22px;
   color: #4e4e4e;
 }
 .product-price {
-  font-family: Source Sans Pro;
+  /* font-family: Source Sans Pro; */
   font-size: 14px;
   line-height: 20px;
   color: #414141;
@@ -336,7 +336,7 @@
   right: 40px;
 }
 .membership {
-  font-family: Source Sans Pro;
+  /* font-family: Source Sans Pro; */
   font-size: 14px;
   line-height: 20px;
 }
