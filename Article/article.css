@@ -1,10 +1,52 @@
-/* article-filter */
-
+/* 共用css */
 .wrapper {
   margin: 35px 0;
 }
 body {
   color: #414141;
+}
+/* .heart-icon-bkg .bi-heart-fill {
+  color: #e2e3e1;
+  font-size: 18px;
+}
+.heart-icon-bkg i:hover {
+  color: #eea9a9;
+}
+.heart-icon-bkg:active {
+  color: #cc543a;
+} */
+.bi-heart-fill {
+  color: #e2e3e1;
+  font-size: 18px;
+}
+.bi-heart-fill:hover {
+  color: #eea9a9;
+}
+.bi-heart-fill:active {
+  color: #cc543a;
+}
+.bi-star-fill {
+  color: #e2e3e1;
+  /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+}
+.bi-star-fill:hover {
+  color: #ffdfa8;
+}
+.bi-star-fill:active {
+  color: #ffb943;
+}
+.fa-shoe-prints {
+  color: var(--primary);
+}
+.bi-flag-fill {
+  font-size: 20px;
+  color: #e2e3e1;
+}
+.bi-flag-fill:hover {
+  color: #ffdfa8;
+}
+.bi-flag-fill:active {
+  color: #ffb943;
 }
 /* font style */
 .h2 {
@@ -46,6 +88,7 @@ body {
     line-height: 20px;
   }
 }
+/* article-filter */
 /* chatpage */
 .chatbg {
   margin: auto;
@@ -193,6 +236,9 @@ body {
     font-size: 18px;
     line-height: 18px;
   }
+  .card-body {
+    padding: 1rem;
+  }
 }
 .cardSecondLine {
   display: flex;
@@ -331,6 +377,13 @@ body {
   position: absolute;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
 }
+.tagHover:hover,
+.tag:hover {
+  color: #fafafa;
+  background: rgba(25, 99, 74, 0.8);
+  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.4);
+  /* transform: translate(-10px, -10px); */
+}
 .tagText {
   display: flex;
   flex-direction: column;
@@ -431,17 +484,21 @@ body {
   width: 100%;
   height: 100%;
 }
+.sloth_big img:hover {
+  /* filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.5)); */
+}
 .sloth_small {
   position: absolute;
   right: 150px;
   top: -13px;
-  width: 181px;
-  height: 120px;
+  width: 0;
+  height: 0;
+  display: none;
 }
 .sloth_small img {
   width: 100%;
   height: 100%;
-  display: none;
+  /* display: none; */
 }
 @media (max-width: 992px) {
   .commentBox {
@@ -477,12 +534,19 @@ body {
     margin-right: 0;
     /* margin: 5px 0 5px 10px; */
   }
-  .sloth_big img {
+  .sloth_big {
+    width: 0;
+    height: 0;
     display: none;
   }
-  .sloth_small img {
+  .sloth_small {
+    width: 181px;
+    height: 120px;
     display: block;
   }
+  /* .sloth_small img {
+    display: block;
+  } */
 }
 
 /*熱門登山攻略開始*/
@@ -501,6 +565,7 @@ body {
 }
 .article-img-box img:hover {
   cursor: pointer;
+  /* box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.15); */
 }
 @media screen and (max-width: 768px) {
   .article-card {
@@ -533,8 +598,8 @@ body {
   width: 300px;
   background: #f2f2f2;
   border-radius: 5px;
-  right: -45px;
-  top: 40px;
+  right: -32px;
+  top: 51px;
   display: none;
 }
 .about-membership-bubble-arrow {
@@ -544,8 +609,8 @@ body {
   border-style: solid;
   border-color: transparent transparent #f2f2f2 transparent;
   position: absolute;
-  top: -29px;
   right: 40px;
+  top: -30px;
 }
 .membership {
   font-family: Source Sans Pro;

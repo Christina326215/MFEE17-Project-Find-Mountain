@@ -15,6 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
       rel="stylesheet"
     />
+    <script src="https://kit.fontawesome.com/8efbf3e62f.js" crossorigin="anonymous"></script>
     <title>article-recommend</title>
   </head>
   <body>
@@ -61,33 +62,6 @@
     <div class="container">
       <div class="filter-wrapper">
         <h2 class="h2">推薦攻略</h2>
-        <!-- <div class="chatbg">
-          <div class="bg-filter">
-            <div class="firstbox mb-5">
-              <div class="qa">
-                <div class="bearwrap">
-                  <img class="bear" src="./img/bear.png" alt="" />
-                </div>
-                <div class="chatbox">
-                  <div class="chatBoxText">
-                    哇～謝謝你的回答，<br />
-                    下面這些是推薦給你的專屬路線呦！<br />一起來了解山的美麗吧！
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="d-flex justify-content-end firstQ">
-              <a class="btn btn-primary mr-2" href="">是的，我想要自行篩選</a>
-              <a class="btn btn-primary mr-2" href="./article-filter.html">不太清楚，請熊熊幫忙</a>
-            </div>
-            <a
-              class="p-2 text-right text-white-50"
-              href="https://www.freepik.com/vectors/tree"
-              >Tree vector created by upklyak - www.freepik.com</a
-            >
-          </div>
-        </div> -->
-        
         <table class="table table-hover my-2 border-left border-right">
           <tbody>
             <tr>
@@ -99,7 +73,33 @@
                 </div>
               </th>
               <td class="text-center">
-                <button type="button" class="btn btn-primary filterBtn">
+
+                <!-- <div class="btn-group-toggle" data-toggle="buttons">
+                  <label class="btn btn-secondary active testbtn">
+                    <input type="checkbox" checked> Checked
+                  </label>
+                  <label class="btn btn-secondary active">
+                    <input type="checkbox" checked> Checked
+                  </label>
+                  <label class="btn btn-secondary active">
+                    <input type="checkbox" checked> Checked
+                  </label>
+                </div>
+
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                  <label class="btn btn-secondary active">
+                    <input type="radio" name="options" id="option1" checked> Active
+                  </label>
+                  <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="option2"> Radio
+                  </label>
+                  <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="option3"> Radio
+                  </label>
+                </div> -->
+
+
+                <button type="button" class="btn btn-primary filterBtn" >
                   低
                 </button>
               </td>
@@ -202,21 +202,23 @@
                             七星山主、東峰登山步道
                           </h5>
                           <p class="text-primary body-content mr-3 ">
-                            <img src="./img/level.png" />難度低
+                            <img class="mr-1" src="./img/level_low.svg" />難度低
                           </p>
                           <p class="text-primary body-content mr-3 ">
-                            <img src="./img/footprints.png" />5公里
+                            <i class="fas fa-shoe-prints mr-2"></i>5公里
                           </p>
-                          <i class="bi bi-heart mr-2 ml-auto text-danger "></i>
-                          <p class="body-content ">加入收藏</p>
+                          <!-- <a class="d-flex heart-icon-bkg ml-auto"> -->
+                            <i class="bi bi-heart-fill mr-2 ml-auto"></i>
+                            <p class="body-content ">加入收藏</p>
+                          <!-- </a> -->
                         </div>
                         <div class="cardSecondLine col-12">
                           <div class="starGroup mr-3">
-                            <i class="bi bi-star text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
                           </div>
                           <p class="body-content text-muted">台北市北投區</p>
                         </div>
@@ -260,21 +262,23 @@
                         <div class="cardFirstLine col-12">
                           <h5 class="cardTitle mr-3 h3">象山親山步道</h5>
                           <p class="text-primary body-content mr-3">
-                            <img src="./img/level.png" />難度低
+                            <img class="mr-1" src="./img/level_low.svg" />難度低
                           </p>
                           <p class="text-primary body-content mr-3">
-                            <img src="./img/footprints.png" />2.2公里
+                            <i class="fas fa-shoe-prints mr-2"></i>2.2公里
                           </p>
-                          <i class="bi bi-heart mr-2 ml-auto text-danger"></i>
-                          <p class="body-content">加入收藏</p>
+                          <!-- <a class="d-flex heart-icon-bkg ml-auto"> -->
+                            <i class="bi bi-heart-fill mr-2 ml-auto"></i>
+                            <p class="body-content">加入收藏</p>
+                          <!-- </a> -->
                         </div>
                         <div class="cardSecondLine col-12">
                           <div class="starGroup mr-3">
-                            <i class="bi bi-star text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
                           </div>
                           <p class="body-content text-muted">台北市信義區</p>
                         </div>
@@ -367,7 +371,11 @@
     </footer>
     <!-- =========footer end========= -->
     <!-- body end -->
-
+    <!-- Bootstrap Jquery -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-qtoqgtVysUOibC/YeVgpOyLJpelAT1DHvg98mYHqq8ofXEmNEjaNqOZwnMKxlXCy" crossorigin="anonymous"></script>    
+<!-- Bootstrap Jquery -->
     <script>
       let btn_nav = document.querySelector(".btn_nav");
       let nav = document.querySelector(".nav");
@@ -376,6 +384,12 @@
         this.classList.toggle("change");
         nav.classList.toggle("nav_show");
       };
+
+      // $(".btn").each(()=>{
+      //   $(this).click(function () {
+      //     $(this).toggleClass("active");
+      //   });
+      // })
     </script>
   </body>
 </html>

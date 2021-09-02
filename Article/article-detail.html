@@ -15,6 +15,10 @@
       href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
       rel="stylesheet"
     />
+    <script
+      src="https://kit.fontawesome.com/8efbf3e62f.js"
+      crossorigin="anonymous"
+    ></script>
     <title>article-detail</title>
   </head>
   <body>
@@ -65,30 +69,32 @@
     <div class="container">
       <div class="wrapper">
         <div class="d-flex justify-content-between">
-          <h2 class="col-6 h2">象山親山步道</h2>
-          <div class="col-6 row align-items-center">
+          <h2 class="col-5 h2">象山親山步道</h2>
+          <div class="col-7 row align-items-center">
             <div class="col-12">
               <div class="d-flex justify-content-end">
                 <div class="starGroup mr-3">
-                  <i class="bi bi-star text-warning"></i>
-                  <i class="bi bi-star text-warning"></i>
-                  <i class="bi bi-star text-warning"></i>
-                  <i class="bi bi-star text-warning"></i>
-                  <i class="bi bi-star text-warning"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
                 </div>
                 <p class="text-primary body-content mr-3">
-                  <img src="./img/level.png" class="mr-2" />難度低
+                  <img class="mr-2" src="./img/level_low.svg" />難度低
                 </p>
                 <p class="text-primary body-content">
-                  <img src="./img/footprints.png" class="mr-2" />5公里
+                  <i class="fas fa-shoe-prints mr-2"></i>5公里
                 </p>
               </div>
             </div>
             <div class="col-12">
               <div class="d-flex justify-content-end">
-                <i class="bi bi-heart mr-2 ml-auto text-danger"></i>
+                <!-- <a class="d-flex heart-icon-bkg"> -->
+                <i class="bi bi-heart-fill mr-2 ml-auto"></i>
                 <p class="body-content mr-2">加入收藏</p>
-                <i class="bi bi-flag mr-2 text-warning"></i>
+                <!-- </a> -->
+                <i class="bi bi-flag-fill mr-2"></i>
                 <p class="mr-2">加入去過路線</p>
                 <!-- =========about-membership-bubble start========= -->
                 <div class="about-membership">
@@ -430,7 +436,9 @@
             <div class="col-lg-4 px-0">
               <div class="article-card">
                 <div class="article-img-box">
-                  <img class="cover-fit" src="./img/xiangshan.jpeg" alt="" />
+                  <a href="#">
+                    <img class="cover-fit" src="./img/xiangshan.jpeg" alt="" />
+                  </a>
                 </div>
                 <a href="./article-detail.html" class="article-name"
                   >象山親山步道</a
@@ -447,7 +455,13 @@
             <div class="col-lg-4 px-0">
               <div class="article-card">
                 <div class="article-img-box">
-                  <img class="cover-fit" src="./img/Yangmingshan.jpeg" alt="" />
+                  <a href="#">
+                    <img
+                      class="cover-fit"
+                      src="./img/Yangmingshan.jpeg"
+                      alt=""
+                    />
+                  </a>
                 </div>
                 <a href="./article-detail.html" class="article-name"
                   >陽明山東西大縱走</a
@@ -464,7 +478,9 @@
             <div class="col-lg-4 px-0">
               <div class="article-card">
                 <div class="article-img-box">
-                  <img class="cover-fit" src="./img/Tapachien.jpeg" alt="" />
+                  <a href="#">
+                    <img class="cover-fit" src="./img/Tapachien.jpeg" alt="" />
+                  </a>
                 </div>
                 <a href="./article-detail.html" class="article-name"
                   >大霸北稜線</a
