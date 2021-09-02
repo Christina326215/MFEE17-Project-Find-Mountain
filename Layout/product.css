@@ -1,3 +1,15 @@
+/*cart-num*/
+.cart-num {
+  top: -6px;
+  right:-8px;
+  font-size: 8px;
+  background: #cc543a;
+  color: #fff;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: none;
+}
 /*category-bar start*/
 .category-bar {
   max-width: 800px;
@@ -200,9 +212,6 @@
   top: 0;
   right: -10px;
   z-index: 2;
-}
-.slider-arrows-left:hover {
-  cursor: pointer;
 }
 /*編輯嚴選 熱銷不敗 end*/
 /*熱門登山攻略開始*/
