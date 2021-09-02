@@ -632,7 +632,6 @@
         }
         // alert("已將商品加入購物車！");
         Swal.fire({
-          position: 'top-end',
           icon: 'success',
           title: '已將商品加入購物車！',
           showConfirmButton: false,
@@ -643,7 +642,6 @@
         //限制一次加進購物車數量
         if(cartNum>=10){
           Swal.fire({
-          position: 'top-end',
           icon: 'error',
           title: '一次最多只能放入10樣商品喔',
           showConfirmButton: false,
