@@ -93,9 +93,11 @@
         <h3 class="subTitle">製作個人化明信片</h3>
         <div class="underline"></div>
         <div class="canvas-box">
-          <canvas id="canvasBg"></canvas>
+          <canvas id="canvasBg" class="cvs"></canvas>
           <!-- <canvas class="drawing" id="canvas"></canvas> -->
         </div>
+        <button id="save">save</button>
+        <div id="imgs"></div>
       </div>
 
       <!-- <h3 class="subTitle">
@@ -118,12 +120,14 @@
         <div id="div3" class="target">content three</div>
       </div> -->
       <div class="sub-content">
-        <div class="intro-content">
-          <div class="dialogBox1 anim anim-show">
+        <div class="container">
+          <div class="row">
+        <div class="intro-content col-md col-lg-4">
+          <div class="dialogBox1 animate__animated animate__shakeX">
             <img src="./img/img-outfit/dialogBox1.svg" alt="">
             <!-- <p>右邊依山的難易度（初中高階），<br>推薦適合的裝備，<br>點選以下三座山即可切換，</p> -->
           </div>
-          <div class="dialogBox2 anim2 anim-show2">
+          <div class="dialogBox2 animate__animated animate__headShake">
             <img src="./img/img-outfit/dialogBox2.svg" alt="">
             <!-- <p>可分別拖曳商品圖片到明信片處，即可製作個人化明信片，與朋友們分享登山裝備</p> -->
           </div>
@@ -131,17 +135,20 @@
             <img class="bear" src="./img/img-outfit/bear.svg" alt="">
           </div>
           <div class="low-mountain single" target="1">
-            <img src="./img/img-outfit/low-mountain.svg" alt="" />
+            <!-- <img src="./img/img-outfit/low-mountain.svg" alt="" /> -->
+            <span>低階</span>
           </div>
           <div class="high-mountain single" target="3">
-            <img src="./img/img-outfit/high-mountain.svg" alt="" />
+            <!-- <img src="./img/img-outfit/high-mountain.svg" alt="" /> -->
+            <span>高階</span>
           </div>
           <div class="mid-mountain single" target="2">
-            <img src="./img/img-outfit/mid-mountain.svg" alt="" />
+            <!-- <img src="./img/img-outfit/mid-mountain.svg" alt="" /> -->
+            <span>中階</span>
           </div>
         </div>
-        <div class="product-container">
-          <div class="target_box">
+        <div class="product-container col-md col-lg-8">
+          <!-- <div class="target_box"> -->
             <div id="div1" class="target"> 
               <!-- product-warpper start -->
                 <div class="product-slider">
@@ -519,8 +526,10 @@
                 </div>
               </div>
             <!-- product-warpper end --></div>
-          </div>
+          <!-- </div> -->
         </div>
+      </div>
+      </div>
       </div>
     </div>
     <div class="nextStep">
@@ -533,7 +542,7 @@
         <div class="postcard-box">
           <!-- <canvas id="canvasBg"></canvas> -->
           <!-- <canvas id="canvas"></canvas> -->
-          <img class="mb-3 cover-fit" src="./img/img-outfit/postcard-bg.png" alt="" />
+          <img class="mb-3 cover-fit" src="./img/img-outfit/postcard-bg800.png" alt="" />
         </div>
       </div>
     
@@ -557,7 +566,7 @@
                   />
                 </div>
               </td>
-              <td>SALOMON EVASION  GORE-TEX登山健行鞋</td>
+              <td>SALOMON EVASION GORE-TEX登山健行鞋</td>
               <td>NT$ 1000</td>
               <td>Ｘ１</td>
             </div>
@@ -599,7 +608,7 @@
       <div class="postcard-sharedbox">
         <!-- <canvas id="canvasBg"></canvas> -->
         <!-- <canvas id="canvas"></canvas> -->
-        <img class="cover-fit" src="./img/img-outfit/postcard-bg.png" alt="" />
+        <img class="cover-fit" src="./img/img-outfit/postcard-bg800.png" alt="" />
       </div>
     </div>
     <div class="btnGroup">
@@ -644,11 +653,13 @@
     <!-- =========footer end========= -->
     <!-- body end -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-   
- 
     <script src="outfit.js"></script>
     <script src="fabric.js"></script>
     <script src="canvas.js"></script>
+    <script src="https://superal.github.io/canvas2image/canvas2image.js"></script>
+    <!-- <script src="canvas2image.js"></script> -->
+    
+
     <script>
       let btn_nav = document.querySelector(".btn_nav");
       let nav = document.querySelector(".nav");
@@ -658,6 +669,7 @@
         nav.classList.toggle("nav_show");
       };
     </script>
+    
     <script>
       // $("#showAll").click(function () {
       //   $(".target").show();
@@ -671,21 +683,21 @@
         $("#div" + $(this).attr("target")).show();
       });
 
-      var j = 0;
+      // var j = 0;
 
-      var int = self.setInterval("clock()", 700);
+      // var int = self.setInterval("clock()", 700);
 
-      function clock() {
-        j++;
+      // function clock() {
+      //   j++;
 
-        if (parseInt(j / 2) == j / 2) {
-          $(".anim").addClass("anim-show");
-          $(".anim").removeClass("anim-show1");
-        } else {
-          $(".anim").removeClass("anim-show");
-          $(".anim").addClass("anim-show1");
-        }
-      }
+      //   if (parseInt(j / 2) == j / 2) {
+      //     $(".anim").addClass("anim-show");
+      //     $(".anim").removeClass("anim-show1");
+      //   } else {
+      //     $(".anim").removeClass("anim-show");
+      //     $(".anim").addClass("anim-show1");
+      //   }
+      // }
 
       let buttonRight = document.getElementById("slideRight");
       let buttonLeft = document.getElementById("slideLeft");
