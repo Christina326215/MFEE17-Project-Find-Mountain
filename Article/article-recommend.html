@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../Layout/css//bootstrap.css" />
+    <link rel="stylesheet" href="../Layout/index.css" type="text/css" />
+    <link rel="stylesheet" href="./article.css" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
+      rel="stylesheet"
+    />
+    <title>article-recommend</title>
+  </head>
+  <body>
+    <!-- body star -->
+    <!-- =========header star========= -->
+    <header class="header sticky-top">
+      <a href="../Layout/HomepageIndex.html" class="logo_top">
+        <img src="../Layout/img/logo.png" alt="logo_top" />
+      </a>
+      <div class="btns">
+        <a href="#" class="search_button"><i class="bi bi-search h4"></i></a>
+        <a href="../Layout/shopping-1-content.html" class="shopping_button"><i class="bi bi-cart h4"></i></a>
+        <a href="../Layout/member-login.html" class="sign_button">Sign In</a>
+      </div>
+      <!-- =========nav star========= -->
+      <nav class="nav">
+        <ul class="list-unstyled d-flex">
+          <li>
+            <a class="nav-font" href="../Layout/mountain_index.html">路線地圖</a>
+          </li>
+          <li>
+            <a class="nav-font" href="./article-recommend.html">推薦攻略</a>
+          </li>
+          <li>
+            <a class="nav-font" href="../Layout/product.html">購物商城</a>
+          </li>
+          <li>
+            <a class="nav-font" href="../Layout/outfit.html">建議穿搭</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="btn_nav">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </div>
+      <!-- <a class="btn_nav btn_close"></a> -->
+      <!-- =========nav end========= -->
+    </header>
+    <!-- =========header end========= -->
+
+    <!-- =========content star========= ####### -->
+    <div class="container">
+      <div class="filter-wrapper">
+        <h2 class="h2">推薦攻略</h2>
+        <div class="chatbg">
+          <div class="bg-filter">
+            <div class="firstbox mb-5">
+              <div class="qa">
+                <div class="bearwrap">
+                  <img class="bear" src="./img/bear.png" alt="" />
+                </div>
+                <div class="chatbox">
+                  <div class="chatBoxText">
+                    哇～謝謝你的回答，<br />
+                    下面這些是推薦給你的專屬路線呦！<br />一起來了解山的美麗吧！
+                  </div>
+                </div>
+                
+              </div>
+              
+            </div>
+            <a
+              class="p-2 text-right text-white-50"
+              href="https://www.freepik.com/vectors/tree"
+              >Tree vector created by upklyak - www.freepik.com</a
+            >
+          </div>
+        </div>
+        
+        <table class="table table-hover my-2 border-left border-right">
+          <tbody>
+            <tr>
+              <th scope="row ">
+                <div
+                  class="d-flex justify-content-center mt-2 ml-1 border-right"
+                >
+                  難易度
+                </div>
+              </th>
+              <td class="text-center">
+                <button type="button" class="btn btn-primary filterBtn">
+                  低
+                </button>
+              </td>
+              <td class="text-center">
+                <button type="button" class="btn btn-primary filterBtn">
+                  中
+                </button>
+              </td>
+              <td class="text-center">
+                <button type="button" class="btn btn-primary filterBtn">
+                  高
+                </button>
+              </td>
+              <td></td>
+            </tr>
+            <tr>
+              <th scope="row"><div class="d-flex justify-content-center mt-2 ml-1 border-right">最適季節</div></th>
+              <td class="text-center">
+                <button type="button" class="btn btn-primary filterBtn">
+                  春季
+                </button>
+              </td>
+              <td class="text-center">
+                <button type="button" class="btn btn-primary filterBtn">
+                  夏季
+                </button>
+              </td>
+              <td class="text-center">
+                <button type="button" class="btn btn-primary filterBtn">
+                  秋季
+                </button>
+              </td>
+              <td class="text-center">
+                <button type="button" class="btn btn-primary filterBtn">
+                  冬季
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row"><div class="d-flex justify-content-center mt-2 ml-1 border-right">所需時間</div></th>
+              <td class="text-center">
+                <button type="button" class="btn btn-primary filterBtn">
+                  5小時內
+                </button>
+              </td>
+              <td class="text-center">
+                <button type="button" class="btn btn-primary filterBtn">
+                  2天內
+                </button>
+              </td>
+              <td class="text-center">
+                <button type="button" class="btn btn-primary filterBtn">
+                  2天以上
+                </button>
+              </td class="text-center">
+              <td class="text-center"></td>
+            </tr>
+            <tr class="border-bottom">
+              <th scope="row"><div class="d-flex justify-content-center mt-2 ml-1 border-right">步道類型</div></th>
+              <td class="text-center">
+                <button type="button" class="btn btn-primary filterBtn">
+                  郊山步道
+                </button>
+              </td>
+              <td class="text-center">
+                <button type="button" class="btn btn-primary filterBtn">
+                  高山步道
+                </button>
+              </td>
+              <td class="text-center"></td>
+              <td class="text-center"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="recommendbg">
+      <div class="recommend-filter">
+        <div class="container">
+          <div class="bg-wrapper">
+            <h2 class="body-content-big-bold inline">推薦路線</h2>
+            <p class="inline ml-2">9筆資料</p>
+            <div class="row-cols-1 mt-3 mb-3">
+              <div class="card">
+                <div class="row no-gutters">
+                  <div class="col-md-4 pic-box">
+                    <div class="pic-box-wrap">
+                       <img
+                      class="cardimg img-fluid"
+                      src="./img/sevenstar.jpeg"
+                      alt="..."
+                    />
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="cardFirstLine col-12">
+                          <h5 class="cardTitle mr-3 h3">
+                            七星山主、東峰登山步道
+                          </h5>
+                          <p class="text-primary body-content mr-3">
+                            <img src="./img/level.png" />難度低
+                          </p>
+                          <p class="text-primary body-content mr-3">
+                            <img src="./img/footprints.png" />5公里
+                          </p>
+                          <i class="bi bi-heart mr-2 ml-auto text-danger"></i>
+                          <p class="body-content">加入收藏</p>
+                        </div>
+                        <div class="cardSecondLine col-12">
+                          <div class="starGroup mr-3">
+                            <i class="bi bi-star text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                          </div>
+                          <p class="body-content text-muted">台北市北投區</p>
+                        </div>
+                        <div class="textBox col-12">
+                          <p class="card-text body-content">
+                            七星山主峰高1120公尺，是台北市的最高峰。在台北市區朝北邊往上望，經常也可以望見它獨立偉岸的山影，尤其是山頂上因侵蝕而形成的七個大小不一的山頭，猶如北斗「七星」般聳立在台北上頭，山也因此得名。
+                            由於受冬季東北季風影響，山南山北呈現全然不同的自然景觀。山北受強風吹拂，植物生長不易，白背芒與包籜矢竹成為優勢植物，每年秋季芒花開花時，甚是壯觀；山南則因有山頭遮去烈風，因此呈現典型的亞熱帶林相，林下豐富的多樣性生物，和山北截然不同。而七星山主、東峰步道貫穿山南北，走過步道，正好可以體驗兩種不同的生態景觀。
+                            七星山還是天然的地質教室，小油坑、大油坑、夢幻湖、冷水坑，都是認識火山地形的絕佳處所。還有七星主峰上的展望，可以360度的全覽北市、北海岸等地，「登七星而小台北」，登臨的快意也使七星山備受山客喜愛。
+                          </p>
+                        </div>
+                        <div class="cardLastLine col-12 mt-3 mb-0">
+                          <small
+                            class="body-content-small text-muted align-self-end"
+                            >2人收藏</small
+                          >
+                          <a href="./article-detail.html">
+                            <button class="btn btn-primary">查看更多</button>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row-cols-1 mt-3 mb-3">
+              <div class="card">
+                <div class="row no-gutters">
+                  <div class="col-md-4 pic-box">
+                    <div class="pic-box-wrap">
+                      <img
+                        class="cardimg img-fluid"
+                        src="./img/xiangshan.jpeg"
+                        alt="..."
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="cardFirstLine col-12">
+                          <h5 class="cardTitle mr-3 h3">象山親山步道</h5>
+                          <p class="text-primary body-content mr-3">
+                            <img src="./img/level.png" />難度低
+                          </p>
+                          <p class="text-primary body-content mr-3">
+                            <img src="./img/footprints.png" />2.2公里
+                          </p>
+                          <i class="bi bi-heart mr-2 ml-auto text-danger"></i>
+                          <p class="body-content">加入收藏</p>
+                        </div>
+                        <div class="cardSecondLine col-12">
+                          <div class="starGroup mr-3">
+                            <i class="bi bi-star text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                          </div>
+                          <p class="body-content text-muted">台北市信義區</p>
+                        </div>
+                        <div class="textBox col-12">
+                          <p class="card-text body-content">
+                            位於台北市信義區的象山，與附近的虎、豹、獅山並稱四獸山，因為外型似象頭而得此名。山頂雖僅有183公尺，但可清楚俯瞰台北盆地及台北地標101大樓，擁有極佳的視野，是許多攝影愛好者拍攝夜景與跨年煙火的最佳地點。
+                            象山與虎山地質相同，主要由砂岩組成，步道中可見黃褐色或赭紅色的岩壁與巨石，十分特殊；除此之外，生態多樣豐富、精采可期，因此為大台北地區享受戶外綠林的好去處。
+                          </p>
+                        </div>
+                        <div class="cardLastLine col-12 mt-3 mb-0">
+                          <small
+                            class="body-content-small text-muted align-self-end"
+                            >2人收藏</small
+                          >
+                          <a href="./article-detail.html">
+                            <button class="btn btn-primary">查看更多</button>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="btn-toolbar justify-content-center"
+              role="toolbar"
+              aria-label="Toolbar with button groups"
+            >
+              <div class="btn-group mr-2" role="group" aria-label="Third group">
+                <button type="button" class="btn btn-primary">|<</button>
+              </div>
+              <div class="btn-group mr-2" role="group" aria-label="First group">
+                <button type="button" class="btn btn-primary"><</button>
+              </div>
+              <div
+                class="btn-group mr-2"
+                role="group"
+                aria-label="Second group"
+              >
+                <button type="button" class="btn btn-primary">1</button>
+              </div>
+              <div class="btn-group mr-2" role="group" aria-label="Third group">
+                <button type="button" class="btn btn-primary">></button>
+              </div>
+              <div class="btn-group" role="group" aria-label="Third group">
+                <button type="button" class="btn btn-primary">>|</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a class="pr-2 pb-2 d-flex justify-content-end text-white-50" href="https://www.freepik.com/vectors/background">Background vector created by pikisuperstar - www.freepik.com</a>
+      </div>
+    </div>
+
+    <!-- =========content end========= -->
+
+    <!-- =========footer star========= -->
+    <footer class="footer">
+      <div class="footer_box">
+        <div class="d-flex justify-content-center">
+          <div class="footer_head">
+            <a class="nav-font" href="../Layout/mountain_index.html">路線地圖</a>
+          </div>
+          <div class="footer_head">
+            <a class="nav-font" href="./article-recommend.html">推薦攻略</a>
+          </div>
+          <a href="#" class="footer_logo">
+            <img src="../Layout/img/logo.png" alt="footer_logo" />
+          </a>
+          <div class="footer_head">
+            <a class="nav-font" href="../Layout/product.html">購物商城</a>
+          </div>
+          <div class="footer_head_last">
+            <a class="nav-font_footerLast" href="../Layout/outfit.html">建議穿搭</a>
+          </div>
+        </div>
+
+        <div class="footer_line"></div>
+
+        <div class="d-flex justify-content-center">
+          <div class="footer_info">聯絡資訊</div>
+          <div class="footer_info">參考資訊</div>
+        </div>
+      </div>
+
+      <div class="footer_copy d-flex justify-content-center">
+        &copy;Copyright, Inc. 2021. MFEE17-第五組專題
+      </div>
+    </footer>
+    <!-- =========footer end========= -->
+    <!-- body end -->
+
+    <script>
+      let btn_nav = document.querySelector(".btn_nav");
+      let nav = document.querySelector(".nav");
+
+      btn_nav.onclick = function () {
+        this.classList.toggle("change");
+        nav.classList.toggle("nav_show");
+      };
+    </script>
+  </body>
+</html>

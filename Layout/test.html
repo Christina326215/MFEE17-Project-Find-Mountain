@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <style>
+      .opc-progress-bar {
+        padding: 0;
+        list-style: none none;
+        margin: 0 0 40px;
+        counter-reset: i;
+        font-size: 0;
+        max-width: 816px;
+        text-align: center;
+      }
+      .opc-progress-bar-item {
+        margin: 0 0 10px;
+        display: inline-block;
+        position: relative;
+        text-align: center;
+        vertical-align: top;
+        width: 50%;
+      }
+      .opc-progress-bar > li {
+        margin: 0;
+      }
+      .opc-progress-bar-item:before {
+        background: #d9d9d9;
+        bottom: 15px;
+        content: "";
+        height: 10px;
+        left: 0;
+        position: absolute;
+        width: 100%;
+      }
+      .opc-progress-bar-item:first-child:before {
+        border-radius: 0px 0 0 0px;
+      }
+      .opc-progress-bar-item:last-child:before {
+        border-radius: 0 0px 0px 0;
+      }
+      .opc-progress-bar-item > span {
+        display: inline-block;
+        padding-bottom: 50px;
+        width: 100%;
+        word-wrap: break-word;
+        color: #d9d9d9;
+        font-weight: 500;
+        line-height: 30px;
+        font-size: 1.8rem;
+      }
+      .opc-progress-bar-item > span:before,
+      .opc-progress-bar-item > span:after {
+        background: #faf8f5;
+        height: 27px;
+        margin-left: -13.5px;
+        width: 27px;
+        border-radius: 50%;
+        content: "";
+        left: 50%;
+        position: absolute;
+        bottom: 0;
+        border: 6px solid;
+      }
+      .opc-progress-bar-item > span:after {
+        background: none;
+        height: 27px;
+        margin-left: -13.5px;
+        bottom: 0;
+        width: 27px;
+        content: counter(i);
+        counter-increment: i;
+        color: #d9d9d9;
+        font-weight: 600;
+        font-size: 2.4rem;
+        line-height: 1;
+      }
+      .opc-progress-bar-item._active:before {
+        background: #382720;
+      }
+      .opc-progress-bar-item._active > span {
+        color: #382720;
+      }
+      .opc-progress-bar-item._active > span:before {
+        background: #faf8f5;
+      }
+      .opc-progress-bar-item._active > span:after {
+        font-family: "Noto Sans TC";
+        font-size: 2.4rem;
+        border-color: #382720;
+        color: #382720;
+      }
+      .opc-progress-bar-item._complete {
+        cursor: pointer;
+      }
+      .opc-progress-bar-item._complete > span {
+        color: #d9d9d9;
+      }
+      .opc-progress-bar-item._complete > span:after {
+        font-family: "Noto Sans TC";
+        line-height: 1;
+        font-size: 2.4rem;
+      }
+      @media only screen and (max-width: 1023px) {
+        .opc-progress-bar {
+          display: none;
+        }
+      }
+      @media only screen and (min-width: 768px) {
+        .opc-progress-bar-item {
+          width: 192px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <ul class="opc-progress-bar">
+      <li class="opc-progress-bar-item _active">
+        <span>會員資料</span>
+      </li>
+      <li class="opc-progress-bar-item">
+        <span>設定帳號密碼</span>
+      </li>
+    </ul>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script>
+      require(["jquery", "mage/validation"], function ($) {
+        $(document).ready(function () {
+          $(".action.next").on("click", function () {
+            var dataForm = $(".form-create-account");
+            if (dataForm.validation("isValid")) {
+              $(".fieldset.create.info").css("display", "none");
+              $(".fieldset.create.account").css("display", "block");
+              $(".opc-progress-bar-item:first-child").addClass("_complete");
+              $(".opc-progress-bar-item:first-child").removeClass("_active");
+              $(".opc-progress-bar-item:last-child").addClass("_active");
+            }
+          });
+
+          $(".action.prev").on("click", function () {
+            $(".fieldset.create.info").css("display", "block");
+            $(".fieldset.create.account").css("display", "none");
+            $(".opc-progress-bar-item:first-child").addClass("_active");
+            $(".opc-progress-bar-item:first-child").removeClass("_complete");
+            $(".opc-progress-bar-item:last-child").removeClass("_active");
+          });
+        });
+      });
+    </script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

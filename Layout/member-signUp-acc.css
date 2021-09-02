@@ -1,0 +1,32 @@
+.content-all {
+  margin: 5% auto 15% auto;
+}
+/* title */
+.title {
+  font-weight: bold;
+  font-size: 34px;
+  color: #19634a;
+}
+
+/* sign up content */
+.signUp {
+  position: relative;
+  width: 578px;
+  height: 694px;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 20px;
+  border: 1px solid #19634a;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 80px 20px;
+}
+.signUp-btn {
+  background-color: #24936e;
+  color: #ffffff;
+}
+.progress-adj {
+  margin: 30px auto;
+  width: 50%;
+  height: 50%;
+}

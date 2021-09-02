@@ -1,0 +1,542 @@
+/* article-filter */
+
+.wrapper {
+  margin: 35px 0;
+}
+body {
+  color: #414141;
+}
+/* font style */
+.h2 {
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 34px;
+  line-height: 41px;
+}
+.h3 {
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 24px;
+}
+.body-content-big-bold {
+  font-size: 22px;
+  line-height: 22px;
+  font-weight: bold;
+  margin: 15px 0;
+}
+.body-content-bold {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 15px 0;
+}
+.body-content {
+  font-size: 16px;
+  line-height: 22px;
+}
+.body-content-small {
+  font-size: 14px;
+  line-height: 20px;
+}
+@media screen and (max-width: 768px) {
+  .body-content {
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+/* chatpage */
+.chatbg {
+  margin: auto;
+  border-radius: 10px;
+  background-image: url(./img/bg1_chat.jpg);
+  background-size: cover;
+}
+.bg-filter {
+  margin: auto;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.firstbox {
+  position: relative;
+  margin: 50px;
+}
+.qa {
+  display: flex;
+}
+.bearwrap {
+  height: auto;
+  width: auto;
+}
+.bear {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.chatbox {
+  background: url(./img/chatbox.png);
+  width: 387px;
+  height: 123px;
+  background-repeat: no-repeat;
+  /* position: relative; */
+}
+
+.chatBoxText {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 60px;
+  /* justify-content: center; */
+}
+.btngroup {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 25px;
+}
+.startbtn {
+  width: 200px;
+  height: 58px;
+}
+.seasonbtn {
+  width: 120px;
+  height: 58px;
+  justify-content: space-between;
+  margin-left: 15px;
+}
+.equipmentbtn {
+  width: 150px;
+  height: 58px;
+  justify-content: space-between;
+  margin-left: 15px;
+}
+.recommend {
+  display: flex;
+  flex-direction: column;
+}
+.firstchatbox {
+  background: url(./img/chatbox_long.png);
+  width: 420px;
+  height: 77px;
+  margin-bottom: 25px;
+  background-repeat: no-repeat;
+}
+.secondchatbox {
+  background: url(./img/chatbox_short.png);
+  width: 205px;
+  height: 77px;
+  background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 768px) {
+  .firstbox {
+    position: relative;
+    margin: 50px 25px 50px 25px;
+  }
+  .btngroup {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+  }
+}
+
+/* article-recommend start*/
+.table th,
+.table td {
+  padding: 0.4rem;
+}
+.filter-wrapper {
+  margin: 35px 0 0 0;
+}
+.recommendbg {
+  background-image: url(./img/bg2_jungle.png);
+  background-size: cover;
+}
+.recommend-filter {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid transparent;
+}
+.bg-wrapper {
+  margin: 35px 0;
+}
+.inline {
+  display: inline;
+}
+
+.filterBtn {
+  width: 100px;
+}
+.card {
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.pic-box {
+  max-height: 290px;
+}
+.pic-box-wrap {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.cardimg {
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px 0 0 10px;
+}
+.cardFirstLine {
+  display: flex;
+}
+@media screen and (max-width: 768px) {
+  .pic-box-wrap {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  .cardTitle {
+    font-size: 18px;
+    line-height: 18px;
+  }
+}
+.cardSecondLine {
+  display: flex;
+}
+.textBox {
+  height: 100px;
+
+  display: flex;
+  align-items: center;
+}
+.card-text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+}
+.cardLastLine {
+  display: flex;
+  justify-content: space-between;
+}
+.bi-star-fill {
+  font-size: 22px;
+}
+/* article-recommend end*/
+/* artcicle-detail start */
+.detailBg {
+  background: url(./img/xiangshan.jpeg);
+  background-size: cover;
+  border-radius: 10px;
+  background-position: center;
+}
+.detailBgShow {
+  height: 300px;
+  /* border: 1px solid red; */
+}
+.detailFilter {
+  height: 450px;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.62),
+    rgba(0, 0, 0, 0.62)
+  );
+  border-radius: 0px 0px 10px 10px;
+  position: relative;
+}
+.detailContnet {
+  padding: 0 70px 20px;
+  position: absolute;
+  bottom: 0;
+}
+.table {
+  border: 1px solid white;
+  height: auto;
+}
+@media (max-width: 992px) {
+  .table {
+    margin-bottom: 0px;
+  }
+  .col {
+    padding: 5px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .detailBgShow {
+    height: 350px;
+  }
+  .detailFilter {
+    height: 600px;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0.62),
+      rgba(0, 0, 0, 0.62)
+    );
+    border-radius: 0px 0px 10px 10px;
+    position: relative;
+  }
+  .detailContnet {
+    padding: 0 30px 20px;
+    position: absolute;
+    bottom: 0;
+  }
+  .table {
+    margin-bottom: 8px;
+  }
+  .col {
+    padding: 0;
+  }
+}
+.tableHead {
+  min-height: 38px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: 1px solid red; */
+}
+.tableBody {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.productTagBg {
+  background: url(./img/hiking_1.jpg);
+  border-radius: 10px;
+  height: 360px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+.tag {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+  padding: 10px;
+  border-radius: 20px;
+  color: white;
+  background: rgba(109, 167, 127, 0.8);
+  position: absolute;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+}
+.tagHover {
+  border: 2px solid white;
+  display: flex;
+  justify-content: center;
+  width: 120px;
+  /* padding: 10px; */
+  border-radius: 10px;
+  color: white;
+  background: rgba(109, 167, 127, 0.8);
+  position: absolute;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+}
+.tagText {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+}
+.hatTag {
+  transform: translate(260px, 160px);
+}
+.alpenstockTag {
+  transform: translate(310px, 230px);
+}
+.bagTag {
+  transform: translate(10px, 10px);
+  width: 250px;
+  height: 150px;
+}
+.tagName {
+  margin: 0;
+  padding: 10px;
+  text-align: left;
+}
+.tagPrice {
+  margin: 0;
+  padding: 10px;
+  text-align: right;
+}
+.productTagWrap {
+  width: 150px;
+  height: auto;
+}
+.productTagHover {
+  border-radius: 0 10px 10px 0;
+  height: 100%;
+  width: 100%;
+}
+
+.commentBg {
+  background: url(./img/bg2_jungle.png);
+  background-size: cover;
+}
+.commentFilter {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid transparent;
+}
+.commentWhiteBox {
+  background: white;
+  border-radius: 10px;
+  /* delete */
+  /* height: 200px; */
+}
+.commentContent {
+  padding: 30px 70px;
+}
+.commentBox {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgb(207, 207, 207);
+}
+.commentPic {
+  width: 150px;
+  margin-left: 15px;
+  /* margin: 5px 0 5px 10px; */
+}
+.commentPic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.bi-person-circle {
+  font-size: 44px;
+  margin-right: 10px;
+  /* margin-right: 5px;
+  margin-bottom: 5px;
+  margin-left: 5px; */
+}
+.memberLevel1 {
+  color: var(#414141);
+}
+.memberLevel2 {
+  color: var(--primary);
+}
+.memberLevel3 {
+  color: var(--warning);
+}
+@media (max-width: 992px) {
+  .commentBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 5px;
+    border-bottom: 1px solid rgb(207, 207, 207);
+  }
+  .commentPic {
+    width: 150px;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 0;
+    /* margin: 5px 0 5px 10px; */
+  }
+}
+@media screen and (max-width: 768px) {
+  .commentContent {
+    padding: 30px 30px;
+  }
+  .commentBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 5px;
+    border-bottom: 1px solid rgb(207, 207, 207);
+  }
+  .commentPic {
+    width: 150px;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 0;
+    /* margin: 5px 0 5px 10px; */
+  }
+}
+
+/*熱門登山攻略開始*/
+.article-card {
+  margin: 10px auto;
+  width: 300px;
+  /* border: 1px solid red; */
+}
+.article-img-box {
+  width: 300px;
+  height: 200px;
+}
+.article-img-box img {
+  border-radius: 5px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+.article-img-box img:hover {
+  cursor: pointer;
+}
+@media screen and (max-width: 768px) {
+  .article-card {
+    margin: 10px auto;
+    width: 400px;
+  }
+  .article-img-box {
+    width: 400px;
+    height: 200px;
+  }
+}
+.article-name {
+  display: block;
+  margin: 10px 0;
+  font-family: Source Sans Pro;
+  font-size: 16px;
+  line-height: 22px;
+  color: #4e4e4e;
+}
+.cover-fit {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/*熱門登山攻略結束*/
+
+/*會員制度氣泡start*/
+.about-membership-bubble {
+  width: 300px;
+  background: #f2f2f2;
+  border-radius: 5px;
+  right: -45px;
+  top: 40px;
+  display: none;
+}
+.about-membership-bubble-arrow {
+  width: 0px;
+  height: 0px;
+  border-width: 15px;
+  border-style: solid;
+  border-color: transparent transparent #f2f2f2 transparent;
+  position: absolute;
+  top: -29px;
+  right: 40px;
+}
+.membership {
+  font-family: Source Sans Pro;
+  font-size: 14px;
+  line-height: 20px;
+}
+.membership-low {
+  color: #4e4e4e;
+}
+.membership-medium {
+  color: #19634a;
+}
+.membership-high {
+  color: #ffb943;
+}
+/*會員制度氣泡end*/
+
+/* artcicle-detail end */

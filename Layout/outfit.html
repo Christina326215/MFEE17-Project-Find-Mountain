@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="index.css" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="outfit.css" />
+    <title>建議穿搭</title>
+    <style></style>
+  </head>
+  <body>
+    <!-- body star -->
+    <!-- =========header star========= -->
+    <header class="header sticky-top">
+      <a href="./HomepageIndex.html" class="logo_top">
+        <img src="./img/logo.png" alt="logo_top" />
+      </a>
+      <div class="btns">
+        <a href="#" class="search_button"><i class="bi bi-search h4"></i></a>
+        <a href="./shopping-1-content.html" class="shopping_button"><i class="bi bi-cart h4"></i></a>
+        <a href="./member-login.html" class="sign_button">Sign In</a>
+      </div>
+      <!-- =========nav star========= -->
+      <nav class="nav">
+        <ul class="list-unstyled d-flex">
+          <li>
+            <a class="nav-font" href="./mountain_index.html">路線地圖</a>
+          </li>
+          <li>
+            <a class="nav-font" href="../Article/article-recommend.html">推薦攻略</a>
+          </li>
+          <li>
+            <a class="nav-font" href="./product.html">購物商城</a>
+          </li>
+          <li>
+            <a class="nav-font" href="./outfit.html">建議穿搭</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="btn_nav">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </div>
+      <!-- <a class="btn_nav btn_close"></a> -->
+      <!-- =========nav end========= -->
+    </header>
+    <!-- =========header end========= -->
+
+    <!-- =========content star========= -->
+    <!-- <div class="product-box" id="imgset">
+      <img src="./img/bags-pic1-removebg-preview.png" draggable />
+    </div> -->
+    <!-- 測試用開始 -->
+    <!-- <div class="d-flex">
+      <div class="product d-flex" id="imgset">
+      <img
+        src="./img/img-outfit/bags-pic1-removebg-preview.png"
+        alt=""
+        class="slider-image"
+        draggable
+      />
+      <img
+          src="./img/img-outfit/shoes-pic1-removebg-preview.png"
+          alt=""
+          class="slider-image"
+          draggable
+        />
+      </div>
+    </div> -->
+    <!-- 測試用結束 -->
+    <h2 class="title">建議穿搭</h2>
+    <!-- <div class="product-box" id="imgset">
+      <img src="./img/img-outfit/bags-pic1-removebg-preview.png" draggable />
+    </div> -->
+    <p class="intro">依下面步驟來挑選最佳商品搭配並製作出個人化明信片</p>
+    <div class="content">
+      <div>
+        <h3 class="subTitle">製作個人化明信片</h3>
+        <div class="underline"></div>
+        <div class="canvas-box">
+          <canvas id="canvasBg"></canvas>
+          <!-- <canvas class="drawing" id="canvas"></canvas> -->
+        </div>
+      </div>
+
+      <!-- <h3 class="subTitle">
+        以下依山的難易度 (初階、中階、高階) ，推薦適合的穿搭
+      </h3>
+      <div class="underline"></div> -->
+
+
+      <!-- <div class="tabs"></div>
+        <a id="showAll">All</a>
+        <a class="single" target="1">one</a>
+        <a class="single" target="2">two</a>
+        <a class="single" target="3">three</a>
+      </div>
+      <div class="target_box">
+        <div id="div1" class="target">
+          content one
+        </div>
+        <div id="div2" class="target">content two</div>
+        <div id="div3" class="target">content three</div>
+      </div> -->
+      <div class="sub-content">
+        <div class="intro-content">
+          <div class="dialogBox1 anim anim-show">
+            <img src="./img/img-outfit/dialogBox1.svg" alt="">
+            <!-- <p>右邊依山的難易度（初中高階），<br>推薦適合的裝備，<br>點選以下三座山即可切換，</p> -->
+          </div>
+          <div class="dialogBox2 anim2 anim-show2">
+            <img src="./img/img-outfit/dialogBox2.svg" alt="">
+            <!-- <p>可分別拖曳商品圖片到明信片處，即可製作個人化明信片，與朋友們分享登山裝備</p> -->
+          </div>
+          <div>
+            <img class="bear" src="./img/img-outfit/bear.svg" alt="">
+          </div>
+          <div class="low-mountain single" target="1">
+            <img src="./img/img-outfit/low-mountain.svg" alt="" />
+          </div>
+          <div class="high-mountain single" target="3">
+            <img src="./img/img-outfit/high-mountain.svg" alt="" />
+          </div>
+          <div class="mid-mountain single" target="2">
+            <img src="./img/img-outfit/mid-mountain.svg" alt="" />
+          </div>
+        </div>
+        <div class="product-container">
+          <div class="target_box">
+            <div id="div1" class="target"> 
+              <!-- product-warpper start -->
+                <div class="product-slider">
+                  
+                  <i class="fas fa-chevron-left prev" id="slideLeft"></i>
+                  <i class="fas fa-chevron-right next" id="slideRight"></i>
+                  <div class="product-wrapper" id="slider">
+                    <div class="product">
+                      <div class="product-img test1">
+                        <img
+                      src="./img/img-outfit/clothes-pic1-removebg-preview.png"
+                        alt=""
+                        class="slider-image cover-fit"
+                        draggable
+                      />
+                      </div>
+                      <div class="product-info">
+                        <p>the North Face<br />黑灰色休閒後背包</p>
+                      </div>
+                    </div>
+                    <div class="product">
+                      <div class="product-img test1">
+                        <img
+                      src="./img/img-outfit/clothes-pic2-removebg-preview.png"
+                        alt=""
+                        class="slider-image cover-fit"
+                        draggable
+                      />
+                      </div>
+                      <div class="product-info">
+                        <p>the North Face<br />黑灰色休閒後背包</p>
+                      </div>
+                    </div>
+                    <div class="product">
+                      <div class="product-img test1">
+                        <img
+                      src="./img/img-outfit/clothes-pic3-removebg-preview.png"
+                        alt=""
+                        class="slider-image cover-fit"
+                        draggable
+                      />
+                      </div>
+                      <div class="product-info">
+                        <p>the North Face<br />黑灰色休閒後背包</p>
+                      </div>
+                    </div>
+                    <div class="product">
+                      <div class="product-img test1">
+                        <img
+                      src="./img/img-outfit/bags-pic1-removebg-preview.png"
+                        alt=""
+                        class="slider-image cover-fit"
+                        draggable
+                      />
+                      </div>
+                      <div class="product-info">
+                        <p>the North Face<br />黑灰色休閒後背包</p>
+                      </div>
+                    </div>
+                    <div class="product">
+                      <div class="product-img test1">
+                        <img
+                      src="./img/img-outfit/bags-pic2-removebg-preview.png"
+                        alt=""
+                        class="slider-image cover-fit"
+                        draggable
+                      />
+                      </div>
+                      <div class="product-info">
+                        <p>the North Face<br />黑灰色休閒後背包</p>
+                      </div>
+                    </div>
+                    <div class="product">
+                      <div class="product-img test1">
+                        <img
+                      src="./img/img-outfit/bags-pic3-removebg-preview.png"
+                        alt=""
+                        class="slider-image cover-fit"
+                        draggable
+                      />
+                      </div>
+                      <div class="product-info">
+                        <p>the North Face<br />黑灰色休閒後背包</p>
+                      </div>
+                    </div>
+                    <div class="product">
+                      <div class="product-img">
+                        <img
+                      src="./img/img-outfit/shoes-pic1-removebg-preview.png"
+                        alt=""
+                        class="slider-image cover-fit"
+                        draggable
+                      />
+                      </div>
+                      <div class="product-info">
+                        <p>the North Face<br />黑灰色休閒後背包</p>
+                      </div>
+                    </div>
+                    <div class="product">
+                      <div class="product-img">
+                        <img
+                      src="./img/img-outfit/shoes-pic2-removebg-preview.png"
+                        alt=""
+                        class="slider-image cover-fit"
+                        draggable
+                      />
+                      </div>
+                      <div class="product-info">
+                        <p>the North Face<br />黑灰色休閒後背包</p>
+                      </div>
+                    </div>
+                    <div class="product">
+                      <div class="product-img">
+                        <img
+                      src="./img/img-outfit/shoes-pic3-removebg-preview.png"
+                        alt=""
+                        class="slider-image cover-fit"
+                        draggable
+                      />
+                      </div>
+                      <div class="product-info">
+                        <p>the North Face<br />黑灰色休閒後背包</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <!-- product-warpper end --></div>
+            <div id="div2" class="target"> <!-- product-warpper start -->
+              <div class="product-slider">
+                <i class="fas fa-chevron-left prev" id="slideLeft2"></i>
+                <i class="fas fa-chevron-right next" id="slideRight2"></i>
+                <div class="product-wrapper" id="slider2">
+                  <div class="product">
+                    <div class="product-img">
+                      <img
+                    src="./img/img-outfit/clothes-pic4-removebg-preview.png"
+                      alt=""
+                      class="slider-image cover-fit"
+                      draggable
+                    />
+                    </div>
+                    <div class="product-info">
+                      <p>the North Face<br />黑灰色休閒後背包</p>
+                    </div>
+                  </div>
+                  <div class="product">
+                    <div class="product-img">
+                      <img
+                    src="./img/img-outfit/clothes-pic5-removebg-preview.png"
+                      alt=""
+                      class="slider-image cover-fit"
+                      draggable
+                    />
+                    </div>
+                    <div class="product-info">
+                      <p>the North Face<br />黑灰色休閒後背包</p>
+                    </div>
+                  </div>
+                  <div class="product">
+                    <div class="product-img">
+                      <img
+                    src="./img/img-outfit/clothes-pic6-removebg-preview.png"
+                      alt=""
+                      class="slider-image cover-fit"
+                      draggable
+                    />
+                    </div>
+                    <div class="product-info">
+                      <p>the North Face<br />黑灰色休閒後背包</p>
+                    </div>
+                  </div>
+                  <div class="product">
+                    <div class="product-img">
+                      <img
+                    src="./img/img-outfit/bags-pic4-removebg-preview.png"
+                      alt=""
+                      class="slider-image cover-fit"
+                      draggable
+                    />
+                    </div>
+                    <div class="product-info">
+                      <p>the North Face<br />黑灰色休閒後背包</p>
+                    </div>
+                  </div>
+                  <div class="product">
+                    <div class="product-img">
+                      <img
+                    src="./img/img-outfit/bags-pic5-removebg-preview.png"
+                      alt=""
+                      class="slider-image cover-fit"
+                      draggable
+                    />
+                    </div>
+                    <div class="product-info">
+                      <p>the North Face<br />黑灰色休閒後背包</p>
+                    </div>
+                  </div>
+                  <div class="product">
+                    <div class="product-img">
+                      <img
+                    src="./img/img-outfit/bags-pic6-removebg-preview.png"
+                      alt=""
+                      class="slider-image cover-fit"
+                      draggable
+                    />
+                    </div>
+                    <div class="product-info">
+                      <p>the North Face<br />黑灰色休閒後背包</p>
+                    </div>
+                  </div>
+                  <div class="product">
+                    <div class="product-img">
+                      <img
+                    src="./img/img-outfit/shoes-pic4-removebg-preview.png"
+                      alt=""
+                      class="slider-image cover-fit"
+                      draggable
+                    />
+                    </div>
+                    <div class="product-info">
+                      <p>the North Face<br />黑灰色休閒後背包</p>
+                    </div>
+                  </div>
+                  <div class="product">
+                    <div class="product-img">
+                      <img
+                    src="./img/img-outfit/shoes-pic5-removebg-preview.png"
+                      alt=""
+                      class="slider-image cover-fit"
+                      draggable
+                    />
+                    </div>
+                    <div class="product-info">
+                      <p>the North Face<br />黑灰色休閒後背包</p>
+                    </div>
+                  </div>
+                  <div class="product">
+                    <div class="product-img">
+                      <img
+                    src="./img/img-outfit/shoes-pic6-removebg-preview.png"
+                      alt=""
+                      class="slider-image cover-fit"
+                      draggable
+                    />
+                    </div>
+                    <div class="product-info">
+                      <p>the North Face<br />黑灰色休閒後背包</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <!-- product-warpper end --></div>
+            <div id="div3" class="target"> <!-- product-warpper start -->
+              <div class="product-slider">
+                <i class="fas fa-chevron-left prev" id="slideLeft3"></i>
+                <i class="fas fa-chevron-right next" id="slideRight3"></i>
+                <div class="product-wrapper" id="slider3">
+                  <div class="product">
+                    <div class="product-img">
+                      <img
+                    src="./img/img-outfit/clothes-pic7-removebg-preview.png"
+                      alt=""
+                      class="slider-image cover-fit"
+                      draggable
+                    />
+                    </div>
+                    <div class="product-info">
+                      <p>the North Face<br />黑灰色休閒後背包</p>
+                    </div>
+                  </div>
+                  <div class="product">
+                    <div class="product-img">
+                      <img
+                    src="./img/img-outfit/clothes-pic8-removebg-preview.png"
+                      alt=""
+                      class="slider-image cover-fit"
+                      draggable
+                    />
+                    </div>
+                    <div class="product-info">
+                      <p>the North Face<br />黑灰色休閒後背包</p>
+                    </div>
+                  </div>
+                  <div class="product">
+                    <div class="product-img">
+                      <img
+                    src="./img/img-outfit/clothes-pic9-removebg-preview.png"
+                      alt=""
+                      class="slider-image cover-fit"
+                      draggable
+                    />
+                    </div>
+                    <div class="product-info">
+                      <p>the North Face<br />黑灰色休閒後背包</p>
+                    </div>
+                  </div>
+                  <div class="product">
+                    <div class="product-img">
+                      <img
+                    src="./img/img-outfit/bags-pic7-removebg-preview.png"
+                      alt=""
+                      class="slider-image cover-fit"
+                      draggable
+                    />
+                    </div>
+                    <div class="product-info">
+                      <p>the North Face<br />黑灰色休閒後背包</p>
+                    </div>
+                  </div>
+                  <div class="product">
+                    <div class="product-img">
+                      <img
+                    src="./img/img-outfit/bags-pic8-removebg-preview.png"
+                      alt=""
+                      class="slider-image cover-fit"
+                      draggable
+                    />
+                    </div>
+                    <div class="product-info">
+                      <p>the North Face<br />黑灰色休閒後背包</p>
+                    </div>
+                  </div>
+                  <div class="product">
+                    <div class="product-img">
+                      <img
+                    src="./img/img-outfit/bags-pic9-removebg-preview.png"
+                      alt=""
+                      class="slider-image cover-fit"
+                      draggable
+                    />
+                    </div>
+                    <div class="product-info">
+                      <p>the North Face<br />黑灰色休閒後背包</p>
+                    </div>
+                  </div>
+                  <div class="product">
+                    <div class="product-img">
+                      <img
+                    src="./img/img-outfit/shoes-pic7-removebg-preview.png"
+                      alt=""
+                      class="slider-image cover-fit"
+                      draggable
+                    />
+                    </div>
+                    <div class="product-info">
+                      <p>the North Face<br />黑灰色休閒後背包</p>
+                    </div>
+                  </div>
+                  <div class="product">
+                    <div class="product-img">
+                      <img
+                    src="./img/img-outfit/shoes-pic8-removebg-preview.png"
+                      alt=""
+                      class="slider-image cover-fit"
+                      draggable
+                    />
+                    </div>
+                    <div class="product-info">
+                      <p>the North Face<br />黑灰色休閒後背包</p>
+                    </div>
+                  </div>
+                  <div class="product">
+                    <div class="product-img">
+                      <img
+                    src="./img/img-outfit/shoes-pic9-removebg-preview.png"
+                      alt=""
+                      class="slider-image cover-fit"
+                      draggable
+                    />
+                    </div>
+                    <div class="product-info">
+                      <p>the North Face<br />黑灰色休閒後背包</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <!-- product-warpper end --></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nextStep">
+      <button class="btn btn-primary">確認，下一步</button>
+    </div>
+    <div class="content">
+      <div>
+        <h3 class="subTitle">個人化明信片</h3>
+        <div class="underline"></div>
+        <div class="postcard-box">
+          <!-- <canvas id="canvasBg"></canvas> -->
+          <!-- <canvas id="canvas"></canvas> -->
+          <img class="mb-3 cover-fit" src="./img/img-outfit/postcard-bg.png" alt="" />
+        </div>
+      </div>
+    
+    <div class="order">
+      <table class="order-table">
+        <thead>
+          <tr>
+            <td class="order-head">穿搭組合</td>
+            <td class="order-head">NT$ 4,000</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="tr">
+            <div>
+              <td>
+                <div>
+                  <img
+                    class="cover-fit"
+                    src="./img/img-outfit/shoes-pic3-removebg-preview.png"
+                    alt=""
+                  />
+                </div>
+              </td>
+              <td>SALOMON EVASION  GORE-TEX登山健行鞋</td>
+              <td>NT$ 1000</td>
+              <td>Ｘ１</td>
+            </div>
+          </tr>
+          <tr>
+            <td>
+              <div>
+                <img
+                  class="cover-fit"
+                  src="./img/img-outfit/clothes-pic7-removebg-preview.png"
+                  alt=""
+                />
+              </div>
+            </td>
+            <td>MERRELL Tetrex Crest Wrap 女水陸三棲鞋</td>
+            <td>NT$ 1000</td>
+            <td>Ｘ１</td>
+          </tr>
+          <tr>
+            <td>  <div>
+              <img
+                class="cover-fit"
+                src="./img/img-outfit/bags-pic7-removebg-preview.png"
+                alt=""
+              />
+            </div></div></td>
+            <td>The North Face 黑灰色休閒後背包</td>
+            <td>NT$ 1000</td>
+            <td>Ｘ１</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+    <div class="nextStep">
+      <button class="btn btn-primary">確認， 並分享明信片</button>
+    </div>
+    <div class="Content-shared">
+      <div class="postcard-sharedbox">
+        <!-- <canvas id="canvasBg"></canvas> -->
+        <!-- <canvas id="canvas"></canvas> -->
+        <img class="cover-fit" src="./img/img-outfit/postcard-bg.png" alt="" />
+      </div>
+    </div>
+    <div class="btnGroup">
+      <button class="fb"><i class="fab fa-facebook-square"></i>分享明信片</button>
+      <button class="btn btn-outline-primary"><i class="bi bi-download"></i>儲存明信片</button>
+    </div>
+    <!-- =========content end========= -->
+
+    <!-- =========footer star========= -->
+    <footer class="footer">
+      <div class="footer_box">
+        <div class="d-flex justify-content-center">
+          <div class="footer_head">
+            <a class="nav-font" href="./mountain_index.html">路線地圖</a>
+          </div>
+          <div class="footer_head">
+            <a class="nav-font" href="../Article/article-recommend.html">推薦攻略</a>
+          </div>
+          <a href="./HomepageIndex.html" class="footer_logo">
+            <img src="img/logo.png" alt="footer_logo" />
+          </a>
+          <div class="footer_head">
+            <a class="nav-font" href="./product.html">購物商城</a>
+          </div>
+          <div class="footer_head_last">
+            <a class="nav-font_footerLast" href="./outfit.html">建議穿搭</a>
+          </div>
+        </div>
+
+        <div class="footer_line"></div>
+
+        <div class="d-flex justify-content-center">
+          <div class="footer_info">聯絡資訊</div>
+          <div class="footer_info">參考資訊</div>
+        </div>
+      </div>
+
+      <div class="footer_copy d-flex justify-content-center">
+        &copy;Copyright, Inc. 2021. MFEE17-第五組專題
+      </div>
+    </footer>
+    <!-- =========footer end========= -->
+    <!-- body end -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+   
+ 
+    <script src="outfit.js"></script>
+    <script src="fabric.js"></script>
+    <script src="canvas.js"></script>
+    <script>
+      let btn_nav = document.querySelector(".btn_nav");
+      let nav = document.querySelector(".nav");
+
+      btn_nav.onclick = function () {
+        this.classList.toggle("change");
+        nav.classList.toggle("nav_show");
+      };
+    </script>
+    <script>
+      // $("#showAll").click(function () {
+      //   $(".target").show();
+      // });
+      $("#div1").show();
+      $("#div2").hide();
+      $("#div3").hide();
+
+      $(".single").click(function () {
+        $(".target").hide();
+        $("#div" + $(this).attr("target")).show();
+      });
+
+      var j = 0;
+
+      var int = self.setInterval("clock()", 700);
+
+      function clock() {
+        j++;
+
+        if (parseInt(j / 2) == j / 2) {
+          $(".anim").addClass("anim-show");
+          $(".anim").removeClass("anim-show1");
+        } else {
+          $(".anim").removeClass("anim-show");
+          $(".anim").addClass("anim-show1");
+        }
+      }
+
+      let buttonRight = document.getElementById("slideRight");
+      let buttonLeft = document.getElementById("slideLeft");
+
+      buttonLeft.addEventListener("click", function () {
+        document.getElementById("slider").scrollLeft -= 180;
+      });
+
+      buttonRight.addEventListener("click", function () {
+        document.getElementById("slider").scrollLeft += 180;
+      });
+
+      let buttonRight2 = document.getElementById("slideRight2");
+      let buttonLeft2 = document.getElementById("slideLeft2");
+
+      buttonLeft2.addEventListener("click", function () {
+        document.getElementById("slider2").scrollLeft -= 180;
+      });
+
+      buttonRight2.addEventListener("click", function () {
+        document.getElementById("slider2").scrollLeft += 180;
+      });
+
+      let buttonRight3 = document.getElementById("slideRight3");
+      let buttonLeft3 = document.getElementById("slideLeft3");
+
+      buttonLeft3.addEventListener("click", function () {
+        document.getElementById("slider3").scrollLeft -= 180;
+      });
+
+      buttonRight3.addEventListener("click", function () {
+        document.getElementById("slider3").scrollLeft += 180;
+      });
+    </script>
+  </body>
+</html>
