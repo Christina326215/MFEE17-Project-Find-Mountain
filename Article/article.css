@@ -5,6 +5,21 @@
 body {
   color: #414141;
 }
+/* .btn {
+  background: var(--primary);
+  color: #ffffff;
+} */
+/* .active {
+  background: #24936e;
+} */
+/* 暫時改一下btn-primary的active樣式 */
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  color: #fff;
+  background-color: #24936e;
+  border-color: #508460;
+}
 /* .heart-icon-bkg .bi-heart-fill {
   color: #e2e3e1;
   font-size: 18px;
@@ -25,6 +40,9 @@ body {
 .bi-heart-fill:active {
   color: #cc543a;
 }
+.bi-heart-fill.active {
+  color: #cc543a;
+}
 .bi-star-fill {
   color: #e2e3e1;
   /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
@@ -33,6 +51,9 @@ body {
   color: #ffdfa8;
 }
 .bi-star-fill:active {
+  color: #ffb943;
+}
+.bi-star-fill.active {
   color: #ffb943;
 }
 .fa-shoe-prints {
@@ -46,6 +67,9 @@ body {
   color: #ffdfa8;
 }
 .bi-flag-fill:active {
+  color: #ffb943;
+}
+.bi-flag-fill.active {
   color: #ffb943;
 }
 /* font style */
@@ -94,7 +118,8 @@ body {
   margin: auto;
   border-radius: 10px;
   background-image: url(./img/bg1_chat.jpg);
-  background-size: cover;
+  background-size: 2300px;
+  background-position: top;
 }
 .bg-filter {
   margin: auto;
@@ -104,9 +129,21 @@ body {
   display: flex;
   flex-direction: column;
 }
-.firstbox {
+.stepbox {
   position: relative;
   margin: 50px;
+}
+.step1 {
+  display: block;
+}
+.step2 {
+  display: none;
+}
+.step3 {
+  display: none;
+}
+.step4 {
+  display: none;
 }
 .qa {
   display: flex;
@@ -150,6 +187,11 @@ body {
   margin-left: 15px;
   padding-top: 15px;
 }
+.btngroup input {
+  width: 150px;
+  height: 58px;
+  margin-left: 15px;
+}
 .recommend {
   display: flex;
   flex-direction: column;
@@ -169,7 +211,7 @@ body {
 }
 
 @media screen and (max-width: 768px) {
-  .firstbox {
+  .stepbox {
     position: relative;
     margin: 50px 25px 50px 25px;
   }
@@ -365,24 +407,25 @@ body {
   position: absolute;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
 }
+.tag-small {
+  display: block;
+}
+.tag-big {
+  display: none;
+}
 .tagHover {
   border: 2px solid white;
   display: flex;
   justify-content: center;
   width: 120px;
-  /* padding: 10px; */
   border-radius: 10px;
-  color: white;
-  background: rgba(109, 167, 127, 0.8);
+  color: #ffffff;
   position: absolute;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
-}
-.tagHover:hover,
-.tag:hover {
-  color: #fafafa;
   background: rgba(25, 99, 74, 0.8);
   box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.4);
-  /* transform: translate(-10px, -10px); */
+}
+.tagHover:hover {
+  color: #fafafa;
 }
 .tagText {
   display: flex;
@@ -397,7 +440,7 @@ body {
   transform: translate(310px, 230px);
 }
 .bagTag {
-  transform: translate(10px, 10px);
+  transform: translate(180px, 100px);
   width: 250px;
   height: 150px;
 }
@@ -517,6 +560,12 @@ body {
   }
 }
 @media screen and (max-width: 768px) {
+  .tag-big {
+    display: block;
+  }
+  .tag-small {
+    display: none;
+  }
   .commentContent {
     padding: 30px 30px;
   }
@@ -544,9 +593,6 @@ body {
     height: 120px;
     display: block;
   }
-  /* .sloth_small img {
-    display: block;
-  } */
 }
 
 /*熱門登山攻略開始*/

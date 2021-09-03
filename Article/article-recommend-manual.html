@@ -73,101 +73,51 @@
                 </div>
               </th>
               <td class="text-center">
-
-                <!-- <div class="btn-group-toggle" data-toggle="buttons">
-                  <label class="btn btn-secondary active testbtn">
-                    <input type="checkbox" checked> Checked
-                  </label>
-                  <label class="btn btn-secondary active">
-                    <input type="checkbox" checked> Checked
-                  </label>
-                  <label class="btn btn-secondary active">
-                    <input type="checkbox" checked> Checked
-                  </label>
-                </div>
-
-                <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                  <label class="btn btn-secondary active">
-                    <input type="radio" name="options" id="option1" checked> Active
-                  </label>
-                  <label class="btn btn-secondary">
-                    <input type="radio" name="options" id="option2"> Radio
-                  </label>
-                  <label class="btn btn-secondary">
-                    <input type="radio" name="options" id="option3"> Radio
-                  </label>
-                </div> -->
-
-
-                <button type="button" class="btn btn-primary filterBtn" >
-                  低
-                </button>
+                <input type="button" value="低" class="btn btn-primary filterBtn level-btn" />
               </td>
               <td class="text-center">
-                <button type="button" class="btn btn-primary filterBtn">
-                  中
-                </button>
+                <input type="button" value="中" class="btn btn-primary filterBtn level-btn" />
               </td>
               <td class="text-center">
-                <button type="button" class="btn btn-primary filterBtn">
-                  高
-                </button>
+                <input type="button" value="高" class="btn btn-primary filterBtn level-btn" />
               </td>
               <td></td>
             </tr>
             <tr>
               <th scope="row"><div class="d-flex justify-content-center mt-2 ml-1 border-right">最適季節</div></th>
               <td class="text-center">
-                <button type="button" class="btn btn-primary filterBtn">
-                  春季
-                </button>
+                <input type="button" value="春季" class="btn btn-primary filterBtn season-btn"> 
+              </td>
+              <td class="text-center">                
+                <input type="button" value="夏季" class="btn btn-primary filterBtn season-btn"> 
+              </td>
+              <td class="text-center">                
+                <input type="button" value="秋季" class="btn btn-primary filterBtn season-btn"> 
               </td>
               <td class="text-center">
-                <button type="button" class="btn btn-primary filterBtn">
-                  夏季
-                </button>
-              </td>
-              <td class="text-center">
-                <button type="button" class="btn btn-primary filterBtn">
-                  秋季
-                </button>
-              </td>
-              <td class="text-center">
-                <button type="button" class="btn btn-primary filterBtn">
-                  冬季
-                </button>
+                <input type="button" value="冬季" class="btn btn-primary filterBtn season-btn"> 
               </td>
             </tr>
             <tr>
               <th scope="row"><div class="d-flex justify-content-center mt-2 ml-1 border-right">所需時間</div></th>
               <td class="text-center">
-                <button type="button" class="btn btn-primary filterBtn">
-                  5小時內
-                </button>
+                <input type="button" value="5小時內" class="btn btn-primary filterBtn time-btn"> 
+              </td>
+              <td class="text-center">               
+                <input type="button" value="2天內" class="btn btn-primary filterBtn time-btn"> 
               </td>
               <td class="text-center">
-                <button type="button" class="btn btn-primary filterBtn">
-                  2天內
-                </button>
-              </td>
-              <td class="text-center">
-                <button type="button" class="btn btn-primary filterBtn">
-                  2天以上
-                </button>
+                <input type="button" value="2天以上" class="btn btn-primary filterBtn time-btn"> 
               </td class="text-center">
               <td class="text-center"></td>
             </tr>
             <tr class="border-bottom">
               <th scope="row"><div class="d-flex justify-content-center mt-2 ml-1 border-right">步道類型</div></th>
               <td class="text-center">
-                <button type="button" class="btn btn-primary filterBtn">
-                  郊山步道
-                </button>
+                <input type="button" value="郊山步道" class="btn btn-primary filterBtn mountain-type-btn"> 
               </td>
               <td class="text-center">
-                <button type="button" class="btn btn-primary filterBtn">
-                  高山步道
-                </button>
+                <input type="button" value="高山步道" class="btn btn-primary filterBtn mountain-type-btn"> 
               </td>
               <td class="text-center"></td>
               <td class="text-center"></td>
@@ -207,10 +157,8 @@
                           <p class="text-primary body-content mr-3 ">
                             <i class="fas fa-shoe-prints mr-2"></i>5公里
                           </p>
-                          <!-- <a class="d-flex heart-icon-bkg ml-auto"> -->
                             <i class="bi bi-heart-fill mr-2 ml-auto"></i>
                             <p class="body-content ">加入收藏</p>
-                          <!-- </a> -->
                         </div>
                         <div class="cardSecondLine col-12">
                           <div class="starGroup mr-3">
@@ -385,11 +333,25 @@
         nav.classList.toggle("nav_show");
       };
 
-      // $(".btn").each(()=>{
-      //   $(this).click(function () {
-      //     $(this).toggleClass("active");
-      //   });
-      // })
+     $(".level-btn").click(function () {
+        $(this).toggleClass("active");
+      });
+
+      $(".season-btn").click(function(){
+        $(this).toggleClass("active");
+      });
+
+      $(".time-btn").click(function(){
+        $(this).toggleClass("active");
+      });
+
+      $(".mountain-type-btn").click(function(){
+        $(this).toggleClass("active");
+      });
+      
+      $("i").click(function(){
+        $(this).toggleClass("active");
+      });
     </script>
   </body>
 </html>

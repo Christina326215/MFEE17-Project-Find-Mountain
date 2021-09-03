@@ -70,7 +70,7 @@
         <h4 class="body-content-big-bold">篩選路線</h4>
         <div class="chatbg">
           <div class="bg-filter">
-            <div class="firstbox">
+            <div class="stepbox step1">
               <div class="qa">
                 <div class="bearwrap">
                   <img class="bear" src="./img/bear.png" alt="" />
@@ -82,10 +82,15 @@
                 </div>
               </div>
               <div class="btngroup">
-                <a type="button" class="btn btn-primary"> Go </a>
+                <!-- <a type="button" class="btn btn-primary"> Go </a> -->
+                <input
+                  type="button"
+                  class="btn btn-primary go-btn"
+                  value="Go"
+                />
               </div>
             </div>
-            <div class="firstbox">
+            <div class="stepbox step2">
               <div class="qa">
                 <div class="bearwrap">
                   <img class="bear" src="./img/bear.png" alt="" />
@@ -95,27 +100,56 @@
                 </div>
               </div>
               <div class="btngroup">
-                <a type="button" class="btn btn-primary"> 春季 </a>
-                <a type="button" class="btn btn-primary"> 夏季 </a>
-                <a type="button" class="btn btn-primary"> 秋季 </a>
-                <a type="button" class="btn btn-primary"> 冬季 </a>
+                <input
+                  type="button"
+                  value="春季"
+                  class="season-btn btn btn-primary"
+                />
+                <input
+                  type="button"
+                  value="夏季"
+                  class="season-btn btn btn-primary"
+                />
+                <input
+                  type="button"
+                  value="秋季"
+                  class="season-btn btn btn-primary"
+                />
+                <input
+                  type="button"
+                  value="冬季"
+                  class="season-btn btn btn-primary"
+                />
               </div>
             </div>
-            <div class="firstbox">
+            <div class="stepbox step3">
               <div class="qa">
                 <div class="bearwrap">
                   <img class="bear" src="./img/bear.png" alt="" />
                 </div>
                 <div class="chatbox">
-                  <div class="chatBoxText">已經有登山裝備了嗎？</div>
+                  <div class="chatBoxText">平時會去爬山的頻率是？</div>
                 </div>
               </div>
               <div class="btngroup">
-                <a type="button" class="btn btn-primary"> 已經有了 </a>
-                <a type="button" class="btn btn-primary"> 還沒有 </a>
+                <input
+                  type="button"
+                  value="半年一次以上"
+                  class="level-btn btn btn-primary"
+                />
+                <input
+                  type="button"
+                  value="2~3個月爬一次"
+                  class="level-btn btn btn-primary"
+                />
+                <input
+                  type="button"
+                  value="每個月都爬"
+                  class="level-btn btn btn-primary"
+                />
               </div>
             </div>
-            <div class="firstbox">
+            <div class="stepbox step4">
               <div class="qa">
                 <div class="bearwrap">
                   <img class="bear" src="./img/bear.png" alt="" />
@@ -185,7 +219,23 @@
     </footer>
     <!-- =========footer end========= -->
     <!-- body end -->
-
+    <!-- Bootstrap Jquery -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+      integrity="sha384-qtoqgtVysUOibC/YeVgpOyLJpelAT1DHvg98mYHqq8ofXEmNEjaNqOZwnMKxlXCy"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Bootstrap Jquery -->
     <script>
       let btn_nav = document.querySelector(".btn_nav");
       let nav = document.querySelector(".nav");
@@ -194,6 +244,24 @@
         this.classList.toggle("change");
         nav.classList.toggle("nav_show");
       };
+      // 按鈕單選
+      $(".go-btn").click(function () {
+        $(this).toggleClass("active");
+        $(this).siblings().removeClass("active");
+        $(".step2").show();
+      });
+
+      $(".season-btn").click(function () {
+        $(this).toggleClass("active");
+        $(this).siblings().removeClass("active");
+        $(".step3").show();
+      });
+
+      $(".level-btn").click(function () {
+        $(this).toggleClass("active");
+        $(this).siblings().removeClass("active");
+        $(".step4").show();
+      });
     </script>
   </body>
 </html>
