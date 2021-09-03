@@ -48,26 +48,65 @@
   height: 150px;
   text-align: center;
 }
+/* 圖片 */
+.picture-img {
+  border-radius: 10px;
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+.picture-img-box {
+  width: 150px;
+  height: auto;
+}
+.picture-img-wrapper {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+}
 
 /* right-side */
+.have-been {
+  float: left;
+}
 .switch-category {
   /* display: inline-flexbox;
-    justify-self: right; */
+      justify-self: right; */
   float: right;
 }
 .title-main {
   color: #19634a;
 }
-.text-weight {
-  font-size: 18px;
+.text-weight-top {
+  font-size: 20px;
 }
-.text-weight-bold {
-  font-weight: bold;
-  font-size: 18px;
+.text-weight-middle {
+  font-size: 16px;
 }
-.right-side {
-  border: #000 1px solid;
-  border-radius: 10px;
+/* product-name */
+.product-name {
+  width: 200px;
+  max-width: 100%;
+}
+.product-size {
+  width: 200px;
+  max-width: 100%;
+}
+.product-perprice {
+  width: 200px;
+  max-width: 100%;
+}
+.product-count {
+  width: 200px;
+  max-width: 100%;
+}
+.product-subtotal {
+  width: 200px;
+  max-width: 100%;
+}
+.product-delete {
+  width: 100px;
+  max-width: 100%;
 }
 /* about-membership */
 .about-membership {
@@ -122,3 +161,23 @@
   color: #ffb943;
 }
 /*會員制度氣泡end*/
+
+/* 切換區塊 start */
+.tabs {
+  display: flex;
+  justify-content: center;
+  border-bottom: 2px solid rgb(201, 200, 200);
+}
+
+.tab-content-order-progress {
+  display: block;
+  padding: 10px 20px;
+}
+.tab-content-order-complete {
+  display: none;
+  padding: 10px 20px;
+}
+/* 切換區塊 end */
+/* .position-sticky {
+  position: sticky;
+} */

@@ -49,7 +49,7 @@
   text-align: center;
 }
 
-/* right-side */
+/* route right-side */
 .have-been {
   float: left;
 }
@@ -80,3 +80,56 @@
   align-self: center;
   justify-content: center;
 }
+/* about-membership */
+.about-membership {
+  bottom: -10px;
+  right: 5px;
+}
+.about-membership a {
+  /* font-family: Source Sans Pro; */
+  font-size: 14px;
+  line-height: 20px;
+  color: #000000;
+}
+.about-membership a:hover {
+  text-decoration: none;
+}
+/*會員制度氣泡start*/
+.member-level {
+  width: 60px;
+  margin: 0 auto;
+}
+.about-membership-bubble {
+  width: 300px;
+  background: rgba(238, 237, 237, 1);
+  border-radius: 5px;
+  right: -120px;
+  top: 40px;
+  display: none;
+  z-index: 100;
+}
+.about-membership-bubble-arrow {
+  width: 0px;
+  height: 0px;
+  border-width: 15px;
+  border-style: solid;
+  border-color: transparent transparent #f2f2f2 transparent;
+  position: absolute;
+  top: -25px;
+  right: 115px;
+}
+.membership {
+  /* font-family: Source Sans Pro; */
+  font-size: 14px;
+  line-height: 20px;
+}
+.membership-low {
+  color: #4e4e4e;
+}
+.membership-medium {
+  color: #19634a;
+}
+.membership-high {
+  color: #ffb943;
+}
+/*會員制度氣泡end*/

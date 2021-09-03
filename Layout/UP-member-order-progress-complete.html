@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="index.css" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="UP-member-order-progress-complete.css"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+    />
+
+    <title>會員管理-我的訂單狀態(待完成)</title>
+  </head>
+  <body>
+    <!-- body star -->
+    <!-- =========header star========= -->
+    <header class="header sticky-top">
+      <a href="./HomepageIndex.html" class="logo_top">
+        <img src="img/logo.png" alt="logo_top" />
+      </a>
+      <div class="btns">
+        <a href="#" class="search_button"><i class="bi bi-search h4"></i></a>
+        <a href="./shopping-1-content.html" class="shopping_button"
+          ><i class="bi bi-cart h4"></i
+        ></a>
+        <a href="./member-login.html" class="sign_button">Sign In</a>
+      </div>
+      <!-- =========nav star========= -->
+      <nav class="nav">
+        <ul class="list-unstyled d-flex">
+          <li>
+            <a class="nav-font" href="./mountain_index.html">路線地圖</a>
+          </li>
+          <li>
+            <a class="nav-font" href="../Article/article-recommend.html"
+              >推薦攻略</a
+            >
+          </li>
+          <li>
+            <a class="nav-font" href="./product.html">購物商城</a>
+          </li>
+          <li>
+            <a class="nav-font" href="./outfit.html">建議穿搭</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="btn_nav">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </div>
+      <!-- <a class="btn_nav btn_close"></a> -->
+      <!-- =========nav end========= -->
+    </header>
+    <!-- =========header end========= -->
+
+    <!-- =========content star========= -->
+    <div class="container">
+      <div class="row">
+        <!-- manage-left-side start -->
+        <div class="col-12 col-md-3 my-3">
+          <table
+            class="
+              table table-hover table-bordered table-all
+              p-md-4 p-lg-5
+              position-sticky
+            "
+          >
+            <thead>
+              <tr>
+                <th scope="col" class="text-center">
+                  <div class="headshot-img-box">
+                    <img src="img/signin.jpg" alt="" class="cover-fit" />
+                  </div>
+                  <h3 class="m-2 member-name">王小明</h3>
+                  <img src="img/low.svg" alt="" />
+                  <div class="position-relative member-level">
+                    <span class="grade-icon">肉腳</span>
+                    <a
+                      href="javascript:void(0)"
+                      id="seeMember"
+                      class="see-member see-member-style"
+                      ><i class="bi bi-question-circle"></i
+                    ></a>
+                    <!-- =========about-membership-bubble start========= -->
+                    <div class="about-membership-bubble p-3 position-absolute">
+                      <span class="about-membership-bubble-arrow"></span>
+                      <span class="membership">
+                        可至路線地圖之我的成就區，查看累積會員等級積分，享有商品優惠折扣哦！ </span
+                      ><br />
+                      <span class="membership membership-low">
+                        肉腳：完成爬山積分3分以上 </span
+                      ><br />
+                      <span class="membership membership-medium">
+                        山友 ：完成爬山積分20分以上 </span
+                      ><br />
+                      <span class="membership membership-high">
+                        山神 ：完成爬山積分50分以上
+                      </span>
+                    </div>
+                    <!-- =========about-membership-bubble end========= -->
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td scope="row" class="text-center">
+                  <a href="UP-member-map-route.html" class="left-href-color"
+                    >路線地圖</a
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td scope="row" class="text-center">
+                  <a
+                    href="UP-member-product-article.html"
+                    class="left-href-color"
+                    >收藏管理</a
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td scope="row" class="text-center">
+                  <a href="member-comment.html" class="left-href-color"
+                    >評論管理</a
+                  >
+                </td>
+              </tr>
+              <tr class="table-active">
+                <td scope="row" class="text-center">
+                  <a
+                    href="UP-member-order-progress-complete.html"
+                    class="left-href-color"
+                    >訂單管理</a
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td scope="row" class="text-center">
+                  <a href="member-info.html" class="left-href-color"
+                    >帳號設定</a
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td scope="row" class="text-center">
+                  <a href="member-login.html" class="left-href-color">登出</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- manage-left-side end -->
+        <!-- manage-right-side start-->
+        <div class="col-12 col-md-9 mt-5">
+          <h2 class="title-main">我的訂單狀態</h2>
+          <div class="wrapper">
+            <div class="tab">
+              <div
+                class="btn-group switch-category"
+                role="group"
+                aria-label="Basic example"
+              >
+                <a
+                  type="button"
+                  class="btn btn-outline-primary menu-order-progress active"
+                  href="member-order-progress.html"
+                  >待完成</a
+                >
+                <a
+                  type="button"
+                  class="btn btn-outline-primary menu-order-complete"
+                  href="member-order-complete.html"
+                  >已完成</a
+                >
+              </div>
+            </div>
+            <div class="tab-content-order-progress">
+              <div class="content">
+                <!-- order progress table start-->
+                <table
+                  class="
+                    table table-bordered table-all
+                    text-center
+                    p-md-4 p-lg-5
+                  "
+                >
+                  <tbody>
+                    <tr>
+                      <td scope="row" class="text-weight-top">訂單編號：</td>
+                      <td scope="row" class="text-weight-top">20210621001</td>
+                    </tr>
+                    <tr>
+                      <td scope="row" class="text-weight-top">訂單日期：</td>
+                      <td scope="row" class="text-weight-top">2021/06/21</td>
+                    </tr>
+                    <tr>
+                      <td scope="row" class="text-weight-top">訂單金額：</td>
+                      <td scope="row" class="text-weight-top">$5,360</td>
+                    </tr>
+                    <tr>
+                      <td scope="row" class="text-weight-top">訂單狀態：</td>
+                      <td scope="row" class="text-weight-top"></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <!-- <hr /> -->
+                <div class="mt-5">
+                  <h2>商品明細</h2>
+                  <table
+                    class="
+                      table table-borderless
+                      mt-2
+                      text-center
+                      p-md-4 p-lg-5
+                    "
+                  >
+                    <thead class="thead-tr-border">
+                      <tr>
+                        <th
+                          scope="col col-md-2"
+                          class="text-weight-top align-middle"
+                        >
+                          照片
+                        </th>
+                        <th
+                          scope="col col-md-1"
+                          class="text-weight-top align-middle product-name"
+                        >
+                          名稱
+                        </th>
+                        <th
+                          scope="col col-md-2"
+                          class="text-weight-top align-middle product-size"
+                        >
+                          尺寸
+                        </th>
+                        <th
+                          scope="col col-md-3"
+                          class="text-weight-top align-middle product-perprice"
+                        >
+                          單價
+                        </th>
+                        <th
+                          scope="col col-md-2"
+                          class="text-weight-top align-middle product-count"
+                        >
+                          數量
+                        </th>
+                        <th
+                          scope="col col-md-2"
+                          class="text-weight-top align-middle product-subtotal"
+                        >
+                          小計
+                        </th>
+                        <th
+                          scope="col col-md-1"
+                          class="text-weight-top align-middle product-delete"
+                        >
+                          刪除
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody class="tbody-tr-border">
+                      <tr>
+                        <td
+                          scope="row"
+                          class="picture-img-wrapper align-middle"
+                        >
+                          <div class="picture-img-box">
+                            <img
+                              src="img/shoes-pic2.jpeg"
+                              alt=""
+                              class="picture-img"
+                            />
+                          </div>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          MERRELL Tetrex Crest Wrap 女水陸三棲鞋
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <span>S</span>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          NT$ 5,000
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <span>1</span>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          NT$ 5,000
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <a href=""><i class="bi bi-trash h5"></i></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          scope="row"
+                          class="picture-img-wrapper align-middle"
+                        >
+                          <div class="picture-img-box">
+                            <img
+                              src="img/shoes-pic2.jpeg"
+                              alt=""
+                              class="picture-img"
+                            />
+                          </div>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          MERRELL Tetrex Crest Wrap 女水陸三棲鞋
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <span>S</span>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          NT$ 5,000
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <span>1</span>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          NT$ 5,000
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <a href=""><i class="bi bi-trash h5"></i></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          scope="row"
+                          class="picture-img-wrapper align-middle"
+                        >
+                          <div class="picture-img-box">
+                            <img
+                              src="img/shoes-pic2.jpeg"
+                              alt=""
+                              class="picture-img"
+                            />
+                          </div>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          MERRELL Tetrex Crest Wrap 女水陸三棲鞋
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <span>S</span>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          NT$ 5,000
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <span>1</span>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          NT$ 5,000
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <a href=""><i class="bi bi-trash h5"></i></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          scope="row"
+                          class="picture-img-wrapper align-middle"
+                        >
+                          <div class="picture-img-box">
+                            <img
+                              src="img/shoes-pic2.jpeg"
+                              alt=""
+                              class="picture-img"
+                            />
+                          </div>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          MERRELL Tetrex Crest Wrap 女水陸三棲鞋
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <span>S</span>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          NT$ 5,000
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <span>1</span>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          NT$ 5,000
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <a href=""><i class="bi bi-trash h5"></i></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          scope="row"
+                          class="picture-img-wrapper align-middle"
+                        >
+                          <div class="picture-img-box">
+                            <img
+                              src="img/shoes-pic2.jpeg"
+                              alt=""
+                              class="picture-img"
+                            />
+                          </div>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          MERRELL Tetrex Crest Wrap 女水陸三棲鞋
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <span>S</span>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          NT$ 5,000
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <span>1</span>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          NT$ 5,000
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <a href=""><i class="bi bi-trash h5"></i></a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <hr />
+                  <div class="">
+                    <h2>配送資訊</h2>
+                    <table class="table table-borderless mt-2 p-md-4 p-lg-5">
+                      <tbody>
+                        <tr>
+                          <td
+                            scope="row"
+                            class="text-weight-middle align-middle"
+                          >
+                            收件人姓名：
+                          </td>
+                          <td
+                            scope="row"
+                            class="text-weight-middle align-middle"
+                          >
+                            王小明
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            scope="row"
+                            class="text-weight-middle align-middle"
+                          >
+                            收件地址（取件超商）：
+                          </td>
+                          <td
+                            scope="row"
+                            class="text-weight-middle align-middle"
+                          >
+                            中央大學
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            scope="row"
+                            class="text-weight-middle align-middle"
+                          >
+                            收件人電話
+                          </td>
+                          <td
+                            scope="row"
+                            class="text-weight-middle align-middle"
+                          >
+                            0900123456
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            scope="row"
+                            class="text-weight-middle align-middle"
+                          >
+                            付款方式
+                          </td>
+                          <td
+                            scope="row"
+                            class="text-weight-middle align-middle"
+                          >
+                            信用卡繳費
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <!-- order progress table end-->
+              </div>
+            </div>
+            <div class="tab-content-order-complete">
+              <div class="content">
+                <!-- order complete table start-->
+                <table
+                  class="
+                    table table-bordered table-all
+                    text-center
+                    p-md-4 p-lg-5
+                  "
+                >
+                  <tbody>
+                    <tr>
+                      <td scope="row" class="text-weight-top">訂單編號：</td>
+                      <td scope="row" class="text-weight-top">20210621001</td>
+                    </tr>
+                    <tr>
+                      <td scope="row" class="text-weight-top">訂單日期：</td>
+                      <td scope="row" class="text-weight-top">2021/06/21</td>
+                    </tr>
+                    <tr>
+                      <td scope="row" class="text-weight-top">訂單金額：</td>
+                      <td scope="row" class="text-weight-top">$5,360</td>
+                    </tr>
+                    <tr>
+                      <td scope="row" class="text-weight-top">訂單狀態：</td>
+                      <td scope="row" class="text-weight-top">已完成</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <!-- <hr /> -->
+                <div class="mt-5">
+                  <h2>商品明細</h2>
+                  <table
+                    class="
+                      table table-borderless
+                      mt-2
+                      text-center
+                      p-md-4 p-lg-5
+                    "
+                  >
+                    <thead class="thead-tr-border">
+                      <tr>
+                        <th
+                          scope="col col-md-2"
+                          class="text-weight-top align-middle"
+                        >
+                          照片
+                        </th>
+                        <th
+                          scope="col col-md-1"
+                          class="text-weight-top align-middle product-name"
+                        >
+                          名稱
+                        </th>
+                        <th
+                          scope="col col-md-2"
+                          class="text-weight-top align-middle product-size"
+                        >
+                          尺寸
+                        </th>
+                        <th
+                          scope="col col-md-3"
+                          class="text-weight-top align-middle product-perprice"
+                        >
+                          單價
+                        </th>
+                        <th
+                          scope="col col-md-2"
+                          class="text-weight-top align-middle product-count"
+                        >
+                          數量
+                        </th>
+                        <th
+                          scope="col col-md-2"
+                          class="text-weight-top align-middle product-subtotal"
+                        >
+                          小計
+                        </th>
+                        <th
+                          scope="col col-md-1"
+                          class="text-weight-top align-middle product-delete"
+                        >
+                          刪除
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody class="tbody-tr-border">
+                      <tr>
+                        <td
+                          scope="row"
+                          class="picture-img-wrapper align-middle"
+                        >
+                          <div class="picture-img-box">
+                            <img
+                              src="img/shoes-pic2.jpeg"
+                              alt=""
+                              class="picture-img"
+                            />
+                          </div>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          MERRELL Tetrex Crest Wrap 女水陸三棲鞋
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <span>S</span>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          NT$ 5,000
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <span>1</span>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          NT$ 5,000
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <a href=""><i class="bi bi-trash h5"></i></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          scope="row"
+                          class="picture-img-wrapper align-middle"
+                        >
+                          <div class="picture-img-box">
+                            <img
+                              src="img/shoes-pic2.jpeg"
+                              alt=""
+                              class="picture-img"
+                            />
+                          </div>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          MERRELL Tetrex Crest Wrap 女水陸三棲鞋
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <span>S</span>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          NT$ 5,000
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <span>1</span>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          NT$ 5,000
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <a href=""><i class="bi bi-trash h5"></i></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          scope="row"
+                          class="picture-img-wrapper align-middle"
+                        >
+                          <div class="picture-img-box">
+                            <img
+                              src="img/shoes-pic2.jpeg"
+                              alt=""
+                              class="picture-img"
+                            />
+                          </div>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          MERRELL Tetrex Crest Wrap 女水陸三棲鞋
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <span>S</span>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          NT$ 5,000
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <span>1</span>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          NT$ 5,000
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <a href=""><i class="bi bi-trash h5"></i></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          scope="row"
+                          class="picture-img-wrapper align-middle"
+                        >
+                          <div class="picture-img-box">
+                            <img
+                              src="img/shoes-pic2.jpeg"
+                              alt=""
+                              class="picture-img"
+                            />
+                          </div>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          MERRELL Tetrex Crest Wrap 女水陸三棲鞋
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <span>S</span>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          NT$ 5,000
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <span>1</span>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          NT$ 5,000
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <a href=""><i class="bi bi-trash h5"></i></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          scope="row"
+                          class="picture-img-wrapper align-middle"
+                        >
+                          <div class="picture-img-box">
+                            <img
+                              src="img/shoes-pic2.jpeg"
+                              alt=""
+                              class="picture-img"
+                            />
+                          </div>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          MERRELL Tetrex Crest Wrap 女水陸三棲鞋
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <span>S</span>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          NT$ 5,000
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <span>1</span>
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          NT$ 5,000
+                        </td>
+                        <td scope="row" class="text-weight-middle align-middle">
+                          <a href=""><i class="bi bi-trash h5"></i></a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <hr />
+                  <div class="">
+                    <h2>配送資訊</h2>
+                    <table class="table table-borderless mt-2 p-md-4 p-lg-5">
+                      <tbody>
+                        <tr>
+                          <td
+                            scope="row"
+                            class="text-weight-middle align-middle"
+                          >
+                            收件人姓名：
+                          </td>
+                          <td
+                            scope="row"
+                            class="text-weight-middle align-middle"
+                          >
+                            王小明
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            scope="row"
+                            class="text-weight-middle align-middle"
+                          >
+                            收件地址（取件超商）：
+                          </td>
+                          <td
+                            scope="row"
+                            class="text-weight-middle align-middle"
+                          >
+                            中央大學
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            scope="row"
+                            class="text-weight-middle align-middle"
+                          >
+                            收件人電話
+                          </td>
+                          <td
+                            scope="row"
+                            class="text-weight-middle align-middle"
+                          >
+                            0900123456
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            scope="row"
+                            class="text-weight-middle align-middle"
+                          >
+                            付款方式
+                          </td>
+                          <td
+                            scope="row"
+                            class="text-weight-middle align-middle"
+                          >
+                            信用卡繳費
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <!-- order complete table end-->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- manage-right-side end-->
+      </div>
+    </div>
+    <!-- =========content end========= -->
+
+    <!-- =========footer star========= -->
+    <footer class="footer">
+      <div class="footer_box">
+        <div class="d-flex justify-content-center">
+          <div class="footer_head">
+            <a class="nav-font" href="./mountain_index.html">路線地圖</a>
+          </div>
+          <div class="footer_head">
+            <a class="nav-font" href="../Article/article-recommend.html"
+              >推薦攻略</a
+            >
+          </div>
+          <a href="./HomepageIndex.html" class="footer_logo">
+            <img src="img/logo.png" alt="footer_logo" />
+          </a>
+          <div class="footer_head">
+            <a class="nav-font" href="./product.html">購物商城</a>
+          </div>
+          <div class="footer_head_last">
+            <a class="nav-font_footerLast" href="./outfit.html">建議穿搭</a>
+          </div>
+        </div>
+
+        <div class="footer_line"></div>
+
+        <div class="d-flex justify-content-center">
+          <div class="footer_info">聯絡資訊</div>
+          <div class="footer_info">參考資訊</div>
+        </div>
+      </div>
+
+      <div class="footer_copy d-flex justify-content-center">
+        &copy;Copyright, Inc. 2021. MFEE17-第五組專題
+      </div>
+    </footer>
+    <!-- =========footer end========= -->
+    <!-- body end -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      let btn_nav = document.querySelector(".btn_nav");
+      let nav = document.querySelector(".nav");
+
+      btn_nav.onclick = function () {
+        this.classList.toggle("change");
+        nav.classList.toggle("nav_show");
+      };
+      //會員制度泡泡
+      $("a.see-member").click((e) => {
+        $(".about-membership-bubble").toggle("display");
+      });
+      // 切換區域tab-switch
+      let menuProgress = document.querySelector(".menu-order-progress");
+      let menuComplete = document.querySelector(".menu-order-complete");
+      let tabContentProgress = document.querySelector(
+        ".tab-content-order-progress"
+      );
+      let tabContentComplete = document.querySelector(
+        ".tab-content-order-complete"
+      );
+      menuComplete.addEventListener("click", function () {
+        // tabContentProgress.hide();
+        // tabContentRoute.show();
+        tabContentProgress.style.display = none;
+        tabContentComplete.style.display = block;
+        tabContentComplete.classList.add("active");
+        tabContentProgress.classList.remove("active");
+      });
+      menuProgress.addEventListener("click", function () {
+        // tabContentComplete.hide();
+        // tabContentProgress.show();
+        tabContentComplete.style.display = none;
+        tabContentProgress.style.display = block;
+        tabContentProgress.classList.add("active");
+        tabContentComplete.classList.remove("active");
+      });
+    </script>
+  </body>
+</html>
