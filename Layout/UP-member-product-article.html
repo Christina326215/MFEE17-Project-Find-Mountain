@@ -67,7 +67,10 @@
         <!-- manage-left-side start -->
         <div class="col-12 col-md-3 my-3">
           <table
-            class="table table-hover table-bordered table-all p-md-4 p-lg-5"
+            class="
+              table table-hover table-bordered table-all-left
+              p-md-4 p-lg-5
+            "
           >
             <thead>
               <tr>
@@ -167,25 +170,24 @@
               >
                 <a
                   type="button"
-                  class="btn btn-outline-primary menu-product active"
-                  href="member-product.html"
+                  id="menu"
+                  class="btn btn-outline-primary menu active"
                   >產品</a
                 >
-                <a
-                  type="button"
-                  class="btn btn-outline-primary menu-article"
-                  href="member-article.html"
+                <a type="button" id="menu" class="btn btn-outline-primary menu"
                   >文章</a
                 >
               </div>
             </div>
-            <div class="tab-content-product">
-              <div class="content">
+            <div class="tab-content">
+              <div id="content" class="content1">
                 <!-- product table start-->
                 <table class="table table-all text-center p-md-4 p-lg-5">
                   <thead>
                     <tr>
-                      <th scope="col-1" class="align-middle product-img">產品照片</th>
+                      <th scope="col-1" class="align-middle product-img">
+                        產品照片
+                      </th>
                       <th scope="col-1" class="align-middle product-name">
                         產品名稱
                       </th>
@@ -357,9 +359,7 @@
                 <!-- 分頁 end  -->
                 <!-- product table end-->
               </div>
-            </div>
-            <div class="tab-content-article">
-              <div class="content">
+              <div id="content" class="content2">
                 <!-- article table start-->
                 <table class="table table-all text-center p-md-4 p-lg-5">
                   <thead>
@@ -613,26 +613,43 @@
         $(".about-membership-bubble").toggle("display");
       });
       // 切換區域tab-switch
-      let menuProduct = document.querySelector(".menu-product");
-      let menuArticle = document.querySelector(".menu-article");
-      let tabContentProduct = document.querySelector(".tab-content-product");
-      let tabContentArticle = document.querySelector(".tab-content-article");
-      menuArticle.addEventListener("click", function () {
-        // menuProduct.hide();
-        // menuArticle.show();
-        menuProduct.style.display = none;
-        menuArticle.style.display = block;
-        menuArticle.classList.add("active");
-        menuProduct.classList.remove("active");
-      });
-      menuProduct.addEventListener("click", function () {
-        // menuArticle.hide();
-        // menuProduct.show();
-        menuArticle.style.display = none;
-        menuProduct.style.display = block;
-        menuProduct.classList.add("active");
-        menuArticle.classList.remove("active");
-      });
+      // let menuProduct = document.querySelector(".menu-product");
+      // let menuArticle = document.querySelector(".menu-article");
+      // let tabContentProduct = document.querySelector(".tab-content-product");
+      // let tabContentArticle = document.querySelector(".tab-content-article");
+      // menuArticle.addEventListener("click", function () {
+      //   // menuProduct.hide();
+      //   // menuArticle.show();
+      //   menuProduct.style.display = none;
+      //   menuArticle.style.display = block;
+      //   menuArticle.classList.add("active");
+      //   menuProduct.classList.remove("active");
+      // });
+      // menuProduct.addEventListener("click", function () {
+      //   // menuArticle.hide();
+      //   // menuProduct.show();
+      //   menuArticle.style.display = none;
+      //   menuProduct.style.display = block;
+      //   menuProduct.classList.add("active");
+      //   menuArticle.classList.remove("active");
+      // });
+      let menu = document.querySelectorAll("#menu");
+      let content = document.querySelectorAll("#content");
+      for (let i = 0; i < menu.length; i++) {
+        menu[i].addEventListener("click", function () {
+          for (let k = 0; k < content.length; k++) {
+            if (i === k) {
+              content[k].style.display = "block";
+            } else {
+              content[k].style.display = "none";
+            }
+          }
+          for (let j = 0; j < menu.length; j++) {
+            menu[j].classList.remove("active");
+          }
+          this.classList.add("active");
+        });
+      }
     </script>
   </body>
 </html>

@@ -71,7 +71,7 @@
           <table
             class="
               table table-hover table-bordered table-all-left
-              p-md-4 p-lg-5 
+              p-md-4 p-lg-5
             "
           >
             <thead>
@@ -172,20 +172,17 @@
               >
                 <a
                   type="button"
-                  class="btn btn-outline-primary menu-order-progress active"
-                  href="member-order-progress.html"
+                  id="menu"
+                  class="btn btn-outline-primary menu active"
                   >待完成</a
                 >
-                <a
-                  type="button"
-                  class="btn btn-outline-primary menu-order-complete"
-                  href="member-order-complete.html"
+                <a type="button" id="menu" class="btn btn-outline-primary menu"
                   >已完成</a
                 >
               </div>
             </div>
-            <div class="tab-content-order-progress">
-              <div class="content">
+            <div class="tab-content">
+              <div id="content" class="content1">
                 <!-- order progress table start-->
                 <table
                   class="
@@ -531,9 +528,7 @@
                 </div>
                 <!-- order progress table end-->
               </div>
-            </div>
-            <div class="tab-content-order-complete">
-              <div class="content">
+              <div id="content" class="content2">
                 <!-- order complete table start-->
                 <table
                   class="
@@ -912,31 +907,48 @@
       $("a.see-member").click((e) => {
         $(".about-membership-bubble").toggle("display");
       });
-      // 切換區域tab-switch
-      let menuProgress = document.querySelector(".menu-order-progress");
-      let menuComplete = document.querySelector(".menu-order-complete");
-      let tabContentProgress = document.querySelector(
-        ".tab-content-order-progress"
-      );
-      let tabContentComplete = document.querySelector(
-        ".tab-content-order-complete"
-      );
-      menuComplete.addEventListener("click", function () {
-        // tabContentProgress.hide();
-        // tabContentRoute.show();
-        tabContentProgress.style.display = none;
-        tabContentComplete.style.display = block;
-        tabContentComplete.classList.add("active");
-        tabContentProgress.classList.remove("active");
-      });
-      menuProgress.addEventListener("click", function () {
-        // tabContentComplete.hide();
-        // tabContentProgress.show();
-        tabContentComplete.style.display = none;
-        tabContentProgress.style.display = block;
-        tabContentProgress.classList.add("active");
-        tabContentComplete.classList.remove("active");
-      });
+      // // 切換區域tab-switch
+      // let menuProgress = document.querySelector(".menu-order-progress");
+      // let menuComplete = document.querySelector(".menu-order-complete");
+      // let tabContentProgress = document.querySelector(
+      //   ".tab-content-order-progress"
+      // );
+      // let tabContentComplete = document.querySelector(
+      //   ".tab-content-order-complete"
+      // );
+      // menuComplete.addEventListener("click", function () {
+      //   // tabContentProgress.hide();
+      //   // tabContentRoute.show();
+      //   tabContentProgress.style.display = none;
+      //   tabContentComplete.style.display = block;
+      //   tabContentComplete.classList.add("active");
+      //   tabContentProgress.classList.remove("active");
+      // });
+      // menuProgress.addEventListener("click", function () {
+      //   // tabContentComplete.hide();
+      //   // tabContentProgress.show();
+      //   tabContentComplete.style.display = none;
+      //   tabContentProgress.style.display = block;
+      //   tabContentProgress.classList.add("active");
+      //   tabContentComplete.classList.remove("active");
+      // });
+      let menu = document.querySelectorAll("#menu");
+      let content = document.querySelectorAll("#content");
+      for (let i = 0; i < menu.length; i++) {
+        menu[i].addEventListener("click", function () {
+          for (let k = 0; k < content.length; k++) {
+            if (i === k) {
+              content[k].style.display = "block";
+            } else {
+              content[k].style.display = "none";
+            }
+          }
+          for (let j = 0; j < menu.length; j++) {
+            menu[j].classList.remove("active");
+          }
+          this.classList.add("active");
+        });
+      }
     </script>
   </body>
 </html>

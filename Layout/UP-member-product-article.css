@@ -1,4 +1,13 @@
 /* table */
+.table-all-left {
+  border-collapse: collapse;
+  width: 100%;
+  border-style: hidden;
+  box-shadow: 0 0 0 1px #000;
+  border-radius: 10px;
+  position: sticky;
+  top: 100px;
+}
 .table-all {
   border-collapse: collapse;
   width: 100%;
@@ -182,19 +191,8 @@
 /*會員制度氣泡end*/
 
 /* 切換區塊 start */
-.tabs {
-  display: flex;
-  justify-content: center;
-  border-bottom: 2px solid rgb(201, 200, 200);
-}
-
-.tab-content-product {
-  display: block;
-  padding: 10px 20px;
-}
-.tab-content-article {
+.content2 {
   display: none;
-  padding: 10px 20px;
 }
 /* 切換區塊 end */
 

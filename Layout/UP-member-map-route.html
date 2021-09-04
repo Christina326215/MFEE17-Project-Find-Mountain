@@ -63,7 +63,10 @@
         <!-- manage-left-side start -->
         <div class="col-12 col-md-3 my-3">
           <table
-            class="table table-hover table-bordered table-all p-md-4 p-lg-5"
+            class="
+              table table-hover table-bordered table-all-left
+              p-md-4 p-lg-5
+            "
           >
             <thead>
               <tr>
@@ -161,16 +164,19 @@
                 role="group"
                 aria-label="Basic example"
               >
-                <a type="button" class="btn btn-outline-primary menu-map active"
+                <a
+                  type="button"
+                  id="menu"
+                  class="btn btn-outline-primary menu active"
                   >地圖</a
                 >
-                <a type="button" class="btn btn-outline-primary menu-route"
+                <a type="button" id="menu" class="btn btn-outline-primary menu"
                   >路線</a
                 >
               </div>
             </div>
-            <div class="tab-content-map">
-              <div class="content">
+            <div class="tab-content">
+              <div id="content" class="content1">
                 <!-- map table start-->
                 <table class="table table-bordered table-all-map p-md-4 p-lg-5">
                   <tbody>
@@ -208,12 +214,9 @@
                     </tr>
                   </tbody>
                 </table>
-
                 <!-- map table end -->
               </div>
-            </div>
-            <div class="tab-content-route">
-              <div class="content">
+              <div id="content" class="content2">
                 <!-- route table start -->
                 <table
                   class="
@@ -437,26 +440,43 @@
         $(".about-membership-bubble").toggle("display");
       });
       // 切換區域tab-switch
-      let menuMap = document.querySelector(".menu-map");
-      let menuRoute = document.querySelector(".menu-route");
-      let tabContentMap = document.querySelector(".tab-content-map");
-      let tabContentRoute = document.querySelector(".tab-content-route");
-      menuRoute.addEventListener("click", function () {
-        // tabContentMap.hide();
-        // tabContentRoute.show();
-        tabContentMap.style.display = none;
-        tabContentRoute.style.display = block;
-        tabContentRoute.classList.add("active");
-        tabContentMap.classList.remove("active");
-      });
-      menuMap.addEventListener("click", function () {
-        // tabContentRoute.hide();
-        // tabContentMap.show();
-        tabContentRoute.style.display = none;
-        tabContentMap.style.display = block;
-        tabContentMap.classList.add("active");
-        tabContentRoute.classList.remove("active");
-      });
+      // let menuMap = document.querySelector(".menu-map");
+      // let menuRoute = document.querySelector(".menu-route");
+      // let tabContentMap = document.querySelector(".tab-content-map");
+      // let tabContentRoute = document.querySelector(".tab-content-route");
+      // menuRoute.addEventListener("click", function () {
+      //   // tabContentMap.hide();
+      //   // tabContentRoute.show();
+      //   tabContentMap.style.display = none;
+      //   tabContentRoute.style.display = block;
+      //   tabContentRoute.classList.add("active");
+      //   tabContentMap.classList.remove("active");
+      // });
+      // menuMap.addEventListener("click", function () {
+      //   // tabContentRoute.hide();
+      //   // tabContentMap.show();
+      //   tabContentRoute.style.display = none;
+      //   tabContentMap.style.display = block;
+      //   tabContentMap.classList.add("active");
+      //   tabContentRoute.classList.remove("active");
+      // });
+      let menu = document.querySelectorAll("#menu");
+      let content = document.querySelectorAll("#content");
+      for (let i = 0; i < menu.length; i++) {
+        menu[i].addEventListener("click", function () {
+          for (let k = 0; k < content.length; k++) {
+            if (i === k) {
+              content[k].style.display = "block";
+            } else {
+              content[k].style.display = "none";
+            }
+          }
+          for (let j = 0; j < menu.length; j++) {
+            menu[j].classList.remove("active");
+          }
+          this.classList.add("active");
+        });
+      }
     </script>
   </body>
 </html>
