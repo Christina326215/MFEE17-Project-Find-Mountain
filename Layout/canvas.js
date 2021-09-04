@@ -1,42 +1,20 @@
-const canvas = new fabric.Canvas("canvasBg", {
-  width: 1081,
-  height: 611,
+const canvas = new fabric.Canvas("canvas", {
+  width: 395,
+  height: 310,
 });
 
-// canvas.setBackgroundImage(
-//   "./img/postcard-bg.png",
-//   () => canvas.renderAll(),
-//   // { crossOrigin: "Anonymous" }
+// fabric.Image.fromURL(
+//   "./img/img-outfit/postcard-bg800.png",
+//   (img) => {
+//     const oImg = img.set({
+//       width: 800,
+//       height: 452,
+//     });
+//     canvas.setBackgroundImage(oImg).renderAll();
+//   }
 // );
 
-fabric.Image.fromURL(
-  "./img/img-outfit/postcard-bg.png",
-  (img) => {
-    const oImg = img.set({
-      width: 1081,
-      height: 611,
-    });
-    canvas.setBackgroundImage(oImg).renderAll();
-  }
-  // { crossOrigin: "Anonymous" }
-);
-
-// const canvas = new fabric.Canvas("canvas", {
-//   width: 500,
-//   height: 400,
-// });
-
-// const $ = (id) => document.getElementById(id);
-//       // const imageUploader = $("imageUploader");
-//       // const file = $("file");
-//       const imgset = $("imgset");
-//       // const defaultImg = $("defaultImg");
-const imageUploader = document.getElementById("imageUploader");
-const file = document.getElementById("file");
-const imgset = document.getElementById("imgset");
-// const test1=document.querySelector(".test1")
 const productImg = document.querySelectorAll(".product-img");
-// console.log(test1)
 const defaultImg = document.getElementById("defaultImg");
 
 let movingImage;
@@ -44,10 +22,6 @@ let imgDragOffset = {
   offsetX: 0,
   offsetY: 0,
 };
-// function uploadFile(e) {
-//   file.click();
-// }
-
 function saveImg(e) {
   console.log(e.target.tagName);
   if (e.target.tagName.toLowerCase() === "img") {
@@ -58,21 +32,6 @@ function saveImg(e) {
     console.log(movingImage);
   }
 }
-
-// function handleFile() {
-//   const fileReader = new FileReader();
-//   fileReader.readAsDataURL(this.files[0]);
-//   fileReader.onload = (e) => {
-//     // 圖片 base64
-//     const dataURL = e.target.result;
-//     const img = document.createElement("img");
-//     img.draggable = true;
-//     img.src = dataURL;
-//     img.click = saveImg;
-//     imgset.appendChild(img);
-//   };
-// }
-
 function dropImg(e) {
   console.log("2");
   const { offsetX, offsetY } = e.e;
@@ -82,8 +41,6 @@ function dropImg(e) {
     height: movingImage.naturalHeight,
     scaleX: 100 / movingImage.naturalWidth,
     scaleY: 100 / movingImage.naturalHeight,
-    // top: offsetY - imgDragOffset.offsetY,
-    // left: offsetX - imgDragOffset.offsetX,
     top: offsetY,
     left:offsetX,
   });
@@ -91,22 +48,84 @@ function dropImg(e) {
   canvas.add(image);
 }
 
-// imageUploader.addEventListener("click", uploadFile, true);
-// file.addEventListener("change", handleFile);
 canvas.on("drop", dropImg);
-
-// defaultImg.addEventListener('mousedown', saveImg)
 
 let i;
 for(i=0;i<productImg.length;i++){
   productImg[i].addEventListener("mousedown", saveImg);
 }
-imgset.addEventListener("mousedown", saveImg);
 
-// fabric.Image.fromURL(
-//   srcImg,
-//   function (oImg) {
-//     canvas.add(oImg);
-//   },
-//   { crossOrigin: "Anonymous" }
-// );
+//////////以下為canvas2image//////////////////
+var canvasPng,
+        ctx,
+        bMouseIsDown = false,
+        iLastX,
+        iLastY,
+        $save,
+        $imgs;  
+      function init() {
+        canvasPng = document.querySelector(".cvs");
+        // ctx = canvasPng.getContext("2d");
+        $save = document.getElementById("save");
+        $imgs = document.getElementById("imgs");
+        bind();
+      }
+      function bind() {
+        canvasPng.onmousedown = function (e) {
+          bMouseIsDown = true;
+          iLastX =
+            e.clientX -
+            canvasPng.offsetLeft +
+            (window.pageXOffset ||
+              document.body.scrollLeft ||
+              document.documentElement.scrollLeft);
+          iLastY =
+            e.clientY -
+            canvasPng.offsetTop +
+            (window.pageYOffset ||
+              document.body.scrollTop ||
+              document.documentElement.scrollTop);
+        };
+        canvasPng.onmouseup = function () {
+          bMouseIsDown = false;
+          iLastX = -1;
+          iLastY = -1;
+        };
+        canvasPng.onmousemove = function (e) {
+          if (bMouseIsDown) {
+            var iX =
+              e.clientX -
+              canvasPng.offsetLeft +
+              (window.pageXOffset ||
+                document.body.scrollLeft ||
+                document.documentElement.scrollLeft);
+            var iY =
+              e.clientY -
+              canvasPng.offsetTop +
+              (window.pageYOffset ||
+                document.body.scrollTop ||
+                document.documentElement.scrollTop);
+            // ctx.moveTo(iLastX, iLastY);
+            // ctx.lineTo(iX, iY);
+            // ctx.stroke();
+            iLastX = iX;
+            iLastY = iY;
+          }
+        };
+
+        $save.onclick = function (e) {
+          // var type = "png",
+          //   w = "800",
+          //   h = "452";
+          // Canvas2Image.saveAsImage(canvasPng, w, h, type);
+          // console.log(w, h, type);
+          html2canvas(document.getElementById('canvasBox')).then(function(canvas) {
+            // document.body.appendChild(canvas);
+            var a = document.createElement('a');
+            a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
+            a.download = 'image.jpg';
+            a.click();
+        });
+        };
+      }
+      onload = init;
