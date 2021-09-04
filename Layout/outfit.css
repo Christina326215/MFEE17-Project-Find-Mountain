@@ -28,7 +28,7 @@
   /* flex-shrink: 0; */
   margin: auto 0;
 }
-@media screen and (max-width: 1200px) {
+/* @media screen and (max-width: 1200px) {
   .sub-content {
     display: flex;
     flex-wrap: wrap-reverse;
@@ -39,7 +39,7 @@
   .product-container {
     width: 100%;
   }
-}
+} */
 .dialogBox1 img {
   position: relative;
   transform: translate(-74%, -40%);
@@ -183,19 +183,27 @@
   justify-content: center;
   margin: 20px 0px;
 }
-#canvasBg {
-  border: 1px solid red;
+.canvas-target {
+  position: absolute;
+  top: 46px;
+  right: 36px;
 }
 
-/* #canvas {
-  border: 1px solid #000;
-} */
+#canvas {
+  border: 1px solid green;
+  /* transform: translate(166px, -24px); */
+}
 
 .canvas-box {
   /* width: 80%; */
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
+  margin: 0 auto;
+  background: url("./img/img-outfit/postcard-bg800.png");
+  max-width: 800px;
+  height: 452px;
+  position: relative;
 }
 /* .drawing {
   transform: translate(-480px, 10px);

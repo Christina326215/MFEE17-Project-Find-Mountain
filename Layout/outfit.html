@@ -515,9 +515,10 @@
       <div>
         <h3 class="subTitle">製作個人化明信片</h3>
         <div class="underline"></div>
-        <div class="canvas-box">
-          <canvas id="canvasBg" class="cvs"></canvas>
-          <!-- <canvas class="drawing" id="canvas"></canvas> -->
+        <div class="canvas-box cvs" id="canvasBox">
+          <div class="canvas-target">
+            <canvas id="canvas"></canvas>
+          </div>
         </div>
         <!-- canvas2image儲存圖片 start -->
         <!-- <button id="save">save</button> -->
@@ -638,6 +639,7 @@
     <script src="outfit.js"></script>
     <script src="fabric.js"></script>
     <script src="canvas.js"></script>
+    <script  src="http://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script src="https://superal.github.io/canvas2image/canvas2image.js"></script>
     <!-- <script src="canvas2image.js"></script> -->
 

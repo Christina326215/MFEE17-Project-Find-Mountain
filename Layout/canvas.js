@@ -1,18 +1,19 @@
-const canvas = new fabric.Canvas("canvasBg", {
-  width: 800,
-  height: 452,
+const canvas = new fabric.Canvas("canvas", {
+  width: 395,
+  height: 310,
 });
 
-fabric.Image.fromURL(
-  "./img/img-outfit/postcard-bg800.png",
-  (img) => {
-    const oImg = img.set({
-      width: 800,
-      height: 452,
-    });
-    canvas.setBackgroundImage(oImg).renderAll();
-  }
-);
+// fabric.Image.fromURL(
+//   "./img/img-outfit/postcard-bg800.png",
+//   (img) => {
+//     const oImg = img.set({
+//       width: 800,
+//       height: 452,
+//     });
+//     canvas.setBackgroundImage(oImg).renderAll();
+//   }
+// );
+
 const productImg = document.querySelectorAll(".product-img");
 const defaultImg = document.getElementById("defaultImg");
 
@@ -64,7 +65,7 @@ var canvasPng,
         $imgs;  
       function init() {
         canvasPng = document.querySelector(".cvs");
-        ctx = canvasPng.getContext("2d");
+        // ctx = canvasPng.getContext("2d");
         $save = document.getElementById("save");
         $imgs = document.getElementById("imgs");
         bind();
@@ -104,20 +105,27 @@ var canvasPng,
               (window.pageYOffset ||
                 document.body.scrollTop ||
                 document.documentElement.scrollTop);
-            ctx.moveTo(iLastX, iLastY);
-            ctx.lineTo(iX, iY);
-            ctx.stroke();
+            // ctx.moveTo(iLastX, iLastY);
+            // ctx.lineTo(iX, iY);
+            // ctx.stroke();
             iLastX = iX;
             iLastY = iY;
           }
         };
 
         $save.onclick = function (e) {
-          var type = "png",
-            w = "800",
-            h = "452";
-          Canvas2Image.saveAsImage(canvasPng, w, h, type);
-          console.log(w, h, type);
+          // var type = "png",
+          //   w = "800",
+          //   h = "452";
+          // Canvas2Image.saveAsImage(canvasPng, w, h, type);
+          // console.log(w, h, type);
+          html2canvas(document.getElementById('canvasBox')).then(function(canvas) {
+            // document.body.appendChild(canvas);
+            var a = document.createElement('a');
+            a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
+            a.download = 'image.jpg';
+            a.click();
+        });
         };
       }
       onload = init;
