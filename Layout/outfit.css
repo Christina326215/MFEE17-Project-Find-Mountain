@@ -7,26 +7,15 @@
 }
 .sub-content {
   width: 90%;
-  height: 220px;
-  margin: 5rem auto 0 auto;
-  /* border: 1px solid red; */
-  /* position: relative; */
-  display: flex;
+  margin: 5rem auto 0px auto;
 }
-.intro-content {
-  position: relative;
-  border: 1px solid black;
-  /* flex-shrink: 1; */
-  /* width: 30%; */
-  display: flex;
+.left-side {
+  height: 200px;
+  width: 300px;
+  margin: 0 auto;
 }
-.product-container {
-  /* width: 70%; */
-  /* height: 220px; */
-  border: 1px solid blue;
-  /* right: 50px; */
-  /* flex-shrink: 0; */
-  margin: auto 0;
+.right-side {
+  height: 200px;
 }
 /* @media screen and (max-width: 1200px) {
   .sub-content {
@@ -40,12 +29,9 @@
     width: 100%;
   }
 } */
-.dialogBox1 img {
-  position: relative;
-  transform: translate(-74%, -40%);
-  /* width: 257px;
-  height: 167px;
-  background: url("./img/img-outfit/dialogBox1.svg"); */
+.dialogBox1 {
+  left: -150%;
+  top: -120%;
 }
 .dialogBox1 p {
   position: absolute;
@@ -55,12 +41,9 @@
   transform: translate(-50%, -50%);
   border: 1px solid red;
 }
-.dialogBox2 img {
-  position: relative;
-  transform: translate(-70%, -40%);
-  /* width: 277px;
-  height: 170px;
-  background: url("./img/img-outfit/dialogBox2.svg"); */
+.dialogBox2 {
+  right: -150%;
+  top: -130%;
 }
 .dialogBox2 p {
   position: absolute;
@@ -80,16 +63,13 @@
   transform: scale(1);
 } */
 .bear {
-  position: absolute;
   bottom: 0px;
   left: 0px;
 }
-/* .low-mountain {
-  position: absolute;
-  bottom: 0px;
-  left: 30%;
-  cursor: pointer;
-} */
+.mountains {
+  right: 20%;
+  bottom: 0;
+}
 .low-mountain {
   background: url("./img/img-outfit/low-mountain1.svg");
   width: 100px;
@@ -98,7 +78,7 @@
   cursor: pointer;
   position: absolute;
   bottom: 0px;
-  left: 120px;
+  left: 0;
 }
 .low-mountain:hover {
   transform: scale(1.25, 1.25);
@@ -126,7 +106,7 @@
   cursor: pointer;
   position: absolute;
   bottom: -10px;
-  left: 170px;
+  left: 50px;
 }
 .mid-mountain:hover {
   transform: scale(1.25, 1.25);
@@ -154,7 +134,7 @@
   cursor: pointer;
   position: absolute;
   bottom: 0px;
-  left: 220px;
+  left: 100px;
 }
 .high-mountain:hover {
   transform: scale(1.25, 1.25);
