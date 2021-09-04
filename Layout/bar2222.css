@@ -11,7 +11,7 @@
 
 #checkout-progress {
   width: 90%;
-  margin: 0px auto;
+  margin: 0px 180px;
   font-size: 2em;
   font-weight: 900;
   position: relative;
@@ -27,7 +27,7 @@
   left: 0;
   top: 50%;
   height: 10px;
-  width: 20%;
+  width: 45%;
   background-color: #ccc;
   -webkit-transform: translateY(-50%) perspective(1000px);
   transform: translateY(-50%) perspective(1000px);
@@ -57,16 +57,16 @@
   -webkit-transform: scaleX(0.666) translateY(-50%) perspective(1000px);
   transform: scaleX(0.666) translateY(-50%) perspective(1000px);
 }
-#checkout-progress.step-4:after {
+/* #checkout-progress.step-4:after {
   -webkit-transform: scaleX(1) translateY(-50%) perspective(1000px);
   transform: scaleX(1) translateY(-50%) perspective(1000px);
 }
 #checkout-progress.step-5:after {
   -webkit-transform: scaleX(1) translateY(-50%) perspective(1000px);
   transform: scaleX(1) translateY(-50%) perspective(1000px);
-}
+} */
 #checkout-progress .progress-bar1 {
-  width: 20%;
+  width: 45%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

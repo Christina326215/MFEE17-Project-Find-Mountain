@@ -176,3 +176,10 @@
   display: none;
 }
 /* 切換區塊 end */
+.progress_bar_inline_block {
+  /* float: center; */
+  /* position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -195px 0 0 -25px; */
+}
