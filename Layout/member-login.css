@@ -1,14 +1,14 @@
 .logInImg-fit {
   width: 100%;
   height: 600px;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .right-side {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 600px;
+  width: 800px;
   height: 600px;
 }
 

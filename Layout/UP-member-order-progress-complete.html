@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="index.css" type="text/css" />
+    <link rel="stylesheet" href="bar2222.css" />
     <link
       rel="stylesheet"
       href="UP-member-order-progress-complete.css"
@@ -69,9 +70,8 @@
         <div class="col-12 col-md-3 my-3">
           <table
             class="
-              table table-hover table-bordered table-all
-              p-md-4 p-lg-5
-              position-sticky
+              table table-hover table-bordered table-all-left
+              p-md-4 p-lg-5 
             "
           >
             <thead>
@@ -209,10 +209,41 @@
                     </tr>
                     <tr>
                       <td scope="row" class="text-weight-top">訂單狀態：</td>
-                      <td scope="row" class="text-weight-top"></td>
+                      <td scope="row" class="text-weight-top">
+                        <div class="progress_bar_inline_block">
+                          <!-- class change to current "step-2" -->
+                          <div
+                            class="step-1"
+                            id="checkout-progress"
+                            data-current-step="1"
+                          >
+                            <div class="progress-bar1">
+                              <!-- "active" change to "valid" -->
+                              <div class="step step-1 active">
+                                <span></span>
+                                <!-- "opaque" change to "" -->
+                                <div class="fa fa-check opaque"></div>
+                                <div class="step-label">未處理</div>
+                              </div>
+                              <!-- add class "active" -->
+                              <div class="step step-2">
+                                <span></span>
+                                <div class="fa fa-check opaque"></div>
+                                <div class="step-label">處理中</div>
+                              </div>
+                              <div class="step step-3">
+                                <span></span>
+                                <div class="fa fa-check opaque"></div>
+                                <div class="step-label">已完成</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
+
                 <!-- <hr /> -->
                 <div class="mt-5">
                   <h2>商品明細</h2>
@@ -867,6 +898,7 @@
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
       crossorigin="anonymous"
     ></script>
+    <script src="bar2.js"></script>
 
     <script>
       let btn_nav = document.querySelector(".btn_nav");

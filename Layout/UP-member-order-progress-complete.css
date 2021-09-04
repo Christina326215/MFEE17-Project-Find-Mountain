@@ -1,4 +1,13 @@
 /* table */
+.table-all-left {
+  border-collapse: collapse;
+  width: 100%;
+  border-style: hidden;
+  box-shadow: 0 0 0 1px #000;
+  border-radius: 10px;
+  position: sticky;
+  top: 100px;
+}
 .table-all {
   border-collapse: collapse;
   width: 100%;
@@ -178,6 +187,8 @@
   padding: 10px 20px;
 }
 /* 切換區塊 end */
-/* .position-sticky {
-  position: sticky;
-} */
+
+/* progress bar */
+.progress_bar_inline_block {
+  /* display: inline-block; */
+}

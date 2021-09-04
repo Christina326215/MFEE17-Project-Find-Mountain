@@ -197,3 +197,10 @@
   padding: 10px 20px;
 }
 /* 切換區塊 end */
+
+.product-img {
+  width: 150px;
+}
+.product-name {
+  width: 250px;
+}

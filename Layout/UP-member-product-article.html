@@ -185,15 +185,22 @@
                 <table class="table table-all text-center p-md-4 p-lg-5">
                   <thead>
                     <tr>
-                      <th scope="col-1" class="align-middle">產品照片</th>
+                      <th scope="col-1" class="align-middle product-img">產品照片</th>
                       <th scope="col-1" class="align-middle product-name">
                         產品名稱
                       </th>
-                      <th scope="col-2" class="align-middle">尺寸</th>
-                      <th scope="col-4" class="align-middle">單價</th>
-                      <th scope="col-2" class="align-middle">數量</th>
-                      <th scope="col-1" class="align-middle">加入購物車</th>
-                      <th scope="col-1" class="align-middle">刪除</th>
+                      <th scope="col-2" class="align-middle product-size">
+                        尺寸
+                      </th>
+                      <th scope="col-4" class="align-middle product-price">
+                        單價
+                      </th>
+                      <th scope="col-1" class="align-middle product-buy">
+                        加入購物車
+                      </th>
+                      <th scope="col-1" class="align-middle product-delete">
+                        刪除
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -213,19 +220,27 @@
                       <td scope="row" class="align-middle">M</td>
                       <td scope="row" class="align-middle">NT$ 5,000</td>
                       <td scope="row" class="align-middle">
-                        <button class="btn minus-btn">
-                          <i class="bi bi-dash"></i>
-                        </button>
-                        <input
-                          type="text"
-                          class="order-number"
-                          value="1"
-                          readonly
-                        />
-                        <button class="btn add-btn">
-                          <i class="bi bi-plus"></i>
-                        </button>
+                        <a href=""><i class="bi bi-cart h5"></i></a>
                       </td>
+                      <td scope="row" class="align-middle">
+                        <a href=""><i class="bi bi-trash h5"></i></a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td scope="row" class="product-picture-img-wrapper">
+                        <div class="product-picture-img-box">
+                          <img
+                            src="img/shoes-pic2.jpeg"
+                            alt=""
+                            class="product-picture-img"
+                          />
+                        </div>
+                      </td>
+                      <td scope="row" class="align-middle">
+                        MERRELL Tetrex Crest Wrap 女水陸三棲鞋
+                      </td>
+                      <td scope="row" class="align-middle">M</td>
+                      <td scope="row" class="align-middle">NT$ 5,000</td>
                       <td scope="row" class="align-middle">
                         <a href=""><i class="bi bi-cart h5"></i></a>
                       </td>
@@ -249,20 +264,6 @@
                       <td scope="row" class="align-middle">M</td>
                       <td scope="row" class="align-middle">NT$ 5,000</td>
                       <td scope="row" class="align-middle">
-                        <button class="btn minus-btn">
-                          <i class="bi bi-dash"></i>
-                        </button>
-                        <input
-                          type="text"
-                          class="order-number"
-                          value="1"
-                          readonly
-                        />
-                        <button class="btn add-btn">
-                          <i class="bi bi-plus"></i>
-                        </button>
-                      </td>
-                      <td scope="row" class="align-middle">
                         <a href=""><i class="bi bi-cart h5"></i></a>
                       </td>
                       <td scope="row" class="align-middle">
@@ -284,56 +285,6 @@
                       </td>
                       <td scope="row" class="align-middle">M</td>
                       <td scope="row" class="align-middle">NT$ 5,000</td>
-                      <td scope="row" class="align-middle">
-                        <button class="btn minus-btn">
-                          <i class="bi bi-dash"></i>
-                        </button>
-                        <input
-                          type="text"
-                          class="order-number"
-                          value="1"
-                          readonly
-                        />
-                        <button class="btn add-btn">
-                          <i class="bi bi-plus"></i>
-                        </button>
-                      </td>
-                      <td scope="row" class="align-middle">
-                        <a href=""><i class="bi bi-cart h5"></i></a>
-                      </td>
-                      <td scope="row" class="align-middle">
-                        <a href=""><i class="bi bi-trash h5"></i></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td scope="row" class="product-picture-img-wrapper">
-                        <div class="product-picture-img-box">
-                          <img
-                            src="img/shoes-pic2.jpeg"
-                            alt=""
-                            class="product-picture-img"
-                          />
-                        </div>
-                      </td>
-                      <td scope="row" class="align-middle">
-                        MERRELL Tetrex Crest Wrap 女水陸三棲鞋
-                      </td>
-                      <td scope="row" class="align-middle">M</td>
-                      <td scope="row" class="align-middle">NT$ 5,000</td>
-                      <td scope="row" class="align-middle">
-                        <button class="btn minus-btn">
-                          <i class="bi bi-dash"></i>
-                        </button>
-                        <input
-                          type="text"
-                          class="order-number"
-                          value="1"
-                          readonly
-                        />
-                        <button class="btn add-btn">
-                          <i class="bi bi-plus"></i>
-                        </button>
-                      </td>
                       <td scope="row" class="align-middle">
                         <a href=""><i class="bi bi-cart h5"></i></a>
                       </td>
@@ -356,20 +307,6 @@
                       </td>
                       <td scope="row" class="align-middle">M</td>
                       <td scope="row" class="align-middle">NT$ 5,000</td>
-                      <td scope="row" class="align-middle">
-                        <button class="btn minus-btn">
-                          <i class="bi bi-dash"></i>
-                        </button>
-                        <input
-                          type="text"
-                          class="order-number"
-                          value="1"
-                          readonly
-                        />
-                        <button class="btn add-btn">
-                          <i class="bi bi-plus"></i>
-                        </button>
-                      </td>
                       <td scope="row" class="align-middle">
                         <a href=""><i class="bi bi-cart h5"></i></a>
                       </td>

@@ -229,3 +229,50 @@
   padding: 10px 20px;
 }
 /* 切換區塊 end */
+
+/* progress bar star */
+:root {
+  --barBackground-color: #6da77f;
+  --barShadow-color: #bae29a;
+  --progressachievement-width: calc(25.55%);
+}
+.bar_list {
+  display: flex;
+  margin-top: 4px;
+  margin-bottom: 20px;
+  margin-left: 40px;
+}
+.progress-bg {
+  margin: 0 auto;
+  width: 90%;
+  height: 32px;
+  border-radius: 50px;
+  text-align: center;
+  -webkit-box-shadow: inset 0 0 50px var(--barShadow-color);
+  box-shadow: inset 0 0 50px var(--barShadow-color);
+}
+.progress-bg-font {
+  position: absolute;
+  /* left: 50%; */
+  transform: translateX(-50%);
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 32px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.progress_achievement-bar {
+  height: 32px;
+  border-radius: 50px 0 0 50px;
+  float: left;
+  width: var(--progressachievement-width);
+  background-color: var(--barBackground-color);
+  background: -webkit-linear-gradient(
+    top,
+    var(--barBackground-color),
+    var(--barBackground-color)
+  );
+}
+/* progress bar end */
