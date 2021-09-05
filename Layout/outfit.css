@@ -17,43 +17,31 @@
 .right-side {
   height: 200px;
 }
-/* @media screen and (max-width: 1200px) {
-  .sub-content {
-    display: flex;
-    flex-wrap: wrap-reverse;
-  }
-  .intro-content {
-    width: 100%;
-  }
-  .product-container {
-    width: 100%;
-  }
-} */
 .dialogBox1 {
   left: -150%;
   top: -120%;
 }
-.dialogBox1 p {
+/* .dialogBox1 p {
   position: absolute;
   font-size: 16px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   border: 1px solid red;
-}
+} */
 .dialogBox2 {
   right: -150%;
   top: -130%;
 }
-.dialogBox2 p {
+/* .dialogBox2 p {
   position: absolute;
-  /* transform: translate(42%, -200%); */
+  transform: translate(42%, -200%);
   font-size: 16px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  /* border: 1px solid red; */
-}
+  border: 1px solid red;
+} */
 /* .anim-show {
   transition: 1s;
   transform: scale(0.8);
@@ -148,16 +136,6 @@
   left: 40%;
   transform: translate(-50%, -50%);
 }
-
-/* @media screen and (max-width: 768px) {
-  .sub-content {
-    width: 90%;
-    height: 220px;
-    margin: 60px auto;
-    border: 1px solid red;
-    position: relative;
-  }
-} */
 .nextStep {
   display: flex;
   justify-content: center;
@@ -165,29 +143,43 @@
 }
 .canvas-target {
   position: absolute;
-  top: 46px;
-  right: 36px;
+  top: 8%;
+  /* right: 4%; */
+  left: 46%;
 }
 
 #canvas {
-  border: 1px solid green;
-  /* transform: translate(166px, -24px); */
+  /* border: 1px solid green; */
+}
+@media screen and (max-width: 768px) {
+  #canvas {
+    -webkit-transform: scale(0.5);
+    -webkit-transform-origin: 0 0;
+  }
+}
+@media screen and (min-width: 769px) and (max-width: 991px) {
+  #canvas {
+    -webkit-transform: scale(0.6);
+    -webkit-transform-origin: 0 0;
+  }
+}
+@media screen and (min-width: 992px) and (max-width: 1200px) {
+  #canvas {
+    -webkit-transform: scale(0.7);
+    -webkit-transform-origin: 0 0;
+  }
 }
 
 .canvas-box {
-  /* width: 80%; */
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
-  margin: 0 auto;
+  margin: auto;
   background: url("./img/img-outfit/postcard-bg800.png");
-  max-width: 800px;
-  height: 452px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 74%;
+  height: 0px;
+  padding-top: 56.6%;
   position: relative;
 }
-/* .drawing {
-  transform: translate(-480px, 10px);
-} */
 
 [draggable] {
   -moz-user-select: none;
