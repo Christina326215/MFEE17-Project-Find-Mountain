@@ -12,7 +12,7 @@
 #checkout-progress {
   width: 90%;
   margin: 0px auto;
-  font-size: 2.5em;
+  font-size: 2em;
   font-weight: 900;
   position: relative;
 }
@@ -26,7 +26,7 @@
   position: absolute;
   left: 0;
   top: 50%;
-  height: 20px;
+  height: 10px;
   width: 100%;
   background-color: #ccc;
   -webkit-transform: translateY(-50%) perspective(1000px);
@@ -37,7 +37,7 @@
   position: absolute;
   left: 0;
   top: 50%;
-  height: 20px;
+  height: 10px;
   width: 100%;
   background-color: #6da77f;
   -webkit-transform: scaleX(0) translateY(-50%) perspective(1000px);
@@ -104,7 +104,7 @@
   color: #ccc;
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
-  display: block;
+  /* display: block; */
   -webkit-transform: translate3d(0, 0, 0) scale(1) perspective(1000px);
   transform: translate3d(0, 0, 0) scale(1) perspective(1000px);
 }
@@ -144,26 +144,26 @@
   top: 50%;
   -webkit-transform: translate(-50%, -50%) perspective(1000px);
   transform: translate(-50%, -50%) perspective(1000px);
-  width: 75px;
-  height: 75px;
+  width: 50px;
+  height: 50px;
   background-color: #fff;
   border-radius: 50%;
-  border: 5px solid #ccc;
+  border: 3px solid #ccc;
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
 @media (max-width: 767px) {
   #checkout-progress .progress-bar1 .step:after {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
   }
 }
 #checkout-progress .progress-bar1 .step.active:after {
-  border: 5px solid #6da77f;
+  border: 3px solid #6da77f;
 }
 #checkout-progress .progress-bar1 .step.valid:after {
   background-color: #6da77f;
-  border: 5px solid #6da77f;
+  border: 3px solid #6da77f;
 }
 
 .button-container {
@@ -175,7 +175,7 @@
   -ms-flex-pack: distribute;
   justify-content: space-around;
   width: 100%;
-  margin: 100px auto 0px;
+  margin: 20px auto;
 }
 .button-container .btn {
   display: inline-block;

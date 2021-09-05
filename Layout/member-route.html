@@ -22,7 +22,9 @@
       </a>
       <div class="btns">
         <a href="#" class="search_button"><i class="bi bi-search h4"></i></a>
-        <a href="./shopping-1-content.html" class="shopping_button"><i class="bi bi-cart h4"></i></a>
+        <a href="./shopping-1-content.html" class="shopping_button"
+          ><i class="bi bi-cart h4"></i
+        ></a>
         <a href="./member-login.html" class="sign_button">Sign In</a>
       </div>
       <!-- =========nav star========= -->
@@ -32,7 +34,9 @@
             <a class="nav-font" href="./mountain_index.html">路線地圖</a>
           </li>
           <li>
-            <a class="nav-font" href="../Article/article-recommend.html">推薦攻略</a>
+            <a class="nav-font" href="../Article/article-recommend.html"
+              >推薦攻略</a
+            >
           </li>
           <li>
             <a class="nav-font" href="./product.html">購物商城</a>
@@ -68,12 +72,32 @@
                     <img src="img/signin.jpg" alt="" class="cover-fit" />
                   </div>
                   <h3 class="m-2 member-name">王小明</h3>
-                  <i class="bi bi-caret-up-fill grade-icon"></i>
-                  <i class="bi bi-caret-up grade-icon"></i>
-                  <i class="bi bi-caret-up grade-icon"></i>
-                  <div>
-                    <h6 class="grade-icon">肉腳</h6>
-                    <i class="bi bi-question-circle"></i>
+                  <img src="img/low.svg" alt="" />
+                  <div class="position-relative member-level">
+                    <span class="grade-icon">肉腳</span>
+                    <a
+                      href="javascript:void(0)"
+                      id="seeMember"
+                      class="see-member see-member-style"
+                      ><i class="bi bi-question-circle"></i
+                    ></a>
+                    <!-- =========about-membership-bubble start========= -->
+                    <div class="about-membership-bubble p-3 position-absolute">
+                      <span class="about-membership-bubble-arrow"></span>
+                      <span class="membership">
+                        可至路線地圖之我的成就區，查看累積會員等級積分，享有商品優惠折扣哦！ </span
+                      ><br />
+                      <span class="membership membership-low">
+                        肉腳：完成爬山積分3分以上 </span
+                      ><br />
+                      <span class="membership membership-medium">
+                        山友 ：完成爬山積分20分以上 </span
+                      ><br />
+                      <span class="membership membership-high">
+                        山神 ：完成爬山積分50分以上
+                      </span>
+                    </div>
+                    <!-- =========about-membership-bubble end========= -->
                   </div>
                 </th>
               </tr>
@@ -273,7 +297,9 @@
             <a class="nav-font" href="./mountain_index.html">路線地圖</a>
           </div>
           <div class="footer_head">
-            <a class="nav-font" href="../Article/article-recommend.html">推薦攻略</a>
+            <a class="nav-font" href="../Article/article-recommend.html"
+              >推薦攻略</a
+            >
           </div>
           <a href="./HomepageIndex.html" class="footer_logo">
             <img src="img/logo.png" alt="footer_logo" />
@@ -300,6 +326,11 @@
     </footer>
     <!-- =========footer end========= -->
     <!-- body end -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
 
     <script>
       let btn_nav = document.querySelector(".btn_nav");
@@ -309,6 +340,10 @@
         this.classList.toggle("change");
         nav.classList.toggle("nav_show");
       };
+      //會員制度泡泡
+      $("a.see-member").click((e) => {
+        $(".about-membership-bubble").toggle("display");
+      });
     </script>
   </body>
 </html>

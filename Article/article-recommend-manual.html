@@ -15,14 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
       rel="stylesheet"
     />
-    <script
-      src="https://kit.fontawesome.com/8efbf3e62f.js"
-      crossorigin="anonymous"
-    ></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
+    <script src="https://kit.fontawesome.com/8efbf3e62f.js" crossorigin="anonymous"></script>
     <title>article-recommend</title>
   </head>
   <body>
@@ -34,18 +27,14 @@
       </a>
       <div class="btns">
         <a href="#" class="search_button"><i class="bi bi-search h4"></i></a>
-        <a href="../Layout/shopping-1-content.html" class="shopping_button"
-          ><i class="bi bi-cart h4"></i
-        ></a>
+        <a href="../Layout/shopping-1-content.html" class="shopping_button"><i class="bi bi-cart h4"></i></a>
         <a href="../Layout/member-login.html" class="sign_button">Sign In</a>
       </div>
       <!-- =========nav star========= -->
       <nav class="nav">
         <ul class="list-unstyled d-flex">
           <li>
-            <a class="nav-font" href="../Layout/mountain_index.html"
-              >路線地圖</a
-            >
+            <a class="nav-font" href="../Layout/mountain_index.html">路線地圖</a>
           </li>
           <li>
             <a class="nav-font" href="./article-recommend.html">推薦攻略</a>
@@ -73,42 +62,7 @@
     <div class="container">
       <div class="filter-wrapper">
         <h2 class="h2">推薦攻略</h2>
-        <div class="chatbg">
-          <div class="bg-filter mb-5">
-            <div class="stepbox mb-5">
-              <div class="qa animate__animated animate__zoomIn">
-                <div class="bearwrap">
-                  <img class="bear" src="./img/bear.png" alt="" />
-                </div>
-                <div class="chatbox">
-                  <div class="chatBoxText">
-                    嗨 ～ 我是找靠山的吉祥物「熊熊」，<br />我可以幫助你找到合適的路線！<br />
-                    目前已經知道自己適合的路線了嗎？
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="d-flex justify-content-end firstQ">
-              <a
-                class="btn btn-primary mr-2"
-                href="./article-recommend-manual.html"
-                >是的，我想要自行篩選</a
-              >
-              <a
-                class="btn btn-primary mr-2"
-                href="./article-recommend-bear.html"
-                >不太清楚，請熊熊幫忙</a
-              >
-            </div>
-            <a
-              class="p-2 text-right text-white-50"
-              href="https://www.freepik.com/vectors/tree"
-              >Tree vector created by upklyak - www.freepik.com</a
-            >
-          </div>
-        </div>
-
-        <!-- <table class="table table-hover my-2 border-left border-right">
+        <table class="table table-hover my-2 border-left border-right">
           <tbody>
             <tr>
               <th scope="row ">
@@ -119,84 +73,60 @@
                 </div>
               </th>
               <td class="text-center">
-                <button type="button" class="btn btn-primary filterBtn">
-                  低
-                </button>
+                <input type="button" value="低" class="btn btn-primary filterBtn level-btn" />
               </td>
               <td class="text-center">
-                <button type="button" class="btn btn-primary filterBtn">
-                  中
-                </button>
+                <input type="button" value="中" class="btn btn-primary filterBtn level-btn" />
               </td>
               <td class="text-center">
-                <button type="button" class="btn btn-primary filterBtn">
-                  高
-                </button>
+                <input type="button" value="高" class="btn btn-primary filterBtn level-btn" />
               </td>
               <td></td>
             </tr>
             <tr>
               <th scope="row"><div class="d-flex justify-content-center mt-2 ml-1 border-right">最適季節</div></th>
               <td class="text-center">
-                <button type="button" class="btn btn-primary filterBtn">
-                  春季
-                </button>
+                <input type="button" value="春季" class="btn btn-primary filterBtn season-btn"> 
+              </td>
+              <td class="text-center">                
+                <input type="button" value="夏季" class="btn btn-primary filterBtn season-btn"> 
+              </td>
+              <td class="text-center">                
+                <input type="button" value="秋季" class="btn btn-primary filterBtn season-btn"> 
               </td>
               <td class="text-center">
-                <button type="button" class="btn btn-primary filterBtn">
-                  夏季
-                </button>
-              </td>
-              <td class="text-center">
-                <button type="button" class="btn btn-primary filterBtn">
-                  秋季
-                </button>
-              </td>
-              <td class="text-center">
-                <button type="button" class="btn btn-primary filterBtn">
-                  冬季
-                </button>
+                <input type="button" value="冬季" class="btn btn-primary filterBtn season-btn"> 
               </td>
             </tr>
             <tr>
               <th scope="row"><div class="d-flex justify-content-center mt-2 ml-1 border-right">所需時間</div></th>
               <td class="text-center">
-                <button type="button" class="btn btn-primary filterBtn">
-                  5小時內
-                </button>
+                <input type="button" value="5小時內" class="btn btn-primary filterBtn time-btn"> 
+              </td>
+              <td class="text-center">               
+                <input type="button" value="2天內" class="btn btn-primary filterBtn time-btn"> 
               </td>
               <td class="text-center">
-                <button type="button" class="btn btn-primary filterBtn">
-                  2天內
-                </button>
-              </td>
-              <td class="text-center">
-                <button type="button" class="btn btn-primary filterBtn">
-                  2天以上
-                </button>
+                <input type="button" value="2天以上" class="btn btn-primary filterBtn time-btn"> 
               </td class="text-center">
               <td class="text-center"></td>
             </tr>
             <tr class="border-bottom">
               <th scope="row"><div class="d-flex justify-content-center mt-2 ml-1 border-right">步道類型</div></th>
               <td class="text-center">
-                <button type="button" class="btn btn-primary filterBtn">
-                  郊山步道
-                </button>
+                <input type="button" value="郊山步道" class="btn btn-primary filterBtn mountain-type-btn"> 
               </td>
               <td class="text-center">
-                <button type="button" class="btn btn-primary filterBtn">
-                  高山步道
-                </button>
+                <input type="button" value="高山步道" class="btn btn-primary filterBtn mountain-type-btn"> 
               </td>
               <td class="text-center"></td>
               <td class="text-center"></td>
             </tr>
           </tbody>
-        </table> -->
+        </table>
       </div>
     </div>
-    <!-- <div class="recommendbg">
+    <div class="recommendbg">
       <div class="recommend-filter">
         <div class="container">
           <div class="bg-wrapper">
@@ -207,11 +137,11 @@
                 <div class="row no-gutters">
                   <div class="col-md-4 pic-box">
                     <div class="pic-box-wrap">
-                      <img
-                        class="cardimg img-fluid"
-                        src="./img/sevenstar.jpeg"
-                        alt="..."
-                      />
+                       <img
+                      class="cardimg img-fluid"
+                      src="./img/sevenstar.jpeg"
+                      alt="..."
+                    />
                     </div>
                   </div>
                   <div class="col-md-8">
@@ -221,24 +151,24 @@
                           <h5 class="cardTitle mr-3 h3">
                             七星山主、東峰登山步道
                           </h5>
-                          <p class="text-primary body-content mr-3">
-                            <img src="./img/level.png" />難度低
+                          <p class="text-primary body-content mr-3 ">
+                            <img class="mr-1" src="./img/level_low.svg" />難度低
                           </p>
-                          <p class="text-primary body-content mr-3">
-                            <img src="./img/footprints.png" />5公里
+                          <p class="text-primary body-content mr-3 ">
+                            <i class="fas fa-shoe-prints mr-2"></i>5公里
                           </p>
-                          <i class="bi bi-heart mr-2 ml-auto text-danger"></i>
-                          <p class="body-content">加入收藏</p>
+                            <i class="bi bi-heart-fill mr-2 ml-auto"></i>
+                            <p class="body-content ">加入收藏</p>
                         </div>
                         <div class="cardSecondLine col-12">
                           <div class="starGroup mr-3">
-                            <i class="bi bi-star text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
-                          </div>
-                          <p class="body-content text-muted">台北市北投區</p>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                          </div>                  
+                            <p class="body-content text-muted pt-2 m-0">台北市北投區</p>
                         </div>
                         <div class="textBox col-12">
                           <p class="card-text body-content">
@@ -280,23 +210,25 @@
                         <div class="cardFirstLine col-12">
                           <h5 class="cardTitle mr-3 h3">象山親山步道</h5>
                           <p class="text-primary body-content mr-3">
-                            <img src="./img/level.png" />難度低
+                            <img class="mr-1" src="./img/level_low.svg" />難度低
                           </p>
                           <p class="text-primary body-content mr-3">
-                            <img src="./img/footprints.png" />2.2公里
+                            <i class="fas fa-shoe-prints mr-2"></i>2.2公里
                           </p>
-                          <i class="bi bi-heart mr-2 ml-auto text-danger"></i>
-                          <p class="body-content">加入收藏</p>
+                          <!-- <a class="d-flex heart-icon-bkg ml-auto"> -->
+                            <i class="bi bi-heart-fill mr-2 ml-auto"></i>
+                            <p class="body-content">加入收藏</p>
+                          <!-- </a> -->
                         </div>
                         <div class="cardSecondLine col-12">
                           <div class="starGroup mr-3">
-                            <i class="bi bi-star text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
                           </div>
-                          <p class="body-content text-muted">台北市信義區</p>
+                          <p class="body-content text-muted pt-1 m-0">台北市信義區</p>
                         </div>
                         <div class="textBox col-12">
                           <p class="card-text body-content">
@@ -346,13 +278,9 @@
             </div>
           </div>
         </div>
-        <a
-          class="pr-2 pb-2 d-flex justify-content-end text-white-50"
-          href="https://www.freepik.com/vectors/background"
-          >Background vector created by pikisuperstar - www.freepik.com</a
-        >
+        <a class="pr-2 pb-2 d-flex justify-content-end text-white-50" href="https://www.freepik.com/vectors/background">Background vector created by pikisuperstar - www.freepik.com</a>
       </div>
-    </div> -->
+    </div>
 
     <!-- =========content end========= -->
 
@@ -361,9 +289,7 @@
       <div class="footer_box">
         <div class="d-flex justify-content-center">
           <div class="footer_head">
-            <a class="nav-font" href="../Layout/mountain_index.html"
-              >路線地圖</a
-            >
+            <a class="nav-font" href="../Layout/mountain_index.html">路線地圖</a>
           </div>
           <div class="footer_head">
             <a class="nav-font" href="./article-recommend.html">推薦攻略</a>
@@ -375,9 +301,7 @@
             <a class="nav-font" href="../Layout/product.html">購物商城</a>
           </div>
           <div class="footer_head_last">
-            <a class="nav-font_footerLast" href="../Layout/outfit.html"
-              >建議穿搭</a
-            >
+            <a class="nav-font_footerLast" href="../Layout/outfit.html">建議穿搭</a>
           </div>
         </div>
 
@@ -420,6 +344,26 @@
         this.classList.toggle("change");
         nav.classList.toggle("nav_show");
       };
+
+     $(".level-btn").click(function () {
+        $(this).toggleClass("active");
+      });
+
+      $(".season-btn").click(function(){
+        $(this).toggleClass("active");
+      });
+
+      $(".time-btn").click(function(){
+        $(this).toggleClass("active");
+      });
+
+      $(".mountain-type-btn").click(function(){
+        $(this).toggleClass("active");
+      });
+      
+      $("i").click(function(){
+        $(this).toggleClass("active");
+      });
     </script>
   </body>
 </html>
