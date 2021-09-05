@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="index.css" type="text/css" />
     <link rel="stylesheet" href="product.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="slick/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="slick/slick/slick-theme.css" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
@@ -21,9 +23,12 @@
       <a href="./HomepageIndex.html" class="logo_top">
         <img src="img/logo.png" alt="logo_top" />
       </a>
-      <div class="btns">
+      <div class="btns d-flex">
         <a href="#" class="search_button"><i class="bi bi-search h4"></i></a>
-        <a href="./shopping-1-content.html" class="shopping_button"><i class="bi bi-cart h4"></i></a>
+        <a href="./shopping-1-content.html" class="shopping_button position-relative">
+          <div class="cart-num position-absolute text-center">0</div>
+          <i class="bi bi-cart h4"></i>
+        </a>
         <a href="./member-login.html" class="sign_button">Sign In</a>
       </div>
       <!-- =========nav star========= -->
@@ -33,7 +38,9 @@
             <a class="nav-font" href="./mountain_index.html">路線地圖</a>
           </li>
           <li>
-            <a class="nav-font" href="../Article/article-recommend.html">推薦攻略</a>
+            <a class="nav-font" href="../Article/article-recommend.html"
+              >推薦攻略</a
+            >
           </li>
           <li>
             <a class="nav-font" href="./product.html">購物商城</a>
@@ -229,9 +236,6 @@
               </div>
             </div>
           </div>
-          <div class="d-flex justify-content-end">
-            <button class="more-btn text-center">更多商品</button>
-          </div>
         </div>
         <!-- =========編輯嚴選 end========= -->
         <!-- =========熱銷不敗(本月暢銷排行) start========= -->
@@ -240,138 +244,221 @@
             <h3 class="selected-title text-center">熱銷不敗(本月暢銷排行)</h3>
             <div class="title-underline position-absolute"></div>
           </div>
-          <div class="row product-list my-4">
-            <div class="col-6 col-md-4 col-lg-3 px-0">
-              <div class="product-card">
-                <div class="product-img-box position-relative">
-                  <a href="#">
-                    <img
-                      class="cover-fit"
-                      src="./img/product-img/clothes-pic8v2.png"
-                      alt="The North Face Summit L5 FUTURELIGHT"
-                      title="The North Face Summit L5 FUTURELIGHT"
-                    />
-                  </a>
-                  <a
-                    role="button"
-                    class="position-absolute heart-icon-bkg position-relative"
+          <div class="product-list my-4 position-relative">
+            <a
+              href="#"
+              class="position-absolute slider-arrows-left text-center prev"
+            >
+              <i class="bi bi-chevron-left"></i>
+            </a>
+            <a
+              href="#"
+              class="position-absolute slider-arrows-right text-center next"
+            >
+              <i class="bi bi-chevron-right"></i>
+            </a>
+            <div class="product-slider row">
+              <div class="col-3 px-0">
+                <div class="product-card">
+                  <div class="product-img-box position-relative">
+                    <a href="#">
+                      <img
+                        class="cover-fit"
+                        src="./img/product-img/clothes-pic8v2.png"
+                        alt="The North Face Summit L5 FUTURELIGHT"
+                        title="The North Face Summit L5 FUTURELIGHT"
+                      />
+                    </a>
+                    <a
+                      role="button"
+                      class="position-absolute heart-icon-bkg position-relative"
+                    >
+                      <i
+                        class="bi bi-heart-fill position-absolute heart-icon"
+                      ></i>
+                    </a>
+                    <a
+                      role="button"
+                      class="position-absolute cart-icon-bkg position-relative"
+                    >
+                      <i
+                        class="bi bi-cart-fill position-absolute cart-icon"
+                      ></i>
+                    </a>
+                  </div>
+                  <a href="#" class="text-left product-name"
+                    >The North Face<br />Summit L5 FUTURELIGHT</a
                   >
-                    <i
-                      class="bi bi-heart-fill position-absolute heart-icon"
-                    ></i>
-                  </a>
-                  <a
-                    role="button"
-                    class="position-absolute cart-icon-bkg position-relative"
-                  >
-                    <i class="bi bi-cart-fill position-absolute cart-icon"></i>
-                  </a>
+                  <p class="text-right product-price">NT $18,200</p>
                 </div>
-                <a href="#" class="text-left product-name"
-                  >The North Face<br />Summit L5 FUTURELIGHT</a
-                >
-                <p class="text-right product-price">NT $18,200</p>
+              </div>
+              <div class="col-3 px-0">
+                <div class="product-card">
+                  <div class="product-img-box position-relative">
+                    <a href="#">
+                      <img
+                        class="cover-fit"
+                        src="./img/product-img/clothes-pic4.jpeg"
+                        alt="Arcteryx 始祖鳥 Cerium SV 保暖羽絨連帽外套"
+                        title="Arcteryx 始祖鳥 Cerium SV 保暖羽絨連帽外套"
+                      />
+                    </a>
+                    <a
+                      role="button"
+                      class="position-absolute heart-icon-bkg position-relative"
+                    >
+                      <i
+                        class="bi bi-heart-fill position-absolute heart-icon"
+                      ></i>
+                    </a>
+                    <a
+                      role="button"
+                      class="position-absolute cart-icon-bkg position-relative"
+                    >
+                      <i
+                        class="bi bi-cart-fill position-absolute cart-icon"
+                      ></i>
+                    </a>
+                  </div>
+                  <a href="#" class="text-left product-name"
+                    >Arcteryx 始祖鳥<br />Cerium SV 保暖羽絨連帽外套</a
+                  >
+                  <p class="text-right product-price">NT $8,380</p>
+                </div>
+              </div>
+              <div class="col-3 px-0">
+                <div class="product-card">
+                  <div class="product-img-box position-relative">
+                    <a href="#">
+                      <img
+                        class="cover-fit"
+                        src="./img/product-img/bags-pic6.png"
+                        alt="Arcteryx 始祖鳥 徒步背包 Brize 32"
+                        title="Arcteryx 始祖鳥 徒步背包 Brize 32"
+                      />
+                    </a>
+                    <a
+                      role="button"
+                      class="position-absolute heart-icon-bkg position-relative"
+                    >
+                      <i
+                        class="bi bi-heart-fill position-absolute heart-icon"
+                      ></i>
+                    </a>
+                    <a
+                      role="button"
+                      class="position-absolute cart-icon-bkg position-relative"
+                    >
+                      <i
+                        class="bi bi-cart-fill position-absolute cart-icon"
+                      ></i>
+                    </a>
+                  </div>
+                  <a href="#" class="text-left product-name"
+                    >Arcteryx 始祖鳥<br />徒步背包 Brize 32</a
+                  >
+                  <p class="text-right product-price">NT $8,341</p>
+                </div>
+              </div>
+              <div class="col-3 px-0">
+                <div class="product-card">
+                  <div class="product-img-box position-relative">
+                    <a href="#">
+                      <img
+                        class="cover-fit"
+                        src="./img/product-img/shoes-pic1.jpeg"
+                        alt="MERRELL Tetrex Crest Wrap 女水陸三棲鞋"
+                        title="MERRELL Tetrex Crest Wrap 女水陸三棲鞋"
+                      />
+                    </a>
+                    <a
+                      role="button"
+                      class="position-absolute heart-icon-bkg position-relative"
+                    >
+                      <i
+                        class="bi bi-heart-fill position-absolute heart-icon"
+                      ></i>
+                    </a>
+                    <a
+                      role="button"
+                      class="position-absolute cart-icon-bkg position-relative"
+                    >
+                      <i
+                        class="bi bi-cart-fill position-absolute cart-icon"
+                      ></i>
+                    </a>
+                  </div>
+                  <a href="#" class="text-left product-name"
+                    >MERRELL Tetrex Crest Wrap<br />女水陸三棲鞋</a
+                  >
+                  <p class="text-right product-price">NT $2,680</p>
+                </div>
+              </div>
+              <div class="col-3 px-0">
+                <div class="product-card">
+                  <div class="product-img-box position-relative">
+                    <a href="#">
+                      <img
+                        class="cover-fit"
+                        src="./img/product-img/clothes-pic5.jpeg"
+                        alt="The North Face 戶外保暖羽絨外套"
+                        title="The North Face 戶外保暖羽絨外套"
+                      />
+                    </a>
+                    <a
+                      role="button"
+                      class="position-absolute heart-icon-bkg position-relative"
+                    >
+                      <i
+                        class="bi bi-heart-fill position-absolute heart-icon"
+                      ></i>
+                    </a>
+                    <a
+                      role="button"
+                      class="position-absolute cart-icon-bkg position-relative"
+                    >
+                      <i class="bi bi-cart-fill position-absolute cart-icon"></i>
+                    </a>
+                  </div>
+                  <a href="#" class="text-left product-name"
+                    >The North Face<br />戶外保暖羽絨外套</a
+                  >
+                  <p class="text-right product-price">NT $8,310</p>
+                </div>
+              </div>
+              <div class="col-3 px-0">
+                <div class="product-card">
+                  <div class="product-img-box position-relative">
+                    <a href="#">
+                      <img
+                        class="cover-fit"
+                        src="./img/product-img/bags-pic2.jpeg"
+                        alt="The North Face 黑灰色休閒後背包"
+                        title="The North Face 黑灰色休閒後背包"
+                      />
+                    </a>
+                    <a
+                      role="button"
+                      class="position-absolute heart-icon-bkg position-relative"
+                    >
+                      <i
+                        class="bi bi-heart-fill position-absolute heart-icon"
+                      ></i>
+                    </a>
+                    <a
+                      role="button"
+                      class="position-absolute cart-icon-bkg position-relative"
+                    >
+                      <i class="bi bi-cart-fill position-absolute cart-icon"></i>
+                    </a>
+                  </div>
+                  <a href="#" class="text-left product-name"
+                    >The North Face<br />黑灰色休閒後背包</a
+                  >
+                  <p class="text-right product-price">NT $2,180</p>
+                </div>
               </div>
             </div>
-            <div class="col-6 col-md-4 col-lg-3 px-0">
-              <div class="product-card">
-                <div class="product-img-box position-relative">
-                  <a href="#">
-                    <img
-                      class="cover-fit"
-                      src="./img/product-img/clothes-pic4.jpeg"
-                      alt="Arcteryx 始祖鳥 Cerium SV 保暖羽絨連帽外套"
-                      title="Arcteryx 始祖鳥 Cerium SV 保暖羽絨連帽外套"
-                    />
-                  </a>
-                  <a
-                    role="button"
-                    class="position-absolute heart-icon-bkg position-relative"
-                  >
-                    <i
-                      class="bi bi-heart-fill position-absolute heart-icon"
-                    ></i>
-                  </a>
-                  <a
-                    role="button"
-                    class="position-absolute cart-icon-bkg position-relative"
-                  >
-                    <i class="bi bi-cart-fill position-absolute cart-icon"></i>
-                  </a>
-                </div>
-                <a href="#" class="text-left product-name"
-                  >Arcteryx 始祖鳥<br />Cerium SV 保暖羽絨連帽外套</a
-                >
-                <p class="text-right product-price">NT $8,380</p>
-              </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 px-0">
-              <div class="product-card">
-                <div class="product-img-box position-relative">
-                  <a href="#">
-                    <img
-                      class="cover-fit"
-                      src="./img/product-img/bags-pic6.png"
-                      alt="Arcteryx 始祖鳥 徒步背包 Brize 32"
-                      title="Arcteryx 始祖鳥 徒步背包 Brize 32"
-                    />
-                  </a>
-                  <a
-                    role="button"
-                    class="position-absolute heart-icon-bkg position-relative"
-                  >
-                    <i
-                      class="bi bi-heart-fill position-absolute heart-icon"
-                    ></i>
-                  </a>
-                  <a
-                    role="button"
-                    class="position-absolute cart-icon-bkg position-relative"
-                  >
-                    <i class="bi bi-cart-fill position-absolute cart-icon"></i>
-                  </a>
-                </div>
-                <a href="#" class="text-left product-name"
-                  >Arcteryx 始祖鳥<br />徒步背包 Brize 32</a
-                >
-                <p class="text-right product-price">NT $8,341</p>
-              </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 px-0">
-              <div class="product-card">
-                <div class="product-img-box position-relative">
-                  <a href="#">
-                    <img
-                      class="cover-fit"
-                      src="./img/product-img/shoes-pic1.jpeg"
-                      alt="MERRELL Tetrex Crest Wrap 女水陸三棲鞋"
-                      title="MERRELL Tetrex Crest Wrap 女水陸三棲鞋"
-                    />
-                  </a>
-                  <a
-                    role="button"
-                    class="position-absolute heart-icon-bkg position-relative"
-                  >
-                    <i
-                      class="bi bi-heart-fill position-absolute heart-icon"
-                    ></i>
-                  </a>
-                  <a
-                    role="button"
-                    class="position-absolute cart-icon-bkg position-relative"
-                  >
-                    <i class="bi bi-cart-fill position-absolute cart-icon"></i>
-                  </a>
-                </div>
-                <a href="#" class="text-left product-name"
-                  >MERRELL Tetrex Crest Wrap<br />女水陸三棲鞋</a
-                >
-                <p class="text-right product-price">NT $2,680</p>
-              </div>
-            </div>
-          </div>
-          <div class="d-flex justify-content-end">
-            <button class="more-btn text-center">更多商品</button>
           </div>
         </div>
         <!-- =========熱銷不敗(本月暢銷排行) end========= -->
@@ -395,10 +482,14 @@
                     />
                   </a>
                 </div>
-                <a href="../Article/article-detail.html" class="article-name">象山親山步道</a>
+                <a href="../Article/article-detail.html" class="article-name"
+                  >象山親山步道</a
+                >
                 <br />
                 <p class="text-right">
-                  <a href="../Article/article-detail.html" class="see-more-btn">查看更多</a>
+                  <a href="../Article/article-detail.html" class="see-more-btn"
+                    >查看更多</a
+                  >
                 </p>
               </div>
             </div>
@@ -415,10 +506,14 @@
                     />
                   </a>
                 </div>
-                <a href="../Article/article-detail.html" class="article-name">陽明山東西大縱走</a>
+                <a href="../Article/article-detail.html" class="article-name"
+                  >陽明山東西大縱走</a
+                >
                 <br />
                 <p class="text-right">
-                  <a href="../Article/article-detail.html" class="see-more-btn">查看更多</a>
+                  <a href="../Article/article-detail.html" class="see-more-btn"
+                    >查看更多</a
+                  >
                 </p>
               </div>
             </div>
@@ -435,10 +530,14 @@
                     />
                   </a>
                 </div>
-                <a href="../Article/article-detail.html" class="article-name">大霸北稜線</a>
+                <a href="../Article/article-detail.html" class="article-name"
+                  >大霸北稜線</a
+                >
                 <br />
                 <p class="text-right">
-                  <a href="../Article/article-detail.html" class="see-more-btn">查看更多</a>
+                  <a href="../Article/article-detail.html" class="see-more-btn"
+                    >查看更多</a
+                  >
                 </p>
               </div>
             </div>
@@ -456,7 +555,9 @@
             <a class="nav-font" href="./mountain_index.html">路線地圖</a>
           </div>
           <div class="footer_head">
-            <a class="nav-font" href="../Article/article-recommend.html">推薦攻略</a>
+            <a class="nav-font" href="../Article/article-recommend.html"
+              >推薦攻略</a
+            >
           </div>
           <a href="./HomepageIndex.html" class="footer_logo">
             <img src="img/logo.png" alt="footer_logo" />
@@ -489,6 +590,8 @@
       crossorigin="anonymous"
     ></script>
     <script src="vegas/vegas.min.js"></script>
+    <script type="text/javascript" src="slick/slick/slick.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
       let btn_nav = document.querySelector(".btn_nav");
       let nav = document.querySelector(".nav");
@@ -521,8 +624,69 @@
         });
       });
       //cart-icon
-      $(".cart-icon-bkg").click(function(){
-        alert("已將商品加入購物車！");
+      $(".cart-icon-bkg").click(function () {
+        //display none -> block
+        let cartDisplay = $(".cart-num").css("display");
+        if(cartDisplay === "none"){
+          $(".cart-num").css("display", "block");
+        }
+        // alert("已將商品加入購物車！");
+        Swal.fire({
+          icon: 'success',
+          title: '已將商品加入購物車！',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        //cart-num ++
+        let cartNum = parseInt($(".cart-num").text());
+        //限制一次加進購物車數量
+        if(cartNum>=10){
+          Swal.fire({
+          icon: 'error',
+          title: '一次最多只能放入10樣商品喔',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        }else{
+          cartNum ++;
+          $(".cart-num").text(cartNum);
+        }
+      });
+      //slick
+      $(".product-slider").slick({
+        dots: true,
+        speed: 300,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        autoplay: true,
+        autoplaySpeed: 3500,
+        nextArrow: $(".next"),
+        prevArrow: $(".prev"),
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+              infinite: true,
+              dots: true,
+            },
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+            },
+          },
+          {
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+            },
+          },
+        ],
       });
     </script>
   </body>

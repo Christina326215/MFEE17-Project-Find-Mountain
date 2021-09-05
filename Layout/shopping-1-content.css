@@ -24,10 +24,10 @@
 }
 .table > tbody > tr > td {
   vertical-align: middle;
-  font-size: 20px;
+  font-size: 16px;
 }
 .table > thead {
-  font-size: 22px;
+  font-size: 18px;
 }
 .counts {
   padding: 12px;
@@ -67,6 +67,10 @@
   width: 400px;
   max-width: 100%;
 }
+.product-storage {
+  width: 200px;
+  max-width: 100%;
+}
 .product-subtotal {
   width: 200px;
   max-width: 100%;
@@ -76,8 +80,8 @@
   max-width: 100%;
 }
 .size-btn {
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   border: 1px solid #6da77f;
   box-sizing: border-box;
   border-radius: 8px;
@@ -87,12 +91,40 @@
   line-height: 23px;
   color: #6da77f;
   background: none;
+  transition: 0.4s;
 }
-.size-btn:hover,
-.size-btn:active,
+.size-btn:hover {
+  color: #fff;
+  background: #bae29a;
+}
 .size-btn.active {
   color: #fff;
   background: #6da77f;
+}
+.size-btn:active {
+  background: #24936e;
+}
+/* 數量button */
+.order-number {
+  text-align: center;
+  width: 35px;
+  height: 35px;
+  border: 2px solid #bae29a;
+}
+.minus-btn,
+.add-btn {
+  width: 50px;
+  border: none;
+  background: none;
+  font-size: 24px;
+  color: #24936e;
+}
+
+/* progress-adj */
+.progress-adj {
+  margin: 15px auto;
+  width: 80%;
+  height: 80%;
 }
 /* progress bar step */
 .opaque {
@@ -299,11 +331,4 @@
   color: #6da77f;
   -webkit-transform: scale(1.02) perspective(1000px);
   transform: scale(1.02) perspective(1000px);
-}
-
-/* progress-adj */
-.progress-adj {
-  margin: 30px auto;
-  width: 80%;
-  height: 80%;
 }
