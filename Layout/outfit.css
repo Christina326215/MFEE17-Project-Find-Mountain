@@ -143,10 +143,12 @@
 }
 .canvas-target {
   /* position: absolute; */
-  top: 8%;
+  top: 10%;
   /* right: 4%; */
   left: 46%;
-  /* border: 1px solid red; */
+  border: 1px solid red;
+  width: 49%;
+  height: 69%;
 }
 .canvas-target p {
   color: #4e4e4e;
@@ -159,7 +161,7 @@
 }
 
 #canvas {
-  /* border: 1px solid green; */
+  border: 1px solid green;
 }
 /* @media screen and (max-width: 768px) {
   #canvas {
@@ -188,9 +190,9 @@
 
 .canvas-box {
   margin: auto;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
   background: url("./img/img-outfit/postcard-bg800.png");
+  background-size: cover;
+  background-repeat: no-repeat;
   /* width: 100%;
   height: 453px;
   background-size: cover; */
@@ -210,28 +212,6 @@
   content: "";
   display: block;
   padding-top: 56.6%;
-}
-
-@media screen and (max-width: 1100px) {
-  .canvas-box {
-    margin: auto;
-    background-size: 100% auto;
-    background-repeat: no-repeat;
-    background: url("./img/img-outfit/postcard-bg800.png");
-    /* width: 100%;
-    height: 453px;
-    background-size: cover; */
-    width: 800px;
-    max-width: 100%;
-
-    /* max-height: 100%; */
-    position: relative;
-  }
-  .canvas-box::before {
-    content: "";
-    display: block;
-    padding-top: 56.6%;
-  }
 }
 
 [draggable] {

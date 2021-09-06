@@ -1,7 +1,7 @@
-const canvas = new fabric.Canvas("canvas", {
-  width: 395,
-  height: 304,
-});
+// const canvas = new fabric.Canvas("canvas", {
+//   width: 395,
+//   height: 304,
+// });
 
 // fabric.Image.fromURL(
 //   "./img/img-outfit/postcard-bg800.png",
@@ -13,6 +13,12 @@ const canvas = new fabric.Canvas("canvas", {
 //     canvas.setBackgroundImage(oImg).renderAll();
 //   }
 // );
+
+let canvasTarget=document.querySelector(".canvas-target")
+const card = new fabric.Canvas('canvas')
+card.setWidth(canvasTarget.clientWidth)
+card.setHeight(canvasTarget.clientHeight)
+console.log(canvasTarget.clientWidth);
 
 const productImg = document.querySelectorAll(".product-img");
 const defaultImg = document.getElementById("defaultImg");
