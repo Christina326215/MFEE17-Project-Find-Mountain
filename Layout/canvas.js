@@ -11,22 +11,17 @@
 //   }
 // );
 
-
-
 let canvasTarget=document.querySelector(".canvas-target")
 const canvas = new fabric.Canvas("canvas", {
   width: canvasTarget.clientWidth,
   height: canvasTarget.clientHeight,
 });
 
-// window.onresize = function(){
-// console.log("high");
-// let canvasTarget=document.querySelector(".canvas-target")
-// const canvas = new fabric.Canvas("canvas", {
-//   width: canvasTarget.clientWidth,
-//   height: canvasTarget.clientHeight,
-// });
-// }
+window.onresize = function(){
+  canvas.setDimensions({
+    width: canvasTarget.clientWidth, 
+    height: canvasTarget.clientHeight,});
+}
 
 // let canvasTarget=document.querySelector(".canvas-target")
 // const card = new fabric.Canvas('canvas')
