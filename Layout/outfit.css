@@ -142,16 +142,26 @@
   margin: 20px 0px;
 }
 .canvas-target {
-  position: absolute;
+  /* position: absolute; */
   top: 8%;
   /* right: 4%; */
   left: 46%;
+  /* border: 1px solid red; */
+}
+.canvas-target p {
+  color: #4e4e4e;
+  /* font-weight: bold; */
+  position: absolute;
+  font-size: 20px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #canvas {
   /* border: 1px solid green; */
 }
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
   #canvas {
     -webkit-transform: scale(0.5);
     -webkit-transform-origin: 0 0;
@@ -168,17 +178,60 @@
     -webkit-transform: scale(0.7);
     -webkit-transform-origin: 0 0;
   }
+} */
+.canvas-outerbox {
+  /* width: 800px;
+  max-height: 452px;
+  max-width: 100%; */
+  /* max-height: 100%; */
 }
 
 .canvas-box {
   margin: auto;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
   background: url("./img/img-outfit/postcard-bg800.png");
-  background-size: contain;
+  /* width: 100%;
+  height: 453px;
+  background-size: cover; */
+
+  /* background-size: contain;
   background-repeat: no-repeat;
   width: 74%;
   height: 0px;
-  padding-top: 56.6%;
+  padding-top: 56.6%; */
+
+  width: 800px;
+  max-width: 100%;
+  /* max-height: 100%; */
   position: relative;
+}
+.canvas-box::before {
+  content: "";
+  display: block;
+  padding-top: 56.6%;
+}
+
+@media screen and (max-width: 1100px) {
+  .canvas-box {
+    margin: auto;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background: url("./img/img-outfit/postcard-bg800.png");
+    /* width: 100%;
+    height: 453px;
+    background-size: cover; */
+    width: 800px;
+    max-width: 100%;
+
+    /* max-height: 100%; */
+    position: relative;
+  }
+  .canvas-box::before {
+    content: "";
+    display: block;
+    padding-top: 56.6%;
+  }
 }
 
 [draggable] {
@@ -324,7 +377,11 @@ tbody > td {
   border-radius: 0.25rem;
   font-weight: 400;
   padding: 0.375rem 0.75rem;
+  /* margin-right: 2rem; */
+}
+#save {
   margin-right: 2rem;
+  margin-left: 2rem;
 }
 .fab {
   padding-right: 0.75rem;

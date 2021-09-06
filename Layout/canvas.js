@@ -1,6 +1,6 @@
 const canvas = new fabric.Canvas("canvas", {
   width: 395,
-  height: 310,
+  height: 304,
 });
 
 // fabric.Image.fromURL(
@@ -33,7 +33,8 @@ function saveImg(e) {
   }
 }
 function dropImg(e) {
-  console.log("2");
+  console.log("2")
+  document.getElementById("hide").style.display="none"
   const { offsetX, offsetY } = e.e;
   console.log(offsetX, offsetY);
   const image = new fabric.Image(movingImage, {
