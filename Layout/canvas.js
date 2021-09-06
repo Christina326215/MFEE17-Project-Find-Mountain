@@ -1,7 +1,4 @@
-// const canvas = new fabric.Canvas("canvas", {
-//   width: 395,
-//   height: 304,
-// });
+
 
 // fabric.Image.fromURL(
 //   "./img/img-outfit/postcard-bg800.png",
@@ -14,11 +11,28 @@
 //   }
 // );
 
+
+
 let canvasTarget=document.querySelector(".canvas-target")
-const card = new fabric.Canvas('canvas')
-card.setWidth(canvasTarget.clientWidth)
-card.setHeight(canvasTarget.clientHeight)
-console.log(canvasTarget.clientWidth);
+const canvas = new fabric.Canvas("canvas", {
+  width: canvasTarget.clientWidth,
+  height: canvasTarget.clientHeight,
+});
+
+// window.onresize = function(){
+// console.log("high");
+// let canvasTarget=document.querySelector(".canvas-target")
+// const canvas = new fabric.Canvas("canvas", {
+//   width: canvasTarget.clientWidth,
+//   height: canvasTarget.clientHeight,
+// });
+// }
+
+// let canvasTarget=document.querySelector(".canvas-target")
+// const card = new fabric.Canvas('canvas')
+// card.setWidth(canvasTarget.clientWidth)
+// card.setHeight(canvasTarget.clientHeight)
+// console.log(canvasTarget.clientWidth);
 
 const productImg = document.querySelectorAll(".product-img");
 const defaultImg = document.getElementById("defaultImg");
