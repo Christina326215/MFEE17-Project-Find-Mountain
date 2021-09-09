@@ -97,7 +97,7 @@
       <div class="sub-content">
         <div class="container">
           <div class="row my-3">
-            <div class="intro-content col col-lg-4">
+            <div class="col col-lg-4">
               <div class="left-side position-relative">
                 <div class="bear position-absolute position-relative">
                   <div class="dialogBox1 animate__animated animate__shakeX position-absolute">
@@ -112,15 +112,12 @@
                   <img src="./img/img-outfit/bear.svg" alt="" />
                   <div class="mountains position-absolute position-relative">
                     <div class="low-mountain single" target="1">
-                      <!-- <img src="./img/img-outfit/low-mountain.svg" alt="" /> -->
                       <span>低階</span>
                     </div>
                     <div class="high-mountain single" target="3">
-                      <!-- <img src="./img/img-outfit/high-mountain.svg" alt="" /> -->
                       <span>高階</span>
                     </div>
                     <div class="mid-mountain single" target="2">
-                      <!-- <img src="./img/img-outfit/mid-mountain.svg" alt="" /> -->
                       <span>中階</span>
                     </div>
                   </div>
@@ -128,8 +125,7 @@
 
               </div>
             </div>
-            <div class="product-container col col-lg-8">
-              <div class="right-side">
+            <div class="right-side col col-lg-8">
                 <!-- <div class="target_box"> -->
                 <div id="div1" class="target">
                   <!-- product-warpper start -->
@@ -513,7 +509,6 @@
                   <!-- product-warpper end -->
                 </div>
                 <!-- </div> -->
-              </div>
             </div>
           </div>
         </div>
@@ -523,11 +518,14 @@
       <div class="mt-5">
         <h3 class="subTitle">製作個人化明信片</h3>
         <div class="underline"></div>
-        <div class="canvas-box cvs" id="canvasBox">
-          <div class="canvas-target">
-            <canvas id="canvas"></canvas>
+        <!-- <div class="canvas-outerbox"> -->
+          <div class="canvas-box cvs" id="canvasBox">
+            <div class="canvas-target position-absolute position-relative">
+              <p style="display: block" id="hide">請將以上商品<br>拖曳加入至此</p>
+              <canvas id="canvas"></canvas>
+            </div>
           </div>
-        </div>
+        <!-- </div> -->
         <!-- canvas2image儲存圖片 start -->
         <!-- <button id="save">save</button> -->
         <div id="imgs"></div>

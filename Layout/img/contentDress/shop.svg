@@ -47,7 +47,7 @@
 <circle cx="237.7" cy="245.741" r="6.93594" fill="#8EBF53" stroke="#564138" stroke-width="2"/>
 <rect x="28.5" y="78.5" width="78" height="230" rx="39" transform="rotate(-90 28.5 78.5)" fill="#FFB943" stroke="#564138"/>
 <rect x="38.5" y="69.5" width="59" height="210" rx="29.5" transform="rotate(-90 38.5 69.5)" fill="#FF6D6D" stroke="#564138"/>
-<circle cx="65" cy="6" r="3.5" fill="#FF6D6D" stroke="#564138"/>
+<circle cx="65" cy="6" r="3.5" fill="#FF6D6D" stroke="#564138" />
 <circle cx="46" cy="14" r="3.5" fill="#FF6D6D" stroke="#564138"/>
 <circle cx="34" cy="38" r="3.5" fill="#FF6D6D" stroke="#564138"/>
 <circle cx="42" cy="61" r="3.5" fill="#FF6D6D" stroke="#564138"/>
