@@ -11,7 +11,7 @@
 //   }
 // );
 
-let canvasTarget=document.querySelector(".canvas-target")
+// let canvasTarget=document.querySelector(".canvas-target")
 const canvas = new fabric.Canvas("canvas", {
   width: canvasTarget.clientWidth,
   height: canvasTarget.clientHeight,
