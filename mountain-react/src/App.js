@@ -4,6 +4,10 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 //====== below components star ======//
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ShopCartDetail from './components/ShopCartPage/ShopCartDetail';
+import ShopCartPay from './components/ShopCartPage/ShopCartPay';
+import ShopCartCheck from './components/ShopCartPage/ShopCartCheck';
+import ShopCartFinish from './components/ShopCartPage/ShopCartFinish';
 //====== above components end ======//
 
 function App() {
@@ -21,8 +25,17 @@ function App() {
             {/* 放要引入的content EX: <Stock /> */}
           </Route>
           <Route path="/shop">{/* 放要引入的content EX: <Stock /> */}</Route>
-          <Route path="/shop/cart">
-            {/* 放要引入的content EX: <Stock /> */}
+          <Route path="/cart-step1-detail">
+            <ShopCartDetail />
+          </Route>
+          <Route path="/cart-step2-pay">
+            <ShopCartPay />
+          </Route>
+          <Route path="/cart-step3-check">
+            <ShopCartCheck />
+          </Route>
+          <Route path="/cart-step4-finish">
+            <ShopCartFinish />
           </Route>
           <Route path="/outfit">{/* 放要引入的content EX: <Stock /> */}</Route>
           <Route path="/login">{/* 放要引入的content EX: <Stock /> */}</Route>
@@ -32,36 +45,6 @@ function App() {
             {/* 放要引入的content EX: <Stock /> */}
           </Route>
         </Switch>
-
-        {/* need delete fake content star */}
-        <div>
-          <h1>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam
-            veniam natus ratione similique autem, inventore facere minus quidem,
-            voluptate id voluptatem repellendus pariatur maxime, tempore quod
-            magnam officiis aut incidunt.
-          </h1>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis
-            nihil totam laborum, aspernatur magnam vero non! Illum similique,
-            sunt iste dolorem, ipsa corrupti consequuntur asperiores possimus
-            rerum ut voluptates inventore. Tempora temporibus sequi deleniti
-            dolore ducimus provident, obcaecati quasi quam nesciunt. Ex eaque
-            illum nihil nostrum quas error eveniet nobis enim? Nam iste eligendi
-            laudantium. Totam illo enim mollitia esse! Labore aspernatur eum,
-            ipsa ea porro quod eius non et soluta officiis? Nemo in consequatur
-            totam optio dolorum, incidunt accusantium est eligendi, repellat
-            dignissimos earum eos explicabo distinctio sint aperiam? Nisi
-            ratione laudantium reprehenderit neque quos explicabo iste dicta?
-            Doloremque tempore ad magnam accusamus. Fugit esse accusamus
-            veritatis ab. Quis itaque culpa tenetur est cum vel beatae delectus
-            eos totam! Dolore quos dignissimos minus ipsum distinctio fugiat non
-            doloremque laborum nobis aspernatur enim magnam quidem laboriosam,
-            reiciendis provident nisi error, nam eaque molestias! Quibusdam
-            dolores quisquam similique vel autem nostrum!
-          </p>
-        </div>
-        {/* need delete fake content end */}
 
         <Footer />
       </>

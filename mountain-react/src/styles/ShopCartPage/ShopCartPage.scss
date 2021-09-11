@@ -1,0 +1,348 @@
+.title-dash {
+  border-bottom: 1px solid #000000;
+  padding-bottom: 20px;
+}
+
+/* table start */
+.thead-tr-border {
+  border-bottom: 1px solid black;
+}
+.tbody-tr-border {
+  border-bottom: 1px solid black;
+}
+.table > tbody > tr > td {
+  vertical-align: middle;
+  font-size: 16px;
+}
+.table > thead {
+  font-size: 18px;
+}
+.counts {
+  padding: 12px;
+}
+.total {
+  font-weight: bold;
+  font-size: 20px;
+}
+.size-btn {
+  width: 35px;
+  height: 35px;
+  border: 1px solid #6da77f;
+  box-sizing: border-box;
+  border-radius: 8px;
+  /* font-family: Source Sans Pro; */
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 23px;
+  color: #6da77f;
+  background: none;
+  transition: 0.4s;
+}
+.size-btn:hover {
+  color: #fff;
+  background: #bae29a;
+}
+.size-btn.active {
+  color: #fff;
+  background: #6da77f;
+}
+.size-btn:active {
+  background: #24936e;
+}
+.order-number {
+  text-align: center;
+  width: 35px;
+  height: 35px;
+  border: 2px solid #bae29a;
+}
+.minus-btn,
+.add-btn {
+  width: 50px;
+  border: none;
+  background: none;
+  font-size: 24px;
+  color: #24936e;
+  margin-bottom: 7px;
+}
+/* table end */
+
+/* table product img start */
+.product-img-box img {
+  border-radius: 5px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.product-img-box {
+  margin: 0 auto;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+}
+.cover-fit {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* table product img end */
+
+/* more product img start */
+.more-product-img-box img {
+  border-radius: 5px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+.more-product-img-box {
+  /* margin: 0 auto; */
+  width: 100px;
+  height: 100px;
+  text-align: center;
+}
+/* more product img end */
+
+/* 欄位調整 start */
+.product-name {
+  width: 300px;
+  max-width: 100%;
+}
+.product-size {
+  width: 400px;
+  max-width: 100%;
+}
+.product-perprice {
+  width: 200px;
+  max-width: 100%;
+}
+.product-count {
+  width: 400px;
+  max-width: 100%;
+}
+.product-storage {
+  width: 200px;
+  max-width: 100%;
+}
+.product-subtotal {
+  width: 200px;
+  max-width: 100%;
+}
+.product-delete {
+  width: 200px;
+  max-width: 100%;
+}
+/* 欄位調整 end */
+
+/* progress-adj start */
+.progress-adj {
+  margin: 30px auto;
+  width: 80%;
+  height: 80%;
+}
+/* progress-adj end */
+
+/* progress bar step start */
+.opaque {
+  opacity: 0;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+
+.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+#checkout-progress {
+  width: 90%;
+  margin: 0px auto;
+  font-size: 1.5em;
+  font-weight: 900;
+  position: relative;
+}
+@media (max-width: 767px) {
+  #checkout-progress {
+    font-size: 1.5em;
+  }
+}
+#checkout-progress:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 20px;
+  width: 100%;
+  background-color: #ccc;
+  -webkit-transform: translateY(-50%) perspective(1000px);
+  transform: translateY(-50%) perspective(1000px);
+}
+#checkout-progress:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 20px;
+  width: 100%;
+  background-color: #6da77f;
+  -webkit-transform: scaleX(0) translateY(-50%) perspective(1000px);
+  transform: scaleX(0) translateY(-50%) perspective(1000px);
+  -webkit-transform-origin: left center;
+  transform-origin: left center;
+  -webkit-transition: -webkit-transform 0.5s ease;
+  transition: -webkit-transform 0.5s ease;
+  transition: transform 0.5s ease;
+  transition: transform 0.5s ease, -webkit-transform 0.5s ease;
+}
+#checkout-progress.step-2:after {
+  -webkit-transform: scaleX(0.333) translateY(-50%) perspective(1000px);
+  transform: scaleX(0.333) translateY(-50%) perspective(1000px);
+}
+#checkout-progress.step-3:after {
+  -webkit-transform: scaleX(0.666) translateY(-50%) perspective(1000px);
+  transform: scaleX(0.666) translateY(-50%) perspective(1000px);
+}
+#checkout-progress.step-4:after {
+  -webkit-transform: scaleX(1) translateY(-50%) perspective(1000px);
+  transform: scaleX(1) translateY(-50%) perspective(1000px);
+}
+#checkout-progress.step-5:after {
+  -webkit-transform: scaleX(1) translateY(-50%) perspective(1000px);
+  transform: scaleX(1) translateY(-50%) perspective(1000px);
+}
+#checkout-progress .progress-bar {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100px;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+#checkout-progress .progress-bar .step {
+  z-index: 2;
+  position: relative;
+}
+#checkout-progress .progress-bar .step .step-label {
+  position: absolute;
+  top: calc(100% + 25px);
+  left: 50%;
+  -webkit-transform: translateX(-50%) perspective(1000px);
+  transform: translateX(-50%) perspective(1000px);
+  white-space: nowrap;
+  font-size: 0.4em;
+  font-weight: 600;
+  color: #ccc;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+@media (max-width: 767px) {
+  #checkout-progress .progress-bar .step .step-label {
+    top: calc(100% + 15px);
+  }
+}
+#checkout-progress .progress-bar .step span {
+  color: #ccc;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+  display: block;
+  -webkit-transform: translate3d(0, 0, 0) scale(1) perspective(1000px);
+  transform: translate3d(0, 0, 0) scale(1) perspective(1000px);
+}
+#checkout-progress .progress-bar .step .fa-check {
+  color: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transition: -webkit-transform 0.3s ease;
+  transition: -webkit-transform 0.3s ease;
+  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+  -webkit-transform: translate3d(-50%, -50%, 0) scale(0) perspective(1000px);
+  transform: translate3d(-50%, -50%, 0) scale(0) perspective(1000px);
+}
+#checkout-progress .progress-bar .step.active span,
+#checkout-progress .progress-bar .step.active .step-label {
+  color: #6da77f;
+}
+#checkout-progress .progress-bar .step.valid .fa-check {
+  -webkit-transform: translate3d(-50%, -50%, 0) scale(1) perspective(1000px);
+  transform: translate3d(-50%, -50%, 0) scale(1) perspective(1000px);
+}
+#checkout-progress .progress-bar .step.valid span {
+  color: #6da77f;
+  -webkit-transform: translate3d(0, 0, 0) scale(2) perspective(1000px);
+  transform: translate3d(0, 0, 0) scale(2) perspective(1000px);
+}
+#checkout-progress .progress-bar .step.valid .step-label {
+  color: #2c3e50 !important;
+}
+#checkout-progress .progress-bar .step:after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%) perspective(1000px);
+  transform: translate(-50%, -50%) perspective(1000px);
+  width: 75px;
+  height: 75px;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 5px solid #ccc;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+@media (max-width: 767px) {
+  #checkout-progress .progress-bar .step:after {
+    width: 40px;
+    height: 40px;
+  }
+}
+#checkout-progress .progress-bar .step.active:after {
+  border: 5px solid #6da77f;
+}
+#checkout-progress .progress-bar .step.valid:after {
+  background-color: #6da77f;
+  border: 5px solid #6da77f;
+}
+
+.button-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  width: 100%;
+  margin: 100px auto 0px;
+}
+.button-container .btn {
+  display: inline-block;
+  background-color: #6da77f;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  font-weight: 900;
+  border: 3px solid #6da77f;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+  cursor: pointer;
+  text-align: center;
+}
+@media (max-width: 767px) {
+  .button-container .btn {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+}
+.button-container .btn:hover {
+  background-color: transparent;
+  color: #6da77f;
+  -webkit-transform: scale(1.02) perspective(1000px);
+  transform: scale(1.02) perspective(1000px);
+}
+/* progress bar step end */
