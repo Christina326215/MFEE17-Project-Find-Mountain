@@ -1,6 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import '../../styles/productdetail.css';
+import { QuestionCircle, HeartFill } from 'react-bootstrap-icons';
+
+import bagsPic2 from '../../img/product-img/bags-pic2.jpeg';
+import bagsPic5 from '../../img/product-img/bags-pic5.jpeg';
+import bagsPic6 from '../../img/product-img/bags-pic6.png';
+import bagsPic8 from '../../img/product-img/bags-pic8.jpeg';
+import shoesPic5 from '../../img/product-img/shoes-pic5.jpeg';
+import shoesPic8 from '../../img/product-img/shoes-pic8.jpeg';
+import clothesPic5 from '../../img/product-img/clothes-pic5.jpeg';
+import Tapachien from '../../img/article-img/Tapachien.jpeg';
+import wuling from '../../img/article-img/wuling.jpeg';
+import Mayang from '../../img/article-img/Mayang.jpeg';
+import shop from '../../img/product-img/illustration/shop.svg';
+import bearbear from '../../img/product-img/illustration/bearbear.png';
 
 function ProductDetail(props) {
   return (
@@ -11,30 +25,18 @@ function ProductDetail(props) {
           <div class="position-fixed history-box position-relative">
             <div class="position-absolute history-text">瀏覽紀錄</div>
             <figure class="history-img-box">
-              <Link href="./product-detail.html">
-                <img
-                  src="./img/product-img/bags-pic5.jpeg"
-                  alt=""
-                  class="cover-fit"
-                />
+              <Link to="shop/product-detail">
+                <img src={bagsPic5} alt="" class="cover-fit" />
               </Link>
             </figure>
             <figure class="history-img-box">
-              <Link href="./product-detail.html">
-                <img
-                  src="./img/product-img/bags-pic6.png"
-                  alt=""
-                  class="cover-fit"
-                />
+              <Link to="shop/product-detail">
+                <img src={bagsPic6} alt="" class="cover-fit" />
               </Link>
             </figure>
             <figure class="history-img-box">
-              <Link href="./product-detail.html">
-                <img
-                  src="./img/product-img/shoes-pic5.jpeg"
-                  alt=""
-                  class="cover-fit"
-                />
+              <Link to="shop/product-detail">
+                <img src={shoesPic5} alt="" class="cover-fit" />
               </Link>
             </figure>
           </div>
@@ -56,10 +58,10 @@ function ProductDetail(props) {
             <ul class="d-flex justify-content-center list-unstyled">
               <div class="row">
                 <li class="col-3 px-0">
-                  <Link href="./product.html">商城首頁</Link>
+                  <Link to="/shop">商城首頁</Link>
                 </li>
                 <li class="col-3 px-0">
-                  <Link href="./product-bag.html">機能背包</Link>
+                  <Link to="/shop/bags">機能背包</Link>
                 </li>
                 <li class="col-3 px-0">
                   <Link href="#">登山鞋</Link>
@@ -80,7 +82,7 @@ function ProductDetail(props) {
                 <figure>
                   <img
                     class="cover-fit"
-                    src="./img/product-img/shoes-pic8.jpeg"
+                    src={shoesPic8}
                     alt="ASOLO 阿空加瓜牛皮冰攀靴"
                     title="ASOLO 阿空加瓜牛皮冰攀靴"
                   />
@@ -142,7 +144,8 @@ function ProductDetail(props) {
                     role="button"
                     class="like-btn mx-1"
                   >
-                    <i class="bi bi-heart-fill"></i>
+                    {/* <i class="bi bi-heart-fill"></i> */}
+                    <HeartFill />
                   </Link>
                   {/* <!-- <Link href="#" role="button" class="add-cart-btn mx-1"
                   >加入購物車</Link
@@ -154,21 +157,23 @@ function ProductDetail(props) {
                       id="seeMember"
                       class="see-member"
                     >
-                      了解會員積分折扣制度<i class="bi bi-question-circle"></i>
+                      了解會員積分折扣制度
+                      <QuestionCircle />
+                      {/* <i class="bi bi-question-circle"></i> */}
                     </Link>
                     {/* <!-- =========about-membership-bubble start========= --> */}
                     <div class="about-membership-bubble p-3 position-absolute">
                       <span class="about-membership-bubble-arrow"></span>
                       <span class="membership">
-                        會員專區登記去過的路線以獲取積分{' '}
+                        會員專區登記去過的路線以獲取積分
                       </span>
                       <br />
                       <span class="membership membership-low">
-                        肉腳：結帳時95折優惠{' '}
+                        肉腳：結帳時95折優惠
                       </span>
                       <br />
                       <span class="membership membership-medium">
-                        山友 ：結帳時93折優惠{' '}
+                        山友 ：結帳時93折優惠
                       </span>
                       <br />
                       <span class="membership membership-high">
@@ -228,7 +233,7 @@ function ProductDetail(props) {
                     <Link href="../Article/article-detail.html">
                       <img
                         class="cover-fit"
-                        src="./img/article-img/Tapachien.jpeg"
+                        src={Tapachien}
                         alt="大霸北稜線"
                         title="大霸北稜線"
                       />
@@ -248,7 +253,7 @@ function ProductDetail(props) {
                     <Link href="../Article/article-detail.html">
                       <img
                         class="cover-fit"
-                        src="./img/article-img/wuling.jpeg"
+                        src={wuling}
                         alt="武陵四秀登山步道"
                         title="武陵四秀登山步道"
                       />
@@ -268,7 +273,7 @@ function ProductDetail(props) {
                     <Link href="../Article/article-detail.html">
                       <img
                         class="cover-fit"
-                        src="./img/article-img/Mayang.jpeg"
+                        src={Mayang}
                         alt="馬洋山登山步道"
                         title="馬洋山登山步道"
                       />
@@ -298,7 +303,7 @@ function ProductDetail(props) {
                     <Link href="#">
                       <img
                         class="cover-fit"
-                        src="./img/product-img/bags-pic2.jpeg"
+                        src={bagsPic2}
                         alt="The North Face 黑灰色休閒後背包"
                         title="The North Face 黑灰色休閒後背包"
                       />
@@ -331,7 +336,7 @@ function ProductDetail(props) {
                     <Link href="#">
                       <img
                         class="cover-fit"
-                        src="./img/product-img/bags-pic8.jpeg"
+                        src={bagsPic8}
                         alt="The North Face 藍色專業登山後背包"
                         title="The North Face 藍色專業登山後背包"
                       />
@@ -363,7 +368,7 @@ function ProductDetail(props) {
                     <Link href="#">
                       <img
                         class="cover-fit"
-                        src="./img/product-img/clothes-pic5.jpeg"
+                        src={clothesPic5}
                         alt="The North Face 戶外保暖羽絨外套"
                         title="The North Face 戶外保暖羽絨外套"
                       />
@@ -395,19 +400,11 @@ function ProductDetail(props) {
           {/* <!-- =========outfit start========= --> */}
           <div class="my-4 outfit-box position-relative">
             <div class="position-absolute position-relative shop-svg">
-              <Link href="./outfit.html">
-                <img
-                  src="./img/product-img/illustration/shop.svg"
-                  alt="穿搭商店"
-                  title="穿搭商店"
-                />
+              <Link to="/outfit">
+                <img src={shop} alt="穿搭商店" title="穿搭商店" />
               </Link>
               <div class="position-absolute bearbear">
-                <img
-                  src="./img/product-img/illustration/bearbear.png"
-                  alt="吉祥物熊熊"
-                  title="吉祥物熊熊"
-                />
+                <img src={bearbear} alt="吉祥物熊熊" title="吉祥物熊熊" />
                 {/* <!-- =========about-membership-bubble start========= --> */}
                 <div class="bear-bubble p-3 position-absolute">
                   <span class="bear-bubble-arrow"></span>
