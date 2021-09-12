@@ -12,26 +12,32 @@ import display3 from '../../img/display-photo3.jpeg';
 import bagsPic2 from '../../img/product-img/bags-pic2.jpeg';
 import bagsPic8 from '../../img/product-img/bags-pic8.jpeg';
 import shoesPic8 from '../../img/product-img/shoes-pic8.jpeg';
+import shoesPic1 from '../../img/product-img/shoes-pic1.jpeg';
 import clothesPic5 from '../../img/product-img/clothes-pic5.jpeg';
 import clothesPic8 from '../../img/product-img/clothes-pic8v2.png';
+import clothesPic4 from '../../img/product-img/clothes-pic4.jpeg';
+import bagsPic6 from '../../img/product-img/bags-pic6.png';
+import xiangshan from '../../img/article-img/xiangshan.jpeg';
+import Yangmingshan from '../../img/article-img/Yangmingshan.jpeg';
+import Tapachien from '../../img/article-img/Tapachien.jpeg';
 
 // const images = [{ url: display1 }, { url: display2 }, { url: display3 }];
 function ShopMain(props) {
-  useEffect(() => {
-    //vegas
-    $('.shopmain-display-photo-box').vegas({
-      timer: false,
-      delay: 3000,
-      slides: [{ src: display1 }, { src: display2 }, { src: display3 }],
-      transition: 'fade',
-    });
-    $('#vegasPrev').on('click', function () {
-      $('.shopmain-display-photo-box').vegas('previous');
-    });
-    $('#vegasNext').on('click', function () {
-      $('.shopmain-display-photo-box').vegas('next');
-    });
-  });
+  // useEffect(() => {
+  //   //vegasya
+  //   $('.shopmain-display-photo-box').vegas({
+  //     timer: false,
+  //     delay: 3000,
+  //     slides: [{ src: display1 }, { src: display2 }, { src: display3 }],
+  //     transition: 'fade',
+  //   });
+  //   $('#vegasPrev').on('click', function () {
+  //     $('.shopmain-display-photo-box').vegas('previous');
+  //   });
+  //   $('#vegasNext').on('click', function () {
+  //     $('.shopmain-display-photo-box').vegas('next');
+  //   });
+  // });
   return (
     <>
       <main>
@@ -289,7 +295,7 @@ function ShopMain(props) {
                       <Link href="#/">
                         <img
                           class="shopmain-cover-fit"
-                          src="./img/product-img/clothes-pic4.jpeg"
+                          src={clothesPic4}
                           alt="Arcteryx 始祖鳥 Cerium SV 保暖羽絨連帽外套"
                           title="Arcteryx 始祖鳥 Cerium SV 保暖羽絨連帽外套"
                         />
@@ -321,7 +327,7 @@ function ShopMain(props) {
                       <Link href="#/">
                         <img
                           class="shopmain-cover-fit"
-                          src="./img/product-img/bags-pic6.png"
+                          src={bagsPic6}
                           alt="Arcteryx 始祖鳥 徒步背包 Brize 32"
                           title="Arcteryx 始祖鳥 徒步背包 Brize 32"
                         />
@@ -353,7 +359,7 @@ function ShopMain(props) {
                       <Link href="#/">
                         <img
                           class="cover-fit"
-                          src="./img/product-img/shoes-pic1.jpeg"
+                          src={shoesPic1}
                           alt="MERRELL Tetrex Crest Wrap 女水陸三棲鞋"
                           title="MERRELL Tetrex Crest Wrap 女水陸三棲鞋"
                         />
@@ -385,7 +391,7 @@ function ShopMain(props) {
                       <Link href="#/">
                         <img
                           class="cover-fit"
-                          src="./img/product-img/clothes-pic5.jpeg"
+                          src={clothesPic5}
                           alt="The North Face 戶外保暖羽絨外套"
                           title="The North Face 戶外保暖羽絨外套"
                         />
@@ -417,7 +423,7 @@ function ShopMain(props) {
                       <Link href="#/">
                         <img
                           class="shopmain-cover-fit"
-                          src="./img/product-img/bags-pic2.jpeg"
+                          src={bagsPic2}
                           alt="The North Face 黑灰色休閒後背包"
                           title="The North Face 黑灰色休閒後背包"
                         />
@@ -461,7 +467,7 @@ function ShopMain(props) {
                     <Link href="../Article/article-detail.html">
                       <img
                         class="shopmain-cover-fit"
-                        src="./img/article-img/xiangshan.jpeg"
+                        src={xiangshan}
                         alt="象山親山步道"
                         title="象山親山步道"
                       />
@@ -491,7 +497,7 @@ function ShopMain(props) {
                     <Link href="../Article/article-detail.html">
                       <img
                         class="shopmain-cover-fit"
-                        src="./img/article-img/Yangmingshan.jpeg"
+                        src={Yangmingshan}
                         alt="陽明山東西大縱走"
                         title="陽明山東西大縱走"
                       />
@@ -521,7 +527,7 @@ function ShopMain(props) {
                     <Link href="../Article/article-detail.html">
                       <img
                         class="shopmain-cover-fit"
-                        src="./img/article-img/Tapachien.jpeg"
+                        src={Tapachien}
                         alt="大霸北稜線"
                         title="大霸北稜線"
                       />
