@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/productbag.css';
+import { Cart, CartFill, HeartFill } from 'react-bootstrap-icons';
 import bagPic1 from '../../img/product-img/bags-pic1.jpeg';
 import bagPic2 from '../../img/product-img/bags-pic2.jpeg';
 import bagPic3 from '../../img/product-img/bags-pic3.jpeg';
@@ -67,13 +68,13 @@ function Bags(props) {
                       role="button"
                       className="position-absolute productbag-heart-icon-bkg position-relative"
                     >
-                      <i className="bi bi-heart-fill position-absolute productbag-heart-icon"></i>
+                      <HeartFill className="position-absolute productbag-heart-icon" />
                     </Link>
                     <Link
                       role="button"
                       className="position-absolute productbag-cart-icon-bkg position-relative"
                     >
-                      <i className="bi bi-cart-fill position-absolute productbag-cart-icon"></i>
+                      <CartFill className="position-absolute productbag-cart-icon" />
                     </Link>
                   </div>
                   <Link href="#" className="text-left productbag-product-name">
@@ -81,7 +82,9 @@ function Bags(props) {
                     <br />
                     黑色便捷休閒腰包
                   </Link>
-                  <p className="text-right productbag-product-price">NT $1,780</p>
+                  <p className="text-right productbag-product-price">
+                    NT $1,780
+                  </p>
                 </div>
               </div>
               <div className="col-6 col-md-4 col-lg-3 px-0">
@@ -99,13 +102,13 @@ function Bags(props) {
                       role="button"
                       className="position-absolute productbag-heart-icon-bkg position-relative"
                     >
-                      <i className="bi bi-heart-fill position-absolute productbag-heart-icon"></i>
+                      <HeartFill className="position-absolute productbag-heart-icon" />
                     </Link>
                     <Link
                       role="button"
                       className="position-absolute productbag-cart-icon-bkg position-relative"
                     >
-                      <i className="bi bi-cart-fill position-absolute productbag-cart-icon"></i>
+                      <CartFill className="position-absolute productbag-cart-icon" />
                     </Link>
                   </div>
                   <Link href="#" className="text-left productbag-product-name">
@@ -113,7 +116,9 @@ function Bags(props) {
                     <br />
                     黑灰色休閒後背包
                   </Link>
-                  <p className="text-right productbag-product-price">NT $2,180</p>
+                  <p className="text-right productbag-product-price">
+                    NT $2,180
+                  </p>
                 </div>
               </div>
               <div className="col-6 col-md-4 col-lg-3 px-0">
@@ -131,13 +136,13 @@ function Bags(props) {
                       role="button"
                       className="position-absolute productbag-heart-icon-bkg position-relative"
                     >
-                      <i className="bi bi-heart-fill position-absolute productbag-heart-icon"></i>
+                      <HeartFill className="position-absolute productbag-heart-icon" />
                     </Link>
                     <Link
                       role="button"
                       className="position-absolute productbag-cart-icon-bkg position-relative"
                     >
-                      <i className="bi bi-cart-fill position-absolute productbag-cart-icon"></i>
+                      <CartFill className="position-absolute productbag-cart-icon" />
                     </Link>
                   </div>
                   <Link href="#" className="text-left productbag-product-name">
@@ -145,7 +150,9 @@ function Bags(props) {
                     <br />
                     黑色舒適休閒後背包
                   </Link>
-                  <p className="text-right productbag-product-price">NT $5,292</p>
+                  <p className="text-right productbag-product-price">
+                    NT $5,292
+                  </p>
                 </div>
               </div>
               <div className="col-6 col-md-4 col-lg-3 px-0">
@@ -163,13 +170,13 @@ function Bags(props) {
                       role="button"
                       className="position-absolute productbag-heart-icon-bkg position-relative"
                     >
-                      <i className="bi bi-heart-fill position-absolute productbag-heart-icon"></i>
+                      <HeartFill className="position-absolute productbag-heart-icon" />
                     </Link>
                     <Link
                       role="button"
                       className="position-absolute productbag-cart-icon-bkg position-relative"
                     >
-                      <i className="bi bi-cart-fill position-absolute productbag-cart-icon"></i>
+                      <CartFill className="position-absolute productbag-cart-icon" />
                     </Link>
                   </div>
                   <Link href="#" className="text-left productbag-product-name">
@@ -177,7 +184,9 @@ function Bags(props) {
                     <br />
                     sector 25 休閒登山後背包
                   </Link>
-                  <p className="text-right productbag-product-price">NT $3,510</p>
+                  <p className="text-right productbag-product-price">
+                    NT $3,510
+                  </p>
                 </div>
               </div>
               <div className="col-6 col-md-4 col-lg-3 px-0">
@@ -195,13 +204,13 @@ function Bags(props) {
                       role="button"
                       className="position-absolute productbag-heart-icon-bkg position-relative"
                     >
-                      <i className="bi bi-heart-fill position-absolute productbag-heart-icon"></i>
+                      <HeartFill className="position-absolute productbag-heart-icon" />
                     </Link>
                     <Link
                       role="button"
                       className="position-absolute productbag-cart-icon-bkg position-relative"
                     >
-                      <i className="bi bi-cart-fill position-absolute productbag-cart-icon"></i>
+                      <CartFill className="position-absolute productbag-cart-icon" />
                     </Link>
                   </div>
                   <Link href="#" className="text-left productbag-product-name">
@@ -209,7 +218,9 @@ function Bags(props) {
                     <br />
                     Lithium Speed 20L
                   </Link>
-                  <p className="text-right productbag-product-price">NT $4,480</p>
+                  <p className="text-right productbag-product-price">
+                    NT $4,480
+                  </p>
                 </div>
               </div>
               <div className="col-6 col-md-4 col-lg-3 px-0">
@@ -227,13 +238,13 @@ function Bags(props) {
                       role="button"
                       className="position-absolute productbag-heart-icon-bkg position-relative"
                     >
-                      <i className="bi bi-heart-fill position-absolute productbag-heart-icon"></i>
+                      <HeartFill className="position-absolute productbag-heart-icon" />
                     </Link>
                     <Link
                       role="button"
                       className="position-absolute productbag-cart-icon-bkg position-relative"
                     >
-                      <i className="bi bi-cart-fill position-absolute productbag-cart-icon"></i>
+                      <CartFill className="position-absolute productbag-cart-icon" />
                     </Link>
                   </div>
                   <Link
@@ -244,7 +255,9 @@ function Bags(props) {
                     <br />
                     徒步背包 Brize 32
                   </Link>
-                  <p className="text-right productbag-product-price">NT $8,341</p>
+                  <p className="text-right productbag-product-price">
+                    NT $8,341
+                  </p>
                 </div>
               </div>
               <div className="col-6 col-md-4 col-lg-3 px-0">
@@ -262,13 +275,13 @@ function Bags(props) {
                       role="button"
                       className="position-absolute productbag-heart-icon-bkg position-relative"
                     >
-                      <i className="bi bi-heart-fill position-absolute productbag-heart-icon"></i>
+                      <HeartFill className="position-absolute productbag-heart-icon" />
                     </Link>
                     <Link
                       role="button"
                       className="position-absolute productbag-cart-icon-bkg position-relative"
                     >
-                      <i className="bi bi-cart-fill position-absolute productbag-cart-icon"></i>
+                      <CartFill className="position-absolute productbag-cart-icon" />
                     </Link>
                   </div>
                   <Link href="#" className="text-left productbag-product-name">
@@ -276,7 +289,9 @@ function Bags(props) {
                     <br />
                     JADE 38 登山背包
                   </Link>
-                  <p className="text-right productbag-product-price">NT $6,070</p>
+                  <p className="text-right productbag-product-price">
+                    NT $6,070
+                  </p>
                 </div>
               </div>
               <div className="col-6 col-md-4 col-lg-3 px-0">
@@ -294,13 +309,13 @@ function Bags(props) {
                       role="button"
                       className="position-absolute productbag-heart-icon-bkg position-relative"
                     >
-                      <i className="bi bi-heart-fill position-absolute productbag-heart-icon"></i>
+                      <HeartFill className="position-absolute productbag-heart-icon" />
                     </Link>
                     <Link
                       role="button"
                       className="position-absolute productbag-cart-icon-bkg position-relative"
                     >
-                      <i className="bi bi-cart-fill position-absolute productbag-cart-icon"></i>
+                      <CartFill className="position-absolute productbag-cart-icon" />
                     </Link>
                   </div>
                   <Link href="#" className="text-left productbag-product-name">
@@ -308,7 +323,9 @@ function Bags(props) {
                     <br />
                     藍色專業登山後背包
                   </Link>
-                  <p className="text-right productbag-product-price">NT $8,380</p>
+                  <p className="text-right productbag-product-price">
+                    NT $8,380
+                  </p>
                 </div>
               </div>
               <div className="col-6 col-md-4 col-lg-3 px-0">
@@ -326,13 +343,13 @@ function Bags(props) {
                       role="button"
                       className="position-absolute productbag-heart-icon-bkg position-relative"
                     >
-                      <i className="bi bi-heart-fill position-absolute productbag-heart-icon"></i>
+                      <HeartFill className="position-absolute productbag-heart-icon" />
                     </Link>
                     <Link
                       role="button"
                       className="position-absolute productbag-cart-icon-bkg position-relative"
                     >
-                      <i className="bi bi-cart-fill position-absolute productbag-cart-icon"></i>
+                      <CartFill className="position-absolute productbag-cart-icon" />
                     </Link>
                   </div>
                   <Link href="#" className="text-left productbag-product-name">
@@ -340,7 +357,9 @@ function Bags(props) {
                     <br />
                     黑色舒適防護專業後背包
                   </Link>
-                  <p className="text-right productbag-product-price">NT $4,923</p>
+                  <p className="text-right productbag-product-price">
+                    NT $4,923
+                  </p>
                 </div>
               </div>
             </div>
