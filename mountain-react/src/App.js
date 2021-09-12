@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Outfit from './components/OutfitPage/Outfit';
 import ShopMain from './components/ShopPage/ShopMain';
+import Bags from './components/ShopPage/Bags';
 //====== above components end ======//
 
 function App() {
@@ -21,6 +22,9 @@ function App() {
           <Route path="/map">{/* 放要引入的content EX: <Stock /> */}</Route>
           <Route path="/recommend">
             {/* 放要引入的content EX: <Stock /> */}
+          </Route>
+          <Route path="/shop/bags">
+            <Bags />
           </Route>
           <Route path="/shop">
             <ShopMain />
