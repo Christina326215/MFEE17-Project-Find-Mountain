@@ -7,9 +7,11 @@ import $ from 'jquery';
 // import '../../../node_modules/vegas/dist/vegas.min.js';
 // import '../../../node_modules/vegas/dist/vegas.min.css';
 import '../../styles/product.css';
-import display1 from '../../img/display-photo1.jpeg';
-import display2 from '../../img/display-photo2.jpeg';
-import display3 from '../../img/display-photo3.jpeg';
+import { CartFill, HeartFill } from 'react-bootstrap-icons';
+
+// import display1 from '../../img/display-photo1.jpeg';
+// import display2 from '../../img/display-photo2.jpeg';
+// import display3 from '../../img/display-photo3.jpeg';
 import bagsPic2 from '../../img/product-img/bags-pic2.jpeg';
 import bagsPic8 from '../../img/product-img/bags-pic8.jpeg';
 import shoesPic8 from '../../img/product-img/shoes-pic8.jpeg';
@@ -117,13 +119,13 @@ function ShopMain(props) {
                       role="button"
                       class="position-absolute shopmain-heart-icon-bkg position-relative"
                     >
-                      <i class="bi bi-heart-fill position-absolute heart-icon"></i>
+                      <HeartFill class="position-absolute shopmain-heart-icon" />
                     </Link>
                     <Link
                       role="button"
                       class="position-absolute shopmain-cart-icon-bkg position-relative"
                     >
-                      <i class="bi bi-cart-fill position-absolute shopmain-cart-icon"></i>
+                      <CartFill class="position-absolute shopmain-cart-icon" />
                     </Link>
                   </div>
                   <Link href="#/" class="text-left shopmain-product-name">
@@ -149,13 +151,13 @@ function ShopMain(props) {
                       role="button"
                       class="position-absolute shopmain-heart-icon-bkg position-relative"
                     >
-                      <i class="bi bi-heart-fill position-absolute heart-icon"></i>
+                      <HeartFill class="position-absolute shopmain-heart-icon" />
                     </Link>
                     <Link
                       role="button"
                       class="position-absolute shopmain-cart-icon-bkg position-relative"
                     >
-                      <i class="bi bi-cart-fill position-absolute shopmain-cart-icon"></i>
+                      <CartFill class="position-absolute shopmain-cart-icon" />
                     </Link>
                   </div>
                   <Link href="#/" class="text-left shopmain-product-name">
@@ -181,13 +183,13 @@ function ShopMain(props) {
                       role="button"
                       class="position-absolute shopmain-heart-icon-bkg position-relative"
                     >
-                      <i class="bi bi-heart-fill position-absolute shopmain-heart-icon"></i>
+                      <HeartFill class="position-absolute shopmain-heart-icon" />
                     </Link>
                     <Link
                       role="button"
                       class="position-absolute shopmain-cart-icon-bkg position-relative"
                     >
-                      <i class="bi bi-cart-fill position-absolute shopmain-cart-icon"></i>
+                      <CartFill class="position-absolute shopmain-cart-icon" />
                     </Link>
                   </div>
                   <Link
@@ -216,13 +218,13 @@ function ShopMain(props) {
                       role="button"
                       class="position-absolute shopmain-heart-icon-bkg position-relative"
                     >
-                      <i class="bi bi-heart-fill position-absolute shopmain-heart-icon"></i>
+                      <HeartFill class="position-absolute shopmain-heart-icon" />
                     </Link>
                     <Link
                       role="button"
                       class="position-absolute shopmain-cart-icon-bkg position-relative"
                     >
-                      <i class="bi bi-cart-fill position-absolute shopmain-cart-icon"></i>
+                      <CartFill class="position-absolute shopmain-cart-icon" />
                     </Link>
                   </div>
                   <Link href="#/" class="text-left shopmain-product-name">
@@ -273,13 +275,13 @@ function ShopMain(props) {
                         role="button"
                         class="position-absolute shopmain-heart-icon-bkg position-relative"
                       >
-                        <i class="bi bi-heart-fill position-absolute shopmain-heart-icon"></i>
+                        <HeartFill class="position-absolute shopmain-heart-icon" />
                       </Link>
                       <Link
                         role="button"
                         class="position-absolute shopmain-cart-icon-bkg position-relative"
                       >
-                        <i class="bi bi-cart-fill position-absolute shopmain-cart-icon"></i>
+                        <CartFill class="position-absolute shopmain-cart-icon" />
                       </Link>
                     </div>
                     <Link href="#/" class="text-left shopmain-product-name">
@@ -305,13 +307,13 @@ function ShopMain(props) {
                         role="button"
                         class="position-absolute shopmain-heart-icon-bkg position-relative"
                       >
-                        <i class="bi bi-heart-fill position-absolute shopmain-heart-icon"></i>
+                        <HeartFill class="position-absolute shopmain-heart-icon" />
                       </Link>
                       <Link
                         role="button"
                         class="position-absolute shopmain-cart-icon-bkg position-relative"
                       >
-                        <i class="bi bi-cart-fill position-absolute shopmain-cart-icon"></i>
+                        <CartFill class="position-absolute shopmain-cart-icon" />
                       </Link>
                     </div>
                     <Link href="#/" class="text-left shopmain-product-name">
@@ -337,13 +339,13 @@ function ShopMain(props) {
                         role="button"
                         class="position-absolute shopmain-heart-icon-bkg position-relative"
                       >
-                        <i class="bi bi-heart-fill position-absolute shopmain-heart-icon"></i>
+                        <HeartFill class="position-absolute shopmain-heart-icon" />
                       </Link>
                       <Link
                         role="button"
                         class="position-absolute shopmain-cart-icon-bkg position-relative"
                       >
-                        <i class="bi bi-cart-fill position-absolute shopmain-cart-icon"></i>
+                        <CartFill class="position-absolute shopmain-cart-icon" />
                       </Link>
                     </div>
                     <Link href="#/" class="text-left shopmain-product-name">
@@ -369,13 +371,13 @@ function ShopMain(props) {
                         role="button"
                         class="position-absolute shopmain-heart-icon-bkg position-relative"
                       >
-                        <i class="bi bi-heart-fill position-absolute shopmain-heart-icon"></i>
+                        <HeartFill class="position-absolute shopmain-heart-icon" />
                       </Link>
                       <Link
                         role="button"
                         class="position-absolute shopmain-cart-icon-bkg position-relative"
                       >
-                        <i class="bi bi-cart-fill position-absolute shopmain-cart-icon"></i>
+                        <CartFill class="position-absolute shopmain-cart-icon" />
                       </Link>
                     </div>
                     <Link href="#/" class="text-left shopmain-product-name">
@@ -401,13 +403,13 @@ function ShopMain(props) {
                         role="button"
                         class="position-absolute shopmain-heart-icon-bkg position-relative"
                       >
-                        <i class="bi bi-heart-fill position-absolute shopmain-heart-icon"></i>
+                        <HeartFill class="position-absolute shopmain-heart-icon" />
                       </Link>
                       <Link
                         role="button"
                         class="position-absolute shopmain-cart-icon-bkg position-relative"
                       >
-                        <i class="bi bi-cart-fill position-absolute shopmain-cart-icon"></i>
+                        <CartFill class="position-absolute shopmain-cart-icon" />
                       </Link>
                     </div>
                     <Link href="#/" class="text-left shopmain-product-name">
@@ -433,13 +435,13 @@ function ShopMain(props) {
                         role="button"
                         class="position-absolute shopmain-heart-icon-bkg position-relative"
                       >
-                        <i class="bi bi-heart-fill position-absolute shopmain-heart-icon"></i>
+                        <HeartFill class="position-absolute shopmain-heart-icon" />
                       </Link>
                       <Link
                         role="button"
                         class="position-absolute shopmain-cart-icon-bkg position-relative"
                       >
-                        <i class="bi bi-cart-fill position-absolute shopmain-cart-icon"></i>
+                        <CartFill class="position-absolute shopmain-cart-icon" />
                       </Link>
                     </div>
                     <Link href="#/" class="text-left shopmain-product-name">
