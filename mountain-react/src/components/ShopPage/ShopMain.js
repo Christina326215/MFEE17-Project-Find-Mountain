@@ -1,12 +1,37 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom'; //a標籤要變成link
+import $ from 'jquery';
+// import SimpleImageSlider from 'react-simple-image-slider';
+// import { vegas } from 'vegas';
+// import '../../../node_modules/vegas/dist/vegas.min.js';
+// import '../../../node_modules/vegas/dist/vegas.min.css';
 import '../../styles/product.css';
+import display1 from '../../img/display-photo1.jpeg';
+import display2 from '../../img/display-photo2.jpeg';
+import display3 from '../../img/display-photo3.jpeg';
 import bagsPic2 from '../../img/product-img/bags-pic2.jpeg';
 import bagsPic8 from '../../img/product-img/bags-pic8.jpeg';
 import shoesPic8 from '../../img/product-img/shoes-pic8.jpeg';
 import clothesPic5 from '../../img/product-img/clothes-pic5.jpeg';
 import clothesPic8 from '../../img/product-img/clothes-pic8v2.png';
 
+// const images = [{ url: display1 }, { url: display2 }, { url: display3 }];
 function ShopMain(props) {
+  useEffect(() => {
+    //vegas
+    $('.shopmain-display-photo-box').vegas({
+      timer: false,
+      delay: 3000,
+      slides: [{ src: display1 }, { src: display2 }, { src: display3 }],
+      transition: 'fade',
+    });
+    $('#vegasPrev').on('click', function () {
+      $('.shopmain-display-photo-box').vegas('previous');
+    });
+    $('#vegasNext').on('click', function () {
+      $('.shopmain-display-photo-box').vegas('next');
+    });
+  });
   return (
     <>
       <main>
@@ -27,31 +52,40 @@ function ShopMain(props) {
             <ul class="d-flex justify-content-center list-unstyled">
               <div class="row">
                 <li class="col-3 px-0">
-                  <a class="shopmain-active" href="./product.html">
+                  <Link class="shopmain-active" href="./product.html">
                     商城首頁
-                  </a>
+                  </Link>
                 </li>
                 <li class="col-3 px-0">
-                  <a href="./product-bag.html">機能背包</a>
+                  <Link href="./product-bag.html">機能背包</Link>
                 </li>
                 <li class="col-3 px-0">
-                  <a href="#/">登山鞋</a>
+                  <Link href="#/">登山鞋</Link>
                 </li>
                 <li class="col-3 px-0">
-                  <a href="#/">衣服</a>
+                  <Link href="#/">衣服</Link>
                 </li>
               </div>
             </ul>
           </div>
           {/* <!-- =========category bar end========= --> */}
           {/* <!-- =========vegas start========= --> */}
-          <div class="shopmain-display-photo-box position-relative">
+          <div class="shopmain-display-photo-box position-relative row">
             <div class="position-absolute caret-left">
               <i class="bi bi-caret-left-fill" id="vegasPrev"></i>
             </div>
             <div class="position-absolute caret-right">
               <i class="bi bi-caret-right-fill" id="vegasNext"></i>
             </div>
+            {/* <div class="shopmain-slider-box col-12">
+              <SimpleImageSlider
+                showNavs={true}
+                showBullets={true}
+                width={1100}
+                height={300}
+                images={images}
+              />
+            </div> */}
           </div>
           {/* <!-- =========vegas end========= --> */}
           {/* <!-- =========編輯嚴選 start========= --> */}
@@ -64,131 +98,131 @@ function ShopMain(props) {
               <div class="col-6 col-md-4 col-lg-3 px-0">
                 <div class="shopmain-product-card">
                   <div class="shopmain-product-img-box position-relative">
-                    <a href="#/">
+                    <Link href="#/">
                       <img
                         class="cover-fit"
                         src={bagsPic2}
                         alt="The North Face 黑灰色休閒後背包"
                         title="The North Face 黑灰色休閒後背包"
                       />
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       role="button"
                       class="position-absolute shopmain-heart-icon-bkg position-relative"
                     >
                       <i class="bi bi-heart-fill position-absolute heart-icon"></i>
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       role="button"
                       class="position-absolute shopmain-cart-icon-bkg position-relative"
                     >
                       <i class="bi bi-cart-fill position-absolute shopmain-cart-icon"></i>
-                    </a>
+                    </Link>
                   </div>
-                  <a href="#/" class="text-left shopmain-product-name">
+                  <Link href="#/" class="text-left shopmain-product-name">
                     The North Face
                     <br />
                     黑灰色休閒後背包
-                  </a>
+                  </Link>
                   <p class="text-right shopmain-product-price">NT $2,180</p>
                 </div>
               </div>
               <div class="col-6 col-md-4 col-lg-3 px-0">
                 <div class="shopmain-product-card">
                   <div class="shopmain-product-img-box position-relative">
-                    <a href="#/">
+                    <Link href="#/">
                       <img
                         class="cover-fit"
                         src={bagsPic8}
                         alt="The North Face 藍色專業登山後背包"
                         title="The North Face 藍色專業登山後背包"
                       />
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       role="button"
                       class="position-absolute shopmain-heart-icon-bkg position-relative"
                     >
                       <i class="bi bi-heart-fill position-absolute heart-icon"></i>
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       role="button"
                       class="position-absolute shopmain-cart-icon-bkg position-relative"
                     >
                       <i class="bi bi-cart-fill position-absolute shopmain-cart-icon"></i>
-                    </a>
+                    </Link>
                   </div>
-                  <a href="#/" class="text-left shopmain-product-name">
+                  <Link href="#/" class="text-left shopmain-product-name">
                     The North Face
                     <br />
                     藍色專業登山後背包
-                  </a>
+                  </Link>
                   <p class="text-right shopmain-product-price">NT $8,380</p>
                 </div>
               </div>
               <div class="col-6 col-md-4 col-lg-3 px-0">
                 <div class="shopmain-product-card">
                   <div class="shopmain-product-img-box position-relative">
-                    <a href="./product-detail.html">
+                    <Link href="./product-detail.html">
                       <img
                         class="cover-fit"
                         src={shoesPic8}
                         alt="ASOLO 阿空加瓜牛皮冰攀靴"
                         title="ASOLO 阿空加瓜牛皮冰攀靴"
                       />
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       role="button"
                       class="position-absolute shopmain-heart-icon-bkg position-relative"
                     >
                       <i class="bi bi-heart-fill position-absolute shopmain-heart-icon"></i>
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       role="button"
                       class="position-absolute shopmain-cart-icon-bkg position-relative"
                     >
                       <i class="bi bi-cart-fill position-absolute shopmain-cart-icon"></i>
-                    </a>
+                    </Link>
                   </div>
-                  <a
+                  <Link
                     href="./product-detail.html"
                     class="text-left shopmain-product-name"
                   >
                     ASOLO
                     <br />
                     阿空加瓜牛皮冰攀靴
-                  </a>
+                  </Link>
                   <p class="text-right shopmain-product-price">NT $8,980</p>
                 </div>
               </div>
               <div class="col-6 col-md-4 col-lg-3 px-0">
                 <div class="shopmain-product-card">
                   <div class="shopmain-product-img-box position-relative">
-                    <a href="#/">
+                    <Link href="#/">
                       <img
                         class="cover-fit"
                         src={clothesPic5}
                         alt="The North Face 戶外保暖羽絨外套"
                         title="The North Face 戶外保暖羽絨外套"
                       />
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       role="button"
                       class="position-absolute shopmain-heart-icon-bkg position-relative"
                     >
                       <i class="bi bi-heart-fill position-absolute shopmain-heart-icon"></i>
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       role="button"
                       class="position-absolute shopmain-cart-icon-bkg position-relative"
                     >
                       <i class="bi bi-cart-fill position-absolute shopmain-cart-icon"></i>
-                    </a>
+                    </Link>
                   </div>
-                  <a href="#/" class="text-left shopmain-product-name">
+                  <Link href="#/" class="text-left shopmain-product-name">
                     The North Face
                     <br />
                     戶外保暖羽絨外套
-                  </a>
+                  </Link>
                   <p class="text-right shopmain-product-price">NT $8,310</p>
                 </div>
               </div>
@@ -204,208 +238,208 @@ function ShopMain(props) {
               <div class="shopmain-title-underline position-absolute"></div>
             </div>
             <div class="shopmain-product-list my-4 position-relative">
-              <a
+              <Link
                 href="#/"
                 class="position-absolute shopmain-slider-arrows-left text-center shopmain-prev"
               >
                 <i class="bi bi-chevron-left"></i>
-              </a>
-              <a
+              </Link>
+              <Link
                 href="#/"
                 class="position-absolute shopmain-slider-arrows-right text-center shopmain-next"
               >
                 <i class="bi bi-chevron-right"></i>
-              </a>
+              </Link>
               <div class="shopmain-product-slider row">
                 <div class="col-3 px-0">
                   <div class="shopmain-product-card">
                     <div class="shopmain-product-img-box position-relative">
-                      <a href="#/">
+                      <Link href="#/">
                         <img
                           class="shopmain-cover-fit"
                           src={clothesPic8}
                           alt="The North Face Summit L5 FUTURELIGHT"
                           title="The North Face Summit L5 FUTURELIGHT"
                         />
-                      </a>
-                      <a
+                      </Link>
+                      <Link
                         role="button"
                         class="position-absolute shopmain-heart-icon-bkg position-relative"
                       >
                         <i class="bi bi-heart-fill position-absolute shopmain-heart-icon"></i>
-                      </a>
-                      <a
+                      </Link>
+                      <Link
                         role="button"
                         class="position-absolute shopmain-cart-icon-bkg position-relative"
                       >
                         <i class="bi bi-cart-fill position-absolute shopmain-cart-icon"></i>
-                      </a>
+                      </Link>
                     </div>
-                    <a href="#/" class="text-left shopmain-product-name">
+                    <Link href="#/" class="text-left shopmain-product-name">
                       The North Face
                       <br />
                       Summit L5 FUTURELIGHT
-                    </a>
+                    </Link>
                     <p class="text-right shopmain-product-price">NT $18,200</p>
                   </div>
                 </div>
                 <div class="col-3 px-0">
                   <div class="shopmain-product-card">
                     <div class="shopmain-product-img-box position-relative">
-                      <a href="#/">
+                      <Link href="#/">
                         <img
                           class="shopmain-cover-fit"
                           src="./img/product-img/clothes-pic4.jpeg"
                           alt="Arcteryx 始祖鳥 Cerium SV 保暖羽絨連帽外套"
                           title="Arcteryx 始祖鳥 Cerium SV 保暖羽絨連帽外套"
                         />
-                      </a>
-                      <a
+                      </Link>
+                      <Link
                         role="button"
                         class="position-absolute shopmain-heart-icon-bkg position-relative"
                       >
                         <i class="bi bi-heart-fill position-absolute shopmain-heart-icon"></i>
-                      </a>
-                      <a
+                      </Link>
+                      <Link
                         role="button"
                         class="position-absolute shopmain-cart-icon-bkg position-relative"
                       >
                         <i class="bi bi-cart-fill position-absolute shopmain-cart-icon"></i>
-                      </a>
+                      </Link>
                     </div>
-                    <a href="#/" class="text-left shopmain-product-name">
+                    <Link href="#/" class="text-left shopmain-product-name">
                       Arcteryx 始祖鳥
                       <br />
                       Cerium SV 保暖羽絨連帽外套
-                    </a>
+                    </Link>
                     <p class="text-right shopmain-product-price">NT $8,380</p>
                   </div>
                 </div>
                 <div class="col-3 px-0">
                   <div class="shopmain-product-card">
                     <div class="shopmain-product-img-box position-relative">
-                      <a href="#/">
+                      <Link href="#/">
                         <img
                           class="shopmain-cover-fit"
                           src="./img/product-img/bags-pic6.png"
                           alt="Arcteryx 始祖鳥 徒步背包 Brize 32"
                           title="Arcteryx 始祖鳥 徒步背包 Brize 32"
                         />
-                      </a>
-                      <a
+                      </Link>
+                      <Link
                         role="button"
                         class="position-absolute shopmain-heart-icon-bkg position-relative"
                       >
                         <i class="bi bi-heart-fill position-absolute shopmain-heart-icon"></i>
-                      </a>
-                      <a
+                      </Link>
+                      <Link
                         role="button"
                         class="position-absolute shopmain-cart-icon-bkg position-relative"
                       >
                         <i class="bi bi-cart-fill position-absolute shopmain-cart-icon"></i>
-                      </a>
+                      </Link>
                     </div>
-                    <a href="#/" class="text-left shopmain-product-name">
+                    <Link href="#/" class="text-left shopmain-product-name">
                       Arcteryx 始祖鳥
                       <br />
                       徒步背包 Brize 32
-                    </a>
+                    </Link>
                     <p class="text-right shopmain-product-price">NT $8,341</p>
                   </div>
                 </div>
                 <div class="col-3 px-0">
                   <div class="shopmain-product-card">
                     <div class="shopmain-product-img-box position-relative">
-                      <a href="#/">
+                      <Link href="#/">
                         <img
                           class="cover-fit"
                           src="./img/product-img/shoes-pic1.jpeg"
                           alt="MERRELL Tetrex Crest Wrap 女水陸三棲鞋"
                           title="MERRELL Tetrex Crest Wrap 女水陸三棲鞋"
                         />
-                      </a>
-                      <a
+                      </Link>
+                      <Link
                         role="button"
                         class="position-absolute shopmain-heart-icon-bkg position-relative"
                       >
                         <i class="bi bi-heart-fill position-absolute shopmain-heart-icon"></i>
-                      </a>
-                      <a
+                      </Link>
+                      <Link
                         role="button"
                         class="position-absolute shopmain-cart-icon-bkg position-relative"
                       >
                         <i class="bi bi-cart-fill position-absolute shopmain-cart-icon"></i>
-                      </a>
+                      </Link>
                     </div>
-                    <a href="#/" class="text-left shopmain-product-name">
+                    <Link href="#/" class="text-left shopmain-product-name">
                       MERRELL Tetrex Crest Wrap
                       <br />
                       女水陸三棲鞋
-                    </a>
+                    </Link>
                     <p class="text-right shopmain-product-price">NT $2,680</p>
                   </div>
                 </div>
                 <div class="col-3 px-0">
                   <div class="shopmain-product-card">
                     <div class="shopmain-product-img-box position-relative">
-                      <a href="#/">
+                      <Link href="#/">
                         <img
                           class="cover-fit"
                           src="./img/product-img/clothes-pic5.jpeg"
                           alt="The North Face 戶外保暖羽絨外套"
                           title="The North Face 戶外保暖羽絨外套"
                         />
-                      </a>
-                      <a
+                      </Link>
+                      <Link
                         role="button"
                         class="position-absolute shopmain-heart-icon-bkg position-relative"
                       >
                         <i class="bi bi-heart-fill position-absolute shopmain-heart-icon"></i>
-                      </a>
-                      <a
+                      </Link>
+                      <Link
                         role="button"
                         class="position-absolute shopmain-cart-icon-bkg position-relative"
                       >
                         <i class="bi bi-cart-fill position-absolute shopmain-cart-icon"></i>
-                      </a>
+                      </Link>
                     </div>
-                    <a href="#/" class="text-left shopmain-product-name">
+                    <Link href="#/" class="text-left shopmain-product-name">
                       The North Face
                       <br />
                       戶外保暖羽絨外套
-                    </a>
+                    </Link>
                     <p class="text-right shopmain-product-price">NT $8,310</p>
                   </div>
                 </div>
                 <div class="col-3 px-0">
                   <div class="shopmain-product-card">
                     <div class="shopmain-product-img-box position-relative">
-                      <a href="#/">
+                      <Link href="#/">
                         <img
                           class="shopmain-cover-fit"
                           src="./img/product-img/bags-pic2.jpeg"
                           alt="The North Face 黑灰色休閒後背包"
                           title="The North Face 黑灰色休閒後背包"
                         />
-                      </a>
-                      <a
+                      </Link>
+                      <Link
                         role="button"
                         class="position-absolute shopmain-heart-icon-bkg position-relative"
                       >
                         <i class="bi bi-heart-fill position-absolute shopmain-heart-icon"></i>
-                      </a>
-                      <a
+                      </Link>
+                      <Link
                         role="button"
                         class="position-absolute shopmain-cart-icon-bkg position-relative"
                       >
                         <i class="bi bi-cart-fill position-absolute shopmain-cart-icon"></i>
-                      </a>
+                      </Link>
                     </div>
-                    <a href="#/" class="text-left shopmain-product-name">
+                    <Link href="#/" class="text-left shopmain-product-name">
                       The North Face
                       <br />
                       黑灰色休閒後背包
-                    </a>
+                    </Link>
                     <p class="text-right shopmain-product-price">NT $2,180</p>
                   </div>
                 </div>
@@ -424,29 +458,29 @@ function ShopMain(props) {
               <div class="col-lg-4 px-0">
                 <div class="shopmain-article-card">
                   <div class="shopmain-article-img-box">
-                    <a href="../Article/article-detail.html">
+                    <Link href="../Article/article-detail.html">
                       <img
                         class="shopmain-cover-fit"
                         src="./img/article-img/xiangshan.jpeg"
                         alt="象山親山步道"
                         title="象山親山步道"
                       />
-                    </a>
+                    </Link>
                   </div>
-                  <a
+                  <Link
                     href="../Article/article-detail.html"
                     class="shopmain-article-name"
                   >
                     象山親山步道
-                  </a>
+                  </Link>
                   <br />
                   <p class="text-right">
-                    <a
+                    <Link
                       href="../Article/article-detail.html"
                       class="shopmain-see-more-btn"
                     >
                       查看更多
-                    </a>
+                    </Link>
                   </p>
                 </div>
               </div>
@@ -454,29 +488,29 @@ function ShopMain(props) {
               <div class="col-lg-4 px-0">
                 <div class="shopmain-article-card">
                   <div class="shopmain-article-img-box">
-                    <a href="../Article/article-detail.html">
+                    <Link href="../Article/article-detail.html">
                       <img
                         class="shopmain-cover-fit"
                         src="./img/article-img/Yangmingshan.jpeg"
                         alt="陽明山東西大縱走"
                         title="陽明山東西大縱走"
                       />
-                    </a>
+                    </Link>
                   </div>
-                  <a
+                  <Link
                     href="../Article/article-detail.html"
                     class="shopmain-article-name"
                   >
                     陽明山東西大縱走
-                  </a>
+                  </Link>
                   <br />
                   <p class="text-right">
-                    <a
+                    <Link
                       href="../Article/article-detail.html"
                       class="shopmain-see-more-btn"
                     >
                       查看更多
-                    </a>
+                    </Link>
                   </p>
                 </div>
               </div>
@@ -484,29 +518,29 @@ function ShopMain(props) {
               <div class="col-lg-4 px-0">
                 <div class="shopmain-article-card">
                   <div class="shopmain-article-img-box">
-                    <a href="../Article/article-detail.html">
+                    <Link href="../Article/article-detail.html">
                       <img
                         class="shopmain-cover-fit"
                         src="./img/article-img/Tapachien.jpeg"
                         alt="大霸北稜線"
                         title="大霸北稜線"
                       />
-                    </a>
+                    </Link>
                   </div>
-                  <a
+                  <Link
                     href="../Article/article-detail.html"
                     class="shopmain-article-name"
                   >
                     大霸北稜線
-                  </a>
+                  </Link>
                   <br />
                   <p class="text-right">
-                    <a
+                    <Link
                       href="../Article/article-detail.html"
                       class="shopmain-see-more-btn"
                     >
                       查看更多
-                    </a>
+                    </Link>
                   </p>
                 </div>
               </div>
