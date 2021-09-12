@@ -4,12 +4,17 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 //====== below components star ======//
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Outfit from './components/OutfitPage/Outfit';
 import Recommend from './components/RecommendPage/Recommend';
 import Bear from './components/RecommendPage/Bear';
 import Result from './components/RecommendPage/Result';
 import Manual from './components/RecommendPage/Manual';
 import Detail from './components/RecommendPage/Detail';
+import ShopMain from './components/ShopPage/ShopMain';
+import Bags from './components/ShopPage/Bags';
+import MapL from './components/MapPage/MapL';
+import MapM from './components/MapPage/MapM';
+import MapH from './components/MapPage/MapH';
+import Outfit from './components/OutfitPage/Outfit';
 
 //====== above components end ======//
 
@@ -23,7 +28,6 @@ function App() {
 
         <Switch>
           {/* //===other 路由放homepage上面 */}
-          <Route path="/map">{/* 放要引入的content EX: <Stock /> */}</Route>
           <Route path="/recommend/bear/result">
             <Result />
           </Route>
@@ -36,10 +40,24 @@ function App() {
           <Route path="/recommend/detail">
             <Detail />
           </Route>
+          <Route path="/map/levelH">
+            <MapH />
+          </Route>
+          <Route path="/map/levelM">
+            <MapM />
+          </Route>
+          <Route path="/map">
+            <MapL />
+          </Route>
           <Route path="/recommend">
             <Recommend />
           </Route>
-          <Route path="/shop">{/* 放要引入的content EX: <Stock /> */}</Route>
+          <Route path="/shop/bags">
+            <Bags />
+          </Route>
+          <Route path="/shop">
+            <ShopMain />
+          </Route>
           <Route path="/shop/cart">
             {/* 放要引入的content EX: <Stock /> */}
           </Route>
