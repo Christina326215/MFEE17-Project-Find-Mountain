@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/productbag.css';
-import { Cart, CartFill, HeartFill } from 'react-bootstrap-icons';
+import { CartFill, HeartFill } from 'react-bootstrap-icons';
 import bagPic1 from '../../img/product-img/bags-pic1.jpeg';
 import bagPic2 from '../../img/product-img/bags-pic2.jpeg';
 import bagPic3 from '../../img/product-img/bags-pic3.jpeg';
