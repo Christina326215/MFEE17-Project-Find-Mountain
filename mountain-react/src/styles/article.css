@@ -1,0 +1,682 @@
+/* 共用css */
+.recommend-wrapper {
+  margin: 35px 0;
+}
+.recommend-body {
+  color: #414141;
+}
+/* .btn {
+  background: var(--primary);
+  color: #ffffff;
+} */
+/* .active {
+  background: #24936e;
+} */
+/* 暫時改一下btn-primary的active樣式 */
+.recommend-btn-primary:not(:disabled):not(.disabled):active,
+.recommend-btn-primary:not(:disabled):not(.disabled).active,
+.recommend-show > .recommend-btn-primary.dropdown-toggle {
+  color: #fff;
+  background-color: #24936e;
+  border-color: #508460;
+}
+/* .heart-icon-bkg .bi-heart-fill {
+  color: #e2e3e1;
+  font-size: 18px;
+}
+.heart-icon-bkg i:hover {
+  color: #eea9a9;
+}
+.heart-icon-bkg:active {
+  color: #cc543a;
+} */
+.recommend-bi-heart-fill {
+  color: #e2e3e1;
+  font-size: 18px;
+}
+.recommend-bi-heart-fill:hover {
+  color: #eea9a9;
+}
+.recommend-bi-heart-fill:active {
+  color: #cc543a;
+}
+.recommend-bi-heart-fill.active {
+  color: #cc543a;
+}
+.recommend-bi-star-fill {
+  color: #e2e3e1;
+  /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+}
+.recommend-bi-star-fill:hover {
+  color: #ffdfa8;
+}
+.recommend-bi-star-fill:active {
+  color: #ffb943;
+}
+.recommend-bi-star-fill.active {
+  color: #ffb943;
+}
+.recommend-fa-shoe-prints {
+  color: var(--primary);
+}
+.recommend-bi-flag-fill {
+  font-size: 20px;
+  color: #e2e3e1;
+}
+.recommend-bi-flag-fill:hover {
+  color: #ffdfa8;
+}
+.recommend-bi-flag-fill:active {
+  color: #ffb943;
+}
+.recommend-bi-flag-fill.active {
+  color: #ffb943;
+}
+/* font style */
+.recommend-h2 {
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 34px;
+  line-height: 41px;
+}
+.recommend-h3 {
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 24px;
+}
+.recommend-body-content-big-bold {
+  font-size: 22px;
+  line-height: 22px;
+  font-weight: bold;
+  margin: 15px 0;
+}
+.recommend-body-content-bold {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 15px 0;
+}
+.recommend-body-content {
+  font-size: 16px;
+  line-height: 22px;
+}
+.recommend-body-content-small {
+  font-size: 14px;
+  line-height: 20px;
+}
+@media screen and (max-width: 768px) {
+  .recommend-body-content {
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+/* article-filter */
+/* chatpage */
+.recommend-chatbg {
+  margin: auto;
+  border-radius: 10px;
+  background-image: url(../img/article-img/bg1_chat.jpg);
+  background-size: 2300px;
+  background-position: top;
+}
+.recommend-bg-filter {
+  margin: auto;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.recommend-stepbox {
+  position: relative;
+  margin: 50px;
+}
+.recommend-step1 {
+  display: block;
+}
+.recommend-step2 {
+  display: none;
+}
+.recommend-step3 {
+  display: none;
+}
+.recommend-step4 {
+  display: none;
+}
+.recommend-qa {
+  display: flex;
+}
+.recommend-bearwrap {
+  height: auto;
+  width: auto;
+}
+.recommend-bear {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.recommend-chatbox {
+  background: url(../img/article-img/chatbox.png);
+  width: 387px;
+  height: 123px;
+  background-repeat: no-repeat;
+  /* position: relative; */
+}
+
+.recommend-chatBoxText {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 60px;
+  /* justify-content: center; */
+}
+/* .recommend-firstQ a {
+  height: 38px;
+} */
+/* .recommend-firstQ Link {
+  height: 38px;
+} */
+.recommend-btngroup {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 25px;
+  padding-top: 15px;
+}
+.recommend-btngroup a {
+  width: 150px;
+  height: 58px;
+  margin-left: 15px;
+  padding-top: 15px;
+}
+.recommend-btngroup input {
+  width: 150px;
+  height: 58px;
+  margin-left: 15px;
+}
+.recommend-recommend {
+  display: flex;
+  flex-direction: column;
+}
+.recommend-firstchatbox {
+  background: url(../img/article-img/chatbox_long.png);
+  width: 420px;
+  height: 77px;
+  margin-bottom: 25px;
+  background-repeat: no-repeat;
+}
+.recommend-secondchatbox {
+  background: url(../img/article-img/chatbox_short.png);
+  width: 205px;
+  height: 77px;
+  background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 768px) {
+  .recommend-stepbox {
+    position: relative;
+    margin: 50px 25px 50px 25px;
+  }
+  .recommend-btngroup {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+  }
+}
+
+/* article-recommend start*/
+.recommend-table th,
+.recommend-table td {
+  padding: 0.4rem;
+}
+.recommend-filter-wrapper {
+  margin: 35px 0 0 0;
+}
+/* .filter-wrapper table tbody > tr {
+  border-bottom: 0px dashed #19634a;
+} */
+.recommend-recommendbg {
+  background-image: url(../img/article-img/bg2_jungle.png);
+  background-size: cover;
+}
+.recommend-filter {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid transparent;
+}
+.recommend-bg-wrapper {
+  margin: 35px 0;
+}
+.recommend-inline {
+  display: inline;
+}
+
+.recommend-filterBtn {
+  width: 100px;
+}
+.recommend-card {
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.recommend-pic-box {
+  max-height: 290px;
+}
+.recommend-pic-box-wrap {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.recommend-cardimg {
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px 0 0 10px;
+}
+.recommend-cardFirstLine {
+  display: flex;
+}
+@media screen and (max-width: 768px) {
+  .recommend-pic-box-wrap {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  .recommend-cardTitle {
+    font-size: 18px;
+    line-height: 18px;
+  }
+  .recommend-card-body {
+    padding: 1rem;
+  }
+}
+.recommend-cardSecondLine {
+  display: flex;
+}
+.recommend-textBox {
+  height: 100px;
+
+  display: flex;
+  align-items: center;
+}
+.recommend-card-text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+}
+.recommend-cardLastLine {
+  display: flex;
+  justify-content: space-between;
+}
+.recommend-bi-star-fill {
+  font-size: 22px;
+}
+/* article-recommend end*/
+/* artcicle-detail start */
+.recommend-detailBg {
+  background: url(../img/article-img/xiangshan.jpeg);
+  background-size: cover;
+  border-radius: 10px;
+  background-position: center;
+}
+.recommend-detailBgShow {
+  height: 300px;
+  /* border: 1px solid red; */
+}
+.recommend-detailFilter {
+  height: 450px;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.62),
+    rgba(0, 0, 0, 0.62)
+  );
+  border-radius: 0px 0px 10px 10px;
+  position: relative;
+}
+.recommend-detailContnet {
+  padding: 0 70px 20px;
+  position: absolute;
+  bottom: 0;
+}
+.recommend-table {
+  border: 1px solid white;
+  height: auto;
+}
+@media (max-width: 992px) {
+  .recommend-table {
+    margin-bottom: 0px;
+  }
+  .recommend-col {
+    padding: 5px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .recommend-detailBgShow {
+    height: 350px;
+  }
+  .recommend-detailFilter {
+    height: 600px;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0.62),
+      rgba(0, 0, 0, 0.62)
+    );
+    border-radius: 0px 0px 10px 10px;
+    position: relative;
+  }
+  .recommend-detailContnet {
+    padding: 0 30px 20px;
+    position: absolute;
+    bottom: 0;
+  }
+  .recommend-table {
+    margin-bottom: 8px;
+  }
+  .recommend-col {
+    padding: 0;
+  }
+}
+.recommend-tableHead {
+  min-height: 38px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: 1px solid red; */
+}
+.recommend-tableBody {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.recommend-productTagBg {
+  background: url(../img/article-img/hiking_1.jpg);
+  border-radius: 10px;
+  height: 360px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+.recommend-tag {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+  padding: 10px;
+  border-radius: 20px;
+  color: white;
+  background: rgba(109, 167, 127, 0.8);
+  position: absolute;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+}
+.recommend-tag-small {
+  display: block;
+}
+.recommend-tag-big {
+  display: none;
+}
+.recommend-tagHover {
+  border: 2px solid white;
+  display: flex;
+  justify-content: center;
+  width: 120px;
+  border-radius: 10px;
+  color: #ffffff;
+  position: absolute;
+  background: rgba(25, 99, 74, 0.8);
+  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.4);
+}
+.recommend-tagHover:hover {
+  color: #fafafa;
+}
+.recommend-tagText {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+}
+.recommend-hatTag {
+  transform: translate(260px, 160px);
+}
+.recommend-alpenstockTag {
+  transform: translate(310px, 230px);
+}
+.recommend-bagTag {
+  transform: translate(180px, 100px);
+  width: 250px;
+  height: 150px;
+}
+.recommend-tagName {
+  margin: 0;
+  padding: 10px;
+  text-align: left;
+}
+.recommend-tagPrice {
+  margin: 0;
+  padding: 10px;
+  text-align: right;
+}
+.recommend-productTagWrap {
+  width: 150px;
+  height: auto;
+}
+.recommend-productTagHover {
+  border-radius: 0 10px 10px 0;
+  height: 100%;
+  width: 100%;
+}
+
+.recommend-commentBg {
+  background: url(../img/article-img/bg2_jungle.png);
+  background-size: cover;
+  position: relative;
+}
+.recommend-commentFilter {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid transparent;
+}
+.recommend-commentWhiteBox {
+  background: white;
+  border-radius: 10px;
+  /* delete */
+  /* height: 200px; */
+}
+.recommend-commentContent {
+  padding: 30px 70px;
+}
+.recommend-commentBox {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgb(207, 207, 207);
+}
+.recommend-commentPic {
+  width: 150px;
+  margin-left: 15px;
+  /* margin: 5px 0 5px 10px; */
+}
+.recommend-commentPic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.recommend-bi-person-circle {
+  font-size: 44px;
+  margin-right: 10px;
+  /* margin-right: 5px;
+  margin-bottom: 5px;
+  margin-left: 5px; */
+}
+.recommend-memberLevel1 {
+  color: var(#414141);
+}
+.recommend-memberLevel2 {
+  color: var(--primary);
+}
+.recommend-memberLevel3 {
+  color: var(--warning);
+}
+.recommend-sloth_big {
+  position: absolute;
+  right: 0;
+  top: 90px;
+  width: 209px;
+  height: 464px;
+  animation-iteration-count: infinite;
+}
+.recommend-sloth_big img {
+  width: 100%;
+  height: 100%;
+}
+.recommend-sloth_small {
+  position: absolute;
+  right: 150px;
+  top: -13px;
+  width: 0;
+  height: 0;
+  display: none;
+  animation-iteration-count: infinite;
+}
+.recommend-sloth_small img {
+  width: 100%;
+  height: 100%;
+  /* display: none; */
+}
+@media (max-width: 992px) {
+  .recommend-commentBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 5px;
+    border-bottom: 1px solid rgb(207, 207, 207);
+  }
+  .recommend-commentPic {
+    width: 150px;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 0;
+    /* margin: 5px 0 5px 10px; */
+  }
+}
+@media screen and (max-width: 768px) {
+  .recommend-tag-big {
+    display: block;
+  }
+  .recommend-tag-small {
+    display: none;
+  }
+  .recommend-commentContent {
+    padding: 30px 30px;
+  }
+  .recommend-commentBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 5px;
+    border-bottom: 1px solid rgb(207, 207, 207);
+  }
+  .recommend-commentPic {
+    width: 150px;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 0;
+    /* margin: 5px 0 5px 10px; */
+  }
+  .recommend-sloth_big {
+    width: 0;
+    height: 0;
+    display: none;
+  }
+  .recommend-sloth_small {
+    width: 181px;
+    height: 120px;
+    display: block;
+  }
+}
+
+/*熱門登山攻略開始*/
+.recommend-article-card {
+  margin: 10px auto;
+  width: 300px;
+  /* border: 1px solid red; */
+}
+.recommend-article-img-box {
+  width: 300px;
+  height: 200px;
+}
+.recommend-article-img-box img {
+  border-radius: 5px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+.recommend-article-img-box img:hover {
+  cursor: pointer;
+  /* box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.15); */
+}
+@media screen and (max-width: 768px) {
+  .recommend-article-card {
+    margin: 10px auto;
+    width: 400px;
+  }
+  .recommend-article-img-box {
+    width: 400px;
+    height: 200px;
+  }
+}
+.recommend-article-name {
+  display: block;
+  margin: 10px 0;
+  font-family: Source Sans Pro;
+  font-size: 16px;
+  line-height: 22px;
+  color: #4e4e4e;
+}
+.recommend-cover-fit {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/*熱門登山攻略結束*/
+
+/*會員制度氣泡start*/
+.recommend-about-membership-bubble {
+  width: 300px;
+  background: #f2f2f2;
+  border-radius: 5px;
+  right: -32px;
+  top: 51px;
+  display: none;
+}
+.recommend-about-membership-bubble-arrow {
+  width: 0px;
+  height: 0px;
+  border-width: 15px;
+  border-style: solid;
+  border-color: transparent transparent #f2f2f2 transparent;
+  position: absolute;
+  right: 40px;
+  top: -30px;
+}
+.recommend-membership {
+  font-family: Source Sans Pro;
+  font-size: 14px;
+  line-height: 20px;
+}
+.recommend-membership-low {
+  color: #4e4e4e;
+}
+.recommend-membership-medium {
+  color: #19634a;
+}
+.recommend-membership-high {
+  color: #ffb943;
+}
+/*會員制度氣泡end*/
+
+/* artcicle-detail end */
