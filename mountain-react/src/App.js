@@ -4,9 +4,12 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 //====== below components star ======//
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Outfit from './components/OutfitPage/Outfit';
 import ShopMain from './components/ShopPage/ShopMain';
 import Bags from './components/ShopPage/Bags';
+import MapL from './components/MapPage/MapL';
+import MapM from './components/MapPage/MapM';
+import MapH from './components/MapPage/MapH';
+import Outfit from './components/OutfitPage/Outfit';
 //====== above components end ======//
 
 function App() {
@@ -19,7 +22,15 @@ function App() {
 
         <Switch>
           {/* //===other 路由放homepage上面 */}
-          <Route path="/map">{/* 放要引入的content EX: <Stock /> */}</Route>
+          <Route path="/map/levelH">
+            <MapH />
+          </Route>
+          <Route path="/map/levelM">
+            <MapM />
+          </Route>
+          <Route path="/map">
+            <MapL />
+          </Route>
           <Route path="/recommend">
             {/* 放要引入的content EX: <Stock /> */}
           </Route>

@@ -28,8 +28,7 @@ body {
 }
 
 /*============below header============*/
-.header {
-  /* position: relative; */
+/* .header {
   background: var(--info-color);
   height: 78px;
 }
@@ -63,10 +62,10 @@ body {
   border: 1px solid var(--iconHover-color);
   border-radius: 5px;
   padding: 5px 20px;
-}
+} */
 
 /*============below nav============*/
-.nav {
+/* .nav {
   position: absolute;
   left: 266px;
   top: 36px;
@@ -82,14 +81,14 @@ body {
 }
 .nav-font:hover {
   color: var(--font-color);
-}
+} */
 
 /*============below content============*/
 /* part1 map start */
 .mountain_bg {
   width: 100%;
   height: 798px;
-  background: url(img/mountain-img/bgShort.png);
+  background: url(../../img/mountain-img/bgShort.png);
   background-size: cover;
 }
 .mountain_bg_box {
@@ -119,7 +118,7 @@ body {
 .mountain_Xiangshan_box {
   width: 52px;
   height: 52px;
-  background: url(img/mountain-img/xiangshan.jpeg);
+  background: url(../../img/mountain-img/xiangshan.jpeg);
   background-size: cover;
 }
 .mountain_Xiangshan:hover .mountain_Xiangshan_box_hover {
@@ -127,7 +126,7 @@ body {
 }
 .mountain_Xiangshan_box_hover {
   position: relative;
-  display: none;
+  display: none;/*here 看區塊顯示樣子改block*/
 }
 .mountain_Xiangshan_hover {
   position: absolute;
@@ -144,7 +143,7 @@ body {
   width: 536px;
   height: 325px;
   border: 3px solid var(--barFont-color);
-  background: url(img/mountain-img/xiangshan.jpeg);
+  background: url(../../img/mountain-img/xiangshan.jpeg);
   background-size: cover;
   top: 80px;
   left: 55px;
@@ -166,7 +165,7 @@ body {
 .mountain_Jinmian_box {
   width: 52px;
   height: 52px;
-  background: url(img/mountain-img/jinmianshan.jpeg);
+  background: url(../../img/mountain-img/jinmianshan.jpeg);
   background-size: cover;
 }
 .mountain_Jinmian {
@@ -198,7 +197,7 @@ body {
   width: 536px;
   height: 325px;
   border: 3px solid var(--barFont-color);
-  background: url(img/mountain-img/jinmianshan.jpeg);
+  background: url(../../img/mountain-img/jinmianshan.jpeg);
   background-size: cover;
   top: 80px;
   left: 55px;
@@ -220,7 +219,7 @@ body {
 .mountain_Chi-hsing_box {
   width: 52px;
   height: 52px;
-  background: url(img/mountain-img/sevenstar.jpeg);
+  background: url(../../img/mountain-img/sevenstar.jpeg);
   background-size: cover;
 }
 .mountain_Chi-hsing {
@@ -252,7 +251,7 @@ body {
   width: 536px;
   height: 325px;
   border: 3px solid var(--barFont-color);
-  background: url(img/mountain-img/sevenstar.jpeg);
+  background: url(../../img/mountain-img/sevenstar.jpeg);
   background-size: cover;
   top: 80px;
   left: 55px;
@@ -669,7 +668,7 @@ body {
 .mountain_downLowBear {
   width: 150px;
   height: 210px;
-  background: url(img/mountain-img/lowBear.png);
+  background: url(../../img/mountain-img/lowBear.png);
   background-size: cover;
   /* margin-left: 150px; */
   left: 100%;
@@ -680,7 +679,7 @@ body {
 .mountain_bearSpeak {
   width: 200px;
   height: 130px;
-  background: url(img/mountain-img/lowSpeak.png);
+  background: url(../../img/mountain-img/lowSpeak.png);
   background-size: cover;
   margin-top: -45px;
   left: 25%;
@@ -690,7 +689,7 @@ body {
 /*推薦商品 end*/
 
 /*============below footer============*/
-.footer {
+/* .footer {
   position: relative;
   background: var(--info-color);
   height: 345px;
@@ -738,7 +737,7 @@ body {
 .footer_copy {
   margin-top: 80px;
   color: var(--font-color);
-}
+} */
 
 /*********** ============below media 1200px============ *************/
 @media screen and (max-width: 1200px) {
@@ -845,12 +844,12 @@ body {
 /* 推薦商品 end */
 /*********** ============below media 900px============ *************/
 @media screen and (max-width: 900px) {
-  .nav {
+  /* .nav {
     left: 210px;
   }
   .nav-font {
     font-size: 16px;
-  }
+  } */
   .mountain_downLowBear {
     position: absolute;
     width: 130px;
@@ -973,7 +972,7 @@ body {
 
 @media screen and (max-width: 768px) {
   /*============below media header============*/
-  .btns {
+  /* .btns {
     right: 70px;
   }
   .btn_nav {
@@ -1003,16 +1002,15 @@ body {
   .change .bar3 {
     -webkit-transform: rotate(45deg) translate(-8px, -8px);
     transform: rotate(45deg) translate(-8px, -8px);
-  }
+  } */
 
   /*============below media nav============*/
-  .nav {
+  /* .nav {
     width: 100%;
     background-color: var(--button-color);
     position: absolute;
     top: 78px;
     left: 0;
-    /* here */
     display: none;
   }
   .nav_show {
@@ -1035,15 +1033,15 @@ body {
     line-height: 36px;
     vertical-align: middle;
     font-size: 22px;
-  }
+  } */
 
   /*============below media footer============*/
-  .footer_head {
+  /* .footer_head {
     margin-right: 0px;
   }
   .footer_logo {
     margin-right: 20px;
-  }
+  } */
 }
 
 /*********** ============below media 530px============ *************/
