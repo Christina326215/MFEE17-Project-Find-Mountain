@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
+
 import $ from 'jquery';
 // import SimpleImageSlider from 'react-simple-image-slider';
 // import { vegas } from 'vegas';
@@ -58,12 +59,12 @@ function ShopMain(props) {
             <ul class="d-flex justify-content-center list-unstyled">
               <div class="row">
                 <li class="col-3 px-0">
-                  <Link class="shopmain-active" href="./product.html">
+                  <Link class="shopmain-active" to="/shop">
                     商城首頁
                   </Link>
                 </li>
                 <li class="col-3 px-0">
-                  <Link href="./product-bag.html">機能背包</Link>
+                  <Link to="/shop/bags">機能背包</Link>
                 </li>
                 <li class="col-3 px-0">
                   <Link href="#/">登山鞋</Link>
