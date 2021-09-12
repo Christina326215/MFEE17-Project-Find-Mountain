@@ -11,6 +11,7 @@ import Manual from './components/RecommendPage/Manual';
 import Detail from './components/RecommendPage/Detail';
 import ShopMain from './components/ShopPage/ShopMain';
 import Bags from './components/ShopPage/Bags';
+import ProductDetail from './components/ShopPage/ProductDetail';
 import MapL from './components/MapPage/MapL';
 import MapM from './components/MapPage/MapM';
 import MapH from './components/MapPage/MapH';
@@ -52,6 +53,9 @@ function App() {
             </Route>
             <Route path="/recommend">
               <Recommend />
+            </Route>
+            <Route path="/shop/product-detail">
+              <ProductDetail />
             </Route>
             <Route path="/shop/bags">
               <Bags />
