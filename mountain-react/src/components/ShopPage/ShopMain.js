@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom'; //a標籤要變成link
+import { Link } from 'react-router-dom'; //a標籤要變成link .
 
 import $ from 'jquery';
 // import SimpleImageSlider from 'react-simple-image-slider';
@@ -171,7 +171,7 @@ function ShopMain(props) {
               <div class="col-6 col-md-4 col-lg-3 px-0">
                 <div class="shopmain-product-card">
                   <div class="shopmain-product-img-box position-relative">
-                    <Link href="./product-detail.html">
+                    <Link to="/shop/product-detail">
                       <img
                         class="shopmain-cover-fit"
                         src={shoesPic8}
@@ -193,7 +193,7 @@ function ShopMain(props) {
                     </Link>
                   </div>
                   <Link
-                    href="./product-detail.html"
+                    to="/shop/product-detail"
                     class="text-left shopmain-product-name"
                   >
                     ASOLO
