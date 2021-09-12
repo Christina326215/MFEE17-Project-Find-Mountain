@@ -1,11 +1,44 @@
 import React from 'react';
-import '../../styles/MapStyle/mountain_index.css'; //初階MAP樣式
+import $ from 'jquery';
+import '../../styles/MapStyle/mountain_index.css'; //初階Map樣式
+import { Link } from 'react-router-dom'; //a標籤要變成link
+
+//====== below icon star ======//
+import {
+  StarFill,
+  BrightnessHigh,
+  ThermometerHalf,
+  HeartFill,
+  CartFill,
+} from 'react-bootstrap-icons';
+import { FaShoePrints } from 'react-icons/fa';
+//====== below icon end ======//
 
 //====== below img import start ======//
 import lowMapPng from '../../img/mountain-img/lowMap.png';
+import lowBearPng from '../../img/mountain-img/lowBear.png';
+import xiangshanJpeg from '../../img/mountain-img/xiangshan.jpeg';
+import jinmianshanJpeg from '../../img/mountain-img/jinmianshan.jpeg';
+import sevenstarJpeg from '../../img/mountain-img/sevenstar.jpeg';
+import bags_pic1Jpeg from '../../img/product-img/bags-pic1.jpeg';
+import bags_pic2Jpeg from '../../img/product-img/bags-pic2.jpeg';
+import shoes_pic1Jpeg from '../../img/product-img/shoes-pic1.jpeg';
+import clothes_pic1Jpeg from '../../img/product-img/clothes-pic1.jpeg';
 //====== above img import end ======//
 
 function MapL() {
+  const heartIcon = () => {
+    $('a.mountain_heart-icon-bkg').each(function () {
+      $(this).click(function () {
+        $(this).toggleClass('mountain_heart-icon-bkg-click');
+      });
+    });
+  };
+
+  const cartIcon = () => {
+    alert('已將商品加入購物車！');
+  };
+
   return (
     <>
       {/* <!-- =========content star========= --> */}
@@ -16,10 +49,8 @@ function MapL() {
           <div className="mountain_maps">
             <div className="mountain_maps_item">
               <img className="mountain_low_map" src={lowMapPng} alt="low_map" />
-              <a
-                className="mountain_Xiangshan"
-                href="../Article/article-detail.html"
-              >
+              {/* FIXME: Link 要連到象山的文章 */}
+              <Link to="#/" className="mountain_Xiangshan">
                 <div className="mountain_Xiangshan_box mountain_circle"></div>
 
                 <div className="mountain_Xiangshan_box_hover">
@@ -28,16 +59,17 @@ function MapL() {
                     <div className="mountain_Xiangshan_hover_pic_font d-flex justify-content-center align-items-center">
                       <p className="mountain_Xiangshan_hover_pic_font_title text-white mb-0 mr-2">
                         象山步道
-                        <p className="mountain_Xiangshan_hover_pic_font_star text-warning mb-0">
-                          <span className="text-white mr-1">4.8</span>
-                          <i className="bi bi-star-fill"></i>
-                        </p>
+                      </p>
+                      <p className="mountain_Xiangshan_hover_pic_font_star text-warning mb-0">
+                        <span className="text-white mr-1">4.8</span>
+                        <StarFill />
                       </p>
                     </div>
                   </div>
                 </div>
-              </a>
-              <a className="mountain_Jinmian" href="../Article/article-detail.html">
+              </Link>
+              {/* FIXME: Link 要連到金面的文章 */}
+              <Link to="#/" className="mountain_Jinmian">
                 <div className="mountain_Jinmian_box mountain_circle"></div>
 
                 <div className="mountain_Jinmian_box_hover">
@@ -46,19 +78,17 @@ function MapL() {
                     <div className="mountain_Jinmian_hover_pic_font d-flex justify-content-center align-items-center">
                       <p className="mountain_Jinmian_hover_pic_font_title text-white mb-0 mr-2">
                         金面步道
-                        <p className="mountain_Jinmian_hover_pic_font_star text-warning mb-0">
-                          <span className="text-white mr-1">4.8</span>
-                          <i className="bi bi-star-fill"></i>
-                        </p>
+                      </p>
+                      <p className="mountain_Jinmian_hover_pic_font_star text-warning mb-0">
+                        <span className="text-white mr-1">4.8</span>
+                        <StarFill />
                       </p>
                     </div>
                   </div>
                 </div>
-              </a>
-              <a
-                className="mountain_Chi-hsing"
-                href="../Article/article-detail.html"
-              >
+              </Link>
+              {/* FIXME: Link 要連到七星的文章 */}
+              <Link to="#/" className="mountain_Chi-hsing">
                 <div className="mountain_Chi-hsing_box mountain_circle"></div>
 
                 <div className="mountain_Chi-hsing_box_hover">
@@ -67,46 +97,42 @@ function MapL() {
                     <div className="mountain_Chi-hsing_hover_pic_font d-flex justify-content-center align-items-center">
                       <p className="mountain_Chi-hsing_hover_pic_font_title text-white mb-0 mr-2">
                         七星步道
-                        <p className="mountain_Chi-hsing_hover_pic_font_star text-warning mb-0">
-                          <span className="text-white mr-1">4.8</span>
-                          <i className="bi bi-star-fill"></i>
-                        </p>
+                      </p>
+                      <p className="mountain_Chi-hsing_hover_pic_font_star text-warning mb-0">
+                        <span className="text-white mr-1">4.8</span>
+                        <StarFill />
                       </p>
                     </div>
                   </div>
                 </div>
-              </a>
+              </Link>
             </div>
           </div>
-          <img
-            className="mountain_lowBear"
-            src="img/mountain-img/lowBear.png"
-            alt="lowBear"
-          />
+          <img className="mountain_lowBear" src={lowBearPng} alt="lowBear" />
         </h1>
         {/* <!-- =========part1 map end========= --> */}
 
         <div className="container mountain_container">
           {/* <!-- =========map_btn start========= --> */}
           <div className="mountain_map_btn">
-            <a
-              href="mountain_index.html"
+            <Link
+              to="/map"
               className="mountain_low_button btn btn-primary btn-lg"
             >
               初階
-            </a>
-            <a
-              href="mountain_index_M.html"
+            </Link>
+            <Link
+              to="/map/levelM"
               className="mountain_middle_button btn btn-primary btn-lg"
             >
               中階
-            </a>
-            <a
-              href="mountain_index_H.html"
+            </Link>
+            <Link
+              to="/map/levelH"
               className="mountain_high_button btn btn-primary btn-lg"
             >
               高階
-            </a>
+            </Link>
           </div>
           {/* <!-- =========map_btn end========= --> */}
 
@@ -118,7 +144,7 @@ function MapL() {
               <div className="mountain_Xiangshan_list">
                 <img
                   className="mountain_Xiangshan_pic"
-                  src="img/mountain-img/xiangshan.jpeg"
+                  src={xiangshanJpeg}
                   alt="Xiangshan"
                 />
               </div>
@@ -129,26 +155,26 @@ function MapL() {
                       <p className="mountain_list_title mr-2">象山步道</p>
                       <p className="mountain_list_star text-warning">
                         <span className="text-dark mr-1">4.8</span>
-                        <i className="bi bi-star-fill"></i>
+                        <StarFill className="mb-1" />
                       </p>
                     </div>
 
                     <div className="mountain_list_distance_title">
                       <p className="mountain_list_title mr-2">您距離此地</p>
                       <p className="mountain_list_distance text-primary">
-                        <i className="fas fa-shoe-prints mr-1"></i>
+                        <FaShoePrints className="mr-1 mb-1" />
                         <span className="mr-3">2.2公里</span>
                       </p>
 
                       <p className="mountain_list_title mr-2">天氣</p>
                       <p className="mountain_list_distance text-primary">
-                        <i className="bi bi-brightness-high mr-1"></i>
+                        <BrightnessHigh className="mr-1 mb-1" />
                         <span className="mr-3">晴天</span>
                       </p>
 
                       <p className="mountain_list_title mr-2">溫度</p>
                       <p className="mountain_list_distance text-primary">
-                        <i className="bi bi-thermometer-half mr-1"></i>
+                        <ThermometerHalf className="mr-1 mb-1" />
                         <span>30度</span>
                       </p>
                     </div>
@@ -195,20 +221,20 @@ function MapL() {
                   </div>
                   {/* <!-- Time bar end --> */}
                 </div>
-                <a
-                  href="../Article/article-detail.html"
+                {/* FIXME: Link要連到象山的文章 */}
+                <Link
+                  to="#/"
                   className="mountain_article_button btn btn-primary btn-lg"
                 >
                   查看文章
-                </a>
+                </Link>
               </div>
             </div>
-
             <div className="mountain_list">
               <div className="mountain_Jinmian_list">
                 <img
                   className="mountain_Jinmian_pic"
-                  src="img/mountain-img/jinmianshan.jpeg"
+                  src={jinmianshanJpeg}
                   alt="Jinmian"
                 />
               </div>
@@ -219,26 +245,26 @@ function MapL() {
                       <p className="mountain_list_title mr-2">金面步道</p>
                       <p className="mountain_list_star text-warning">
                         <span className="text-dark mr-1">4.8</span>
-                        <i className="bi bi-star-fill"></i>
+                        <StarFill className="mb-1" />
                       </p>
                     </div>
 
                     <div className="mountain_list_distance_title">
                       <p className="mountain_list_title mr-2">您距離此地</p>
                       <p className="mountain_list_distance text-primary">
-                        <i className="fas fa-shoe-prints mr-1"></i>
+                        <FaShoePrints className="mr-1 mb-1" />
                         <span className="mr-3">2.2公里</span>
                       </p>
 
                       <p className="mountain_list_title mr-2">天氣</p>
                       <p className="mountain_list_distance text-primary">
-                        <i className="bi bi-brightness-high mr-1"></i>
+                        <BrightnessHigh className="mr-1 mb-1" />
                         <span className="mr-3">晴天</span>
                       </p>
 
                       <p className="mountain_list_title mr-2">溫度</p>
                       <p className="mountain_list_distance text-primary">
-                        <i className="bi bi-thermometer-half mr-1"></i>
+                        <ThermometerHalf className="mr-1 mb-1" />
                         <span>30度</span>
                       </p>
                     </div>
@@ -285,12 +311,13 @@ function MapL() {
                   </div>
                   {/* <!-- Time bar end --> */}
                 </div>
-                <a
-                  href="../Article/article-detail.html"
+                {/* FIXME: Link要連到金面的文章 */}
+                <Link
+                  to="#/"
                   className="mountain_article_button btn btn-primary btn-lg"
                 >
                   查看文章
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -298,7 +325,7 @@ function MapL() {
               <div className="mountain_Chi-hsing_list">
                 <img
                   className="mountain_Chi-hsing_pic"
-                  src="img/mountain-img/sevenstar.jpeg"
+                  src={sevenstarJpeg}
                   alt="Chi-hsing"
                 />
               </div>
@@ -309,26 +336,26 @@ function MapL() {
                       <p className="mountain_list_title mr-2">七星步道</p>
                       <p className="mountain_list_star text-warning">
                         <span className="text-dark mr-1">4.8</span>
-                        <i className="bi bi-star-fill"></i>
+                        <StarFill className="mb-1" />
                       </p>
                     </div>
 
                     <div className="mountain_list_distance_title">
                       <p className="mountain_list_title mr-2">您距離此地</p>
                       <p className="mountain_list_distance text-primary">
-                        <i className="fas fa-shoe-prints mr-1"></i>
+                        <FaShoePrints className="mr-1 mb-1" />
                         <span className="mr-3">2.2公里</span>
                       </p>
 
                       <p className="mountain_list_title mr-2">天氣</p>
                       <p className="mountain_list_distance text-primary">
-                        <i className="bi bi-brightness-high mr-1"></i>
+                        <BrightnessHigh className="mr-1 mb-1" />
                         <span className="mr-3">晴天</span>
                       </p>
 
                       <p className="mountain_list_title mr-2">溫度</p>
                       <p className="mountain_list_distance text-primary">
-                        <i className="bi bi-thermometer-half mr-1"></i>
+                        <ThermometerHalf className="mr-1 mb-1" />
                         <span>30度</span>
                       </p>
                     </div>
@@ -375,12 +402,13 @@ function MapL() {
                   </div>
                   {/* <!-- Time bar end --> */}
                 </div>
-                <a
-                  href="../Article/article-detail.html"
+                {/* FIXME: Link要連到七星的文章 */}
+                <Link
+                  to="#/"
                   className="mountain_article_button btn btn-primary btn-lg"
                 >
                   查看文章
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -392,29 +420,45 @@ function MapL() {
             role="toolbar"
             aria-label="Toolbar with button groups"
           >
-            <div className="btn-group mr-2" role="group" aria-label="Third group">
+            <div
+              className="btn-group mr-2"
+              role="group"
+              aria-label="Third group"
+            >
               <button type="button" className="btn btn-primary">
-                |&lt;{' '}
+                |&lt;
               </button>
             </div>
-            <div className="btn-group mr-2" role="group" aria-label="First group">
+            <div
+              className="btn-group mr-2"
+              role="group"
+              aria-label="First group"
+            >
               <button type="button" className="btn btn-primary">
-                &lt;{' '}
+                &lt;
               </button>
             </div>
-            <div className="btn-group mr-2" role="group" aria-label="Second group">
+            <div
+              className="btn-group mr-2"
+              role="group"
+              aria-label="Second group"
+            >
               <button type="button" className="btn btn-primary">
                 1
               </button>
             </div>
-            <div className="btn-group mr-2" role="group" aria-label="Third group">
+            <div
+              className="btn-group mr-2"
+              role="group"
+              aria-label="Third group"
+            >
               <button type="button" className="btn btn-primary">
                 &gt;
               </button>
             </div>
             <div className="btn-group" role="group" aria-label="Third group">
               <button type="button" className="btn btn-primary">
-                {'>'}|
+                &gt;|
               </button>
             </div>
           </div>
@@ -429,65 +473,84 @@ function MapL() {
               <div className="px-0">
                 <div className="mountain_product-card">
                   <div className="mountain_product-img-box position-relative">
+                    {/* FIXME: 產品照或許從後端抓 */}
                     <img
                       className="mountain_cover-fit"
-                      src="./img/product-img/bags-pic1.jpeg"
+                      src={bags_pic1Jpeg}
                       alt=""
                     />
-                    <a
+                    {/* FIXME: 將產品加到收藏裡 & Link */}
+                    <Link
+                      to="#/"
                       role="button"
                       className="position-absolute mountain_heart-icon-bkg position-relative"
+                      onClick={heartIcon}
                     >
-                      <i className="bi bi-heart-fill position-absolute mountain_heart-icon"></i>
-                    </a>
-                    <a
+                      <i className="position-absolute mountain_heart-icon">
+                        <HeartFill />
+                      </i>
+                    </Link>
+                    {/* FIXME: 將產品加到購物車裡 & Link */}
+                    <Link
+                      to="#/"
                       role="button"
                       className="position-absolute mountain_cart-icon-bkg position-relative"
+                      onClick={cartIcon}
                     >
-                      <i className="bi bi-cart-fill position-absolute mountain_cart-icon"></i>
-                    </a>
+                      <i className="position-absolute mountain_cart-icon">
+                        <CartFill />
+                      </i>
+                    </Link>
                   </div>
-                  <a
-                    href="./product-detail.html"
-                    className="text-left mountain_product-name"
-                  >
+                  {/* FIXME: Link將產品連到商品頁面 */}
+                  <Link to="#/" className="text-left mountain_product-name">
                     The North Face
                     <br />
                     黑色便捷休閒腰包
-                  </a>
+                  </Link>
+                  {/* FIXME: 價錢從後端抓 */}
                   <p className="text-left mountain_product-price">NT $1,780</p>
                 </div>
               </div>
-
               <div className="px-0">
                 <div className="mountain_product-card">
                   <div className="mountain_product-img-box position-relative">
+                    {/* FIXME: 產品照或許從後端抓 */}
                     <img
                       className="mountain_cover-fit"
-                      src="./img/product-img/bags-pic2.jpeg"
+                      src={bags_pic2Jpeg}
                       alt=""
                     />
-                    <a
+                    {/* FIXME: 將產品加到收藏裡 & Link */}
+                    <Link
+                      to="#/"
                       role="button"
                       className="position-absolute mountain_heart-icon-bkg position-relative"
+                      onClick={heartIcon}
                     >
-                      <i className="bi bi-heart-fill position-absolute mountain_heart-icon"></i>
-                    </a>
-                    <a
+                      <i className="position-absolute mountain_heart-icon">
+                        <HeartFill />
+                      </i>
+                    </Link>
+                    {/* FIXME: 將產品加到購物車裡 & Link */}
+                    <Link
+                      to="#/"
                       role="button"
                       className="position-absolute mountain_cart-icon-bkg position-relative"
+                      onClick={cartIcon}
                     >
-                      <i className="bi bi-cart-fill position-absolute mountain_cart-icon"></i>
-                    </a>
+                      <i className="position-absolute mountain_cart-icon">
+                        <CartFill />
+                      </i>
+                    </Link>
                   </div>
-                  <a
-                    href="./product-detail.html"
-                    className="text-left mountain_product-name"
-                  >
+                  {/* FIXME: Link將產品連到商品頁面 */}
+                  <Link to="#/" className="text-left mountain_product-name">
                     The North Face
                     <br />
                     黑灰色休閒後背包
-                  </a>
+                  </Link>
+                  {/* FIXME: 價錢從後端抓 */}
                   <p className="text-left mountain_product-price">NT $2,180</p>
                 </div>
               </div>
@@ -495,64 +558,85 @@ function MapL() {
               <div className="px-0">
                 <div className="mountain_product-card">
                   <div className="mountain_product-img-box position-relative">
+                    {/* FIXME: 產品照或許從後端抓 */}
                     <img
                       className="mountain_cover-fit"
-                      src="./img/product-img/shoes-pic1.jpeg"
+                      src={shoes_pic1Jpeg}
                       alt=""
                     />
-                    <a
+                    {/* FIXME: 將產品加到收藏裡 & Link */}
+                    <Link
+                      to="#/"
                       role="button"
                       className="position-absolute mountain_heart-icon-bkg position-relative"
+                      onClick={heartIcon}
                     >
-                      <i className="bi bi-heart-fill position-absolute mountain_heart-icon"></i>
-                    </a>
-                    <a
+                      {/* FIXME: 將產品加到收藏裡 & Link */}
+                      <i className="position-absolute mountain_heart-icon">
+                        <HeartFill />
+                      </i>
+                    </Link>
+                    {/* FIXME: 將產品加到購物車裡 & Link */}
+                    <Link
+                      to="#/"
                       role="button"
                       className="position-absolute mountain_cart-icon-bkg position-relative"
+                      onClick={cartIcon}
                     >
-                      <i className="bi bi-cart-fill position-absolute mountain_cart-icon"></i>
-                    </a>
+                      <i className="position-absolute mountain_cart-icon">
+                        <CartFill />
+                      </i>
+                    </Link>
                   </div>
-                  <a
-                    href="./product-detail.html"
-                    className="text-left mountain_product-name"
-                  >
+                  {/* FIXME: Link將產品連到商品頁面 */}
+                  <Link to="#/" className="text-left mountain_product-name">
                     MERRELL
                     <br />
                     女水陸三棲鞋
-                  </a>
+                  </Link>
+                  {/* FIXME: 價錢從後端抓 */}
                   <p className="text-left mountain_product-price">NT $2,680</p>
                 </div>
               </div>
               <div className="px-0">
                 <div className="mountain_product-card">
                   <div className="mountain_product-img-box position-relative">
+                    {/* FIXME: 產品照或許從後端抓 */}
                     <img
                       className="mountain_cover-fit"
-                      src="./img/product-img/clothes-pic1.jpeg"
+                      src={clothes_pic1Jpeg}
                       alt=""
                     />
-                    <a
+                    {/* FIXME: 將產品加到收藏裡 & Link */}
+                    <Link
+                      to="#/"
                       role="button"
                       className="position-absolute mountain_heart-icon-bkg position-relative"
+                      onClick={heartIcon}
                     >
-                      <i className="bi bi-heart-fill position-absolute mountain_heart-icon"></i>
-                    </a>
-                    <a
+                      <i className="position-absolute mountain_heart-icon">
+                        <HeartFill />
+                      </i>
+                    </Link>
+                    {/* FIXME: 將產品加到購物車裡 & Link */}
+                    <Link
+                      to="#/"
                       role="button"
                       className="position-absolute mountain_cart-icon-bkg position-relative"
+                      onClick={cartIcon}
                     >
-                      <i className="bi bi-cart-fill position-absolute mountain_cart-icon"></i>
-                    </a>
+                      <i className="position-absolute mountain_cart-icon">
+                        <CartFill />
+                      </i>
+                    </Link>
                   </div>
-                  <a
-                    href="./product-detail.html"
-                    className="text-left mountain_product-name"
-                  >
+                  {/* FIXME: Link將產品連到商品頁面 */}
+                  <Link to="#/" className="text-left mountain_product-name">
                     Decathlon
                     <br />
                     男透氣休閒健行外套
-                  </a>
+                  </Link>
+                  {/* FIXME: 價錢從後端抓 */}
                   <p className="text-rleft mountain_product-price">NT $499</p>
                 </div>
               </div>
