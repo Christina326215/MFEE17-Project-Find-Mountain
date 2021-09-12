@@ -1,0 +1,141 @@
+/*cart-num*/
+.productbag-cart-num {
+  top: -6px;
+  right:-8px;
+  font-size: 8px;
+  background: #cc543a;
+  color: #fff;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: none;
+}
+/*category-bar start*/
+.productbag-category-bar {
+  max-width: 800px;
+  margin: 10px auto;
+}
+.productbag-category-bar ul {
+  margin: 0;
+}
+.productbag-category-bar ul li a {
+  display: block;
+  width: 200px;
+  padding: 10px 0;
+  text-align: center;
+  /* body-title */
+  /* font-family: Source Sans Pro; */
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 28px;
+  color: #828282;
+  border-bottom: 4px solid #e0e0e0;
+}
+.productbag-category-bar ul li a:hover,
+.productbag-category-bar ul li a.productbag-active {
+  text-decoration: none;
+  color: #333;
+  border-bottom: 4px solid #6da77f;
+}
+@media screen and (max-width: 768px) {
+  .productbag-category-bar {
+    max-width: 540px;
+  }
+  .productbag-category-bar ul li a {
+    width: 135px;
+  }
+}
+/*category-bar end*/
+/*編輯嚴選 熱銷不敗 start*/
+/*產品*/
+.productbag-product-card {
+  margin: 10px auto;
+  width: 200px;
+  height: 300px;
+}
+.productbag-product-img-box {
+  width: 200px;
+  height: 200px;
+}
+.productbag-product-img-box img {
+  border-radius: 5px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+.productbag-cover-fit {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.productbag-product-name,
+.productbag-article-name {
+  display: block;
+  margin: 10px 0;
+  /* font-family: Source Sans Pro; */
+  font-size: 16px;
+  line-height: 22px;
+  color: #4e4e4e;
+}
+.productbag-product-price {
+  /* font-family: Source Sans Pro; */
+  font-size: 14px;
+  line-height: 20px;
+  color: #414141;
+}
+.productbag-heart-icon {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 15px;
+}
+.productbag-heart-icon-bkg {
+  width: 30px;
+  height: 30px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  right: 10px;
+  top: 10px;
+  color: white;
+  -webkit-text-stroke: 1px;
+  /* -webkit-text-stroke-color: #cc543a; */
+  transition: 0.4s;
+}
+.productbag-heart-icon-bkg:hover {
+  background: #333;
+  color: #eea9a9;
+  -webkit-text-stroke: 1px;
+  -webkit-text-stroke-color: #eea9a9;
+}
+.productbag-heart-icon-bkg:active {
+  color: #cc543a;
+}
+.productbag-heart-icon-bkg-click {
+  color: #cc543a;
+  background: #bdbdbd;
+}
+.productbag-cart-icon {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+}
+.productbag-cart-icon-bkg {
+  width: 30px;
+  height: 30px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  right: 10px;
+  top: 50px;
+  transition: 0.4s;
+  color: white;
+}
+.productbag-cart-icon-bkg:hover {
+  background: #333;
+  color: #bae29a;
+}
+.productbag-cart-icon-bkg:active {
+  background: #333;
+  color: #24936e;
+}
+/*產品結束*/
+/*編輯嚴選 熱銷不敗 end*/
