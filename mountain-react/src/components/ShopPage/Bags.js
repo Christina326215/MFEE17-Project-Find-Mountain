@@ -58,7 +58,7 @@ function Bags(props) {
                   <div className="productbag-product-img-box position-relative">
                     <Link href="#">
                       <img
-                        className="cover-fit"
+                        className="productbag-cover-fit"
                         src={bagPic1}
                         alt="The North Face 黑色便捷休閒腰包"
                         title="The North Face 黑色便捷休閒腰包"

@@ -109,7 +109,7 @@ function ShopMain(props) {
                   <div class="shopmain-product-img-box position-relative">
                     <Link href="#/">
                       <img
-                        class="cover-fit"
+                        class="shopmain-cover-fit"
                         src={bagsPic2}
                         alt="The North Face 黑灰色休閒後背包"
                         title="The North Face 黑灰色休閒後背包"
@@ -141,7 +141,7 @@ function ShopMain(props) {
                   <div class="shopmain-product-img-box position-relative">
                     <Link href="#/">
                       <img
-                        class="cover-fit"
+                        class="shopmain-cover-fit"
                         src={bagsPic8}
                         alt="The North Face 藍色專業登山後背包"
                         title="The North Face 藍色專業登山後背包"
@@ -173,7 +173,7 @@ function ShopMain(props) {
                   <div class="shopmain-product-img-box position-relative">
                     <Link href="./product-detail.html">
                       <img
-                        class="cover-fit"
+                        class="shopmain-cover-fit"
                         src={shoesPic8}
                         alt="ASOLO 阿空加瓜牛皮冰攀靴"
                         title="ASOLO 阿空加瓜牛皮冰攀靴"
@@ -208,7 +208,7 @@ function ShopMain(props) {
                   <div class="shopmain-product-img-box position-relative">
                     <Link href="#/">
                       <img
-                        class="cover-fit"
+                        class="shopmain-cover-fit"
                         src={clothesPic5}
                         alt="The North Face 戶外保暖羽絨外套"
                         title="The North Face 戶外保暖羽絨外套"
@@ -361,7 +361,7 @@ function ShopMain(props) {
                     <div class="shopmain-product-img-box position-relative">
                       <Link href="#/">
                         <img
-                          class="cover-fit"
+                          class="shopmain-cover-fit"
                           src={shoesPic1}
                           alt="MERRELL Tetrex Crest Wrap 女水陸三棲鞋"
                           title="MERRELL Tetrex Crest Wrap 女水陸三棲鞋"
@@ -393,7 +393,7 @@ function ShopMain(props) {
                     <div class="shopmain-product-img-box position-relative">
                       <Link href="#/">
                         <img
-                          class="cover-fit"
+                          class="shopmain-cover-fit"
                           src={clothesPic5}
                           alt="The North Face 戶外保暖羽絨外套"
                           title="The North Face 戶外保暖羽絨外套"
