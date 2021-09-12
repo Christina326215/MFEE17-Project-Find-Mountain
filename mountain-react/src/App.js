@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 //====== below components star ======//
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Outfit from './components/OutfitPage/Outfit'
+import Outfit from './components/OutfitPage/Outfit';
 //====== above components end ======//
 
 function App() {
@@ -25,7 +25,9 @@ function App() {
           <Route path="/shop/cart">
             {/* 放要引入的content EX: <Stock /> */}
           </Route>
-          <Route path="/outfit"><Outfit/></Route>
+          <Route path="/outfit">
+            <Outfit />
+          </Route>
           <Route path="/login">{/* 放要引入的content EX: <Stock /> */}</Route>
           <Route path="/member">{/* 放要引入的content EX: <Stock /> */}</Route>
           {/* //===homepage 路由放最下面===// */}
