@@ -1,6 +1,8 @@
 import React from 'react';
 import '../../styles/article.css';
-import { BrowserRouter as Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import $ from 'jquery';
+import { useEffect } from 'react';
 import level from '../../img/article-img/level_low.svg';
 import slothBig from '../../img/article-img/sloth_big.svg';
 import slothSmall from '../../img/article-img/sloth_small.svg';
@@ -23,6 +25,29 @@ import {
 } from 'react-icons/bs';
 
 function Detail() {
+  useEffect(() => {
+    //  about-membership-bubble start
+    $('.recommend-see-member').click((e) => {
+      $('.recommend-about-membership-bubble').toggle('display');
+    });
+    //  about-membership-bubble end
+
+    $('i').click(function () {
+      $(this).toggleClass('active');
+    });
+
+    $('.recommend-tag-small').mouseover(function () {
+      $('.recommend-tag-small').hide();
+      $('.recommend-tag-big').show();
+    });
+
+    $('.recommend-tag-big').mouseout(function () {
+      $('.recommend-tag-big').hide();
+      $('.recommend-tag-small').show();
+    });
+
+    // modal新增評論
+  }, []);
   return (
     <div>
       <div class="container recommend-body">
@@ -55,7 +80,7 @@ function Detail() {
                   </p>
                   <p class="text-primary recommend-body-content mt-1">
                     <i class="fas recommend-fa-shoe-prints mr-2">
-                      <FaShoePrints></FaShoePrints>
+                      <FaShoePrints size={20}></FaShoePrints>
                     </i>
                     5公里
                   </p>
@@ -68,12 +93,12 @@ function Detail() {
                   </i>
                   <p class="recommend-body-content mr-2">加入收藏</p>
                   <i class="bi recommend-bi-flag-fill mr-2">
-                    <BsFlagFill></BsFlagFill>
+                    <BsFlagFill size={25}></BsFlagFill>
                   </i>
                   <p class="mr-2">加入去過路線</p>
                   {/* =========about-membership-bubble start========= */}
                   <div class="recommend-about-membership">
-                    <a
+                    <div
                       to="javascript:void(0)"
                       id="seeMember"
                       class="recommend-see-member"
@@ -81,7 +106,7 @@ function Detail() {
                       <i class="bi recommend-bi-question-circle">
                         <BsQuestionCircle></BsQuestionCircle>
                       </i>
-                    </a>
+                    </div>
                     <div class="recommend-about-membership-bubble p-3 position-absolute">
                       <span class="recommend-about-membership-bubble-arrow"></span>
                       <span class="recommend-membership">
@@ -188,23 +213,20 @@ function Detail() {
               </div>
             </div>
           </div>
+          {/* <div id="myMap" className="google-map"></div> */}
           <h2 class="recommend-body-content-big-bold">此景點產品推薦</h2>
           <div class="row">
             <div class="col-lg-6 col-md-12 mb-md-3">
               <div class="recommend-productTagBg">
                 <div class="recommend-tag-small">
-                  <a
-                    class="recommend-tag recommend-hatTag"
-                    href="../Layout/product-detail.html"
-                  >
+                  {/* (導連頁還要調整) */}
+                  <Link class="recommend-tag recommend-hatTag" to="/shop">
                     #tag 登山帽
-                  </a>
+                  </Link>
                 </div>
                 <div class="recommend-tag-big">
-                  <a
-                    class="recommend-tagHover recommend-bagTag"
-                    href="../Layout/product-detail.html"
-                  >
+                  {/* (導連頁還要調整) */}
+                  <Link class="recommend-tagHover recommend-bagTag" to="/shop">
                     <div class="row m-0">
                       <div class="col recommend-tagText">
                         <p class="recommend-tagName">
@@ -220,25 +242,21 @@ function Detail() {
                         />
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
             <div class="col-lg-6 col-md-12 mb-md-3">
               <div class="recommend-productTagBg">
                 <div class="recommend-tag-small">
-                  <a
-                    class="recommend-tag recommend-hatTag"
-                    href="../Layout/product-detail.html"
-                  >
+                  {/* (導連頁還要調整) */}
+                  <Link class="recommend-tag recommend-hatTag" to="/shop">
                     #tag 登山帽
-                  </a>
+                  </Link>
                 </div>
                 <div class="recommend-tag-big">
-                  <a
-                    class="recommend-tagHover recommend-bagTag"
-                    href="../Layout/product-detail.html"
-                  >
+                  {/* (導連頁還要調整) */}
+                  <Link class="recommend-tagHover recommend-bagTag" to="/shop">
                     <div class="row m-0">
                       <div class="col recommend-tagText">
                         <p class="recommend-tagName">
@@ -254,7 +272,7 @@ function Detail() {
                         />
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -279,7 +297,7 @@ function Detail() {
                     >
                       新增評論
                       {/* <i class="bi recommend-bi-plus-square"> */}
-                      <BsPlusSquare className="bi recommend-bi-plus-square"></BsPlusSquare>
+                      <BsPlusSquare className="ml-2 mb-1 bi recommend-bi-plus-square"></BsPlusSquare>
                       {/* </i> */}
                     </button>
 
@@ -522,20 +540,14 @@ function Detail() {
                       <img class="recommend-cover-fit" src={xiangshan} alt="" />
                     </Link>
                   </div>
-                  <a
-                    href="./article-detail.html"
-                    class="recommend-article-name"
-                  >
+                  <Link to="#/" class="recommend-article-name">
                     象山親山步道
-                  </a>
+                  </Link>
                   <br />
                   <p class="text-right">
-                    <a
-                      href="./article-detail.html"
-                      class="recommend-see-more-btn"
-                    >
+                    <Link to="#/" class="recommend-see-more-btn">
                       查看更多
-                    </a>
+                    </Link>
                   </p>
                 </div>
               </div>
@@ -551,20 +563,14 @@ function Detail() {
                       />
                     </Link>
                   </div>
-                  <a
-                    href="./article-detail.html"
-                    class="recommend-article-name"
-                  >
+                  <Link to="#/" class="recommend-article-name">
                     陽明山東西大縱走
-                  </a>
+                  </Link>
                   <br />
                   <p class="text-right">
-                    <a
-                      href="./article-detail.html"
-                      class="recommend-see-more-btn"
-                    >
+                    <Link to="#/" class="recommend-see-more-btn">
                       查看更多
-                    </a>
+                    </Link>
                   </p>
                 </div>
               </div>
@@ -576,20 +582,14 @@ function Detail() {
                       <img class="recommend-cover-fit" src={tapachien} alt="" />
                     </Link>
                   </div>
-                  <a
-                    href="./article-detail.html"
-                    class="recommend-article-name"
-                  >
+                  <Link to="#/" class="recommend-article-name">
                     大霸北稜線
-                  </a>
+                  </Link>
                   <br />
                   <p class="text-right">
-                    <a
-                      href="./article-detail.html"
-                      class="recommend-see-more-btn"
-                    >
+                    <Link to="#/" class="recommend-see-more-btn">
                       查看更多
-                    </a>
+                    </Link>
                   </p>
                 </div>
               </div>

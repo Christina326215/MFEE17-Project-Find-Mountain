@@ -1,5 +1,8 @@
 import React from 'react';
 import '../../styles/article.css';
+import { Link } from 'react-router-dom';
+import $ from 'jquery';
+import { useEffect } from 'react';
 import bear from '../../img/article-img/bear.png';
 import level from '../../img/article-img/level_low.svg';
 import sevenstar from '../../img/article-img/sevenstar.jpeg';
@@ -15,6 +18,11 @@ import {
 } from 'react-icons/bs';
 
 function Result() {
+  useEffect(() => {
+    $('i').click(function () {
+      $(this).toggleClass('active');
+    });
+  }, []);
   return (
     <div>
       <div class="container recommend-body">
@@ -79,7 +87,7 @@ function Result() {
                             </p>
                             <p class="text-primary recommend-body-content mr-3 ">
                               <i class="fas recommend-fa-shoe-prints mr-2">
-                                <FaShoePrints></FaShoePrints>
+                                <FaShoePrints size={20}></FaShoePrints>
                               </i>
                               5公里
                             </p>
@@ -121,9 +129,9 @@ function Result() {
                             <small class="recommend-body-content-small text-muted align-self-end">
                               2人收藏
                             </small>
-                            <a href="./article-detail.html">
+                            <Link to="/recommend/detail">
                               <button class="btn btn-primary">查看更多</button>
-                            </a>
+                            </Link>
                           </div>
                         </div>
                       </div>
@@ -156,7 +164,7 @@ function Result() {
                             </p>
                             <p class="text-primary recommend-body-content mr-3">
                               <i class="fas recommend-fa-shoe-prints mr-2">
-                                <FaShoePrints></FaShoePrints>
+                                <FaShoePrints size={20}></FaShoePrints>
                               </i>
                               2.2公里
                             </p>
@@ -197,9 +205,9 @@ function Result() {
                             <small class="recommend-body-content-small text-muted align-self-end">
                               2人收藏
                             </small>
-                            <a href="./article-detail.html">
+                            <Link to="/recommend/detail">
                               <button class="btn btn-primary">查看更多</button>
-                            </a>
+                            </Link>
                           </div>
                         </div>
                       </div>

@@ -1,0 +1,156 @@
+/* 左邊管理區 start */
+/* table及其內容 */
+.member-table-all-left {
+  border-collapse: collapse;
+  width: 100%;
+  border-style: hidden;
+  box-shadow: 0 0 0 1px #000;
+  border-radius: 10px;
+  position: sticky;
+  top: 100px;
+}
+.member-left-href-color {
+  color: black;
+  text-decoration: none;
+}
+.member-left-href-color:hover {
+  color: black;
+  text-decoration: none;
+}
+.member-member-name {
+  color: #6da77f;
+}
+.member-grade-icon {
+  color: #4e4e4e;
+  font-size: larger;
+}
+.member-table-active {
+  background-color: #6da77f;
+  border-radius: 0;
+}
+.member-table-active:hover {
+  background-color: #bae29a;
+}
+
+/* 頭貼 */
+.member-cover-fit {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.member-headshot-img-box img {
+  border-radius: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.member-headshot-img-box {
+  margin: 0 auto;
+  width: 150px;
+  height: 150px;
+  text-align: center;
+}
+/* 左邊管理區 end */
+
+/* 會員制度氣泡 start */
+.member-about-membership-bubble {
+  width: 300px;
+  background: #f2f2f2;
+  border-radius: 5px;
+  right: -45px;
+  top: 40px;
+  display: none;
+}
+.member-about-membership-bubble-arrow {
+  width: 0px;
+  height: 0px;
+  border-width: 15px;
+  border-style: solid;
+  border-color: #f2f2f2 transparent transparent transparent;
+  position: absolute;
+  top: 149px;
+  right: 100px;
+}
+.member-membership {
+  /* font-family: Source Sans Pro; */
+  font-size: 14px;
+  line-height: 20px;
+}
+.member-membership-low {
+  color: #4e4e4e;
+}
+.member-membership-medium {
+  color: #19634a;
+}
+.member-membership-high {
+  color: #ffb943;
+}
+/* 會員制度氣泡 end */
+
+/* 右邊區域 start */
+.member-comment-table-all {
+  border-collapse: collapse;
+  width: 100%;
+  border-style: hidden;
+  box-shadow: 0 0 0 1px #000;
+  border-radius: 10px;
+}
+.member-comment-switch-category {
+  float: right;
+}
+.member-comment-title-main {
+  color: #19634a;
+}
+.member-comment-text-weight-top {
+  font-size: 20px;
+}
+.member-comment-text-weight-middle {
+  font-size: 16px;
+}
+.member-comment-product-name {
+  width: 200px;
+  max-width: 100%;
+}
+.member-comment-product-size {
+  width: 200px;
+  max-width: 100%;
+}
+.member-comment-product-perprice {
+  width: 200px;
+  max-width: 100%;
+}
+.member-comment-product-count {
+  width: 200px;
+  max-width: 100%;
+}
+.member-comment-product-subtotal {
+  width: 200px;
+  max-width: 100%;
+}
+.member-comment-product-delete {
+  width: 100px;
+  max-width: 100%;
+}
+/* 圖片 */
+.member-comment-picture-img {
+  border-radius: 10px;
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+.member-comment-picture-img-box {
+  width: 150px;
+  height: auto;
+}
+.member-comment-picture-img-wrapper {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+}
+/* 右邊區域 end */
+
+/* 切換區塊 start */
+.member-comment-content2 {
+  display: none;
+}
+/* 切換區塊 end */

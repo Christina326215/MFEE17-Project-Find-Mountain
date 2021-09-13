@@ -1,6 +1,8 @@
 import React from 'react';
 import '../../styles/article.css';
 import { Link } from 'react-router-dom';
+import $ from 'jquery';
+import { useEffect } from 'react';
 import level from '../../img/article-img/level_low.svg';
 import sevenstar from '../../img/article-img/sevenstar.jpeg';
 import xiangshan from '../../img/article-img/xiangshan.jpeg';
@@ -15,6 +17,32 @@ import {
 } from 'react-icons/bs';
 
 function Manual() {
+  useEffect(() => {
+    $('.recommend-level-btn').click(function () {
+      $(this).toggleClass('active');
+      $(this).css('background-color', '#24936e');
+    });
+
+    $('.recommend-season-btn').click(function () {
+      $(this).toggleClass('active');
+      $(this).css('background-color', '#24936e');
+    });
+
+    $('.recommend-time-btn').click(function () {
+      $(this).toggleClass('active');
+      $(this).css('background-color', '#24936e');
+    });
+
+    $('.recommend-mountain-type-btn').click(function () {
+      $(this).toggleClass('active');
+      $(this).css('background-color', '#24936e');
+    });
+
+    $('i').click(function () {
+      $(this).toggleClass('active');
+    });
+  }, []);
+
   return (
     <div>
       <div class="container recommend-body">
@@ -146,8 +174,10 @@ function Manual() {
         <div class="recommend-filter">
           <div class="container recommend-body">
             <div class="recommend-bg-wrapper">
-              <h2 class="recommend-body-content-big-bold inline">推薦路線</h2>
-              <p class="inline ml-2">9筆資料</p>
+              <h2 class="recommend-body-content-big-bold recommend-inline">
+                推薦路線
+              </h2>
+              <p class="recommend-inline ml-2">9筆資料</p>
               <div class="row-cols-1 mt-3 mb-3">
                 <div class="recommend-card card">
                   <div class="row no-gutters">
@@ -173,7 +203,7 @@ function Manual() {
                             </p>
                             <p class="text-primary recommend-body-content mr-3 ">
                               <i class="fas recommend-fa-shoe-prints mr-2">
-                                <FaShoePrints></FaShoePrints>
+                                <FaShoePrints size={20}></FaShoePrints>
                               </i>
                               5公里
                             </p>
@@ -250,7 +280,7 @@ function Manual() {
                             </p>
                             <p class="text-primary recommend-body-content mr-3">
                               <i class="fas recommend-fa-shoe-prints mr-2">
-                                <FaShoePrints></FaShoePrints>
+                                <FaShoePrints size={20}></FaShoePrints>
                               </i>
                               2.2公里
                             </p>
