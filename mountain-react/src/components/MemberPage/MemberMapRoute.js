@@ -36,12 +36,12 @@ function MemberMapRoute() {
         }
         this.classList.add('active');
       });
-
-      // FIXME:
-      $('i').click(function () {
-        $(this).toggleClass('active');
-      });
     }
+
+    // FIXME: 修好了
+    $('.member-map-route-star').click(function () {
+      $(this).toggleClass('active');
+    });
   }, []);
   return (
     <>
@@ -245,7 +245,7 @@ function MemberMapRoute() {
                         <td className="member-map-route-text-weight align-middle">
                           象山步道
                         </td>
-                        {/* FIXME: */}
+                        {/* FIXME: 修好了*/}
                         <td className="member-map-route-star-group member-map-route-text-weight align-middle">
                           <i className="bi member-map-route-star">
                             <BsStarFill></BsStarFill>
