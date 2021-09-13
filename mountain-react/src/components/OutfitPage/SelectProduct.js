@@ -1,6 +1,12 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
+//===import img start===
+import dialogBox1 from '../../img/img-outfit/dialogBox1.svg';
+import dialogBox2 from '../../img/img-outfit/dialogBox2.svg';
+import bear from '../../img/img-outfit/bear.svg';
+//===import img end===
+
 function SelectProduct(props) {
   return (
     <>
@@ -13,7 +19,7 @@ function SelectProduct(props) {
                       position-absolute
                     "
           >
-            <img src="./img/img-outfit/dialogBox1.svg" alt="" />
+            <img src={dialogBox1} alt="" />
           </div>
           <div
             class="
@@ -22,9 +28,9 @@ function SelectProduct(props) {
                       position-absolute
                     "
           >
-            <img src="./img/img-outfit/dialogBox2.svg" alt="" />
+            <img src={dialogBox2} alt="" />
           </div>
-          <img src="./img/img-outfit/bear.svg" alt="" />
+          <img src={bear} alt="" />
           <div class="outfit-mountains position-absolute position-relative">
             <div class="outfit-low-mountain outfit-single" target="1">
               <span>初階</span>
