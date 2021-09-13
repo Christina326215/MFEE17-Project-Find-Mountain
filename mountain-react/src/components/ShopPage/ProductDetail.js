@@ -1,7 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import '../../styles/productdetail.css';
-import { Dash, Plus, QuestionCircle, CartFill, HeartFill } from 'react-bootstrap-icons';
+import {
+  Dash,
+  Plus,
+  QuestionCircle,
+  CartFill,
+  HeartFill,
+} from 'react-bootstrap-icons';
 
 import bagsPic2 from '../../img/product-img/bags-pic2.jpeg';
 import bagsPic5 from '../../img/product-img/bags-pic5.jpeg';
@@ -28,17 +34,29 @@ function ProductDetail(props) {
             </div>
             <figure className="productdetail-history-img-box">
               <Link to="shop/product-detail">
-                <img src={bagsPic5} alt="" className="productdetail-cover-fit" />
+                <img
+                  src={bagsPic5}
+                  alt=""
+                  className="productdetail-cover-fit"
+                />
               </Link>
             </figure>
             <figure className="productdetail-history-img-box">
               <Link to="shop/product-detail">
-                <img src={bagsPic6} alt="" className="productdetail-cover-fit" />
+                <img
+                  src={bagsPic6}
+                  alt=""
+                  className="productdetail-cover-fit"
+                />
               </Link>
             </figure>
             <figure className="productdetail-history-img-box">
               <Link to="shop/product-detail">
-                <img src={shoesPic5} alt="" className="productdetail-cover-fit" />
+                <img
+                  src={shoesPic5}
+                  alt=""
+                  className="productdetail-cover-fit"
+                />
               </Link>
             </figure>
           </div>
@@ -342,7 +360,10 @@ function ProductDetail(props) {
                       <CartFill className="position-absolute productdetail-cart-icon" />
                     </Link>
                   </div>
-                  <Link href="#" className="text-left productdetail-product-name">
+                  <Link
+                    href="#"
+                    className="text-left productdetail-product-name"
+                  >
                     The North Face
                     <br />
                     黑灰色休閒後背包
@@ -377,7 +398,10 @@ function ProductDetail(props) {
                       <CartFill className="position-absolute productdetail-cart-icon" />
                     </Link>
                   </div>
-                  <Link href="#" className="text-left productdetail-product-name">
+                  <Link
+                    href="#"
+                    className="text-left productdetail-product-name"
+                  >
                     The North Face
                     <br />
                     藍色專業登山後背包
@@ -412,7 +436,10 @@ function ProductDetail(props) {
                       <CartFill className="position-absolute productdetail-cart-icon" />
                     </Link>
                   </div>
-                  <Link href="#" className="text-left productdetail-product-name">
+                  <Link
+                    href="#"
+                    className="text-left productdetail-product-name"
+                  >
                     The North Face
                     <br />
                     戶外保暖羽絨外套
