@@ -146,7 +146,7 @@
   top: 10%;
   /* right: 4%; */
   left: 46%;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   width: 49%;
   height: 69%;
 }
@@ -161,7 +161,7 @@
 }
 
 #canvas {
-  border: 1px solid green;
+  /* border: 1px solid green; */
 }
 /* @media screen and (max-width: 768px) {
   #canvas {

@@ -1,0 +1,257 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;500;700&display=swap");
+
+body {
+  font-family: "Noto Sans TC", Arial, Helvetica, sans-serif;
+}
+/*cart-num*/
+.shopmain-cart-num {
+  top: -6px;
+  right:-8px;
+  font-size: 8px;
+  background: #cc543a;
+  color: #fff;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: none;
+}
+/*category-bar start*/
+.shopmain-category-bar {
+  max-width: 800px;
+  margin: 10px auto;
+}
+.shopmain-category-bar ul {
+  margin: 0;
+}
+.shopmain-category-bar ul li a {
+  display: block;
+  width: 200px;
+  padding: 10px 0;
+  text-align: center;
+  /* body-title */
+  /* font-family: Source Sans Pro; */
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 28px;
+  color: #828282;
+  border-bottom: 4px solid #e0e0e0;
+}
+.shopmain-category-bar ul li a:hover,
+.shopmain-category-bar ul li a.shopmain-active {
+  text-decoration: none;
+  color: #333;
+  border-bottom: 4px solid #6da77f;
+}
+@media screen and (max-width: 768px) {
+  .shopmain-category-bar {
+    max-width: 540px;
+  }
+  .shopmain-category-bar ul li a {
+    width: 135px;
+  }
+}
+/*category-bar end*/
+/*display-photo-box start*/
+.shopmain-display-photo-box {
+  margin: 20px auto;
+  max-width: 100%;
+  height: 300px;
+}
+/*left arrow*/
+.shopmain-caret-left {
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+}
+.shopmain-caret-left i,
+.shopmain-caret-right i {
+  color: white;
+  font-size: 30px;
+  opacity: 0.8;
+}
+.shopmain-caret-left i:hover,
+.shopmain-caret-right i:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+/*right arrow*/
+.shopmain-caret-right {
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+/*display-photo-box end*/
+/*編輯嚴選 熱銷不敗 start*/
+.shopmain-title-box {
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+.shopmain-selected-title {
+  /* font-family: Source Sans Pro; */
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 28px;
+  color: #19634a;
+}
+.shopmain-title-underline {
+  border-bottom: 2px solid #bdbdbd;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 350px;
+}
+/*產品*/
+.shopmain-product-card {
+  margin: 10px auto;
+  width: 200px;
+  height: 300px;
+}
+.shopmain-product-img-box {
+  width: 200px;
+  height: 200px;
+}
+.shopmain-product-img-box img {
+  border-radius: 5px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+.shopmain-cover-fit {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.shopmain-product-name {
+  display: block;
+  margin: 10px 0;
+  height: 70px;
+  /* font-family: Source Sans Pro; */
+  font-size: 16px;
+  line-height: 22px;
+  color: #4e4e4e;
+}
+.shopmain-product-price {
+  /* font-family: Source Sans Pro; */
+  font-size: 14px;
+  line-height: 20px;
+  color: #414141;
+}
+/*icon start*/
+.shopmain-heart-icon {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 15px;
+}
+.shopmain-heart-icon-bkg {
+  width: 30px;
+  height: 30px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  right: 10px;
+  top: 10px;
+  color: white;
+  -webkit-text-stroke: 1px;
+  /* -webkit-text-stroke-color: #cc543a; */
+  transition: 0.4s;
+}
+.shopmain-heart-icon-bkg:hover {
+  background: #333;
+  color: #eea9a9;
+  -webkit-text-stroke: 1px;
+  -webkit-text-stroke-color: #eea9a9;
+}
+.shopmain-heart-icon-bkg:active {
+  color: #cc543a;
+}
+.shopmain-heart-icon-bkg-click {
+  color: #cc543a;
+  background: #bdbdbd;
+}
+.shopmain-cart-icon {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+}
+.shopmain-cart-icon-bkg {
+  width: 30px;
+  height: 30px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  right: 10px;
+  top: 50px;
+  transition: 0.4s;
+  color: white;
+}
+.shopmain-cart-icon-bkg:hover {
+  background: #333;
+  color: #fff;
+}
+.shopmain-cart-icon-bkg:active {
+  background: #333;
+  color: #24936e;
+}
+/*icon end*/
+/*產品結束*/
+/*slider arrows*/
+.shopmain-slider-arrows-left {
+  /* background: #4e4e4e; */
+  display: block;
+  width: 30px;
+  height: 100%;
+  top: 0;
+  left: -10px;
+  z-index: 2;
+}
+.shopmain-slider-arrows-left i, .shopmain-slider-arrows-right i {
+  line-height: 320px;
+  font-size: 20px;
+  -webkit-text-stroke: 3px;
+}
+.shopmain-slider-arrows-right {
+  /* background: rgba(255, 255, 255, 0.5); */
+  display: block;
+  width: 30px;
+  height: 100%;
+  top: 0;
+  right: -10px;
+  z-index: 2;
+}
+/*編輯嚴選 熱銷不敗 end*/
+/*熱門登山攻略開始*/
+.shopmain-article-card {
+  margin: 10px auto;
+  width: 300px;
+}
+.shopmain-article-img-box {
+  width: 300px;
+  height: 200px;
+}
+.shopmain-article-img-box img {
+  border-radius: 5px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+.shopmain-article-img-box img:hover {
+  cursor: pointer;
+}
+.shopmain-article-name {
+  display: block;
+  margin: 10px 0;
+  /* font-family: Source Sans Pro; */
+  font-size: 16px;
+  line-height: 22px;
+  color: #4e4e4e;
+}
+@media screen and (max-width: 768px) {
+  .shopmain-article-card {
+    margin: 10px auto;
+    width: 400px;
+  }
+  .shopmain-article-img-box {
+    width: 400px;
+    height: 200px;
+  }
+}
+
+/*熱門登山攻略結束*/

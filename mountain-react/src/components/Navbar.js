@@ -14,6 +14,17 @@ import logoPng from '../img/logo.png';
 
 function Navbar(props) {
   const { auth, setAuth } = props;
+
+  const navToggle = () => {
+    let btn_nav = document.querySelector('.btn_nav');
+    let nav = document.querySelector('.nav');
+
+    btn_nav.onclick = function () {
+      this.classList.toggle('change');
+      nav.classList.toggle('nav_show');
+    };
+  };
+
   return (
     <>
       <header className="header sticky-top">
@@ -76,7 +87,7 @@ function Navbar(props) {
           </ul>
         </nav>
 
-        <div className="btn_nav">
+        <div className="btn_nav" onClick={navToggle}>
           <div className="bar1"></div>
           <div className="bar2"></div>
           <div className="bar3"></div>
