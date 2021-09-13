@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/scope */
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
@@ -186,20 +187,22 @@ function MemberProductArticle() {
                   role="group"
                   aria-label="Basic example"
                 >
-                  <a
+                  <Link
                     type="button"
                     id="menu"
                     className="btn btn-outline-primary menu active"
+                    to="#/"
                   >
                     產品
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     type="button"
                     id="menu"
                     className="btn btn-outline-primary menu"
+                    to="#/"
                   >
                     文章
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className="tab-content">

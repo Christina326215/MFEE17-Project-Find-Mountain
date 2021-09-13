@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
 import $ from 'jquery';
-import '../../styles/ShopCartPage/ShopCartPage.scss'; //shopping-cart style
+import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
 
 //====== below icon star ======//
 

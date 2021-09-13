@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
 import $ from 'jquery';
-import '../../styles/ShopCartPage/ShopCartPage.scss'; //shopping-cart style
+import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
 
 //====== below icon star ======//
 import { BsPlus, BsDash, BsTrash } from 'react-icons/bs';
@@ -20,8 +20,8 @@ function ShopCartDetail() {
         'current-step'
       );
       var nextStepNum = currentStepNum + 1;
-      var currentStep = $('.shopcart-step.step-' + currentStepNum);
-      var nextStep = $('.step.step-' + nextStepNum);
+      var currentStep = $('.shopcart-step.shopcart-step-' + currentStepNum);
+      var nextStep = $('.shopcart-step.shopcart-step-' + nextStepNum);
       var progressBar = $('#shopcart-checkout-progress');
       $('.shopcart-btn-prev').removeClass('shopcart-disabled');
       if (currentStepNum == 5) {
@@ -31,8 +31,8 @@ function ShopCartDetail() {
         $(this).addClass('shopcart-disabled');
       }
       $('.shopcart-checkout-progress')
-        .removeClass('.step-' + currentStepNum)
-        .addClass('.step-' + (currentStepNum + 1));
+        .removeClass('.shopcart-step-' + currentStepNum)
+        .addClass('.shopcart-step-' + (currentStepNum + 1));
 
       currentStep.removeClass('shopcart-active').addClass('shopcart-valid');
       currentStep.find('span').addClass('shopcart-opaque');
@@ -43,7 +43,7 @@ function ShopCartDetail() {
       nextStep.addClass('shopcart-active');
       progressBar
         .removeAttr('class')
-        .addClass('step-' + nextStepNum)
+        .addClass('shopcart-step-' + nextStepNum)
         .data('current-step', nextStepNum);
     });
 
@@ -52,8 +52,8 @@ function ShopCartDetail() {
         'current-step'
       );
       var prevStepNum = currentStepNum - 1;
-      var currentStep = $('.step.step-' + currentStepNum);
-      var prevStep = $('.step.step-' + prevStepNum);
+      var currentStep = $('.shopcart-step.shopcart-step-' + currentStepNum);
+      var prevStep = $('.shopcart-step.shopcart-step-' + prevStepNum);
       var progressBar = $('#shopcart-checkout-progress');
       $('.shopcart-btn-next').removeClass('shopcart-disabled');
       if (currentStepNum == 1) {
@@ -63,8 +63,8 @@ function ShopCartDetail() {
         $(this).addClass('shopcart-disabled');
       }
       $('.shopcart-checkout-progress')
-        .removeClass('.step-' + currentStepNum)
-        .addClass('.step-' + prevStepNum);
+        .removeClass('.shopcart-step-' + currentStepNum)
+        .addClass('.shopcart-step-' + prevStepNum);
 
       currentStep.removeClass('shopcart-active');
       prevStep.find('span').removeClass('shopcart-opaque');
@@ -75,7 +75,7 @@ function ShopCartDetail() {
       prevStep.addClass('shopcart-active').removeClass('shopcart-valid');
       progressBar
         .removeAttr('class')
-        .addClass('step-' + prevStepNum)
+        .addClass('shopcart-step-' + prevStepNum)
         .data('current-step', prevStepNum);
     });
     //product order 數量部分
