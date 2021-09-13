@@ -5,7 +5,7 @@ import $ from 'jquery';
 import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
 
 //====== below icon star ======//
-import { BsPlus, BsDash, BsTrash } from 'react-icons/bs';
+import { BsPlus, BsDash, BsTrash, BsCheck } from 'react-icons/bs';
 //====== below icon end ======//
 
 //====== below img import start ======//
@@ -117,25 +117,29 @@ function ShopCartDetail() {
             <div className="shopcart-progress-bar1">
               {/* <!-- "active" change to "valid" --> */}
               <div className="shopcart-step shopcart-step-1 shopcart-active">
-                <span> 1</span>
-                {/* <!-- "shopcart-opaque" change to "" --> */}
-                <div className="shopcart-fa shopcart-fa-check shopcart-opaque"></div>
+                <span className="shopcart-step-num"> 1</span>
+                {/* <!-- "opaque" change to "" --> */}
+                <BsCheck className="shopcart-fa shopcart-fa-check shopcart-opaque" />
+                {/* <div className="shopcart-fa shopcart-fa-check shopcart-opaque"></div> */}
                 <div className="shopcart-step-label">確認購物車</div>
               </div>
               {/* <!-- add className "active" --> */}
               <div className="shopcart-step shopcart-step-2">
-                <span> 2</span>
-                <div className="shopcart-fa shopcart-fa-check shopcart-opaque"></div>
+                <span className="shopcart-step-num"> 2</span>
+                <BsCheck className="shopcart-fa shopcart-fa-check shopcart-opaque" />
+                {/* <div className="shopcart-fa shopcart-fa-check shopcart-opaque"></div> */}
                 <div className="shopcart-step-label">付款與運送方式</div>
               </div>
               <div className="shopcart-step shopcart-step-3">
-                <span> 3</span>
-                <div className="shopcart-fa shopcart-fa-check shopcart-opaque"></div>
+                <span className="shopcart-step-num"> 3</span>
+                <BsCheck className="shopcart-fa shopcart-fa-check shopcart-opaque" />
+                {/* <div className="shopcart-fa shopcart-fa-check shopcart-opaque"></div> */}
                 <div className="shopcart-step-label">資料確認</div>
               </div>
               <div className="shopcart-step shopcart-step-4">
-                <span> 4</span>
-                <div className="shopcart-fa shopcart-fa-check shopcart-opaque"></div>
+                <span className="shopcart-step-num"> 4</span>
+                <BsCheck className="shopcart-fa shopcart-fa-check shopcart-opaque" />
+                {/* <div className="shopcart-fa shopcart-fa-check shopcart-opaque"></div> */}
                 <div className="shopcart-step-label">完成訂單</div>
               </div>
             </div>

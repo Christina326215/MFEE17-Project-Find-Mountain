@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
-
+import $ from 'jquery';
 import '../../styles/MemberPage/MemberPersonal.scss'; //member product and article style
 
 //====== below pages star ======//
