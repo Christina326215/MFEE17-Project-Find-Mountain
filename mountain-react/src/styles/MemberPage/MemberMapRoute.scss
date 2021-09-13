@@ -1,0 +1,208 @@
+/* 左邊管理區 start */
+/* table及其內容 */
+.member-table-all-left {
+  border-collapse: collapse;
+  width: 100%;
+  border-style: hidden;
+  box-shadow: 0 0 0 1px #000;
+  border-radius: 10px;
+  position: sticky;
+  top: 100px;
+}
+.member-left-href-color {
+  color: black;
+  text-decoration: none;
+}
+.member-left-href-color:hover {
+  color: black;
+  text-decoration: none;
+}
+.member-member-name {
+  color: #6da77f;
+}
+.member-grade-icon {
+  color: #4e4e4e;
+  font-size: larger;
+}
+.member-table-active {
+  background-color: #6da77f;
+  border-radius: 0;
+}
+.member-table-active:hover {
+  background-color: #bae29a;
+}
+
+/* 頭貼 */
+.member-cover-fit {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.member-headshot-img-box img {
+  border-radius: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.member-headshot-img-box {
+  margin: 0 auto;
+  width: 150px;
+  height: 150px;
+  text-align: center;
+}
+/* 左邊管理區 end */
+
+/* 會員制度氣泡 start */
+.member-about-membership-bubble {
+  width: 300px;
+  background: #f2f2f2;
+  border-radius: 5px;
+  right: -45px;
+  top: 40px;
+  display: none;
+}
+.member-about-membership-bubble-arrow {
+  width: 0px;
+  height: 0px;
+  border-width: 15px;
+  border-style: solid;
+  border-color: #f2f2f2 transparent transparent transparent;
+  position: absolute;
+  top: 149px;
+  right: 100px;
+}
+.member-membership {
+  /* font-family: Source Sans Pro; */
+  font-size: 14px;
+  line-height: 20px;
+}
+.member-membership-low {
+  color: #4e4e4e;
+}
+.member-membership-medium {
+  color: #19634a;
+}
+.member-membership-high {
+  color: #ffb943;
+}
+/* 會員制度氣泡 end */
+
+/* 右邊table start */
+.member-right-table-all-map-route {
+  border-collapse: collapse;
+  width: 100%;
+  border-style: hidden;
+  box-shadow: 0 0 0 1px #000;
+  border-radius: 10px;
+}
+.member-right-table-all-map {
+  border-collapse: collapse;
+  width: 100%;
+  border-style: hidden;
+  box-shadow: 0 0 0 1px #000;
+  border-radius: 10px;
+}
+.member-right-table-all-route {
+  border-collapse: collapse;
+  width: 100%;
+  border-style: hidden;
+  box-shadow: 0 0 0 1px #000;
+  border-radius: 10px;
+}
+.member-right-have-been {
+  float: left;
+}
+.member-map-route-switch-category {
+  float: right;
+}
+.member-map-route-title-main {
+  color: #19634a;
+}
+.member-map-route-text-weight {
+  font-size: 18px;
+}
+.member-map-route-text-weight-bold {
+  font-weight: bold;
+  font-size: 26px;
+}
+/* 右邊table end */
+
+/* switch-tab start */
+#mapBtn {
+  cursor: pointer;
+  color: #4e4e4e;
+}
+#routeBtn {
+  cursor: pointer;
+  color: #4e4e4e;
+}
+#areaMap {
+  display: block;
+}
+#areaRoute {
+  display: block;
+}
+.member-map-route-content2 {
+  display: none;
+}
+/* switch-tab end */
+
+/* 圖片 */
+.member-map-route-picture-img {
+  border-radius: 10px;
+  object-fit: cover;
+  height: 100%;
+  width: 100px;
+}
+.member-map-route-picture-img-box {
+  width: 100px;
+  height: 100px;
+}
+.member-map-route-picture-img-wrapper {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+}
+
+/* progress bar star */
+// :root {
+//   --barBackground-color: #6da77f;
+//   --barShadow-color: #bae29a;
+//   --progressachievement-width: calc(25.55%);
+// }
+.member-map-route-bar_list {
+  display: flex;
+  margin-top: 4px;
+  margin-bottom: 20px;
+  margin-left: 40px;
+}
+.member-map-route-progress-bg {
+  margin: 0 auto;
+  width: 90%;
+  height: 32px;
+  border-radius: 50px;
+  text-align: center;
+  -webkit-box-shadow: inset 0 0 50px #bae29a;
+  box-shadow: inset 0 0 50px #bae29a;
+}
+.member-map-route-progress-bg-font {
+  position: absolute;
+  /* left: 50%; */
+  transform: translateX(-50%);
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 32px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.member-map-route-progress_achievement-bar {
+  height: 32px;
+  border-radius: 50px 0 0 50px;
+  float: left;
+  width: calc(25.55%);
+  background-color: #6da77f;
+  background: -webkit-linear-gradient(top, #6da77f, #6da77f);
+}
+/* progress bar end */
