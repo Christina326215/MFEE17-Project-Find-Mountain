@@ -75,7 +75,7 @@ function Login(props) {
                   忘記密碼
                 </Link>
                 <span>&nbsp;&nbsp; &nbsp;&nbsp;</span>
-                <Link class="login-signUp" to="/signup">
+                <Link class="login-signUp" to="/signup-info">
                   註冊會員
                 </Link>
               </div>

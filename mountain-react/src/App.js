@@ -21,7 +21,8 @@ import MapM from './components/MapPage/MapM';
 import MapH from './components/MapPage/MapH';
 import Outfit from './components/OutfitPage/Outfit';
 import ScrollToTop from './components/ScrollToTop';
-import SignUp from './components/SignUpPage/SignUp';
+import SignUpInfo from './components/SignUpPage/SignUpInfo';
+import SignUpAcct from './components/SignUpPage/SignUpAcct';
 import Login from './components/LoginPage/Login';
 
 //====== above components end ======//
@@ -72,8 +73,11 @@ function App() {
             <Route path="/outfit">
               <Outfit />
             </Route>
-            <Route path="/signup">
-              <SignUp />
+            <Route path="/signup-info">
+              <SignUpInfo />
+            </Route>
+            <Route path="/signup-acct">
+              <SignUpAcct />
             </Route>
             <Route path="/login">
               <Login />
