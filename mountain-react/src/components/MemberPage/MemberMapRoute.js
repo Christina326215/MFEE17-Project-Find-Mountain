@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
 import $ from 'jquery';
 import '../../styles/MemberPage/MemberMapRoute.scss'; //member map and route style
+import { pages_btn } from '../MapPage/pages/PagesBtn';
 
 //====== below icon star ======//
 import { BsQuestionCircle, BsStar } from 'react-icons/bs';
@@ -168,7 +169,7 @@ function MemberMapRoute() {
                     id="menu"
                     className="btn btn-outline-primary menu active"
                     click=""
-                    to=""
+                    to="#/"
                   >
                     地圖
                   </Link>
@@ -177,7 +178,7 @@ function MemberMapRoute() {
                     id="menu"
                     className="btn btn-outline-primary menu"
                     click=""
-                    to=""
+                    to="#/"
                   >
                     路線
                   </Link>
@@ -391,6 +392,7 @@ function MemberMapRoute() {
                     </tbody>
                   </table>
                   {/* <!-- 分頁 start  --> */}
+                  {pages_btn}
                   {/* <div
                   className="btn-toolbar justify-content-center mb-5"
                   role="toolbar"

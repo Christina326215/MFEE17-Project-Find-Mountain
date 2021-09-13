@@ -167,6 +167,7 @@ function MemberOrder() {
                     id="menu"
                     className="btn btn-outline-primary menu active"
                     click=""
+                    to="#/"
                   >
                     待完成
                   </Link>
@@ -175,6 +176,7 @@ function MemberOrder() {
                     id="menu"
                     className="btn btn-outline-primary menu"
                     click=""
+                    to="#/"
                   >
                     已完成
                   </Link>
