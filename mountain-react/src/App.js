@@ -16,6 +16,8 @@ import MapM from './components/MapPage/MapM';
 import MapH from './components/MapPage/MapH';
 import Outfit from './components/OutfitPage/Outfit';
 import ScrollToTop from './components/ScrollToTop';
+import SignUp from './components/SignUpPage/SignUp';
+import Login from './components/LoginPage/Login';
 
 //====== above components end ======//
 
@@ -65,7 +67,12 @@ function App() {
             <Route path="/outfit">
               <Outfit />
             </Route>
-            <Route path="/login">{/* 放要引入的content EX: <Stock /> */}</Route>
+            <Route path="/signup">
+              <SignUp />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
             <Route path="/member">
               {/* 放要引入的content EX: <Stock /> */}
             </Route>
