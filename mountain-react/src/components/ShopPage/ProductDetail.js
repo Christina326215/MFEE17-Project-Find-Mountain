@@ -52,12 +52,27 @@ function ProductDetail(props) {
       $(this).toggleClass('productdetail-active');
       $(this).siblings().removeClass('productdetail-active');
     });
+    //product order 數量部分
+    $('.productdetail-add-btn').on('click', function () {
+      let num = parseInt($('.productdetail-order-number').val());
+      num += 1;
+      $('.productdetail-order-number').val(num);
+      // console.log(num);
+    });
+    $('.productdetail-minus-btn').on('click', function () {
+      let num = parseInt($('.productdetail-order-number').val());
+      if (num > 1) {
+        num -= 1;
+        $('.productdetail-order-number').val(num);
+      }
+      // console.log(num);
+    });
     //加入購物車
     $('.productdetail-add-cart-btn').on('click', function () {
       //display none -> block
-      let cartDisplay = $('.productdetail-cart-num').css('display');
+      let cartDisplay = $('.cart-num').css('display');
       if (cartDisplay === 'none') {
-        $('.productdetail-cart-num').css('display', 'block');
+        $('.cart-num').css('display', 'block');
       }
       // alert("已將商品加入購物車！");
       Swal.fire({
@@ -67,7 +82,7 @@ function ProductDetail(props) {
         timer: 1500,
       });
       //cart-num ++
-      let cartNum = parseInt($('.productdetail-cart-num').text());
+      let cartNum = parseInt($('.cart-num').text());
       let orderNum = parseInt($('.productdetail-order-number').val());
       //限制一次加進購物車數量
       if (cartNum >= 10) {
@@ -79,7 +94,7 @@ function ProductDetail(props) {
         });
       } else {
         cartNum += orderNum;
-        $('.productdetail-cart-num').text(cartNum);
+        $('.cart-num').text(cartNum);
       }
     });
   });
@@ -210,7 +225,7 @@ function ProductDetail(props) {
                       type="text"
                       className="productdetail-order-number"
                       value="1"
-                      readonly
+                      readOnly
                     />
                     <button className="btn productdetail-add-btn">
                       <Plus className="mb-1" />
