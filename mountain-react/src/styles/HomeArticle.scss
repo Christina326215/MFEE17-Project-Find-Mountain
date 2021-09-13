@@ -1,0 +1,341 @@
+@import '~slick-carousel/slick/slick.scss';
+@import '~slick-carousel/slick/slick-theme.scss';
+/*============below contentMountain============*/
+.homepage-contentMountain {
+  background: #b8d99f;
+  background-size: cover;
+  padding: 250px 0px 100px;
+}
+
+.homepage-container {
+  width: 100%;
+  max-width: 1230px;
+  margin: 0 auto;
+}
+
+img {
+  max-width: 100%;
+}
+
+ul,
+li {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+a:hover {
+  text-decoration: none;
+}
+p {
+  font-size: 14px;
+  line-height: 16px;
+  margin: 0;
+}
+
+/*USE CSS for Slider*/
+
+.homepage-vehicle-detail-banner .homepage-car-slider-desc {
+  max-width: 180px;
+  margin: 0 auto;
+}
+
+.homepage-banner-slider .homepage-slider.homepage-slider-for {
+  max-width: 70%;
+  padding-right: 35px;
+  height: 500px;
+}
+
+.homepage-banner-slider .homepage-slider.homepage-slider-nav {
+  max-width: 30%;
+  height: 500px;
+  overflow: hidden;
+  padding: 20px 0 0;
+}
+
+.homepage-banner-slider .homepage-slider.homepage-slider-for,
+.homepage-banner-slider .homepage-slider.homepage-slider-nav {
+  width: 100%;
+  float: left;
+  border-radius: 10px;
+}
+.homepage-banner-slider .homepage-slider.homepage-slider-for img {
+  border-radius: 10px;
+}
+.homepage-slider-banner-image {
+  height: 500px;
+}
+
+.homepage-slider-nav .homepage-thumbnail-image .homepage-thumbImg {
+  /* max-width: 178px; */
+  height: 200px;
+  margin: 0 auto;
+  border: 1px solid #ebebeb;
+  border-radius: 8px;
+}
+
+.homepage-slider-banner-image .bgImg,
+.homepage-slider-nav .homepage-thumbnail-image .homepage-thumbImg img {
+  border-radius: 8px;
+}
+.homepage-slider-banner-image .bgImg:hover {
+  transform: scale3d(1.3, 1.3, 1.3);
+  transition: 0.5s ease-in;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+}
+.homepage-slick-vertical .homepage-slick-slide:active,
+.homepage-slick-vertical .homepage-slick-slide:focus,
+.homepage-slick-arrow:hover,
+.homepage-slick-arrow:focus {
+  border: 0;
+  outline: 0;
+}
+
+.homepage-slider-nav
+  .homepage-slick-slide.homepage-slick-current.homepage-thumbnail-image
+  .homepage-thumbImg {
+  border: 2px solid #196db6;
+}
+
+.homepage-slider-nav .homepage-slick-slide.homepage-slick-current span {
+  color: #196db6;
+}
+
+.homepage-slider-nav .homepage-slick-slide {
+  text-align: center;
+}
+
+.homepage-slider-nav .homepage-slick-slide span {
+  font-size: 14px;
+  display: block;
+  /* padding: 5px 0 15px; */
+}
+
+.homepage-slick-arrow {
+  width: 100%;
+  border: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-size: 0;
+  height: 18px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+.homepage-slick-prev {
+  top: 0;
+  //   background: url(../img/contentMountain/up-arrow.svg);
+}
+
+.homepage-slick-next {
+  bottom: 0;
+  background-color: rgb(180, 84, 84);
+}
+
+.homepage-slick-arrow {
+  background: #6da77f;
+  /* background: url(./img/contentMountain/left-arrow.svg) no-repeat; */
+}
+.homepage-slick-arrow:hover {
+  background: #ffb943;
+}
+
+.homepage-word {
+  top: 0;
+  color: #fff;
+}
+
+.homepage-word:hover {
+  background: rgba(0, 0, 0, 0.5);
+  height: 100%;
+}
+.homepage-ov-hidden {
+  line-height: 23px;
+}
+.homepage-memory {
+  border-radius: 10px;
+  background-color: #fafafaab;
+  width: 100%;
+  padding: 10px 20px;
+  color: #313131;
+}
+.homepage-memory .homepage-new {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 50px;
+}
+.homepage-memoryLine {
+  width: 2px;
+  top: 50%;
+  background: rgb(43, 43, 43);
+  margin: 0 20px;
+}
+.homepage-memoryName {
+  font-size: 18px;
+  font-weight: 500;
+}
+.homepage-memoryContent {
+  line-height: 50px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.homepage-memoryUser {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #6da77f;
+  overflow: hidden;
+}
+
+.homepage-articlePic {
+  width: 200px;
+  height: 150px;
+  border-radius: 10px 0px 0px 10px;
+}
+.homepage-articlePic img {
+  border-radius: 10px 0px 0px 10px;
+}
+.homepage-starIcon {
+  font-size: 20px;
+  color: #ffb943;
+}
+
+.homepage-body-content {
+  font-size: 16px;
+  line-height: 22px;
+}
+.homepage-levelLow {
+  line-height: 42px;
+}
+
+/*End USE CSS for Slider*/
+
+@media screen and (max-width: 991px) {
+  .homepage-banner-slider .homepage-slider.slider-for,
+  .homepage-banner-slider .homepage-slider.slider-nav {
+    max-width: 100%;
+    float: none;
+  }
+
+  .homepage-banner-slider .homepage-slider.slider-for {
+    padding-right: 0;
+  }
+
+  .homepage-banner-slider .homepage-slider.slider-nav {
+    height: auto;
+    margin: 0 20px;
+  }
+
+  .homepage-slider-banner-image {
+    height: 500px;
+  }
+  .homepage-thumbnail-image {
+    margin-top: 20px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+  .homepage-slider.slider-nav.homepage-thumb-image {
+    padding: 10px 30px 0;
+  }
+
+  .homepage-slider-nav .homepage-slick-slide span {
+    padding: 5px 0;
+  }
+
+  .homepage-slick-arrow {
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    top: 50%;
+    bottom: 0;
+    -webkit-transform: translateY(-50%) rotate(-90deg);
+    -moz-transform: translateY(-50%) rotate(-90deg);
+    -ms-transform: translateY(-50%) rotate(-90deg);
+    transform: translateY(-50%) rotate(-90deg);
+    background: #6da77f;
+  }
+
+  .homepage-slick-prev {
+    left: 0;
+    right: unset;
+    background: url(../img/contentMountain/up-arrow.svg);
+  }
+
+  .homepage-slick-next {
+    left: unset;
+    right: 0;
+    background: #6da77f;
+    background: url(../img/contentMountain/down-arrow.svg);
+  }
+
+  .homepage-vehicle-detail-banner .homepage-car-slider-desc {
+    max-width: 340px;
+  }
+
+  .homepage-bid-tag {
+    padding: 10px 0 15px;
+  }
+
+  .homepage-slider.slider-nav.homepage-thumb-image {
+    white-space: nowrap;
+  }
+
+  .homepage-thumbnail-image.homepage-slick-slide {
+    padding: 0px 5px;
+    min-width: 75px;
+    display: inline-block;
+    float: none;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .homepage-slider-banner-image {
+    height: 400px;
+  }
+
+  .homepage-slider.slider-nav.homepage-thumb-image {
+    padding: 0px 20px 0;
+    margin: 10px 0px 0;
+  }
+
+  .homepage-slider-nav
+    .homepage-slick-slide.homepage-thumbnail-image
+    .homepage-thumbImg {
+    width: 140px;
+    height: 80px;
+    overflow: hidden;
+  }
+
+  .homepage-slick-prev.homepage-slick-arrow {
+    background-position: center 10px;
+  }
+
+  .homepage-slick-next.homepage-slick-arrow {
+    background-position: center 10px, center;
+  }
+
+  .homepage-slider-nav .homepage-slick-slide span {
+    font-size: 12px;
+    white-space: normal;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .homepage-slider-banner-image {
+    height: 340px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .homepage-slider-banner-image {
+    height: 280px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .homepage-banner-slider .homepage-slider.homepage-slider-for {
+    height: auto;
+  }
+}

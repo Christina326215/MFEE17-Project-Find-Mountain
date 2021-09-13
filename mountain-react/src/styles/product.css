@@ -58,6 +58,11 @@ body {
   max-width: 100%;
   height: 300px;
 }
+.shopmain-slick-photo-box {
+  background: #414141;
+  width: 100%;
+  height: 300px;
+}
 /*left arrow*/
 .shopmain-caret-left {
   top: 50%;
@@ -204,10 +209,11 @@ body {
   left: -10px;
   z-index: 2;
 }
-.shopmain-slider-arrows-left i, .shopmain-slider-arrows-right i {
+.shopmain-slider-arrows-left-height, .shopmain-slider-arrows-right-height {
   line-height: 320px;
   font-size: 20px;
-  -webkit-text-stroke: 3px;
+  /* -webkit-text-stroke: 3px; */
+  /* font-weight: bolder; */
 }
 .shopmain-slider-arrows-right {
   /* background: rgba(255, 255, 255, 0.5); */
