@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import $ from 'jquery';
+import Swal from 'sweetalert2';
 import '../../styles/productbag.css';
 import { CartFill, HeartFill } from 'react-bootstrap-icons';
 import bagPic1 from '../../img/product-img/bags-pic1.jpeg';
@@ -13,6 +15,20 @@ import bagPic8 from '../../img/product-img/bags-pic8.jpeg';
 import bagPic9 from '../../img/product-img/bags-pic9.jpeg';
 
 function Bags(props) {
+  useEffect(() => {
+    $('.productbag-heart-icon-bkg').on('click', function () {
+      $(this).toggleClass('productbag-heart-icon-bkg-click');
+    });
+    $('.productbag-cart-icon-bkg').on('click', () => {
+      // alert("已將商品加入購物車！");
+      Swal.fire({
+        icon: 'success',
+        title: '已將商品加入購物車！',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    });
+  });
   return (
     <>
       <main>
@@ -36,15 +52,15 @@ function Bags(props) {
                   <Link to="/shop">商城首頁</Link>
                 </li>
                 <li className="col-3 px-0">
-                  <Link href="./product-bag.html" className="productbag-active">
+                  <Link to="/shop/bags" className="productbag-active">
                     機能背包
                   </Link>
                 </li>
                 <li className="col-3 px-0">
-                  <Link href="#">登山鞋</Link>
+                  <Link to="#/">登山鞋</Link>
                 </li>
                 <li className="col-3 px-0">
-                  <Link href="#">衣服</Link>
+                  <Link to="#/">衣服</Link>
                 </li>
               </div>
             </ul>
@@ -56,7 +72,7 @@ function Bags(props) {
               <div className="col-6 col-md-4 col-lg-3 px-0">
                 <div className="productbag-product-card">
                   <div className="productbag-product-img-box position-relative">
-                    <Link href="#">
+                    <Link to="#/">
                       <img
                         className="productbag-cover-fit"
                         src={bagPic1}
@@ -64,20 +80,14 @@ function Bags(props) {
                         title="The North Face 黑色便捷休閒腰包"
                       />
                     </Link>
-                    <Link
-                      role="button"
-                      className="position-absolute productbag-heart-icon-bkg position-relative"
-                    >
+                    <button className="position-absolute productbag-heart-icon-bkg position-relative">
                       <HeartFill className="position-absolute productbag-heart-icon" />
-                    </Link>
-                    <Link
-                      role="button"
-                      className="position-absolute productbag-cart-icon-bkg position-relative"
-                    >
+                    </button>
+                    <button className="position-absolute productbag-cart-icon-bkg position-relative">
                       <CartFill className="position-absolute productbag-cart-icon" />
-                    </Link>
+                    </button>
                   </div>
-                  <Link href="#" className="text-left productbag-product-name">
+                  <Link to="#/" className="text-left productbag-product-name">
                     The North Face
                     <br />
                     黑色便捷休閒腰包
@@ -90,7 +100,7 @@ function Bags(props) {
               <div className="col-6 col-md-4 col-lg-3 px-0">
                 <div className="productbag-product-card">
                   <div className="productbag-product-img-box position-relative">
-                    <Link href="#">
+                    <Link to="#/">
                       <img
                         className="productbag-cover-fit"
                         src={bagPic2}
@@ -98,20 +108,14 @@ function Bags(props) {
                         title="The North Face 黑灰色休閒後背包"
                       />
                     </Link>
-                    <Link
-                      role="button"
-                      className="position-absolute productbag-heart-icon-bkg position-relative"
-                    >
+                    <button className="position-absolute productbag-heart-icon-bkg position-relative">
                       <HeartFill className="position-absolute productbag-heart-icon" />
-                    </Link>
-                    <Link
-                      role="button"
-                      className="position-absolute productbag-cart-icon-bkg position-relative"
-                    >
+                    </button>
+                    <button className="position-absolute productbag-cart-icon-bkg position-relative">
                       <CartFill className="position-absolute productbag-cart-icon" />
-                    </Link>
+                    </button>
                   </div>
-                  <Link href="#" className="text-left productbag-product-name">
+                  <Link to="#/" className="text-left productbag-product-name">
                     The North Face
                     <br />
                     黑灰色休閒後背包
@@ -124,7 +128,7 @@ function Bags(props) {
               <div className="col-6 col-md-4 col-lg-3 px-0">
                 <div className="productbag-product-card">
                   <div className="productbag-product-img-box position-relative">
-                    <Link href="#">
+                    <Link to="#/">
                       <img
                         className="productbag-cover-fit"
                         src={bagPic3}
@@ -132,20 +136,14 @@ function Bags(props) {
                         title="The North Face 黑色舒適休閒後背包"
                       />
                     </Link>
-                    <Link
-                      role="button"
-                      className="position-absolute productbag-heart-icon-bkg position-relative"
-                    >
+                    <button className="position-absolute productbag-heart-icon-bkg position-relative">
                       <HeartFill className="position-absolute productbag-heart-icon" />
-                    </Link>
-                    <Link
-                      role="button"
-                      className="position-absolute productbag-cart-icon-bkg position-relative"
-                    >
+                    </button>
+                    <button className="position-absolute productbag-cart-icon-bkg position-relative">
                       <CartFill className="position-absolute productbag-cart-icon" />
-                    </Link>
+                    </button>
                   </div>
-                  <Link href="#" className="text-left productbag-product-name">
+                  <Link to="#/" className="text-left productbag-product-name">
                     The North Face
                     <br />
                     黑色舒適休閒後背包
@@ -158,7 +156,7 @@ function Bags(props) {
               <div className="col-6 col-md-4 col-lg-3 px-0">
                 <div className="productbag-product-card">
                   <div className="productbag-product-img-box position-relative">
-                    <Link href="#">
+                    <Link to="#/">
                       <img
                         className="productbag-cover-fit"
                         src={bagPic4}
@@ -166,20 +164,14 @@ function Bags(props) {
                         title="Karrimor sector 25 休閒登山後背包"
                       />
                     </Link>
-                    <Link
-                      role="button"
-                      className="position-absolute productbag-heart-icon-bkg position-relative"
-                    >
+                    <button className="position-absolute productbag-heart-icon-bkg position-relative">
                       <HeartFill className="position-absolute productbag-heart-icon" />
-                    </Link>
-                    <Link
-                      role="button"
-                      className="position-absolute productbag-cart-icon-bkg position-relative"
-                    >
+                    </button>
+                    <button className="position-absolute productbag-cart-icon-bkg position-relative">
                       <CartFill className="position-absolute productbag-cart-icon" />
-                    </Link>
+                    </button>
                   </div>
-                  <Link href="#" className="text-left productbag-product-name">
+                  <Link to="#/" className="text-left productbag-product-name">
                     Karrimor
                     <br />
                     sector 25 休閒登山後背包
@@ -192,7 +184,7 @@ function Bags(props) {
               <div className="col-6 col-md-4 col-lg-3 px-0">
                 <div className="productbag-product-card">
                   <div className="productbag-product-img-box position-relative">
-                    <Link href="#">
+                    <Link to="#/">
                       <img
                         className="productbag-cover-fit"
                         src={bagPic5}
@@ -200,20 +192,14 @@ function Bags(props) {
                         title="MAMMUT長毛象 Lithium Speed 20L"
                       />
                     </Link>
-                    <Link
-                      role="button"
-                      className="position-absolute productbag-heart-icon-bkg position-relative"
-                    >
+                    <button className="position-absolute productbag-heart-icon-bkg position-relative">
                       <HeartFill className="position-absolute productbag-heart-icon" />
-                    </Link>
-                    <Link
-                      role="button"
-                      className="position-absolute productbag-cart-icon-bkg position-relative"
-                    >
+                    </button>
+                    <button className="position-absolute productbag-cart-icon-bkg position-relative">
                       <CartFill className="position-absolute productbag-cart-icon" />
-                    </Link>
+                    </button>
                   </div>
-                  <Link href="#" className="text-left productbag-product-name">
+                  <Link to="#/" className="text-left productbag-product-name">
                     MAMMUT長毛象
                     <br />
                     Lithium Speed 20L
@@ -226,7 +212,7 @@ function Bags(props) {
               <div className="col-6 col-md-4 col-lg-3 px-0">
                 <div className="productbag-product-card">
                   <div className="productbag-product-img-box position-relative">
-                    <Link href="./product-detail.html">
+                    <Link to="shop/product-detail">
                       <img
                         className="productbag-cover-fit"
                         src={bagPic6}
@@ -234,18 +220,12 @@ function Bags(props) {
                         title="Arcteryx 始祖鳥 徒步背包 Brize 32"
                       />
                     </Link>
-                    <Link
-                      role="button"
-                      className="position-absolute productbag-heart-icon-bkg position-relative"
-                    >
+                    <button className="position-absolute productbag-heart-icon-bkg position-relative">
                       <HeartFill className="position-absolute productbag-heart-icon" />
-                    </Link>
-                    <Link
-                      role="button"
-                      className="position-absolute productbag-cart-icon-bkg position-relative"
-                    >
+                    </button>
+                    <button className="position-absolute productbag-cart-icon-bkg position-relative">
                       <CartFill className="position-absolute productbag-cart-icon" />
-                    </Link>
+                    </button>
                   </div>
                   <Link
                     href="./product-detail.html"
@@ -263,7 +243,7 @@ function Bags(props) {
               <div className="col-6 col-md-4 col-lg-3 px-0">
                 <div className="productbag-product-card">
                   <div className="productbag-product-img-box position-relative">
-                    <Link href="#">
+                    <Link to="#/">
                       <img
                         className="productbag-cover-fit"
                         src={bagPic7}
@@ -271,20 +251,14 @@ function Bags(props) {
                         title="GREGORY JADE 38 登山背包"
                       />
                     </Link>
-                    <Link
-                      role="button"
-                      className="position-absolute productbag-heart-icon-bkg position-relative"
-                    >
+                    <button className="position-absolute productbag-heart-icon-bkg position-relative">
                       <HeartFill className="position-absolute productbag-heart-icon" />
-                    </Link>
-                    <Link
-                      role="button"
-                      className="position-absolute productbag-cart-icon-bkg position-relative"
-                    >
+                    </button>
+                    <button className="position-absolute productbag-cart-icon-bkg position-relative">
                       <CartFill className="position-absolute productbag-cart-icon" />
-                    </Link>
+                    </button>
                   </div>
-                  <Link href="#" className="text-left productbag-product-name">
+                  <Link to="#/" className="text-left productbag-product-name">
                     GREGORY
                     <br />
                     JADE 38 登山背包
@@ -297,7 +271,7 @@ function Bags(props) {
               <div className="col-6 col-md-4 col-lg-3 px-0">
                 <div className="productbag-product-card">
                   <div className="productbag-product-img-box position-relative">
-                    <Link href="#">
+                    <Link to="#/">
                       <img
                         className="productbag-cover-fit"
                         src={bagPic8}
@@ -305,20 +279,14 @@ function Bags(props) {
                         title="The North Face 藍色專業登山後背包"
                       />
                     </Link>
-                    <Link
-                      role="button"
-                      className="position-absolute productbag-heart-icon-bkg position-relative"
-                    >
+                    <button className="position-absolute productbag-heart-icon-bkg position-relative">
                       <HeartFill className="position-absolute productbag-heart-icon" />
-                    </Link>
-                    <Link
-                      role="button"
-                      className="position-absolute productbag-cart-icon-bkg position-relative"
-                    >
+                    </button>
+                    <button className="position-absolute productbag-cart-icon-bkg position-relative">
                       <CartFill className="position-absolute productbag-cart-icon" />
-                    </Link>
+                    </button>
                   </div>
-                  <Link href="#" className="text-left productbag-product-name">
+                  <Link to="#/" className="text-left productbag-product-name">
                     The North Face
                     <br />
                     藍色專業登山後背包
@@ -331,7 +299,7 @@ function Bags(props) {
               <div className="col-6 col-md-4 col-lg-3 px-0">
                 <div className="productbag-product-card">
                   <div className="productbag-product-img-box position-relative">
-                    <Link href="#">
+                    <Link to="#/">
                       <img
                         className="productbag-cover-fit"
                         src={bagPic9}
@@ -339,20 +307,14 @@ function Bags(props) {
                         title="The North Face 黑色舒適防護專業後背包"
                       />
                     </Link>
-                    <Link
-                      role="button"
-                      className="position-absolute productbag-heart-icon-bkg position-relative"
-                    >
+                    <button className="position-absolute productbag-heart-icon-bkg position-relative">
                       <HeartFill className="position-absolute productbag-heart-icon" />
-                    </Link>
-                    <Link
-                      role="button"
-                      className="position-absolute productbag-cart-icon-bkg position-relative"
-                    >
+                    </button>
+                    <button className="position-absolute productbag-cart-icon-bkg position-relative">
                       <CartFill className="position-absolute productbag-cart-icon" />
-                    </Link>
+                    </button>
                   </div>
-                  <Link href="#" className="text-left productbag-product-name">
+                  <Link to="#/" className="text-left productbag-product-name">
                     The North Face
                     <br />
                     黑色舒適防護專業後背包
