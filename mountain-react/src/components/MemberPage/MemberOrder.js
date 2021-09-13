@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
+import $ from 'jquery';
 import '../../styles/MemberPage/MemberOrder.scss'; //member map and route style
 
 //====== below pages star ======//
@@ -17,7 +18,6 @@ import MemberOrderImg from '../../img/shoes-pic2.jpeg';
 
 function MemberOrder() {
   useEffect(() => {
-
     // 切換區域tab-switch
     let menu = document.querySelectorAll('#menu');
     let content = document.querySelectorAll('#content');

@@ -58,7 +58,7 @@
   background: #f2f2f2;
   border-radius: 5px;
   right: -45px;
-  top: 40px;
+  top: 70px;
   display: none;
 }
 .member-about-membership-bubble-arrow {
@@ -66,10 +66,10 @@
   height: 0px;
   border-width: 15px;
   border-style: solid;
-  border-color: #f2f2f2 transparent transparent transparent;
+  border-color: transparent transparent #f2f2f2 transparent;
   position: absolute;
-  top: 149px;
-  right: 100px;
+  top: -25px;
+  right: 145px;
 }
 .member-membership {
   /* font-family: Source Sans Pro; */
