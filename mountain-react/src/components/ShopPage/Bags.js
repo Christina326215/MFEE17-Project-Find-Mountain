@@ -20,6 +20,11 @@ function Bags(props) {
       $(this).toggleClass('productbag-heart-icon-bkg-click');
     });
     $('.productbag-cart-icon-bkg').on('click', () => {
+      //display none -> block
+      let cartDisplay = $('.cart-num').css('display');
+      if (cartDisplay === 'none') {
+        $('.cart-num').css('display', 'block');
+      }
       // alert("已將商品加入購物車！");
       Swal.fire({
         icon: 'success',
@@ -27,6 +32,20 @@ function Bags(props) {
         showConfirmButton: false,
         timer: 1500,
       });
+      //cart-num ++
+      let cartNum = parseInt($('.cart-num').text());
+      //限制一次加進購物車數量
+      if (cartNum >= 10) {
+        Swal.fire({
+          icon: 'error',
+          title: '一次最多只能放入10樣商品喔',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else {
+        cartNum++;
+        $('.cart-num').text(cartNum);
+      }
     });
   });
   return (
