@@ -5,9 +5,6 @@ import '../../../node_modules/slick-carousel/slick/slick.css';
 import '../../../node_modules/slick-carousel/slick/slick.min.js';
 import '../../../node_modules/slick-carousel/slick/slick-theme.css';
 import Swal from 'sweetalert2';
-// import { vegas } from 'vegas';
-// import '../../../node_modules/vegas/dist/vegas.js';
-// import '../../../node_modules/vegas/dist/vegas.css';
 import '../../styles/product.css';
 import {
   CaretLeftFill,
@@ -31,22 +28,8 @@ import xiangshan from '../../img/article-img/xiangshan.jpeg';
 import Yangmingshan from '../../img/article-img/Yangmingshan.jpeg';
 import Tapachien from '../../img/article-img/Tapachien.jpeg';
 
-// const images = [{ url: display1 }, { url: display2 }, { url: display3 }];
 function ShopMain(props) {
   useEffect(() => {
-    //   //vegasya
-    //   $('.shopmain-display-photo-box').vegas({
-    //     timer: false,
-    //     delay: 3000,
-    //     slides: [{ src: display1 }, { src: display2 }, { src: display3 }],
-    //     transition: 'fade',
-    //   });
-    //   $('#vegasPrev').on('click', function () {
-    //     $('.shopmain-display-photo-box').vegas('previous');
-    //   });
-    //   $('#vegasNext').on('click', function () {
-    //     $('.shopmain-display-photo-box').vegas('next');
-    //   });
     //slick
     $('.shopmain-display-photo-box').slick({
       dots: true,
@@ -88,6 +71,9 @@ function ShopMain(props) {
           },
         },
       ],
+    });
+    $('.shopmain-heart-icon-bkg').on('click', function () {
+      $(this).toggleClass('shopmain-heart-icon-bkg-click');
     });
     $('.shopmain-cart-icon-bkg').on('click', () => {
       // alert("已將商品加入購物車！");
@@ -147,21 +133,6 @@ function ShopMain(props) {
             <div class="shopmain-slick-photo-box">
               <img src={display3} alt="" title="" class="shopmain-cover-fit" />
             </div>
-            {/* <div class="position-absolute caret-left">
-              <i class="bi bi-caret-left-fill" id="vegasPrev"></i>
-            </div>
-            <div class="position-absolute caret-right">
-              <i class="bi bi-caret-right-fill" id="vegasNext"></i>
-            </div> */}
-            {/* <div class="shopmain-slider-box col-12">
-              <SimpleImageSlider
-                showNavs={true}
-                showBullets={true}
-                width={1100}
-                height={300}
-                images={images}
-              />
-            </div> */}
           </div>
           {/* <!-- =========vegas end========= --> */}
           {/* <!-- =========編輯嚴選 start========= --> */}
