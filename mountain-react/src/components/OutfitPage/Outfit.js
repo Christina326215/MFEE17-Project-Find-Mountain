@@ -183,34 +183,40 @@ function Outfit(props) {
   }, []);
   return (
     <>
-      <h2 class="outfit-title">建議穿搭</h2>
-      <p class="outfit-intro">
+      <h2 className="outfit-title">建議穿搭</h2>
+      <p className="outfit-intro">
         依下面步驟來挑選最佳商品搭配並製作出個人化明信片
       </p>
-      <div class="outfit-content">
-        <div class="outfit-sub-content">
-          <div class="container">
-            <div class="row my-3 d-flex justify-content-center">
-              <div class="col col-lg-4">
+      <div className="outfit-content">
+        <div className="outfit-sub-content">
+          <div className="container">
+            <div className="row my-3 d-flex justify-content-center">
+              <div className="col col-lg-4">
                 <SelectProduct />
               </div>
-              <div class="outfit-right-side col col-lg-8">
-                <div id="div1" class="outfit-target">
+              <div className="outfit-right-side col col-lg-8">
+                <div id="div1" className="outfit-target">
                   {/* product-warpper start */}
-                  <div class="outfit-product-slider">
-                    <BsFillCaretLeftFill class="outfit-prev" id="slideLeft" />
-                    <BsFillCaretRightFill class="outfit-next" id="slideRight" />
-                    <div class="outfit-product-wrapper" id="slider">
-                      <div class="outfit-product">
-                        <div class="outfit-product-img">
+                  <div className="outfit-product-slider">
+                    <BsFillCaretLeftFill
+                      className="outfit-prev"
+                      id="slideLeft"
+                    />
+                    <BsFillCaretRightFill
+                      className="outfit-next"
+                      id="slideRight"
+                    />
+                    <div className="outfit-product-wrapper" id="slider">
+                      <div className="outfit-product">
+                        <div className="outfit-product-img">
                           <img
                             src={clothesPic1Removebg}
                             alt=""
-                            class="outfit-slider-image outfit-cover-fit"
+                            className="outfit-slider-image outfit-cover-fit"
                             draggable
                           />
                         </div>
-                        <div class="outfit-product-info">
+                        <div className="outfit-product-info">
                           <p>
                             the North Face
                             <br />
@@ -218,16 +224,16 @@ function Outfit(props) {
                           </p>
                         </div>
                       </div>
-                      <div class="outfit-product">
-                        <div class="outfit-product-img">
+                      <div className="outfit-product">
+                        <div className="outfit-product-img">
                           <img
                             src={clothesPic2Removebg}
                             alt=""
-                            class="outfit-slider-image outfit-cover-fit"
+                            className="outfit-slider-image outfit-cover-fit"
                             draggable
                           />
                         </div>
-                        <div class="outfit-product-info">
+                        <div className="outfit-product-info">
                           <p>
                             the North Face
                             <br />
@@ -235,16 +241,16 @@ function Outfit(props) {
                           </p>
                         </div>
                       </div>
-                      <div class="outfit-product">
-                        <div class="outfit-product-img">
+                      <div className="outfit-product">
+                        <div className="outfit-product-img">
                           <img
                             src="./img/img-outfit/clothes-pic3-removebg-preview.png"
                             alt=""
-                            class="outfit-slider-image outfit-cover-fit"
+                            className="outfit-slider-image outfit-cover-fit"
                             draggable
                           />
                         </div>
-                        <div class="outfit-product-info">
+                        <div className="outfit-product-info">
                           <p>
                             the North Face
                             <br />
@@ -252,16 +258,16 @@ function Outfit(props) {
                           </p>
                         </div>
                       </div>
-                      <div class="outfit-product">
-                        <div class="outfit-product-img">
+                      <div className="outfit-product">
+                        <div className="outfit-product-img">
                           <img
                             src="./img/img-outfit/bags-pic1-removebg-preview.png"
                             alt=""
-                            class="outfit-slider-image outfit-cover-fit"
+                            className="outfit-slider-image outfit-cover-fit"
                             draggable
                           />
                         </div>
-                        <div class="outfit-product-info">
+                        <div className="outfit-product-info">
                           <p>
                             the North Face
                             <br />
@@ -269,16 +275,16 @@ function Outfit(props) {
                           </p>
                         </div>
                       </div>
-                      <div class="outfit-product">
-                        <div class="outfit-product-img">
+                      <div className="outfit-product">
+                        <div className="outfit-product-img">
                           <img
                             src="./img/img-outfit/bags-pic2-removebg-preview.png"
                             alt=""
-                            class="outfit-slider-image outfit-cover-fit"
+                            className="outfit-slider-image outfit-cover-fit"
                             draggable
                           />
                         </div>
-                        <div class="outfit-product-info">
+                        <div className="outfit-product-info">
                           <p>
                             the North Face
                             <br />
@@ -286,16 +292,16 @@ function Outfit(props) {
                           </p>
                         </div>
                       </div>
-                      <div class="outfit-product">
-                        <div class="outfit-product-img">
+                      <div className="outfit-product">
+                        <div className="outfit-product-img">
                           <img
                             src="./img/img-outfit/bags-pic3-removebg-preview.png"
                             alt=""
-                            class="outfit-slider-image outfit-cover-fit"
+                            className="outfit-slider-image outfit-cover-fit"
                             draggable
                           />
                         </div>
-                        <div class="outfit-product-info">
+                        <div className="outfit-product-info">
                           <p>
                             the North Face
                             <br />
@@ -303,16 +309,16 @@ function Outfit(props) {
                           </p>
                         </div>
                       </div>
-                      <div class="outfit-product">
-                        <div class="outfit-product-img">
+                      <div className="outfit-product">
+                        <div className="outfit-product-img">
                           <img
                             src="./img/img-outfit/shoes-pic1-removebg-preview.png"
                             alt=""
-                            class="outfit-slider-image outfit-cover-fit"
+                            className="outfit-slider-image outfit-cover-fit"
                             draggable
                           />
                         </div>
-                        <div class="outfit-product-info">
+                        <div className="outfit-product-info">
                           <p>
                             the North Face
                             <br />
@@ -320,16 +326,16 @@ function Outfit(props) {
                           </p>
                         </div>
                       </div>
-                      <div class="outfit-product">
-                        <div class="outfit-product-img">
+                      <div className="outfit-product">
+                        <div className="outfit-product-img">
                           <img
                             src="./img/img-outfit/shoes-pic2-removebg-preview.png"
                             alt=""
-                            class="outfit-slider-image outfit-cover-fit"
+                            className="outfit-slider-image outfit-cover-fit"
                             draggable
                           />
                         </div>
-                        <div class="outfit-product-info">
+                        <div className="outfit-product-info">
                           <p>
                             the North Face
                             <br />
@@ -337,16 +343,16 @@ function Outfit(props) {
                           </p>
                         </div>
                       </div>
-                      <div class="outfit-product">
-                        <div class="outfit-product-img">
+                      <div className="outfit-product">
+                        <div className="outfit-product-img">
                           <img
                             src="./img/img-outfit/shoes-pic3-removebg-preview.png"
                             alt=""
-                            class="outfit-slider-image outfit-cover-fit"
+                            className="outfit-slider-image outfit-cover-fit"
                             draggable
                           />
                         </div>
-                        <div class="outfit-product-info">
+                        <div className="outfit-product-info">
                           <p>
                             the North Face
                             <br />
@@ -358,19 +364,19 @@ function Outfit(props) {
                   </div>
                   {/* product-warpper end */}
                 </div>
-                <div id="div2" class="outfit-target">
+                <div id="div2" className="outfit-target">
                   <p>Hi I'm div2.</p>
                 </div>
-                <div id="div3" class="outfit-target">
+                <div id="div3" className="outfit-target">
                   <p>Hi I'm div3.</p>
                 </div>
               </div>
               {/* 製作個人化明信片 start */}
-              <div class="mt-5">
-                <h3 class="outfit-subTitle">製作個人化明信片</h3>
-                <div class="outfit-underline"></div>
-                <div class="outfit-canvas-box cvs" id="canvasBox">
-                  <div class="outfit-canvas-target position-absolute position-relative">
+              <div className="mt-5">
+                <h3 className="outfit-subTitle">製作個人化明信片</h3>
+                <div className="outfit-underline"></div>
+                <div className="outfit-canvas-box cvs" id="canvasBox">
+                  <div className="outfit-canvas-target position-absolute position-relative">
                     <p style={{ display: 'block' }} id="hide">
                       請將以上商品
                       <br />
@@ -385,7 +391,7 @@ function Outfit(props) {
               </div>
               {/* 製作個人化明信片 end */}
               {/* 訂購單 start */}
-              <div class="">
+              <div className="">
                 <OrderList />
               </div>
               {/* 訂購單 end */}
@@ -393,16 +399,16 @@ function Outfit(props) {
           </div>
         </div>
       </div>
-      <div class="outfit-btnGroup">
-        <button class="outfit-fb">
-          <FaFacebookSquare class="outfit-sharedBtn" />
+      <div className="outfit-btnGroup">
+        <button className="outfit-fb">
+          <FaFacebookSquare className="outfit-sharedBtn" />
           分享明信片
         </button>
-        <button class="btn btn-outline-primary" id="save">
-          <BsDownload class="outfit-downloadBtn" />
+        <button className="btn btn-outline-primary" id="save">
+          <BsDownload className="outfit-downloadBtn" />
           儲存明信片
         </button>
-        <button class="btn btn-primary">將所選商品加入購物車</button>
+        <button className="btn btn-primary">將所選商品加入購物車</button>
       </div>
     </>
   );
