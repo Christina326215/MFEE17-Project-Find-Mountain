@@ -79,14 +79,14 @@ function ShopCartCheck() {
             {/* <!-- button --> */}
             <div className="button-container text-right my-5">
               <Link
-                to="/cart-step2-pay"
+                to="/shoppingcart-step2-pay"
                 className="btn btn-prev btn btn-outline-primary mr-3"
               >
                 上一步
               </Link>
               <div></div>
               <Link
-                to="/cart-step4-finish"
+                to="/shoppingcart-step4-finish"
                 className="btn btn-next btn btn-primary mr-3"
               >
                 下一步

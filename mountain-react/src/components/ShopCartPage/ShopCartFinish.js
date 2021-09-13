@@ -87,7 +87,7 @@ function ShopCartFinish() {
             {/* <!-- button --> */}
             <div className="button-container text-right mb-5">
               <Link
-                to="/cart-step2-pay"
+                to="/shoppingcart-step2-pay"
                 className="btn btn-prev btn btn-outline-primary mr-3"
               >
                 上一步

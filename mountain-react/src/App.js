@@ -8,6 +8,11 @@ import ShopCartDetail from './components/ShopCartPage/ShopCartDetail';
 import ShopCartPay from './components/ShopCartPage/ShopCartPay';
 import ShopCartCheck from './components/ShopCartPage/ShopCartCheck';
 import ShopCartFinish from './components/ShopCartPage/ShopCartFinish';
+import MemberMapRoute from './components/MemberPage/MemberMapRoute';
+import MemberProductArticle from './components/MemberPage/MemberProductArticle';
+import MemberOrder from './components/MemberPage/MemberOrder';
+import MemberComment from './components/MemberPage/MemberComment';
+import MemberPersonal from './components/MemberPage/MemberPersonal';
 //====== above components end ======//
 
 function App() {
@@ -25,17 +30,32 @@ function App() {
             {/* 放要引入的content EX: <Stock /> */}
           </Route>
           <Route path="/shop">{/* 放要引入的content EX: <Stock /> */}</Route>
-          <Route path="/cart-step1-detail">
+          <Route path="/shoppingcart-step1-detail">
             <ShopCartDetail />
           </Route>
-          <Route path="/cart-step2-pay">
+          <Route path="/shoppingcart-step2-pay">
             <ShopCartPay />
           </Route>
-          <Route path="/cart-step3-check">
+          <Route path="/shoppingcart-step3-check">
             <ShopCartCheck />
           </Route>
-          <Route path="/cart-step4-finish">
+          <Route path="/shoppingcart-step4-finish">
             <ShopCartFinish />
+          </Route>
+          <Route path="/member-map-route">
+            <MemberMapRoute />
+          </Route>
+          <Route path="/member-order">
+            <MemberOrder />
+          </Route>
+          <Route path="/member-product-article">
+            <MemberProductArticle />
+          </Route>
+          <Route path="/member-comment">
+            <MemberComment />
+          </Route>
+          <Route path="/member-personal">
+            <MemberPersonal />
           </Route>
           <Route path="/outfit">{/* 放要引入的content EX: <Stock /> */}</Route>
           <Route path="/login">{/* 放要引入的content EX: <Stock /> */}</Route>

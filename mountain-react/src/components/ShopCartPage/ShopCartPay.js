@@ -242,13 +242,13 @@ function ShopCartPay() {
             {/* <!-- button --> */}
             <div className="button-container text-right mb-5">
               <Link
-                to="/cart-step1-detail"
+                to="/shoppingcart-step1-detail"
                 className="btn btn-prev btn btn-outline-primary mr-3"
               >
                 上一步
               </Link>
               <Link
-                to="/cart-step3-check"
+                to="/shoppingcart-step3-check"
                 className="btn btn-next btn btn-primary mr-3"
               >
                 下一步

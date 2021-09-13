@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
+import $ from 'jquery';
 import '../../styles/ShopCartPage/ShopCartPage.scss'; //shopping-cart style
 
 //====== below icon star ======//
@@ -12,36 +13,68 @@ import ShopCartImg from '../../img/shoes-pic7.jpeg';
 //====== above img import end ======//
 
 function ShopCartDetail() {
+  useEffect(() => {
+    async function test() {
+      $('.shopcart-add-btn').click(function () {
+        let number = $(this).parent().find('.shopcart-order-number');
+        let num = parseInt(number.val());
+        num += 1;
+        number.val(num);
+        // console.log(num);
+      });
+      $('.shopcart-minus-btn').click(function () {
+        let number = $(this).parent().find('.shopcart-order-number');
+        let num = parseInt(number.val());
+        if (num > 1) {
+          num -= 1;
+          number.val(num);
+        }
+        // console.log(num);
+      });
+      //product order size選擇
+      $('.shopcart-size-btn').each(function () {
+        $(this).click(function () {
+          $(this).toggleClass('active');
+          $(this).siblings().removeClass('active');
+        });
+      });
+    }
+    test();
+  }, []);
   return (
     <>
       <div className="container">
-        <div className="progress-adj">
+        <div className="shopcart-progress-adj">
           {/* <!-- progress-bar-step start --> */}
           {/* <!-- className change to current "step-2" --> */}
-          <div className="step-1" id="checkout-progress" data-current-step="1">
-            <div className="progress-bar1">
+          <div
+            className="shopcart-step-1"
+            id="shopcart-checkout-progress"
+            data-current-step="1"
+          >
+            <div className="shopcart-progress-bar1">
               {/* <!-- "active" change to "valid" --> */}
-              <div className="step step-1 active">
+              <div className="shopcart-step shopcart-step-1 active">
                 <span> 1</span>
-                {/* <!-- "opaque" change to "" --> */}
-                <div className="fa fa-check opaque"></div>
-                <div className="step-label">確認購物車</div>
+                {/* <!-- "shopcart-opaque" change to "" --> */}
+                <div className="fa shopcart-fa-check shopcart-opaque"></div>
+                <div className="shopcart-step-label">確認購物車</div>
               </div>
               {/* <!-- add className "active" --> */}
-              <div className="step step-2">
+              <div className="shopcart-step shopcart-step-2">
                 <span> 2</span>
-                <div className="fa fa-check opaque"></div>
-                <div className="step-label">付款與運送方式</div>
+                <div className="fa shopcart-fa-check shopcart-opaque"></div>
+                <div className="shopcart-step-label">付款與運送方式</div>
               </div>
-              <div className="step step-3">
+              <div className="shopcart-step shopcart-step-3">
                 <span> 3</span>
-                <div className="fa fa-check opaque"></div>
-                <div className="step-label">資料確認</div>
+                <div className="fa shopcart-fa-check shopcart-opaque"></div>
+                <div className="shopcart-step-label">資料確認</div>
               </div>
-              <div className="step step-4">
+              <div className="shopcart-step shopcart-step-4">
                 <span> 4</span>
-                <div className="fa fa-check opaque"></div>
-                <div className="step-label">完成訂單</div>
+                <div className="fa shopcart-fa-check shopcart-opaque"></div>
+                <div className="shopcart-step-label">完成訂單</div>
               </div>
             </div>
           </div>
@@ -52,38 +85,42 @@ function ShopCartDetail() {
           <div className="col-lg-12 mt-3">
             <h3 className="text-center mt-4">購物車明細</h3>
             <table className="table table-borderless mt-4 text-center">
-              <thead className="thead-tr-border">
+              <thead className="shopcart-thead-tr-border">
                 <tr>
                   <th scope="col">商品照片</th>
-                  <th scope="col" className="product-name">
+                  <th scope="col" className="shopcart-product-name">
                     商品名稱
                   </th>
-                  <th scope="col" className="product-size">
+                  <th scope="col" className="shopcart-product-size">
                     尺寸
                   </th>
-                  <th scope="col" className="product-perprice">
+                  <th scope="col" className="shopcart-product-perprice">
                     單價
                   </th>
-                  <th scope="col" className="product-count">
+                  <th scope="col" className="shopcart-product-count">
                     數量
                   </th>
-                  <th scope="col" className="product-storage">
+                  <th scope="col" className="shopcart-product-storage">
                     庫存
                   </th>
-                  <th scope="col" className="product-subtotal">
+                  <th scope="col" className="shopcart-product-subtotal">
                     小計
                   </th>
-                  <th scope="col" className="product-delete">
+                  <th scope="col" className="shopcart-product-delete">
                     刪除
                   </th>
                 </tr>
               </thead>
-              <tbody className="tbody-tr-border">
+              <tbody className="shopcart-tbody-tr-border">
                 <tr>
                   <td scope="row">
-                    <div className="product-img-box">
+                    <div className="shopcart-product-img-box">
                       <Link to="/#">
-                        <img src={ShopCartImg} alt="" className="cover-fit" />
+                        <img
+                          src={ShopCartImg}
+                          alt=""
+                          className="shopcart-cover-fit"
+                        />
                       </Link>
                     </div>
                   </td>
@@ -93,32 +130,32 @@ function ShopCartDetail() {
                       <input
                         type="button"
                         value="S"
-                        className="size-btn mx-1"
+                        className="shopcart-size-btn mx-1"
                       />
                       <input
                         type="button"
                         value="M"
-                        className="size-btn mx-1"
+                        className="shopcart-size-btn mx-1"
                       />
                       <input
                         type="button"
                         value="L"
-                        className="size-btn mx-1"
+                        className="shopcart-size-btn mx-1"
                       />
                     </div>
                   </td>
                   <td scope="row">NT$ 5,000</td>
                   <td scope="row">
-                    <button className="btn minus-btn">
+                    <button className="btn shopcart-minus-btn">
                       <BsDash size={24} />
                     </button>
                     <input
                       type="text"
-                      className="order-number"
+                      className="shopcart-order-number"
                       value="1"
                       readonly
                     />
-                    <button className="btn add-btn">
+                    <button className="btn shopcart-add-btn">
                       <BsPlus size={24} />
                     </button>
                   </td>
@@ -132,9 +169,13 @@ function ShopCartDetail() {
                 </tr>
                 <tr>
                   <td scope="row">
-                    <div className="product-img-box">
+                    <div className="shopcart-product-img-box">
                       <Link to="/#">
-                        <img src={ShopCartImg} alt="" className="cover-fit" />
+                        <img
+                          src={ShopCartImg}
+                          alt=""
+                          className="shopcart-cover-fit"
+                        />
                       </Link>
                     </div>
                   </td>
@@ -144,32 +185,32 @@ function ShopCartDetail() {
                       <input
                         type="button"
                         value="S"
-                        className="size-btn mx-1"
+                        className="shopcart-size-btn mx-1"
                       />
                       <input
                         type="button"
                         value="M"
-                        className="size-btn mx-1"
+                        className="shopcart-size-btn mx-1"
                       />
                       <input
                         type="button"
                         value="L"
-                        className="size-btn mx-1"
+                        className="shopcart-size-btn mx-1"
                       />
                     </div>
                   </td>
                   <td scope="row">NT$ 5,000</td>
                   <td scope="row">
-                    <button className="btn minus-btn">
+                    <button className="btn shopcart-minus-btn">
                       <BsDash size={24} />
                     </button>
                     <input
                       type="text"
-                      className="order-number"
+                      className="shopcart-order-number"
                       value="1"
                       readonly
                     />
-                    <button className="btn add-btn">
+                    <button className="btn shopcart-add-btn">
                       <BsPlus size={24} />
                     </button>
                   </td>
@@ -183,9 +224,13 @@ function ShopCartDetail() {
                 </tr>
                 <tr>
                   <td scope="row">
-                    <div className="product-img-box">
+                    <div className="shopcart-product-img-box">
                       <Link to="/#">
-                        <img src={ShopCartImg} alt="" className="cover-fit" />
+                        <img
+                          src={ShopCartImg}
+                          alt=""
+                          className="shopcart-cover-fit"
+                        />
                       </Link>
                     </div>
                   </td>
@@ -195,32 +240,32 @@ function ShopCartDetail() {
                       <input
                         type="button"
                         value="S"
-                        className="size-btn mx-1"
+                        className="shopcart-size-btn mx-1"
                       />
                       <input
                         type="button"
                         value="M"
-                        className="size-btn mx-1"
+                        className="shopcart-size-btn mx-1"
                       />
                       <input
                         type="button"
                         value="L"
-                        className="size-btn mx-1"
+                        className="shopcart-size-btn mx-1"
                       />
                     </div>
                   </td>
                   <td scope="row">NT$ 5,000</td>
                   <td scope="row">
-                    <button className="btn minus-btn">
+                    <button className="btn shopcart-minus-btn">
                       <BsDash size={24} />
                     </button>
                     <input
                       type="text"
-                      className="order-number"
+                      className="shopcart-order-number"
                       value="1"
                       readonly
                     />
-                    <button className="btn add-btn">
+                    <button className="btn shopcart-add-btn">
                       <BsPlus size={24} />
                     </button>
                   </td>
@@ -234,9 +279,13 @@ function ShopCartDetail() {
                 </tr>
                 <tr>
                   <td scope="row">
-                    <div className="product-img-box">
+                    <div className="shopcart-product-img-box">
                       <Link to="/#">
-                        <img src={ShopCartImg} alt="" className="cover-fit" />
+                        <img
+                          src={ShopCartImg}
+                          alt=""
+                          className="shopcart-cover-fit"
+                        />
                       </Link>
                     </div>
                   </td>
@@ -246,32 +295,32 @@ function ShopCartDetail() {
                       <input
                         type="button"
                         value="S"
-                        className="size-btn mx-1"
+                        className="shopcart-size-btn mx-1"
                       />
                       <input
                         type="button"
                         value="M"
-                        className="size-btn mx-1"
+                        className="shopcart-size-btn mx-1"
                       />
                       <input
                         type="button"
                         value="L"
-                        className="size-btn mx-1"
+                        className="shopcart-size-btn mx-1"
                       />
                     </div>
                   </td>
                   <td scope="row">NT$ 5,000</td>
                   <td scope="row">
-                    <button className="btn minus-btn">
+                    <button className="btn shopcart-minus-btn">
                       <BsDash size={24} />
                     </button>
                     <input
                       type="text"
-                      className="order-number"
+                      className="shopcart-order-number"
                       value="1"
                       readonly
                     />
-                    <button className="btn add-btn">
+                    <button className="btn shopcart-add-btn">
                       <BsPlus size={24} />
                     </button>
                   </td>
@@ -285,9 +334,13 @@ function ShopCartDetail() {
                 </tr>
                 <tr>
                   <td scope="row">
-                    <div className="product-img-box">
+                    <div className="shopcart-product-img-box">
                       <Link to="/#">
-                        <img src={ShopCartImg} alt="" className="cover-fit" />
+                        <img
+                          src={ShopCartImg}
+                          alt=""
+                          className="shopcart-cover-fit"
+                        />
                       </Link>
                     </div>
                   </td>
@@ -297,32 +350,32 @@ function ShopCartDetail() {
                       <input
                         type="button"
                         value="S"
-                        className="size-btn mx-1"
+                        className="shopcart-size-btn mx-1"
                       />
                       <input
                         type="button"
                         value="M"
-                        className="size-btn mx-1"
+                        className="shopcart-size-btn mx-1"
                       />
                       <input
                         type="button"
                         value="L"
-                        className="size-btn mx-1"
+                        className="shopcart-size-btn mx-1"
                       />
                     </div>
                   </td>
                   <td scope="row">NT$ 5,000</td>
                   <td scope="row">
-                    <button className="btn minus-btn">
+                    <button className="btn shopcart-minus-btn">
                       <BsDash size={24} />
                     </button>
                     <input
                       type="text"
-                      className="order-number"
+                      className="shopcart-order-number"
                       value="1"
                       readonly
                     />
-                    <button className="btn add-btn">
+                    <button className="btn shopcart-add-btn">
                       <BsPlus size={24} />
                     </button>
                   </td>
@@ -360,14 +413,14 @@ function ShopCartDetail() {
           </div> */}
             {/* <!-- 分頁 end  --> */}
             <div className="text-right mt-3 text-right">
-              <p className="total">商品總計： NT$ 5,000</p>
+              <p className="shopcart-total">商品總計： NT$ 5,000</p>
             </div>
             {/* <!-- button --> */}
-            <div className="button-container text-right mb-5">
+            <div className="shopcart-button-container text-right mb-5">
               <Link
                 type="button"
-                to="/cart-step2-pay"
-                className="btn btn-next btn btn-primary"
+                to="/shoppingcart-step2-pay"
+                className="shopcart-btn btn-next btn btn-primary"
               >
                 進行結帳
               </Link>
@@ -378,13 +431,21 @@ function ShopCartDetail() {
               <hr />
               <div className="row">
                 <Link to="/#">
-                  <figure className="more-product-img-box ml-5">
-                    <img src={ShopCartImg} alt="" className="cover-fit" />
+                  <figure className="shopcart-more-product-img-box ml-5">
+                    <img
+                      src={ShopCartImg}
+                      alt=""
+                      className="shopcart-cover-fit"
+                    />
                   </figure>
                 </Link>
                 <Link to="/#">
-                  <figure className="more-product-img-box ml-5">
-                    <img src={ShopCartImg} alt="" className="cover-fit" />
+                  <figure className="shopcart-more-product-img-box ml-5">
+                    <img
+                      src={ShopCartImg}
+                      alt=""
+                      className="shopcart-cover-fit"
+                    />
                   </figure>
                 </Link>
               </div>
@@ -394,13 +455,21 @@ function ShopCartDetail() {
               <hr />
               <div className="row">
                 <Link to="/#">
-                  <figure className="more-product-img-box ml-5 mb-5">
-                    <img src={ShopCartImg} alt="" className="cover-fit" />
+                  <figure className="shopcart-more-product-img-box ml-5 mb-5">
+                    <img
+                      src={ShopCartImg}
+                      alt=""
+                      className="shopcart-cover-fit"
+                    />
                   </figure>
                 </Link>
                 <Link to="/#">
-                  <figure className="more-product-img-box ml-5 mb-5">
-                    <img src={ShopCartImg} alt="" className="cover-fit" />
+                  <figure className="shopcart-more-product-img-box ml-5 mb-5">
+                    <img
+                      src={ShopCartImg}
+                      alt=""
+                      className="shopcart-cover-fit"
+                    />
                   </figure>
                 </Link>
               </div>
