@@ -28,15 +28,15 @@ export const memberSideHead = (
         <img src={MemberLevel} alt="" />
         <div className="position-relative member-level">
           <span className="member-grade-icon">肉腳</span>
-          <Link
+          <div
             // to="javascript:void(0)"
-            to="#/"
+            // to="#/"
             onClick={bubble}
-            id="seeMember"
+            id="member-seeMember"
             className="member-see-member member-see-member-style"
           >
             <BsQuestionCircle size={20} />
-          </Link>
+          </div>
           {/* <!-- =========about-membership-bubble start========= --> */}
           <div className="member-about-membership-bubble p-3 position-absolute">
             <span className="member-about-membership-bubble-arrow"></span>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
+import $ from 'jquery';
 import '../../styles/MemberPage/MemberMapRoute.scss'; //member map and route style
 
 //====== below pages star ======//
@@ -9,7 +10,7 @@ import { memberSideHead } from './pages/MemberSideHead'; //member Side Head
 //====== below pages end ======//
 
 //====== below icon star ======//
-import { BsStar } from 'react-icons/bs';
+import { BsStarFill } from 'react-icons/bs';
 //====== below icon end ======//
 
 //====== below img import start ======//
@@ -34,6 +35,11 @@ function MemberMapRoute() {
           menu[j].classList.remove('active');
         }
         this.classList.add('active');
+      });
+
+      // FIXME:
+      $('i').click(function () {
+        $(this).toggleClass('active');
       });
     }
   }, []);
@@ -239,12 +245,23 @@ function MemberMapRoute() {
                         <td className="member-map-route-text-weight align-middle">
                           象山步道
                         </td>
-                        <td className="member-map-route-text-weight align-middle">
-                          <BsStar size={20} />
-                          <BsStar size={20} />
-                          <BsStar size={20} />
-                          <BsStar size={20} />
-                          <BsStar size={20} />
+                        {/* FIXME: */}
+                        <td className="member-map-route-star-group member-map-route-text-weight align-middle">
+                          <i className="bi member-map-route-star">
+                            <BsStarFill></BsStarFill>
+                          </i>
+                          <i className="bi member-map-route-star">
+                            <BsStarFill></BsStarFill>
+                          </i>
+                          <i className="bi member-map-route-star">
+                            <BsStarFill></BsStarFill>
+                          </i>
+                          <i className="bi member-map-route-star">
+                            <BsStarFill></BsStarFill>
+                          </i>
+                          <i className="bi member-map-route-star">
+                            <BsStarFill></BsStarFill>
+                          </i>
                         </td>
                         <td className="member-map-route-text-weight align-middle">
                           未評分
@@ -263,12 +280,22 @@ function MemberMapRoute() {
                         <td className="member-map-route-text-weight align-middle">
                           象山步道
                         </td>
-                        <td className="member-map-route-text-weight align-middle">
-                          <BsStar size={20} />
-                          <BsStar size={20} />
-                          <BsStar size={20} />
-                          <BsStar size={20} />
-                          <BsStar size={20} />
+                        <td className="member-map-route-star-group member-map-route-text-weight align-middle">
+                          <i class="bi member-map-route-star">
+                            <BsStarFill></BsStarFill>
+                          </i>
+                          <i class="bi member-map-route-star">
+                            <BsStarFill></BsStarFill>
+                          </i>
+                          <i class="bi member-map-route-star">
+                            <BsStarFill></BsStarFill>
+                          </i>
+                          <i class="bi member-map-route-star">
+                            <BsStarFill></BsStarFill>
+                          </i>
+                          <i class="bi member-map-route-star">
+                            <BsStarFill></BsStarFill>
+                          </i>
                         </td>
                         <td className="member-map-route-text-weight align-middle">
                           未評分
@@ -287,12 +314,22 @@ function MemberMapRoute() {
                         <td className="member-map-route-text-weight align-middle">
                           象山步道
                         </td>
-                        <td className="member-map-route-text-weight align-middle">
-                          <BsStar size={20} />
-                          <BsStar size={20} />
-                          <BsStar size={20} />
-                          <BsStar size={20} />
-                          <BsStar size={20} />
+                        <td className="member-map-route-star-group member-map-route-text-weight align-middle">
+                          <i class="bi member-map-route-star">
+                            <BsStarFill></BsStarFill>
+                          </i>
+                          <i class="bi member-map-route-star">
+                            <BsStarFill></BsStarFill>
+                          </i>
+                          <i class="bi member-map-route-star">
+                            <BsStarFill></BsStarFill>
+                          </i>
+                          <i class="bi member-map-route-star">
+                            <BsStarFill></BsStarFill>
+                          </i>
+                          <i class="bi member-map-route-star">
+                            <BsStarFill></BsStarFill>
+                          </i>
                         </td>
                         <td className="member-map-route-text-weight align-middle">
                           未評分
@@ -311,12 +348,22 @@ function MemberMapRoute() {
                         <td className="member-map-route-text-weight align-middle">
                           象山步道
                         </td>
-                        <td className="member-map-route-text-weight align-middle">
-                          <BsStar size={20} />
-                          <BsStar size={20} />
-                          <BsStar size={20} />
-                          <BsStar size={20} />
-                          <BsStar size={20} />
+                        <td className="member-map-route-star-group member-map-route-text-weight align-middle">
+                          <i class="bi member-map-route-star">
+                            <BsStarFill></BsStarFill>
+                          </i>
+                          <i class="bi member-map-route-star">
+                            <BsStarFill></BsStarFill>
+                          </i>
+                          <i class="bi member-map-route-star">
+                            <BsStarFill></BsStarFill>
+                          </i>
+                          <i class="bi member-map-route-star">
+                            <BsStarFill></BsStarFill>
+                          </i>
+                          <i class="bi member-map-route-star">
+                            <BsStarFill></BsStarFill>
+                          </i>
                         </td>
                         <td className="member-map-route-text-weight align-middle">
                           未評分
@@ -335,12 +382,22 @@ function MemberMapRoute() {
                         <td className="member-map-route-text-weight align-middle">
                           象山步道
                         </td>
-                        <td className="member-map-route-text-weight align-middle">
-                          <BsStar size={20} />
-                          <BsStar size={20} />
-                          <BsStar size={20} />
-                          <BsStar size={20} />
-                          <BsStar size={20} />
+                        <td className="member-map-route-star-group member-map-route-text-weight align-middle">
+                          <i class="bi member-map-route-star">
+                            <BsStarFill></BsStarFill>
+                          </i>
+                          <i class="bi member-map-route-star">
+                            <BsStarFill></BsStarFill>
+                          </i>
+                          <i class="bi member-map-route-star">
+                            <BsStarFill></BsStarFill>
+                          </i>
+                          <i class="bi member-map-route-star">
+                            <BsStarFill></BsStarFill>
+                          </i>
+                          <i class="bi member-map-route-star">
+                            <BsStarFill></BsStarFill>
+                          </i>
                         </td>
                         <td className="member-map-route-text-weight align-middle">
                           未評分
