@@ -4,6 +4,11 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 //====== below components star ======//
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import HomeMountain from './components/HomePage/HomeMountain';
+import HomeArticle from './components/HomePage/HomeArticle';
+import HomeOutfit from './components/HomePage/HomeOutfit';
+import HomeShop from './components/HomePage/HomeShop';
+
 import Recommend from './components/RecommendPage/Recommend';
 import Bear from './components/RecommendPage/Bear';
 import Result from './components/RecommendPage/Result';
@@ -71,11 +76,13 @@ function App() {
             </Route>
             {/* //===homepage 路由放最下面===// */}
             <Route exact path="/">
-              {/* 放要引入的content EX: <Stock /> */}
+              <HomeMountain />
+              <HomeArticle />
+              <HomeShop />
+              <HomeOutfit />
             </Route>
           </Switch>
         </ScrollToTop>
-
         <Footer />
       </>
     </Router>
