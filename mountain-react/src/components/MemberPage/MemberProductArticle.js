@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
+import $ from 'jquery';
 import '../../styles/MemberPage/MemberProductArticle.scss'; //member product and article style
 
 //====== below icon star ======//
@@ -22,6 +23,47 @@ import Xiangshan from '../../img/xiangshan.jpeg';
 //====== above img import end ======//
 
 function MemberProductArticle() {
+  useEffect(() => {
+    //會員制度泡泡
+    $('.see-member').click((e) => {
+      $('.about-membership-bubble').toggle('display');
+    });
+
+    // 切換區域tab-switch
+    let menu = document.querySelectorAll('#menu');
+    let content = document.querySelectorAll('#content');
+    for (let i = 0; i < menu.length; i++) {
+      menu[i].addEventListener('click', function () {
+        for (let k = 0; k < content.length; k++) {
+          if (i === k) {
+            content[k].style.display = 'block';
+          } else {
+            content[k].style.display = 'none';
+          }
+        }
+        for (let j = 0; j < menu.length; j++) {
+          menu[j].classList.remove('active');
+        }
+        this.classList.add('active');
+      });
+    }
+
+    //product order 數量部分
+    $('.add-btn').click(function () {
+      let num = parseInt($('.order-number').val());
+      num += 1;
+      $('.order-number').val(num);
+      // console.log(num);
+    });
+    $('.minus-btn').click(function () {
+      let num = parseInt($('.order-number').val());
+      if (num > 1) {
+        num -= 1;
+        $('.order-number').val(num);
+      }
+      // console.log(num);
+    });
+  }, []);
   return (
     <>
       <div className="container">
@@ -79,7 +121,7 @@ function MemberProductArticle() {
                 <tr>
                   <td scope="row" className="text-center">
                     <Link
-                      to="/member-map-route"
+                      to="/member/map-route"
                       className="member-left-href-color"
                     >
                       路線地圖
@@ -89,7 +131,7 @@ function MemberProductArticle() {
                 <tr className="member-table-active">
                   <td scope="row" className="text-center">
                     <Link
-                      to="/member-product-article"
+                      to="/member/product-article"
                       className="member-left-href-color"
                     >
                       收藏管理
@@ -99,7 +141,7 @@ function MemberProductArticle() {
                 <tr>
                   <td scope="row" className="text-center">
                     <Link
-                      to="/member-comment"
+                      to="/member/comment"
                       className="member-left-href-color"
                     >
                       評論管理
@@ -108,7 +150,7 @@ function MemberProductArticle() {
                 </tr>
                 <tr>
                   <td scope="row" className="text-center">
-                    <Link to="/member-order" className="member-left-href-color">
+                    <Link to="/member/order" className="member-left-href-color">
                       訂單管理
                     </Link>
                   </td>
@@ -116,7 +158,7 @@ function MemberProductArticle() {
                 <tr>
                   <td scope="row" className="text-center">
                     <Link
-                      to="/mamber-personal"
+                      to="/mamber/personal"
                       className="member-left-href-color"
                     >
                       帳號設定
@@ -125,10 +167,7 @@ function MemberProductArticle() {
                 </tr>
                 <tr>
                   <td scope="row" className="text-center">
-                    <Link
-                      to="member-login.html"
-                      className="member-left-href-color"
-                    >
+                    <Link to="" className="member-left-href-color">
                       登出
                     </Link>
                   </td>

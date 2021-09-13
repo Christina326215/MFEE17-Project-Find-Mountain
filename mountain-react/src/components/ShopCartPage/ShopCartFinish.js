@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
+import $ from 'jquery';
 import '../../styles/ShopCartPage/ShopCartPage.scss'; //shopping-cart style
 
 //====== below icon star ======//
@@ -12,6 +13,72 @@ import ViewImg from '../../img/shoes-pic2.jpeg';
 //====== above img import end ======//
 
 function ShopCartFinish() {
+  useEffect(() => {
+    // progress-bar
+    $('.shopcart-btn-next').on('click', function () {
+      var currentStepNum = $('#shopcart-checkout-progress').data(
+        'current-step'
+      );
+      var nextStepNum = currentStepNum + 1;
+      var currentStep = $('.shopcart-step.step-' + currentStepNum);
+      var nextStep = $('.step.step-' + nextStepNum);
+      var progressBar = $('#shopcart-checkout-progress');
+      $('.shopcart-btn-prev').removeClass('shopcart-disabled');
+      if (currentStepNum == 5) {
+        return false;
+      }
+      if (nextStepNum == 5) {
+        $(this).addClass('shopcart-disabled');
+      }
+      $('.shopcart-checkout-progress')
+        .removeClass('.step-' + currentStepNum)
+        .addClass('.step-' + (currentStepNum + 1));
+
+      currentStep.removeClass('shopcart-active').addClass('shopcart-valid');
+      currentStep.find('span').addClass('shopcart-opaque');
+      currentStep
+        .find('.shopcart-fa.shopcart-fa-check')
+        .removeClass('shopcart-opaque');
+
+      nextStep.addClass('shopcart-active');
+      progressBar
+        .removeAttr('class')
+        .addClass('step-' + nextStepNum)
+        .data('current-step', nextStepNum);
+    });
+
+    $('.shopcart-btn-prev').on('click', function () {
+      var currentStepNum = $('#shopcart-checkout-progress').data(
+        'current-step'
+      );
+      var prevStepNum = currentStepNum - 1;
+      var currentStep = $('.step.step-' + currentStepNum);
+      var prevStep = $('.step.step-' + prevStepNum);
+      var progressBar = $('#shopcart-checkout-progress');
+      $('.shopcart-btn-next').removeClass('shopcart-disabled');
+      if (currentStepNum == 1) {
+        return false;
+      }
+      if (prevStepNum == 1) {
+        $(this).addClass('shopcart-disabled');
+      }
+      $('.shopcart-checkout-progress')
+        .removeClass('.step-' + currentStepNum)
+        .addClass('.step-' + prevStepNum);
+
+      currentStep.removeClass('shopcart-active');
+      prevStep.find('span').removeClass('shopcart-opaque');
+      prevStep
+        .find('.shopcart-fa.shopcart-fa-check')
+        .addClass('shopcart-opaque');
+
+      prevStep.addClass('shopcart-active').removeClass('shopcart-valid');
+      progressBar
+        .removeAttr('class')
+        .addClass('step-' + prevStepNum)
+        .data('current-step', prevStepNum);
+    });
+  }, []);
   return (
     <>
       <div className="container">
@@ -57,13 +124,13 @@ function ShopCartFinish() {
               <hr />
               <div className="row">
                 <Link to="/#">
-                  <figure className="more-product-img-box ml-5">
-                    <img src={ViewImg} alt="" className="cover-fit" />
+                  <figure className="shopcart-more-product-img-box ml-5">
+                    <img src={ViewImg} alt="" className="shopcart-cover-fit" />
                   </figure>
                 </Link>
                 <Link to="/#">
-                  <figure className="more-product-img-box ml-5">
-                    <img src={ViewImg} alt="" className="cover-fit" />
+                  <figure className="shopcart-more-product-img-box ml-5">
+                    <img src={ViewImg} alt="" className="shopcart-cover-fit" />
                   </figure>
                 </Link>
               </div>
@@ -73,26 +140,29 @@ function ShopCartFinish() {
               <hr />
               <div className="row">
                 <Link to="/#">
-                  <figure className="more-product-img-box ml-5">
-                    <img src={ViewImg} alt="" className="cover-fit" />
+                  <figure className="shopcart-more-product-img-box ml-5">
+                    <img src={ViewImg} alt="" className="shopcart-cover-fit" />
                   </figure>
                 </Link>
                 <Link to="/#">
-                  <figure className="more-product-img-box ml-5">
-                    <img src={ViewImg} alt="" className="cover-fit" />
+                  <figure className="shopcart-more-product-img-box ml-5">
+                    <img src={ViewImg} alt="" className="shopcart-cover-fit" />
                   </figure>
                 </Link>
               </div>
             </div>
             {/* <!-- button --> */}
-            <div className="button-container text-right mb-5">
+            <div className="shopcart-button-container text-right mb-5">
               <Link
-                to="/shoppingcart-step2-pay"
-                className="btn btn-prev btn btn-outline-primary mr-3"
+                to="/shoppingcart/step2-pay"
+                className="shopcart-btn btn-prev btn btn-outline-primary mr-3"
               >
                 上一步
               </Link>
-              <Link to="/#" className="btn btn-next btn btn-primary mr-3">
+              <Link
+                to=""
+                className="shopcart-btn btn-next btn btn-primary mr-3"
+              >
                 查看我的訂單
               </Link>
             </div>

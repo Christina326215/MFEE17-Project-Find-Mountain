@@ -14,32 +14,94 @@ import ShopCartImg from '../../img/shoes-pic7.jpeg';
 
 function ShopCartDetail() {
   useEffect(() => {
-    async function test() {
-      $('.shopcart-add-btn').click(function () {
-        let number = $(this).parent().find('.shopcart-order-number');
-        let num = parseInt(number.val());
-        num += 1;
+    // progress-bar
+    $('.shopcart-btn-next').on('click', function () {
+      var currentStepNum = $('#shopcart-checkout-progress').data(
+        'current-step'
+      );
+      var nextStepNum = currentStepNum + 1;
+      var currentStep = $('.shopcart-step.step-' + currentStepNum);
+      var nextStep = $('.step.step-' + nextStepNum);
+      var progressBar = $('#shopcart-checkout-progress');
+      $('.shopcart-btn-prev').removeClass('shopcart-disabled');
+      if (currentStepNum == 5) {
+        return false;
+      }
+      if (nextStepNum == 5) {
+        $(this).addClass('shopcart-disabled');
+      }
+      $('.shopcart-checkout-progress')
+        .removeClass('.step-' + currentStepNum)
+        .addClass('.step-' + (currentStepNum + 1));
+
+      currentStep.removeClass('shopcart-active').addClass('shopcart-valid');
+      currentStep.find('span').addClass('shopcart-opaque');
+      currentStep
+        .find('.shopcart-fa.shopcart-fa-check')
+        .removeClass('shopcart-opaque');
+
+      nextStep.addClass('shopcart-active');
+      progressBar
+        .removeAttr('class')
+        .addClass('step-' + nextStepNum)
+        .data('current-step', nextStepNum);
+    });
+
+    $('.shopcart-btn-prev').on('click', function () {
+      var currentStepNum = $('#shopcart-checkout-progress').data(
+        'current-step'
+      );
+      var prevStepNum = currentStepNum - 1;
+      var currentStep = $('.step.step-' + currentStepNum);
+      var prevStep = $('.step.step-' + prevStepNum);
+      var progressBar = $('#shopcart-checkout-progress');
+      $('.shopcart-btn-next').removeClass('shopcart-disabled');
+      if (currentStepNum == 1) {
+        return false;
+      }
+      if (prevStepNum == 1) {
+        $(this).addClass('shopcart-disabled');
+      }
+      $('.shopcart-checkout-progress')
+        .removeClass('.step-' + currentStepNum)
+        .addClass('.step-' + prevStepNum);
+
+      currentStep.removeClass('shopcart-active');
+      prevStep.find('span').removeClass('shopcart-opaque');
+      prevStep
+        .find('.shopcart-fa.shopcart-fa-check')
+        .addClass('shopcart-opaque');
+
+      prevStep.addClass('shopcart-active').removeClass('shopcart-valid');
+      progressBar
+        .removeAttr('class')
+        .addClass('step-' + prevStepNum)
+        .data('current-step', prevStepNum);
+    });
+    //product order 數量部分
+    $('.shopcart-add-btn').click(function () {
+      let number = $(this).parent().find('.shopcart-order-number');
+      let num = parseInt(number.val());
+      num += 1;
+      number.val(num);
+      // console.log(num);
+    });
+    $('.shopcart-minus-btn').click(function () {
+      let number = $(this).parent().find('.shopcart-order-number');
+      let num = parseInt(number.val());
+      if (num > 1) {
+        num -= 1;
         number.val(num);
-        // console.log(num);
+      }
+      // console.log(num);
+    });
+    //product order size選擇
+    $('.shopcart-size-btn').each(function () {
+      $(this).click(function () {
+        $(this).toggleClass('shopcart-active');
+        $(this).siblings().removeClass('shopcart-active');
       });
-      $('.shopcart-minus-btn').click(function () {
-        let number = $(this).parent().find('.shopcart-order-number');
-        let num = parseInt(number.val());
-        if (num > 1) {
-          num -= 1;
-          number.val(num);
-        }
-        // console.log(num);
-      });
-      //product order size選擇
-      $('.shopcart-size-btn').each(function () {
-        $(this).click(function () {
-          $(this).toggleClass('active');
-          $(this).siblings().removeClass('active');
-        });
-      });
-    }
-    test();
+    });
   }, []);
   return (
     <>
@@ -54,26 +116,26 @@ function ShopCartDetail() {
           >
             <div className="shopcart-progress-bar1">
               {/* <!-- "active" change to "valid" --> */}
-              <div className="shopcart-step shopcart-step-1 active">
+              <div className="shopcart-step shopcart-step-1 shopcart-active">
                 <span> 1</span>
                 {/* <!-- "shopcart-opaque" change to "" --> */}
-                <div className="fa shopcart-fa-check shopcart-opaque"></div>
+                <div className="shopcart-fa shopcart-fa-check shopcart-opaque"></div>
                 <div className="shopcart-step-label">確認購物車</div>
               </div>
               {/* <!-- add className "active" --> */}
               <div className="shopcart-step shopcart-step-2">
                 <span> 2</span>
-                <div className="fa shopcart-fa-check shopcart-opaque"></div>
+                <div className="shopcart-fa shopcart-fa-check shopcart-opaque"></div>
                 <div className="shopcart-step-label">付款與運送方式</div>
               </div>
               <div className="shopcart-step shopcart-step-3">
                 <span> 3</span>
-                <div className="fa shopcart-fa-check shopcart-opaque"></div>
+                <div className="shopcart-fa shopcart-fa-check shopcart-opaque"></div>
                 <div className="shopcart-step-label">資料確認</div>
               </div>
               <div className="shopcart-step shopcart-step-4">
                 <span> 4</span>
-                <div className="fa shopcart-fa-check shopcart-opaque"></div>
+                <div className="shopcart-fa shopcart-fa-check shopcart-opaque"></div>
                 <div className="shopcart-step-label">完成訂單</div>
               </div>
             </div>
@@ -419,7 +481,7 @@ function ShopCartDetail() {
             <div className="shopcart-button-container text-right mb-5">
               <Link
                 type="button"
-                to="/shoppingcart-step2-pay"
+                to="/shoppingcart/step2-pay"
                 className="shopcart-btn btn-next btn btn-primary"
               >
                 進行結帳

@@ -69,35 +69,35 @@ function App() {
             <Route path="/shop">
               <ShopMain />
             </Route>
-            <Route path="/shoppingcart-step1-detail">
+            <Route path="/shoppingcart/step1-detail">
               <ShopCartDetail />
             </Route>
-            <Route path="/shoppingcart-step2-pay">
+            <Route path="/shoppingcart/step2-pay">
               <ShopCartPay />
             </Route>
-            <Route path="/shoppingcart-step3-check">
+            <Route path="/shoppingcart/step3-check">
               <ShopCartCheck />
             </Route>
-            <Route path="/shoppingcart-step4-finish">
+            <Route path="/shoppingcart/step4-finish">
               <ShopCartFinish />
             </Route>
             <Route path="/outfit">
               <Outfit />
             </Route>
             <Route path="/login">{/* 放要引入的content EX: <Stock /> */}</Route>
-            <Route path="/member-map-route">
+            <Route path="/member/map-route">
               <MemberMapRoute />
             </Route>
-            <Route path="/member-order">
+            <Route path="/member/order">
               <MemberOrder />
             </Route>
-            <Route path="/member-product-article">
+            <Route path="/member/product-article">
               <MemberProductArticle />
             </Route>
-            <Route path="/member-comment">
+            <Route path="/member/comment">
               <MemberComment />
             </Route>
-            <Route path="/member-personal">
+            <Route path="/member/personal">
               <MemberPersonal />
             </Route>
             {/* //===homepage 路由放最下面===// */}

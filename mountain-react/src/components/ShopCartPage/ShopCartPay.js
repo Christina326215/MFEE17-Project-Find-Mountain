@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
+import $ from 'jquery';
 import '../../styles/ShopCartPage/ShopCartPage.scss'; //shopping-cart style
 
 //====== below icon star ======//
@@ -12,6 +13,64 @@ import '../../styles/ShopCartPage/ShopCartPage.scss'; //shopping-cart style
 //====== above img import end ======//
 
 function ShopCartPay() {
+  useEffect(() => {
+    // progress-bar
+    $('.btn-next').on('click', function () {
+      var currentStepNum = $('#checkout-progress').data('current-step');
+      var nextStepNum = currentStepNum + 1;
+      var currentStep = $('.step.step-' + currentStepNum);
+      var nextStep = $('.step.step-' + nextStepNum);
+      var progressBar = $('#checkout-progress');
+      $('.btn-prev').removeClass('disabled');
+      if (currentStepNum == 5) {
+        return false;
+      }
+      if (nextStepNum == 5) {
+        $(this).addClass('disabled');
+      }
+      $('.checkout-progress')
+        .removeClass('.step-' + currentStepNum)
+        .addClass('.step-' + (currentStepNum + 1));
+
+      currentStep.removeClass('active').addClass('valid');
+      currentStep.find('span').addClass('opaque');
+      currentStep.find('.fa.fa-check').removeClass('opaque');
+
+      nextStep.addClass('active');
+      progressBar
+        .removeAttr('class')
+        .addClass('step-' + nextStepNum)
+        .data('current-step', nextStepNum);
+    });
+
+    $('.btn-prev').on('click', function () {
+      var currentStepNum = $('#checkout-progress').data('current-step');
+      var prevStepNum = currentStepNum - 1;
+      var currentStep = $('.step.step-' + currentStepNum);
+      var prevStep = $('.step.step-' + prevStepNum);
+      var progressBar = $('#checkout-progress');
+      $('.btn-next').removeClass('disabled');
+      if (currentStepNum == 1) {
+        return false;
+      }
+      if (prevStepNum == 1) {
+        $(this).addClass('disabled');
+      }
+      $('.checkout-progress')
+        .removeClass('.step-' + currentStepNum)
+        .addClass('.step-' + prevStepNum);
+
+      currentStep.removeClass('active');
+      prevStep.find('span').removeClass('opaque');
+      prevStep.find('.fa.fa-check').addClass('opaque');
+
+      prevStep.addClass('active').removeClass('valid');
+      progressBar
+        .removeAttr('class')
+        .addClass('step-' + prevStepNum)
+        .data('current-step', prevStepNum);
+    });
+  }, []);
   return (
     <>
       <div className="container">
@@ -240,16 +299,16 @@ function ShopCartPay() {
               </div>
             </fieldset>
             {/* <!-- button --> */}
-            <div className="button-container text-right mb-5">
+            <div className="shopcart-button-container text-right mb-5">
               <Link
-                to="/shoppingcart-step1-detail"
-                className="btn btn-prev btn btn-outline-primary mr-3"
+                to="/shoppingcart/step1-detail"
+                className="shopcart-btn btn-prev btn btn-outline-primary mr-3"
               >
                 上一步
               </Link>
               <Link
-                to="/shoppingcart-step3-check"
-                className="btn btn-next btn btn-primary mr-3"
+                to="/shoppingcart/step3-check"
+                className="shopcart-btn btn-next btn btn-primary mr-3"
               >
                 下一步
               </Link>

@@ -42,11 +42,11 @@
   color: #fff;
   background: #bae29a;
 }
-.shopcart-size-btn.active {
+.shopcart-size-btn.shopcart-active {
   color: #fff;
   background: #6da77f;
 }
-.shopcart-size-btn:active {
+.shopcart-size-btn:shopcart-active {
   background: #24936e;
 }
 .shopcart-order-number {
@@ -146,7 +146,7 @@
   transition: 0.3s ease;
 }
 
-.disabled {
+.shopcart-disabled {
   opacity: 0.4;
   pointer-events: none;
 }
@@ -271,28 +271,34 @@
   -webkit-transform: translate3d(-50%, -50%, 0) scale(0) perspective(1000px);
   transform: translate3d(-50%, -50%, 0) scale(0) perspective(1000px);
 }
-#shopcart-checkout-progress .shopcart-progress-bar .shopcart-step.active span,
 #shopcart-checkout-progress
   .shopcart-progress-bar
-  .shopcart-step.active
+  .shopcart-step.shopcart-active
+  span,
+#shopcart-checkout-progress
+  .shopcart-progress-bar
+  .shopcart-step.shopcart-active
   .shopcart-step-label {
   color: #6da77f;
 }
 #shopcart-checkout-progress
   .shopcart-progress-bar
-  .shopcart-step.valid
+  .shopcart-step.shopcart-valid
   .shopcart-fa-check {
   -webkit-transform: translate3d(-50%, -50%, 0) scale(1) perspective(1000px);
   transform: translate3d(-50%, -50%, 0) scale(1) perspective(1000px);
 }
-#shopcart-checkout-progress .shopcart-progress-bar .shopcart-step.valid span {
+#shopcart-checkout-progress
+  .shopcart-progress-bar
+  .shopcart-step.shopcart-valid
+  span {
   color: #6da77f;
   -webkit-transform: translate3d(0, 0, 0) scale(2) perspective(1000px);
   transform: translate3d(0, 0, 0) scale(2) perspective(1000px);
 }
 #shopcart-checkout-progress
   .shopcart-progress-bar
-  .shopcart-step.valid
+  .shopcart-step.shopcart-valid
   .shopcart-step-label {
   color: #2c3e50 !important;
 }
@@ -318,10 +324,14 @@
     height: 40px;
   }
 }
-#shopcart-checkout-progress .shopcart-progress-bar .shopcart-step.active:after {
+#shopcart-checkout-progress
+  .shopcart-progress-bar
+  .shopcart-step.shopcart-active:after {
   border: 5px solid #6da77f;
 }
-#shopcart-checkout-progress .shopcart-progress-bar .shopcart-step.valid:after {
+#shopcart-checkout-progress
+  .shopcart-progress-bar
+  .shopcart-step.shopcart-valid:after {
   background-color: #6da77f;
   border: 5px solid #6da77f;
 }

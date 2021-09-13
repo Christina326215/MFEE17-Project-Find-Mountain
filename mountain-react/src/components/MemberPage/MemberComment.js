@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
+import $ from 'jquery';
 import '../../styles/MemberPage/MemberComment.scss'; //member comment style
 
 //====== below icon star ======//
@@ -14,6 +15,12 @@ import Xiangshan from '../../img/xiangshan.jpeg';
 //====== above img import end ======//
 
 function MemberComment() {
+  useEffect(() => {
+    //會員制度泡泡
+    $('.see-member').click((e) => {
+      $('.about-membership-bubble').toggle('display');
+    });
+  }, []);
   return (
     <>
       <div className="container">
@@ -71,7 +78,7 @@ function MemberComment() {
                 <tr>
                   <td scope="row" className="text-center">
                     <Link
-                      to="/member-map-route"
+                      to="/member/map-route"
                       className="member-left-href-color"
                     >
                       路線地圖
@@ -81,7 +88,7 @@ function MemberComment() {
                 <tr>
                   <td scope="row" className="text-center">
                     <Link
-                      to="/member-product-article"
+                      to="/member/product-article"
                       className="member-left-href-color"
                     >
                       收藏管理
@@ -91,7 +98,7 @@ function MemberComment() {
                 <tr className="member-table-active">
                   <td scope="row" className="text-center">
                     <Link
-                      to="/member-comment"
+                      to="/member/comment"
                       className="member-left-href-color"
                     >
                       評論管理
@@ -100,7 +107,7 @@ function MemberComment() {
                 </tr>
                 <tr>
                   <td scope="row" className="text-center">
-                    <Link to="/member-order" className="member-left-href-color">
+                    <Link to="/member/order" className="member-left-href-color">
                       訂單管理
                     </Link>
                   </td>
@@ -108,7 +115,7 @@ function MemberComment() {
                 <tr>
                   <td scope="row" className="text-center">
                     <Link
-                      to="/member-personal"
+                      to="/member/personal"
                       className="member-left-href-color"
                     >
                       帳號設定
@@ -117,7 +124,7 @@ function MemberComment() {
                 </tr>
                 <tr>
                   <td scope="row" className="text-center">
-                    <Link to="/#" className="member-left-href-color">
+                    <Link to="" className="member-left-href-color">
                       登出
                     </Link>
                   </td>

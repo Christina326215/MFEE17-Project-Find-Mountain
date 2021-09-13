@@ -16,6 +16,12 @@ import Xiangshan from '../../img/xiangshan.jpeg';
 
 function MemberMapRoute() {
   useEffect(() => {
+    //會員制度泡泡
+    $('.see-member').click((e) => {
+      $('.about-membership-bubble').toggle('display');
+    });
+
+    // 切換區域tab-switch
     let menu = document.querySelectorAll('#menu');
     let content = document.querySelectorAll('#content');
     for (let i = 0; i < menu.length; i++) {
@@ -57,9 +63,10 @@ function MemberMapRoute() {
                     <div className="position-relative member-level">
                       <span className="member-grade-icon">肉腳</span>
                       <Link
-                        to="javascript:void(0)"
+                        // to="javascript:void(0)"
                         id="seeMember"
                         className="see-member see-member-style"
+                        click=""
                       >
                         <BsQuestionCircle size={20} />
                       </Link>
@@ -91,7 +98,7 @@ function MemberMapRoute() {
                 <tr className="member-table-active">
                   <td scope="row" className="text-center">
                     <Link
-                      to="/member-map-route"
+                      to="/member/map-route"
                       className="member-left-href-color"
                     >
                       路線地圖
@@ -101,7 +108,7 @@ function MemberMapRoute() {
                 <tr>
                   <td scope="row" className="text-center">
                     <Link
-                      to="/member-product-article"
+                      to="/member/product-article"
                       className="member-left-href-color"
                     >
                       收藏管理
@@ -111,7 +118,7 @@ function MemberMapRoute() {
                 <tr>
                   <td scope="row" className="text-center">
                     <Link
-                      to="/member-comment"
+                      to="/member/comment"
                       className="member-left-href-color"
                     >
                       評論管理
@@ -120,7 +127,7 @@ function MemberMapRoute() {
                 </tr>
                 <tr>
                   <td scope="row" className="text-center">
-                    <Link to="/member-order" className="member-left-href-color">
+                    <Link to="/member/order" className="member-left-href-color">
                       訂單管理
                     </Link>
                   </td>
@@ -128,7 +135,7 @@ function MemberMapRoute() {
                 <tr>
                   <td scope="row" className="text-center">
                     <Link
-                      to="/member-personal"
+                      to="/member/personal"
                       className="member-left-href-color"
                     >
                       帳號設定
@@ -137,7 +144,7 @@ function MemberMapRoute() {
                 </tr>
                 <tr>
                   <td scope="row" className="text-center">
-                    <Link to="/#" className="member-left-href-color">
+                    <Link to="" className="member-left-href-color">
                       登出
                     </Link>
                   </td>

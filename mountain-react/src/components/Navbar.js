@@ -36,13 +36,13 @@ function Navbar(props) {
           <a href="#/" className="search_button h4">
             <BsSearch size={24} />
           </a>
-          <Link to="/shoppingcart-step1-detail" className="shopping_button h4">
+          <Link to="/shoppingcart/step1-detail" className="shopping_button h4">
             <Cart size={24} />
           </Link>
           {/* to Sign In star */}
           {auth ? (
             <Link
-              to="/member"
+              to="/member/personal"
               // onClick={() => {
               //   setAuth(false);
               //   //出現訊息
