@@ -5,8 +5,7 @@ import '../../styles/outfit.css';
 //=== package start===
 import $ from 'jquery';
 import { fabric } from 'fabric';
-import { html2canvas } from 'html2canvas';
-import { canvas2image } from 'canvas2image';
+import html2canvas from 'html2canvas';
 //=== package end===
 
 //=== components start===
@@ -163,26 +162,23 @@ function Outfit(props) {
           iLastY = iY;
         }
       };
-
-      $save.onclick = function html2canvas(e) {
-        // var type = "png",
-        //   w = "800",
-        //   h = "452";
-        // Canvas2Image.saveAsImage(canvasPng, w, h, type);
-        // console.log(w, h, type);
-        html2canvas(document.getElementById('canvasBox')).then(function (
-          canvas
-        ) {
-          // document.body.appendChild(canvas);
-          var a = document.createElement('a');
-          a.href = canvas
-            .toDataURL('image/jpeg')
-            .replace('image/jpeg', 'image/octet-stream');
-          a.download = 'image.jpg';
-          a.click();
-        });
-      };
     }
+    $('#save').click(function () {
+      // var type = "png",
+      //   w = "800",
+      //   h = "452";
+      // Canvas2Image.saveAsImage(canvasPng, w, h, type);
+      // console.log(w, h, type);
+      html2canvas(document.getElementById('canvasBox')).then(function (canvas) {
+        // document.body.appendChild(canvas);
+        var a = document.createElement('a');
+        a.href = canvas
+          .toDataURL('image/jpeg')
+          .replace('image/jpeg', 'image/octet-stream');
+        a.download = 'image.jpg';
+        a.click();
+      });
+    });
     // onload = init;
   }, []);
   return (
@@ -402,7 +398,7 @@ function Outfit(props) {
           <FaFacebookSquare class="outfit-sharedBtn" />
           分享明信片
         </button>
-        <button class="btn btn-outline-primary" id="save" onClick="">
+        <button class="btn btn-outline-primary" id="save">
           <BsDownload class="outfit-downloadBtn" />
           儲存明信片
         </button>
