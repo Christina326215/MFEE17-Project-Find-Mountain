@@ -4,6 +4,11 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 //====== below components star ======//
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import HomeMountain from './components/HomePage/HomeMountain';
+import HomeArticle from './components/HomePage/HomeArticle';
+import HomeOutfit from './components/HomePage/HomeOutfit';
+import HomeShop from './components/HomePage/HomeShop';
+
 import Recommend from './components/RecommendPage/Recommend';
 import Bear from './components/RecommendPage/Bear';
 import Result from './components/RecommendPage/Result';
@@ -17,6 +22,9 @@ import MapM from './components/MapPage/MapM';
 import MapH from './components/MapPage/MapH';
 import Outfit from './components/OutfitPage/Outfit';
 import ScrollToTop from './components/ScrollToTop';
+import SignUpInfo from './components/SignUpPage/SignUpInfo';
+import SignUpAcct from './components/SignUpPage/SignUpAcct';
+import Login from './components/LoginPage/Login';
 
 //====== above components end ======//
 
@@ -69,17 +77,27 @@ function App() {
             <Route path="/outfit">
               <Outfit />
             </Route>
-            <Route path="/login">{/* 放要引入的content EX: <Stock /> */}</Route>
+            <Route path="/signup-info">
+              <SignUpInfo />
+            </Route>
+            <Route path="/signup-acct">
+              <SignUpAcct />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
             <Route path="/member">
               {/* 放要引入的content EX: <Stock /> */}
             </Route>
             {/* //===homepage 路由放最下面===// */}
             <Route exact path="/">
-              {/* 放要引入的content EX: <Stock /> */}
+              <HomeMountain />
+              <HomeArticle />
+              <HomeShop />
+              <HomeOutfit />
             </Route>
           </Switch>
         </ScrollToTop>
-
         <Footer />
       </>
     </Router>

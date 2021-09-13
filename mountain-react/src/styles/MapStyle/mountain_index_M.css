@@ -1,31 +1,31 @@
 /*============below all============*/
 :root {
-  --info-color: #19634a;
+  /* --info-color: #19634a;
   --font-color: #ffffff;
-  --button-color: #6da77f;
-  --iconHover-color: rgb(249, 249, 173);
-  --listContent-font: Source Sans Pro;
-  --barShadow-color: #ccc;
-  --barBackground-color: #414141;
-  --barBackgroundSecond-color: transparent;
-  --barFont-color: white;
-  --map_hover: #c4c4c4;
-  --map_hover_font: rgba(0, 0, 0, 0.4);
-  --progressLevelBarXiangshan-width: calc(33.3%);
-  --progressDistanceBarXiangshan-width: calc(2.3%);
-  --progressTimeBarXiangshan-width: calc(1.4 / 60 * 100%);
-  --progressDistanceBarJinmian-width: calc(3%);
-  --progressTimeBarJinmian-width: calc(1 / 60 * 100%);
-  --progressDistanceBarChi-hsing-width: calc(5%);
-  --progressTimeBarChi-hsing-width: calc(2.3 / 60 * 100%);
+  --button-color: #6da77f; */
+  /* --iconHover-color: rgb(249, 249, 173); */
+  /* --listContent-font: Source Sans Pro; */
+  --mountain_M_barShadow-color: #bae29a;
+  --mountain_M_barBackground-color: #6da77f;
+  /* --barBackgroundSecond-color: transparent; */
+  /* --barFont-color: white; */
+  /* --map_hover: #c4c4c4; */
+  /* --map_hover_font: rgba(0, 0, 0, 0.4); */
+  --mountain_M_progressLevelBarXiangshan-width: calc(33.3%);
+  --mountain_M_progressDistanceBarXiangshan-width: calc(5.33%);
+  --mountain_M_progressTimeBarXiangshan-width: calc(5 / 100 * 100%);
+  --mountain_M_progressDistanceBarJinmian-width: calc(23.8%);
+  --mountain_M_progressTimeBarJinmian-width: calc(11 / 100 * 100%);
+  --mountain_M_progressDistanceBarChi-hsing-width: calc(13%);
+  --mountain_M_progressTimeBarChi-hsing-width: calc(8.2 / 100 * 100%);
 }
-body {
+/* body {
   font-family: Roboto;
-}
-.list-unstyled {
+} */
+/* .list-unstyled {
   padding-left: 0;
   list-style: none;
-}
+} */
 
 /*============below header============*/
 /* .header {
@@ -85,10 +85,10 @@ body {
 
 /*============below content============*/
 /* part1 map start */
-.mountain_bg {
+/* .mountain_bg {
   width: 100%;
   height: 798px;
-  background: url(../../img/mountain-img/bgShort.png);
+  background: url(img/mountain-img/bgShort.png);
   background-size: cover;
 }
 .mountain_bg_box {
@@ -107,136 +107,84 @@ body {
 }
 .mountain_triangle {
   clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
-}
-.mountain_Xiangshan {
+} */
+.mountain_M_Xiangshan {
   position: absolute;
-  top: 138px;
-  right: 192px;
+  top: 269px;
+  right: 96px;
   border: 3px solid var(--button-color);
   border-radius: 50%;
 }
-.mountain_Xiangshan_box {
+.mountain_M_Xiangshan_box {
   width: 52px;
   height: 52px;
-  background: url(../../img/mountain-img/xiangshan.jpeg);
+  background: url(../../img/mountain-img/matcha.jpeg);
   background-size: cover;
 }
-.mountain_Xiangshan:hover .mountain_Xiangshan_box_hover {
+.mountain_M_Xiangshan:hover .mountain_M_Xiangshan_box_hover {
   display: block; /*將區塊顯示*/
 }
-.mountain_Xiangshan_box_hover {
-  position: relative;
-  display: none;/*here 看區塊顯示樣子改block*/
-}
-.mountain_Xiangshan_hover {
-  position: absolute;
-  width: 536px;
-  height: 100px;
-  background-color: var(--map_hover);
-  opacity: 0.6;
-  top: -20px;
-  left: 55px;
-  transform: translateX(-55%);
-}
-.mountain_Xiangshan_hover_pic {
-  position: absolute;
-  width: 536px;
-  height: 325px;
-  border: 3px solid var(--barFont-color);
-  background: url(../../img/mountain-img/xiangshan.jpeg);
-  background-size: cover;
-  top: 80px;
-  left: 55px;
-  transform: translateX(-55%);
-}
-.mountain_Xiangshan_hover_pic_font {
-  width: 530px;
-  height: 64px;
-  background-color: var(--map_hover_font);
-  transform: translateY(400%);
-}
-.mountain_Xiangshan_hover_pic_font_title {
-  font-size: 34px;
-}
-.mountain_Xiangshan_hover_pic_font_star {
-  font-size: 20px;
-}
-
-.mountain_Jinmian_box {
-  width: 52px;
-  height: 52px;
-  background: url(../../img/mountain-img/jinmianshan.jpeg);
-  background-size: cover;
-}
-.mountain_Jinmian {
-  position: absolute;
-  top: 79px;
-  right: 192px;
-  border: 3px solid var(--button-color);
-  border-radius: 50%;
-}
-.mountain_Jinmian:hover .mountain_Jinmian_box_hover {
-  display: block; /*將區塊顯示*/
-}
-.mountain_Jinmian_box_hover {
+.mountain_M_Xiangshan_box_hover {
   position: relative;
   display: none;
+  z-index: 2;
 }
-.mountain_Jinmian_hover {
+.mountain_M_Xiangshan_hover {
   position: absolute;
   width: 536px;
-  height: 100px;
+  height: 80px;
   background-color: var(--map_hover);
   opacity: 0.6;
   top: -20px;
   left: 55px;
   transform: translateX(-55%);
 }
-.mountain_Jinmian_hover_pic {
+.mountain_M_Xiangshan_hover_pic {
   position: absolute;
   width: 536px;
   height: 325px;
   border: 3px solid var(--barFont-color);
-  background: url(../../img/mountain-img/jinmianshan.jpeg);
+  background: url(../../img/mountain-img/matcha.jpeg);
   background-size: cover;
-  top: 80px;
+  top: 60px;
   left: 55px;
   transform: translateX(-55%);
 }
-.mountain_Jinmian_hover_pic_font {
+.mountain_M_Xiangshan_hover_pic_font {
   width: 530px;
   height: 64px;
   background-color: var(--map_hover_font);
   transform: translateY(400%);
 }
-.mountain_Jinmian_hover_pic_font_title {
+.mountain_M_Xiangshan_hover_pic_font_title {
   font-size: 34px;
 }
-.mountain_Jinmian_hover_pic_font_star {
+.mountain_M_Xiangshan_hover_pic_font_star {
   font-size: 20px;
 }
 
-.mountain_Chi-hsing_box {
+.mountain_M_Jinmian_box {
   width: 52px;
   height: 52px;
-  background: url(../../img/mountain-img/sevenstar.jpeg);
+  background: url(../../img/mountain-img/Yangmingshan.jpeg);
   background-size: cover;
 }
-.mountain_Chi-hsing {
+.mountain_M_Jinmian {
   position: absolute;
-  top: 34px;
-  right: 230px;
+  top: 69px;
+  right: 216px;
   border: 3px solid var(--button-color);
   border-radius: 50%;
 }
-.mountain_Chi-hsing:hover .mountain_Chi-hsing_box_hover {
+.mountain_M_Jinmian:hover .mountain_M_Jinmian_box_hover {
   display: block; /*將區塊顯示*/
 }
-.mountain_Chi-hsing_box_hover {
+.mountain_M_Jinmian_box_hover {
   position: relative;
   display: none;
+  z-index: 2;
 }
-.mountain_Chi-hsing_hover {
+.mountain_M_Jinmian_hover {
   position: absolute;
   width: 536px;
   height: 100px;
@@ -246,47 +194,104 @@ body {
   left: 55px;
   transform: translateX(-55%);
 }
-.mountain_Chi-hsing_hover_pic {
+.mountain_M_Jinmian_hover_pic {
   position: absolute;
   width: 536px;
   height: 325px;
   border: 3px solid var(--barFont-color);
-  background: url(../../img/mountain-img/sevenstar.jpeg);
+  background: url(../../img/mountain-img/Yangmingshan.jpeg);
   background-size: cover;
   top: 80px;
   left: 55px;
   transform: translateX(-55%);
 }
-.mountain_Chi-hsing_hover_pic_font {
+.mountain_M_Jinmian_hover_pic_font {
   width: 530px;
   height: 64px;
   background-color: var(--map_hover_font);
   transform: translateY(400%);
 }
-.mountain_Chi-hsing_hover_pic_font_title {
+.mountain_M_mountain_M_Jinmian_hover_pic_font_title {
   font-size: 34px;
 }
-.mountain_Chi-hsing_hover_pic_font_star {
+.mountain_M_Jinmian_hover_pic_font_star {
   font-size: 20px;
 }
 
-.mountain_lowBear {
+.mountain_M_Chi-hsing_box {
+  width: 52px;
+  height: 52px;
+  background: url(../../img/mountain-img/northmountain.jpeg);
+  background-size: cover;
+}
+.mountain_M_Chi-hsing {
+  position: absolute;
+  top: 345px;
+  right: 271px;
+  border: 3px solid var(--button-color);
+  border-radius: 50%;
+  z-index: 1;
+}
+.mountain_M_Chi-hsing:hover .mountain_M_Chi-hsing_box_hover {
+  display: block; /*將區塊顯示*/
+}
+.mountain_M_Chi-hsing_box_hover {
+  position: relative;
+  display: none;
+  z-index: 1;
+}
+.mountain_M_Chi-hsing_hover {
+  position: absolute;
+  width: 536px;
+  height: 30px;
+  background-color: var(--map_hover);
+  opacity: 0.6;
+  top: -20px;
+  left: 55px;
+  transform: translateX(-55%);
+}
+.mountain_M_Chi-hsing_hover_pic {
+  position: absolute;
+  width: 536px;
+  height: 325px;
+  border: 3px solid var(--barFont-color);
+  background: url(../../img/mountain-img/northmountain.jpeg);
+  background-size: cover;
+  top: 10px;
+  left: 55px;
+  transform: translateX(-55%);
+}
+.mountain_M_Chi-hsing_hover_pic_font {
+  width: 530px;
+  height: 64px;
+  background-color: var(--map_hover_font);
+  transform: translateY(400%);
+}
+.mountain_M_Chi-hsing_hover_pic_font_title {
+  font-size: 34px;
+}
+.mountain_M_Chi-hsing_hover_pic_font_star {
+  font-size: 20px;
+}
+
+.middleBear {
   position: absolute;
   bottom: -58px;
   left: 70px;
 }
 /* part1 map end */
-.mountain_container {
+/* .mountain_container {
   padding: 0;
-}
+} */
 /* map_btn star */
-.mountain_map_btn {
+/* .mountain_map_btn {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   margin-top: -96px;
-}
-.mountain_low_button,
+  z-index: 0;
+} */
+/* .mountain_low_button,
 .mountain_middle_button {
   padding: 8px 35px;
   margin-right: 68px;
@@ -296,18 +301,18 @@ body {
   padding: 8px 35px;
   margin-right: 0px;
   border: 0;
-}
+} */
 /* map_btn end */
-.mountain_content_list {
+/* .mountain_content_list {
   position: relative;
-}
+} */
 /* map list star */
-.mountain_content_list h2 {
+/* .mountain_content_list h2 {
   margin-top: 108px;
   margin-left: 16px;
   margin-bottom: 24px;
-}
-.mountain_list {
+} */
+.mountain_M_list {
   max-width: 1110px;
   height: 282px;
   border: 1px solid lightgray;
@@ -316,37 +321,37 @@ body {
   display: flex;
   box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
 }
-.mountain_Xiangshan_list {
+.mountain_M_Xiangshan_list {
   width: 350px;
   height: 280px;
 }
-.mountain_Xiangshan_pic {
+.mountain_M_Xiangshan_pic {
   border-radius: 10px 0 0 10px;
   object-fit: cover;
   width: 350px;
   height: 100%;
 }
-.mountain_Jinmian_list {
+.mountain_M_Jinmian_list {
   width: 350px;
   height: 280px;
 }
-.mountain_Jinmian_pic {
+.mountain_M_Jinmian_pic {
   border-radius: 10px 0 0 10px;
   object-fit: cover;
   width: 350px;
   height: 100%;
 }
-.mountain_Chi-hsing_list {
+.mountain_M_Chi-hsing_list {
   width: 350px;
   height: 280px;
 }
-.mountain_Chi-hsing_pic {
+.mountain_M_Chi-hsing_pic {
   border-radius: 10px 0 0 10px;
   object-fit: cover;
   width: 350px;
   height: 100%;
 }
-.mountain_list_last {
+.mountain_M_list_last {
   max-width: 1110px;
   height: 282px;
   border: 1px solid lightgray;
@@ -355,22 +360,22 @@ body {
   display: flex;
   box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
 }
-.mountain_list_detail {
+.mountain_M_list_detail {
   margin: 16px 24px;
   width: 700px;
   max-width: 100%;
 }
-.mountain_list_detail_box,
-.mountain_list_font_box {
+.mountain_M_list_detail_box,
+.mountain_M_list_font_box {
   display: flex;
 }
-.mountain_list_title {
+.mountain_M_list_title {
   font-size: 20px;
   font-family: var(--listContent-font);
   font-weight: bold;
   line-height: 25px;
 }
-.mountain_list_distance_title {
+.mountain_M_list_distance_title {
   display: flex;
   position: absolute;
   left: 40%;
@@ -379,59 +384,57 @@ body {
 /* map list end */
 
 /* Level bar star */
-.mountain_bar_list {
+.mountain_M_bar_list {
   display: flex;
   margin-top: 4px;
   margin-bottom: 20px;
   margin-left: 40px;
 }
-.mountain_progress-bg {
+.mountain_M_progress-bg {
   margin: 0 auto;
   width: 90%;
   height: 32px;
   border-radius: 50px;
   text-align: center;
-  -webkit-box-shadow: inset 0 0 50px var(--barShadow-color);
-  box-shadow: inset 0 0 50px var(--barShadow-color);
+  -webkit-box-shadow: inset 0 0 50px var(--mountain_M_barShadow-color);
+  box-shadow: inset 0 0 50px var(--mountain_M_barShadow-color);
 }
-.mountain_progress-bar-L-Xiangshan {
+.mountain_M_progress-bar-L-Xiangshan {
   height: 32px;
   border-radius: 50px 0 0 50px;
   float: left;
-  width: var(--progressLevelBarXiangshan-width);
+  width: var(--mountain_M_progressLevelBarXiangshan-width);
   /* fallback */
-  background-color: var(--barBackground-color);
+  background-color: var(--mountain_M_barBackground-color);
 
   /* Safari 5.1, Chrome 10+ */
   background: -webkit-linear-gradient(
     top,
-    var(--barBackground-color),
-    var(--barBackground-color)
+    var(--mountain_M_barBackground-color),
+    var(--mountain_M_barBackground-color)
   );
 }
-.mountain_progress-bar-M-Xiangshan {
+.mountain_M_progress-bar-M-Xiangshan {
   height: 32px;
-  /* border-radius: 10px 0 0 10px; */
-  border-right: 3px solid var(--barBackground-color);
   float: left;
-  width: var(--progressLevelBarXiangshan-width);
+  width: var(--mountain_M_progressLevelBarXiangshan-width);
   /* fallback */
-  background-color: var(--barBackground-color);
+  background-color: var(--mountain_M_barBackground-color);
 
   /* Safari 5.1, Chrome 10+ */
   background: -webkit-linear-gradient(
     right,
-    var(--barBackgroundSecond-color),
-    var(--barBackgroundSecond-color)
+    var(--mountain_M_barBackground-color),
+    var(--mountain_M_barBackground-color)
   );
 }
-.mountain_progress-bar-H-Xiangshan {
+.mountain_M_progress-bar-H-Xiangshan {
   height: 32px;
   border-radius: 0 50px 50px 0;
   float: left;
-  width: var(--progressLevelBarXiangshan-width);
+  width: var(--mountain_M_progressLevelBarXiangshan-width);
   /* fallback */
-  background-color: var(--barBackground-color);
+  background-color: var(--mountain_M_barBackground-color);
 
   /* Safari 5.1, Chrome 10+ */
   background: -webkit-linear-gradient(
@@ -440,8 +443,9 @@ body {
     var(--barBackgroundSecond-color)
   );
 }
-.mountain_progress-bg p.raised,
-.mountain_progress-bg p.unraised {
+.mountain_M_progress-bg p.goal,
+.mountain_M_progress-bg p.raised,
+.mountain_M_progress-bg p.unraised {
   font-family: Arial, sans-serif;
   font-size: 16px;
   font-weight: 600;
@@ -451,20 +455,20 @@ body {
   text-align: center;
   display: inline;
 }
-.mountain_progress-bg p.raised {
+.mountain_M_progress-bg p.raised {
   color: var(--barFont-color);
   margin: 14px 25px 0 50px;
   padding: 0 25px 0 0;
 }
-.mountain_progress-bg p.unraised {
-  color: var(--barBackground-color);
+.mountain_M_progress-bg p.unraised {
+  color: #414141;
   margin: 14px 25px 0 50px;
   padding: 0 25px 0 0;
 }
 /* Level bar end */
 
 /* Distance bar star */
-.mountain_progress-bg-font-Xiangshan {
+.mountain_M_progress-bg-font-Xiangshan {
   position: absolute;
   /* left: 50%; */
   transform: translateX(-50%);
@@ -476,125 +480,125 @@ body {
   padding: 0;
   text-align: center;
 }
-.mountain_progress_distance-bar {
+.mountain_M_progress_distance-bar {
   height: 32px;
   border-radius: 50px 0 0 50px;
   float: left;
-  width: var(--progressDistanceBarXiangshan-width);
-  background-color: var(--barBackground-color);
+  width: var(--mountain_M_progressDistanceBarXiangshan-width);
+  background-color: var(--mountain_M_barBackground-color);
   background: -webkit-linear-gradient(
     top,
-    var(--barBackground-color),
-    var(--barBackground-color)
+    var(--mountain_M_barBackground-color),
+    var(--mountain_M_barBackground-color)
   );
 }
-.mountain_progress_distance-bar_Jinmian {
+.mountain_M_progress_distance-bar_Jinmian {
   height: 32px;
   border-radius: 50px 0 0 50px;
   float: left;
-  width: var(--progressDistanceBarJinmian-width);
-  background-color: var(--barBackground-color);
+  width: var(--mountain_M_progressDistanceBarJinmian-width);
+  background-color: var(--mountain_M_barBackground-color);
   background: -webkit-linear-gradient(
     top,
-    var(--barBackground-color),
-    var(--barBackground-color)
+    var(--mountain_M_barBackground-color),
+    var(--mountain_M_barBackground-color)
   );
 }
-.mountain_progress_distance-bar_Chi-hsing {
+.mountain_M_progress_distance-bar_Chi-hsing {
   height: 32px;
   border-radius: 50px 0 0 50px;
   float: left;
-  width: var(--progressDistanceBarChi-hsing-width);
-  background-color: var(--barBackground-color);
+  width: var(--mountain_M_progressDistanceBarChi-hsing-width);
+  background-color: var(--mountain_M_barBackground-color);
   background: -webkit-linear-gradient(
     top,
-    var(--barBackground-color),
-    var(--barBackground-color)
+    var(--mountain_M_barBackground-color),
+    var(--mountain_M_barBackground-color)
   );
 }
 /* Distance bar end */
 
 /* Time bar star */
-.mountain_progress_time-bar {
+.mountain_M_progress_time-bar {
   height: 32px;
   border-radius: 50px 0 0 50px;
   float: left;
-  width: var(--progressTimeBarXiangshan-width);
-  background-color: var(--barBackground-color);
+  width: var(--mountain_M_progressTimeBarXiangshan-width);
+  background-color: var(--mountain_M_barBackground-color);
   background: -webkit-linear-gradient(
     top,
-    var(--barBackground-color),
-    var(--barBackground-color)
+    var(--mountain_M_barBackground-color),
+    var(--mountain_M_barBackground-color)
   );
 }
-.mountain_progress_time-bar_Jinmian {
+.mountain_M_progress_time-bar_Jinmian {
   height: 32px;
   border-radius: 50px 0 0 50px;
   float: left;
-  width: var(--progressTimeBarJinmian-width);
-  background-color: var(--barBackground-color);
+  width: var(--mountain_M_progressTimeBarJinmian-width);
+  background-color: var(--mountain_M_barBackground-color);
   background: -webkit-linear-gradient(
     top,
-    var(--barBackground-color),
-    var(--barBackground-color)
+    var(--mountain_M_barBackground-color),
+    var(--mountain_M_barBackground-color)
   );
 }
-.mountain_progress_time-bar_Chi-hsing {
+.mountain_M_progress_time-bar_Chi-hsing {
   height: 32px;
   border-radius: 50px 0 0 50px;
   float: left;
-  width: var(--progressTimeBarChi-hsing-width);
-  background-color: var(--barBackground-color);
+  width: var(--mountain_M_progressTimeBarChi-hsing-width);
+  background-color: var(--mountain_M_barBackground-color);
   background: -webkit-linear-gradient(
     top,
-    var(--barBackground-color),
-    var(--barBackground-color)
+    var(--mountain_M_barBackground-color),
+    var(--mountain_M_barBackground-color)
   );
 }
 /* Time bar end */
-.mountain_article_button {
+.mountain_M_article_button {
   position: absolute;
   right: 10%;
   transform: translateX(50%);
 }
 /* pages_btn star */
-.mountain_btn-toolbar {
+/* .mountain_btn-toolbar  {
   margin-bottom: 36px;
-}
+} */
 /* pages_btn end */
 
-.mountain_content_line {
+/* .mountain_content_line {
   border-top: 1px solid var(--button-color);
   margin: 0 auto;
   margin-bottom: 72px;
   max-width: 1108px;
-}
+} */
 /*推薦商品 start*/
-.mountain_product_title h3 {
+/* .product_title h3 {
   margin-left: 16px;
 }
-.mountain_product-list {
+.product-list {
   margin-left: 30px;
   display: flex;
 }
-.mountain_product-card {
+.product-card {
   margin: 10px auto;
   width: 160px;
 }
-.mountain_product-img-box {
+.product-img-box {
   width: 130px;
   height: 130px;
 }
-.mountain_product-img-box img {
+.product-img-box img {
   border-radius: 5px;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
-.mountain_cover-fit {
+.cover-fit {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.mountain_product-name {
+.product-name {
   display: block;
   margin: 10px 0;
   font-family: Source Sans Pro;
@@ -602,20 +606,20 @@ body {
   line-height: 22px;
   color: #4e4e4e;
 }
-.mountain_product-price {
+.product-price {
   font-family: Source Sans Pro;
   font-size: 14px;
   line-height: 20px;
   color: #414141;
-}
+} */
 /*icon start*/
-.mountain_heart-icon {
+/* .heart-icon {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 15px;
 }
-.mountain_heart-icon-bkg {
+.heart-icon-bkg {
   width: 30px;
   height: 30px;
   background: rgba(0, 0, 0, 0.25);
@@ -624,29 +628,28 @@ body {
   top: 10px;
   color: white;
   -webkit-text-stroke: 1px;
-  /* -webkit-text-stroke-color: #cc543a; */
   transition: 0.4s;
 }
-.mountain_heart-icon-bkg:hover {
+.heart-icon-bkg:hover {
   background: #333;
   color: #eea9a9;
   -webkit-text-stroke: 1px;
   -webkit-text-stroke-color: #eea9a9;
 }
-.mountain_heart-icon-bkg:active {
+.heart-icon-bkg:active {
   color: #cc543a;
 }
-.mountain_heart-icon-bkg-click {
+.heart-icon-bkg-click {
   color: #cc543a;
   background: #bdbdbd;
 }
-.mountain_cart-icon {
+.cart-icon {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 18px;
 }
-.mountain_cart-icon-bkg {
+.cart-icon-bkg {
   width: 30px;
   height: 30px;
   background: rgba(0, 0, 0, 0.25);
@@ -656,19 +659,19 @@ body {
   transition: 0.4s;
   color: white;
 }
-.mountain_cart-icon-bkg:hover {
+.cart-icon-bkg:hover {
   background: #333;
   color: #bae29a;
 }
-.mountain_cart-icon-bkg:active {
+.cart-icon-bkg:active {
   background: #333;
   color: #24936e;
-}
+} */
 /*icon end*/
-.mountain_downLowBear {
+.mountain_M_downLowBear {
   width: 150px;
   height: 210px;
-  background: url(../../img/mountain-img/lowBear.png);
+  background: url(../../img/mountain-img/middleBear.png);
   background-size: cover;
   /* margin-left: 150px; */
   left: 100%;
@@ -676,10 +679,10 @@ body {
   margin-top: 50px;
   z-index: 1;
 }
-.mountain_bearSpeak {
+.mountain_M_bearSpeak {
   width: 200px;
   height: 130px;
-  background: url(../../img/mountain-img/lowSpeak.png);
+  background: url(../../img/mountain-img/middleSpeak.png);
   background-size: cover;
   margin-top: -45px;
   left: 25%;
@@ -741,19 +744,49 @@ body {
 
 /*********** ============below media 1200px============ *************/
 @media screen and (max-width: 1200px) {
-  .mountain_list_distance_title {
-    left: 30%;
+  .mountain_M_list_distance_title {
+    left: 31%;
     transform: translateX(55%);
   }
-  .mountain_downLowBear {
+  .mountain_M_downLowBear {
     margin-left: -100px;
+  }
+
+  .mountain_M_Xiangshan_list,
+  .mountain_M_Jinmian_list,
+  .mountain_M_Chi-hsing_list {
+    height: 310px;
+  }
+  .mountain_M_list,
+  .mountain_M_list_last {
+    height: 311px;
+  }
+  .mountain_M_list_detail {
+    margin: 5px 0px;
+  }
+  .mountain_M_list_font_box {
+    justify-content: center;
+  }
+  .mountain_M_list_detail_box {
+    display: block;
+  }
+  .mountain_M_list_distance_title {
+    position: static;
+    left: 0%;
+    transform: translateX(0%);
+    justify-content: center;
+  }
+  .mountain_M_Xiangshan_pic,
+  .mountain_M_Jinmian_pic,
+  .mountain_M_Chi-hsing_pic {
+    object-fit: cover;
   }
 }
 /*********** ============below media 990px============ *************/
-@media screen and (max-width: 990px) {
+@media screen and (max-width: 991px) {
   /*============below media content============*/
   /* media map list start */
-  .mountain_maps {
+  /* .mountain_maps {
     position: absolute;
     bottom: 69px;
     right: 55px;
@@ -764,52 +797,53 @@ body {
     margin-right: 16px;
     border: 0;
   }
-  .mountain_lowBear {
+ */
+  .middleBear {
     width: 150px;
   }
-  .mountain_list {
+  .mountain_M_list {
     width: 680px;
     max-width: 100%;
-    height: 568px;
+    height: 600px;
     border-radius: 10px;
     margin: 15px auto 0 auto;
     display: block;
   }
-  .mountain_list_last {
+  .mountain_M_list_last {
     width: 680px;
     max-width: 100%;
-    height: 568px;
+    height: 600px;
     border-radius: 10px;
     margin: 15px auto 36px auto;
     display: block;
   }
-  .mountain_Xiangshan_list,
-  .mountain_Jinmian_list,
-  .mountain_Chi-hsing_list {
+  .mountain_M_Xiangshan_list,
+  .mountain_M_Jinmian_list,
+  .mountain_M_Chi-hsing_list {
     width: 678px;
     max-width: 100%;
     height: 285px;
   }
-  .mountain_Xiangshan_pic,
-  .mountain_Jinmian_pic,
-  .mountain_Chi-hsing_pic {
+  .mountain_M_Xiangshan_pic,
+  .mountain_M_Jinmian_pic,
+  .mountain_M_Chi-hsing_pic {
     border-radius: 10px 10px 0 0;
-    object-fit: fill;
+    /* object-fit: fill; */
     width: 678px;
     max-width: 100%;
     height: 100%;
     object-fit: cover;
   }
-  .mountain_list_detail {
+  .mountain_M_list_detail {
     margin: 16px;
     width: 646px;
     max-width: 100%;
   }
-  .mountain_list_distance_title {
-    left: 10%;
-    transform: translateX(30%);
+  .mountain_M_list_distance_title {
+    left: 0%;
+    transform: translateX(0%);
   }
-  .mountain_article_button {
+  .mountain_M_article_button {
     position: absolute;
     right: 10%;
     transform: translateX(30%);
@@ -817,13 +851,13 @@ body {
   /* media map list end */
 
   /* 推薦商品 star */
-  .mountain_product_box {
+  /* .product_box {
     position: relative;
   }
-  .mountain_product-list {
+  .product-list {
     flex-wrap: wrap;
-  }
-  .mountain_downLowBear {
+  } */
+  .mountain_M_downLowBear {
     position: absolute;
     width: 130px;
     height: 182px;
@@ -832,7 +866,7 @@ body {
     top: 70%;
     z-index: 2;
   }
-  .mountain_bearSpeak {
+  .mountain_M_bearSpeak {
     height: 133px;
     position: absolute;
     right: 50%;
@@ -850,7 +884,7 @@ body {
   .nav-font {
     font-size: 16px;
   } */
-  .mountain_downLowBear {
+  .mountain_M_downLowBear {
     position: absolute;
     width: 130px;
     height: 182px;
@@ -859,7 +893,7 @@ body {
     top: 70%;
     z-index: 2;
   }
-  .mountain_bearSpeak {
+  .mountain_M_bearSpeak {
     height: 133px;
     position: absolute;
     right: 50%;
@@ -871,7 +905,7 @@ body {
 
 /*********** ============below media 768px============ *************/
 @media screen and (max-width: 768px) {
-  .mountain_bg {
+  /* .mountain_bg {
     width: 100%;
     height: 600px;
   }
@@ -881,48 +915,53 @@ body {
   }
   .mountain_low_map {
     width: 450px;
+  } */
+  .mountain_M_Xiangshan {
+    top: 190px;
+    right: 70px;
   }
-  .mountain_Xiangshan {
-    top: 103px;
-    right: 144px;
+  .mountain_M_Jinmian {
+    top: 50px;
+    right: 160px;
   }
-  .mountain_Jinmian {
-    top: 64px;
-    right: 144px;
+  .mountain_M_Chi-hsing {
+    top: 250px;
+    right: 200px;
   }
-  .mountain_Chi-hsing {
-    top: 34px;
-    right: 170px;
-  }
-  .mountain_Xiangshan_box,
-  .mountain_Jinmian_box,
-  .mountain_Chi-hsing_box {
+  .mountain_M_Xiangshan_box,
+  .mountain_M_Jinmian_box,
+  .mountain_M_Chi-hsing_box {
     width: 30px;
     height: 30px;
   }
-  .mountain_Xiangshan_hover,
-  .mountain_Jinmian_hover,
-  .mountain_Chi-hsing_hover {
+  .mountain_M_Xiangshan_hover,
+  .mountain_M_Jinmian_hover,
+  .mountain_M_Chi-hsing_hover {
     width: 336px;
     height: 40px;
     left: 33px;
   }
-  .mountain_Xiangshan_hover_pic,
-  .mountain_Jinmian_hover_pic,
-  .mountain_Chi-hsing_hover_pic {
+  .mountain_M_Xiangshan_hover_pic,
+  .mountain_M_Jinmian_hover_pic,
+  .mountain_M_Chi-hsing_hover_pic {
     width: 336px;
     height: 225px;
     transform: translateX(-65%);
     top: 20px;
     left: 65px;
   }
-  .mountain_Xiangshan_hover_pic_font,
-  .mountain_Jinmian_hover_pic_font,
-  .mountain_Chi-hsing_hover_pic_font {
+  .mountain_M_Xiangshan_hover_pic_font,
+  .mountain_M_Jinmian_hover_pic_font,
+  .mountain_M_Chi-hsing_hover_pic_font {
     width: 330px;
     transform: translateY(240%);
   }
-  .mountain_map_btn {
+  .mountain_M_Xiangshan_hover_pic_font_title,
+  .mountain_M_Jinmian_hover_pic_font_title,
+  .mountain_M_Chi-hsing_hover_pic_font_title {
+    font-size: 30px;
+  }
+  /* .mountain_map_btn {
     width: 350px;
   }
   .mountain_low_button,
@@ -930,44 +969,43 @@ body {
   .mountain_high_button {
     padding: 8px 25px;
     margin-right: 16px;
-  }
+  } */
 
-  .mountain_list,
-  .mountain_list_last {
+  .mountain_M_list,
+  .mountain_M_list_last {
     height: 670px;
   }
-  .mountain_list_detail {
+  .mountain_M_list_detail {
     margin: 5px 0px;
   }
-  .mountain_list_font_box {
+  .mountain_M_list_font_box {
     justify-content: center;
   }
-  .mountain_list_detail_box {
+  .mountain_M_list_detail_box {
     display: block;
     /* margin-bottom: 50px; */
   }
-  .mountain_list_distance_title {
+  .mountain_M_list_distance_title {
     position: static;
     left: 0%;
     transform: translateX(0%);
     justify-content: center;
   }
-  .mountain_bar_list {
+  .mountain_M_bar_list {
     flex-direction: column;
     margin: 16px 0;
   }
 
-  .mountain_downLowBear {
+  .mountain_M_downLowBear {
     right: 50%;
     transform: translateX(-50%);
     top: 70%;
   }
-  .mountain_bearSpeak {
+  .mountain_M_bearSpeak {
     right: 50%;
     transform: translateX(45%);
     top: 70%;
   }
-
 }
 
 @media screen and (max-width: 768px) {
@@ -1046,12 +1084,12 @@ body {
 
 /*********** ============below media 530px============ *************/
 @media screen and (max-width: 530px) {
-  .mountain_downLowBear {
+  .mountain_M_downLowBear {
     right: 50%;
     transform: translateX(-30%);
     top: 83%;
   }
-  .mountain_bearSpeak {
+  .mountain_M_bearSpeak {
     right: 50%;
     transform: translateX(5%);
     top: 105%;

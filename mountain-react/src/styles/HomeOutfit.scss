@@ -1,0 +1,252 @@
+/*============below svg star============*/
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:800);
+
+.homepage-text2 {
+  position: absolute;
+  left: 50px;
+  stroke: #fff;
+  stroke-width: 4px;
+  fill: none;
+}
+.homepage-text {
+  fill: #6da77f;
+  stroke-width: 8;
+  stroke-linecap: round;
+  /* stroke-linejoin: round; */
+  stroke-dasharray: 70 330;
+  stroke-dashoffset: 0;
+  -webkit-animation: stroke 6s infinite linear;
+  animation: stroke 10s infinite linear;
+}
+
+.homepage-text:nth-child(5n + 1) {
+  stroke: #ffe342;
+  -webkit-animation-delay: -1.2s;
+  animation-delay: -1.2s;
+}
+.homepage-text:nth-child(5n + 2) {
+  stroke: #42ad73;
+  -webkit-animation-delay: -2.4s;
+  animation-delay: -2.4s;
+}
+
+.homepage-text:nth-child(5n + 3) {
+  stroke: #e9f1df;
+  -webkit-animation-delay: -3.6s;
+  animation-delay: -3.6s;
+}
+
+.homepage-text:nth-child(5n + 4) {
+  stroke: #19634a;
+  -webkit-animation-delay: -4.8s;
+  animation-delay: -4.8s;
+}
+
+.homepage-text:nth-child(5n + 5) {
+  stroke: #30a754;
+  -webkit-animation-delay: -6s;
+  animation-delay: -6s;
+}
+
+@-webkit-keyframes stroke {
+  100% {
+    stroke-dashoffset: -400;
+  }
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: -400;
+  }
+}
+
+.homepage-climb {
+  background: rgb(194, 250, 177);
+  background-size: 0.2em 100%;
+  font: 10em/1 Open Sans, Impact;
+  text-transform: capitalize;
+}
+
+.homepage-letClimb {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: -28%;
+}
+#m-text {
+  position: absolute;
+  left: 8px;
+  width: 100%;
+  height: 100%;
+}
+
+/*============below svg end============*/
+.homepage-contentDress {
+  max-width: 1920px;
+  width: 100%;
+  height: 500px;
+  background: #19634a;
+  background: url(../img/contentDress/contentDressBg.png);
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.homepage-blobs3 {
+  max-width: 250px;
+  left: 0;
+  top: -170px;
+}
+.homepage-house {
+  width: 250px;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: 0.2s;
+}
+@keyframes gotoshop {
+  0% {
+  }
+  100% {
+  }
+}
+.homepage-house:hover {
+  width: 280px;
+}
+.homepage-sloth {
+  width: 250px;
+  bottom: 0;
+  right: 7%;
+  transition: 0.3s;
+}
+.homepage-greyBear {
+  width: 250px;
+  bottom: 0;
+  right: 17%;
+  transition: 0.3s;
+}
+.homepage-rabbit {
+  width: 250px;
+  bottom: 0;
+  right: 25%;
+  /* animation: walk 1.8s cubic-bezier(0.4, 0, 0.2, 1); */
+  transition: 0.3s;
+}
+.homepage-sz {
+  width: 160px;
+  margin-left: 40px;
+}
+.homepage-say {
+  opacity: 0;
+  margin-bottom: 30px;
+}
+.homepage-sayBubble {
+  position: absolute;
+  bottom: 200px;
+  right: 9%;
+  opacity: 0;
+}
+.homepage-rabbit:hover .homepage-say {
+  /* animation: saied 6s 0.1ms linear; */
+  opacity: 1;
+}
+.homepage-greyBear:hover .homepage-say {
+  /* animation: saied 6s 1s linear; */
+  /* animation-delay: 7s; */
+  opacity: 1;
+}
+.homepage-sloth:hover .homepage-say {
+  /* animation: saied 6s 1s linear; */
+  /* animation-delay: 14s; */
+  opacity: 1;
+}
+
+@keyframes saied {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.homepage-rabbit:hover,
+.homepage-greyBear:hover,
+.homepage-sloth:hover {
+  transform: translatex(-20px) translateY(-10px);
+}
+
+@keyframes walk {
+  0% {
+    right: 300px;
+  }
+  100% {
+    right: 450px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .homepage-sloth {
+    width: 140px;
+  }
+  .homepage-greyBear {
+    width: 140px;
+  }
+  .homepage-rabbit {
+    width: 140px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .homepage-blobs3 {
+    max-width: 200px;
+  }
+  .homepage-contentDress {
+    height: 400px;
+  }
+  .homepage-house {
+    width: 200px;
+  }
+  .homepage-house:hover {
+    width: 250px;
+  }
+  .homepage-sloth {
+    width: 100px;
+  }
+  .homepage-greyBear {
+    width: 100px;
+  }
+  .homepage-rabbit {
+    width: 100px;
+  }
+
+  .homepage-climb {
+    background-size: 0.2em 100%;
+    font: 8em/1 Open Sans, Impact;
+    text-transform: capitalize;
+  }
+  .homepage-text2 {
+    stroke-width: 2px;
+    left: 0px;
+  }
+
+  .homepage-letClimb {
+    top: -30%;
+  }
+  .homepage-contentMountain {
+    padding-top: 100px;
+  }
+}
+@media screen and (max-width: 768px) {
+  /*============below media header============*/
+  .homepage-wrapper-Taiwan {
+    right: -10%;
+    transform: scale(0.7, 0.7);
+  }
+  .homepage-banner-slider .slider.slider-for {
+    height: auto;
+  }
+}
