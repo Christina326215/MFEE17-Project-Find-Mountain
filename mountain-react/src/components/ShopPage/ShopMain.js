@@ -49,7 +49,10 @@ function ShopMain(props) {
     //   });
     //slick
     $('.shopmain-display-photo-box').slick({
-      rtl: true,
+      dots: true,
+      speed: 300,
+      autoplay: true,
+      autoplaySpeed: 3500,
     });
     $('.shopmain-product-slider').slick({
       dots: true,
@@ -71,7 +74,7 @@ function ShopMain(props) {
           },
         },
         {
-          breakpoint: 600,
+          breakpoint: 753,
           settings: {
             slidesToShow: 2,
             slidesToScroll: 2,
@@ -126,15 +129,21 @@ function ShopMain(props) {
           {/* <!-- =========category bar end========= --> */}
           {/* <!-- =========vegas start========= --> */}
           <div class="shopmain-display-photo-box position-relative row">
-            <img src={display1} alt="" title="" class="shopmain-cover-fit" />
-            <img src={display2} alt="" title="" class="shopmain-cover-fit" />
-            <img src={display3} alt="" title="" class="shopmain-cover-fit" />
-            <div class="position-absolute caret-left">
+            <div class="shopmain-slick-photo-box">
+              <img src={display1} alt="" title="" class="shopmain-cover-fit" />
+            </div>
+            <div class="shopmain-slick-photo-box">
+              <img src={display2} alt="" title="" class="shopmain-cover-fit" />
+            </div>
+            <div class="shopmain-slick-photo-box">
+              <img src={display3} alt="" title="" class="shopmain-cover-fit" />
+            </div>
+            {/* <div class="position-absolute caret-left">
               <i class="bi bi-caret-left-fill" id="vegasPrev"></i>
             </div>
             <div class="position-absolute caret-right">
               <i class="bi bi-caret-right-fill" id="vegasNext"></i>
-            </div>
+            </div> */}
             {/* <div class="shopmain-slider-box col-12">
               <SimpleImageSlider
                 showNavs={true}
