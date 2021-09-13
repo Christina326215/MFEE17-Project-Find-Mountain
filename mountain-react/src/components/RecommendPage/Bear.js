@@ -1,9 +1,31 @@
 import React from 'react';
 import '../../styles/article.css';
+import $ from 'jquery';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import bear from '../../img/article-img/bear.png';
 
 function Bear() {
+  useEffect(() => {
+    // 按鈕單選
+    $('.recommend-go-btn').click(function () {
+      $(this).toggleClass('active');
+      $(this).siblings().removeClass('active');
+      $('.recommend-step2').show();
+    });
+
+    $('.recommend-season-btn').click(function () {
+      $(this).toggleClass('active');
+      $(this).siblings().removeClass('active');
+      $('.recommend-step3').show();
+    });
+
+    $('.recommend-level-btn').click(function () {
+      $(this).toggleClass('active');
+      $(this).siblings().removeClass('active');
+      $('.recommend-step4').show();
+    });
+  }, []);
   return (
     <div>
       <div class="container recommend-body">
@@ -25,7 +47,16 @@ function Bear() {
                     </div>
                   </div>
                 </div>
-                <div class="recommend-btngroup">
+                <div
+                  class="recommend-btngroup"
+                  onClick={() => {
+                    window.scrollTo({
+                      top: 270,
+                      left: 0,
+                      behavior: 'smooth',
+                    });
+                  }}
+                >
                   <input
                     type="button"
                     class="btn btn-primary recommend-go-btn"
@@ -44,7 +75,16 @@ function Bear() {
                     </div>
                   </div>
                 </div>
-                <div class="recommend-btngroup">
+                <div
+                  class="recommend-btngroup"
+                  onClick={() => {
+                    window.scrollTo({
+                      top: 620,
+                      left: 0,
+                      behavior: 'smooth',
+                    });
+                  }}
+                >
                   <input
                     type="button"
                     value="春季"
@@ -78,7 +118,16 @@ function Bear() {
                     </div>
                   </div>
                 </div>
-                <div class="recommend-btngroup">
+                <div
+                  class="recommend-btngroup"
+                  onClick={() => {
+                    window.scrollTo({
+                      top: 1000,
+                      left: 0,
+                      behavior: 'smooth',
+                    });
+                  }}
+                >
                   <input
                     type="button"
                     value="半年一次以上"
