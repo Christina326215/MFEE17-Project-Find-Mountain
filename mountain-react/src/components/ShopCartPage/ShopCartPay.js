@@ -15,56 +15,64 @@ import '../../styles/ShopCartPage/ShopCartPage.scss'; //shopping-cart style
 function ShopCartPay() {
   useEffect(() => {
     // progress-bar
-    $('.btn-next').on('click', function () {
-      var currentStepNum = $('#checkout-progress').data('current-step');
+    $('.shopcart-btn-next').on('click', function () {
+      var currentStepNum = $('#shopcart-checkout-progress').data(
+        'current-step'
+      );
       var nextStepNum = currentStepNum + 1;
-      var currentStep = $('.step.step-' + currentStepNum);
+      var currentStep = $('.shopcart-step.step-' + currentStepNum);
       var nextStep = $('.step.step-' + nextStepNum);
-      var progressBar = $('#checkout-progress');
-      $('.btn-prev').removeClass('disabled');
+      var progressBar = $('#shopcart-checkout-progress');
+      $('.shopcart-btn-prev').removeClass('shopcart-disabled');
       if (currentStepNum == 5) {
         return false;
       }
       if (nextStepNum == 5) {
-        $(this).addClass('disabled');
+        $(this).addClass('shopcart-disabled');
       }
-      $('.checkout-progress')
+      $('.shopcart-checkout-progress')
         .removeClass('.step-' + currentStepNum)
         .addClass('.step-' + (currentStepNum + 1));
 
-      currentStep.removeClass('active').addClass('valid');
-      currentStep.find('span').addClass('opaque');
-      currentStep.find('.fa.fa-check').removeClass('opaque');
+      currentStep.removeClass('shopcart-active').addClass('shopcart-valid');
+      currentStep.find('span').addClass('shopcart-opaque');
+      currentStep
+        .find('.shopcart-fa.shopcart-fa-check')
+        .removeClass('shopcart-opaque');
 
-      nextStep.addClass('active');
+      nextStep.addClass('shopcart-active');
       progressBar
         .removeAttr('class')
         .addClass('step-' + nextStepNum)
         .data('current-step', nextStepNum);
     });
 
-    $('.btn-prev').on('click', function () {
-      var currentStepNum = $('#checkout-progress').data('current-step');
+    $('.shopcart-btn-prev').on('click', function () {
+      var currentStepNum = $('#shopcart-checkout-progress').data(
+        'current-step'
+      );
       var prevStepNum = currentStepNum - 1;
       var currentStep = $('.step.step-' + currentStepNum);
       var prevStep = $('.step.step-' + prevStepNum);
-      var progressBar = $('#checkout-progress');
-      $('.btn-next').removeClass('disabled');
+      var progressBar = $('#shopcart-checkout-progress');
+      $('.shopcart-btn-next').removeClass('shopcart-disabled');
       if (currentStepNum == 1) {
         return false;
       }
       if (prevStepNum == 1) {
-        $(this).addClass('disabled');
+        $(this).addClass('shopcart-disabled');
       }
-      $('.checkout-progress')
+      $('.shopcart-checkout-progress')
         .removeClass('.step-' + currentStepNum)
         .addClass('.step-' + prevStepNum);
 
-      currentStep.removeClass('active');
-      prevStep.find('span').removeClass('opaque');
-      prevStep.find('.fa.fa-check').addClass('opaque');
+      currentStep.removeClass('shopcart-active');
+      prevStep.find('span').removeClass('shopcart-opaque');
+      prevStep
+        .find('.shopcart-fa.shopcart-fa-check')
+        .addClass('shopcart-opaque');
 
-      prevStep.addClass('active').removeClass('valid');
+      prevStep.addClass('shopcart-active').removeClass('shopcart-valid');
       progressBar
         .removeAttr('class')
         .addClass('step-' + prevStepNum)
@@ -74,34 +82,38 @@ function ShopCartPay() {
   return (
     <>
       <div className="container">
-        <div className="progress-adj">
+        <div className="shopcart-progress-adj">
           {/* <!-- progress-bar-step start --> */}
           {/* <!-- className change to current "step-2" --> */}
-          <div className="step-2" id="checkout-progress" data-current-step="2">
-            <div className="progress-bar1">
+          <div
+            className="shopcart-step-2"
+            id="shopcart-checkout-progress"
+            data-current-step="2"
+          >
+            <div className="shopcart-progress-bar1">
               {/* <!-- "active" change to "valid" --> */}
-              <div className="step step-1 valid">
+              <div className="shopcart-step shopcart-step-1 shopcart-valid">
                 <span> 1</span>
                 {/* <!-- "opaque" change to "" --> */}
                 {/* <!-- <div className="fa fa-check opaque"></div> --> */}
-                <div className="fa fa-check"></div>
-                <div className="step-label">確認購物車</div>
+                <div className="shopcart-fa shopcart-fa-check"></div>
+                <div className="shopcart-step-label">確認購物車</div>
               </div>
               {/* <!-- add className "active" --> */}
-              <div className="step step-2 active">
+              <div className="shopcart-step shopcart-step-2 shopcart-active">
                 <span> 2</span>
-                <div className="fa fa-check opaque"></div>
-                <div className="step-label">付款與運送方式</div>
+                <div className="shopcart-fa shopcart-fa-check shopcart-opaque"></div>
+                <div className="shopcart-step-label">付款與運送方式</div>
               </div>
-              <div className="step step-3">
+              <div className="shopcart-step shopcart-step-3">
                 <span> 3</span>
-                <div className="fa fa-check opaque"></div>
-                <div className="step-label">資料確認</div>
+                <div className="shopcart-fa shopcart-fa-check shopcart-opaque"></div>
+                <div className="shopcart-step-label">資料確認</div>
               </div>
-              <div className="step step-4">
+              <div className="shopcart-step shopcart-step-4">
                 <span> 4</span>
-                <div className="fa fa-check opaque"></div>
-                <div className="step-label">完成訂單</div>
+                <div className="shopcart-fa shopcart-fa-check shopcart-opaque"></div>
+                <div className="shopcart-step-label">完成訂單</div>
               </div>
             </div>
           </div>
@@ -110,7 +122,9 @@ function ShopCartPay() {
 
         <div className="row">
           <div className="col-12 mt-3">
-            <h3 className="text-center mt-4 title-dash">付款與運送方式</h3>
+            <h3 className="text-center mt-4 shopcart-title-dash">
+              付款與運送方式
+            </h3>
             <fieldset className="form-group row mt-4">
               <legend className="col-form-label col-sm-2 float-sm-left pt-0 mb-4">
                 請選擇收件方式：
