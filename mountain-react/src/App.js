@@ -5,6 +5,11 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
+import HomeMountain from './components/HomePage/HomeMountain';
+import HomeArticle from './components/HomePage/HomeArticle';
+import HomeOutfit from './components/HomePage/HomeOutfit';
+import HomeShop from './components/HomePage/HomeShop';
+
 import Recommend from './components/RecommendPage/Recommend';
 import Bear from './components/RecommendPage/Bear';
 import Result from './components/RecommendPage/Result';
@@ -12,6 +17,7 @@ import Manual from './components/RecommendPage/Manual';
 import Detail from './components/RecommendPage/Detail';
 import ShopMain from './components/ShopPage/ShopMain';
 import Bags from './components/ShopPage/Bags';
+import ProductDetail from './components/ShopPage/ProductDetail';
 import MapL from './components/MapPage/MapL';
 import MapM from './components/MapPage/MapM';
 import MapH from './components/MapPage/MapH';
@@ -26,6 +32,9 @@ import MemberProductArticle from './components/MemberPage/MemberProductArticle';
 import MemberOrder from './components/MemberPage/MemberOrder';
 import MemberComment from './components/MemberPage/MemberComment';
 import MemberPersonal from './components/MemberPage/MemberPersonal';
+import SignUpInfo from './components/SignUpPage/SignUpInfo';
+import SignUpAcct from './components/SignUpPage/SignUpAcct';
+import Login from './components/LoginPage/Login';
 
 //====== above components end ======//
 
@@ -63,6 +72,9 @@ function App() {
             <Route path="/recommend">
               <Recommend />
             </Route>
+            <Route path="/shop/product-detail">
+              <ProductDetail />
+            </Route>
             <Route path="/shop/bags">
               <Bags />
             </Route>
@@ -84,10 +96,7 @@ function App() {
             <Route path="/outfit">
               <Outfit />
             </Route>
-            <Route path="/login">{/* 放要引入的content EX: <Stock /> */}</Route>
-            <Route path="/member/map-route">
-              <MemberMapRoute />
-            </Route>
+
             <Route path="/member/order">
               <MemberOrder />
             </Route>
@@ -100,13 +109,28 @@ function App() {
             <Route path="/member/personal">
               <MemberPersonal />
             </Route>
+            <Route path="/member">
+              <MemberMapRoute />
+            </Route>
+            <Route path="/signup-info">
+              <SignUpInfo />
+            </Route>
+            <Route path="/signup-acct">
+              <SignUpAcct />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+
             {/* //===homepage 路由放最下面===// */}
             <Route exact path="/">
-              {/* 放要引入的content EX: <Stock /> */}
+              <HomeMountain />
+              <HomeArticle />
+              <HomeShop />
+              <HomeOutfit />
             </Route>
           </Switch>
         </ScrollToTop>
-
         <Footer />
       </>
     </Router>

@@ -1,0 +1,362 @@
+/*============import all============*/
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;500;700&display=swap');
+
+/*============below all============*/
+body {
+  /* font-family: Roboto; */
+  font-family: 'Noto Sans TC', Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+.cover-fit {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.homepage-p-a {
+  position: absolute;
+}
+/*============below contentTop============*/
+/*============wave star============*/
+
+.homepage-banner {
+  width: 100vw;
+  height: 500px;
+  position: relative;
+  overflow: hidden;
+  bottom: -300px;
+  /* z-index: 1; */
+}
+.homepage-wave {
+  background-color: #fcfaf2;
+  width: 200vw;
+  height: 200vw;
+  /* opacity: 0.4; */
+  position: absolute;
+  top: -75vw;
+  left: 50%;
+  margin-left: -100vw;
+  margin-top: -100vw;
+  border-radius: 43%;
+  animation: rotate 9000ms infinite linear;
+}
+
+.homepage-wave:nth-child(1) {
+  animation: rotate 12000ms infinite linear;
+}
+.homepage-wave:nth-child(2) {
+  animation: rotate 15000ms infinite linear;
+  opacity: 0.1;
+  background-color: #777;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/*============wave end============*/
+
+.homepage-contentTop {
+  background: #fcfaf2;
+  width: 100%;
+  /* height: 100vh; */
+  max-width: 1920px;
+  padding-bottom: 200px;
+}
+.homepage-title {
+  position: absolute;
+  color: #b8d99f;
+  top: 30%;
+  left: 7%;
+  /* transform: translate(-50%, -50%); */
+  letter-spacing: 2px;
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  opacity: 0;
+  animation: loadUp 0.6s ease-in;
+  animation-fill-mode: forwards;
+}
+@keyframes loadUp {
+  0% {
+    opacity: 0;
+    top: 35%;
+  }
+  100% {
+    opacity: 1;
+    top: 30%;
+  }
+}
+
+.homepage-title::after {
+  content: attr(data-spotlight);
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: transparent;
+  background: no-repeat center/150% url('../img/contentTop/rainbow.jpg');
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-clip-path: ellipse(100px 100px at 0% 50%);
+  clip-path: ellipse(150px 150px at 0% 50%);
+  animation: light 15s infinite;
+}
+@keyframes light {
+  0% {
+    -webkit-clip-path: ellipse(100px 100px at 0% 50%);
+    clip-path: ellipse(100px 100px at 0% 50%);
+  }
+  50% {
+    -webkit-clip-path: ellipse(100px 100px at 100% 50%);
+    clip-path: ellipse(100px 100px at 100% 50%);
+  }
+  100% {
+    -webkit-clip-path: ellipse(100px 100px at 0% 50%);
+    clip-path: ellipse(100px 100px at 0% 50%);
+  }
+}
+.homepage-weather {
+  color: #fff;
+  top: 5%;
+  left: 5%;
+}
+.bi-brightness-high {
+  font-size: 60px;
+}
+.homepage-notice,
+.homepage-location {
+  letter-spacing: 10px;
+}
+.homepage-notice {
+  padding: 4px 15px;
+  border: 1px solid #fff;
+  border-radius: 50px;
+}
+.bi-geo-alt,
+.bi-lightbulb-fill {
+  font-size: 25px;
+}
+@keyframes loadDown {
+  0% {
+    opacity: 0;
+    top: 35%;
+  }
+  100% {
+    opacity: 1;
+    top: 30%;
+  }
+}
+
+.homepage-blobs {
+  max-width: 450px;
+  animation: loadLeft 0.4s ease-in;
+  animation-fill-mode: forwards;
+}
+@keyframes loadLeft {
+  0% {
+  }
+  100% {
+  }
+}
+
+.homepage-blobs2 {
+  right: 0;
+  top: -200px;
+}
+
+.homepage-carousel {
+  top: 500px;
+  left: 100px;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 40px;
+  color: #19634a;
+}
+.homepage-carousel li {
+  list-style: none;
+}
+#homepage-pagination {
+  position: absolute;
+  top: 91%;
+  transform: translateY(-80%);
+  left: 120px;
+  z-index: 6;
+}
+.homepage-sliderBtn {
+  display: block;
+  border: 0;
+  width: 14px;
+  height: 14px;
+  border: 1px dashed #19634a;
+  border-radius: 100%;
+  padding: 0;
+  margin: 30px 0;
+  cursor: pointer;
+  position: relative;
+  opacity: 0.2;
+  transition: 0.4s ease-in-out;
+  /* outline: none; */
+}
+
+.homepage-center:hover {
+  width: 20px;
+  height: 20px;
+  opacity: 0.4;
+}
+
+.homepage-center {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80%;
+  border-radius: 100%;
+  background: #19634a;
+  opacity: 0;
+}
+.homepage-level {
+  position: absolute;
+  width: 70px;
+  border: 0px solid #19634a;
+  right: -80px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.homepage-sliderBtn.active,
+.homepage-center.active {
+  border: 1px solid #19634a;
+
+  opacity: 1;
+}
+.homepage-wrapper-Taiwan {
+  max-width: 800px;
+  /* background: url(./img/contentTop/taiwanAll.png); */
+  position: absolute;
+  /* width: 60vw; */
+  top: 0px;
+  right: 10%;
+  display: none;
+  transition: 0.2s;
+}
+.homepage-wrapper-Taiwan.active {
+  display: block;
+}
+.homepage-low {
+  top: 60px;
+  left: 450px;
+}
+
+.homepage-low2 {
+  top: 130px;
+  left: 440px;
+}
+.homepage-low3 {
+  top: 100px;
+  left: 280px;
+}
+.homepage-medium {
+  top: 100px;
+  left: 320px;
+}
+.homepage-medium2 {
+  top: 200px;
+  left: 530px;
+}
+.homepage-medium3 {
+  top: 220px;
+  left: 180px;
+}
+.homepage-high {
+  top: 300px;
+  left: 280px;
+}
+.homepage-high2 {
+  top: 420px;
+  left: 280px;
+}
+.homepage-bear {
+  top: 420px;
+  left: 470px;
+}
+.homepage-bearM {
+  top: 420px;
+  left: 470px;
+}
+.homepage-bearH {
+  top: 130px;
+  left: 360px;
+}
+
+.homepage-cloudTop {
+  top: 40px;
+  left: 70px;
+  animation: move 6s infinite linear alternate;
+}
+
+.homepage-cloudBottom {
+  top: 280px;
+  left: 150px;
+  animation: move 3s infinite linear alternate;
+}
+
+.homepage-cloudM {
+  top: 190px;
+  left: 570px;
+  animation: move 8s infinite ease-in-out alternate;
+}
+
+@keyframes move {
+  0% {
+    transform: translateX(200px);
+  }
+  100% {
+  }
+}
+
+/*********** ============below media============ *************/
+
+@media screen and (max-width: 1200px) {
+  .homepage-title {
+    font-size: 2.5em;
+  }
+  .homepage-blobs {
+    max-width: 400px;
+  }
+  
+}
+@media screen and (max-width: 1024px) {
+  .homepage-title {
+    font-size: 2em;
+  }
+  .homepage-wrapper-Taiwan {
+    right: -5%;
+    transform: scale(0.7, 0.7);
+  }
+  .homepage-blobs2 {
+    max-width: 200px;
+  }
+  .homepage-display-photo-box {
+    height: 300px;
+    margin-bottom: 30px;
+  }
+
+  .homepage-contentMountain {
+    padding-top: 100px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .homepage-wrapper-Taiwan {
+    right: -10%;
+    transform: scale(0.7, 0.7);
+  }
+  
+}

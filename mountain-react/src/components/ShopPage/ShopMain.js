@@ -1,17 +1,24 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom'; //a標籤要變成link
-
+import { Link } from 'react-router-dom'; //a標籤要變成link .
 import $ from 'jquery';
+import '../../../node_modules/slick-carousel/slick/slick.css';
+import '../../../node_modules/slick-carousel/slick/slick.min.js';
+import '../../../node_modules/slick-carousel/slick/slick-theme.css';
 // import SimpleImageSlider from 'react-simple-image-slider';
 // import { vegas } from 'vegas';
-// import '../../../node_modules/vegas/dist/vegas.min.js';
-// import '../../../node_modules/vegas/dist/vegas.min.css';
+// import '../../../node_modules/vegas/dist/vegas.js';
+// import '../../../node_modules/vegas/dist/vegas.css';
 import '../../styles/product.css';
-import { CartFill, HeartFill } from 'react-bootstrap-icons';
+import {
+  ChevronLeft,
+  ChevronRight,
+  CartFill,
+  HeartFill,
+} from 'react-bootstrap-icons';
 
-// import display1 from '../../img/display-photo1.jpeg';
-// import display2 from '../../img/display-photo2.jpeg';
-// import display3 from '../../img/display-photo3.jpeg';
+import display1 from '../../img/display-photo1.jpeg';
+import display2 from '../../img/display-photo2.jpeg';
+import display3 from '../../img/display-photo3.jpeg';
 import bagsPic2 from '../../img/product-img/bags-pic2.jpeg';
 import bagsPic8 from '../../img/product-img/bags-pic8.jpeg';
 import shoesPic8 from '../../img/product-img/shoes-pic8.jpeg';
@@ -26,21 +33,63 @@ import Tapachien from '../../img/article-img/Tapachien.jpeg';
 
 // const images = [{ url: display1 }, { url: display2 }, { url: display3 }];
 function ShopMain(props) {
-  // useEffect(() => {
-  //   //vegasya
-  //   $('.shopmain-display-photo-box').vegas({
-  //     timer: false,
-  //     delay: 3000,
-  //     slides: [{ src: display1 }, { src: display2 }, { src: display3 }],
-  //     transition: 'fade',
-  //   });
-  //   $('#vegasPrev').on('click', function () {
-  //     $('.shopmain-display-photo-box').vegas('previous');
-  //   });
-  //   $('#vegasNext').on('click', function () {
-  //     $('.shopmain-display-photo-box').vegas('next');
-  //   });
-  // });
+  useEffect(() => {
+    //   //vegasya
+    //   $('.shopmain-display-photo-box').vegas({
+    //     timer: false,
+    //     delay: 3000,
+    //     slides: [{ src: display1 }, { src: display2 }, { src: display3 }],
+    //     transition: 'fade',
+    //   });
+    //   $('#vegasPrev').on('click', function () {
+    //     $('.shopmain-display-photo-box').vegas('previous');
+    //   });
+    //   $('#vegasNext').on('click', function () {
+    //     $('.shopmain-display-photo-box').vegas('next');
+    //   });
+    //slick
+    $('.shopmain-display-photo-box').slick({
+      dots: true,
+      speed: 300,
+      autoplay: true,
+      autoplaySpeed: 3500,
+    });
+    $('.shopmain-product-slider').slick({
+      dots: true,
+      speed: 300,
+      slidesToShow: 4,
+      slidesToScroll: 4,
+      autoplay: true,
+      autoplaySpeed: 3500,
+      nextArrow: $('.shopmain-next'),
+      prevArrow: $('.shopmain-prev'),
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            infinite: true,
+            dots: true,
+          },
+        },
+        {
+          breakpoint: 753,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+          },
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+          },
+        },
+      ],
+    });
+  });
   return (
     <>
       <main>
@@ -80,12 +129,21 @@ function ShopMain(props) {
           {/* <!-- =========category bar end========= --> */}
           {/* <!-- =========vegas start========= --> */}
           <div class="shopmain-display-photo-box position-relative row">
-            <div class="position-absolute caret-left">
+            <div class="shopmain-slick-photo-box">
+              <img src={display1} alt="" title="" class="shopmain-cover-fit" />
+            </div>
+            <div class="shopmain-slick-photo-box">
+              <img src={display2} alt="" title="" class="shopmain-cover-fit" />
+            </div>
+            <div class="shopmain-slick-photo-box">
+              <img src={display3} alt="" title="" class="shopmain-cover-fit" />
+            </div>
+            {/* <div class="position-absolute caret-left">
               <i class="bi bi-caret-left-fill" id="vegasPrev"></i>
             </div>
             <div class="position-absolute caret-right">
               <i class="bi bi-caret-right-fill" id="vegasNext"></i>
-            </div>
+            </div> */}
             {/* <div class="shopmain-slider-box col-12">
               <SimpleImageSlider
                 showNavs={true}
@@ -171,7 +229,7 @@ function ShopMain(props) {
               <div class="col-6 col-md-4 col-lg-3 px-0">
                 <div class="shopmain-product-card">
                   <div class="shopmain-product-img-box position-relative">
-                    <Link href="./product-detail.html">
+                    <Link to="/shop/product-detail">
                       <img
                         class="shopmain-cover-fit"
                         src={shoesPic8}
@@ -193,7 +251,7 @@ function ShopMain(props) {
                     </Link>
                   </div>
                   <Link
-                    href="./product-detail.html"
+                    to="/shop/product-detail"
                     class="text-left shopmain-product-name"
                   >
                     ASOLO
@@ -251,13 +309,15 @@ function ShopMain(props) {
                 href="#/"
                 class="position-absolute shopmain-slider-arrows-left text-center shopmain-prev"
               >
-                <i class="bi bi-chevron-left"></i>
+                {/* <i class="bi bi-chevron-left"></i> */}
+                <ChevronLeft class="shopmain-slider-arrows-left-height" />
               </Link>
               <Link
                 href="#/"
                 class="position-absolute shopmain-slider-arrows-right text-center shopmain-next"
               >
-                <i class="bi bi-chevron-right"></i>
+                {/* <i class="bi bi-chevron-right"></i> */}
+                <ChevronRight class="shopmain-slider-arrows-right-height" />
               </Link>
               <div class="shopmain-product-slider row">
                 <div class="col-3 px-0">
