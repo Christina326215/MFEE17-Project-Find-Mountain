@@ -42,7 +42,7 @@ function Navbar(props) {
           {/* to Sign In star */}
           {auth ? (
             <Link
-              to="/member/personal"
+              to="/member"
               // onClick={() => {
               //   setAuth(false);
               //   //出現訊息
