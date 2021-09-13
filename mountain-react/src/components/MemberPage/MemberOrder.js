@@ -17,7 +17,6 @@ import MemberOrderImg from '../../img/shoes-pic2.jpeg';
 
 function MemberOrder() {
   useEffect(() => {
-
     // 切換區域tab-switch
     let menu = document.querySelectorAll('#menu');
     let content = document.querySelectorAll('#content');
@@ -204,30 +203,39 @@ function MemberOrder() {
                           className="member-comment-text-weight-top"
                         >
                           <div className="progress_bar_inline_block">
-                            {/* <!-- className change to current "step-2" --> */}
+                            {/* <!--FIXME:???沒用到此className--> */}
+                            {/* <!-- class change to current "step-2" --> */}
                             <div
                               className="step-1"
-                              id="checkout-progress"
+                              id="member_order_checkout-progress"
                               data-current-step="1"
                             >
-                              <div className="progress-bar1">
+                              {/* <!--FIXME:???沒用到此className--> */}
+                              <div className="member_order_progress-bar1">
                                 {/* <!-- "active" change to "valid" --> */}
-                                <div className="step step-1 active">
+                                <div className="member_order_step step-1 member_order_active">
+                                  {/* <!--FIXME:???沒用到此step-1 className--> */}
                                   <span></span>
                                   {/* <!-- "opaque" change to "" --> */}
-                                  <div className="fa fa-check opaque"></div>
-                                  <div className="step-label">未處理</div>
+                                  <div className="fa fa-check member_order_opaque"></div>
+                                  <div className="member_order_step-label">
+                                    未處理
+                                  </div>
                                 </div>
-                                {/* <!-- add className "active" --> */}
-                                <div className="step step-2">
+                                {/* <!-- add class "active" --> */}
+                                <div className="member_order_step member_order_step-2">
                                   <span></span>
-                                  <div className="fa fa-check opaque"></div>
-                                  <div className="step-label">處理中</div>
+                                  <div className="fa fa-check member_order_opaque"></div>
+                                  <div className="member_order_step-label">
+                                    處理中
+                                  </div>
                                 </div>
-                                <div className="step step-3">
+                                <div className="member_order_step member_order_step-3">
                                   <span></span>
-                                  <div className="fa fa-check opaque"></div>
-                                  <div className="step-label">已完成</div>
+                                  <div className="fa fa-check member_order_opaque"></div>
+                                  <div className="member_order_step-label">
+                                    已完成
+                                  </div>
                                 </div>
                               </div>
                             </div>
