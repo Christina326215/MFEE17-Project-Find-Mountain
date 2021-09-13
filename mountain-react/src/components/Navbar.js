@@ -40,7 +40,7 @@ function Navbar(props) {
             to="/shoppingcart/step1-detail"
             className="shopping_button h4 position-relative"
           >
-            <div class="cart-num position-absolute text-center">0</div>
+            <div className="cart-num position-absolute text-center">0</div>
             <Cart size={24} />
           </Link>
           {/* to Sign In star */}
