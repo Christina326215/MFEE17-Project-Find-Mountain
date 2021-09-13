@@ -5,6 +5,18 @@
 body {
   font-family: "Noto Sans TC", Arial, Helvetica, sans-serif;
 }
+/*shopping cart-num*/
+.cart-num {
+  top: -6px;
+  right:-8px;
+  font-size: 8px;
+  background: #cc543a;
+  color: #fff;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: none;
+}
 /*============below all============*/
 .list-unstyled {
   padding-left: 0;
