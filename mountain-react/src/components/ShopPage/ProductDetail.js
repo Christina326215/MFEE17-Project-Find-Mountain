@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
+import $ from 'jquery';
+import Swal from 'sweetalert2';
 import '../../styles/productdetail.css';
 import {
   Dash,
@@ -23,6 +25,64 @@ import shop from '../../img/product-img/illustration/shop.svg';
 import bearbear from '../../img/product-img/illustration/bearbear.png';
 
 function ProductDetail(props) {
+  useEffect(() => {
+    //icon
+    $('.productdetail-heart-icon-bkg').on('click', function () {
+      $(this).toggleClass('productdetail-heart-icon-bkg-click');
+    });
+    $('.productdetail-cart-icon-bkg').on('click', () => {
+      // alert("已將商品加入購物車！");
+      Swal.fire({
+        icon: 'success',
+        title: '已將商品加入購物車！',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    });
+    //會員制度泡泡
+    $('.productdetail-see-member').on('click', function () {
+      $('.productdetail-about-membership-bubble').toggle('display');
+    });
+    //heart-icon
+    $('.productdetail-heart-icon-bkg').on('click', function () {
+      $(this).toggleClass('productdetail-heart-icon-bkg-click');
+    });
+    //product order size選擇
+    $('.productdetail-size-btn').on('click', function () {
+      $(this).toggleClass('productdetail-active');
+      $(this).siblings().removeClass('productdetail-active');
+    });
+    //加入購物車
+    $('.productdetail-add-cart-btn').on('click', function () {
+      //display none -> block
+      let cartDisplay = $('.productdetail-cart-num').css('display');
+      if (cartDisplay === 'none') {
+        $('.productdetail-cart-num').css('display', 'block');
+      }
+      // alert("已將商品加入購物車！");
+      Swal.fire({
+        icon: 'success',
+        title: '已將商品加入購物車！',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      //cart-num ++
+      let cartNum = parseInt($('.productdetail-cart-num').text());
+      let orderNum = parseInt($('.productdetail-order-number').val());
+      //限制一次加進購物車數量
+      if (cartNum >= 10) {
+        Swal.fire({
+          icon: 'error',
+          title: '一次最多只能放入10樣商品喔',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else {
+        cartNum += orderNum;
+        $('.productdetail-cart-num').text(cartNum);
+      }
+    });
+  });
   return (
     <>
       <main>
@@ -84,10 +144,10 @@ function ProductDetail(props) {
                   <Link to="/shop/bags">機能背包</Link>
                 </li>
                 <li className="col-3 px-0">
-                  <Link href="#">登山鞋</Link>
+                  <Link to="#/">登山鞋</Link>
                 </li>
                 <li className="col-3 px-0">
-                  <Link href="#">衣服</Link>
+                  <Link to="#/">衣服</Link>
                 </li>
               </div>
             </ul>
@@ -123,13 +183,10 @@ function ProductDetail(props) {
                 <div className="productdetail-size-box">
                   <p>SIZE 選擇</p>
                   <div className="productdetail-button-box m-3">
-                    {/* <!-- <button className="size-btn active mx-1">S</button>
-                  <button className="size-btn mx-1">M</button>
-                  <button className="size-btn mx-1">L</button> --> */}
                     <input
                       type="button"
                       value="S"
-                      className="productdetail-size-btn mx-1"
+                      className="productdetail-size-btn mx-1 productdetail-active"
                     />
                     <input
                       type="button"
@@ -147,7 +204,7 @@ function ProductDetail(props) {
                   <p>數量</p>
                   <div className="productdetail-number-input-box m-3">
                     <button className="btn productdetail-minus-btn">
-                      <Dash />
+                      <Dash className="mb-1" />
                     </button>
                     <input
                       type="text"
@@ -156,7 +213,7 @@ function ProductDetail(props) {
                       readonly
                     />
                     <button className="btn productdetail-add-btn">
-                      <Plus />
+                      <Plus className="mb-1" />
                     </button>
                   </div>
                 </div>
@@ -173,30 +230,22 @@ function ProductDetail(props) {
                   position-relative
                 "
                 >
-                  <Link
-                    href="javascript:void(0)"
-                    role="button"
-                    className="productdetail-like-btn mx-1"
-                  >
+                  <button className="productdetail-like-btn mx-1">
                     {/* <i className="bi bi-heart-fill"></i> */}
-                    <HeartFill />
-                  </Link>
-                  {/* <!-- <Link href="#" role="button" className="add-cart-btn mx-1"
+                    <HeartFill className="mb-1" />
+                  </button>
+                  {/* <!-- <Link to="#/" role="button" className="add-cart-btn mx-1"
                   >加入購物車</Link
                 > --> */}
                   <button className="productdetail-add-cart-btn mx-1 btn">
                     加入購物車
                   </button>
                   <div className="position-absolute productdetail-about-membership position-relative">
-                    <Link
-                      href="javascript:void(0)"
-                      id="seeMember"
-                      className="productdetail-see-member"
-                    >
+                    <button id="seeMember" className="productdetail-see-member">
                       了解會員積分折扣制度
                       <QuestionCircle />
                       {/* <i className="bi bi-question-circle"></i> */}
-                    </Link>
+                    </button>
                     {/* <!-- =========about-membership-bubble start========= --> */}
                     <div className="productdetail-about-membership-bubble p-3 position-absolute">
                       <span className="productdetail-about-membership-bubble-arrow"></span>
@@ -268,7 +317,7 @@ function ProductDetail(props) {
               <div className="col-6 col-lg-3 px-0">
                 <div className="productdetail-article-card">
                   <div className="productdetail-article-img-box">
-                    <Link href="../Article/article-detail.html">
+                    <Link to="/recommend/detail">
                       <img
                         className="productdetail-cover-fit"
                         src={Tapachien}
@@ -278,7 +327,7 @@ function ProductDetail(props) {
                     </Link>
                   </div>
                   <Link
-                    href="../Article/article-detail.html"
+                    to="/recommend/detail"
                     className="productdetail-article-name"
                   >
                     大霸北稜線
@@ -288,7 +337,7 @@ function ProductDetail(props) {
               <div className="col-6 col-lg-3 px-0">
                 <div className="productdetail-article-card">
                   <div className="productdetail-article-img-box">
-                    <Link href="../Article/article-detail.html">
+                    <Link to="/recommend/detail">
                       <img
                         className="productdetail-cover-fit"
                         src={wuling}
@@ -298,7 +347,7 @@ function ProductDetail(props) {
                     </Link>
                   </div>
                   <Link
-                    href="../Article/article-detail.html"
+                    to="/recommend/detail"
                     className="productdetail-article-name"
                   >
                     武陵四秀登山步道
@@ -308,7 +357,7 @@ function ProductDetail(props) {
               <div className="col-6 col-lg-3 px-0">
                 <div className="productdetail-article-card">
                   <div className="productdetail-article-img-box">
-                    <Link href="../Article/article-detail.html">
+                    <Link to="/recommend/detail">
                       <img
                         className="productdetail-cover-fit"
                         src={Mayang}
@@ -318,7 +367,7 @@ function ProductDetail(props) {
                     </Link>
                   </div>
                   <Link
-                    href="../Article/article-detail.html"
+                    to="/recommend/detail"
                     className="productdetail-article-name"
                   >
                     馬洋山登山步道
@@ -338,7 +387,7 @@ function ProductDetail(props) {
               <div className="col-6 col-lg-3 px-0">
                 <div className="productdetail-product-card">
                   <div className="productdetail-product-img-box position-relative">
-                    <Link href="#">
+                    <Link to="#/">
                       <img
                         className="productdetail-cover-fit"
                         src={bagsPic2}
@@ -346,22 +395,15 @@ function ProductDetail(props) {
                         title="The North Face 黑灰色休閒後背包"
                       />
                     </Link>
-                    <Link
-                      href="javascript:void(0)"
-                      role="button"
-                      className="position-absolute productdetail-heart-icon-bkg position-relative"
-                    >
+                    <button className="position-absolute productdetail-heart-icon-bkg position-relative">
                       <HeartFill className="position-absolute productdetail-heart-icon" />
-                    </Link>
-                    <Link
-                      role="button"
-                      className="position-absolute productdetail-cart-icon-bkg position-relative"
-                    >
+                    </button>
+                    <button className="position-absolute productdetail-cart-icon-bkg position-relative">
                       <CartFill className="position-absolute productdetail-cart-icon" />
-                    </Link>
+                    </button>
                   </div>
                   <Link
-                    href="#"
+                    to="#/"
                     className="text-left productdetail-product-name"
                   >
                     The North Face
@@ -376,7 +418,7 @@ function ProductDetail(props) {
               <div className="col-6 col-lg-3 px-0">
                 <div className="productdetail-product-card">
                   <div className="productdetail-product-img-box position-relative">
-                    <Link href="#">
+                    <Link to="#/">
                       <img
                         className="productdetail-cover-fit"
                         src={bagsPic8}
@@ -384,22 +426,15 @@ function ProductDetail(props) {
                         title="The North Face 藍色專業登山後背包"
                       />
                     </Link>
-                    <Link
-                      href="javascript:void(0)"
-                      role="button"
-                      className="position-absolute productdetail-heart-icon-bkg position-relative"
-                    >
+                    <button className="position-absolute productdetail-heart-icon-bkg position-relative">
                       <HeartFill className="position-absolute productdetail-heart-icon" />
-                    </Link>
-                    <Link
-                      role="button"
-                      className="position-absolute productdetail-cart-icon-bkg position-relative"
-                    >
+                    </button>
+                    <button className="position-absolute productdetail-cart-icon-bkg position-relative">
                       <CartFill className="position-absolute productdetail-cart-icon" />
-                    </Link>
+                    </button>
                   </div>
                   <Link
-                    href="#"
+                    to="#/"
                     className="text-left productdetail-product-name"
                   >
                     The North Face
@@ -414,7 +449,7 @@ function ProductDetail(props) {
               <div className="col-6 col-lg-3 px-0">
                 <div className="productdetail-product-card">
                   <div className="productdetail-product-img-box position-relative">
-                    <Link href="#">
+                    <Link to="#/">
                       <img
                         className="productdetail-cover-fit"
                         src={clothesPic5}
@@ -422,22 +457,15 @@ function ProductDetail(props) {
                         title="The North Face 戶外保暖羽絨外套"
                       />
                     </Link>
-                    <Link
-                      href="javascript:void(0)"
-                      role="button"
-                      className="position-absolute productdetail-heart-icon-bkg position-relative"
-                    >
+                    <button className="position-absolute productdetail-heart-icon-bkg position-relative">
                       <HeartFill className="position-absolute productdetail-heart-icon" />
-                    </Link>
-                    <Link
-                      role="button"
-                      className="position-absolute productdetail-cart-icon-bkg position-relative"
-                    >
+                    </button>
+                    <button className="position-absolute productdetail-cart-icon-bkg position-relative">
                       <CartFill className="position-absolute productdetail-cart-icon" />
-                    </Link>
+                    </button>
                   </div>
                   <Link
-                    href="#"
+                    to="#/"
                     className="text-left productdetail-product-name"
                   >
                     The North Face
