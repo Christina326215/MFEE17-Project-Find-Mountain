@@ -47,7 +47,7 @@ function Bags(props) {
         $('.cart-num').text(cartNum);
       }
     });
-  });
+  }, []);
   return (
     <>
       <main>
@@ -247,7 +247,7 @@ function Bags(props) {
                     </button>
                   </div>
                   <Link
-                    href="./product-detail.html"
+                    to="/shop/product-detail"
                     className="text-left productbag-product-name"
                   >
                     Arcteryx 始祖鳥
