@@ -15,7 +15,7 @@ app.use(
 );
 
 //使用中間件，才能讀到body資料
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 //使用中間件，解析json的資料
 app.use(express.json());
 //========================================================//
