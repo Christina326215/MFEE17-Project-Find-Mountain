@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import $ from 'jquery';
 import 'slick-carousel';
-import '../../styles/HomeMountain.scss';
+import '../../styles/HomePage/HomeArticle.scss';
 import { Link } from 'react-router-dom'; //a標籤要變成link
-import '../../styles/HomeArticle.scss';
 
 //images
 import sliderBanner from '../../img/contentMountain/jinmianshan.jpeg';

@@ -101,7 +101,7 @@ body {
   top: 0;
   left: 0;
   color: transparent;
-  background: no-repeat center/150% url('../img/contentTop/rainbow.jpg');
+  background: no-repeat center/150% url('../../img/contentTop/rainbow.jpg');
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-clip-path: ellipse(100px 100px at 0% 50%);
@@ -331,7 +331,6 @@ body {
   .homepage-blobs {
     max-width: 400px;
   }
-  
 }
 @media screen and (max-width: 1024px) {
   .homepage-title {
@@ -358,5 +357,4 @@ body {
     right: -10%;
     transform: scale(0.7, 0.7);
   }
-  
 }
