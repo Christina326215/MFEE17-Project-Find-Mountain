@@ -875,7 +875,8 @@
   }
   .mountain_maps {
     bottom: 69px;
-    right: 25px;
+    right: 100px; /* 9/14 add */
+    /* right: 25px; */ /* 9/14 del */
   }
   .mountain_low_map {
     width: 450px;
@@ -922,6 +923,8 @@
   }
   .mountain_map_btn {
     width: 350px;
+    left: 60%; /* 9/14 add */
+    transform: translateX(-60%); /* 9/14 add */
   }
   .mountain_low_button,
   .mountain_middle_button,
@@ -942,7 +945,6 @@
   }
   .mountain_list_detail_box {
     display: block;
-    /* margin-bottom: 50px; */
   }
   .mountain_list_distance_title {
     position: static;
@@ -955,91 +957,23 @@
     margin: 16px 0;
   }
 
+  .mountain_product-list{
+    margin-bottom: 80px !important; /* 9/14 add */
+  }
+
   .mountain_downLowBear {
     right: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-10%); /* 9/14 add */
+    /* transform: translateX(-50%); */ /* 9/14 del */
     top: 70%;
   }
   .mountain_bearSpeak {
     right: 50%;
-    transform: translateX(45%);
-    top: 70%;
+    transform: translateX(125%); /* 9/14 add */
+    /* transform: translateX(45%); */ /* 9/14 del */
+    /* top: 70%; */ /* 9/14 del */
   }
 
-}
-
-@media screen and (max-width: 768px) {
-  /*============below media header============*/
-  /* .btns {
-    right: 70px;
-  }
-  .btn_nav {
-    cursor: pointer;
-    display: block;
-    position: absolute;
-    right: 25px;
-    top: 20px;
-  }
-  .bar1,
-  .bar2,
-  .bar3 {
-    position: relative;
-    width: 35px;
-    height: 5px;
-    background-color: var(--font-color);
-    margin: 6px 0;
-    transition: 0.4s;
-  }
-  .change .bar1 {
-    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
-    transform: rotate(-45deg) translate(-9px, 6px);
-  }
-  .change .bar2 {
-    opacity: 0;
-  }
-  .change .bar3 {
-    -webkit-transform: rotate(45deg) translate(-8px, -8px);
-    transform: rotate(45deg) translate(-8px, -8px);
-  } */
-
-  /*============below media nav============*/
-  /* .nav {
-    width: 100%;
-    background-color: var(--button-color);
-    position: absolute;
-    top: 78px;
-    left: 0;
-    display: none;
-  }
-  .nav_show {
-    display: block;
-  }
-  .nav ul {
-    flex-direction: column;
-    margin: 0;
-    overflow: hidden;
-  }
-  .nav ul li {
-    border-bottom: 1px solid var(--info-color);
-    width: 100%;
-  }
-  .nav ul li a {
-    display: flex;
-    justify-content: center;
-    padding: 10px 40px;
-    color: var(--font-color);
-    line-height: 36px;
-    vertical-align: middle;
-    font-size: 22px;
-  } */
-
-  /*============below media footer============*/
-  /* .footer_head {
-    margin-right: 0px;
-  }
-  .footer_logo {
-    margin-right: 20px;
-  } */
 }
 
 /*********** ============below media 530px============ *************/
