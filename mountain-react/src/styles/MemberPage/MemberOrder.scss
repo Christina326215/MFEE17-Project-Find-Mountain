@@ -61,16 +61,16 @@
   top: 70px;
   display: none;
 }
-.member-about-membership-bubble-arrow {
-  width: 0px;
-  height: 0px;
-  border-width: 15px;
-  border-style: solid;
-  border-color: transparent transparent #f2f2f2 transparent;
-  position: absolute;
-  top: -25px;
-  right: 145px;
-}
+// .member-about-membership-bubble-arrow {
+//   width: 0px;
+//   height: 0px;
+//   border-width: 15px;
+//   border-style: solid;
+//   border-color: transparent transparent #f2f2f2 transparent;
+//   position: absolute;
+//   top: -25px;
+//   right: 145px;
+// }
 .member-membership {
   /* font-family: Source Sans Pro; */
   font-size: 14px;
@@ -175,7 +175,7 @@
   }
 }
 #member_order_checkout-progress:before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   top: 50%;
@@ -186,7 +186,7 @@
   transform: translateY(-50%) perspective(1000px);
 }
 #member_order_checkout-progress:after {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   top: 50%;
@@ -229,7 +229,10 @@
   z-index: 2;
   position: relative;
 }
-#member_order_checkout-progress .member_order_progress-bar1 .member_order_step .member_order_step-label {
+#member_order_checkout-progress
+  .member_order_progress-bar1
+  .member_order_step
+  .member_order_step-label {
   position: absolute;
   top: calc(100% + 25px);
   left: 50%;
@@ -243,11 +246,17 @@
   transition: 0.3s ease;
 }
 @media (max-width: 767px) {
-  #member_order_checkout-progress .member_order_progress-bar1 .member_order_step .member_order_step-label {
+  #member_order_checkout-progress
+    .member_order_progress-bar1
+    .member_order_step
+    .member_order_step-label {
     top: calc(100% + 15px);
   }
 }
-#member_order_checkout-progress .member_order_progress-bar1 .member_order_step span {
+#member_order_checkout-progress
+  .member_order_progress-bar1
+  .member_order_step
+  span {
   color: #ccc;
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
@@ -255,7 +264,10 @@
   -webkit-transform: translate3d(0, 0, 0) scale(1) perspective(1000px);
   transform: translate3d(0, 0, 0) scale(1) perspective(1000px);
 }
-#member_order_checkout-progress .member_order_progress-bar1 .member_order_step .fa-check {
+#member_order_checkout-progress
+  .member_order_progress-bar1
+  .member_order_step
+  .member_order_fa-check {
   color: #fff;
   position: absolute;
   left: 50%;
@@ -267,24 +279,41 @@
   -webkit-transform: translate3d(-50%, -50%, 0) scale(0) perspective(1000px);
   transform: translate3d(-50%, -50%, 0) scale(0) perspective(1000px);
 }
-#member_order_checkout-progress .member_order_progress-bar1 .member_order_step.member_order_active span,
-#member_order_checkout-progress .member_order_progress-bar1 .member_order_step.member_order_active .member_order_step-label {
+#member_order_checkout-progress
+  .member_order_progress-bar1
+  .member_order_step.member_order_active
+  span,
+#member_order_checkout-progress
+  .member_order_progress-bar1
+  .member_order_step.member_order_active
+  .member_order_step-label {
   color: #6da77f;
 }
-#member_order_checkout-progress .member_order_progress-bar1 .member_order_step.valid .fa-check {
+#member_order_checkout-progress
+  .member_order_progress-bar1
+  .member_order_step.valid
+  .member_order_fa-check {
   -webkit-transform: translate3d(-50%, -50%, 0) scale(1) perspective(1000px);
   transform: translate3d(-50%, -50%, 0) scale(1) perspective(1000px);
 }
-#member_order_checkout-progress .member_order_progress-bar1 .member_order_step.valid span {
+#member_order_checkout-progress
+  .member_order_progress-bar1
+  .member_order_step.valid
+  span {
   color: #6da77f;
   -webkit-transform: translate3d(0, 0, 0) scale(2) perspective(1000px);
   transform: translate3d(0, 0, 0) scale(2) perspective(1000px);
 }
-#member_order_checkout-progress .member_order_progress-bar1 .member_order_step.valid .member_order_step-label {
+#member_order_checkout-progress
+  .member_order_progress-bar1
+  .member_order_step.valid
+  .member_order_step-label {
   color: #2c3e50 !important;
 }
-#member_order_checkout-progress .member_order_progress-bar1 .member_order_step:after {
-  content: "";
+#member_order_checkout-progress
+  .member_order_progress-bar1
+  .member_order_step:after {
+  content: '';
   position: absolute;
   z-index: -1;
   left: 50%;
@@ -300,15 +329,21 @@
   transition: 0.3s ease;
 }
 @media (max-width: 767px) {
-  #member_order_checkout-progress .member_order_progress-bar1 .member_order_step:after {
+  #member_order_checkout-progress
+    .member_order_progress-bar1
+    .member_order_step:after {
     width: 30px;
     height: 30px;
   }
 }
-#member_order_checkout-progress .member_order_progress-bar1 .member_order_step.member_order_active:after {
+#member_order_checkout-progress
+  .member_order_progress-bar1
+  .member_order_step.member_order_active:after {
   border: 3px solid #6da77f;
 }
-#member_order_checkout-progress .member_order_progress-bar1 .member_order_step.valid:after {
+#member_order_checkout-progress
+  .member_order_progress-bar1
+  .member_order_step.valid:after {
   background-color: #6da77f;
   border: 3px solid #6da77f;
 }

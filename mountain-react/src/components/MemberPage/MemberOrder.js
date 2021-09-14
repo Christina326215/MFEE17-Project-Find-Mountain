@@ -218,7 +218,7 @@ function MemberOrder() {
                                   {/* <!--FIXME:???沒用到此step-1 className--> */}
                                   <span></span>
                                   {/* <!-- "opaque" change to "" --> */}
-                                  <div className="fa fa-check member_order_opaque"></div>
+                                  <div className="member_order_fa member_order_fa-check member_order_opaque"></div>
                                   <div className="member_order_step-label">
                                     未處理
                                   </div>
@@ -226,14 +226,14 @@ function MemberOrder() {
                                 {/* <!-- add class "active" --> */}
                                 <div className="member_order_step member_order_step-2">
                                   <span></span>
-                                  <div className="fa fa-check member_order_opaque"></div>
+                                  <div className="member_order_fa member_order_fa-check member_order_opaque"></div>
                                   <div className="member_order_step-label">
                                     處理中
                                   </div>
                                 </div>
                                 <div className="member_order_step member_order_step-3">
                                   <span></span>
-                                  <div className="fa fa-check member_order_opaque"></div>
+                                  <div className="member_order_fa member_order_fa-check member_order_opaque"></div>
                                   <div className="member_order_step-label">
                                     已完成
                                   </div>
