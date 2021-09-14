@@ -60,9 +60,9 @@ function MemberProductArticle() {
   return (
     <>
       <div className="container">
-        <div className="row">
+        <div className="row zindex">
           {/* <!-- manage-left-side start --> */}
-          <div className="col-12 col-md-3 my-3">
+          <div className="col-12 col-lg-3 my-3 zindex-height">
             <table
               className="
               table table-hover table-bordered member-table-all-left
@@ -130,7 +130,7 @@ function MemberProductArticle() {
           </div>
           {/* <!-- manage-left-side end --> */}
           {/* <!-- manage-right-side start--> */}
-          <div className="col-12 col-md-9 mt-5">
+          <div className="col-12 col-lg-9 mt-5 zindex-low">
             <h2 className="member-product-article-title-main">我的產品收藏</h2>
             <div className="wrapper">
               <div className="tab">
@@ -164,31 +164,31 @@ function MemberProductArticle() {
                     <thead>
                       <tr>
                         <th
-                          scope="col-1"
+                          scope="col-1 col-md-1"
                           className="align-middle member-product-article-product-img"
                         >
                           產品照片
                         </th>
                         <th
-                          scope="col-1"
+                          scope="col-1 col-md-1"
                           className="align-middle member-product-article-product-name"
                         >
                           產品名稱
                         </th>
                         <th
-                          scope="col-2"
+                          scope="col-2 col-md-2"
                           className="align-middle member-product-article-product-size"
                         >
                           尺寸
                         </th>
                         <th
-                          scope="col-4"
+                          scope="col-4 col-md-4"
                           className="align-middle member-product-article-product-price"
                         >
                           單價
                         </th>
                         <th
-                          scope="col-1"
+                          scope="col-1 col-md-1"
                           className="align-middle member-product-article-product-buy"
                         >
                           加入購物車

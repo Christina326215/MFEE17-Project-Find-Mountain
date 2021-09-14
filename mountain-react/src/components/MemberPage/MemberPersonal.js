@@ -12,9 +12,9 @@ function MemberPersonal() {
   return (
     <>
       <div className="container">
-        <div className="row">
+        <div className="row zindex">
           {/* <!-- manage-left-side start --> */}
-          <div className="col-12 col-md-3 my-3">
+          <div className="col-12 col-lg-3 my-3 zindex-height">
             <table
               className="
               table table-hover table-bordered member-table-all-left
@@ -82,7 +82,7 @@ function MemberPersonal() {
           </div>
           {/* <!-- manage-left-side end --> */}
           {/* <!-- manage-right-side start--> */}
-          <div className="col-12 col-md-9 mt-5">
+          <div className="col-12 col-lg-9 mt-5 zindex-low">
             <h2 className="member-personal-title-main">我的會員資料</h2>
             <div className="member-personal-right-side my-4">
               <table className="table table-borderless m-5 p-md-4 p-lg-5">

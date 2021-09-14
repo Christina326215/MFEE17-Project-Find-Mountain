@@ -52,40 +52,40 @@
 }
 /* 左邊管理區 end */
 
-/* 會員制度氣泡 start */
-.member-about-membership-bubble {
-  width: 300px;
-  background: #f2f2f2;
-  border-radius: 5px;
-  right: -45px;
-  top: 70px;
-  display: none;
-}
-// .member-about-membership-bubble-arrow {
-//   width: 0px;
-//   height: 0px;
-//   border-width: 15px;
-//   border-style: solid;
-//   border-color: transparent transparent #f2f2f2 transparent;
-//   position: absolute;
-//   top: -25px;
-//   right: 145px;
+// /* 會員制度氣泡 start */
+// .member-about-membership-bubble {
+//   width: 300px;
+//   background: #f2f2f2;
+//   border-radius: 5px;
+//   right: -45px;
+//   top: 70px;
+//   display: none;
 // }
-.member-membership {
-  /* font-family: Source Sans Pro; */
-  font-size: 14px;
-  line-height: 20px;
-}
-.member-membership-low {
-  color: #4e4e4e;
-}
-.member-membership-medium {
-  color: #19634a;
-}
-.member-membership-high {
-  color: #ffb943;
-}
-/* 會員制度氣泡 end */
+// // .member-about-membership-bubble-arrow {
+// //   width: 0px;
+// //   height: 0px;
+// //   border-width: 15px;
+// //   border-style: solid;
+// //   border-color: transparent transparent #f2f2f2 transparent;
+// //   position: absolute;
+// //   top: -25px;
+// //   right: 145px;
+// // }
+// .member-membership {
+//   /* font-family: Source Sans Pro; */
+//   font-size: 14px;
+//   line-height: 20px;
+// }
+// .member-membership-low {
+//   color: #4e4e4e;
+// }
+// .member-membership-medium {
+//   color: #19634a;
+// }
+// .member-membership-high {
+//   color: #ffb943;
+// }
+// /* 會員制度氣泡 end */
 
 /* 右邊區域 start */
 .member-comment-table-all {
@@ -106,6 +106,7 @@
 }
 .member-comment-text-weight-middle {
   font-size: 16px;
+  padding-left: 0;
 }
 .member-comment-product-name {
   width: 200px;
@@ -169,9 +170,12 @@
   font-weight: 900;
   position: relative;
 }
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   #member_order_checkout-progress {
     font-size: 1.5em;
+  }
+  #member_order_checkout-progress {
+    margin: 0px 150px;
   }
 }
 #member_order_checkout-progress:before {
@@ -245,7 +249,7 @@
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   #member_order_checkout-progress
     .member_order_progress-bar1
     .member_order_step
@@ -328,7 +332,7 @@
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   #member_order_checkout-progress
     .member_order_progress-bar1
     .member_order_step:after {
@@ -373,7 +377,7 @@
   cursor: pointer;
   text-align: center;
 }
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .button-container .btn {
     width: 100%;
     margin-bottom: 15px;

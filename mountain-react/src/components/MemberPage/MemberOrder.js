@@ -40,9 +40,9 @@ function MemberOrder() {
   return (
     <>
       <div className="container">
-        <div className="row">
+        <div className="row zindex">
           {/* <!-- manage-left-side start --> */}
-          <div className="col-12 col-md-3 my-3">
+          <div className="col-12 col-lg-3 my-3 zindex-height">
             <table
               className="
               table table-hover table-bordered member-table-all-left
@@ -110,7 +110,7 @@ function MemberOrder() {
           </div>
           {/* <!-- manage-left-side end --> */}
           {/* <!-- manage-right-side start--> */}
-          <div className="col-12 col-md-9 mt-5">
+          <div className="col-12 col-lg-9 mt-5 zindex-low">
             <h2 className="member-comment-title-main">我的訂單狀態</h2>
             <div className="wrapper">
               <div className="tab">
