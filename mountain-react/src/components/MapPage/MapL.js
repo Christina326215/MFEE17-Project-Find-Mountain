@@ -107,7 +107,7 @@ function MapL() {
           {/* <!-- =========map list start========= --> */}
           <div className="mountain_content_list">
             <h2>初階列表</h2>
-
+            {/* 象山 list star */}
             <div className="mountain_list">
               <div className="mountain_Xiangshan_list">
                 <img
@@ -198,6 +198,9 @@ function MapL() {
                 </Link>
               </div>
             </div>
+            {/* 象山 list end */}
+
+            {/* 金面 list star */}
             <div className="mountain_list">
               <div className="mountain_Jinmian_list">
                 <img
@@ -288,7 +291,9 @@ function MapL() {
                 </Link>
               </div>
             </div>
+            {/* 金面 list end */}
 
+            {/* 七星 list star */}
             <div className="mountain_list_last">
               <div className="mountain_Chi-hsing_list">
                 <img
@@ -379,6 +384,7 @@ function MapL() {
                 </Link>
               </div>
             </div>
+            {/* 七星 list end */}
           </div>
           {/* <!-- =========map list end========= --> */}
 
