@@ -21,7 +21,9 @@ function OrderList(props) {
                 />
               </div>
             </td>
-            <td>SALOMON EVASION GORE-TEX登山健行鞋</td>
+            <td class="outfit-productName">
+              SALOMON EVASION GORE-TEX登山健行鞋
+            </td>
             <td>NT$ 1000</td>
             <td>Ｘ１</td>
           </tr>

@@ -53,11 +53,23 @@
 /* 左邊管理區 end */
 
 /* 會員制度氣泡 start */
+.zindex {
+  position: relative;
+}
+.zindex-low {
+  position: relative;
+  z-index: 1;
+}
+.zindex-height {
+  position: relative;
+  z-index: 2;
+}
 .member-about-membership-bubble {
   width: 300px;
   background: #f2f2f2;
   border-radius: 5px;
-  right: -45px;
+  ////////////////////
+  right: -90px;
   top: 70px;
   display: none;
 }
@@ -69,8 +81,17 @@
   border-color: transparent transparent #f2f2f2 transparent;
   position: absolute;
   top: -25px;
-  right: 145px;
+  right: 190px;
 }
+@media (max-width: 768px) {
+  .member-about-membership-bubble {
+    right: 110px;
+  }
+  .member-about-membership-bubble-arrow {
+    right: 205px;
+  }
+}
+
 .member-membership {
   /* font-family: Source Sans Pro; */
   font-size: 14px;
