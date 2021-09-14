@@ -21,9 +21,9 @@ function MemberComment() {
   return (
     <>
       <div className="container">
-        <div className="row">
+        <div className="row zindex">
           {/* <!-- manage-left-side start --> */}
-          <div className="col-12 col-md-3 my-3">
+          <div className="col-12 col-lg-3 my-3 zindex-height">
             <table
               className="
               table table-hover table-bordered member-table-all-left
@@ -91,7 +91,7 @@ function MemberComment() {
           </div>
           {/* <!-- manage-left-side end --> */}
           {/* <!-- manage-right-side start--> */}
-          <div className="col-12 col-md-9 mt-5">
+          <div className="col-12 col-lg-9 mt-5 zindex-low">
             <h2 className="member-comment-title-main">我的評論管理</h2>
             {/* <!-- <div><h6>去過</h6></div> --> */}
             <table className="table member-comment-table-all text-center p-md-4 p-lg-5 mt-5">
