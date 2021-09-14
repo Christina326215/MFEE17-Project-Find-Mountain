@@ -4,23 +4,20 @@ import { withRouter } from 'react-router-dom'; //可以獲取history,location,ma
 import $ from 'jquery';
 import '../../styles/MemberPage/MemberOrder.scss'; //member map and route style
 
+//====== below pages star ======//
+import { memberSideHead } from './pages/MemberSideHead'; //member Side Head
+//====== below pages end ======//
+
 //====== below icon star ======//
-import { BsQuestionCircle, BsTrash } from 'react-icons/bs';
+import { BsTrash } from 'react-icons/bs';
 //====== below icon end ======//
 
 //====== below img import start ======//
-import Avatar from '../../img/signin.jpg';
-import MemberLevel from '../../img/low.svg';
 import MemberOrderImg from '../../img/shoes-pic2.jpeg';
 //====== above img import end ======//
 
 function MemberOrder() {
   useEffect(() => {
-    //會員制度泡泡
-    $('.see-member').click((e) => {
-      $('.about-membership-bubble').toggle('display');
-    });
-
     // 切換區域tab-switch
     let menu = document.querySelectorAll('#menu');
     let content = document.querySelectorAll('#content');
@@ -52,47 +49,7 @@ function MemberOrder() {
               p-md-4 p-lg-5
             "
             >
-              <thead>
-                <tr>
-                  <th scope="col" className="text-center">
-                    <div className="member-headshot-img-box">
-                      <img src={Avatar} alt="" className="member-cover-fit" />
-                    </div>
-                    <h3 className="m-2 member-member-name">王小明</h3>
-                    <img src={MemberLevel} alt="" />
-                    <div className="position-relative member-level">
-                      <span className="member-grade-icon">肉腳</span>
-                      <Link
-                        to="javascript:void(0)"
-                        id="seeMember"
-                        className="see-member see-member-style"
-                      >
-                        <BsQuestionCircle size={20} />
-                      </Link>
-                      {/* <!-- =========about-membership-bubble start========= --> */}
-                      <div className="member-about-membership-bubble p-3 position-absolute">
-                        <span className="member-about-membership-bubble-arrow"></span>
-                        <span className="member-membership">
-                          可至路線地圖之我的成就區，查看累積會員等級積分，享有商品優惠折扣哦！{' '}
-                        </span>
-                        <br />
-                        <span className="member-membership member-membership-low">
-                          肉腳：完成爬山積分3分以上{' '}
-                        </span>
-                        <br />
-                        <span className="member-membership member-membership-medium">
-                          山友 ：完成爬山積分20分以上{' '}
-                        </span>
-                        <br />
-                        <span className="member-membership member-membership-high">
-                          山神 ：完成爬山積分50分以上
-                        </span>
-                      </div>
-                      {/* <!-- =========about-membership-bubble end========= --> */}
-                    </div>
-                  </th>
-                </tr>
-              </thead>
+              <thead>{memberSideHead}</thead>
               <tbody>
                 <tr>
                   <td scope="row" className="text-center">
@@ -167,6 +124,7 @@ function MemberOrder() {
                     id="menu"
                     className="btn btn-outline-primary menu active"
                     click=""
+                    to="#/"
                   >
                     待完成
                   </Link>
@@ -175,6 +133,7 @@ function MemberOrder() {
                     id="menu"
                     className="btn btn-outline-primary menu"
                     click=""
+                    to="#/"
                   >
                     已完成
                   </Link>
@@ -245,30 +204,39 @@ function MemberOrder() {
                           className="member-comment-text-weight-top"
                         >
                           <div className="progress_bar_inline_block">
-                            {/* <!-- className change to current "step-2" --> */}
+                            {/* <!--FIXME:???沒用到此className--> */}
+                            {/* <!-- class change to current "step-2" --> */}
                             <div
                               className="step-1"
-                              id="checkout-progress"
+                              id="member_order_checkout-progress"
                               data-current-step="1"
                             >
-                              <div className="progress-bar1">
+                              {/* <!--FIXME:???沒用到此className--> */}
+                              <div className="member_order_progress-bar1">
                                 {/* <!-- "active" change to "valid" --> */}
-                                <div className="step step-1 active">
+                                <div className="member_order_step step-1 member_order_active">
+                                  {/* <!--FIXME:???沒用到此step-1 className--> */}
                                   <span></span>
                                   {/* <!-- "opaque" change to "" --> */}
-                                  <div className="fa fa-check opaque"></div>
-                                  <div className="step-label">未處理</div>
+                                  <div className="fa fa-check member_order_opaque"></div>
+                                  <div className="member_order_step-label">
+                                    未處理
+                                  </div>
                                 </div>
-                                {/* <!-- add className "active" --> */}
-                                <div className="step step-2">
+                                {/* <!-- add class "active" --> */}
+                                <div className="member_order_step member_order_step-2">
                                   <span></span>
-                                  <div className="fa fa-check opaque"></div>
-                                  <div className="step-label">處理中</div>
+                                  <div className="fa fa-check member_order_opaque"></div>
+                                  <div className="member_order_step-label">
+                                    處理中
+                                  </div>
                                 </div>
-                                <div className="step step-3">
+                                <div className="member_order_step member_order_step-3">
                                   <span></span>
-                                  <div className="fa fa-check opaque"></div>
-                                  <div className="step-label">已完成</div>
+                                  <div className="fa fa-check member_order_opaque"></div>
+                                  <div className="member_order_step-label">
+                                    已完成
+                                  </div>
                                 </div>
                               </div>
                             </div>

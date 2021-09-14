@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
-import '../../styles/HomeOutfit.scss';
+import '../../styles/HomePage/HomeOutfit.scss';
 
 import Blobs3 from '../../img/contentShop/Vector.png';
 import Shop from '../../img/contentDress/shop.gif';

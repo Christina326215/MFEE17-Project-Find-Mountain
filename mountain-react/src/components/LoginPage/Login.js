@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import $ from 'jquery';
 import '../../styles/LoginStyle/Login.css';
+import '../../../node_modules/slick-carousel/slick/slick.css';
+import '../../../node_modules/slick-carousel/slick/slick.min.js';
+import '../../../node_modules/slick-carousel/slick/slick-theme.css';
 
 // ===icon start===
 import { FaFacebookSquare, FaGoogle, FaLine } from 'react-icons/fa';
@@ -9,14 +13,38 @@ import { FaFacebookSquare, FaGoogle, FaLine } from 'react-icons/fa';
 
 //===import img start===
 import loginLogo from '../../img/logo.svg';
+import slider1 from '../../img/pic1.webp';
+import slider2 from '../../img/pic2.webp';
+import slider3 from '../../img/pic3.webp';
 //===import img end===
 
 function Login(props) {
+  useEffect(() => {
+    $('.login-display-photo-box').slick({
+      dots: false,
+      speed: 500,
+      autoplay: true,
+      autoplaySpeed: 2800,
+      fade: true,
+      cssEase: 'linear',
+    });
+  }, []);
   return (
     <>
       <div class="">
         <div class="d-flex">
           <div class="login-w-50-l login-bg-pic p-3 position-relative">
+            <div className="login-display-photo-box">
+              <div class="login-slick-photo-box">
+                <img src={slider1} alt="" title="" class="cover-fit" />
+              </div>
+              <div class="login-slick-photo-box">
+                <img src={slider2} alt="" title="" class="cover-fit" />
+              </div>
+              <div class="login-slick-photo-box">
+                <img src={slider3} alt="" title="" class="cover-fit" />
+              </div>
+            </div>
             <div class="position-absolute login-logobox">
               <figure class="login-logo">
                 <img src={loginLogo} alt="logo" />
@@ -83,17 +111,28 @@ function Login(props) {
               <div class="mb-3">
                 <h6 class="login-fast">快速登入</h6>
                 <span>&nbsp;&nbsp;</span>
-                <Link href="#" class="">
-                  <FaFacebookSquare class="h3" />
-                </Link>
-                <span>&nbsp;&nbsp;</span>
-                <Link href="#" class="">
-                  <FaGoogle class="h3" />
-                </Link>
-                <span>&nbsp;&nbsp;</span>
-                <Link href="#" class="">
-                  <FaLine class="h3" />
-                </Link>
+                <div class="login-social-container">
+                  <Link href="#" class="">
+                    <FaFacebookSquare class="h3" />
+                  </Link>
+                  <span>&nbsp;&nbsp;</span>
+                  <Link href="#" class="">
+                    <FaGoogle class="h3" />
+                  </Link>
+                  <span>&nbsp;&nbsp;</span>
+                  <Link href="#" class="">
+                    <FaLine class="h3" />
+                  </Link>
+                  {/* <a href="#" class="social">
+                    <ion-icon name="logo-facebook"></ion-icon>
+                  </a>
+                  <a href="#" class="social">
+                    <ion-icon name="logo-googleplus"></ion-icon>
+                  </a>
+                  <a href="#" class="social">
+                    <ion-icon name="logo-linkedin"></ion-icon>
+                  </a> */}
+                </div>
               </div>
             </form>
           </div>

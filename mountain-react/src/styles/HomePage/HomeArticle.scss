@@ -13,23 +13,8 @@
   margin: 0 auto;
 }
 
-img {
-  max-width: 100%;
-}
-
-ul,
-li {
-  padding: 0;
-  margin: 0;
-  list-style-type: none;
-}
 a:hover {
   text-decoration: none;
-}
-p {
-  font-size: 14px;
-  line-height: 16px;
-  margin: 0;
 }
 
 /*USE CSS for Slider*/
@@ -152,6 +137,8 @@ p {
   height: 100%;
 }
 .homepage-ov-hidden {
+  font-size: 14px;
+  margin: 0;
   line-height: 23px;
 }
 .homepage-memory {
@@ -260,14 +247,14 @@ p {
   .homepage-slick-prev {
     left: 0;
     right: unset;
-    background: url(../img/contentMountain/up-arrow.svg);
+    background: url(../../img/contentMountain/up-arrow.svg);
   }
 
   .homepage-slick-next {
     left: unset;
     right: 0;
     background: #6da77f;
-    background: url(../img/contentMountain/down-arrow.svg);
+    background: url(../../img/contentMountain/down-arrow.svg);
   }
 
   .homepage-vehicle-detail-banner .homepage-car-slider-desc {
