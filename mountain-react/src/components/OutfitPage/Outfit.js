@@ -5,29 +5,22 @@ import '../../styles/outfit.css';
 //=== package start===
 import $ from 'jquery';
 import { fabric } from 'fabric';
-import { html2canvas } from 'html2canvas';
-import { canvas2image } from 'canvas2image';
+import html2canvas from 'html2canvas';
 //=== package end===
 
 //=== components start===
 import SelectProduct from './SelectProduct';
-// import ProductSlider from './ProductSlider';
+import OutfitProductSlider from './OutfitProductSlider';
 import OrderList from './OrderList';
 //=== components end===
 
 // ===icon start===
 import { FaFacebookSquare } from 'react-icons/fa';
-
-import {
-  BsFillCaretLeftFill,
-  BsFillCaretRightFill,
-  BsDownload,
-} from 'react-icons/bs';
+import { BsDownload } from 'react-icons/bs';
 // ===icon end===
 
 //===import img start===
-import clothesPic1Removebg from '../../img/img-outfit/clothes-pic1-removebg-preview.png';
-import clothesPic2Removebg from '../../img/img-outfit/clothes-pic2-removebg-preview.png';
+
 //===import img end===
 
 function Outfit(props) {
@@ -163,218 +156,47 @@ function Outfit(props) {
           iLastY = iY;
         }
       };
-
-      $save.onclick = function html2canvas(e) {
-        // var type = "png",
-        //   w = "800",
-        //   h = "452";
-        // Canvas2Image.saveAsImage(canvasPng, w, h, type);
-        // console.log(w, h, type);
-        html2canvas(document.getElementById('canvasBox')).then(function (
-          canvas
-        ) {
-          // document.body.appendChild(canvas);
-          var a = document.createElement('a');
-          a.href = canvas
-            .toDataURL('image/jpeg')
-            .replace('image/jpeg', 'image/octet-stream');
-          a.download = 'image.jpg';
-          a.click();
-        });
-      };
     }
+    $('#save').click(function () {
+      // var type = "png",
+      //   w = "800",
+      //   h = "452";
+      // Canvas2Image.saveAsImage(canvasPng, w, h, type);
+      // console.log(w, h, type);
+      html2canvas(document.getElementById('canvasBox')).then(function (canvas) {
+        // document.body.appendChild(canvas);
+        var a = document.createElement('a');
+        a.href = canvas
+          .toDataURL('image/jpeg')
+          .replace('image/jpeg', 'image/octet-stream');
+        a.download = 'image.jpg';
+        a.click();
+      });
+    });
     // onload = init;
   }, []);
   return (
     <>
-      <h2 class="outfit-title">建議穿搭</h2>
-      <p class="outfit-intro">
+      <h2 className="outfit-title">建議穿搭</h2>
+      <p className="outfit-intro">
         依下面步驟來挑選最佳商品搭配並製作出個人化明信片
       </p>
-      <div class="outfit-content">
-        <div class="outfit-sub-content">
-          <div class="container">
-            <div class="row my-3 d-flex justify-content-center">
-              <div class="col col-lg-4">
+      <div className="outfit-content">
+        <div className="outfit-sub-content">
+          <div className="container">
+            <div className="row my-3 d-flex justify-content-center">
+              <div className="col col-lg-4">
                 <SelectProduct />
               </div>
-              <div class="outfit-right-side col col-lg-8">
-                <div id="div1" class="outfit-target">
-                  {/* product-warpper start */}
-                  <div class="outfit-product-slider">
-                    <BsFillCaretLeftFill class="outfit-prev" id="slideLeft" />
-                    <BsFillCaretRightFill class="outfit-next" id="slideRight" />
-                    <div class="outfit-product-wrapper" id="slider">
-                      <div class="outfit-product">
-                        <div class="outfit-product-img">
-                          <img
-                            src={clothesPic1Removebg}
-                            alt=""
-                            class="outfit-slider-image outfit-cover-fit"
-                            draggable
-                          />
-                        </div>
-                        <div class="outfit-product-info">
-                          <p>
-                            the North Face
-                            <br />
-                            黑灰色休閒後背包
-                          </p>
-                        </div>
-                      </div>
-                      <div class="outfit-product">
-                        <div class="outfit-product-img">
-                          <img
-                            src={clothesPic2Removebg}
-                            alt=""
-                            class="outfit-slider-image outfit-cover-fit"
-                            draggable
-                          />
-                        </div>
-                        <div class="outfit-product-info">
-                          <p>
-                            the North Face
-                            <br />
-                            黑灰色休閒後背包
-                          </p>
-                        </div>
-                      </div>
-                      <div class="outfit-product">
-                        <div class="outfit-product-img">
-                          <img
-                            src="./img/img-outfit/clothes-pic3-removebg-preview.png"
-                            alt=""
-                            class="outfit-slider-image outfit-cover-fit"
-                            draggable
-                          />
-                        </div>
-                        <div class="outfit-product-info">
-                          <p>
-                            the North Face
-                            <br />
-                            黑灰色休閒後背包
-                          </p>
-                        </div>
-                      </div>
-                      <div class="outfit-product">
-                        <div class="outfit-product-img">
-                          <img
-                            src="./img/img-outfit/bags-pic1-removebg-preview.png"
-                            alt=""
-                            class="outfit-slider-image outfit-cover-fit"
-                            draggable
-                          />
-                        </div>
-                        <div class="outfit-product-info">
-                          <p>
-                            the North Face
-                            <br />
-                            黑灰色休閒後背包
-                          </p>
-                        </div>
-                      </div>
-                      <div class="outfit-product">
-                        <div class="outfit-product-img">
-                          <img
-                            src="./img/img-outfit/bags-pic2-removebg-preview.png"
-                            alt=""
-                            class="outfit-slider-image outfit-cover-fit"
-                            draggable
-                          />
-                        </div>
-                        <div class="outfit-product-info">
-                          <p>
-                            the North Face
-                            <br />
-                            黑灰色休閒後背包
-                          </p>
-                        </div>
-                      </div>
-                      <div class="outfit-product">
-                        <div class="outfit-product-img">
-                          <img
-                            src="./img/img-outfit/bags-pic3-removebg-preview.png"
-                            alt=""
-                            class="outfit-slider-image outfit-cover-fit"
-                            draggable
-                          />
-                        </div>
-                        <div class="outfit-product-info">
-                          <p>
-                            the North Face
-                            <br />
-                            黑灰色休閒後背包
-                          </p>
-                        </div>
-                      </div>
-                      <div class="outfit-product">
-                        <div class="outfit-product-img">
-                          <img
-                            src="./img/img-outfit/shoes-pic1-removebg-preview.png"
-                            alt=""
-                            class="outfit-slider-image outfit-cover-fit"
-                            draggable
-                          />
-                        </div>
-                        <div class="outfit-product-info">
-                          <p>
-                            the North Face
-                            <br />
-                            黑灰色休閒後背包
-                          </p>
-                        </div>
-                      </div>
-                      <div class="outfit-product">
-                        <div class="outfit-product-img">
-                          <img
-                            src="./img/img-outfit/shoes-pic2-removebg-preview.png"
-                            alt=""
-                            class="outfit-slider-image outfit-cover-fit"
-                            draggable
-                          />
-                        </div>
-                        <div class="outfit-product-info">
-                          <p>
-                            the North Face
-                            <br />
-                            黑灰色休閒後背包
-                          </p>
-                        </div>
-                      </div>
-                      <div class="outfit-product">
-                        <div class="outfit-product-img">
-                          <img
-                            src="./img/img-outfit/shoes-pic3-removebg-preview.png"
-                            alt=""
-                            class="outfit-slider-image outfit-cover-fit"
-                            draggable
-                          />
-                        </div>
-                        <div class="outfit-product-info">
-                          <p>
-                            the North Face
-                            <br />
-                            黑灰色休閒後背包
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  {/* product-warpper end */}
-                </div>
-                <div id="div2" class="outfit-target">
-                  <p>Hi I'm div2.</p>
-                </div>
-                <div id="div3" class="outfit-target">
-                  <p>Hi I'm div3.</p>
-                </div>
+              <div className="outfit-right-side col col-lg-8">
+                <OutfitProductSlider />
               </div>
               {/* 製作個人化明信片 start */}
-              <div class="mt-5">
-                <h3 class="outfit-subTitle">製作個人化明信片</h3>
-                <div class="outfit-underline"></div>
-                <div class="outfit-canvas-box cvs" id="canvasBox">
-                  <div class="outfit-canvas-target position-absolute position-relative">
+              <div className="mt-5">
+                <h3 className="outfit-subTitle">製作個人化明信片</h3>
+                <div className="outfit-underline"></div>
+                <div className="outfit-canvas-box cvs" id="canvasBox">
+                  <div className="outfit-canvas-target position-absolute position-relative">
                     <p style={{ display: 'block' }} id="hide">
                       請將以上商品
                       <br />
@@ -389,7 +211,7 @@ function Outfit(props) {
               </div>
               {/* 製作個人化明信片 end */}
               {/* 訂購單 start */}
-              <div class="">
+              <div className="">
                 <OrderList />
               </div>
               {/* 訂購單 end */}
@@ -397,16 +219,16 @@ function Outfit(props) {
           </div>
         </div>
       </div>
-      <div class="outfit-btnGroup">
-        <button class="outfit-fb">
-          <FaFacebookSquare class="outfit-sharedBtn" />
+      <div className="outfit-btnGroup">
+        <button className="outfit-fb">
+          <FaFacebookSquare className="outfit-sharedBtn mb-1" />
           分享明信片
         </button>
-        <button class="btn btn-outline-primary" id="save" onClick="">
-          <BsDownload class="outfit-downloadBtn" />
+        <button className="btn btn-outline-primary" id="save">
+          <BsDownload className="outfit-downloadBtn mb-1" />
           儲存明信片
         </button>
-        <button class="btn btn-primary">將所選商品加入購物車</button>
+        <button className="btn btn-primary">將所選商品加入購物車</button>
       </div>
     </>
   );

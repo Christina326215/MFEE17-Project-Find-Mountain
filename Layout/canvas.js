@@ -129,19 +129,21 @@ var canvasPng,
           }
         };
 
-        $save.onclick = function (e) {
-          // var type = "png",
-          //   w = "800",
-          //   h = "452";
-          // Canvas2Image.saveAsImage(canvasPng, w, h, type);
-          // console.log(w, h, type);
-          html2canvas(document.getElementById('canvasBox')).then(function(canvas) {
-            // document.body.appendChild(canvas);
-            var a = document.createElement('a');
-            a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
-            a.download = 'image.jpg';
-            a.click();
-        });
-        };
+        
       }
-      onload = init;
+      // onload = init;
+
+      $("#save").click(function (e) {
+        // var type = "png",
+        //   w = "800",
+        //   h = "452";
+        // Canvas2Image.saveAsImage(canvasPng, w, h, type);
+        // console.log(w, h, type);
+        html2canvas(document.getElementById('canvasBox')).then(function(canvas) {
+          // document.body.appendChild(canvas);
+          var a = document.createElement('a');
+          a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
+          a.download = 'image.jpg';
+          a.click();
+      });
+      });
