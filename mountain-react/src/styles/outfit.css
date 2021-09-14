@@ -182,14 +182,17 @@
     -webkit-transform-origin: 0 0;
   }
 } */
-
+.canvasWrap {
+  width: 100%;
+}
 .outfit-canvas-box {
   margin: auto;
   background: url('../img/img-outfit/postcard-bg800.png');
   background-size: cover;
   background-repeat: no-repeat;
-  width: 800px;
-  max-width: 100%;
+  /* width: 800px; */
+  /* max-width: 100%; */
+  width: 100%;
   position: relative;
 }
 .outfit-canvas-box::before {

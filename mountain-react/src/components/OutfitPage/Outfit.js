@@ -192,7 +192,7 @@ function Outfit(props) {
                 <OutfitProductSlider />
               </div>
               {/* 製作個人化明信片 start */}
-              <div className="mt-5">
+              <div className="mt-5 canvasWrap">
                 <h3 className="outfit-subTitle">製作個人化明信片</h3>
                 <div className="outfit-underline"></div>
                 <div className="outfit-canvas-box cvs" id="canvasBox">
@@ -216,6 +216,10 @@ function Outfit(props) {
               </div>
               {/* 訂購單 end */}
             </div>
+
+            {/* test */}
+
+            {/* test */}
           </div>
         </div>
       </div>
