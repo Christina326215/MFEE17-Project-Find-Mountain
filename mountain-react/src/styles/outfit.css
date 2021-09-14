@@ -158,10 +158,11 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  line-height: 1.5;
 }
 
 #canvas {
-  /* border: 1px solid green; */
+  border: 1px solid green;
 }
 /* @media screen and (max-width: 768px) {
   #canvas {
@@ -181,12 +182,6 @@
     -webkit-transform-origin: 0 0;
   }
 } */
-.outfit-canvas-outerbox {
-  /* width: 800px;
-  max-height: 452px;
-  max-width: 100%; */
-  /* max-height: 100%; */
-}
 
 .outfit-canvas-box {
   margin: auto;
@@ -194,7 +189,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   width: 800px;
-  /* max-width: 100%; */
+  max-width: 100%;
   position: relative;
 }
 .outfit-canvas-box::before {

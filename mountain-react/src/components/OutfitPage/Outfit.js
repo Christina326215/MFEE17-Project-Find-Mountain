@@ -10,23 +10,17 @@ import html2canvas from 'html2canvas';
 
 //=== components start===
 import SelectProduct from './SelectProduct';
-// import ProductSlider from './ProductSlider';
+import OutfitProductSlider from './OutfitProductSlider';
 import OrderList from './OrderList';
 //=== components end===
 
 // ===icon start===
 import { FaFacebookSquare } from 'react-icons/fa';
-
-import {
-  BsFillCaretLeftFill,
-  BsFillCaretRightFill,
-  BsDownload,
-} from 'react-icons/bs';
+import { BsDownload } from 'react-icons/bs';
 // ===icon end===
 
 //===import img start===
-import clothesPic1Removebg from '../../img/img-outfit/clothes-pic1-removebg-preview.png';
-import clothesPic2Removebg from '../../img/img-outfit/clothes-pic2-removebg-preview.png';
+
 //===import img end===
 
 function Outfit(props) {
@@ -195,181 +189,7 @@ function Outfit(props) {
                 <SelectProduct />
               </div>
               <div className="outfit-right-side col col-lg-8">
-                <div id="div1" className="outfit-target">
-                  {/* product-warpper start */}
-                  <div className="outfit-product-slider">
-                    <BsFillCaretLeftFill
-                      className="outfit-prev"
-                      id="slideLeft"
-                    />
-                    <BsFillCaretRightFill
-                      className="outfit-next"
-                      id="slideRight"
-                    />
-                    <div className="outfit-product-wrapper" id="slider">
-                      <div className="outfit-product">
-                        <div className="outfit-product-img">
-                          <img
-                            src={clothesPic1Removebg}
-                            alt=""
-                            className="outfit-slider-image outfit-cover-fit"
-                            draggable
-                          />
-                        </div>
-                        <div className="outfit-product-info">
-                          <p>
-                            the North Face
-                            <br />
-                            黑灰色休閒後背包
-                          </p>
-                        </div>
-                      </div>
-                      <div className="outfit-product">
-                        <div className="outfit-product-img">
-                          <img
-                            src={clothesPic2Removebg}
-                            alt=""
-                            className="outfit-slider-image outfit-cover-fit"
-                            draggable
-                          />
-                        </div>
-                        <div className="outfit-product-info">
-                          <p>
-                            the North Face
-                            <br />
-                            黑灰色休閒後背包
-                          </p>
-                        </div>
-                      </div>
-                      <div className="outfit-product">
-                        <div className="outfit-product-img">
-                          <img
-                            src="./img/img-outfit/clothes-pic3-removebg-preview.png"
-                            alt=""
-                            className="outfit-slider-image outfit-cover-fit"
-                            draggable
-                          />
-                        </div>
-                        <div className="outfit-product-info">
-                          <p>
-                            the North Face
-                            <br />
-                            黑灰色休閒後背包
-                          </p>
-                        </div>
-                      </div>
-                      <div className="outfit-product">
-                        <div className="outfit-product-img">
-                          <img
-                            src="./img/img-outfit/bags-pic1-removebg-preview.png"
-                            alt=""
-                            className="outfit-slider-image outfit-cover-fit"
-                            draggable
-                          />
-                        </div>
-                        <div className="outfit-product-info">
-                          <p>
-                            the North Face
-                            <br />
-                            黑灰色休閒後背包
-                          </p>
-                        </div>
-                      </div>
-                      <div className="outfit-product">
-                        <div className="outfit-product-img">
-                          <img
-                            src="./img/img-outfit/bags-pic2-removebg-preview.png"
-                            alt=""
-                            className="outfit-slider-image outfit-cover-fit"
-                            draggable
-                          />
-                        </div>
-                        <div className="outfit-product-info">
-                          <p>
-                            the North Face
-                            <br />
-                            黑灰色休閒後背包
-                          </p>
-                        </div>
-                      </div>
-                      <div className="outfit-product">
-                        <div className="outfit-product-img">
-                          <img
-                            src="./img/img-outfit/bags-pic3-removebg-preview.png"
-                            alt=""
-                            className="outfit-slider-image outfit-cover-fit"
-                            draggable
-                          />
-                        </div>
-                        <div className="outfit-product-info">
-                          <p>
-                            the North Face
-                            <br />
-                            黑灰色休閒後背包
-                          </p>
-                        </div>
-                      </div>
-                      <div className="outfit-product">
-                        <div className="outfit-product-img">
-                          <img
-                            src="./img/img-outfit/shoes-pic1-removebg-preview.png"
-                            alt=""
-                            className="outfit-slider-image outfit-cover-fit"
-                            draggable
-                          />
-                        </div>
-                        <div className="outfit-product-info">
-                          <p>
-                            the North Face
-                            <br />
-                            黑灰色休閒後背包
-                          </p>
-                        </div>
-                      </div>
-                      <div className="outfit-product">
-                        <div className="outfit-product-img">
-                          <img
-                            src="./img/img-outfit/shoes-pic2-removebg-preview.png"
-                            alt=""
-                            className="outfit-slider-image outfit-cover-fit"
-                            draggable
-                          />
-                        </div>
-                        <div className="outfit-product-info">
-                          <p>
-                            the North Face
-                            <br />
-                            黑灰色休閒後背包
-                          </p>
-                        </div>
-                      </div>
-                      <div className="outfit-product">
-                        <div className="outfit-product-img">
-                          <img
-                            src="./img/img-outfit/shoes-pic3-removebg-preview.png"
-                            alt=""
-                            className="outfit-slider-image outfit-cover-fit"
-                            draggable
-                          />
-                        </div>
-                        <div className="outfit-product-info">
-                          <p>
-                            the North Face
-                            <br />
-                            黑灰色休閒後背包
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  {/* product-warpper end */}
-                </div>
-                <div id="div2" className="outfit-target">
-                  <p>Hi I'm div2.</p>
-                </div>
-                <div id="div3" className="outfit-target">
-                  <p>Hi I'm div3.</p>
-                </div>
+                <OutfitProductSlider />
               </div>
               {/* 製作個人化明信片 start */}
               <div className="mt-5">
@@ -401,11 +221,11 @@ function Outfit(props) {
       </div>
       <div className="outfit-btnGroup">
         <button className="outfit-fb">
-          <FaFacebookSquare className="outfit-sharedBtn" />
+          <FaFacebookSquare className="outfit-sharedBtn mb-1" />
           分享明信片
         </button>
         <button className="btn btn-outline-primary" id="save">
-          <BsDownload className="outfit-downloadBtn" />
+          <BsDownload className="outfit-downloadBtn mb-1" />
           儲存明信片
         </button>
         <button className="btn btn-primary">將所選商品加入購物車</button>
