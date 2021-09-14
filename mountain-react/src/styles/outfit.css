@@ -162,7 +162,7 @@
 }
 
 #canvas {
-  border: 1px solid green;
+  /* border: 1px solid green; */
 }
 /* @media screen and (max-width: 768px) {
   #canvas {
@@ -324,6 +324,12 @@
 .outfit-order-tbody > td {
   font-size: 16px;
   color: #4e4e4e;
+}
+
+@media screen and (max-width: 768px) {
+  .outfit-productName {
+    width: 40%;
+  }
 }
 
 .outfit-cover-fit {
