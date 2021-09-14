@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/HomeMountain.scss';
+import '../../styles/HomePage/HomeMountain.scss';
 // images start
 import Blobs from '../../img/contentTop/blobsAll.svg';
 import Taiwan from '../../img/contentTop/taiwanAll.png';

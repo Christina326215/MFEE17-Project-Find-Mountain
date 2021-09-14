@@ -36,7 +36,11 @@ function Navbar(props) {
           <a href="#/" className="search_button h4">
             <BsSearch size={24} />
           </a>
-          <Link to="/shoppingcart/step1-detail" className="shopping_button h4">
+          <Link
+            to="/shoppingcart/step1-detail"
+            className="shopping_button h4 position-relative"
+          >
+            <div className="cart-num position-absolute text-center">0</div>
             <Cart size={24} />
           </Link>
           {/* to Sign In star */}
