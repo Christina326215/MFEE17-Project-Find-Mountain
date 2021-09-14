@@ -181,6 +181,7 @@ body {
 }
 .productdetail-like-btn.productdetail-active {
   color: #cc543a;
+  background: none;
 }
 .productdetail-like-btn:active {
   color: #cc543a;
@@ -308,6 +309,7 @@ body {
   width: 30px;
   height: 30px;
   background: rgba(0, 0, 0, 0.25);
+  border: none;
   border-radius: 50%;
   right: 10px;
   top: 10px;
@@ -319,8 +321,8 @@ body {
 .productdetail-heart-icon-bkg:hover {
   background: #333;
   color: #eea9a9;
-  -webkit-text-stroke: 1px;
-  -webkit-text-stroke-color: #eea9a9;
+  /* -webkit-text-stroke: 1px;
+  -webkit-text-stroke-color: #eea9a9; */
 }
 .productdetail-heart-icon-bkg:active {
   color: #cc543a;
@@ -339,6 +341,7 @@ body {
   width: 30px;
   height: 30px;
   background: rgba(0, 0, 0, 0.25);
+  border: none;
   border-radius: 50%;
   right: 10px;
   top: 50px;
