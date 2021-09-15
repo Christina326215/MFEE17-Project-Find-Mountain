@@ -277,6 +277,7 @@
 .outfit-product-img {
   width: 140px;
   height: 140px;
+  /* background: white; */
 }
 #slider::-webkit-scrollbar {
   width: 8px;
