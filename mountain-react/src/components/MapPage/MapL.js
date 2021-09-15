@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../styles/MapStyle/mountain_index.css'; //初階Map樣式
 import { Link } from 'react-router-dom'; //a標籤要變成link
+
+//====== below api connect tool star ======//
+import axios from 'axios';
+import { mapURL } from '../../utils/config';
+//====== below api connect tool end ======//
 
 //====== below pages components star ======//
 import { map_btn } from './pages/MapBtn';
@@ -26,6 +31,62 @@ import sevenstarJpeg from '../../img/mountain-img/sevenstar.jpeg';
 //====== above img import end ======//
 
 function MapL() {
+  const [listData, setListData] = useState([]);
+
+  useEffect(() => {
+    //=== Api star ===//
+    async function mapLData() {
+      try {
+        const mapData = await axios.get(mapURL);
+        console.log(mapData.data); //for check
+        setListData(mapData.data);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    mapLData();
+    //=== Api end ===//
+
+    //=== 象山 progress Bar star ===//
+    var XiangshanDistanceWidth = document.querySelector(
+      '.mountain_progress_distance-bar'
+    );
+    //FIXME: 導入後端資料 //
+    XiangshanDistanceWidth.style.width = 'calc(2.3%)';
+    var XiangshanTimeWidth = document.querySelector(
+      '.mountain_progress_time-bar'
+    );
+    //FIXME: 導入後端資料 //
+    XiangshanTimeWidth.style.width = 'calc(1.4 / 60 * 100%)';
+    //=== 象山 progress Bar star ===//
+
+    //=== 金面 progress Bar star ===//
+    var JinmianDistanceWidth = document.querySelector(
+      '.mountain_progress_distance-bar_Jinmian'
+    );
+    //FIXME: 導入後端資料 //
+    JinmianDistanceWidth.style.width = 'calc(3%)';
+    var JinmianTimeWidth = document.querySelector(
+      '.mountain_progress_time-bar_Jinmian'
+    );
+    //FIXME: 導入後端資料 //
+    JinmianTimeWidth.style.width = 'calc(1 / 60 * 100%)';
+    //=== 金面 progress Bar star ===//
+
+    //=== 七星 progress Bar star ===//
+    var ChihsingDistanceWidth = document.querySelector(
+      '.mountain_progress_distance-bar_Chi-hsing'
+    );
+    //FIXME: 導入後端資料 //
+    ChihsingDistanceWidth.style.width = 'calc(5%)';
+    var ChihsingTimeWidth = document.querySelector(
+      '.mountain_progress_time-bar_Chi-hsing'
+    );
+    //FIXME: 導入後端資料 //
+    ChihsingTimeWidth.style.width = 'calc(2.3 / 60 * 100%)';
+    //=== 七星 progress Bar star ===//
+  }, []);
+
   return (
     <>
       {/* <!-- =========content star========= --> */}
