@@ -15,6 +15,7 @@ import Bear from './components/RecommendPage/Bear';
 import Result from './components/RecommendPage/Result';
 import Manual from './components/RecommendPage/Manual';
 import Detail from './components/RecommendPage/Detail';
+import DetailContent from './components/RecommendPage/DetailContent';
 import ShopMain from './components/ShopPage/ShopMain';
 import Bags from './components/ShopPage/Bags';
 import ProductDetail from './components/ShopPage/ProductDetail';
@@ -56,6 +57,9 @@ function App() {
             </Route>
             <Route path="/recommend/manual">
               <Manual />
+            </Route>
+            <Route path="/recommend/detail/:id?">
+              <DetailContent />
             </Route>
             <Route path="/recommend/detail">
               <Detail />
