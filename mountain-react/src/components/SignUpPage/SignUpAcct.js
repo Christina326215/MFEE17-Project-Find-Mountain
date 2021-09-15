@@ -1,35 +1,50 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import '../../styles/SignUpStyle/SignUpAcct.css';
+//api start
+import { authURL } from '../../utils/config';
+import axios from 'axios';
+//api end
 
 function SignUpAcct(props) {
-  // useEffect(() => {
-  //   (function () {
-  //     'use strict';
-  //     window.addEventListener(
-  //       'load',
-  //       function () {
-  //         // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  //         var forms = document.getElementsByClassName('needs-validation');
-  //         // Loop over them and prevent submission
-  //         var validation = Array.prototype.filter.call(forms, function (form) {
-  //           form.addEventListener(
-  //             'submit',
-  //             function (event) {
-  //               if (form.checkValidity() === false) {
-  //                 event.preventDefault();
-  //                 event.stopPropagation();
-  //               }
-  //               form.classList.add('was-validated');
-  //             },
-  //             false
-  //           );
-  //         });
-  //       },
-  //       false
-  //     );
-  //   })();
-  // }, []);
+  const [listData, setListData] = useState([]);
+
+  useEffect(() => {
+    async function homeData() {
+      try {
+        const homeData = await axios.get(authURL);
+        console.log(homeData.data); //for check
+        setListData(homeData.data);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    homeData();
+    // (function () {
+    //   window.addEventListener(
+    //     'load',
+    //     function () {
+    //       // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    //       var forms = document.getElementsByClassName('needs-validation');
+    //       // Loop over them and prevent submission
+    //       var validation = Array.prototype.filter.call(forms, function (form) {
+    //         form.addEventListener(
+    //           'submit',
+    //           function (event) {
+    //             if (form.checkValidity() === false) {
+    //               event.preventDefault();
+    //               event.stopPropagation();
+    //             }
+    //             form.classList.add('was-validated');
+    //           },
+    //           false
+    //         );
+    //       });
+    //     },
+    //     false
+    //   );
+    // })();
+  }, []);
   return (
     <>
       <main>

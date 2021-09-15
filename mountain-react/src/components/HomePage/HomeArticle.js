@@ -1,22 +1,38 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import $ from 'jquery';
 import 'slick-carousel';
 import '../../styles/HomePage/HomeArticle.scss';
 import { Link } from 'react-router-dom'; //a標籤要變成link
-
-//images
+//===api start===
+import { homeURL } from '../../utils/config';
+import axios from 'axios';
+//===api end===
+//===images===
 import sliderBanner from '../../img/contentMountain/jinmianshan.jpeg';
 import sliderItem from '../../img/contentMountain/jinmianshan.jpeg';
 import lowLevel from '../../img/contentMountain/low_icon.svg';
 import km from '../../img/contentMountain/footprints 1.svg';
 import user from '../../img/contentMountain/Tapachien.jpeg';
-//icon
-import { FaRegUserCircle, FaStar, FaRegStar } from 'react-icons/fa';
+//===icon start===
+import { FaStar, FaRegStar, FaShoePrints } from 'react-icons/fa';
 
 function HomeArticle(props) {
+  const [articleData, setArticleData] = useState([]);
+
   useEffect(() => {
-    //slider
-    $('.homepage-slider-for').slick({
+    async function homeData() {
+      try {
+        const homeData = await axios.get(homeURL);
+        console.log(homeData.data); //for check
+        setArticleData(homeData.data);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    homeData();
+
+    //===slider===
+    $('.slider-for').slick({
       slidesToShow: 1,
       slidesToScroll: 1,
       arrows: false,
@@ -27,7 +43,7 @@ function HomeArticle(props) {
       slidesToShow: 2,
       slidesToScroll: 1,
       vertical: true,
-      asNavFor: '.homepage-slider-for',
+      asNavFor: '.slider-for',
       dots: false,
       focusOnSelect: true,
       verticalSwiping: true,
@@ -61,6 +77,7 @@ function HomeArticle(props) {
         },
       ],
     });
+    //===字數限制===
     $(function () {
       var len = 120; // 超過50個字以"..."取代
       $('.homepage-ov-hidden').each(function (i) {
@@ -74,52 +91,87 @@ function HomeArticle(props) {
         }
       });
     });
+    let starIcon = document.querySelectorAll('.commentStar i');
+    for (let i = 0; i < starIcon.length; i++) {
+      starIcon[i].addEventListener(
+        'click',
+        function (event) {
+          event.preventDefault();
+          console.log(
+            'preventDefault will stop you from checking this checkbox!'
+          );
+          console.log(this);
+          for (let j = 0; j <= i; j++) {
+            starIcon[j].classList.add('bg-danger');
+            console.log('第 ' + j + ' 號星 加上紅色');
+          }
+          for (let k = 4; k > i; k--) {
+            starIcon[k].classList.remove('bg-danger');
+            console.log('第 ' + k + ' 號星 去除紅色');
+          }
+          var starNumber = i + 1; // starNumber = 傳到資料庫的星數
+          console.log('評論星數為 ' + starNumber);
+        },
+        false
+      );
+    }
   }, []);
   return (
     <>
-      {/* <!-- =========推薦攻略 star========= --> */}
       <div className="homepage-contentMountain">
-        <div className="container homepage-container">
+        <div className="container">
           <h2 className="text-center pb-5">推薦攻略</h2>
           <div className="homepage-wrapper">
             <section className="homepage-banner-section">
               <div className="container homepage-container">
                 <div className="homepage-vehicle-detail-banner homepage-banner-content clearfix">
                   <div className="banner-slider row">
-                    <div className="homepage-slider homepage-slider-for col-lg-8">
-                      <div className="homepage-slider-banner-image position-relative">
-                        <img
-                          class="cover-fit bgImg"
-                          src={sliderBanner}
-                          alt=""
-                        />
-                        <div className="position-absolute p-4 homepage-word">
-                          <h2>陽明山東西大縱走</h2>
-                          <p className="mt-4 homepage-ov-hidden">
-                            陽明山東西大縱走是一條位於陽明山國家公園的長程縱走，在將近11個小時的路程中，可登頂十座山，分別為頂山、石梯嶺、竹篙山、七星東峰、七星主峰、大屯主峰、大屯南峰、大屯西峰、面天山、向天山。
-                            陽明山東西大縱走一次走完連峰需10～12小時以上，十分考驗體力，因此也成為許多山友磨練體能、挑戰自己的超級健腳路線。
-                          </p>
-                          <div className="homepage-memory d-flex mt-3">
-                            <div className="homepage-new">最新留言</div>
-                            <div className="homepage-memoryLine"></div>
-                            <div className="homepage-memoryUser">
-                              <img class="cover-fit" src={user} alt="" />
-                            </div>
+                    <div className="homepage-slider slider-for  homepage-slider-for col-lg-8">
+                      {articleData.map((article, i) => {
+                        return (
+                          <>
+                            <div
+                              className="homepage-slider-banner-image position-relative"
+                              key={article.id}
+                            >
+                              <img
+                                className="cover-fit bgImg"
+                                src={sliderBanner}
+                                alt=""
+                              />
+                              <div className="position-absolute p-4 homepage-word">
+                                <h2>{article.name}</h2>
+                                <p className="mt-4 homepage-ov-hidden">
+                                  {article.content}
+                                </p>
+                                <div className="homepage-memory d-flex mt-3">
+                                  <div className="homepage-new">最新留言</div>
+                                  <div className="homepage-memoryLine"></div>
+                                  <div className="homepage-memoryUser">
+                                    <img
+                                      className="cover-fit"
+                                      src={user}
+                                      alt=""
+                                    />
+                                  </div>
 
-                            <div className="homepage-memoryMember mx-4">
-                              <small className="homepage-memoryDate">
-                                2021-08-18
-                              </small>
-                              <div className="homepage-memoryName">
-                                臺灣黑熊
+                                  <div className="homepage-memoryMember mx-4">
+                                    <small className="homepage-memoryDate">
+                                      2021-08-18
+                                    </small>
+                                    <div className="homepage-memoryName">
+                                      臺灣黑熊
+                                    </div>
+                                  </div>
+                                  <div className="homepage-memoryContent">
+                                    這裡風景好美呀～～～
+                                  </div>
+                                </div>
                               </div>
                             </div>
-                            <div className="homepage-memoryContent">
-                              這裡風景好美呀～～～
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                          </>
+                        );
+                      })}
                       {/* <div className="homepage-slider-banner-image">
                         <img
                           src="./img/contentMountain/jinmianshan.jpeg"
@@ -172,10 +224,10 @@ function HomeArticle(props) {
                         </div>
                       </div> */}
                     </div>
-                    <div className="homepage-slider homepage-slider-nav homepage-thumb-image col-lg-4">
+                    <div className="homepage-slider slider-nav homepage-slider-nav homepage-thumb-image col-lg-4">
                       <div className="homepage-thumbnail-image homepage-box">
                         <div className="homepage-thumbImg">
-                          <img class="cover-fit" src={sliderItem} alt="" />
+                          <img className="cover-fit" src={sliderItem} alt="" />
                         </div>
                         <div className="px-3 py-2 bg-white mb-3">
                           <Link to="/" className="homepage-unstyle">
@@ -195,7 +247,12 @@ function HomeArticle(props) {
                                 </span>
                               </button>
                               <button className="btn d-flex align-items-center">
-                                <img src={km} className="mr-2" />
+                                <FaShoePrints
+                                  size="24"
+                                  className="mr-2"
+                                  color="#6da77f"
+                                />
+                                {/* <img src={km} className="mr-2" /> */}
                                 <span className=" text-primary">2.3公里</span>
                               </button>
                             </div>
