@@ -19,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 //使用中間件，解析json的資料
 app.use(express.json());
 //========================================================//
+app.use(express.static(path.join(__dirname, "public")));
 
 // react yarn build star
 // app.use(express.static(path.join(__dirname, "react")));
