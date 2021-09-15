@@ -1,24 +1,30 @@
 import React, { useEffect } from 'react';
 import $ from 'jquery';
-import Swal from 'sweetalert';
+import Swal from 'sweetalert2';
 import '../../styles/HomePage/HomeShop.scss';
 import { Link } from 'react-router-dom'; //a標籤要變成link
+
+//api start
+import { productURL } from '../../utils/config';
+import axios from 'axios';
+//api end
+
 //images
 import product from '../../img/contentShop/Mask Group.png';
 import Blobs2 from '../../img/contentShop/Vector-1.png';
 //icon
 import { Cart, PersonCircle, HeartFill } from 'react-bootstrap-icons';
 function HomeShop(props) {
-  let heartStyle = { color: '#eea9a9', fontSize: '20px', position: 'absolute' };
+  // let heartStyle = { color: '#eea9a9', fontSize: '20px', position: 'absolute' };
   useEffect(() => {
     //愛心icon
-    $('a.heart-icon-bkg').each(function () {
+    $('.homepage-heart-icon-bkg').each(function () {
       $(this).on('click', () => {
-        $(this).toggleClass('heart-icon-bkg-click');
+        $(this).toggleClass('homepage-heart-icon-bkg-click');
       });
     });
     //cart-icon
-    $('.cart-icon-bkg').on('click', () => {
+    $('.homepage-cart-icon-bkg').on('click', () => {
       //display none -> block
       let cartDisplay = $('.cart-num').css('display');
       if (cartDisplay === 'none') {
@@ -72,15 +78,21 @@ function HomeShop(props) {
                     </Link>
                     <a
                       role="button"
-                      className="position-absolute heart-icon-bkg position-relative"
+                      className="position-absolute homepage-heart-icon-bkg position-relative"
                     >
-                      <i className="bi bi-heart-fill position-absolute heart-icon"></i>
+                      <HeartFill
+                        size="20"
+                        class="position-absolute homepage-heart-icon"
+                      />
                     </a>
                     <a
                       role="button"
-                      className="position-absolute cart-icon-bkg position-relative"
+                      className="position-absolute homepage-cart-icon-bkg position-relative"
                     >
-                      <i className="bi bi-cart-fill position-absolute cart-icon"></i>
+                      <Cart
+                        size="20"
+                        className="position-absolute homepage-cart-icon"
+                      />
                     </a>
                     <Link
                       to="./product-detail.html"
@@ -119,18 +131,22 @@ function HomeShop(props) {
 
                       <a
                         role="button"
-                        className="position-absolute heart-icon-bkg position-relative"
+                        className="position-absolute homepage-heart-icon-bkg position-relative"
                       >
-                        {/* <HeartFill style={heartStyle} /> */}
-                        {/* <i className="bi bi-heart-fill position-absolute heart-icon"></i> */}
+                        <HeartFill
+                          size="20"
+                          class="position-absolute homepage-heart-icon"
+                        />
                       </a>
-                      <button
+                      <a
                         role="button"
-                        className="position-absolute cart-icon-bkg position-relative"
+                        className="position-absolute homepage-cart-icon-bkg position-relative"
                       >
-                        <Cart />
-                        {/* <i className="bi bi-cart-fill position-absolute cart-icon"></i> */}
-                      </button>
+                        <Cart
+                          size="20"
+                          className="position-absolute homepage-cart-icon"
+                        />
+                      </a>
                       <Link
                         to="./product-detail.html"
                         className="text-left homepage-product-name"
