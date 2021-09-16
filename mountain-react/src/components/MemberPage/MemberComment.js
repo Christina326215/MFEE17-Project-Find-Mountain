@@ -29,7 +29,7 @@ function MemberComment() {
         const CommentData = await axios.get(memberCommentURL);
         console.log(CommentData.data); //for check
         setData(CommentData.data);
-        let data = CommentData.data;
+        // let data = CommentData.data;
       } catch (e) {
         console.log(e);
       }

@@ -23,8 +23,8 @@ function MemberPersonal() {
         const zipCodeRes = await axios.get(zipCodeURL);
         // console.log(zipCodeRes.data);
         // key  ：zip_code
-        // value：縣市名
-        // member.zip_code當作key，要去對應到code.json取得縣市與區名。
+        // value：縣市、行政區
+        // member.zip_code當作key，要去對應到code.json取得縣市與行政區。
         setZipCode(zipCodeRes.data);
       } catch (e) {
         console.log(e);

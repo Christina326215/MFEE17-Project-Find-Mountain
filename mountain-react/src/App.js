@@ -23,6 +23,7 @@ import MapM from './components/MapPage/MapM';
 import MapH from './components/MapPage/MapH';
 import Outfit from './components/OutfitPage/Outfit';
 import ScrollToTop from './components/ScrollToTop';
+
 import ShopCartDetail from './components/ShopCartPage/ShopCartDetail';
 import ShopCartPay from './components/ShopCartPage/ShopCartPay';
 import ShopCartCheck from './components/ShopCartPage/ShopCartCheck';
@@ -33,6 +34,7 @@ import MemberOrder from './components/MemberPage/MemberOrder';
 import MemberComment from './components/MemberPage/MemberComment';
 import MemberPersonal from './components/MemberPage/MemberPersonal';
 import MemberEdit from './components/MemberPage/MemberEdit';
+
 import SignUpInfo from './components/SignUpPage/SignUpInfo';
 import SignUpAcct from './components/SignUpPage/SignUpAcct';
 import Login from './components/LoginPage/Login';
@@ -46,10 +48,6 @@ import axios from 'axios';
 function App() {
   const [auth, setAuth] = useState(false); //驗證登入與否用，一開始預設都是false
   const [member, setMember] = useState(null);
-
-  const setAuthMember = (m) => {
-    setMember(m);
-  };
 
   useEffect(() => {
     // 每次重新整理或開啟頁面時，都去確認一下是否在已經登入的狀態。
@@ -67,7 +65,7 @@ function App() {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ member, setMember: setAuthMember }}>
+    <AuthContext.Provider value={{ member, setMember }}>
       <Router>
         <>
           <Navbar auth={auth} setAuth={setAuth} />

@@ -35,14 +35,14 @@ function MemberProductArticle() {
 
         setProductData(ProductData.data);
 
-        let dataProduct = ProductData.data;
+        // let dataProduct = ProductData.data;
       } catch (e) {
         console.log(e);
       }
     }
     getProductData();
 
-    async function getData() {
+    async function getArticleData() {
       try {
         const ArticleData = await axios.get(memberArticleURL);
 
@@ -50,12 +50,12 @@ function MemberProductArticle() {
 
         setArticleData(ArticleData.data);
 
-        let dataArticle = ArticleData.data;
+        // let dataArticle = ArticleData.data;
       } catch (e) {
         console.log(e);
       }
     }
-    getData();
+    getArticleData();
 
     // 切換區域tab-switch
     let menu = document.querySelectorAll('#menu');

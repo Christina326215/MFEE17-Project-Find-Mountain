@@ -28,7 +28,7 @@ function MemberMapRoute() {
         const RouteData = await axios.get(memberRouteURL);
         console.log(RouteData.data); //for check
         setData(RouteData.data);
-        let data = RouteData.data;
+        // let data = RouteData.data;
       } catch (e) {
         console.log(e);
       }
