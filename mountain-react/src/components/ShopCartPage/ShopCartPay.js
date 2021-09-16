@@ -4,6 +4,9 @@ import { withRouter } from 'react-router-dom'; //可以獲取history,location,ma
 import $ from 'jquery';
 import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
 
+import { shopcartURL, zipURL, zipGroupURL } from '../../utils/config';
+import axios from 'axios';
+
 //====== below icon star ======//
 import { BsCheck } from 'react-icons/bs';
 //====== below icon end ======//
@@ -13,7 +16,23 @@ import { BsCheck } from 'react-icons/bs';
 //====== above img import end ======//
 
 function ShopCartPay() {
+  const [data, setData] = useState([]);
+
   useEffect(() => {
+    async function getAddrData() {
+      try {
+        let AddrData = await axios.get(zipGroupURL);
+        let data = AddrData.data;
+        console.log(data); //for check
+        // console.log(AddrData); //for check
+
+        setData(data);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getAddrData();
+
     // progress-bar
     $('.shopcart-btn-next').on('click', function () {
       var currentStepNum = $('#shopcart-checkout-progress').data(
@@ -42,7 +61,7 @@ function ShopCartPay() {
 
       nextStep.addClass('shopcart-active');
       progressBar
-        .removeAttr('class')
+        .removeAttr('className')
         .addClass('step-' + nextStepNum)
         .data('current-step', nextStepNum);
     });
@@ -74,7 +93,7 @@ function ShopCartPay() {
 
       prevStep.addClass('shopcart-active').removeClass('shopcart-valid');
       progressBar
-        .removeAttr('class')
+        .removeAttr('className')
         .addClass('step-' + prevStepNum)
         .data('current-step', prevStepNum);
     });
@@ -224,14 +243,25 @@ function ShopCartPay() {
                     自動填入會員聯絡地址
                   </label>
                 </div>
+                {/* 選擇地址 start */}
                 <div className="form-group">
+                  {/* 縣市選單 */}
+                  <select class="form-control">
+                    <option value="">請選擇縣市</option>
+                  </select>
+                  {/* 行政區選單 */}
+                  <select class="form-control">
+                    <option value="">請選擇行政區</option>
+                  </select>
+                  {/* 輸入地址 */}
                   <input
                     type="text"
                     className="form-control"
                     id="inputAddress"
-                    placeholder="請輸入您的收件地址"
+                    placeholder="請輸入地址"
                   />
                 </div>
+                {/* 選擇地址 end */}
               </div>
 
               <legend className="col-form-label col-sm-2 float-sm-left pt-0 mb-4">

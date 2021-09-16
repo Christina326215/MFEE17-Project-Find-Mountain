@@ -2,12 +2,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
-import $ from 'jquery';
+import $, { data } from 'jquery';
 import '../../styles/MemberPage/MemberProductArticle.scss'; //member product and article style
+
+import { memberProductURL, memberArticleURL } from '../../utils/config';
+import axios from 'axios';
 
 //====== below pages star ======//
 import { pages_btn } from '../MapPage/pages/PagesBtn'; //分頁按鈕
-import { memberSideHead } from './pages/MemberSideHead'; //member Side Head
+import MemberSideHead from './pages/MemberSideHead'; //member Side Head
 //====== below pages end ======//
 
 //====== below icon star ======//
@@ -21,7 +24,39 @@ import Xiangshan from '../../img/xiangshan.jpeg';
 //====== above img import end ======//
 
 function MemberProductArticle() {
+  const [dataProduct, setProductData] = useState([]);
+  const [dataArticle, setArticleData] = useState([]);
   useEffect(() => {
+    async function getProductData() {
+      try {
+        const ProductData = await axios.get(memberProductURL);
+
+        console.log(ProductData.data); //for check
+
+        setProductData(ProductData.data);
+
+        let dataProduct = ProductData.data;
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getProductData();
+
+    async function getData() {
+      try {
+        const ArticleData = await axios.get(memberArticleURL);
+
+        console.log(ArticleData.data); //for check
+
+        setArticleData(ArticleData.data);
+
+        let dataArticle = ArticleData.data;
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getData();
+
     // 切換區域tab-switch
     let menu = document.querySelectorAll('#menu');
     let content = document.querySelectorAll('#content');
@@ -69,7 +104,9 @@ function MemberProductArticle() {
               p-md-4 p-lg-5
             "
             >
-              <thead>{memberSideHead}</thead>
+              <thead>
+                <MemberSideHead />
+              </thead>
               <tbody>
                 <tr>
                   <td scope="row" className="text-center">
@@ -201,173 +238,43 @@ function MemberProductArticle() {
                         </th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td
-                          scope="row"
-                          className="member-product-article-product-picture-img-wrapper"
-                        >
-                          <div className="member-product-article-product-picture-img-box">
-                            <img
-                              src={MemberProductImg}
-                              alt=""
-                              className="member-product-article-product-picture-img"
-                            />
-                          </div>
-                        </td>
-                        <td scope="row" className="align-middle">
-                          MERRELL Tetrex Crest Wrap 女水陸三棲鞋
-                        </td>
-                        <td scope="row" className="align-middle">
-                          M
-                        </td>
-                        <td scope="row" className="align-middle">
-                          NT$ 5,000
-                        </td>
-                        <td scope="row" className="align-middle">
-                          <Link to="">
-                            <Cart size={20} />
-                          </Link>
-                        </td>
-                        <td scope="row" className="align-middle">
-                          <Link to="">
-                            <BsTrash size={20} />
-                          </Link>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          scope="row"
-                          className="member-product-article-product-picture-img-wrapper"
-                        >
-                          <div className="member-product-article-product-picture-img-box">
-                            <img
-                              src={MemberProductImg}
-                              alt=""
-                              className="member-product-article-product-picture-img"
-                            />
-                          </div>
-                        </td>
-                        <td scope="row" className="align-middle">
-                          MERRELL Tetrex Crest Wrap 女水陸三棲鞋
-                        </td>
-                        <td scope="row" className="align-middle">
-                          M
-                        </td>
-                        <td scope="row" className="align-middle">
-                          NT$ 5,000
-                        </td>
-                        <td scope="row" className="align-middle">
-                          <Link to="">
-                            <Cart size={20} />
-                          </Link>
-                        </td>
-                        <td scope="row" className="align-middle">
-                          <Link to="">
-                            <BsTrash size={20} />
-                          </Link>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          scope="row"
-                          className="member-product-article-product-picture-img-wrapper"
-                        >
-                          <div className="member-product-article-product-picture-img-box">
-                            <img
-                              src={MemberProductImg}
-                              alt=""
-                              className="member-product-article-product-picture-img"
-                            />
-                          </div>
-                        </td>
-                        <td scope="row" className="align-middle">
-                          MERRELL Tetrex Crest Wrap 女水陸三棲鞋
-                        </td>
-                        <td scope="row" className="align-middle">
-                          M
-                        </td>
-                        <td scope="row" className="align-middle">
-                          NT$ 5,000
-                        </td>
-                        <td scope="row" className="align-middle">
-                          <Link to="">
-                            <Cart size={20} />
-                          </Link>
-                        </td>
-                        <td scope="row" className="align-middle">
-                          <Link to="">
-                            <BsTrash size={20} />
-                          </Link>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          scope="row"
-                          className="member-product-article-product-picture-img-wrapper"
-                        >
-                          <div className="member-product-article-product-picture-img-box">
-                            <img
-                              src={MemberProductImg}
-                              alt=""
-                              className="member-product-article-product-picture-img"
-                            />
-                          </div>
-                        </td>
-                        <td scope="row" className="align-middle">
-                          MERRELL Tetrex Crest Wrap 女水陸三棲鞋
-                        </td>
-                        <td scope="row" className="align-middle">
-                          M
-                        </td>
-                        <td scope="row" className="align-middle">
-                          NT$ 5,000
-                        </td>
-                        <td scope="row" className="align-middle">
-                          <Link to="">
-                            <Cart size={20} />
-                          </Link>
-                        </td>
-                        <td scope="row" className="align-middle">
-                          <Link to="">
-                            <BsTrash size={20} />
-                          </Link>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          scope="row"
-                          className="member-product-article-product-picture-img-wrapper"
-                        >
-                          <div className="pproduct-icture-img-box">
-                            <img
-                              src={MemberProductImg}
-                              alt=""
-                              className="member-product-article-product-picture-img"
-                            />
-                          </div>
-                        </td>
-                        <td scope="row" className="align-middle">
-                          MERRELL Tetrex Crest Wrap 女水陸三棲鞋
-                        </td>
-                        <td scope="row" className="align-middle">
-                          M
-                        </td>
-                        <td scope="row" className="align-middle">
-                          NT$ 5,000
-                        </td>
-                        <td scope="row" className="align-middle">
-                          <Link to="">
-                            <Cart size={20} />
-                          </Link>
-                        </td>
-                        <td scope="row" className="align-middle">
-                          <Link to="">
-                            <BsTrash size={20} />
-                          </Link>
-                        </td>
-                      </tr>
-                    </tbody>
+                    {dataProduct.map((items, i) => (
+                      <tbody>
+                        <tr>
+                          <td
+                            scope="row"
+                            className="member-product-article-product-picture-img-wrapper"
+                          >
+                            <div className="member-product-article-product-picture-img-box">
+                              <img
+                                src={MemberProductImg}
+                                alt=""
+                                className="member-product-article-product-picture-img"
+                              />
+                            </div>
+                          </td>
+                          <td scope="row" className="align-middle">
+                            {items.product_name}
+                          </td>
+                          <td scope="row" className="align-middle">
+                            {items.product_size}
+                          </td>
+                          <td scope="row" className="align-middle">
+                            {items.product_price}
+                          </td>
+                          <td scope="row" className="align-middle">
+                            <Link to="">
+                              <Cart size={20} />
+                            </Link>
+                          </td>
+                          <td scope="row" className="align-middle">
+                            <Link to="">
+                              <BsTrash size={20} />
+                            </Link>
+                          </td>
+                        </tr>
+                      </tbody>
+                    ))}
                   </table>
                   {/* <!-- 分頁 start  --> */}
                   {pages_btn}
@@ -385,317 +292,67 @@ function MemberProductArticle() {
                         <th scope="col">取消收藏</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td
-                          scope="row"
-                          className="member-product-article-article-picture-img-wrapper"
-                        >
-                          <div className="member-product-article-article-picture-img-box">
-                            <img
-                              src={Xiangshan}
-                              alt=""
-                              className="member-product-article-article-picture-img"
+                    {dataArticle.map((items, i) => (
+                      <tbody>
+                        <tr>
+                          <td
+                            scope="row"
+                            className="member-product-article-article-picture-img-wrapper"
+                          >
+                            <div className="member-product-article-article-picture-img-box">
+                              <img
+                                src={Xiangshan}
+                                alt=""
+                                className="member-product-article-article-picture-img"
+                              />
+                            </div>
+                          </td>
+                          <td
+                            scope="row"
+                            className="member-product-article-text-weight align-middle"
+                          >
+                            {items.article_name}
+                          </td>
+                          <td
+                            scope="row"
+                            className="member-product-article-text-weight align-middle"
+                          >
+                            <BsStarFill
+                              className="member-product-article-star-icon"
+                              size={20}
                             />
-                          </div>
-                        </td>
-                        <td
-                          scope="row"
-                          className="member-product-article-text-weight align-middle"
-                        >
-                          象山步道
-                        </td>
-                        <td
-                          scope="row"
-                          className="member-product-article-text-weight align-middle"
-                        >
-                          <BsStarFill
-                            className="member-product-article-star-icon"
-                            size={20}
-                          />
-                          <BsStarFill
-                            className="member-product-article-star-icon"
-                            size={20}
-                          />
-                          <BsStarFill
-                            className="member-product-article-star-icon"
-                            size={20}
-                          />
-                          <BsStar
-                            className="member-product-article-star-icon"
-                            size={20}
-                          />
-                          <BsStar
-                            className="member-product-article-star-icon"
-                            size={20}
-                          />
-                        </td>
-                        <td
-                          scope="row"
-                          className="member-product-article-text-weight align-middle"
-                        >
-                          <BsXSquareFill
-                            className="member-product-article-cancel-icon"
-                            size={20}
-                          />
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          scope="row"
-                          className="member-product-article-article-picture-img-wrapper"
-                        >
-                          <div className="member-product-article-article-picture-img-box">
-                            <img
-                              src={Xiangshan}
-                              alt=""
-                              className="member-product-article-article-picture-img"
+                            <BsStarFill
+                              className="member-product-article-star-icon"
+                              size={20}
                             />
-                          </div>
-                        </td>
-                        <td
-                          scope="row"
-                          className="member-product-article-text-weight align-middle"
-                        >
-                          象山步道
-                        </td>
-                        <td
-                          scope="row"
-                          className="member-product-article-text-weight align-middle"
-                        >
-                          <BsStarFill
-                            className="member-product-article-star-icon"
-                            size={20}
-                          />
-                          <BsStarFill
-                            className="member-product-article-star-icon"
-                            size={20}
-                          />
-                          <BsStarFill
-                            className="member-product-article-star-icon"
-                            size={20}
-                          />
-                          <BsStar
-                            className="member-product-article-star-icon"
-                            size={20}
-                          />
-                          <BsStar
-                            className="member-product-article-star-icon"
-                            size={20}
-                          />
-                        </td>
-                        <td
-                          scope="row"
-                          className="member-product-article-text-weight align-middle"
-                        >
-                          <BsXSquareFill
-                            className="member-product-article-cancel-icon"
-                            size={20}
-                          />
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          scope="row"
-                          className="member-product-article-article-picture-img-wrapper"
-                        >
-                          <div className="member-product-article-article-picture-img-box">
-                            <img
-                              src={Xiangshan}
-                              alt=""
-                              className="member-product-article-article-picture-img"
+                            <BsStarFill
+                              className="member-product-article-star-icon"
+                              size={20}
                             />
-                          </div>
-                        </td>
-                        <td
-                          scope="row"
-                          className="member-product-article-text-weight align-middle"
-                        >
-                          象山步道
-                        </td>
-                        <td
-                          scope="row"
-                          className="member-product-article-text-weight align-middle"
-                        >
-                          <BsStarFill
-                            className="member-product-article-star-icon"
-                            size={20}
-                          />
-                          <BsStarFill
-                            className="member-product-article-star-icon"
-                            size={20}
-                          />
-                          <BsStarFill
-                            className="member-product-article-star-icon"
-                            size={20}
-                          />
-                          <BsStar
-                            className="member-product-article-star-icon"
-                            size={20}
-                          />
-                          <BsStar
-                            className="member-product-article-star-icon"
-                            size={20}
-                          />
-                        </td>
-                        <td
-                          scope="row"
-                          className="member-product-article-text-weight align-middle"
-                        >
-                          <BsXSquareFill
-                            className="member-product-article-cancel-icon"
-                            size={20}
-                          />
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          scope="row"
-                          className="member-product-article-article-picture-img-wrapper"
-                        >
-                          <div className="member-product-article-article-picture-img-box">
-                            <img
-                              src={Xiangshan}
-                              alt=""
-                              className="member-product-article-article-picture-img"
+                            <BsStar
+                              className="member-product-article-star-icon"
+                              size={20}
                             />
-                          </div>
-                        </td>
-                        <td
-                          scope="row"
-                          className="member-product-article-text-weight align-middle"
-                        >
-                          象山步道
-                        </td>
-                        <td
-                          scope="row"
-                          className="member-product-article-text-weight align-middle"
-                        >
-                          <BsStarFill
-                            className="member-product-article-star-icon"
-                            size={20}
-                          />
-                          <BsStarFill
-                            className="member-product-article-star-icon"
-                            size={20}
-                          />
-                          <BsStarFill
-                            className="member-product-article-star-icon"
-                            size={20}
-                          />
-                          <BsStar
-                            className="member-product-article-star-icon"
-                            size={20}
-                          />
-                          <BsStar
-                            className="member-product-article-star-icon"
-                            size={20}
-                          />
-                        </td>
-                        <td
-                          scope="row"
-                          className="member-product-article-text-weight align-middle"
-                        >
-                          <BsXSquareFill
-                            className="member-product-article-cancel-icon"
-                            size={20}
-                          />
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          scope="row"
-                          className="member-product-article-article-picture-img-wrapper"
-                        >
-                          <div className="member-product-article-article-picture-img-box">
-                            <img
-                              src={Xiangshan}
-                              alt=""
-                              className="member-product-article-article-picture-img"
+                            <BsStar
+                              className="member-product-article-star-icon"
+                              size={20}
                             />
-                          </div>
-                        </td>
-                        <td
-                          scope="row"
-                          className="member-product-article-text-weight align-middle"
-                        >
-                          象山步道
-                        </td>
-                        <td
-                          scope="row"
-                          className="member-product-article-text-weight align-middle"
-                        >
-                          <BsStarFill
-                            className="member-product-article-star-icon"
-                            size={20}
-                          />
-                          <BsStarFill
-                            className="member-product-article-star-icon"
-                            size={20}
-                          />
-                          <BsStarFill
-                            className="member-product-article-star-icon"
-                            size={20}
-                          />
-                          <BsStar
-                            className="member-product-article-star-icon"
-                            size={20}
-                          />
-                          <BsStar
-                            className="member-product-article-star-icon"
-                            size={20}
-                          />
-                        </td>
-                        <td
-                          scope="row"
-                          className="member-product-article-text-weight align-middle"
-                        >
-                          <BsXSquareFill
-                            className="member-product-article-cancel-icon"
-                            size={20}
-                          />
-                        </td>
-                      </tr>
-                    </tbody>
+                          </td>
+                          <td
+                            scope="row"
+                            className="member-product-article-text-weight align-middle"
+                          >
+                            <BsXSquareFill
+                              className="member-product-article-cancel-icon"
+                              size={20}
+                            />
+                          </td>
+                        </tr>
+                      </tbody>
+                    ))}
                   </table>
                   {/* <!-- 分頁 start  --> */}
-                  {/* <div
-                  className="btn-toolbar justify-content-center mb-5"
-                  role="toolbar"
-                  aria-label="Toolbar with button groups"
-                >
-                  <div
-                    className="btn-group mr-2"
-                    role="group"
-                    aria-label="Third group"
-                  >
-                    <button type="button" className="btn btn-primary">|<</button>
-                  </div>
-                  <div
-                    className="btn-group mr-2"
-                    role="group"
-                    aria-label="First group"
-                  >
-                    <button type="button" className="btn btn-primary"><</button>
-                  </div>
-                  <div
-                    className="btn-group mr-2"
-                    role="group"
-                    aria-label="Second group"
-                  >
-                    <button type="button" className="btn btn-primary">1</button>
-                  </div>
-                  <div
-                    className="btn-group mr-2"
-                    role="group"
-                    aria-label="Third group"
-                  >
-                    <button type="button" className="btn btn-primary">></button>
-                  </div>
-                  <div className="btn-group" role="group" aria-label="Third group">
-                    <button type="button" className="btn btn-primary">>|</button>
-                  </div>
-                </div> */}
+                  {pages_btn}
                   {/* <!-- 分頁 end  --> */}
                   {/* <!-- article table end--> */}
                 </div>

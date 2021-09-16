@@ -4,9 +4,12 @@ import { withRouter } from 'react-router-dom'; //可以獲取history,location,ma
 import $ from 'jquery';
 import '../../styles/MemberPage/MemberComment.scss'; //member comment style
 
+import { memberCommentURL } from '../../utils/config';
+import axios from 'axios';
+
 //====== below pages star ======//
 import { pages_btn } from '../MapPage/pages/PagesBtn'; //分頁按鈕
-import { memberSideHead } from './pages/MemberSideHead'; //member Side Head
+import MemberSideHead from './pages/MemberSideHead'; //member Side Head
 //====== below pages end ======//
 
 //====== below icon star ======//
@@ -18,6 +21,22 @@ import Xiangshan from '../../img/xiangshan.jpeg';
 //====== above img import end ======//
 
 function MemberComment() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    async function getCommentData() {
+      try {
+        const CommentData = await axios.get(memberCommentURL);
+        console.log(CommentData.data); //for check
+        setData(CommentData.data);
+        let data = CommentData.data;
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getCommentData();
+  }, []);
+
   return (
     <>
       <div className="container">
@@ -30,7 +49,9 @@ function MemberComment() {
               p-md-4 p-lg-5
             "
             >
-              <thead>{memberSideHead}</thead>
+              <thead>
+                <MemberSideHead />
+              </thead>
               <tbody>
                 <tr>
                   <td scope="row" className="text-center">
@@ -123,193 +144,47 @@ function MemberComment() {
                   </th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td
-                    scope="row"
-                    className="member-comment-picture-img-wrapper"
-                  >
-                    <div className="member-comment-picture-img-box">
-                      <img
-                        src={Xiangshan}
-                        alt=""
-                        className="member-comment-picture-img"
-                      />
-                    </div>
-                  </td>
-                  <td
-                    scope="row"
-                    className="member-comment-text-weight align-middle"
-                  >
-                    象山步道
-                  </td>
-                  <td
-                    scope="row"
-                    className="member-comment-text-weight align-middle"
-                  >
-                    評論內容.......
-                  </td>
-                  <td
-                    scope="row"
-                    className="member-comment-text-weight align-middle"
-                  >
-                    <Link to="/#">
-                      <BsExclamationTriangleFill
-                        className="member-comment-warning-icon"
-                        size={20}
-                      />
-                    </Link>
-                  </td>
-                </tr>
-                <tr>
-                  <td
-                    scope="row"
-                    className="member-comment-picture-img-wrapper"
-                  >
-                    <div className="member-comment-picture-img-box">
-                      <img
-                        src={Xiangshan}
-                        alt=""
-                        className="member-comment-picture-img"
-                      />
-                    </div>
-                  </td>
-                  <td
-                    scope="row"
-                    className="member-comment-text-weight align-middle"
-                  >
-                    象山步道
-                  </td>
-                  <td
-                    scope="row"
-                    className="member-comment-text-weight align-middle"
-                  >
-                    評論內容.......
-                  </td>
-                  <td
-                    scope="row"
-                    className="member-comment-text-weight align-middle"
-                  >
-                    <Link to="/#">
-                      <BsExclamationTriangleFill
-                        className="member-comment-warning-icon"
-                        size={20}
-                      />
-                    </Link>
-                  </td>
-                </tr>
-                <tr>
-                  <td
-                    scope="row"
-                    className="member-comment-picture-img-wrapper"
-                  >
-                    <div className="member-comment-picture-img-box">
-                      <img
-                        src={Xiangshan}
-                        alt=""
-                        className="member-comment-picture-img"
-                      />
-                    </div>
-                  </td>
-                  <td
-                    scope="row"
-                    className="member-comment-text-weight align-middle"
-                  >
-                    象山步道
-                  </td>
-                  <td
-                    scope="row"
-                    className="member-comment-text-weight align-middle"
-                  >
-                    評論內容.......
-                  </td>
-                  <td
-                    scope="row"
-                    className="member-comment-text-weight align-middle"
-                  >
-                    <Link to="/#">
-                      <BsExclamationTriangleFill
-                        className="member-comment-warning-icon"
-                        size={20}
-                      />
-                    </Link>
-                  </td>
-                </tr>
-                <tr>
-                  <td
-                    scope="row"
-                    className="member-comment-picture-img-wrapper"
-                  >
-                    <div className="member-comment-picture-img-box">
-                      <img
-                        src={Xiangshan}
-                        alt=""
-                        className="member-comment-picture-img"
-                      />
-                    </div>
-                  </td>
-                  <td
-                    scope="row"
-                    className="member-comment-text-weight align-middle"
-                  >
-                    象山步道
-                  </td>
-                  <td
-                    scope="row"
-                    className="member-comment-text-weight align-middle"
-                  >
-                    評論內容.......
-                  </td>
-                  <td
-                    scope="row"
-                    className="member-comment-text-weight align-middle"
-                  >
-                    <Link to="/#">
-                      <BsExclamationTriangleFill
-                        className="member-comment-warning-icon"
-                        size={20}
-                      />
-                    </Link>
-                  </td>
-                </tr>
-                <tr>
-                  <td
-                    scope="row"
-                    className="member-comment-picture-img-wrapper"
-                  >
-                    <div className="member-comment-picture-img-box">
-                      <img
-                        src={Xiangshan}
-                        alt=""
-                        className="member-comment-picture-img"
-                      />
-                    </div>
-                  </td>
-                  <td
-                    scope="row"
-                    className="member-comment-text-weight align-middle"
-                  >
-                    象山步道
-                  </td>
-                  <td
-                    scope="row"
-                    className="member-comment-text-weight align-middle"
-                  >
-                    評論內容.......
-                  </td>
-                  <td
-                    scope="row"
-                    className="member-comment-text-weight align-middle"
-                  >
-                    <Link to="/#">
-                      <BsExclamationTriangleFill
-                        className="member-comment-warning-icon"
-                        size={20}
-                      />
-                    </Link>
-                  </td>
-                </tr>
-              </tbody>
+              {data.map((items, i) => (
+                <tbody>
+                  <tr>
+                    <td
+                      scope="row"
+                      className="member-comment-picture-img-wrapper"
+                    >
+                      <div className="member-comment-picture-img-box">
+                        <img
+                          src={Xiangshan}
+                          alt=""
+                          className="member-comment-picture-img"
+                        />
+                      </div>
+                    </td>
+                    <td
+                      scope="row"
+                      className="member-comment-text-weight align-middle"
+                    >
+                      象山步道
+                    </td>
+                    <td
+                      scope="row"
+                      className="member-comment-text-weight align-middle"
+                    >
+                      {items.comments_content}
+                    </td>
+                    <td
+                      scope="row"
+                      className="member-comment-text-weight align-middle"
+                    >
+                      <Link to="/#">
+                        <BsExclamationTriangleFill
+                          className="member-comment-warning-icon"
+                          size={20}
+                        />
+                      </Link>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
             </table>
             {/* <!-- 分頁 start  --> */}
             {pages_btn}

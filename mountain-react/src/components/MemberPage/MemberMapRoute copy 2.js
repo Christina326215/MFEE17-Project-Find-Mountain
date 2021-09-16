@@ -9,7 +9,7 @@ import axios from 'axios';
 
 //====== below pages star ======//
 import { pages_btn } from '../MapPage/pages/PagesBtn'; //分頁按鈕
-import MemberSideHead from './pages/MemberSideHead'; //member Side Head
+import { memberSideHead } from './pages/MemberSideHead'; //member Side Head
 //====== below pages end ======//
 
 //====== below icon star ======//
@@ -71,9 +71,7 @@ function MemberMapRoute() {
               p-md-4 p-lg-5
             "
             >
-              <thead>
-                <MemberSideHead />
-              </thead>
+              <thead>{memberSideHead}</thead>
               <tbody>
                 <tr className="member-table-active">
                   <td scope="row" className="text-center">
