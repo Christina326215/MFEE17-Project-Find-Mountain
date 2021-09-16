@@ -1,19 +1,12 @@
 import React from 'react';
 import Card from './Card';
 import '../../styles/article.css';
-import { Link } from 'react-router-dom';
 import $ from 'jquery';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import level from '../../img/article-img/level_low.svg';
 import axios from 'axios';
 import { recommendURL } from '../../utils/config';
-import sevenstar from '../../img/article-img/sevenstar.jpeg';
-import xiangshan from '../../img/article-img/xiangshan.jpeg';
-import { FaShoePrints } from 'react-icons/fa';
-import { BsHeartFill } from 'react-icons/bs';
 import {
-  BsStarFill,
   BsChevronBarLeft,
   BsChevronLeft,
   BsChevronRight,
@@ -192,7 +185,6 @@ function Manual() {
                 推薦路線
               </h2>
               <p className="recommend-inline ml-2">9筆資料</p>
-              <Card></Card>
               <Card></Card>
               <div
                 className="btn-toolbar justify-content-center"

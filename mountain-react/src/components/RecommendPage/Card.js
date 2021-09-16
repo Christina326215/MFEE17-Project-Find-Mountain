@@ -2,10 +2,9 @@ import React from 'react';
 import '../../styles/article.css';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { recommendURL } from '../../utils/config';
+import { recommendURL, IMAGE_URL } from '../../utils/config';
 import level from '../../img/article-img/level_low.svg';
 import axios from 'axios';
-import sevenstar from '../../img/article-img/sevenstar.jpeg';
 import { FaShoePrints } from 'react-icons/fa';
 import { BsHeartFill } from 'react-icons/bs';
 import {
@@ -68,7 +67,7 @@ function Card(props) {
                   <div className="recommend-pic-box-wrap">
                     <img
                       className="recommend-cardimg img-fluid"
-                      src={sevenstar}
+                      src={`${IMAGE_URL}/img/article-img/${detail.pic}`}
                       alt="..."
                     />
                   </div>
@@ -126,7 +125,7 @@ function Card(props) {
                         <small className="recommend-body-content-small text-muted align-self-end">
                           2人收藏
                         </small>
-                        <Link to="/recommend/detail">
+                        <Link to={'/recommend/detail/' + detail.id}>
                           <button className="btn btn-primary">查看更多</button>
                         </Link>
                       </div>

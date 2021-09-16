@@ -2,12 +2,11 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { recommendURL } from '../../utils/config';
+import { recommendURL, IMAGE_URL } from '../../utils/config';
 ///////////////////////////////////////////連接資料庫
 import '../../styles/article.css';
 import { Link } from 'react-router-dom';
 import $ from 'jquery';
-import { useGoogleMaps } from 'react-hook-google-maps';
 import level from '../../img/article-img/level_low.svg';
 import slothBig from '../../img/article-img/sloth_big.svg';
 import slothSmall from '../../img/article-img/sloth_small.svg';
@@ -28,28 +27,6 @@ import {
   BsPlusSquare,
   BsPeopleCircle,
 } from 'react-icons/bs';
-
-// GoogleMap
-function GoogleMap() {
-  const { ref, map, google } = useGoogleMaps(
-    // Use your own API key, you can get one from Google (https://console.cloud.google.com/google/maps-apis/overview)
-    'AIzaSyDBUIlb9yFsQRGYz1_BEy8ISajpzCnBS3A',
-    // NOTE: even if you change options later
-    {
-      center: { lat: 25.027042456861643, lng: 121.57440456837543 },
-      zoom: 15,
-    }
-  );
-  // console.log('map', map); // instance of created Map object (https://developers.google.com/maps/documentation/javascript/reference/map)
-  // console.log('google', google); // google API object (easily get google.maps.LatLng or google.maps.Marker or any other Google Maps class)
-  return (
-    <div
-      ref={ref}
-      style={{ maxWidth: 1110, height: 300, marginTop: 15, borderRadius: 10 }}
-    />
-  );
-}
-// GoogleMap
 
 function DetailContent(props) {
   const [detail, setDetail] = useState([
@@ -109,7 +86,7 @@ function DetailContent(props) {
         // console.log(typeof id);
         const id = Number(props.match.params.id);
 
-        // console.log('totalDetail', totalDetail);
+        console.log('totalDetail', totalDetail);
         // console.log('id', id);
 
         // 全部資料用find尋找id一樣的資料
@@ -117,6 +94,18 @@ function DetailContent(props) {
           return v.id === id;
         });
         console.log(newDetail);
+
+        const totalTime = newDetail.time;
+        const total_D = totalTime / 1440; //分鐘換算總天數
+        const int_D = Math.floor(total_D); //天數取整數
+        const total_H = (total_D - int_D) * 24; //剩下的小時數
+        const int_H = Math.floor(total_H); //小時取整數
+        const total_M = (total_H - int_H) * 60; //剩下的分鐘數
+        const int_M = Math.round(total_M); //分鐘取整數
+
+        console.log('int_D', int_D);
+        console.log('int_H', int_H);
+        console.log('int_M', int_M);
 
         if (newDetail) setDetail(newDetail);
       } catch (e) {
@@ -230,7 +219,15 @@ function DetailContent(props) {
               </div>
             </div>
           </div>
-          <div className="recommend-detailBg">
+          <div
+            className="recommend-detailBg"
+            style={{
+              backgroundImage: `url("${IMAGE_URL}/img/article-img/${detail.pic}")`,
+              borderRadius: 10,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+          >
             <div className="recommend-detailBgShow"></div>
             <div className="recommend-detailFilter">
               <div className="recommend-detailContnet">
@@ -279,7 +276,23 @@ function DetailContent(props) {
                     <div className="d-flex recommend-table table">
                       <div className="recommend-tableHead col">所需時間</div>
                       <div className="recommend-tableBody col">
-                        1小時40分鐘 {detail.time}
+                        {/* { $total_D = detail.time / 1440; //分鐘換算總天數
+                         $int_D = Math.floor(total_D); //天數取整數
+                         $total_H = (total_D - $int_D) * 24; //剩下的小時數
+                         $int_H = Math.floor(total_H); //小時取整數
+                         $total_M = (total_H - $int_H) * 60; //剩下的分鐘數
+                         $int_M = Math.round(total_M); //分鐘取整數
+
+                         console.log('int_D', $int_D);
+                         console.log('int_H', $int_H);
+                         console.log('int_M', $int_M); } */}
+                        1小時40分鐘 {Math.floor(detail.time / 1440)}天
+                        {Math.floor(
+                          [
+                            detail.time / 1440 - Math.floor(detail.time / 1440),
+                          ] * 24
+                        )}
+                        小時/////
                       </div>
                     </div>
                   </div>
@@ -327,7 +340,7 @@ function DetailContent(props) {
             </div>
           </div>
           {/* googlemap */}
-          <GoogleMap></GoogleMap>
+          {/* <GoogleMap></GoogleMap> */}
           {/* googlemap */}
           <h2 className="recommend-body-content-big-bold">此景點產品推薦</h2>
           <div className="row">
