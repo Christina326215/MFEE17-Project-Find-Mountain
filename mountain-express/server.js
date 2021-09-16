@@ -6,15 +6,11 @@ let fs = require('fs/promises');
 // 利用 express 建立了一個 express application
 let app = express();
 
-//cors的問題解法
-// const cors = require("cors");
-// app.use(cors());
+// 處理cors
 const cors = require("cors");
 app.use(
   cors({
     origin: ["http://localhost:3000"],
-    // origin: ["http://localhost:3000,https://api.opencube.tw/twzipcode"],
-    // origin: "*",
     // credentials: true,
   })
 );
@@ -25,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 //========================================================//
 
-// zip.json靜態檔案
+// 處理靜態檔案
 app.use(express.static(path.join(__dirname, "public")));
 
 // react yarn build star
@@ -59,7 +55,7 @@ app.get("/api/zip/group", async (req,res,next)=>{
 
   // 處理寫檔
   await fs.writeFile(path.join(__dirname, "public", "zip", "code.json"), JSON.stringify(result))
-  // zip/group.json 是在當選擇某一收件地址之縣市時，區名直接呈現該縣市的範圍。
+  // zip/group.json 是在當選擇某一收件地址之縣市時，區名直接呈現該縣市的行政區。
   res.json(result);
 })
 
@@ -109,7 +105,7 @@ let memberRouteRouter = require("./routers/memberRoute");
 app.use("/api/member/route", memberRouteRouter);
 //===引用 memberRoute 進來 end===//
 
-// TODO: 建立路線地圖之路線星星評分
+// TODO: 建立會員路線星星評分
 //===引用 memberStar 進來 star===//
 let memberStarRouter = require("./routers/memberStar");
 app.use("/api/member/star", memberStarRouter);
