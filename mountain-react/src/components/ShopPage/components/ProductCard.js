@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CartFill, HeartFill } from 'react-bootstrap-icons';
 import '../../../styles/product.css';
@@ -7,11 +7,22 @@ import $ from 'jquery';
 import Swal from 'sweetalert2';
 
 function ProductCard(props) {
-  const { price, picture, name } = props;
+  const { productId, price, picture, name } = props;
+  const [likeList, setLikeList] = useState([1,2]);
+  // console.log(likeList);
+  let updateList = [];
   const heartIconClick = function (e) {
-    console.log(e.currentTarget);
+    // console.log(e.currentTarget);
     $(e.currentTarget).toggleClass('shopmain-heart-icon-bkg-click');
+    // setLikeList([...likeList, productId]);
+    // setLikeList(likeList.push(productId));
+    console.log(productId);
+    var newLikeList = [...likeList, productId];
+    console.log("lL",newLikeList);
+    //3.設定回原本的物件
+    setLikeList(newLikeList);
   };
+
   const cartIconClick = function () {
     //display none -> block
     // console.log('hi');
