@@ -22,3 +22,8 @@ export const mapURL =
 export const outfitURL =
   process.env.REACT_APP_outfitURL || 'http://localhost:3500/api/outfit/';
 //=== outfit url end ===//
+
+//=== shop url star ===//
+export const shopURL =
+  process.env.REACT_APP_shopURL || 'http://localhost:3500/api/shop/';
+//=== shop url end ===//
