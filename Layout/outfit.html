@@ -123,7 +123,7 @@
                   <img src="./img/img-outfit/bear.svg" alt="" />
                   <div class="mountains position-absolute position-relative">
                     <div class="low-mountain single" target="1">
-                      <span>低階</span>
+                      <span>初階</span>
                     </div>
                     <div class="high-mountain single" target="3">
                       <span>高階</span>
@@ -144,12 +144,16 @@
                   <i class="fas fa-chevron-right next" id="slideRight"></i>
                   <div class="product-wrapper" id="slider">
                     <div class="product">
-                      <div class="product-img test1">
+                      <div class="product-img">
+                        <!-- <input
+                          type="hidden"
+                          value="Arcteryx 始祖鳥 單件式GORE-TEX化纖保暖外套|clothes-pic1-removebg-preview.png|5000"
+                        /> -->
                         <img
                           src="./img/img-outfit/clothes-pic1-removebg-preview.png"
                           alt=""
                           class="slider-image cover-fit"
-                          draggable
+                          id="A1001"
                         />
                       </div>
                       <div class="product-info">
@@ -157,11 +161,16 @@
                       </div>
                     </div>
                     <div class="product">
-                      <div class="product-img test1">
+                      <div class="product-img">
+                        <!-- <input
+                          type="hidden"
+                          value="Mont-Bell Light Alpine 連帽羽絨外套|clothes-pic2-removebg-preview.png|7000"
+                        /> -->
                         <img
                           src="./img/img-outfit/clothes-pic2-removebg-preview.png"
                           alt=""
                           class="slider-image cover-fit"
+                          id="A1002"
                           draggable
                         />
                       </div>
@@ -170,7 +179,11 @@
                       </div>
                     </div>
                     <div class="product">
-                      <div class="product-img test1">
+                      <div class="product-img" id="A1003">
+                        <input
+                          type="hidden"
+                          value="The North Face 戶外保暖羽絨外套|clothes-pic3-removebg-preview.png|6800"
+                        />
                         <img
                           src="./img/img-outfit/clothes-pic3-removebg-preview.png"
                           alt=""
@@ -545,7 +558,7 @@
       </div>
       <!-- 製作個人化明信片 end -->
       <!-- 訂購單 start     -->
-      <div class="order">
+      <!-- <div class="order">
         <table class="order-table">
           <thead>
             <tr>
@@ -600,8 +613,13 @@
             </tr>
           </tbody>
         </table>
-      </div>
+      </div> -->
       <!-- 訂購單 end -->
+      <div id="newItem">
+        <!-- <img src="imgs/formosa.jpg" />
+        <span>Formosa</span>
+        <span>$5000</span> -->
+      </div>
     </div>
     <div class="btnGroup">
       <button class="fb">
@@ -612,6 +630,7 @@
       </button>
       <button class="btn btn-primary">將所選商品加入購物車</button>
     </div>
+    <div id="newItem"></div>
     <!-- =========content end========= -->
 
     <!-- =========footer star========= -->
@@ -656,9 +675,11 @@
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
       crossorigin="anonymous"
     ></script>
-    <script src="outfit.js"></script>
     <script src="fabric.js"></script>
     <script src="canvas.js"></script>
+    <!-- <script src="canvas-1.js"></script> -->
+    <script src="outfit.js"></script>
+
     <script src="http://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <!-- <script src="https://superal.github.io/canvas2image/canvas2image.js"></script> -->
     <!-- <script src="canvas2image.js"></script> -->

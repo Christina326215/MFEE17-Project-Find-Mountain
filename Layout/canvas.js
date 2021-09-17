@@ -1,149 +1,157 @@
-
-
-// fabric.Image.fromURL(
-//   "./img/img-outfit/postcard-bg800.png",
-//   (img) => {
-//     const oImg = img.set({
-//       width: 800,
-//       height: 452,
-//     });
-//     canvas.setBackgroundImage(oImg).renderAll();
-//   }
-// );
-
-let canvasTarget=document.querySelector(".canvas-target")
+let canvasTarget = document.querySelector(".canvas-target");
+let selectedImgs = [];
 const canvas = new fabric.Canvas("canvas", {
   width: canvasTarget.clientWidth,
   height: canvasTarget.clientHeight,
 });
 
-window.onresize = function(){
+window.onresize = function () {
   canvas.setDimensions({
-    width: canvasTarget.clientWidth, 
-    height: canvasTarget.clientHeight,});
-}
-
-// let canvasTarget=document.querySelector(".canvas-target")
-// const card = new fabric.Canvas('canvas')
-// card.setWidth(canvasTarget.clientWidth)
-// card.setHeight(canvasTarget.clientHeight)
-// console.log(canvasTarget.clientWidth);
-
-const productImg = document.querySelectorAll(".product-img");
-const defaultImg = document.getElementById("defaultImg");
-
-let movingImage;
-let imgDragOffset = {
-  offsetX: 0,
-  offsetY: 0,
+    width: canvasTarget.clientWidth,
+    height: canvasTarget.clientHeight,
+  });
 };
-function saveImg(e) {
-  console.log(e.target.tagName);
-  if (e.target.tagName.toLowerCase() === "img") {
-    console.log("high");
-    imgDragOffset.offsetX = e.clientX - e.target.offsetLeft;
-    imgDragOffset.offsetY = e.clientY - e.target.offsetTop;
-    movingImage = e.target;
-    console.log(movingImage);
+
+function handleDragStart(e) {
+  console.log("handleDragStart e", e);
+  e.dataTransfer.setData("text/plain", event.target.id);
+}
+function handleDragEnd(e) {}
+function handleDragEnter(e) {
+  // e.stopPropagation();
+}
+function handleDragOver(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = "copy";
+  return false;
+}
+function handleDragLeave(e) {
+  // e.stopPropagation();
+}
+function handleDrop(e) {
+  e.stopPropagation();
+  document.getElementById("hide").style.display="none"
+  // if (e.stopPropagation) {
+  //     e.stopPropagation();
+  // }
+  console.log("handleDrop e",e);
+  let id = e.dataTransfer.getData("text/plain");
+  // console.log(id);
+  var img = document.querySelector("#" + id);
+  // console.log(img);
+  var newImage = new fabric.Image(img, {
+    width: img.width,
+    height: img.height,
+    // Set the center of the new object based on the event coordinates relative
+    // to the canvas container.
+    left: e.layerX,
+    top: e.layerY,
+  });
+  console.log('newImage',newImage);
+  let canvasAdd=canvas.add(newImage);
+  console.log('canvasAdd',canvasAdd);
+
+  selectedImgs.push("#" + id);
+  console.log("selectedImgs", selectedImgs);
+  showSelectedImgs();
+  return false;
+}
+function showSelectedImgs() {
+  let newItem = document.getElementById("newItem");
+  newItem.innerHTML = "";
+  for (let i = 0; i < selectedImgs.length; i++) {
+    let image = new Image();
+    let url = document.querySelector(selectedImgs[i]).getAttribute("src");
+    image.src = url;
+    newItem.appendChild(image);
   }
 }
-function dropImg(e) {
-  console.log("2")
-  document.getElementById("hide").style.display="none"
-  const { offsetX, offsetY } = e.e;
-  console.log(offsetX, offsetY);
-  const image = new fabric.Image(movingImage, {
-    width: movingImage.naturalWidth,
-    height: movingImage.naturalHeight,
-    scaleX: 100 / movingImage.naturalWidth,
-    scaleY: 100 / movingImage.naturalHeight,
-    top: offsetY,
-    left:offsetX,
-  });
-  console.log(image);
-  canvas.add(image);
-}
+var images = document.querySelectorAll(".product-img img");
+[].forEach.call(images, function (img) {
+  img.addEventListener("dragstart", handleDragStart, false);
+  img.addEventListener("dragend", handleDragEnd, false);
+});
 
-canvas.on("drop", dropImg);
+// var canvasContainer = document.getElementsByClassName("canvas-target");
+canvasTarget.addEventListener("dragenter", handleDragEnter, false);
+canvasTarget.addEventListener("dragover", handleDragOver, false);
+canvasTarget.addEventListener("dragleave", handleDragLeave, false);
+canvasTarget.addEventListener("drop", handleDrop, false);
 
-let i;
-for(i=0;i<productImg.length;i++){
-  productImg[i].addEventListener("mousedown", saveImg);
-}
-
-//////////以下為canvas2image//////////////////
+// //////////以下為canvas2image//////////////////
 var canvasPng,
-        ctx,
-        bMouseIsDown = false,
-        iLastX,
-        iLastY,
-        $save,
-        $imgs;  
-      function init() {
-        canvasPng = document.querySelector(".cvs");
-        // ctx = canvasPng.getContext("2d");
-        $save = document.getElementById("save");
-        $imgs = document.getElementById("imgs");
-        bind();
-      }
-      function bind() {
-        canvasPng.onmousedown = function (e) {
-          bMouseIsDown = true;
-          iLastX =
-            e.clientX -
-            canvasPng.offsetLeft +
-            (window.pageXOffset ||
-              document.body.scrollLeft ||
-              document.documentElement.scrollLeft);
-          iLastY =
-            e.clientY -
-            canvasPng.offsetTop +
-            (window.pageYOffset ||
-              document.body.scrollTop ||
-              document.documentElement.scrollTop);
-        };
-        canvasPng.onmouseup = function () {
-          bMouseIsDown = false;
-          iLastX = -1;
-          iLastY = -1;
-        };
-        canvasPng.onmousemove = function (e) {
-          if (bMouseIsDown) {
-            var iX =
-              e.clientX -
-              canvasPng.offsetLeft +
-              (window.pageXOffset ||
-                document.body.scrollLeft ||
-                document.documentElement.scrollLeft);
-            var iY =
-              e.clientY -
-              canvasPng.offsetTop +
-              (window.pageYOffset ||
-                document.body.scrollTop ||
-                document.documentElement.scrollTop);
-            // ctx.moveTo(iLastX, iLastY);
-            // ctx.lineTo(iX, iY);
-            // ctx.stroke();
-            iLastX = iX;
-            iLastY = iY;
-          }
-        };
+  ctx,
+  bMouseIsDown = false,
+  iLastX,
+  iLastY,
+  $save,
+  $imgs;
+function init() {
+  canvasPng = document.querySelector(".cvs");
+  // ctx = canvasPng.getContext("2d");
+  $save = document.getElementById("save");
+  $imgs = document.getElementById("imgs");
+  bind();
+}
+function bind() {
+  canvasPng.onmousedown = function (e) {
+    bMouseIsDown = true;
+    iLastX =
+      e.clientX -
+      canvasPng.offsetLeft +
+      (window.pageXOffset ||
+        document.body.scrollLeft ||
+        document.documentElement.scrollLeft);
+    iLastY =
+      e.clientY -
+      canvasPng.offsetTop +
+      (window.pageYOffset ||
+        document.body.scrollTop ||
+        document.documentElement.scrollTop);
+  };
+  canvasPng.onmouseup = function () {
+    bMouseIsDown = false;
+    iLastX = -1;
+    iLastY = -1;
+  };
+  canvasPng.onmousemove = function (e) {
+    if (bMouseIsDown) {
+      var iX =
+        e.clientX -
+        canvasPng.offsetLeft +
+        (window.pageXOffset ||
+          document.body.scrollLeft ||
+          document.documentElement.scrollLeft);
+      var iY =
+        e.clientY -
+        canvasPng.offsetTop +
+        (window.pageYOffset ||
+          document.body.scrollTop ||
+          document.documentElement.scrollTop);
+      // ctx.moveTo(iLastX, iLastY);
+      // ctx.lineTo(iX, iY);
+      // ctx.stroke();
+      iLastX = iX;
+      iLastY = iY;
+    }
+  };
+}
+// onload = init;
 
-        
-      }
-      // onload = init;
+$("#save").click(function (e) {
+  // var type = "png",
+  //   w = "800",
+  //   h = "452";
+  // Canvas2Image.saveAsImage(canvasPng, w, h, type);
+  // console.log(w, h, type);
+  html2canvas(document.getElementById("canvasBox")).then(function (canvas) {
+    // document.body.appendChild(canvas);
+    var a = document.createElement("a");
+    a.href = canvas
+      .toDataURL("image/jpeg")
+      .replace("image/jpeg", "image/octet-stream");
+    a.download = "image.jpg";
+    a.click();
+  });
+});
 
-      $("#save").click(function (e) {
-        // var type = "png",
-        //   w = "800",
-        //   h = "452";
-        // Canvas2Image.saveAsImage(canvasPng, w, h, type);
-        // console.log(w, h, type);
-        html2canvas(document.getElementById('canvasBox')).then(function(canvas) {
-          // document.body.appendChild(canvas);
-          var a = document.createElement('a');
-          a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
-          a.download = 'image.jpg';
-          a.click();
-      });
-      });
