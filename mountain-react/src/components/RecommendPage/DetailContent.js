@@ -269,7 +269,7 @@ function DetailContent(props) {
                     <div className="d-flex recommend-table table">
                       <div className="recommend-tableHead col">最適季節</div>
                       <div className="recommend-tableBody col">
-                        {detail.season_name}
+                        {detail.season}
                       </div>
                     </div>
                   </div>

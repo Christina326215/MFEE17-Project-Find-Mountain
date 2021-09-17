@@ -5,9 +5,39 @@ const connection = require("../utils/db");
 router.get("", async function (req, res, next) {
   // let dbResults = await connection.queryAsync("SELECT article_season_id.article_id GROUP_CONCAT( article_season_id.season_id) As season_id FROM article_season_id GROUP BY article_season_id.article_id;"); // 等資料庫查詢資料
   // let dbResults = await connection.queryAsync("SELECT article.*, article_status.name AS status_name, article_level.name AS level_name, article_mountain_type.name AS mountain_type_name ,article_apply.name AS apply_name ,article_season.name As season_name FROM article JOIN article_status ON article.status = article_status.id JOIN article_level ON article.level = article_level.id JOIN article_mountain_type ON article.mountain_type = article_mountain_type.id JOIN article_apply ON article.apply = article_apply.id JOIN article_season_id ON article.id = article_season_id.article_id JOIN article_season ON article_season_id.season_id = article_season.id ORDER BY article.id"); // 等資料庫查詢資料
-  let dbResults = await connection.queryAsync("SELECT article.*, article_status.name AS status_name, article_level.name AS level_name, article_mountain_type.name AS mountain_type_name ,article_apply.name AS apply_name FROM article JOIN article_status ON article.status = article_status.id JOIN article_level ON article.level = article_level.id JOIN article_mountain_type ON article.mountain_type = article_mountain_type.id JOIN article_apply ON article.apply = article_apply.id ORDER BY article.id"); // 等資料庫查詢資料
   // let dbResults = await connection.queryAsync("SELECT article.*, article_status.name AS status_name, article_level.name AS level_name, article_mountain_type.name AS mountain_type_name ,article_apply.name AS apply_name FROM article JOIN article_status ON article.status = article_status.id JOIN article_level ON article.level = article_level.id JOIN article_mountain_type ON article.mountain_type = article_mountain_type.id JOIN article_apply ON article.apply = article_apply.id ORDER BY article.id"); // 等資料庫查詢資料
-  
+  let dbResults = await connection.queryAsync("SELECT article.*, article_status.name AS status_name, article_level.name AS level_name, article_mountain_type.name AS mountain_type_name ,article_apply.name AS apply_name FROM article JOIN article_status ON article.status = article_status.id JOIN article_level ON article.level = article_level.id JOIN article_mountain_type ON article.mountain_type = article_mountain_type.id JOIN article_apply ON article.apply = article_apply.id ORDER BY article.id"); // 等資料庫查詢資料
+
+  let perData = dbResults.map((item, index) => {
+    item.season = item.season.replace('1', '春季');
+    item.season = item.season.replace('2', '夏季');
+    item.season = item.season.replace('3', '秋季');
+    item.season = item.season.replace('4', '冬季');
+    return item;
+  })
+
+
+  // let result = dbResults;
+
+  // result.map((data)=>{
+  //   // console.log(data.city); //for check "台北市信義區"
+  //   let seaseon = data.season;
+  //   // console.log('city',city); //for check "台北市"
+  //   // let area = data.city.substr(3, 3);
+  //   // console.log('area',area); //for check "信義區"
+  //   // data.city = city; //city: '台北市'
+  //   // data.area = area; //area: '北投區'
+  //   console.log("seaseon",seaseon);
+  // })
+// console.log("result",result); //for check
+
+// let perData = dbResults.map((item, index) => {
+//   return item.season;
+// })
+
+
+
+
 // article_season.name As season_name,
 
 // JOIN article_season_id ON article.id = article_season_id.article_id
@@ -35,7 +65,7 @@ router.get("", async function (req, res, next) {
 
   
   
-  res.json(dbResults);
+  res.json(perData);
 });
 
 module.exports = router;
