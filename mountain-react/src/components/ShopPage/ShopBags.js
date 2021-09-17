@@ -7,7 +7,7 @@ import axios from 'axios';
 import { shopURL } from '../../utils/config';
 //api e
 
-function Bags(props) {
+function ShopBags(props) {
   const [productData, setProductData] = useState([]);
   const { price, picture, name } = props;
   useEffect(() => {
@@ -55,7 +55,7 @@ function Bags(props) {
                   <Link to="#/">登山鞋</Link>
                 </li>
                 <li className="col-3 px-0">
-                  <Link to="#/">衣服</Link>
+                  <Link to="/shop/clothes">衣服</Link>
                 </li>
               </div>
             </ul>
@@ -83,4 +83,4 @@ function Bags(props) {
   );
 }
 
-export default Bags;
+export default ShopBags;
