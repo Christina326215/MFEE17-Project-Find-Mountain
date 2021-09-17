@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;500;700&display=swap');
 
 /*============below all============*/
-body {
+.homepage-all {
   /* font-family: Roboto; */
   font-family: 'Noto Sans TC', Arial, Helvetica, sans-serif;
   overflow-x: hidden;
@@ -73,8 +73,8 @@ body {
 .homepage-title {
   position: absolute;
   color: #b8d99f;
-  top: 30%;
-  left: 7%;
+  top: 25%;
+  left: 5%;
   /* transform: translate(-50%, -50%); */
   letter-spacing: 2px;
   font-size: 3.5rem;
@@ -340,9 +340,7 @@ body {
     right: -5%;
     transform: scale(0.7, 0.7);
   }
-  .homepage-blobs2 {
-    max-width: 200px;
-  }
+
   .homepage-display-photo-box {
     height: 300px;
     margin-bottom: 30px;

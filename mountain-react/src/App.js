@@ -125,9 +125,9 @@ function App() {
             {/* //===homepage 路由放最下面===// */}
             <Route exact path="/">
               <HomeMountain />
-              <HomeArticle />
+              {/* <HomeArticle />
               <HomeShop />
-              <HomeOutfit />
+              <HomeOutfit /> */}
             </Route>
           </Switch>
         </ScrollToTop>
