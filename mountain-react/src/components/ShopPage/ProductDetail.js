@@ -118,7 +118,7 @@ function ProductDetail(props) {
         $('.cart-num').text(cartNum);
       }
     });
-  });
+  }, []);
   return (
     <>
       <main>
