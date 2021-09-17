@@ -8,8 +8,10 @@ import Swal from 'sweetalert2';
 
 function ProductCard(props) {
   const { price, picture, name } = props;
-  const heartIconClick = function () {
-    $(this).toggleClass('shopmain-heart-icon-bkg-click');
+  const heartIconClick = function (e) {
+    // console.log('hi');
+    // console.log(e.target);
+    $(e.target).toggleClass('shopmain-heart-icon-bkg-click');
   };
   const cartIconClick = function () {
     //display none -> block
