@@ -15,7 +15,7 @@ function ShopBags(props) {
     async function getProductData() {
       try {
         const productData = await axios.get(`${shopURL}/bags`);
-        console.log(productData.data); //for check
+        // console.log(productData.data); //for check
         setProductData(productData.data);
         // console.log('p2', productData);
       } catch (e) {

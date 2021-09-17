@@ -9,13 +9,13 @@ import { shopURL } from '../../utils/config';
 
 function ShopClothes(props) {
   const [productData, setProductData] = useState([]);
-  const { price, picture, name } = props;
+  const [wishList, setWishList] = useState([]);
   useEffect(() => {
     //api
     async function getProductData() {
       try {
         const productData = await axios.get(`${shopURL}/clothes`);
-        console.log(productData.data); //for check
+        // console.log(productData.data); //for check
         setProductData(productData.data);
         // console.log('p2', productData);
       } catch (e) {
@@ -67,10 +67,13 @@ function ShopClothes(props) {
               {productData.map((item, index) => {
                 return (
                   <ProductCard
+                    productId={item.id}
                     name={item.name}
                     price={item.price}
                     picture={item.pic}
                     key={item.id}
+                    likeList={wishList}
+                    setLikeList={setWishList}
                   />
                 );
               })}
