@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import $ from 'jquery';
 import Swal from 'sweetalert2';
 import '../../styles/productbag.css';
+import ProductCard from './components/ProductCard';
 import { CartFill, HeartFill } from 'react-bootstrap-icons';
 import bagPic1 from '../../img/product-img/bags-pic1.jpeg';
 import bagPic2 from '../../img/product-img/bags-pic2.jpeg';
@@ -13,9 +14,27 @@ import bagPic6 from '../../img/product-img/bags-pic6.png';
 import bagPic7 from '../../img/product-img/bags-pic7.jpeg';
 import bagPic8 from '../../img/product-img/bags-pic8.jpeg';
 import bagPic9 from '../../img/product-img/bags-pic9.jpeg';
+//api s
+import axios from 'axios';
+import { shopURL } from '../../utils/config';
+//api e
 
 function Bags(props) {
+  const [productData, setProductData] = useState([]);
+  const { price, picture, name } = props;
   useEffect(() => {
+    //api
+    async function getProductData() {
+      try {
+        const productData = await axios.get(`${shopURL}/bags`);
+        console.log(productData.data); //for check
+        setProductData(productData.data);
+        // console.log('p2', productData);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getProductData();
     $('.productbag-heart-icon-bkg').on('click', function () {
       $(this).toggleClass('productbag-heart-icon-bkg-click');
     });
@@ -88,6 +107,16 @@ function Bags(props) {
           {/* <!-- =========product start========= --> */}
           <div>
             <div className="row productbag-product-list my-4">
+              {productData.map((item, index) => {
+                return (
+                  <ProductCard
+                    name={item.name}
+                    price={item.price}
+                    picture={item.pic}
+                    key={item.id}
+                  />
+                );
+              })}
               <div className="col-6 col-md-4 col-lg-3 px-0">
                 <div className="productbag-product-card">
                   <div className="productbag-product-img-box position-relative">
