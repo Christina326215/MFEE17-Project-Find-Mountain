@@ -8,6 +8,16 @@ export const commentURL =
   process.env.REACT_APP_commentURL || 'http://localhost:3500/api/comment';
 //=== comment url star ===//
 
+//=== log url star ===//
+export const authURL =
+  process.env.REACT_APP_authURL || 'http://localhost:3500/api/auth/';
+//=== log url end ===//
+
+//=== home url star ===//
+export const homeURL =
+  process.env.REACT_APP_homeURL || 'http://localhost:3500/api/home/';
+//=== home url end ===//
+
 //=== for all url star ===//
 export const IMAGE_URL =
   process.env.REACT_APP_API_URL || 'http://localhost:3500';
@@ -22,3 +32,8 @@ export const mapURL =
 export const outfitURL =
   process.env.REACT_APP_outfitURL || 'http://localhost:3500/api/outfit/';
 //=== outfit url end ===//
+
+//=== shop url star ===//
+export const shopURL =
+  process.env.REACT_APP_shopURL || 'http://localhost:3500/api/shop/';
+//=== shop url end ===//
