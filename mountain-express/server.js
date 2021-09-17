@@ -55,6 +55,11 @@ let recommendRouter = require("./routers/recommendPage");
 app.use("/api/recommend", recommendRouter);
 //===引用 recommendPage 進來 end===//
 
+//===引用 recommendPage 進來 star===//
+let commentRouter = require("./routers/comment");
+app.use("/api/comment", commentRouter);
+//===引用 recommendPage 進來 end===//
+
 //===引用 shopPage 進來 star===//
 let shopRouter = require("./routers/shopPage");
 app.use("/api/shop", shopRouter);

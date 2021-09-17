@@ -3,20 +3,11 @@ const router = express.Router();
 const connection = require("../utils/db");
 
 router.get("", async function (req, res, next) {
+  // let dbResults = await connection.queryAsync("SELECT article_season_id.article_id GROUP_CONCAT( article_season_id.season_id) As season_id FROM article_season_id GROUP BY article_season_id.article_id;"); // 等資料庫查詢資料
   // let dbResults = await connection.queryAsync("SELECT article.*, article_status.name AS status_name, article_level.name AS level_name, article_mountain_type.name AS mountain_type_name ,article_apply.name AS apply_name ,article_season.name As season_name FROM article JOIN article_status ON article.status = article_status.id JOIN article_level ON article.level = article_level.id JOIN article_mountain_type ON article.mountain_type = article_mountain_type.id JOIN article_apply ON article.apply = article_apply.id JOIN article_season_id ON article.id = article_season_id.article_id JOIN article_season ON article_season_id.season_id = article_season.id ORDER BY article.id"); // 等資料庫查詢資料
   let dbResults = await connection.queryAsync("SELECT article.*, article_status.name AS status_name, article_level.name AS level_name, article_mountain_type.name AS mountain_type_name ,article_apply.name AS apply_name FROM article JOIN article_status ON article.status = article_status.id JOIN article_level ON article.level = article_level.id JOIN article_mountain_type ON article.mountain_type = article_mountain_type.id JOIN article_apply ON article.apply = article_apply.id ORDER BY article.id"); // 等資料庫查詢資料
-   // 時間展示
-        // let total_D = detail.time / 1440; //分鐘換算總天數
-        // let $int_D = Math.floor(total_D); //天數取整數
-        // let total_H = (total_D - $int_D) * 24; //剩下的小時數
-        // let $int_H = Math.floor(total_H); //小時取整數
-        // let total_M = (total_H - $int_H) * 60; //剩下的分鐘數
-        // let $int_M = Math.round(total_M); //分鐘取整數
-
-        // console.log('int_D', $int_D);
-        // console.log('int_H', $int_H);
-        // console.log('int_M', $int_M);
-
+  // let dbResults = await connection.queryAsync("SELECT article.*, article_status.name AS status_name, article_level.name AS level_name, article_mountain_type.name AS mountain_type_name ,article_apply.name AS apply_name FROM article JOIN article_status ON article.status = article_status.id JOIN article_level ON article.level = article_level.id JOIN article_mountain_type ON article.mountain_type = article_mountain_type.id JOIN article_apply ON article.apply = article_apply.id ORDER BY article.id"); // 等資料庫查詢資料
+  
 // article_season.name As season_name,
 
 // JOIN article_season_id ON article.id = article_season_id.article_id
