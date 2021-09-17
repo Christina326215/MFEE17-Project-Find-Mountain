@@ -16,6 +16,7 @@ import Result from './components/RecommendPage/Result';
 import Manual from './components/RecommendPage/Manual';
 import Detail from './components/RecommendPage/Detail';
 import ShopMain from './components/ShopPage/ShopMain';
+import ShopShoes from './components/ShopPage/ShopShoes';
 import ShopBags from './components/ShopPage/ShopBags';
 import ShopClothes from './components/ShopPage/ShopClothes';
 import ProductDetail from './components/ShopPage/ProductDetail';
@@ -81,6 +82,9 @@ function App() {
             </Route>
             <Route path="/shop/bags">
               <ShopBags />
+            </Route>
+            <Route path="/shop/shoes">
+              <ShopShoes />
             </Route>
             <Route path="/shop">
               <ShopMain />
