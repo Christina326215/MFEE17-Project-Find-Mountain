@@ -8,6 +8,15 @@ export const homeURL =
   process.env.REACT_APP_homeURL || 'http://localhost:3500/api/home/';
 //=== home url end ===//
 
+//=== comment url star ===//
+export const commentURL =
+  process.env.REACT_APP_commentURL || 'http://localhost:3500/api/home/:comment';
+//=== comment url end ===//
+//=== comment url star ===//
+export const productURL =
+  process.env.REACT_APP_productURL || 'http://localhost:3500/api/home/:product';
+//=== comment url end ===//
+
 //=== for all url star ===//
 export const IMAGE_URL =
   process.env.REACT_APP_API_URL || 'http://localhost:3500';

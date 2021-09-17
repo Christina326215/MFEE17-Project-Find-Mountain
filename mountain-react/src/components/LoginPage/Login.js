@@ -24,6 +24,8 @@ import slider3 from '../../img/pic3.webp';
 
 function Login(props) {
   const [listData, setListData] = useState([]);
+  const [name, setName] = useState([]);
+  const [password, setPassword] = useState([]);
   useEffect(() => {
     async function homeData() {
       try {
@@ -84,6 +86,9 @@ function Login(props) {
                   id="exampleInputEmail1"
                   aria-describedby="emailHelp"
                   placeholder="請輸入您的email"
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
                 />
               </div>
               <div class="mb-3">

@@ -4,245 +4,241 @@ import 'slick-carousel';
 import '../../styles/HomePage/HomeArticle.scss';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 //===api start===
-import { homeURL } from '../../utils/config';
+import { homeURL, commentURL } from '../../utils/config';
 import axios from 'axios';
 //===api end===
 //===images===
 import sliderBanner from '../../img/contentMountain/jinmianshan.jpeg';
+import sliderBanner2 from '../../img/contentMountain/Tapachien.jpeg';
+import sliderBanner3 from '../../img/contentMountain/matcha.jpeg';
 import sliderItem from '../../img/contentMountain/jinmianshan.jpeg';
 import lowLevel from '../../img/contentMountain/low_icon.svg';
-import km from '../../img/contentMountain/footprints 1.svg';
 import user from '../../img/contentMountain/Tapachien.jpeg';
 //===icon start===
 import { FaStar, FaRegStar, FaShoePrints } from 'react-icons/fa';
 
 function HomeArticle(props) {
   const [articleData, setArticleData] = useState([]);
-
+  const [commentData, setCommentData] = useState([]);
   useEffect(() => {
     async function homeData() {
       try {
-        const homeData = await axios.get(homeURL);
+        const homeData = await axios.get(homeURL, commentURL);
         console.log(homeData.data); //for check
         setArticleData(homeData.data);
+
+        //===slider===
+        $('.slider-for').slick({
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: false,
+          fade: true,
+          asNavFor: '.slider-nav',
+        });
+        $('.slider-nav').slick({
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          vertical: true,
+          asNavFor: '.slider-for',
+          dots: false,
+          focusOnSelect: true,
+          verticalSwiping: true,
+          autoplay: true,
+          responsive: [
+            {
+              breakpoint: 992,
+              settings: {
+                vertical: false,
+              },
+            },
+            {
+              breakpoint: 768,
+              settings: {
+                vertical: false,
+              },
+            },
+            {
+              breakpoint: 580,
+              settings: {
+                vertical: false,
+                slidesToShow: 3,
+              },
+            },
+            {
+              breakpoint: 380,
+              settings: {
+                vertical: false,
+                slidesToShow: 2,
+              },
+            },
+          ],
+        });
+        //===字數限制===
+        $(function () {
+          var len = 120; // 超過50個字以"..."取代
+          $('.ov-hidden').each(function (i) {
+            if ($(this).text().length > len) {
+              $(this).attr('title', $(this).text());
+              var text =
+                $(this)
+                  .text()
+                  .substring(0, len - 1) + '...';
+              $(this).text(text);
+            }
+          });
+        });
       } catch (e) {
         console.log(e);
       }
     }
     homeData();
 
-    //===slider===
-    $('.slider-for').slick({
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      arrows: false,
-      fade: true,
-      asNavFor: '.homepage-slider-nav',
-    });
-    $('.homepage-slider-nav').slick({
-      slidesToShow: 2,
-      slidesToScroll: 1,
-      vertical: true,
-      asNavFor: '.slider-for',
-      dots: false,
-      focusOnSelect: true,
-      verticalSwiping: true,
-      autoplay: true,
-      responsive: [
-        {
-          breakpoint: 992,
-          settings: {
-            vertical: false,
-          },
-        },
-        {
-          breakpoint: 768,
-          settings: {
-            vertical: false,
-          },
-        },
-        {
-          breakpoint: 580,
-          settings: {
-            vertical: false,
-            slidesToShow: 3,
-          },
-        },
-        {
-          breakpoint: 380,
-          settings: {
-            vertical: false,
-            slidesToShow: 2,
-          },
-        },
-      ],
-    });
-    //===字數限制===
-    $(function () {
-      var len = 120; // 超過50個字以"..."取代
-      $('.homepage-ov-hidden').each(function (i) {
-        if ($(this).text().length > len) {
-          $(this).attr('title', $(this).text());
-          var text =
-            $(this)
-              .text()
-              .substring(0, len - 1) + '...';
-          $(this).text(text);
-        }
-      });
-    });
-    let starIcon = document.querySelectorAll('.commentStar i');
-    for (let i = 0; i < starIcon.length; i++) {
-      starIcon[i].addEventListener(
-        'click',
-        function (event) {
-          event.preventDefault();
-          console.log(
-            'preventDefault will stop you from checking this checkbox!'
-          );
-          console.log(this);
-          for (let j = 0; j <= i; j++) {
-            starIcon[j].classList.add('bg-danger');
-            console.log('第 ' + j + ' 號星 加上紅色');
-          }
-          for (let k = 4; k > i; k--) {
-            starIcon[k].classList.remove('bg-danger');
-            console.log('第 ' + k + ' 號星 去除紅色');
-          }
-          var starNumber = i + 1; // starNumber = 傳到資料庫的星數
-          console.log('評論星數為 ' + starNumber);
-        },
-        false
-      );
-    }
+    // let starIcon = document.querySelectorAll('.commentStar i');
+    // for (let i = 0; i < starIcon.length; i++) {
+    //   starIcon[i].addEventListener(
+    //     'click',
+    //     function (event) {
+    //       event.preventDefault();
+    //       console.log(
+    //         'preventDefault will stop you from checking this checkbox!'
+    //       );
+    //       console.log(this);
+    //       for (let j = 0; j <= i; j++) {
+    //         starIcon[j].classList.add('bg-danger');
+    //         console.log('第 ' + j + ' 號星 加上紅色');
+    //       }
+    //       for (let k = 4; k > i; k--) {
+    //         starIcon[k].classList.remove('bg-danger');
+    //         console.log('第 ' + k + ' 號星 去除紅色');
+    //       }
+    //       var starNumber = i + 1; // starNumber = 傳到資料庫的星數
+    //       console.log('評論星數為 ' + starNumber);
+    //     },
+    //     false
+    //   );
+    // }
   }, []);
   return (
     <>
       <div className="homepage-contentMountain">
         <div className="container">
           <h2 className="text-center pb-5">推薦攻略</h2>
-          <div className="homepage-wrapper">
-            <section className="homepage-banner-section">
-              <div className="container homepage-container">
-                <div className="homepage-vehicle-detail-banner homepage-banner-content clearfix">
+          <div className="wrapper">
+            <section className="banner-section">
+              <div className="container">
+                <div className="vehicle-detail-banner banner-content clearfix">
                   <div className="banner-slider row">
-                    <div className="homepage-slider slider-for  homepage-slider-for col-lg-8">
-                      {articleData.map((article, i) => {
-                        return (
-                          <>
-                            <div
-                              className="homepage-slider-banner-image position-relative"
-                              key={article.id}
-                            >
-                              <img
-                                className="cover-fit bgImg"
-                                src={sliderBanner}
-                                alt=""
-                              />
-                              <div className="position-absolute p-4 homepage-word">
-                                <h2>{article.name}</h2>
-                                <p className="mt-4 homepage-ov-hidden">
-                                  {article.content}
-                                </p>
-                                <div className="homepage-memory d-flex mt-3">
-                                  <div className="homepage-new">最新留言</div>
-                                  <div className="homepage-memoryLine"></div>
-                                  <div className="homepage-memoryUser">
-                                    <img
-                                      className="cover-fit"
-                                      src={user}
-                                      alt=""
-                                    />
-                                  </div>
+                    <div className="slider slider-for">
+                      {articleData &&
+                        articleData.map((article) => {
+                          return (
+                            <>
+                              <div
+                                className="slider-banner-image position-relative bgImg"
+                                key={article.id}
+                              >
+                                <img src={sliderBanner} alt="" />
+                                <div className="position-absolute p-4 word">
+                                  <h2>{article.name}</h2>
+                                  <p className="mt-4 ov-hidden">
+                                    {article.content}
+                                  </p>
 
-                                  <div className="homepage-memoryMember mx-4">
-                                    <small className="homepage-memoryDate">
-                                      2021-08-18
-                                    </small>
-                                    <div className="homepage-memoryName">
-                                      臺灣黑熊
+                                  <div className="memory d-flex mt-3">
+                                    <div className="new">最新留言</div>
+                                    <div className="memoryLine"></div>
+                                    <div className="memoryUser">
+                                      <img className="cover-fit" src={user} />
                                     </div>
-                                  </div>
-                                  <div className="homepage-memoryContent">
-                                    這裡風景好美呀～～～
+                                    <div className="memoryMember mx-4">
+                                      <small className="memoryDate">
+                                        2021-08-18
+                                      </small>
+                                      <div className="memoryName">臺灣黑熊</div>
+                                    </div>
+                                    <div className="memoryContent">
+                                      這裡風景好美呀～～～
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                          </>
-                        );
-                      })}
-                      {/* <div className="homepage-slider-banner-image">
-                        <img
-                          src="./img/contentMountain/jinmianshan.jpeg"
-                          alt=""
-                        />
-                        <div className="position-absolute p-4 homepage-word">
-                          <h2>金面山親山步道</h2>
-                          <p className="mt-4 homepage-ov-hidden">
-                            金面山為五指山系之西南稜，分金面山與小金面山，這座山地質中的安山砂岩含有石英，因此當太陽照射石遠望山頂閃閃發光，當地人便稱之為金面山。
-                            金面山位於內湖金龍產業道路西邊，因從碧山巖方向看過來，山頂巨石形貌有如鳥嘴般尖銳，因此又名剪刀石山，海拔雖僅258公尺卻獨具高山氣勢，山谷曾是清代時期臺北建城時，所用石材的大石之地，巨岩錯落起伏、崢嶸並立，登上半山腰，有一處清代採石場的石堡瞭望台，如今仍留有開採痕跡，置身山頂可以遠眺內湖大埤及台北街景，視野開闊、景致優美。
-                          </p>
-                          <div className="homepage-memory d-flex mt-3">
-                            <div className="homepage-new">最新留言</div>
-                            <div className="homepage-memoryLine"></div>
-                            <i className="bi bi-person-circle"></i>
-                            <div className="homepage-memoryMember mx-4">
-                              <small className="homepage-memoryDate">
-                                2021-08-18
-                              </small>
-                              <div className="homepage-memoryName">
-                                臺灣黑熊
+
+                              <div className="slider-banner-image">
+                                <img src={sliderBanner2} alt="" />
+                                <div className="position-absolute p-4 word">
+                                  <h2>{article.name}</h2>
+                                  <p className="mt-4 ov-hidden">
+                                    {article.content}
+                                  </p>
+                                  <div className="memory d-flex mt-3">
+                                    <div className="new">最新留言</div>
+                                    <div className="memoryLine"></div>
+                                    <div className="memoryUser">
+                                      <img className="cover-fit" src={user} />
+                                    </div>
+                                    <div className="memoryMember mx-4">
+                                      <small className="memoryDate">
+                                        2021-08-18
+                                      </small>
+                                      <div className="memoryName">臺灣黑熊</div>
+                                    </div>
+                                    <div className="memoryContent">
+                                      這裡風景好美呀～～～
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
-                            </div>
-                            <div className="homepage-memoryContent">
-                              這裡風景好美呀～～～
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="homepage-slider-banner-image">
-                        <img src="./img/contentMountain/matcha.jpeg" alt="" />
-                        <div className="position-absolute p-4 word">
-                          <h2>聖母登山步道(抹茶山)</h2>
-                          <p className="mt-4 homepage-ov-hidden">
-                            聖母登山步道位於宜蘭縣礁溪鄉五峰旗瀑布風景區上方，為天主教徒的朝聖之路，亦是前往蘭陽五岳之一的三角崙山之中繼站。
-                            終點的觀景平台是宜蘭與台北行政疆界，東臨蘭陽平原、西枕雪山山脈層巒疊翠；而稜線迎風面箭竹綠海隨風飄動、沙沙歌聲，美得讓人駐足忘返。
-                          </p>
-                          <div className="homepage-memory d-flex mt-3">
-                            <div className="homepage-new">最新留言</div>
-                            <div className="homepage-memoryLine"></div>
-                            <i className="bi bi-person-circle"></i>
-                            <div className="memoryMember mx-4">
-                              <small className="memoryDate">2021-08-18</small>
-                              <div className="memoryName">臺灣黑熊</div>
-                            </div>
-                            <div className="memoryContent">
-                              這裡風景好美呀～～～
-                            </div>
-                          </div>
-                        </div>
-                      </div> */}
+                              <div className="slider-banner-image">
+                                <img src={sliderBanner3} alt="" />
+                                <div className="position-absolute p-4 word">
+                                  <h2>{article.name}</h2>
+                                  <p className="mt-4 ov-hidden">
+                                    {article.content}
+                                  </p>
+                                  <div className="memory d-flex mt-3">
+                                    <div className="new">最新留言</div>
+                                    <div className="memoryLine"></div>
+                                    <div className="memoryUser">
+                                      <img className="cover-fit" src={user} />
+                                    </div>
+                                    <div className="memoryMember mx-4">
+                                      <small className="memoryDate">
+                                        2021-08-18
+                                      </small>
+                                      <div className="memoryName">臺灣黑熊</div>
+                                    </div>
+                                    <div className="memoryContent">
+                                      這裡風景好美呀～～～
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </>
+                          );
+                        })}
                     </div>
-                    <div className="homepage-slider slider-nav homepage-slider-nav homepage-thumb-image col-lg-4">
-                      <div className="homepage-thumbnail-image homepage-box">
-                        <div className="homepage-thumbImg">
-                          <img className="cover-fit" src={sliderItem} alt="" />
+                    <div className="slider slider-nav thumb-image">
+                      <div className="thumbnail-image box">
+                        <div className="thumbImg">
+                          <img src={sliderBanner} alt="" />
                         </div>
                         <div className="px-3 py-2 bg-white mb-3">
-                          <Link to="/" className="homepage-unstyle">
+                          <Link to="#/" className="unstyle">
                             <h4 className="text-left">陽明山東西大縱走</h4>
-                            <div className="homepage-starIcon text-left">
-                              <FaStar fontSize="24" />
-                              <FaStar fontSize="24" />
-                              <FaStar fontSize="24" />
-                              <FaRegStar fontSize="24" />
-                              <FaRegStar fontSize="24" />
+                            <div className="starIcon text-left">
+                              <FaStar size="24" />
+                              <FaStar size="24" />
+                              <FaStar size="24" />
+                              <FaRegStar size="24" />
+                              <FaRegStar size="24" />
                             </div>
                             <div className="d-flex ">
                               <button className="btn d-flex align-items-center">
-                                <img src={lowLevel} className="mr-2" />
-                                <span className=" text-primary homepage-levelLow">
+                                <img
+                                  src="./img/contentMountain/low_icon.svg"
+                                  className="mr-2"
+                                />
+                                <span className=" text-primary levelLow">
                                   難度低
                                 </span>
                               </button>
@@ -252,61 +248,58 @@ function HomeArticle(props) {
                                   className="mr-2"
                                   color="#6da77f"
                                 />
-                                {/* <img src={km} className="mr-2" /> */}
                                 <span className=" text-primary">2.3公里</span>
                               </button>
                             </div>
                           </Link>
                         </div>
                       </div>
-                      {/* <div className="homepage-thumbnail-image box">
-                        <div className="homepage-thumbImg">
-                          <img src={SliderItem} alt="" />
+                      <div className="thumbnail-image box">
+                        <div className="thumbImg">
+                          <img src={sliderBanner2} alt="" />
                         </div>
                         <div className="px-3 py-2 bg-white mb-3">
-                          <a href="" className="unstyle">
+                          <Link to="#/" className="unstyle">
                             <h4 className="text-left">金面山親山步道</h4>
                             <div className="starIcon text-left">
-                              <i className="bi bi-star-fill"></i>
-                              <i className="bi bi-star-fill"></i>
-                              <i className="bi bi-star-fill"></i>
-                              <i className="bi bi-star"></i>
-                              <i className="bi bi-star"></i>
+                              <FaStar size="24" />
+                              <FaStar size="24" />
+                              <FaStar size="24" />
+                              <FaRegStar size="24" />
+                              <FaRegStar size="24" />
                             </div>
                             <div className="d-flex ">
                               <button className="btn d-flex align-items-center">
-                                <img
-                                  src="./img/contentMountain/low_icon.svg"
-                                  className="mr-2"
-                                />
+                                <img src={lowLevel} className="mr-2" />
                                 <span className=" text-primary levelLow">
                                   難度低
                                 </span>
                               </button>
                               <button className="btn d-flex align-items-center">
-                                <img
-                                  src="./img/contentMountain/footprints 1.svg"
+                                <FaShoePrints
+                                  size="24"
                                   className="mr-2"
+                                  color="#6da77f"
                                 />
                                 <span className=" text-primary">2.3公里</span>
                               </button>
                             </div>
-                          </a>
+                          </Link>
                         </div>
                       </div>
                       <div className="thumbnail-image">
                         <div className="thumbImg">
-                          <img src={SliderItem} alt="" />
+                          <img src={sliderBanner3} alt="" />
                         </div>
                         <div className="px-3 py-2 bg-white mb-3">
-                          <a href="" className="unstyle">
+                          <Link to="#/" className="unstyle">
                             <h4 className="text-left">聖母登山步道(抹茶山)</h4>
                             <div className="starIcon text-left">
-                              <i className="bi bi-star-fill"></i>
-                              <i className="bi bi-star-fill"></i>
-                              <i className="bi bi-star-fill"></i>
-                              <i className="bi bi-star"></i>
-                              <i className="bi bi-star"></i>
+                              <FaStar size="24" />
+                              <FaStar size="24" />
+                              <FaStar size="24" />
+                              <FaRegStar size="24" />
+                              <FaRegStar size="24" />
                             </div>
                             <div className="d-flex ">
                               <button className="btn d-flex align-items-center">
@@ -319,16 +312,17 @@ function HomeArticle(props) {
                                 </span>
                               </button>
                               <button className="btn d-flex align-items-center">
-                                <img
-                                  src="./img/contentMountain/footprints 1.svg"
+                                <FaShoePrints
+                                  size="24"
                                   className="mr-2"
+                                  color="#6da77f"
                                 />
                                 <span className=" text-primary">2.3公里</span>
                               </button>
                             </div>
-                          </a>
+                          </Link>
                         </div>
-                      </div> */}
+                      </div>
                     </div>
                   </div>
                 </div>
