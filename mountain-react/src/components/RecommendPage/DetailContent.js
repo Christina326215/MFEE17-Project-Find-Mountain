@@ -4,29 +4,18 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { recommendURL, IMAGE_URL } from '../../utils/config';
 ///////////////////////////////////////////連接資料庫
+import Comment from './Comment';
 import '../../styles/article.css';
 import { Link } from 'react-router-dom';
 import $ from 'jquery';
 import level from '../../img/article-img/level_low.svg';
-import slothBig from '../../img/article-img/sloth_big.svg';
-import slothSmall from '../../img/article-img/sloth_small.svg';
 import xiangshan from '../../img/article-img/xiangshan.jpeg';
 import yangmingshan from '../../img/article-img/Yangmingshan.jpeg';
 import tapachien from '../../img/article-img/Tapachien.jpeg';
 import bag from '../../img/article-img/bags-pic1.jpeg';
 import { FaShoePrints } from 'react-icons/fa';
 import { BsHeartFill } from 'react-icons/bs';
-import {
-  BsStarFill,
-  BsChevronBarLeft,
-  BsChevronLeft,
-  BsChevronRight,
-  BsChevronBarRight,
-  BsFlagFill,
-  BsQuestionCircle,
-  BsPlusSquare,
-  BsPeopleCircle,
-} from 'react-icons/bs';
+import { BsStarFill, BsFlagFill, BsQuestionCircle } from 'react-icons/bs';
 
 function DetailContent(props) {
   const [detail, setDetail] = useState([
@@ -86,26 +75,14 @@ function DetailContent(props) {
         // console.log(typeof id);
         const id = Number(props.match.params.id);
 
-        console.log('totalDetail', totalDetail);
+        // console.log('totalDetail', totalDetail);
         // console.log('id', id);
 
         // 全部資料用find尋找id一樣的資料
         const newDetail = totalDetail.find((v) => {
           return v.id === id;
         });
-        console.log(newDetail);
-
-        const totalTime = newDetail.time;
-        const total_D = totalTime / 1440; //分鐘換算總天數
-        const int_D = Math.floor(total_D); //天數取整數
-        const total_H = (total_D - int_D) * 24; //剩下的小時數
-        const int_H = Math.floor(total_H); //小時取整數
-        const total_M = (total_H - int_H) * 60; //剩下的分鐘數
-        const int_M = Math.round(total_M); //分鐘取整數
-
-        console.log('int_D', int_D);
-        console.log('int_H', int_H);
-        console.log('int_M', int_M);
+        // console.log(newDetail);
 
         if (newDetail) setDetail(newDetail);
       } catch (e) {
@@ -276,23 +253,15 @@ function DetailContent(props) {
                     <div className="d-flex recommend-table table">
                       <div className="recommend-tableHead col">所需時間</div>
                       <div className="recommend-tableBody col">
-                        {/* { $total_D = detail.time / 1440; //分鐘換算總天數
-                         $int_D = Math.floor(total_D); //天數取整數
-                         $total_H = (total_D - $int_D) * 24; //剩下的小時數
-                         $int_H = Math.floor(total_H); //小時取整數
-                         $total_M = (total_H - $int_H) * 60; //剩下的分鐘數
-                         $int_M = Math.round(total_M); //分鐘取整數
-
-                         console.log('int_D', $int_D);
-                         console.log('int_H', $int_H);
-                         console.log('int_M', $int_M); } */}
-                        1小時40分鐘 {Math.floor(detail.time / 1440)}天
-                        {Math.floor(
-                          [
-                            detail.time / 1440 - Math.floor(detail.time / 1440),
-                          ] * 24
-                        )}
-                        小時/////
+                        {Math.floor(detail.time / 60 / 24) === 0
+                          ? ''
+                          : Math.floor(detail.time / 60 / 24) + '天'}
+                        {Math.floor((detail.time / 60) % 24) === 0
+                          ? ''
+                          : Math.floor((detail.time / 60) % 24) + '小時'}
+                        {Math.floor(detail.time % 60) === 0
+                          ? ''
+                          : Math.floor(detail.time % 60) + '分鐘'}
                       </div>
                     </div>
                   </div>
@@ -413,254 +382,7 @@ function DetailContent(props) {
           </div>
         </div>
       </div>
-      <div className="recommend-commentBg">
-        <div className="recommend-commentFilter">
-          <div className="container recommend-body">
-            <div className="recommend-wrapper">
-              <h2 className="recommend-body-content-big-bold">景點評論</h2>
-              <div className="recommend-commentWhiteBox">
-                <div className="recommend-commentContent d-flex flex-column">
-                  <div className="d-flex justify-content-end">
-                    {/* Button trigger modal */}
-                    <button
-                      type="button"
-                      className="btn btn-warning mb-lg-3 mb-md-2 text-white"
-                      data-toggle="modal"
-                      data-target="#exampleModal"
-                      data-whatever="@mdo"
-                    >
-                      新增評論
-                      {/* <i className="bi recommend-bi-plus-square"> */}
-                      <BsPlusSquare className="ml-2 mb-1 bi recommend-bi-plus-square"></BsPlusSquare>
-                      {/* </i> */}
-                    </button>
-
-                    {/* Modal */}
-                    <div
-                      className="modal fade"
-                      id="exampleModal"
-                      tabIndex="-1"
-                      aria-labelledby="exampleModalLabel"
-                      aria-hidden="true"
-                    >
-                      <div className="modal-dialog">
-                        <div className="modal-content">
-                          <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">
-                              新增評論
-                            </h5>
-                            <button
-                              type="button"
-                              className="close"
-                              data-dismiss="modal"
-                              aria-label="Close"
-                            >
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div className="modal-body">
-                            <form>
-                              <div className="form-group">
-                                <label
-                                  htmlFor="recipient-name"
-                                  className="col-form-label"
-                                >
-                                  會員名稱：
-                                </label>
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  id="recipient-name"
-                                  value="會員登入後才帶入資料"
-                                  disabled
-                                />
-                              </div>
-                              <div className="form-group">
-                                <label
-                                  htmlFor="message-text"
-                                  className="col-form-label"
-                                >
-                                  評論訊息：
-                                </label>
-                                <textarea
-                                  className="form-control"
-                                  id="message-text"
-                                ></textarea>
-                              </div>
-                              <div className="modal-footer">
-                                <button
-                                  type="button"
-                                  className="btn btn-secondary"
-                                  data-dismiss="modal"
-                                >
-                                  取消
-                                </button>
-                                <button
-                                  type="submit"
-                                  className="btn btn-warning text-white"
-                                >
-                                  送出評論
-                                </button>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    {/* Modal */}
-                  </div>
-                  <div className="d-flex flex-column">
-                    <div className="recommend-commentBox">
-                      <div className="d-flex flex-column justify-content-between">
-                        <div className="d-flex">
-                          <div className="recommend-memberLevel1">
-                            <i className="bi recommend-bi-person-circle">
-                              <BsPeopleCircle></BsPeopleCircle>
-                            </i>
-                          </div>
-                          <div className="">
-                            <div className="recommend-memberLevel1">
-                              <p className="recommend-body-content-bold mt-1 mb-0 ml-1">
-                                肉腳 臺灣黑熊
-                              </p>
-                            </div>
-                            <p className="recommend-body-content-small m-0 ml-1">
-                              2021-08-18 14:21
-                            </p>
-                          </div>
-                        </div>
-                        <p className="m-0">這裡風景好美～</p>
-                      </div>
-                      <div className="d-flex ml-auto">
-                        <div className="recommend-commentPic">
-                          <img className="img-fluid" src={xiangshan} alt="" />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="recommend-commentBox">
-                      <div className="d-flex flex-column justify-content-between">
-                        <div className="d-flex">
-                          <div className="recommend-memberLevel2">
-                            <i className="bi recommend-bi-person-circle">
-                              <BsPeopleCircle></BsPeopleCircle>
-                            </i>
-                          </div>
-                          <div>
-                            <div className="recommend-memberLevel2">
-                              <p className="recommend-body-content-bold mt-1 mb-0 ml-1">
-                                山友 南美洲樹懶
-                              </p>
-                            </div>
-                            <p className="recommend-body-content-small m-0 ml-1">
-                              2021-08-18 14:21
-                            </p>
-                          </div>
-                        </div>
-                        <p className="m-0">這裡風景好美～</p>
-                      </div>
-                      <div className="d-flex ml-auto">
-                        <div className="recommend-commentPic">
-                          <img className="img-fluid" src={tapachien} alt="" />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="recommend-commentBox">
-                      <div className="d-flex flex-column justify-content-between">
-                        <div className="d-flex">
-                          <div className="recommend-memberLevel3">
-                            <i className="bi recommend-bi-person-circle">
-                              <BsPeopleCircle></BsPeopleCircle>
-                            </i>
-                          </div>
-                          <div>
-                            <div className="recommend-memberLevel3">
-                              <p className="recommend-body-content-bold mt-1 mb-0 ml-1">
-                                山神 高山小兔
-                              </p>
-                            </div>
-                            <p className="recommend-body-content-small m-0 ml-1">
-                              2021-08-18 14:21
-                            </p>
-                          </div>
-                        </div>
-                        <p className="m-0">這裡風景好美～</p>
-                      </div>
-                      <div className="d-flex ml-auto">
-                        <div className="recommend-commentPic">
-                          <img className="img-fluid" src={xiangshan} alt="" />
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      className="btn-toolbar justify-content-center mt-md-2"
-                      role="toolbar"
-                      aria-label="Toolbar with button groups"
-                    >
-                      <div
-                        className="btn-group mr-2"
-                        role="group"
-                        aria-label="Third group"
-                      >
-                        <button type="button" className="btn btn-primary">
-                          <BsChevronBarLeft></BsChevronBarLeft>
-                        </button>
-                      </div>
-                      <div
-                        className="btn-group mr-2"
-                        role="group"
-                        aria-label="First group"
-                      >
-                        <button type="button" className="btn btn-primary">
-                          <BsChevronLeft></BsChevronLeft>
-                        </button>
-                      </div>
-                      <div
-                        className="btn-group mr-2"
-                        role="group"
-                        aria-label="Second group"
-                      >
-                        <button type="button" className="btn btn-primary">
-                          1
-                        </button>
-                      </div>
-                      <div
-                        className="btn-group mr-2"
-                        role="group"
-                        aria-label="Third group"
-                      >
-                        <button type="button" className="btn btn-primary">
-                          <BsChevronRight></BsChevronRight>
-                        </button>
-                      </div>
-                      <div
-                        className="btn-group"
-                        role="group"
-                        aria-label="Third group"
-                      >
-                        <button type="button" className="btn btn-primary">
-                          <BsChevronBarRight></BsChevronBarRight>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <a
-            className="pr-2 pb-2 d-flex justify-content-end text-white-50"
-            href="https://www.freepik.com/vectors/background"
-          >
-            Background vector created by pikisuperstar - www.freepik.com
-          </a>
-        </div>
-        <div className="recommend-sloth_big animate__animated animate__pulse">
-          <img src={slothBig} alt="" />
-        </div>
-        <div className="recommend-sloth_small animate__animated animate__pulse">
-          <img src={slothSmall} alt="" />
-        </div>
-      </div>
+      <Comment></Comment>
       <div className="container recommend-body">
         <div className="recommend-wrapper">
           <h2 className="recommend-body-content-big-bold">查看其他文章</h2>

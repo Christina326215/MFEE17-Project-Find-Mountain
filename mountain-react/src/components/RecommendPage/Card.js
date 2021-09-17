@@ -60,7 +60,7 @@ function Card(props) {
     <div>
       {detail.map((detail, i) => {
         return (
-          <div className="row-cols-1 mt-3 mb-3">
+          <div key={i} className="row-cols-1 mt-3 mb-3">
             <div className="recommend-card card">
               <div className="row no-gutters">
                 <div className="col-md-4 recommend-pic-box">
