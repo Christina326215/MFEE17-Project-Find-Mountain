@@ -15,9 +15,11 @@ function MemberEdit() {
   const { member } = useAuth();
   const [zipGroup, setZipGroup] = useState(null);
   const [cities, setCities] = useState([]);
+  const [city, setCity] = useState(null);
+  const [districts, setDistricts] = useState([]);
+  // const [zipCode, setZipCode] = useState(null);
 
   //  當member改變的時候，要去setTempMember
-
   const [tempMember, setTempMember] = useState(null);
   useEffect(() => {
     if (member !== null) {
@@ -27,27 +29,58 @@ function MemberEdit() {
 
   function handleChange(e) {
     // console.log(e.target.name, e.target.value);
+    // console.log('onChange', e.target.name, e.target.value);
     setTempMember({ ...tempMember, [e.target.name]: e.target.value });
+    // console.log('onChange After');
   }
+
+  useEffect(() => {
+    // console.log('useEffect for tempMember');
+  }, [tempMember]);
+
+  // 還沒input之前，出現兩次useEffect for tempMember：
+  // useEffect for tempMember
+  // useEffect for tempMember
+
+  // 輸入input之後(使input欄位有變動)：
+  // onChange name 王大明1
+  // onChange After
+  // useEffect for tempMember
 
   useEffect(() => {
     // 從靜態檔案抓資料
     async function getZipGroup() {
       try {
         const zipGroupRes = await axios.get(zipGroupURL);
-        // console.log(zipCodeRes.data);
+        let data = zipGroupRes.data;
+        // console.log(data);
         // key  ：zip_code
         // value：縣市名
         // member.zip_code當作key，要去對應到code.json取得縣市與區名。
-        setZipGroup(zipGroupRes.data);
-        setCities(Object.keys(zipGroupRes.data));
-        // console.log(Object.keys(zipGroupRes.data));
+        setZipGroup(data);
+        setCities(Object.keys(data));
+        setDistricts(Object.values(data));
+        // console.log(Object.values(data));
       } catch (e) {
         console.log(e);
       }
     }
     getZipGroup();
   }, []);
+
+  function changeCity(e) {
+    setCity(e.target.value);
+    setDistricts(zipGroup[e.target.value]);
+  }
+
+  function changeDistrict(e) {
+    // setZipCode(e.target.value);
+    setTempMember({ ...tempMember, [e.target.name]: e.target.value });
+  }
+
+  // useEffect(() => {
+  // }, [cities]);
+
   return (
     <>
       <div className="container">
@@ -168,13 +201,37 @@ function MemberEdit() {
                   <label for="inputAddress" className="mt-3">
                     地址：
                   </label>
-                  {/* {cities.map((city) => city)} */}
-                  <select class="form-control">
-                    <option value="">請選擇縣市</option>
+                  {/* 請選擇縣市 */}
+                  <select
+                    className="form-control"
+                    name="city"
+                    value={city}
+                    onChange={changeCity}
+                  >
+                    {cities &&
+                      cities.map((city, i) => (
+                        <option key={i} value={city}>
+                          {city}
+                        </option>
+                      ))}
                   </select>
-                  <select class="form-control">
-                    <option value="">請選擇行政區</option>
+
+                  {/* 請選擇行政區 */}
+                  <select
+                    className="form-control"
+                    value={tempMember && tempMember.zip_code}
+                    onChange={changeDistrict}
+                    name="zip_code"
+                  >
+                    {cities &&
+                      districts &&
+                      districts.map((item, i) => (
+                        <option key={i} value={item.zip_code}>
+                          {item.district}
+                        </option>
+                      ))}
                   </select>
+                  {/* 請選擇地址 */}
                   <input
                     type="text"
                     className="form-control"
