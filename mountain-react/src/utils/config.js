@@ -1,6 +1,8 @@
 //=== for all url star ===//
 export const IMAGE_URL =
   process.env.REACT_APP_API_URL || 'http://localhost:3500';
+
+export const weatherURL = process.env.REACT_APP_weatherURL;
 //=== for all star ===//
 
 //=== map url star ===//

@@ -372,7 +372,7 @@
   display: flex;
   position: absolute;
   left: 40%;
-  transform: translateX(40%);
+  transform: translateX(50%);
 }
 /* map list end */
 
@@ -558,6 +558,7 @@
 /* pages_btn star */
 .mountain_btn-toolbar {
   margin-bottom: 36px;
+  margin-top: 36px;
 }
 /* pages_btn end */
 
