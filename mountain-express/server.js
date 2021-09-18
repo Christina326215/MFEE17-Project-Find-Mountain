@@ -1,16 +1,17 @@
 const express = require("express");
 const connection = require("./utils/db");
 const path = require("path");
+let fs = require('fs/promises');
 
 // 利用 express 建立了一個 express application
 let app = express();
 
-//cors的問題解法
+// 處理cors
 const cors = require("cors");
 app.use(
   cors({
     origin: ["http://localhost:3000"],
-    credentials: true,
+    // credentials: true,
   })
 );
 
@@ -19,6 +20,9 @@ app.use(express.urlencoded({ extended: true }));
 //使用中間件，解析json的資料
 app.use(express.json());
 //========================================================//
+app.use(express.static(path.join(__dirname, "public")));
+
+// 處理靜態檔案
 app.use(express.static(path.join(__dirname, "public")));
 
 // react yarn build star
@@ -34,6 +38,28 @@ app.use((req, res, next) => {
   console.log("i am first middleware");
   next(); //不呼叫不會前往下一個,但他不知道下一個是誰
 });
+
+// 製作以縣市為key值的查表法，使縣市有各自的區名。
+app.get("/api/zip/group", async (req,res,next)=>{
+  // 讀資料
+  let zip = await fs.readFile(path.join(__dirname, "public", "zip", "zip.json"),
+  "utf-8")
+  zip = JSON.parse(zip);
+
+  // 處理資料 得到以郵遞區號為key的資料
+  // 當會員已儲存註冊時的zip_code，可以方便在填寫付款收件地址時，自動找到該縣市與區名。
+  let result ={};
+  zip.map((item)=>{
+    result[item.zip_code]=item;
+  })
+  // console.log(result);
+
+  // 處理寫檔
+  await fs.writeFile(path.join(__dirname, "public", "zip", "code.json"), JSON.stringify(result))
+  // zip/group.json 是在當選擇某一收件地址之縣市時，區名直接呈現該縣市的行政區。
+  res.json(result);
+})
+
 
 //===引用 auth 進來 star===//
 let authRouter = require("./routers/auth");
@@ -79,6 +105,33 @@ app.use("/api/shopCart", shopCartRouter);
 let memberRouter = require("./routers/memberPage");
 app.use("/api/member", memberRouter);
 //===引用 memberPage 進來 end===//
+
+//===引用 memberRoute 進來 star===//
+let memberRouteRouter = require("./routers/memberRoute");
+app.use("/api/member/route", memberRouteRouter);
+//===引用 memberRoute 進來 end===//
+
+// TODO: 建立會員路線星星評分
+//===引用 memberStar 進來 star===//
+let memberStarRouter = require("./routers/memberStar");
+app.use("/api/member/star", memberStarRouter);
+//===引用 memberStar 進來 end===//
+
+//===引用 memberProduct 進來 star===//
+let memberProductRouter = require("./routers/memberProduct");
+app.use("/api/member/product", memberProductRouter);
+//===引用 memberProduct 進來 end===//
+
+//===引用 memberArticle 進來 star===//
+let memberArticleRouter = require("./routers/memberArticle");
+app.use("/api/member/article", memberArticleRouter);
+//===引用 memberArticle 進來 end===//
+
+//===引用 memberComment 進來 star===//
+let memberCommentRouter = require("./routers/memberComment");
+app.use("/api/member/comment", memberCommentRouter);
+//===引用 memberComment 進來 end===//
+
 
 //====== error message star ======//
 app.use((req, res, next) => {
