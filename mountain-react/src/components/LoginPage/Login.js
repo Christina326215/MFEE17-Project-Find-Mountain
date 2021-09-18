@@ -1,10 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import $ from 'jquery';
 import '../../styles/LoginStyle/Login.css';
 import '../../../node_modules/slick-carousel/slick/slick.css';
 import '../../../node_modules/slick-carousel/slick/slick.min.js';
 import '../../../node_modules/slick-carousel/slick/slick-theme.css';
+//===api start===
+import { authURL } from '../../utils/config';
+import axios from 'axios';
+//===api end====
 
 // ===icon start===
 import { FaFacebookSquare, FaGoogle, FaLine } from 'react-icons/fa';
@@ -19,6 +23,19 @@ import slider3 from '../../img/pic3.webp';
 //===import img end===
 
 function Login(props) {
+  const [listData, setListData] = useState([]);
+  useEffect(() => {
+    async function homeData() {
+      try {
+        const homeData = await axios.get(authURL);
+        console.log(homeData.data); //for check
+        setListData(homeData.data);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    homeData();
+  }, []);
   useEffect(() => {
     $('.login-display-photo-box').slick({
       dots: false,

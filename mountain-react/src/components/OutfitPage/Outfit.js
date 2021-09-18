@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import '../../styles/outfit.css';
+import { outfitURL, IMAGE_URL } from '../../utils/config';
+import axios from 'axios';
 
 //=== package start===
 import $ from 'jquery';
@@ -10,20 +12,43 @@ import html2canvas from 'html2canvas';
 
 //=== components start===
 import SelectProduct from './SelectProduct';
-import OutfitProductSlider from './OutfitProductSlider';
+// import OutfitProductSlider from './OutfitProductSlider';
 import OrderList from './OrderList';
 //=== components end===
 
 // ===icon start===
 import { FaFacebookSquare } from 'react-icons/fa';
-import { BsDownload } from 'react-icons/bs';
+import {
+  BsFillCaretLeftFill,
+  BsFillCaretRightFill,
+  BsDownload,
+} from 'react-icons/bs';
 // ===icon end===
 
 //===import img start===
-
+import clothesPic1Removebg from '../../img/img-outfit/clothes-pic1-removebg-preview.png';
+import clothesPic2Removebg from '../../img/img-outfit/clothes-pic2-removebg-preview.png';
+import clothesPic3Removebg from '../../img/img-outfit/clothes-pic3-removebg-preview.png';
 //===import img end===
 
 function Outfit(props) {
+  const [listData, setListData] = useState([]);
+  const [outfitProducts, setOutfitProducts] = useState([]);
+
+  useEffect(() => {
+    async function outfitData() {
+      try {
+        const outfitData = await axios.get(outfitURL);
+        console.log(outfitData.data); //for check
+        setListData(outfitData.data);
+        setOutfitProducts(outfitData.data);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    outfitData();
+  }, []);
+
   useEffect(() => {
     $('#div1').show();
     $('#div2').hide();
@@ -34,146 +59,159 @@ function Outfit(props) {
       $('#div' + $(this).attr('target')).show();
     });
 
-    let buttonRight = document.getElementById('slideRight');
-    let buttonLeft = document.getElementById('slideLeft');
+    // let buttonRight = document.getElementById('slideRight');
+    // let buttonLeft = document.getElementById('slideLeft');
 
-    buttonLeft.addEventListener('click', function () {
-      document.getElementById('slider').scrollLeft -= 180;
+    // buttonLeft.addEventListener('click', function () {
+    //   document.getElementById('slider').scrollLeft -= 180;
+    // });
+
+    // buttonRight.addEventListener('click', function () {
+    //   document.getElementById('slider').scrollLeft += 180;
+    // });
+    $('.outfit-prev').click(function () {
+      // $('#slider').scrollLeft -= 180;
+      // document.getElementById('slider').scrollLeft -= 180;
     });
-
-    buttonRight.addEventListener('click', function () {
+    $('.outfit-next').click(function () {
+      console.log('click');
+      // $('#slider').scrollLeft += 180;
       document.getElementById('slider').scrollLeft += 180;
     });
 
-    let canvasTarget = document.querySelector('.outfit-canvas-target');
-    const canvas = new fabric.Canvas('canvas', {
-      width: canvasTarget.clientWidth,
-      height: canvasTarget.clientHeight,
-    });
-
-    window.onresize = function () {
-      canvas.setDimensions({
+    setTimeout(() => {
+      let canvasTarget = document.querySelector('.outfit-canvas-target');
+      const canvas = new fabric.Canvas('canvas', {
         width: canvasTarget.clientWidth,
         height: canvasTarget.clientHeight,
       });
-    };
 
-    const productImg = document.querySelectorAll('.outfit-product-img');
+      window.onresize = function () {
+        canvas.setDimensions({
+          width: canvasTarget.clientWidth,
+          height: canvasTarget.clientHeight,
+        });
+      };
 
-    let movingImage;
-    let imgDragOffset = {
-      offsetX: 0,
-      offsetY: 0,
-    };
-    function saveImg(e) {
-      console.log(e.target.tagName);
-      if (e.target.tagName.toLowerCase() === 'img') {
-        console.log('high');
-        imgDragOffset.offsetX = e.clientX - e.target.offsetLeft;
-        imgDragOffset.offsetY = e.clientY - e.target.offsetTop;
-        movingImage = e.target;
-        console.log(movingImage);
+      const productImg = document.querySelectorAll('.outfit-product-img');
+
+      let movingImage;
+      let imgDragOffset = {
+        offsetX: 0,
+        offsetY: 0,
+      };
+      function saveImg(e) {
+        console.log(e.target.tagName);
+        if (e.target.tagName.toLowerCase() === 'img') {
+          console.log('high');
+          imgDragOffset.offsetX = e.clientX - e.target.offsetLeft;
+          imgDragOffset.offsetY = e.clientY - e.target.offsetTop;
+          movingImage = e.target;
+          console.log(movingImage);
+        }
       }
-    }
-    function dropImg(e) {
-      console.log('2');
-      document.getElementById('hide').style.display = 'none';
-      const { offsetX, offsetY } = e.e;
-      console.log(offsetX, offsetY);
-      const image = new fabric.Image(movingImage, {
-        width: movingImage.naturalWidth,
-        height: movingImage.naturalHeight,
-        scaleX: 100 / movingImage.naturalWidth,
-        scaleY: 100 / movingImage.naturalHeight,
-        top: offsetY,
-        left: offsetX,
-      });
-      console.log(image);
-      canvas.add(image);
-    }
+      function dropImg(e) {
+        console.log('2');
+        document.getElementById('hide').style.display = 'none';
+        const { offsetX, offsetY } = e.e;
+        console.log(offsetX, offsetY);
+        const image = new fabric.Image(movingImage, {
+          width: movingImage.naturalWidth,
+          height: movingImage.naturalHeight,
+          scaleX: 100 / movingImage.naturalWidth,
+          scaleY: 100 / movingImage.naturalHeight,
+          top: offsetY,
+          left: offsetX,
+        });
+        console.log(image);
+        canvas.add(image);
+      }
 
-    canvas.on('drop', dropImg);
+      canvas.on('drop', dropImg);
 
-    let i;
-    for (i = 0; i < productImg.length; i++) {
-      productImg[i].addEventListener('mousedown', saveImg);
-    }
+      let i;
+      for (i = 0; i < productImg.length; i++) {
+        productImg[i].addEventListener('mousedown', saveImg);
+      }
 
-    //////////以下為canvas2image//////////////////
-    var canvasPng,
-      bMouseIsDown = false,
-      iLastX,
-      iLastY,
-      $save,
-      $imgs;
+      //////////以下為canvas2image//////////////////
+      var canvasPng,
+        bMouseIsDown = false,
+        iLastX,
+        iLastY,
+        $save,
+        $imgs;
 
-    function init() {
-      canvasPng = document.querySelector('.cvs');
-      // ctx = canvasPng.getContext("2d");
-      $save = document.getElementById('save');
-      $imgs = document.getElementById('imgs');
-      bind();
-    }
-    function bind() {
-      canvasPng.onmousedown = function (e) {
-        bMouseIsDown = true;
-        iLastX =
-          e.clientX -
-          canvasPng.offsetLeft +
-          (window.pageXOffset ||
-            document.body.scrollLeft ||
-            document.documentElement.scrollLeft);
-        iLastY =
-          e.clientY -
-          canvasPng.offsetTop +
-          (window.pageYOffset ||
-            document.body.scrollTop ||
-            document.documentElement.scrollTop);
-      };
-      canvasPng.onmouseup = function () {
-        bMouseIsDown = false;
-        iLastX = -1;
-        iLastY = -1;
-      };
-      canvasPng.onmousemove = function (e) {
-        if (bMouseIsDown) {
-          var iX =
+      function init() {
+        canvasPng = document.querySelector('.cvs');
+        // ctx = canvasPng.getContext("2d");
+        $save = document.getElementById('save');
+        $imgs = document.getElementById('imgs');
+        bind();
+      }
+      function bind() {
+        canvasPng.onmousedown = function (e) {
+          bMouseIsDown = true;
+          iLastX =
             e.clientX -
             canvasPng.offsetLeft +
             (window.pageXOffset ||
               document.body.scrollLeft ||
               document.documentElement.scrollLeft);
-          var iY =
+          iLastY =
             e.clientY -
             canvasPng.offsetTop +
             (window.pageYOffset ||
               document.body.scrollTop ||
               document.documentElement.scrollTop);
-          // ctx.moveTo(iLastX, iLastY);
-          // ctx.lineTo(iX, iY);
-          // ctx.stroke();
-          iLastX = iX;
-          iLastY = iY;
-        }
-      };
-    }
-    $('#save').click(function () {
-      // var type = "png",
-      //   w = "800",
-      //   h = "452";
-      // Canvas2Image.saveAsImage(canvasPng, w, h, type);
-      // console.log(w, h, type);
-      html2canvas(document.getElementById('canvasBox')).then(function (canvas) {
-        // document.body.appendChild(canvas);
-        var a = document.createElement('a');
-        a.href = canvas
-          .toDataURL('image/jpeg')
-          .replace('image/jpeg', 'image/octet-stream');
-        a.download = 'image.jpg';
-        a.click();
+        };
+        canvasPng.onmouseup = function () {
+          bMouseIsDown = false;
+          iLastX = -1;
+          iLastY = -1;
+        };
+        canvasPng.onmousemove = function (e) {
+          if (bMouseIsDown) {
+            var iX =
+              e.clientX -
+              canvasPng.offsetLeft +
+              (window.pageXOffset ||
+                document.body.scrollLeft ||
+                document.documentElement.scrollLeft);
+            var iY =
+              e.clientY -
+              canvasPng.offsetTop +
+              (window.pageYOffset ||
+                document.body.scrollTop ||
+                document.documentElement.scrollTop);
+            // ctx.moveTo(iLastX, iLastY);
+            // ctx.lineTo(iX, iY);
+            // ctx.stroke();
+            iLastX = iX;
+            iLastY = iY;
+          }
+        };
+      }
+      $('#save').click(function () {
+        // var type = "png",
+        //   w = "800",
+        //   h = "452";
+        // Canvas2Image.saveAsImage(canvasPng, w, h, type);
+        // console.log(w, h, type);
+        html2canvas(document.getElementById('canvasBox')).then(function (
+          canvas
+        ) {
+          // document.body.appendChild(canvas);
+          var a = document.createElement('a');
+          a.href = canvas
+            .toDataURL('image/jpeg')
+            .replace('image/jpeg', 'image/octet-stream');
+          a.download = 'image.jpg';
+          a.click();
+        });
       });
-    });
-    // onload = init;
+      // onload = init;
+    }, 200);
   }, []);
   return (
     <>
@@ -189,7 +227,37 @@ function Outfit(props) {
                 <SelectProduct />
               </div>
               <div className="outfit-right-side col col-lg-8">
-                <OutfitProductSlider />
+                <div id="div1" className="outfit-target">
+                  {/* product-warpper start */}
+                  <div className="outfit-product-slider">
+                    <BsFillCaretLeftFill
+                      className="outfit-prev mb-1"
+                      id="slideLeft"
+                    />
+                    <BsFillCaretRightFill
+                      className="outfit-next mb-1"
+                      id="slideRight"
+                    />
+                    <div className="outfit-product-wrapper" id="slider">
+                      {outfitProducts.map((outfitProduct, i) => (
+                        <div className="outfit-product" key={i}>
+                          <div className="outfit-product-img">
+                            <img
+                              src={`${IMAGE_URL}/img/img-outfit/${outfitProduct.pic}`}
+                              alt=""
+                              className="outfit-slider-image outfit-cover-fit"
+                              draggable
+                            />
+                          </div>
+                          <div className="outfit-product-info">
+                            <p>{outfitProduct.name}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  {/* product-warpper end */}
+                </div>
               </div>
               {/* 製作個人化明信片 start */}
               <div className="mt-5 canvasWrap">

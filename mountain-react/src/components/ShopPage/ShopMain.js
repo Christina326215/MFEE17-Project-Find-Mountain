@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link .
 import $ from 'jquery';
 import '../../../node_modules/slick-carousel/slick/slick.css';
 import '../../../node_modules/slick-carousel/slick/slick.min.js';
 import '../../../node_modules/slick-carousel/slick/slick-theme.css';
+// import 'slick-carousel';
 import Swal from 'sweetalert2';
 import '../../styles/product.css';
 import {
@@ -12,6 +13,10 @@ import {
   CartFill,
   HeartFill,
 } from 'react-bootstrap-icons';
+//api s
+import axios from 'axios';
+import { shopURL } from '../../utils/config';
+//api e
 
 import display1 from '../../img/display-photo1.jpeg';
 import display2 from '../../img/display-photo2.jpeg';
@@ -29,7 +34,19 @@ import Yangmingshan from '../../img/article-img/Yangmingshan.jpeg';
 import Tapachien from '../../img/article-img/Tapachien.jpeg';
 
 function ShopMain(props) {
+  const [productData, setProductData] = useState([]);
   useEffect(() => {
+    //api
+    async function getProductData() {
+      try {
+        const productData = await axios.get(shopURL);
+        console.log(productData.data); //for check
+        setProductData(productData.data);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getProductData();
     //slick
     $('.shopmain-display-photo-box').slick({
       dots: true,
@@ -103,7 +120,7 @@ function ShopMain(props) {
         $('.cart-num').text(cartNum);
       }
     });
-  });
+  }, []);
   return (
     <>
       <main>
@@ -132,10 +149,10 @@ function ShopMain(props) {
                   <Link to="/shop/bags">機能背包</Link>
                 </li>
                 <li className="col-3 px-0">
-                  <Link to="#/">登山鞋</Link>
+                  <Link to="/shop/shoes">登山鞋</Link>
                 </li>
                 <li className="col-3 px-0">
-                  <Link to="#/">衣服</Link>
+                  <Link to="/shop/clothes">衣服</Link>
                 </li>
               </div>
             </ul>

@@ -12,12 +12,12 @@
   --map_hover: #c4c4c4;
   --map_hover_font: rgba(0, 0, 0, 0.4);
   --progressLevelBarXiangshan-width: calc(33.3%);
-  --progressDistanceBarXiangshan-width: calc(2.3%);
-  --progressTimeBarXiangshan-width: calc(1.4 / 60 * 100%);
-  --progressDistanceBarJinmian-width: calc(3%);
-  --progressTimeBarJinmian-width: calc(1 / 60 * 100%);
-  --progressDistanceBarChi-hsing-width: calc(5%);
-  --progressTimeBarChi-hsing-width: calc(2.3 / 60 * 100%);
+  /* --progressDistanceBarXiangshan-width: calc(2.3%); */
+  /* --progressTimeBarXiangshan-width: calc(1.4 / 60 * 100%); */
+  /* --progressDistanceBarJinmian-width: calc(3%); */
+  /* --progressTimeBarJinmian-width: calc(1 / 60 * 100%); */
+  /* --progressDistanceBarChi-hsing-width: calc(5%); */
+  /* --progressTimeBarChi-hsing-width: calc(2.3 / 60 * 100%); */
 }
 
 /* .list-unstyled {
@@ -478,7 +478,7 @@
   height: 32px;
   border-radius: 50px 0 0 50px;
   float: left;
-  width: var(--progressDistanceBarXiangshan-width);
+  /* width: var(--progressDistanceBarXiangshan-width); */
   background-color: var(--barBackground-color);
   background: -webkit-linear-gradient(
     top,
@@ -490,7 +490,7 @@
   height: 32px;
   border-radius: 50px 0 0 50px;
   float: left;
-  width: var(--progressDistanceBarJinmian-width);
+  /* width: var(--progressDistanceBarJinmian-width); */
   background-color: var(--barBackground-color);
   background: -webkit-linear-gradient(
     top,
@@ -502,7 +502,7 @@
   height: 32px;
   border-radius: 50px 0 0 50px;
   float: left;
-  width: var(--progressDistanceBarChi-hsing-width);
+  /* width: var(--progressDistanceBarChi-hsing-width); */
   background-color: var(--barBackground-color);
   background: -webkit-linear-gradient(
     top,
@@ -517,7 +517,7 @@
   height: 32px;
   border-radius: 50px 0 0 50px;
   float: left;
-  width: var(--progressTimeBarXiangshan-width);
+  /* width: var(--progressTimeBarXiangshan-width); */
   background-color: var(--barBackground-color);
   background: -webkit-linear-gradient(
     top,
@@ -529,7 +529,7 @@
   height: 32px;
   border-radius: 50px 0 0 50px;
   float: left;
-  width: var(--progressTimeBarJinmian-width);
+  /* width: var(--progressTimeBarJinmian-width); */
   background-color: var(--barBackground-color);
   background: -webkit-linear-gradient(
     top,
@@ -541,7 +541,7 @@
   height: 32px;
   border-radius: 50px 0 0 50px;
   float: left;
-  width: var(--progressTimeBarChi-hsing-width);
+  /* width: var(--progressTimeBarChi-hsing-width); */
   background-color: var(--barBackground-color);
   background: -webkit-linear-gradient(
     top,

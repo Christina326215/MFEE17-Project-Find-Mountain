@@ -15,8 +15,11 @@ import Bear from './components/RecommendPage/Bear';
 import Result from './components/RecommendPage/Result';
 import Manual from './components/RecommendPage/Manual';
 import Detail from './components/RecommendPage/Detail';
+import DetailContent from './components/RecommendPage/DetailContent';
 import ShopMain from './components/ShopPage/ShopMain';
-import Bags from './components/ShopPage/Bags';
+import ShopShoes from './components/ShopPage/ShopShoes';
+import ShopBags from './components/ShopPage/ShopBags';
+import ShopClothes from './components/ShopPage/ShopClothes';
 import ProductDetail from './components/ShopPage/ProductDetail';
 import MapL from './components/MapPage/MapL';
 import MapM from './components/MapPage/MapM';
@@ -81,6 +84,9 @@ function App() {
               <Route path="/recommend/manual">
                 <Manual />
               </Route>
+              <Route path="/recommend/detail/:id?">
+                <DetailContent />
+              </Route>
               <Route path="/recommend/detail">
                 <Detail />
               </Route>
@@ -99,8 +105,14 @@ function App() {
               <Route path="/shop/product-detail">
                 <ProductDetail />
               </Route>
+              <Route path="/shop/clothes">
+                <ShopClothes />
+              </Route>
               <Route path="/shop/bags">
-                <Bags />
+                <ShopBags />
+              </Route>
+              <Route path="/shop/shoes">
+                <ShopShoes />
               </Route>
               <Route path="/shop">
                 <ShopMain />
@@ -152,9 +164,9 @@ function App() {
               {/* //===homepage 路由放最下面===// */}
               <Route exact path="/">
                 <HomeMountain />
-                <HomeArticle />
-                <HomeShop />
-                <HomeOutfit />
+                {/* <HomeArticle />
+              <HomeShop />
+              <HomeOutfit /> */}
               </Route>
             </Switch>
           </ScrollToTop>

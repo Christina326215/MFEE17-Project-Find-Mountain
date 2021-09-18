@@ -20,6 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 //使用中間件，解析json的資料
 app.use(express.json());
 //========================================================//
+app.use(express.static(path.join(__dirname, "public")));
 
 // 處理靜態檔案
 app.use(express.static(path.join(__dirname, "public")));
@@ -78,6 +79,11 @@ app.use("/api/map", mapRouter);
 //===引用 recommendPage 進來 star===//
 let recommendRouter = require("./routers/recommendPage");
 app.use("/api/recommend", recommendRouter);
+//===引用 recommendPage 進來 end===//
+
+//===引用 recommendPage 進來 star===//
+let commentRouter = require("./routers/comment");
+app.use("/api/comment", commentRouter);
 //===引用 recommendPage 進來 end===//
 
 //===引用 shopPage 進來 star===//
