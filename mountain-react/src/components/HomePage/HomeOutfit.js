@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import '../../styles/HomePage/HomeOutfit.scss';
-
+//api start
+import { homeURL } from '../../utils/config';
+import axios from 'axios';
+//api end
 import Blobs3 from '../../img/contentShop/Vector.png';
 import Shop from '../../img/contentDress/shop.gif';
 import Rabbit from '../../img/contentDress/rabbit.svg';
@@ -22,13 +25,13 @@ function HomeOutfit(props) {
           <svg className="homepage-letClimb" viewBox="0 0 1000 800">
             {/* <!-- Symbol --> */}
             <symbol id="s-text">
-              <text text-anchor="middle" x="50%" y="50%" dy=".35em">
+              <text textAnchor="middle" x="50%" y="50%" dy=".35em">
                 let's climb
               </text>
             </symbol>
             {/* <!-- Duplicate symbols --> */}
             <use xlinkHref="#s-text" className="homepage-text"></use>
-            <use xlinkHreff="#s-text" className="homepage-text"></use>
+            <use xlinkHref="#s-text" className="homepage-text"></use>
             <use xlinkHref="#s-text" className="homepage-text"></use>
             <use xlinkHref="#s-text" className="homepage-text"></use>
             <use xlinkHref="#s-text" className="homepage-text"></use>
@@ -36,7 +39,7 @@ function HomeOutfit(props) {
           <svg className="homepage-letClimb" id="m-text" viewBox="0 0 1000 800">
             {/* <!-- Symbol --> */}
             <symbol id="s-text">
-              <text text-anchor="middle" x="50%" y="50%" dy=".35em">
+              <text textAnchor="middle" x="50%" y="50%" dy=".35em">
                 Let's climb
               </text>
             </symbol>
