@@ -3,12 +3,35 @@ import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
 import $ from 'jquery';
 import '../../styles/MemberPage/MemberPersonal.scss'; //member product and article style
+import { useAuth } from '../../context/auth';
+import { zipCodeURL } from '../../utils/config';
+import axios from 'axios';
 
 //====== below pages star ======//
-import { memberSideHead } from './pages/MemberSideHead'; //member Side Head
+import MemberSideHead from './pages/MemberSideHead'; //member Side Head
 //====== below pages end ======//
 
 function MemberPersonal() {
+  // 把 member 從 useContext中拿出來
+  const { member } = useAuth();
+  const [zipCode, setZipCode] = useState(null);
+
+  useEffect(() => {
+    // 從靜態檔案抓資料
+    async function getZipCode() {
+      try {
+        const zipCodeRes = await axios.get(zipCodeURL);
+        // console.log(zipCodeRes.data);
+        // key  ：zip_code
+        // value：縣市、行政區
+        // member.zip_code當作key，要去對應到code.json取得縣市與行政區。
+        setZipCode(zipCodeRes.data);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getZipCode();
+  }, []);
   return (
     <>
       <div className="container">
@@ -21,7 +44,9 @@ function MemberPersonal() {
               p-md-4 p-lg-5
             "
             >
-              <thead>{memberSideHead}</thead>
+              <thead>
+                <MemberSideHead />
+              </thead>
               <tbody>
                 <tr>
                   <td scope="row" className="text-center">
@@ -90,49 +115,52 @@ function MemberPersonal() {
                   <tr>
                     <th className="member-personal-text-weight-bold">姓名：</th>
                     <td scope="row" className="member-personal-text-weight">
-                      王小明
-                    </td>
-                  </tr>
-                  <tr>
-                    <th className="member-personal-text-weight-bold">性別：</th>
-                    <td scope="row" className="member-personal-text-weight">
-                      男
+                      {member && member.name}
                     </td>
                   </tr>
                   <tr>
                     <th className="member-personal-text-weight-bold">電話：</th>
                     <td scope="row" className="member-personal-text-weight">
-                      0900123456
+                      {member && member.phone}
                     </td>
                   </tr>
                   <tr>
                     <th className="member-personal-text-weight-bold">生日：</th>
                     <td scope="row" className="member-personal-text-weight">
-                      1990/01/01
+                      {member && member.birthday}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th className="member-personal-text-weight-bold">地址：</th>
+                    <td scope="row" className="member-personal-text-weight">
+                      {member && member.zip_code}
+                      {zipCode &&
+                        member &&
+                        member.zip_code &&
+                        zipCode[member.zip_code].city}
+                      {zipCode &&
+                        member &&
+                        member.zip_code &&
+                        zipCode[member.zip_code].district}
+                      {member && member.addr}
                     </td>
                   </tr>
                   <tr>
                     <th className="member-personal-text-weight-bold">帳號：</th>
                     <td scope="row" className="member-personal-text-weight">
-                      abc123@test.com
+                      {member && member.account}
                     </td>
-                  </tr>
-                  <tr>
-                    <th className="member-personal-text-weight-bold">密碼：</th>
-                    <td
-                      scope="row"
-                      className="member-personal-text-weight"
-                    ></td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <div className="border-bottom-left-radius my-5 mx-3 text-right">
-              <Link type="button" className="btn btn-primary" to="">
+              <Link type="button" className="btn btn-primary" to="/member/edit">
                 編輯
               </Link>
             </div>
           </div>
+
           {/* <!-- manage-right-side end--> */}
         </div>
       </div>
