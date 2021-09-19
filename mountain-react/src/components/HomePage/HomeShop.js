@@ -13,17 +13,17 @@ import axios from 'axios';
 import product from '../../img/contentShop/Mask Group.png';
 import Blobs2 from '../../img/contentShop/Vector-1.png';
 //icon
-import { Cart, PersonCircle, HeartFill } from 'react-bootstrap-icons';
+import { Cart, HeartFill } from 'react-bootstrap-icons';
 function HomeShop(props) {
   // let heartStyle = { color: '#eea9a9', fontSize: '20px', position: 'absolute' };
-  const [productData, setProductData] = useState(null);
-
+  const [homeproductData, setProductData] = useState(null);
   useEffect(() => {
+    //api
     async function homeData() {
       try {
-        const productData = await axios.get(productURL);
-        console.log(productData.data); //for check
-        setProductData(productData.data);
+        const homeproductData = await axios.get(productURL);
+        console.log(homeproductData.data); //for check
+        setProductData(homeproductData.data);
       } catch (e) {
         console.log(e);
       }
@@ -78,8 +78,8 @@ function HomeShop(props) {
             <h2 className="text-center pb-5">經典熱銷</h2>
             <div className="row">
               <div className="col-6 col-md-4 col-lg-3 px-0">
-                {productData &&
-                  productData.map((product, i) => {
+                {homeproductData &&
+                  homeproductData.map((product, i) => {
                     return (
                       <>
                         <div className="homepage-product-card">

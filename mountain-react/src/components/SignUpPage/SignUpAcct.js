@@ -8,7 +8,14 @@ import axios from 'axios';
 
 function SignUpAcct(props) {
   const [listData, setListData] = useState([]);
-
+  const [email, setEmail] = useState([]);
+  const [password, setPassword] = useState([]);
+  const [repassword, setRepassword] = useState([]);
+  //click button->next part
+  const register = (e) => {
+    e.preventDefault();
+    //TODO:送出註冊資料到後端
+  };
   useEffect(() => {
     async function homeData() {
       try {
@@ -91,13 +98,18 @@ function SignUpAcct(props) {
                         className="form-control"
                         id="inputEmail2"
                         placeholder="請輸入您的email"
+                        name="email"
+                        value={email}
+                        onChange={(e) => {
+                          setEmail(e.target.value);
+                        }}
                       />
                     </div>
                     <div className="form-group col-7 mb-3">
                       <div className="row">
                         <div className="col-7">
                           <input
-                            type="email"
+                            type="text"
                             className="form-control"
                             id="inputEmail3"
                             placeholder="請輸入驗證碼"
@@ -120,6 +132,11 @@ function SignUpAcct(props) {
                         className="form-control"
                         id="inputPassword4"
                         placeholder="請輸入您的密碼"
+                        name="password"
+                        value={password}
+                        onChange={(e) => {
+                          setPassword(e.target.value);
+                        }}
                       />
                     </div>
                     <div className="form-group col-7">
@@ -128,6 +145,11 @@ function SignUpAcct(props) {
                         className="form-control"
                         id="inputPassword5"
                         placeholder="請再次輸入您的密碼"
+                        name="repassword"
+                        value={repassword}
+                        onChange={(e) => {
+                          setRepassword(e.target.value);
+                        }}
                       />
                     </div>
                   </div>

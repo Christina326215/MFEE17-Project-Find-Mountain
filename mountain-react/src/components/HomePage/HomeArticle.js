@@ -4,7 +4,7 @@ import 'slick-carousel';
 import '../../styles/HomePage/HomeArticle.scss';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 //===api start===
-import { homeURL, commentURL } from '../../utils/config';
+import { homeURL, commentURL, IMAGE_URL } from '../../utils/config';
 import axios from 'axios';
 //===api end===
 //===images===
@@ -23,9 +23,11 @@ function HomeArticle(props) {
   useEffect(() => {
     async function homeData() {
       try {
-        const homeData = await axios.get(homeURL, commentURL);
+        const homeData = await axios.get(homeURL);
+        const commentData = await axios.get(commentURL);
         console.log(homeData.data); //for check
         setArticleData(homeData.data);
+        setCommentData(commentData.data);
 
         //===slider===
         $('.slider-for').slick({
@@ -44,6 +46,7 @@ function HomeArticle(props) {
           focusOnSelect: true,
           verticalSwiping: true,
           autoplay: true,
+          autoplaySpeed: 5000,
           responsive: [
             {
               breakpoint: 992,
@@ -75,15 +78,15 @@ function HomeArticle(props) {
         });
         //===字數限制===
         $(function () {
-          var len = 120; // 超過50個字以"..."取代
+          var len = 100; // 超過50個字以"..."取代
           $('.ov-hidden').each(function (i) {
-            if ($(this).text().length > len) {
-              $(this).attr('title', $(this).text());
+            if ($('.ov-hidden').text().length > len) {
+              $('.ov-hidden').attr('title', $(this).text());
               var text =
-                $(this)
+                $('.ov-hidden')
                   .text()
                   .substring(0, len - 1) + '...';
-              $(this).text(text);
+              $('.ov-hidden').text(text);
             }
           });
         });
@@ -140,30 +143,41 @@ function HomeArticle(props) {
                                 <img src={sliderBanner} alt="" />
                                 <div className="position-absolute p-4 word">
                                   <h2>{article.name}</h2>
-                                  <p className="mt-4 ov-hidden">
+                                  <div className="mt-4 ov-hidden">
                                     {article.content}
-                                  </p>
-
-                                  <div className="memory d-flex mt-3">
-                                    <div className="new">最新留言</div>
-                                    <div className="memoryLine"></div>
-                                    <div className="memoryUser">
-                                      <img className="cover-fit" src={user} />
-                                    </div>
-                                    <div className="memoryMember mx-4">
-                                      <small className="memoryDate">
-                                        2021-08-18
-                                      </small>
-                                      <div className="memoryName">臺灣黑熊</div>
-                                    </div>
-                                    <div className="memoryContent">
-                                      這裡風景好美呀～～～
-                                    </div>
                                   </div>
+                                  {commentData &&
+                                    commentData.map((comment) => {
+                                      return (
+                                        <>
+                                          <div className="memory d-flex mt-3">
+                                            <div className="new">最新留言</div>
+                                            <div className="memoryLine"></div>
+                                            <div className="memoryUser">
+                                              <img
+                                                className="cover-fit"
+                                                src={comment.user_id}
+                                              />
+                                            </div>
+                                            <div className="memoryMember mx-4">
+                                              <small className="memoryDate">
+                                                {comment.date}
+                                              </small>
+                                              <div className="memoryName">
+                                                {comment.user_name}
+                                              </div>
+                                            </div>
+                                            <div className="memoryContent">
+                                              {comment.content}
+                                            </div>
+                                          </div>
+                                        </>
+                                      );
+                                    })}
                                 </div>
                               </div>
 
-                              <div className="slider-banner-image">
+                              {/* <div className="slider-banner-image">
                                 <img src={sliderBanner2} alt="" />
                                 <div className="position-absolute p-4 word">
                                   <h2>{article.name}</h2>
@@ -212,49 +226,61 @@ function HomeArticle(props) {
                                     </div>
                                   </div>
                                 </div>
-                              </div>
+                              </div> */}
                             </>
                           );
                         })}
                     </div>
                     <div className="slider slider-nav thumb-image">
-                      <div className="thumbnail-image box">
-                        <div className="thumbImg">
-                          <img src={sliderBanner} alt="" />
-                        </div>
-                        <div className="px-3 py-2 bg-white mb-3">
-                          <Link to="#/" className="unstyle">
-                            <h4 className="text-left">陽明山東西大縱走</h4>
-                            <div className="starIcon text-left">
-                              <FaStar size="24" />
-                              <FaStar size="24" />
-                              <FaStar size="24" />
-                              <FaRegStar size="24" />
-                              <FaRegStar size="24" />
-                            </div>
-                            <div className="d-flex ">
-                              <button className="btn d-flex align-items-center">
-                                <img
-                                  src="./img/contentMountain/low_icon.svg"
-                                  className="mr-2"
-                                />
-                                <span className=" text-primary levelLow">
-                                  難度低
-                                </span>
-                              </button>
-                              <button className="btn d-flex align-items-center">
-                                <FaShoePrints
-                                  size="24"
-                                  className="mr-2"
-                                  color="#6da77f"
-                                />
-                                <span className=" text-primary">2.3公里</span>
-                              </button>
-                            </div>
-                          </Link>
-                        </div>
-                      </div>
-                      <div className="thumbnail-image box">
+                      {articleData &&
+                        articleData.map((article) => {
+                          return (
+                            <>
+                              <div className="thumbnail-image box">
+                                <div className="thumbImg">
+                                  <img
+                                    src={`${IMAGE_URL}/img/contentMountain/${article.pic}`}
+                                    alt=""
+                                  />
+                                </div>
+                                <div className="px-3 py-2 bg-white mb-3">
+                                  <Link to="#/" className="unstyle">
+                                    <h4 className="text-left">
+                                      {article.name}
+                                    </h4>
+                                    <div className="starIcon text-left">
+                                      <FaStar size="24" />
+                                      <FaStar size="24" />
+                                      <FaStar size="24" />
+                                      <FaRegStar size="24" />
+                                      <FaRegStar size="24" />
+                                    </div>
+                                    <div className="d-flex ">
+                                      <button className="btn d-flex align-items-center">
+                                        <img src={lowLevel} className="mr-2" />
+                                        <span className=" text-primary levelLow">
+                                          {article.level}
+                                        </span>
+                                      </button>
+                                      <button className="btn d-flex align-items-center">
+                                        <FaShoePrints
+                                          size="24"
+                                          className="mr-2"
+                                          color="#6da77f"
+                                        />
+                                        <span className=" text-primary">
+                                          2.3公里
+                                        </span>
+                                      </button>
+                                    </div>
+                                  </Link>
+                                </div>
+                              </div>
+                              ;
+                            </>
+                          );
+                        })}
+                      {/* <div className="thumbnail-image box">
                         <div className="thumbImg">
                           <img src={sliderBanner2} alt="" />
                         </div>
@@ -322,7 +348,7 @@ function HomeArticle(props) {
                             </div>
                           </Link>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>

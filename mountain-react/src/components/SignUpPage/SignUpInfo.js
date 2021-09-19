@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/SignUpStyle/SignUpInfo.css';
+//api start
+import { authURL } from '../../utils/config';
+import axios from 'axios';
+//api end
 
 function SignUpInfo(props) {
-  // useEffect(() => {}, []);
+  const [name, setName] = useState(null);
+  const [birth, setBirth] = useState(null);
+  const [phone, setPhone] = useState(null);
+  useEffect(() => {}, []);
   return (
     <>
       <main>
@@ -51,9 +58,12 @@ function SignUpInfo(props) {
                         className="form-control"
                         id="inputName"
                         placeholder="請輸入您的姓名"
+                        name="name"
+                        value={name}
+                        
                       />
                     </div>
-                    <div className="form-group col-7 mb-3">
+                    {/* <div className="form-group col-7 mb-3">
                       <span>性別</span>
                       <br />
                       <input
@@ -70,7 +80,7 @@ function SignUpInfo(props) {
                         id="signup-info-inputGirl"
                       />
                       <label for="inputGirl">女</label>
-                    </div>
+                    </div> */}
                     <div className="form-group col-7 mb-4 name">
                       <label for="inputBirth">生日</label>
                       <input

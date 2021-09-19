@@ -10,11 +10,11 @@ export const homeURL =
 
 //=== comment url star ===//
 export const commentURL =
-  process.env.REACT_APP_commentURL || 'http://localhost:3500/api/home/:comment';
+  process.env.REACT_APP_commentURL || 'http://localhost:3500/api/home/comment';
 //=== comment url end ===//
 //=== comment url star ===//
 export const productURL =
-  process.env.REACT_APP_productURL || 'http://localhost:3500/api/home/:product';
+  process.env.REACT_APP_productURL || 'http://localhost:3500/api/home/product';
 //=== comment url end ===//
 
 //=== for all url star ===//
