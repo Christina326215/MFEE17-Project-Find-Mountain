@@ -4,9 +4,12 @@ import { withRouter } from 'react-router-dom'; //可以獲取history,location,ma
 import $ from 'jquery';
 import '../../styles/MemberPage/MemberMapRoute.scss'; //member map and route style
 
+import { memberRouteURL } from '../../utils/config';
+import axios from 'axios';
+
 //====== below pages star ======//
 import { pages_btn } from '../MapPage/pages/PagesBtn'; //分頁按鈕
-import { memberSideHead } from './pages/MemberSideHead'; //member Side Head
+import MemberSideHead from './pages/MemberSideHead'; //member Side Head
 //====== below pages end ======//
 
 //====== below icon star ======//
@@ -18,7 +21,20 @@ import Xiangshan from '../../img/xiangshan.jpeg';
 //====== above img import end ======//
 
 function MemberMapRoute() {
+  const [data, setData] = useState([]);
   useEffect(() => {
+    async function getRouteData() {
+      try {
+        const RouteData = await axios.get(memberRouteURL);
+        console.log(RouteData.data); //for check
+        setData(RouteData.data);
+        // let data = RouteData.data;
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getRouteData();
+
     // 切換區域tab-switch
     let menu = document.querySelectorAll('#menu');
     let content = document.querySelectorAll('#content');
@@ -38,11 +54,11 @@ function MemberMapRoute() {
       });
     }
 
-    // FIXME: 修好了
     $('.member-map-route-star').click(function () {
       $(this).toggleClass('active');
     });
   }, []);
+
   return (
     <>
       <div className="container">
@@ -55,7 +71,9 @@ function MemberMapRoute() {
               p-md-4 p-lg-5
             "
             >
-              <thead>{memberSideHead}</thead>
+              <thead>
+                <MemberSideHead />
+              </thead>
               <tbody>
                 <tr className="member-table-active">
                   <td scope="row" className="text-center">
@@ -231,179 +249,44 @@ function MemberMapRoute() {
                         <th scope="col-2"></th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td className="member-map-route-picture-img-wrapper">
-                          <div className="member-map-route-picture-img-box">
-                            <img
-                              src={Xiangshan}
-                              alt=""
-                              className="member-map-route-picture-img"
-                            />
-                          </div>
-                        </td>
-                        <td className="member-map-route-text-weight align-middle">
-                          象山步道
-                        </td>
-                        {/* FIXME: 修好了*/}
-                        <td className="member-map-route-star-group member-map-route-text-weight align-middle">
-                          <i className="bi member-map-route-star">
-                            <BsStarFill></BsStarFill>
-                          </i>
-                          <i className="bi member-map-route-star">
-                            <BsStarFill></BsStarFill>
-                          </i>
-                          <i className="bi member-map-route-star">
-                            <BsStarFill></BsStarFill>
-                          </i>
-                          <i className="bi member-map-route-star">
-                            <BsStarFill></BsStarFill>
-                          </i>
-                          <i className="bi member-map-route-star">
-                            <BsStarFill></BsStarFill>
-                          </i>
-                        </td>
-                        <td className="member-map-route-text-weight align-middle">
-                          未評分
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="member-map-route-picture-img-wrapper">
-                          <div className="member-map-route-picture-img-box">
-                            <img
-                              src={Xiangshan}
-                              alt=""
-                              className="member-map-route-picture-img"
-                            />
-                          </div>
-                        </td>
-                        <td className="member-map-route-text-weight align-middle">
-                          象山步道
-                        </td>
-                        <td className="member-map-route-star-group member-map-route-text-weight align-middle">
-                          <i class="bi member-map-route-star">
-                            <BsStarFill></BsStarFill>
-                          </i>
-                          <i class="bi member-map-route-star">
-                            <BsStarFill></BsStarFill>
-                          </i>
-                          <i class="bi member-map-route-star">
-                            <BsStarFill></BsStarFill>
-                          </i>
-                          <i class="bi member-map-route-star">
-                            <BsStarFill></BsStarFill>
-                          </i>
-                          <i class="bi member-map-route-star">
-                            <BsStarFill></BsStarFill>
-                          </i>
-                        </td>
-                        <td className="member-map-route-text-weight align-middle">
-                          未評分
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="member-map-route-picture-img-wrapper">
-                          <div className="member-map-route-picture-img-box">
-                            <img
-                              src={Xiangshan}
-                              alt=""
-                              className="member-map-route-picture-img"
-                            />
-                          </div>
-                        </td>
-                        <td className="member-map-route-text-weight align-middle">
-                          象山步道
-                        </td>
-                        <td className="member-map-route-star-group member-map-route-text-weight align-middle">
-                          <i class="bi member-map-route-star">
-                            <BsStarFill></BsStarFill>
-                          </i>
-                          <i class="bi member-map-route-star">
-                            <BsStarFill></BsStarFill>
-                          </i>
-                          <i class="bi member-map-route-star">
-                            <BsStarFill></BsStarFill>
-                          </i>
-                          <i class="bi member-map-route-star">
-                            <BsStarFill></BsStarFill>
-                          </i>
-                          <i class="bi member-map-route-star">
-                            <BsStarFill></BsStarFill>
-                          </i>
-                        </td>
-                        <td className="member-map-route-text-weight align-middle">
-                          未評分
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="member-map-route-picture-img-wrapper">
-                          <div className="member-map-route-picture-img-box">
-                            <img
-                              src={Xiangshan}
-                              alt=""
-                              className="member-map-route-picture-img"
-                            />
-                          </div>
-                        </td>
-                        <td className="member-map-route-text-weight align-middle">
-                          象山步道
-                        </td>
-                        <td className="member-map-route-star-group member-map-route-text-weight align-middle">
-                          <i class="bi member-map-route-star">
-                            <BsStarFill></BsStarFill>
-                          </i>
-                          <i class="bi member-map-route-star">
-                            <BsStarFill></BsStarFill>
-                          </i>
-                          <i class="bi member-map-route-star">
-                            <BsStarFill></BsStarFill>
-                          </i>
-                          <i class="bi member-map-route-star">
-                            <BsStarFill></BsStarFill>
-                          </i>
-                          <i class="bi member-map-route-star">
-                            <BsStarFill></BsStarFill>
-                          </i>
-                        </td>
-                        <td className="member-map-route-text-weight align-middle">
-                          未評分
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="member-map-route-picture-img-wrapper">
-                          <div className="member-map-route-picture-img-box">
-                            <img
-                              src={Xiangshan}
-                              alt=""
-                              className="member-map-route-picture-img"
-                            />
-                          </div>
-                        </td>
-                        <td className="member-map-route-text-weight align-middle">
-                          象山步道
-                        </td>
-                        <td className="member-map-route-star-group member-map-route-text-weight align-middle">
-                          <i class="bi member-map-route-star">
-                            <BsStarFill></BsStarFill>
-                          </i>
-                          <i class="bi member-map-route-star">
-                            <BsStarFill></BsStarFill>
-                          </i>
-                          <i class="bi member-map-route-star">
-                            <BsStarFill></BsStarFill>
-                          </i>
-                          <i class="bi member-map-route-star">
-                            <BsStarFill></BsStarFill>
-                          </i>
-                          <i class="bi member-map-route-star">
-                            <BsStarFill></BsStarFill>
-                          </i>
-                        </td>
-                        <td className="member-map-route-text-weight align-middle">
-                          未評分
-                        </td>
-                      </tr>
-                    </tbody>
+                    {data.map((items, i) => (
+                      <tbody>
+                        <tr>
+                          <td className="member-map-route-picture-img-wrapper">
+                            <div className="member-map-route-picture-img-box">
+                              <img
+                                src={Xiangshan}
+                                alt=""
+                                className="member-map-route-picture-img"
+                              />
+                            </div>
+                          </td>
+                          <td className="member-map-route-text-weight align-middle">
+                            {items.article_name}
+                          </td>
+                          <td className="member-map-route-star-group member-map-route-text-weight align-middle">
+                            <i className="bi member-map-route-star">
+                              <BsStarFill></BsStarFill>
+                            </i>
+                            <i className="bi member-map-route-star">
+                              <BsStarFill></BsStarFill>
+                            </i>
+                            <i className="bi member-map-route-star">
+                              <BsStarFill></BsStarFill>
+                            </i>
+                            <i className="bi member-map-route-star">
+                              <BsStarFill></BsStarFill>
+                            </i>
+                            <i className="bi member-map-route-star">
+                              <BsStarFill></BsStarFill>
+                            </i>
+                          </td>
+                          <td className="member-map-route-text-weight align-middle">
+                            未評分
+                          </td>
+                        </tr>
+                      </tbody>
+                    ))}
                   </table>
                   {/* <!-- 分頁 start  --> */}
                   {pages_btn}

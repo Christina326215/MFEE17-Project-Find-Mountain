@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
 import $ from 'jquery';
+import { pages_btn } from '../MapPage/pages/PagesBtn'; //分頁按鈕
 import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
+
+import { shopcartURL } from '../../utils/config';
+import axios from 'axios';
 
 //====== below icon star ======//
 import { BsPlus, BsDash, BsTrash, BsCheck } from 'react-icons/bs';
@@ -42,7 +46,7 @@ function ShopCartDetail() {
 
       nextStep.addClass('shopcart-active');
       progressBar
-        .removeAttr('class')
+        .removeAttr('className')
         .addClass('shopcart-step-' + nextStepNum)
         .data('current-step', nextStepNum);
     });
@@ -74,7 +78,7 @@ function ShopCartDetail() {
 
       prevStep.addClass('shopcart-active').removeClass('shopcart-valid');
       progressBar
-        .removeAttr('class')
+        .removeAttr('className')
         .addClass('shopcart-step-' + prevStepNum)
         .data('current-step', prevStepNum);
     });
@@ -456,27 +460,7 @@ function ShopCartDetail() {
               </tbody>
             </table>
             {/* <!-- 分頁 start  --> */}
-            {/* <div
-            className="btn-toolbar justify-content-center"
-            role="toolbar"
-            aria-label="Toolbar with button groups"
-          >
-            <div className="btn-group mr-2" role="group" aria-label="Third group">
-              <button type="button" className="btn btn-primary">|<</button>
-            </div>
-            <div className="btn-group mr-2" role="group" aria-label="First group">
-              <button type="button" className="btn btn-primary"><</button>
-            </div>
-            <div className="btn-group mr-2" role="group" aria-label="Second group">
-              <button type="button" className="btn btn-primary">1</button>
-            </div>
-            <div className="btn-group mr-2" role="group" aria-label="Third group">
-              <button type="button" className="btn btn-primary">></button>
-            </div>
-            <div className="btn-group" role="group" aria-label="Third group">
-              <button type="button" className="btn btn-primary">>|</button>
-            </div>
-          </div> */}
+            {pages_btn}
             {/* <!-- 分頁 end  --> */}
             <div className="text-right mt-3 text-right">
               <p className="shopcart-total">商品總計： NT$ 5,000</p>
