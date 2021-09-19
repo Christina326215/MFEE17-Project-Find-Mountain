@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/MapStyle/mountain_index.css'; //初階Map樣式
 import { Link } from 'react-router-dom'; //a標籤要變成link
 
+//====== below modal star ======//
+import Swal from 'sweetalert2';
+//====== below modal end ======//
+
 //====== below utils star ======//
 import { weather } from '../../utils/weather';
 //====== below utils end ======//
@@ -15,7 +19,7 @@ import { mapURL, weatherURL, IMAGE_URL } from '../../utils/config';
 import { map } from './pages/Map';
 import { map_btn } from './pages/MapBtn';
 import { pages_btn } from './pages/PagesBtn';
-import { productRec } from './pages/ProductRec';
+import ProductRec from './pages/ProductRec';
 //====== below pages components end ======//
 
 //====== below icon star ======//
@@ -36,15 +40,16 @@ import { FaShoePrints } from 'react-icons/fa';
 
 function MapL() {
   const [listData, setListData] = useState([]);
+  const [productData, setProductData] = useState([]);
   const [weatherData, setWeatherData] = useState([]);
   const [userLocation, setUserLocation] = useState([]);
 
   //=== 計算兩點距離 star ===//
   function distance(lat1, lon1, lat2, lon2, unit) {
-    console.log('lat1', lat1);
-    console.log('lat1', lon1);
-    console.log('lat2', lat2);
-    console.log('lat2', lon2);
+    // console.log('lat1', lat1);
+    // console.log('lat1', lon1);
+    // console.log('lat2', lat2);
+    // console.log('lat2', lon2);
     if (lat1 == lat2 && lon1 == lon2) {
       return 0;
     } else {
@@ -89,6 +94,12 @@ function MapL() {
         setListData(mapData.data);
         // map api end //
 
+        // product api star //
+        const productData = await axios.get(mapURL + 'productL');
+        console.log('productData:', productData.data); //for check
+        setProductData(productData.data);
+        // product api end //
+
         // weather api star //
         const weatherData = await axios.get(
           `${weatherURL}&locationName=${locations}&elementName=${elements}&parameterName=${parameters}`
@@ -103,7 +114,11 @@ function MapL() {
         if (navigator.geolocation) {
           // 使用者不提供權限，或是發生其它錯誤
           function error() {
-            alert('無法取得你的位置,請提供權限，利於計算你到景點距離');
+            Swal.fire({
+              icon: 'error',
+              title: '無法取得您的位置，請提供權限！利於計算您到景點距離。',
+              showConfirmButton: true,
+            });
           }
           // 使用者允許抓目前位置，回傳經緯度
           function success(position) {
@@ -116,7 +131,11 @@ function MapL() {
           // 跟使用者拿所在位置的權限
           navigator.geolocation.getCurrentPosition(success, error);
         } else {
-          alert('Sorry, 你的裝置不支援地理位置功能。');
+          Swal.fire({
+            icon: 'error',
+            title: 'Sorry, 你的裝置不支援地理位置功能。',
+            showConfirmButton: true,
+          });
         }
         //=== user geolocation  end ===//
       } catch (e) {
@@ -131,8 +150,8 @@ function MapL() {
     setTimeout(() => {}, 700);
     // 0.7秒後關閉指示器 end
   }, []);
-  console.log('userLat', userLocation.Lat);
-  console.log('userLon', userLocation.Lon);
+  // console.log('userLat', userLocation.Lat);
+  // console.log('userLon', userLocation.Lon);
 
   return (
     <>
@@ -177,7 +196,7 @@ function MapL() {
                         <p className="mountain_list_distance text-primary">
                           <FaShoePrints className="mr-1 mb-1" />
                           {/* <span className="mr-3">2.2公里</span> */}
-                          {/* TODO: put distance */}
+                          {/* count distance */}
                           <span className="mr-3">
                             {distance(
                               userLocation.Lat,
@@ -193,7 +212,7 @@ function MapL() {
                         <p className="mountain_list_title mr-2">天氣</p>
                         <p className="mountain_list_distance text-primary">
                           {/* <BrightnessHigh className="mr-1 mb-1" /> */}
-                          {/* FIXME: 判斷氣象的城市名等於資料庫城市名時，帶入該城市的天氣icon */}
+                          {/* FIXME: ("晴有雷"會進去'多雲有雷' || '陰有雷'那個判斷裡面)判斷氣象的城市名等於資料庫城市名時，帶入該城市的天氣icon */}
                           {weatherData.map((item, i) =>
                             item.parameter[0].parameterValue ===
                             `${list.city}` ? (
@@ -331,9 +350,9 @@ function MapL() {
                     </div>
                     {/* <!-- Time bar end --> */}
                   </div>
-                  {/* FIXME: Link要連到象山的文章 */}
+                  {/* Link要連到山的文章 */}
                   <Link
-                    to="#/"
+                    to={`/recommend/detail/${list.id}`}
                     className="mountain_article_button btn btn-primary btn-lg"
                   >
                     查看文章
@@ -350,7 +369,7 @@ function MapL() {
           {/* <!-- =========pages_btn end========= --> */}
           <div className="mountain_content_line"></div>
           {/* <!-- =========推薦商品 start========= --> */}
-          {productRec}
+          <ProductRec productData={productData} />
           {/* <!-- =========推薦商品 end========= --> */}
         </div>
       </div>

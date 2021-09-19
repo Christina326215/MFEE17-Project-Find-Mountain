@@ -38,7 +38,7 @@ export const map_M = (
             </div>
           </Link>
           {/* FIXME: Link 要連到陽明山東西大縱走的文章 */}
-          <Link to="#/" className="mountain_M_Jinmian">
+          <Link to="/recommend/detail/2" className="mountain_M_Jinmian">
             <div className="mountain_M_Jinmian_box mountain_circle"></div>
 
             <div className="mountain_M_Jinmian_box_hover">
@@ -57,7 +57,7 @@ export const map_M = (
             </div>
           </Link>
           {/* FIXME: Link 要連到北插天山的文章 */}
-          <Link to="#/" className="mountain_M_Chi-hsing">
+          <Link to="/recommend/detail/8" className="mountain_M_Chi-hsing">
             <div className="mountain_M_Chi-hsing_box mountain_circle"></div>
 
             <div className="mountain_M_Chi-hsing_box_hover">

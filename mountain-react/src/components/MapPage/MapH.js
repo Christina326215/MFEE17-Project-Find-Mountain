@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/MapStyle/mountain_index_H.css'; //高階Map樣式
 import { Link } from 'react-router-dom'; //a標籤要變成link
 
+//====== below modal star ======//
+import Swal from 'sweetalert2';
+//====== below modal end ======//
+
 //====== below utils star ======//
 import { weather } from '../../utils/weather';
 //====== below utils end ======//
@@ -15,7 +19,7 @@ import { mapURL, weatherURL, IMAGE_URL } from '../../utils/config';
 import { map_H } from './pages/Map_H';
 import { map_btn } from './pages/MapBtn';
 import { pages_btn } from './pages/PagesBtn';
-import { productRec_H } from './pages/ProductRec_H';
+import ProductRecH from './pages/ProductRec_H';
 //====== below pages components end ======//
 
 //====== below icon star ======//
@@ -36,7 +40,40 @@ import { FaShoePrints } from 'react-icons/fa';
 
 function MapH() {
   const [listData, setListData] = useState([]);
+  const [productData, setProductData] = useState([]);
   const [weatherData, setWeatherData] = useState([]);
+  const [userLocation, setUserLocation] = useState([]);
+
+  //=== 計算兩點距離 star ===//
+  function distance(lat1, lon1, lat2, lon2, unit) {
+    // console.log('lat1', lat1);
+    // console.log('lat1', lon1);
+    // console.log('lat2', lat2);
+    // console.log('lat2', lon2);
+    if (lat1 == lat2 && lon1 == lon2) {
+      return 0;
+    } else {
+      var radlat1 = (Math.PI * lat1) / 180;
+      var radlat2 = (Math.PI * lat2) / 180;
+      var theta = lon1 - lon2;
+      var radtheta = (Math.PI * theta) / 180;
+      var dist =
+        Math.sin(radlat1) * Math.sin(radlat2) +
+        Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+      if (dist > 1) {
+        dist = 1;
+      }
+      dist = Math.acos(dist);
+      dist = (dist * 180) / Math.PI;
+      dist = dist * 60 * 1.1515;
+      if (unit == 'K') {
+        //K: 公里
+        dist = Math.floor(dist * 1.609344);
+      }
+      return dist;
+    }
+  }
+  //=== 計算兩點距離 end ===//
 
   useEffect(() => {
     //=== weather variable star ===//
@@ -56,6 +93,13 @@ function MapH() {
         console.log(mapData.data); //for check
         setListData(mapData.data);
         // map api end //
+
+        // product api star //
+        const productData = await axios.get(mapURL + 'productH');
+        console.log('productData:', productData.data); //for check
+        setProductData(productData.data);
+        // product api end //
+
         // weather api star //
         const weatherData = await axios.get(
           `${weatherURL}&locationName=${locations}&elementName=${elements}&parameterName=${parameters}`
@@ -64,6 +108,36 @@ function MapH() {
         console.log('weatherData:', location); //for check
         setWeatherData(location);
         // weather api end //
+
+        //=== user geolocation star ===//
+        // 先確認使用者裝置能不能抓地點
+        if (navigator.geolocation) {
+          // 使用者不提供權限，或是發生其它錯誤
+          function error() {
+            Swal.fire({
+              icon: 'error',
+              title: '無法取得您的位置，請提供權限！利於計算您到景點距離。',
+              showConfirmButton: true,
+            });
+          }
+          // 使用者允許抓目前位置，回傳經緯度
+          function success(position) {
+            let Lat = position.coords.latitude;
+            let Lon = position.coords.longitude;
+            let LatLon = { Lat, Lon };
+            setUserLocation(LatLon);
+            // console.log(userLocation);
+          }
+          // 跟使用者拿所在位置的權限
+          navigator.geolocation.getCurrentPosition(success, error);
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Sorry, 你的裝置不支援地理位置功能。',
+            showConfirmButton: true,
+          });
+        }
+        //=== user geolocation  end ===//
       } catch (e) {
         console.log(e);
       }
@@ -120,14 +194,24 @@ function MapH() {
                         <p className="mountain_H_list_title mr-2">您距離此地</p>
                         <p className="mountain_H_list_distance text-primary">
                           <FaShoePrints className="mr-1 mb-1" />
-                          <span className="mr-3">2.2公里</span>
+                          {/* count distance */}
+                          <span className="mr-3">
+                            {distance(
+                              userLocation.Lat,
+                              userLocation.Lon,
+                              `${list.lat}`,
+                              `${list.lon}`,
+                              'K'
+                            )}
+                            公里
+                          </span>
                         </p>
 
                         <p className="mountain_H_list_title mr-2">天氣</p>
                         <p className="mountain_H_list_distance text-primary">
                           {/* <BrightnessHigh className="mr-1 mb-1" />
                           <span className="mr-3">晴天</span> */}
-                          {/* FIXME: 判斷氣象的城市名等於資料庫城市名時，帶入該城市的天氣icon */}
+                          {/* FIXME: ("晴有雷"會進去'多雲有雷' || '陰有雷'那個判斷裡面)判斷氣象的城市名等於資料庫城市名時，帶入該城市的天氣icon */}
                           {weatherData.map((item, i) =>
                             item.parameter[0].parameterValue ===
                             `${list.city}` ? (
@@ -289,9 +373,9 @@ function MapH() {
                     </div>
                     {/* <!-- Time bar end --> */}
                   </div>
-                  {/* FIXME: 要連到大霸北稜線的文章 */}
+                  {/* 要連到山的文章 */}
                   <Link
-                    to="#/"
+                    to={`/recommend/detail/${list.id}`}
                     className="mountain_H_article_button btn btn-primary btn-lg"
                   >
                     查看文章
@@ -308,7 +392,7 @@ function MapH() {
           {/* <!-- =========pages_btn end========= --> */}
           <div className="ountain_content_line"></div>
           {/* <!-- =========推薦商品 start========= --> */}
-          {productRec_H}
+          <ProductRecH productData={productData} />
           {/* <!-- =========推薦商品 end========= --> */}
         </div>
       </div>

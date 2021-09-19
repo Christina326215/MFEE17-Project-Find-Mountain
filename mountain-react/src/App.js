@@ -24,7 +24,6 @@ import ProductDetail from './components/ShopPage/ProductDetail';
 import MapL from './components/MapPage/MapL';
 import MapM from './components/MapPage/MapM';
 import MapH from './components/MapPage/MapH';
-import Test from './components/MapPage/Test';
 import Outfit from './components/OutfitPage/Outfit';
 import ScrollToTop from './components/ScrollToTop';
 import ShopCartDetail from './components/ShopCartPage/ShopCartDetail';
@@ -75,9 +74,6 @@ function App() {
             </Route>
             <Route path="/map">
               <MapL />
-            </Route>
-            <Route path="/test">
-              <Test />
             </Route>
             <Route path="/recommend">
               <Recommend />

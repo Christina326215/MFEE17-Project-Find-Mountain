@@ -16,7 +16,7 @@ export const map_H = (
         <div className="mountain_maps_item">
           <img className="mountain_low_map" src={highMapPng} alt="high_map" />
           {/* FIXME: Link 要連到大霸北稜線的文章 */}
-          <Link to="#/" className="mountain_H_Xiangshan">
+          <Link to="/recommend/detail/3" className="mountain_H_Xiangshan">
             <div className="mountain_H_Xiangshan_box mountain_circle"></div>
 
             <div className="mountain_H_Xiangshan_box_hover">
@@ -35,7 +35,7 @@ export const map_H = (
             </div>
           </Link>
           {/* FIXME: Link 要連到武陵四秀登山步道的文章 */}
-          <Link to="#/" className="mountain_H_Jinmian">
+          <Link to="/recommend/detail/6" className="mountain_H_Jinmian">
             <div className="mountain_H_Jinmian_box mountain_circle"></div>
 
             <div className="mountain_H_Jinmian_box_hover">
@@ -54,7 +54,7 @@ export const map_H = (
             </div>
           </Link>
           {/* FIXME: Link 要連到馬洋山登山步道的文章 */}
-          <Link to="#/" className="mountain_H_Chi-hsing">
+          <Link to="/recommend/detail/9" className="mountain_H_Chi-hsing">
             <div className="mountain_H_Chi-hsing_box mountain_circle"></div>
 
             <div className="mountain_H_Chi-hsing_box_hover">
