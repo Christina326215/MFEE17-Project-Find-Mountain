@@ -4,7 +4,6 @@ const canvas = new fabric.Canvas("canvas", {
   width: canvasTarget.clientWidth,
   height: canvasTarget.clientHeight,
 });
-// const canvas = new fabric.Canvas("canvas");
 
 window.onresize = function () {
   canvas.setDimensions({
@@ -15,7 +14,6 @@ window.onresize = function () {
 
 function handleDragStart(e) {
   e.dataTransfer.setData("text/plain", event.target.id);
-  // console.log('event.target.id',event.target.id);
 }
 function handleDragEnd(e) {}
 function handleDragEnter(e) {
@@ -23,8 +21,7 @@ function handleDragEnter(e) {
 }
 function handleDragOver(e) {
   e.preventDefault();
-  let copy = (e.dataTransfer.dropEffect = "copy");
-  console.log(copy);
+  e.dataTransfer.dropEffect = "copy";
 
   return false;
 }
@@ -37,11 +34,9 @@ function handleDrop(e) {
   // if (e.stopPropagation) {
   //     e.stopPropagation();
   // }
-  console.log("handleDrop e", e);
   let id = e.dataTransfer.getData("text/plain");
-  // console.log(id);
   var img = document.querySelector("#" + id);
-  // console.log(img);
+  console.log(img);
 
   var newImage = new fabric.Image(img, {
     width: 0,
@@ -52,12 +47,11 @@ function handleDrop(e) {
   });
   newImage.scaleToWidth(100);
   newImage.scaleToHeight(100);
-  console.log("newImage", newImage);
-  let canvasAdd = canvas.add(newImage);
-  console.log("canvasAdd", canvasAdd);
+  // console.log("newImage", newImage);
+  canvas.add(newImage);
 
   selectedImgs.push("#" + id);
-  console.log("selectedImgs", selectedImgs);
+  // console.log("selectedImgs", selectedImgs);
   showSelectedImgs();
   return false;
 }
@@ -65,10 +59,24 @@ function showSelectedImgs() {
   let newItem = document.getElementById("newItem");
   newItem.innerHTML = "";
   for (let i = 0; i < selectedImgs.length; i++) {
+    // 存圖片
     let image = new Image();
+    // console.log("new image",image);
     let url = document.querySelector(selectedImgs[i]).getAttribute("src");
+    // console.log('url');
     image.src = url;
+
+    let title = document.createElement('span');
+    let perProductname=document.querySelector(selectedImgs[i])
+    // console.log(text);
+    title.innerText=perProductname.dataset.productname
+
+    let price = document.createElement('span');
+    price.innerText=perProductname.dataset.price
+
     newItem.appendChild(image);
+    newItem.appendChild(title);
+    newItem.appendChild(price);
   }
 }
 var images = document.querySelectorAll(".product-img img");
