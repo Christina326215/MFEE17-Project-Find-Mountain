@@ -1,198 +1,109 @@
+import React from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import $ from 'jquery';
+
+//====== below modal star ======//
+import Swal from 'sweetalert2';
+//====== below modal end ======//
 
 //====== below icon star ======//
 import { HeartFill, CartFill } from 'react-bootstrap-icons';
 //====== below icon end ======//
 
-//====== below img import start ======//
-import bags_pic1Jpeg from '../../../img/product-img/bags-pic1.jpeg';
-import bags_pic2Jpeg from '../../../img/product-img/bags-pic2.jpeg';
-import shoes_pic1Jpeg from '../../../img/product-img/shoes-pic1.jpeg';
-import clothes_pic1Jpeg from '../../../img/product-img/clothes-pic1.jpeg';
-//====== below img import end ======//
+//====== below api connect tool star ======//
+import { IMAGE_URL } from '../../../utils/config';
+//====== below api connect tool end ======//
 
-const heartIcon = () => {
-  $('a.mountain_heart-icon-bkg').each(function () {
-    $(this).click(function () {
-      $(this).toggleClass('mountain_heart-icon-bkg-click');
+function ProductRec_M(props) {
+  const { productData } = props;
+  // console.log('productData:', productData); //for check
+
+  const heartIcon = (e) => {
+    $(e.currentTarget).toggleClass('mountain_heart-icon-bkg-click');
+  };
+
+  const cartIcon = () => {
+    //display none -> block
+    let cartDisplay = $('.cart-num').css('display');
+    if (cartDisplay === 'none') {
+      $('.cart-num').css('display', 'block');
+    }
+    // alert("已將商品加入購物車！");
+    Swal.fire({
+      icon: 'success',
+      title: '已將商品加入購物車！',
+      showConfirmButton: false,
+      timer: 1500,
     });
-  });
-};
+    //cart-num ++
+    let cartNum = parseInt($('.cart-num').text());
+    //限制一次加進購物車數量
+    if (cartNum >= 10) {
+      Swal.fire({
+        icon: 'error',
+        title: '一次最多只能放入10樣商品喔',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else {
+      cartNum++;
+      $('.cart-num').text(cartNum);
+    }
+  };
 
-const cartIcon = () => {
-  alert('已將商品加入購物車！');
-};
+  return (
+    <>
+      <div className="mountain_product_box">
+        <div className="mountain_product_title">
+          <h3 className="h2">推薦商品</h3>
+        </div>
+        <div className="mountain_product-list my-4">
+          {productData.map((data) => (
+            <div key={data.id} className="px-0">
+              <div className="mountain_product-card">
+                <div className="mountain_product-img-box position-relative">
+                  {/* 產品照或許從後端抓 */}
+                  <img
+                    className="mountain_cover-fit"
+                    src={`${IMAGE_URL}/img/product-img/${data.pic}`}
+                    alt=""
+                  />
+                  {/* FIXME: 將產品加到收藏裡 & Link */}
+                  <button
+                    className="position-absolute mountain_heart-icon-bkg position-relative"
+                    onClick={heartIcon}
+                  >
+                    <HeartFill className="position-absolute shopmain-heart-icon" />
+                  </button>
+                  {/* FIXME: 將產品加到購物車裡 & Link */}
+                  <button
+                    className="position-absolute mountain_cart-icon-bkg position-relative"
+                    onClick={cartIcon}
+                  >
+                    <CartFill className="position-absolute mountain_cart-icon" />
+                  </button>
+                </div>
+                {/* TODO:: Link將產品連到商品頁面 */}
+                <Link to="#/" className="text-left mountain_product-name">
+                  {data.brand}
+                  <br />
+                  {data.name}
+                </Link>
+                {/* 價錢從後端抓 */}
+                <p className="text-left mountain_product-price">
+                  NT ${data.price}
+                </p>
+              </div>
+            </div>
+          ))}
 
-export const productRec_M = (
-  <>
-    <div className="mountain_product_box">
-      <div className="mountain_product_title">
-        <h3 className="h2">推薦商品</h3>
-      </div>
-      <div className="mountain_product-list my-4">
-        <div className="px-0">
-          <div className="mountain_product-card">
-            <div className="mountain_product-img-box position-relative">
-              {/* FIXME: 產品照或許從後端抓 */}
-              <img className="mountain_cover-fit" src={bags_pic1Jpeg} alt="" />
-              {/* FIXME: 將產品加到收藏裡 & Link */}
-              <Link
-                to="#/"
-                role="button"
-                className="position-absolute mountain_heart-icon-bkg position-relative"
-                onClick={heartIcon}
-              >
-                <i className="position-absolute mountain_heart-icon">
-                  <HeartFill />
-                </i>
-              </Link>
-              {/* FIXME: 將產品加到購物車裡 & Link */}
-              <Link
-                to="#/"
-                role="button"
-                className="position-absolute mountain_cart-icon-bkg position-relative"
-                onClick={cartIcon}
-              >
-                <i className="position-absolute mountain_cart-icon">
-                  <CartFill />
-                </i>
-              </Link>
-            </div>
-            {/* FIXME: Link將產品連到商品頁面 */}
-            <Link to="#/" className="text-left mountain_product-name">
-              The North Face
-              <br />
-              黑色便捷休閒腰包
-            </Link>
-            {/* FIXME: 價錢從後端抓 */}
-            <p className="text-left mountain_product-price">NT $1,780</p>
-          </div>
-        </div>
-        <div className="px-0">
-          <div className="mountain_product-card">
-            <div className="mountain_product-img-box position-relative">
-              {/* FIXME: 產品照或許從後端抓 */}
-              <img className="mountain_cover-fit" src={bags_pic2Jpeg} alt="" />
-              {/* FIXME: 將產品加到收藏裡 & Link */}
-              <Link
-                to="#/"
-                role="button"
-                className="position-absolute mountain_heart-icon-bkg position-relative"
-                onClick={heartIcon}
-              >
-                <i className="position-absolute mountain_heart-icon">
-                  <HeartFill />
-                </i>
-              </Link>
-              {/* FIXME: 將產品加到購物車裡 & Link */}
-              <Link
-                to="#/"
-                role="button"
-                className="position-absolute mountain_cart-icon-bkg position-relative"
-                onClick={cartIcon}
-              >
-                <i className="position-absolute mountain_cart-icon">
-                  <CartFill />
-                </i>
-              </Link>
-            </div>
-            {/* FIXME: Link將產品連到商品頁面 */}
-            <Link to="#/" className="text-left mountain_product-name">
-              The North Face
-              <br />
-              黑灰色休閒後背包
-            </Link>
-            {/* FIXME: 價錢從後端抓 */}
-            <p className="text-left mountain_product-price">NT $2,180</p>
-          </div>
-        </div>
-
-        <div className="px-0">
-          <div className="mountain_product-card">
-            <div className="mountain_product-img-box position-relative">
-              {/* FIXME: 產品照或許從後端抓 */}
-              <img className="mountain_cover-fit" src={shoes_pic1Jpeg} alt="" />
-              {/* FIXME: 將產品加到收藏裡 & Link */}
-              <Link
-                to="#/"
-                role="button"
-                className="position-absolute mountain_heart-icon-bkg position-relative"
-                onClick={heartIcon}
-              >
-                {/* FIXME: 將產品加到收藏裡 & Link */}
-                <i className="position-absolute mountain_heart-icon">
-                  <HeartFill />
-                </i>
-              </Link>
-              {/* FIXME: 將產品加到購物車裡 & Link */}
-              <Link
-                to="#/"
-                role="button"
-                className="position-absolute mountain_cart-icon-bkg position-relative"
-                onClick={cartIcon}
-              >
-                <i className="position-absolute mountain_cart-icon">
-                  <CartFill />
-                </i>
-              </Link>
-            </div>
-            {/* FIXME: Link將產品連到商品頁面 */}
-            <Link to="#/" className="text-left mountain_product-name">
-              MERRELL
-              <br />
-              女水陸三棲鞋
-            </Link>
-            {/* FIXME: 價錢從後端抓 */}
-            <p className="text-left mountain_product-price">NT $2,680</p>
-          </div>
-        </div>
-        <div className="px-0">
-          <div className="mountain_product-card">
-            <div className="mountain_product-img-box position-relative">
-              {/* FIXME: 產品照或許從後端抓 */}
-              <img
-                className="mountain_cover-fit"
-                src={clothes_pic1Jpeg}
-                alt=""
-              />
-              {/* FIXME: 將產品加到收藏裡 & Link */}
-              <Link
-                to="#/"
-                role="button"
-                className="position-absolute mountain_heart-icon-bkg position-relative"
-                onClick={heartIcon}
-              >
-                <i className="position-absolute mountain_heart-icon">
-                  <HeartFill />
-                </i>
-              </Link>
-              {/* FIXME: 將產品加到購物車裡 & Link */}
-              <Link
-                to="#/"
-                role="button"
-                className="position-absolute mountain_cart-icon-bkg position-relative"
-                onClick={cartIcon}
-              >
-                <i className="position-absolute mountain_cart-icon">
-                  <CartFill />
-                </i>
-              </Link>
-            </div>
-            {/* FIXME: Link將產品連到商品頁面 */}
-            <Link to="#/" className="text-left mountain_product-name">
-              Decathlon
-              <br />
-              男透氣休閒健行外套
-            </Link>
-            {/* FIXME: 價錢從後端抓 */}
-            <p className="text-rleft mountain_product-price">NT $499</p>
-          </div>
-        </div>
-
-        <div className="mountain_M_downLowBear"></div>
+          <div className="mountain_M_downLowBear"></div>
         <div className="mountain_M_bearSpeak"></div>
+        </div>
       </div>
-    </div>
-  </>
-);
+    </>
+  );
+}
+
+export default ProductRec_M
+

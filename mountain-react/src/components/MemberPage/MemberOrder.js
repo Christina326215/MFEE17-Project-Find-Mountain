@@ -4,8 +4,11 @@ import { withRouter } from 'react-router-dom'; //可以獲取history,location,ma
 import $ from 'jquery';
 import '../../styles/MemberPage/MemberOrder.scss'; //member map and route style
 
+import { memberURL } from '../../utils/config';
+import axios from 'axios';
+
 //====== below pages star ======//
-import { memberSideHead } from './pages/MemberSideHead'; //member Side Head
+import MemberSideHead from './pages/MemberSideHead'; //member Side Head
 //====== below pages end ======//
 
 //====== below icon star ======//
@@ -49,7 +52,9 @@ function MemberOrder() {
               p-md-4 p-lg-5
             "
             >
-              <thead>{memberSideHead}</thead>
+              <thead>
+                <MemberSideHead />
+              </thead>
               <tbody>
                 <tr>
                   <td scope="row" className="text-center">

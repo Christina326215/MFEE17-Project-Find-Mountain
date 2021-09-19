@@ -12,12 +12,12 @@
   /* --map_hover: #c4c4c4; */
   /* --map_hover_font: rgba(0, 0, 0, 0.4); */
   --mountain_M_progressLevelBarXiangshan-width: calc(33.3%);
-  --mountain_M_progressDistanceBarXiangshan-width: calc(5.33%);
-  --mountain_M_progressTimeBarXiangshan-width: calc(5 / 100 * 100%);
-  --mountain_M_progressDistanceBarJinmian-width: calc(23.8%);
-  --mountain_M_progressTimeBarJinmian-width: calc(11 / 100 * 100%);
-  --mountain_M_progressDistanceBarChi-hsing-width: calc(13%);
-  --mountain_M_progressTimeBarChi-hsing-width: calc(8.2 / 100 * 100%);
+  /* --mountain_M_progressDistanceBarXiangshan-width: calc(5.33%); */
+  /* --mountain_M_progressTimeBarXiangshan-width: calc(5 / 100 * 100%); */
+  /* --mountain_M_progressDistanceBarJinmian-width: calc(23.8%); */
+  /* --mountain_M_progressTimeBarJinmian-width: calc(11 / 100 * 100%); */
+  /* --mountain_M_progressDistanceBarChi-hsing-width: calc(13%); */
+  /* --mountain_M_progressTimeBarChi-hsing-width: calc(8.2 / 100 * 100%); */
 }
 /* body {
   font-family: Roboto;
@@ -484,7 +484,7 @@
   height: 32px;
   border-radius: 50px 0 0 50px;
   float: left;
-  width: var(--mountain_M_progressDistanceBarXiangshan-width);
+  /* width: var(--mountain_M_progressDistanceBarXiangshan-width); */
   background-color: var(--mountain_M_barBackground-color);
   background: -webkit-linear-gradient(
     top,
@@ -496,7 +496,7 @@
   height: 32px;
   border-radius: 50px 0 0 50px;
   float: left;
-  width: var(--mountain_M_progressDistanceBarJinmian-width);
+  /* width: var(--mountain_M_progressDistanceBarJinmian-width); */
   background-color: var(--mountain_M_barBackground-color);
   background: -webkit-linear-gradient(
     top,
@@ -508,7 +508,7 @@
   height: 32px;
   border-radius: 50px 0 0 50px;
   float: left;
-  width: var(--mountain_M_progressDistanceBarChi-hsing-width);
+  /* width: var(--mountain_M_progressDistanceBarChi-hsing-width); */
   background-color: var(--mountain_M_barBackground-color);
   background: -webkit-linear-gradient(
     top,
@@ -523,7 +523,7 @@
   height: 32px;
   border-radius: 50px 0 0 50px;
   float: left;
-  width: var(--mountain_M_progressTimeBarXiangshan-width);
+  /* width: var(--mountain_M_progressTimeBarXiangshan-width); */
   background-color: var(--mountain_M_barBackground-color);
   background: -webkit-linear-gradient(
     top,
@@ -535,7 +535,7 @@
   height: 32px;
   border-radius: 50px 0 0 50px;
   float: left;
-  width: var(--mountain_M_progressTimeBarJinmian-width);
+  /* width: var(--mountain_M_progressTimeBarJinmian-width); */
   background-color: var(--mountain_M_barBackground-color);
   background: -webkit-linear-gradient(
     top,
@@ -547,7 +547,7 @@
   height: 32px;
   border-radius: 50px 0 0 50px;
   float: left;
-  width: var(--mountain_M_progressTimeBarChi-hsing-width);
+  /* width: var(--mountain_M_progressTimeBarChi-hsing-width); */
   background-color: var(--mountain_M_barBackground-color);
   background: -webkit-linear-gradient(
     top,
