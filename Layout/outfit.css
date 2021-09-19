@@ -168,7 +168,7 @@
 }
 
 #canvas {
-  /* border: 1px solid green; */
+  border: 1px solid green;
 }
 /* @media screen and (max-width: 768px) {
   #canvas {

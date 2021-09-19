@@ -47,9 +47,7 @@ function Outfit(props) {
       }
     }
     outfitData();
-  }, []);
 
-  useEffect(() => {
     $('#div1').show();
     $('#div2').hide();
     $('#div3').hide();
@@ -71,12 +69,14 @@ function Outfit(props) {
     // });
     $('.outfit-prev').click(function () {
       // $('#slider').scrollLeft -= 180;
-      // document.getElementById('slider').scrollLeft -= 180;
+      document.getElementById('slider').scrollLeft -= 180;
+      // $('.outfit-product-wrapper').scrollLeft -= 180;
     });
     $('.outfit-next').click(function () {
-      console.log('click');
+      // console.log('click');
       // $('#slider').scrollLeft += 180;
       document.getElementById('slider').scrollLeft += 180;
+      // $('.outfit-product-wrapper').scrollLeft += 180;
     });
 
     setTimeout(() => {
@@ -193,11 +193,7 @@ function Outfit(props) {
         };
       }
       $('#save').click(function () {
-        // var type = "png",
-        //   w = "800",
-        //   h = "452";
-        // Canvas2Image.saveAsImage(canvasPng, w, h, type);
-        // console.log(w, h, type);
+        console.log(document.getElementById('canvasBox'));
         html2canvas(document.getElementById('canvasBox')).then(function (
           canvas
         ) {
@@ -210,8 +206,7 @@ function Outfit(props) {
           a.click();
         });
       });
-      // onload = init;
-    }, 200);
+    }, 500);
   }, []);
   return (
     <>
@@ -227,6 +222,7 @@ function Outfit(props) {
                 <SelectProduct />
               </div>
               <div className="outfit-right-side col col-lg-8">
+                {/* <OutfitProductSlider /> */}
                 <div id="div1" className="outfit-target">
                   {/* product-warpper start */}
                   <div className="outfit-product-slider">
@@ -248,6 +244,12 @@ function Outfit(props) {
                               className="outfit-slider-image outfit-cover-fit"
                               draggable
                             />
+                            {/* <img
+                              src={clothesPic1Removebg}
+                              alt=""
+                              className="outfit-slider-image outfit-cover-fit"
+                              draggable
+                            /> */}
                           </div>
                           <div className="outfit-product-info">
                             <p>{outfitProduct.name}</p>
@@ -260,7 +262,7 @@ function Outfit(props) {
                 </div>
               </div>
               {/* 製作個人化明信片 start */}
-              <div className="mt-5 canvasWrap">
+              <div className="canvasWrap">
                 <h3 className="outfit-subTitle">製作個人化明信片</h3>
                 <div className="outfit-underline"></div>
                 <div className="outfit-canvas-box cvs" id="canvasBox">
@@ -284,10 +286,6 @@ function Outfit(props) {
               </div>
               {/* 訂購單 end */}
             </div>
-
-            {/* test */}
-
-            {/* test */}
           </div>
         </div>
       </div>

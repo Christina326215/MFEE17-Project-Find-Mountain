@@ -4,6 +4,7 @@ const canvas = new fabric.Canvas("canvas", {
   width: canvasTarget.clientWidth,
   height: canvasTarget.clientHeight,
 });
+// const canvas = new fabric.Canvas("canvas");
 
 window.onresize = function () {
   canvas.setDimensions({
@@ -13,8 +14,8 @@ window.onresize = function () {
 };
 
 function handleDragStart(e) {
-  console.log("handleDragStart e", e);
   e.dataTransfer.setData("text/plain", event.target.id);
+  // console.log('event.target.id',event.target.id);
 }
 function handleDragEnd(e) {}
 function handleDragEnter(e) {
@@ -22,7 +23,9 @@ function handleDragEnter(e) {
 }
 function handleDragOver(e) {
   e.preventDefault();
-  e.dataTransfer.dropEffect = "copy";
+  let copy = (e.dataTransfer.dropEffect = "copy");
+  console.log(copy);
+
   return false;
 }
 function handleDragLeave(e) {
@@ -30,26 +33,28 @@ function handleDragLeave(e) {
 }
 function handleDrop(e) {
   e.stopPropagation();
-  document.getElementById("hide").style.display="none"
+  document.getElementById("hide").style.display = "none";
   // if (e.stopPropagation) {
   //     e.stopPropagation();
   // }
-  console.log("handleDrop e",e);
+  console.log("handleDrop e", e);
   let id = e.dataTransfer.getData("text/plain");
   // console.log(id);
   var img = document.querySelector("#" + id);
   // console.log(img);
+
   var newImage = new fabric.Image(img, {
-    width: img.width,
-    height: img.height,
+    width: 0,
+    height: 0,
     // Set the center of the new object based on the event coordinates relative
-    // to the canvas container.
-    left: e.layerX,
-    top: e.layerY,
+    left: e.layerX - 47,
+    top: e.layerY - 70,
   });
-  console.log('newImage',newImage);
-  let canvasAdd=canvas.add(newImage);
-  console.log('canvasAdd',canvasAdd);
+  newImage.scaleToWidth(100);
+  newImage.scaleToHeight(100);
+  console.log("newImage", newImage);
+  let canvasAdd = canvas.add(newImage);
+  console.log("canvasAdd", canvasAdd);
 
   selectedImgs.push("#" + id);
   console.log("selectedImgs", selectedImgs);
@@ -154,4 +159,3 @@ $("#save").click(function (e) {
     a.click();
   });
 });
-

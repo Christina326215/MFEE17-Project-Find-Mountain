@@ -184,6 +184,7 @@
 } */
 .canvasWrap {
   width: 100%;
+  margin-top: 100px;
 }
 .outfit-canvas-box {
   margin: auto;
@@ -260,7 +261,7 @@
 }
 .outfit-product-slider .outfit-product-wrapper {
   width: 80%;
-  height: 220px;
+  height: 276px;
   margin: 0 auto;
   /* overflow: hidden; */
   /* border: 1px dashed red; */
@@ -277,7 +278,6 @@
 .outfit-product-img {
   width: 140px;
   height: 140px;
-  /* background: white; */
 }
 #slider::-webkit-scrollbar {
   width: 8px;
