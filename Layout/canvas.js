@@ -58,25 +58,42 @@ function handleDrop(e) {
 function showSelectedImgs() {
   let newItem = document.getElementById("newItem");
   newItem.innerHTML = "";
+
+  // 把tbody放進cartList內
+  newTbody = document.createElement("tbody");
+  document.getElementById("cartList").appendChild(newTbody);
+
   for (let i = 0; i < selectedImgs.length; i++) {
+    // // 建立每個品項的清單區域 -- tr
+    let trItemList = document.createElement("tr");
+    trItemList.className = "item";
+    newTbody.appendChild(trItemList);
+
+    // // 建立商品圖片 -- 第一個 td
+    let tdImage = document.createElement("td");
+    tdImage.style.width = "100px";
+
     // 存圖片
     let image = new Image();
     // console.log("new image",image);
     let url = document.querySelector(selectedImgs[i]).getAttribute("src");
-    // console.log('url');
     image.src = url;
+    image.setAttribute("class", "cover-fit");
 
-    let title = document.createElement('span');
-    let perProductname=document.querySelector(selectedImgs[i])
-    // console.log(text);
-    title.innerText=perProductname.dataset.productname
+    tdImage.appendChild(image);
+    trItemList.appendChild(tdImage);
 
-    let price = document.createElement('span');
-    price.innerText=perProductname.dataset.price
+    // // 建立商品名稱 -- 第二個 td
+    let tdTitle = document.createElement("td");
 
-    newItem.appendChild(image);
-    newItem.appendChild(title);
-    newItem.appendChild(price);
+    let perProductname = document.querySelector(selectedImgs[i]);
+    tdTitle.innerText = perProductname.dataset.productname;
+    trItemList.appendChild(tdTitle);
+
+    // // 建立商品價格 -- 第三個 td
+    let tdPrice = document.createElement("td");
+    tdPrice.innerText = perProductname.dataset.price;
+    trItemList.appendChild(tdPrice);
   }
 }
 var images = document.querySelectorAll(".product-img img");
