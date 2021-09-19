@@ -67,6 +67,7 @@ function ShopBags(props) {
               {productData.map((item, index) => {
                 return (
                   <ProductCard
+                    productId={item.id}
                     name={item.name}
                     price={item.price}
                     picture={item.pic}
