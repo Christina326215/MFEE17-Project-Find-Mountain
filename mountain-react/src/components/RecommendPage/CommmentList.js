@@ -1,5 +1,4 @@
 import React from 'react';
-import xiangshan from '../../img/article-img/xiangshan.jpeg';
 import axios from 'axios';
 import { BsPeopleCircle } from 'react-icons/bs';
 import { useEffect, useState } from 'react';

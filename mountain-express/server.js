@@ -20,7 +20,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 //========================================================//
 app.use(express.static(path.join(__dirname, "public")));
-
 // react yarn build star
 // app.use(express.static(path.join(__dirname, "react")));
 // react yarn build end

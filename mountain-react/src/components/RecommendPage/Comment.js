@@ -4,15 +4,12 @@ import { withRouter } from 'react-router';
 import CommmentList from './CommmentList';
 import slothBig from '../../img/article-img/sloth_big.svg';
 import slothSmall from '../../img/article-img/sloth_small.svg';
-import xiangshan from '../../img/article-img/xiangshan.jpeg';
-import tapachien from '../../img/article-img/Tapachien.jpeg';
 import {
   BsChevronBarLeft,
   BsChevronLeft,
   BsChevronRight,
   BsChevronBarRight,
   BsPlusSquare,
-  BsPeopleCircle,
 } from 'react-icons/bs';
 
 function Comment(props) {

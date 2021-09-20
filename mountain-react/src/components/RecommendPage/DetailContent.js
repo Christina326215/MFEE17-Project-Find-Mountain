@@ -163,11 +163,7 @@ function DetailContent(props) {
                   <p className="mr-2">加入去過路線</p>
                   {/* =========about-membership-bubble start========= */}
                   <div className="recommend-about-membership">
-                    <div
-                      to="javascript:void(0)"
-                      id="seeMember"
-                      className="recommend-see-member"
-                    >
+                    <div to="" id="seeMember" className="recommend-see-member">
                       <i className="bi recommend-bi-question-circle">
                         <BsQuestionCircle></BsQuestionCircle>
                       </i>
