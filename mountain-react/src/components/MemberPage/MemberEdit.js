@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
-import $ from 'jquery';
-import '../../styles/MemberPage/MemberPersonal.scss'; //member product and article style
+import '../../styles/MemberPage/MemberPersonal.scss';
 import { useAuth } from '../../context/auth'; // 取得會員資料
-import { zipCodeURL, zipGroupURL } from '../../utils/config'; // 取得郵遞區號資料
+import { zipCodeURL, zipGroupURL, memberEditURL } from '../../utils/config'; // 取得郵遞區號資料
 import axios from 'axios';
 
 //====== below pages star ======//
@@ -14,8 +13,9 @@ import MemberSideHead from './pages/MemberSideHead'; //member Side Head
 function MemberEdit() {
   // 1. 首先，建立好 html 在 return(<>...</>)。
   // 2. 設定狀態，關於共用會員資料使用useAuth()，關於地址資料放在靜態檔案中則使用useState()。
-  const { member } = useAuth();
+  const { member } = useAuth(); // 取得會員資料
   const [zipGroup, setZipGroup] = useState(null);
+  // zipGroup是一個物件，key為city(是字串)，value為一陣列(陣列中由多個小物件組成)。
   const [zipCode, setZipCode] = useState(null);
   const [cities, setCities] = useState([]); // 各縣市陣列
   const [districts, setDistricts] = useState([]); //各行政區陣列
@@ -70,8 +70,6 @@ function MemberEdit() {
         let data2 = zipCodeRes.data;
         // 6.3 設定 setZipCode 狀態，取得 code.json 所有資料。
         setZipCode(data2);
-        // console.log(data2[100].city);
-        // console.log(data2[tempMember.zip_code].city);
       } catch (e) {
         console.log(e);
       }
@@ -120,11 +118,27 @@ function MemberEdit() {
     setTempMember({ ...tempMember, [e.target.name]: e.target.value });
   }
 
-  // useEffect(() => {
-  // }, [cities]);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // let response = await axios.post(`${memberEditURL}`, {
+      //   ...tempMember,
+      // });
+      // console.log(response);
 
-  // useEffect(() => {
-  // }, [code]);
+      let formData = new FormData();
+      formData.append('name', tempMember.name);
+      formData.append('account', tempMember.account);
+      formData.append('phone', tempMember.phone);
+      formData.append('birthday', tempMember.birthday);
+      formData.append('zip_code', tempMember.zip_code);
+      formData.append('addr', tempMember.addr);
+      let response = await axios.post(`${memberEditURL}`, formData);
+      console.log(response);
+    } catch (e) {
+      console.error(e.response);
+    }
+  };
 
   return (
     <>
@@ -201,134 +215,137 @@ function MemberEdit() {
           <div className="col-12 col-lg-9 mt-5 zindex-low">
             <h2 className="member-personal-title-main">我的會員資料</h2>
             <div className="member-personal-right-side mt-5">
-              <div className="m-4">
-                <div className="member-personal-text-weight-bold">
-                  <label for="inputName" className="mt-2">
-                    姓名：
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="inputName"
-                    name="name"
-                    placeholder="請輸入收件人姓名"
-                    value={tempMember && tempMember.name}
-                    onChange={handleChange}
-                  />
-                </div>
+              <form onSubmit={handleSubmit}>
+                <div className="m-4">
+                  <div className="member-personal-text-weight-bold">
+                    <label for="inputName" className="mt-2">
+                      姓名：
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="inputName"
+                      name="name"
+                      placeholder="請輸入收件人姓名"
+                      value={tempMember && tempMember.name}
+                      onChange={handleChange}
+                    />
+                  </div>
 
-                <div className="member-personal-text-weight-bold">
-                  <label for="inputPhone" className="mt-3">
-                    電話：
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="inputPhone"
-                    name="phone"
-                    placeholder="請輸入聯絡電話"
-                    value={tempMember && tempMember.phone}
-                    onChange={handleChange}
-                  />
-                </div>
+                  <div className="member-personal-text-weight-bold">
+                    <label for="inputPhone" className="mt-3">
+                      電話：
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="inputPhone"
+                      name="phone"
+                      placeholder="請輸入聯絡電話"
+                      value={tempMember && tempMember.phone}
+                      onChange={handleChange}
+                    />
+                  </div>
 
-                <div className="member-personal-text-weight-bold">
-                  <label for="inputBirth" className="mt-3">
-                    生日：
-                  </label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    id="inputBirth"
-                    name="birthday"
-                    value={tempMember && tempMember.birthday}
-                    onChange={handleChange}
-                  />
-                </div>
+                  <div className="member-personal-text-weight-bold">
+                    <label for="inputBirth" className="mt-3">
+                      生日：
+                    </label>
+                    <input
+                      type="date"
+                      className="form-control"
+                      id="inputBirth"
+                      name="birthday"
+                      value={tempMember && tempMember.birthday}
+                      onChange={handleChange}
+                    />
+                  </div>
 
-                <div className="member-personal-text-weight-bold">
-                  <label for="inputAddress" className="mt-3">
-                    地址：
-                  </label>
-                  {/* 請選擇縣市 */}
-                  <select
-                    className="form-control"
-                    name="city"
-                    value={
-                      tempMember &&
-                      zipCode &&
-                      tempMember.zip_code &&
-                      zipCode[tempMember.zip_code].city
-                    }
-                    onChange={changeCity}
+                  <div className="member-personal-text-weight-bold">
+                    <label for="inputAddress" className="mt-3">
+                      地址：
+                    </label>
+                    {/* 請選擇縣市 */}
+                    <select
+                      className="form-control"
+                      name="city"
+                      value={
+                        tempMember &&
+                        zipCode &&
+                        tempMember.zip_code &&
+                        zipCode[tempMember.zip_code].city
+                      }
+                      onChange={changeCity}
+                    >
+                      {cities &&
+                        cities.map((city, i) => (
+                          <option key={i} value={city}>
+                            {city}
+                          </option>
+                        ))}
+                    </select>
+
+                    {/* 請選擇行政區 */}
+                    <select
+                      className="form-control"
+                      value={tempMember && tempMember.zip_code}
+                      onChange={changeDistrict}
+                      name="zip_code"
+                    >
+                      {cities &&
+                        districts &&
+                        districts.map((item, i) => (
+                          <option key={i} value={item.zip_code}>
+                            {item.district}
+                          </option>
+                        ))}
+                    </select>
+                    {/* 請選擇地址 */}
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="inputAddress"
+                      placeholder="請輸入地址"
+                      name="addr"
+                      value={tempMember && tempMember.addr}
+                      onChange={handleChange}
+                    />
+                  </div>
+
+                  <div className="member-personal-text-weight-bold">
+                    <label for="inputAccount" className="mt-3">
+                      帳號：
+                    </label>
+                    <input
+                      type="email"
+                      className="form-control"
+                      id="inputAccount"
+                      placeholder="請輸入您的email"
+                      name="account"
+                      value={tempMember && tempMember.account}
+                      onChange={handleChange}
+                    />
+                  </div>
+
+                  <div className="member-personal-text-weight-bold">
+                    <label for="inputPassword" className="mt-3">
+                      密碼：
+                    </label>
+                    <input
+                      type="password"
+                      className="form-control"
+                      id="inputPassword"
+                      name="password"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="border-bottom-left-radius my-5 mx-3 text-right btn btn-primary"
                   >
-                    {cities &&
-                      cities.map((city, i) => (
-                        <option key={i} value={city}>
-                          {city}
-                        </option>
-                      ))}
-                  </select>
-
-                  {/* 請選擇行政區 */}
-                  <select
-                    className="form-control"
-                    value={tempMember && tempMember.zip_code}
-                    onChange={changeDistrict}
-                    name="zip_code"
-                  >
-                    {cities &&
-                      districts &&
-                      districts.map((item, i) => (
-                        <option key={i} value={item.zip_code}>
-                          {item.district}
-                        </option>
-                      ))}
-                  </select>
-                  {/* 請選擇地址 */}
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="inputAddress"
-                    placeholder="請輸入地址"
-                    name="addr"
-                    value={tempMember && tempMember.addr}
-                    onChange={handleChange}
-                  />
+                    確定
+                  </button>
                 </div>
-
-                <div className="member-personal-text-weight-bold">
-                  <label for="inputAccount" className="mt-3">
-                    帳號：
-                  </label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="inputAccount"
-                    placeholder="請輸入您的email"
-                    name="account"
-                    value={tempMember && tempMember.account}
-                    onChange={handleChange}
-                  />
-                </div>
-
-                <div className="member-personal-text-weight-bold">
-                  <label for="inputPassword" className="mt-3">
-                    密碼：
-                  </label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    id="inputPassword"
-                    name="password"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="border-bottom-left-radius my-5 mx-3 text-right">
-              <Link type="button" className="btn btn-primary" to="">
-                確定
-              </Link>
+              </form>
             </div>
           </div>
 

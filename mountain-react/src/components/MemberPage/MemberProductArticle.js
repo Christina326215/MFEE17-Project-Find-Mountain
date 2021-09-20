@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
-import $, { data } from 'jquery';
+import $ from 'jquery';
 import '../../styles/MemberPage/MemberProductArticle.scss'; //member product and article style
 
 import { memberProductURL, memberArticleURL } from '../../utils/config';
@@ -148,7 +148,7 @@ function MemberProductArticle() {
                 <tr>
                   <td scope="row" className="text-center">
                     <Link
-                      to="/mamber/personal"
+                      to="/member/personal"
                       className="member-left-href-color"
                     >
                       帳號設定

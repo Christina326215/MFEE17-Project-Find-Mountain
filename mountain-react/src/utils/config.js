@@ -4,6 +4,10 @@ export const shopcartURL =
 export const memberURL =
   process.env.REACT_APP_memberURL || 'http://localhost:3500/api/member/';
 
+export const memberEditURL =
+  process.env.REACT_APP_memberEditURL ||
+  'http://localhost:3500/api/member/edit';
+
 export const memberRouteURL =
   process.env.REACT_APP_memberRouteURL ||
   'http://localhost:3500/api/member/route';

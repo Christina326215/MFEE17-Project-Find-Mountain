@@ -106,6 +106,11 @@ let memberRouter = require("./routers/memberPage");
 app.use("/api/member", memberRouter);
 //===引用 memberPage 進來 end===//
 
+//===引用 memberEditPage 進來 star===//
+let memberEditRouter = require("./routers/memberEdit");
+app.use("/api/member/edit", memberEditRouter);
+//===引用 memberEditPage 進來 end===//
+
 //===引用 memberRoute 進來 star===//
 let memberRouteRouter = require("./routers/memberRoute");
 app.use("/api/member/route", memberRouteRouter);
