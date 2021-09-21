@@ -52,6 +52,8 @@ function ProductDetail(props) {
         JSON.stringify(ProductViewHistory)
       );
     } else {
+      //TODO:不想要瀏覽比數超過四筆
+
       //如果localstorage有product view history
       // console.log('okay');
       ProductViewHistory = JSON.parse(
@@ -86,7 +88,7 @@ function ProductDetail(props) {
             `${shopURL}/product-detail/${ProductViewHistory[i]}`
           );
           // console.log(productHistoryData.data[0]);
-          historyArray.push(productHistoryData.data[0]);
+          historyArray.unshift(productHistoryData.data[0]);
         }
         console.log(historyArray);
         setHistoryData(historyArray);
@@ -95,7 +97,6 @@ function ProductDetail(props) {
       }
     }
     getProductData();
-    // console.log('p2', productData);
     //heart icon
     $('.productdetail-heart-icon-bkg').on('click', function () {
       $(this).toggleClass('productdetail-heart-icon-bkg-click');
@@ -198,7 +199,7 @@ function ProductDetail(props) {
             <div className="position-absolute productdetail-history-text">
               瀏覽紀錄
             </div>
-            {historyData.map((item, index) => {
+            {historyData.slice(0, 4).map((item, index) => {
               return (
                 <figure className="productdetail-history-img-box" key={item.id}>
                   <Link to={`/shop/product-detail/${item.id}`}>
@@ -212,36 +213,8 @@ function ProductDetail(props) {
                 </figure>
               );
             })}
-            {/* <figure className="productdetail-history-img-box">
-              <Link to="shop/product-detail">
-                <img
-                  src={bagsPic5}
-                  alt=""
-                  className="productdetail-cover-fit"
-                />
-              </Link>
-            </figure>
-            <figure className="productdetail-history-img-box">
-              <Link to="shop/product-detail">
-                <img
-                  src={bagsPic6}
-                  alt=""
-                  className="productdetail-cover-fit"
-                />
-              </Link>
-            </figure>
-            <figure className="productdetail-history-img-box">
-              <Link to="shop/product-detail">
-                <img
-                  src={shoesPic5}
-                  alt=""
-                  className="productdetail-cover-fit"
-                />
-              </Link>
-            </figure> */}
           </div>
           {/* <!-- =========history end========= --> */}
-
           {/* <!-- =========search bar start========= --> */}
           <form className="form my-4">
             <div className="form-row justify-content-center">
