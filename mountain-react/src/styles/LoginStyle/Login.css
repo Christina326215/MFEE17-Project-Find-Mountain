@@ -22,7 +22,7 @@
   color: #111;
 }
 .login-input {
-  border-radius: 20px;
+  border-radius: px;
 }
 .login-password {
   color: #111;
@@ -69,12 +69,12 @@
   border-radius: 20px;
 }
 
-.login-btn-css {
+/* .login-btn {
   border: 1px solid #6da77f;
   color: #6da77f;
-}
+} */
 
-.login-btn-css:hover {
+.login-btn:hover {
   background: #6da77f;
   color: #f5f5f5;
 }
@@ -102,7 +102,7 @@
   margin: 20px 0;
 }
 
-.login-social-container a {
+.login-social-container .icon {
   border: 1px solid #ddd;
   border-radius: 50%;
   display: inline-flex;
@@ -111,4 +111,10 @@
   margin: 0 5px;
   height: 40px;
   width: 40px;
+  position: relative;
+}
+.h3 {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }

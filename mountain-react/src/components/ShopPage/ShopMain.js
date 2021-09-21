@@ -149,10 +149,10 @@ function ShopMain(props) {
                   <Link to="/shop/bags">機能背包</Link>
                 </li>
                 <li className="col-3 px-0">
-                  <Link to="#/">登山鞋</Link>
+                  <Link to="/shop/shoes">登山鞋</Link>
                 </li>
                 <li className="col-3 px-0">
-                  <Link to="#/">衣服</Link>
+                  <Link to="/shop/clothes">衣服</Link>
                 </li>
               </div>
             </ul>

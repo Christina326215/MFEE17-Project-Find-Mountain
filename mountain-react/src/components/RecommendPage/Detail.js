@@ -3,7 +3,7 @@ import '../../styles/article.css';
 import { Link } from 'react-router-dom';
 import $ from 'jquery';
 import { useEffect } from 'react';
-import { useGoogleMaps } from 'react-hook-google-maps';
+// import { useGoogleMaps } from 'react-hook-google-maps';
 import level from '../../img/article-img/level_low.svg';
 import slothBig from '../../img/article-img/sloth_big.svg';
 import slothSmall from '../../img/article-img/sloth_small.svg';
@@ -26,25 +26,25 @@ import {
 } from 'react-icons/bs';
 
 // GoogleMap
-function GoogleMap() {
-  const { ref, map, google } = useGoogleMaps(
-    // Use your own API key, you can get one from Google (https://console.cloud.google.com/google/maps-apis/overview)
-    'AIzaSyDBUIlb9yFsQRGYz1_BEy8ISajpzCnBS3A',
-    // NOTE: even if you change options later
-    {
-      center: { lat: 25.027042456861643, lng: 121.57440456837543 },
-      zoom: 15,
-    }
-  );
-  // console.log('map', map); // instance of created Map object (https://developers.google.com/maps/documentation/javascript/reference/map)
-  // console.log('google', google); // google API object (easily get google.maps.LatLng or google.maps.Marker or any other Google Maps class)
-  return (
-    <div
-      ref={ref}
-      style={{ maxWidth: 1110, height: 300, marginTop: 15, borderRadius: 10 }}
-    />
-  );
-}
+// function GoogleMap() {
+//   const { ref, map, google } = useGoogleMaps(
+//     // Use your own API key, you can get one from Google (https://console.cloud.google.com/google/maps-apis/overview)
+//     'AIzaSyDBUIlb9yFsQRGYz1_BEy8ISajpzCnBS3A',
+//     // NOTE: even if you change options later
+//     {
+//       center: { lat: 25.027042456861643, lng: 121.57440456837543 },
+//       zoom: 15,
+//     }
+//   );
+//   // console.log('map', map); // instance of created Map object (https://developers.google.com/maps/documentation/javascript/reference/map)
+//   // console.log('google', google); // google API object (easily get google.maps.LatLng or google.maps.Marker or any other Google Maps class)
+//   return (
+//     <div
+//       ref={ref}
+//       style={{ maxWidth: 1110, height: 300, marginTop: 15, borderRadius: 10 }}
+//     />
+//   );
+// }
 // GoogleMap
 
 function Detail() {
@@ -260,7 +260,7 @@ function Detail() {
             </div>
           </div>
           {/* googlemap */}
-          <GoogleMap></GoogleMap>
+          {/* <GoogleMap></GoogleMap> */}
           {/* googlemap */}
           <h2 className="recommend-body-content-big-bold">此景點產品推薦</h2>
           <div className="row">

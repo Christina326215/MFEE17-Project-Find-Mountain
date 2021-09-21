@@ -4,6 +4,9 @@ import { withRouter } from 'react-router-dom'; //可以獲取history,location,ma
 import $ from 'jquery';
 import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
 
+import { shopcartURL } from '../../utils/config';
+import axios from 'axios';
+
 //====== below icon star ======//
 import { BsCheck } from 'react-icons/bs';
 //====== below icon end ======//
@@ -42,7 +45,7 @@ function ShopCartCheck() {
 
       nextStep.addClass('shopcart-active');
       progressBar
-        .removeAttr('class')
+        .removeAttr('className')
         .addClass('step-' + nextStepNum)
         .data('current-step', nextStepNum);
     });
@@ -74,7 +77,7 @@ function ShopCartCheck() {
 
       prevStep.addClass('shopcart-active').removeClass('shopcart-valid');
       progressBar
-        .removeAttr('class')
+        .removeAttr('className')
         .addClass('step-' + prevStepNum)
         .data('current-step', prevStepNum);
     });

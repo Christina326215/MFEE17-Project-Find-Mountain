@@ -7,10 +7,47 @@ import axios from 'axios';
 //api end
 
 function SignUpInfo(props) {
-  const [name, setName] = useState(null);
-  const [birth, setBirth] = useState(null);
-  const [phone, setPhone] = useState(null);
-  useEffect(() => {}, []);
+  const [signup, setSignup] = useState([]);
+  const [name, setName] = useState('sasa');
+  const [birthday, setBirth] = useState('2020-01-01');
+  const [phone, setPhone] = useState('0912345678');
+  const [addr, setAddr] = useState('桃園市桃園區中正路1號');
+  //click button->next part
+  // useEffect(() => {
+  //   async function registerInfo(e) {
+  //     e.preventDefault();
+  //     try {
+  //       let response = await axios.get('authURL', {
+  //         name,
+  //         phone,
+  //         birthday,
+  //         addr,
+  //       });
+  //       console.log(response.data);
+  //       setSignup(response.data);
+  //     } catch (e) {
+  //       console.log(e);
+  //       //如何顯示錯誤訊息
+  //     }
+  //   }
+  //   registerInfo();
+  // }, []);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      let response = await axios.post(`${authURL}/register`, {
+        name,
+        phone,
+        birthday,
+        addr,
+      });
+      console.log(response.data);
+      setSignup(response.data);
+    } catch (e) {
+      console.log(e);
+      //如何顯示錯誤訊息
+    }
+  };
   return (
     <>
       <main>
@@ -49,62 +86,62 @@ function SignUpInfo(props) {
               </div>
               <div className="signUpInfo d-flex justify-content-center pt-5">
                 {/* <!-- <div className=""> --> */}
-                <form>
+                <form onSubmit={handleSubmit}>
                   <div className="form-row d-flex justify-content-center">
                     <div className="form-group col-7 mb-4">
-                      <label for="inputName">姓名</label>
+                      <label htmlFor="inputName">姓名</label>
                       <input
-                        type=""
+                        type="text"
                         className="form-control"
                         id="inputName"
                         placeholder="請輸入您的姓名"
                         name="name"
                         value={name}
-                        
+                        onChange={(e) => {
+                          setName(e.target.value);
+                        }}
                       />
                     </div>
-                    {/* <div className="form-group col-7 mb-3">
-                      <span>性別</span>
-                      <br />
-                      <input
-                        type="radio"
-                        name="gender"
-                        className="mr-1"
-                        id="inputBoy"
-                      />
-                      <label for="inputBoy">男</label>
-                      <input
-                        type="radio"
-                        name="gender"
-                        className="mx-1"
-                        id="signup-info-inputGirl"
-                      />
-                      <label for="inputGirl">女</label>
-                    </div> */}
+
                     <div className="form-group col-7 mb-4 name">
-                      <label for="inputBirth">生日</label>
+                      <label htmlFor="inputBirth">生日</label>
                       <input
                         type="date"
                         className="form-control"
                         id="inputBirth"
+                        name="birthday"
+                        value={birthday}
+                        onChange={(e) => {
+                          setBirth(e.target.value);
+                        }}
                       />
                     </div>
                     <div className="form-group col-7 mb-4">
-                      <label for="inputTel">聯絡電話</label>
+                      <label htmlFor="inputTel">聯絡電話</label>
                       <input
                         type="text"
                         className="form-control"
                         id="inputTel"
                         placeholder="請輸入您的手機號碼"
+                        name="phone"
+                        value={phone}
+                        onChange={(e) => {
+                          setPhone(e.target.value);
+                        }}
                       />
                     </div>
                     <div className="form-group col-7 mb-3">
-                      <label for="inputAddr">聯絡地址</label>
+                      <label htmlFor="inputAddr">聯絡地址</label>
                       <input
                         type="text"
                         className="form-control"
                         id="inputAddr"
                         placeholder="請輸入您的聯絡地址"
+                        name="addr"
+                        value={addr}
+                        onChange={(e) => {
+                          setAddr(e.target.value);
+                        }}
                       />
                     </div>
                     <div className="form-group col-7 mb-3">
@@ -115,7 +152,7 @@ function SignUpInfo(props) {
                           id="checkLabel"
                         />
                         <label
-                          for="checkLabel"
+                          htmlFor="checkLabel"
                           className="signup-info-form-check-label"
                         >
                           是否作為會員訂單收件地址
@@ -125,12 +162,9 @@ function SignUpInfo(props) {
                   </div>
                   {/* <!-- button --> */}
                   <div className="signup-info-button-container text-right">
-                    <Link
-                      to="#/"
-                      className="signup-info-btn btn-next btn btn-primary"
-                    >
+                    <button className="signup-info-btn btn-next btn btn-primary">
                       下一步
-                    </Link>
+                    </button>
                   </div>
                 </form>
                 {/* <!-- </div> --> */}

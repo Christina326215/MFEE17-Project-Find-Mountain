@@ -324,10 +324,10 @@
 /* article-recommend end*/
 /* artcicle-detail start */
 .recommend-detailBg {
-  background: url(../img/article-img/xiangshan.jpeg);
+  /* background: url(../img/article-img//jinmianshan.jpeg);
   background-size: cover;
   border-radius: 10px;
-  background-position: center;
+  background-position: center; */
 }
 .recommend-detailBgShow {
   height: 300px;

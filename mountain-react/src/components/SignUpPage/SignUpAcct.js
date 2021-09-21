@@ -4,20 +4,18 @@ import '../../styles/SignUpStyle/SignUpAcct.css';
 //api start
 import { authURL } from '../../utils/config';
 import axios from 'axios';
+import { getDefaultNormalizer } from '@testing-library/react';
 //api end
 
 function SignUpAcct(props) {
   const [listData, setListData] = useState([]);
-  const [email, setEmail] = useState([]);
-  const [password, setPassword] = useState([]);
-  const [repassword, setRepassword] = useState([]);
-  //click button->next part
-  const register = (e) => {
-    e.preventDefault();
-    //TODO:送出註冊資料到後端
-  };
+  const [email, setEmail] = useState('sasa@gmail.com');
+  const [password, setPassword] = useState('123456');
+  const [repassword, setRepassword] = useState('123456');
+
   useEffect(() => {
-    async function homeData() {
+    //api
+    async function registerData() {
       try {
         const homeData = await axios.get(authURL);
         console.log(homeData.data); //for check
@@ -26,7 +24,7 @@ function SignUpAcct(props) {
         console.log(e);
       }
     }
-    homeData();
+    registerData();
     // (function () {
     //   window.addEventListener(
     //     'load',

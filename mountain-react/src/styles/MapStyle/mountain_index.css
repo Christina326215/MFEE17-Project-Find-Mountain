@@ -372,7 +372,7 @@
   display: flex;
   position: absolute;
   left: 40%;
-  transform: translateX(40%);
+  transform: translateX(55%);
 }
 /* map list end */
 
@@ -558,6 +558,7 @@
 /* pages_btn star */
 .mountain_btn-toolbar {
   margin-bottom: 36px;
+  margin-top: 36px;
 }
 /* pages_btn end */
 
@@ -618,6 +619,7 @@
   height: 30px;
   background: rgba(0, 0, 0, 0.25);
   border-radius: 50%;
+  border: none;
   right: 10px;
   top: 10px;
   color: white;
@@ -649,6 +651,7 @@
   height: 30px;
   background: rgba(0, 0, 0, 0.25);
   border-radius: 50%;
+  border: none;
   right: 10px;
   top: 50px;
   transition: 0.4s;
@@ -746,6 +749,33 @@
   .mountain_downLowBear {
     margin-left: -100px;
   }
+
+  /* below add 9/18 star */
+  .mountain_Xiangshan_list{
+    height: 310px;
+  }
+  .mountain_list{
+    height: 311px;
+  }
+  .mountain_list_detail {
+    margin: 5px 0px;
+  }
+  .mountain_list_font_box {
+    justify-content: center;
+  }
+  .mountain_list_detail_box {
+    display: block;
+  }
+  .mountain_list_distance_title {
+    position: static;
+    left: 0%;
+    transform: translateX(0%);
+    justify-content: center;
+  }
+  .mountain_Xiangshan_pic{
+    object-fit: cover;
+  }
+  /* below add 9/18 end */
 }
 /*********** ============below media 990px============ *************/
 @media screen and (max-width: 990px) {
@@ -768,7 +798,8 @@
   .mountain_list {
     width: 680px;
     max-width: 100%;
-    height: 568px;
+    /* height: 568px; 9/18 delete*/
+    height: 600px;
     border-radius: 10px;
     margin: 15px auto 0 auto;
     display: block;
@@ -803,10 +834,10 @@
     width: 646px;
     max-width: 100%;
   }
-  .mountain_list_distance_title {
+  /* .mountain_list_distance_title {
     left: 10%;
     transform: translateX(30%);
-  }
+  } */
   .mountain_article_button {
     position: absolute;
     right: 10%;
