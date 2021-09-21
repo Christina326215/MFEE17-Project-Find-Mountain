@@ -29,6 +29,7 @@ import bearbear from '../../img/product-img/illustration/bearbear.png';
 
 function ProductDetail(props) {
   const [productData, setProductData] = useState([]);
+  const [historyData, setHistoryData] = useState([]);
   const { id } = useParams();
   // console.log('id', id);
   useEffect(() => {
@@ -76,8 +77,19 @@ function ProductDetail(props) {
       try {
         const productData = await axios.get(`${shopURL}/product-detail/${id}`);
         console.log(productData.data[0]); //for check
-        // console.log(parseInt(productData.data[0].price).toLocaleString());
         setProductData(productData.data[0]);
+        //抓瀏覽紀錄的商品資料
+        var historyArray = [];
+        for (let i = 0; i < ProductViewHistory.length; i++) {
+          // console.log(ProductViewHistory[i]);
+          const productHistoryData = await axios.get(
+            `${shopURL}/product-detail/${ProductViewHistory[i]}`
+          );
+          // console.log(productHistoryData.data[0]);
+          historyArray.push(productHistoryData.data[0]);
+        }
+        console.log(historyArray);
+        setHistoryData(historyArray);
       } catch (e) {
         console.log(e);
       }
@@ -186,7 +198,21 @@ function ProductDetail(props) {
             <div className="position-absolute productdetail-history-text">
               瀏覽紀錄
             </div>
-            <figure className="productdetail-history-img-box">
+            {historyData.map((item, index) => {
+              return (
+                <figure className="productdetail-history-img-box" key={item.id}>
+                  <Link to={`/shop/product-detail/${item.id}`}>
+                    <img
+                      src={`${IMAGE_URL}/img/product-img/${item.pic}`}
+                      alt={item.name}
+                      title={item.name}
+                      className="productdetail-cover-fit"
+                    />
+                  </Link>
+                </figure>
+              );
+            })}
+            {/* <figure className="productdetail-history-img-box">
               <Link to="shop/product-detail">
                 <img
                   src={bagsPic5}
@@ -212,7 +238,7 @@ function ProductDetail(props) {
                   className="productdetail-cover-fit"
                 />
               </Link>
-            </figure>
+            </figure> */}
           </div>
           {/* <!-- =========history end========= --> */}
 
@@ -385,28 +411,7 @@ function ProductDetail(props) {
                 dangerouslySetInnerHTML={{
                   __html: productData.introduction,
                 }}
-              >
-                {/* <figure className="productdetail-introduce-img-box">
-                  <img
-                    alt=""
-                    src="https://www.asolo.com/modules/g_productinstagram/views/img/front/17940426415401752.jpg"
-                    className="productdetail-cover-fit"
-                  />
-                </figure>
-                <p>超高 CP值，經典款專業高山雪靴</p>
-                <p>
-                  無論是初入雪地登山門徑或 是專業老手，這雙阿空加瓜
-                  冰攀靴都可以成為您的最佳 夥伴。外部為一體式防水
-                  Perwanger牛皮鞋面，具防 水、防刮、透氣及耐用等特 色;內部則為
-                  GORE-TEX材 質，以及精研的人體工學鞋 墊，穿著與行走時的舒適度
-                  無可挑惕。
-                </p>
-                <p>
-                  搭配底部堅實的 Vibram Vertige大底，每個部位都有
-                  專業雪登等級的配備，價格
-                  卻只要萬元以內，堪稱高CP值首選。除了高山攀爬、重裝徒步旅行外，也可以穿上它進行冬季雪地工作，可說是一款相當實用的登山與工作兩用靴。
-                </p> */}
-              </div>
+              ></div>
             </div>
           </div>
           {/* <!-- =========product introduce end========= --> */}
