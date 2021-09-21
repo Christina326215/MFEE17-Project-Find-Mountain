@@ -196,7 +196,7 @@ function ShopMain(props) {
               <div className="col-6 col-md-4 col-lg-3 px-0">
                 <div className="shopmain-product-card">
                   <div className="shopmain-product-img-box position-relative">
-                    <Link to="#/">
+                    <Link to={`/shop/product-detail/11`} id={11}>
                       <img
                         className="shopmain-cover-fit"
                         src={bagsPic2}
@@ -211,7 +211,11 @@ function ShopMain(props) {
                       <CartFill className="position-absolute shopmain-cart-icon" />
                     </button>
                   </div>
-                  <Link to="#/" className="text-left shopmain-product-name">
+                  <Link
+                    to={`/shop/product-detail/11`}
+                    id={11}
+                    className="text-left shopmain-product-name"
+                  >
                     The North Face
                     <br />
                     黑灰色休閒後背包
@@ -222,7 +226,7 @@ function ShopMain(props) {
               <div className="col-6 col-md-4 col-lg-3 px-0">
                 <div className="shopmain-product-card">
                   <div className="shopmain-product-img-box position-relative">
-                    <Link to="#/">
+                    <Link to={`/shop/product-detail/17`} id={17}>
                       <img
                         className="shopmain-cover-fit"
                         src={bagsPic8}
@@ -237,7 +241,11 @@ function ShopMain(props) {
                       <CartFill className="position-absolute shopmain-cart-icon" />
                     </button>
                   </div>
-                  <Link to="#/" className="text-left shopmain-product-name">
+                  <Link
+                    to={`/shop/product-detail/17`}
+                    id={17}
+                    className="text-left shopmain-product-name"
+                  >
                     The North Face
                     <br />
                     藍色專業登山後背包
@@ -248,7 +256,7 @@ function ShopMain(props) {
               <div className="col-6 col-md-4 col-lg-3 px-0">
                 <div className="shopmain-product-card">
                   <div className="shopmain-product-img-box position-relative">
-                    <Link to="/shop/product-detail">
+                    <Link to={`/shop/product-detail/8`} id={8}>
                       <img
                         className="shopmain-cover-fit"
                         src={shoesPic8}
@@ -264,7 +272,8 @@ function ShopMain(props) {
                     </button>
                   </div>
                   <Link
-                    to="/shop/product-detail"
+                    to={`/shop/product-detail/8`}
+                    id={8}
                     className="text-left shopmain-product-name"
                   >
                     ASOLO
@@ -277,7 +286,7 @@ function ShopMain(props) {
               <div className="col-6 col-md-4 col-lg-3 px-0">
                 <div className="shopmain-product-card">
                   <div className="shopmain-product-img-box position-relative">
-                    <Link to="#/">
+                    <Link to={`/shop/product-detail/23`} id={23}>
                       <img
                         className="shopmain-cover-fit"
                         src={clothesPic5}
@@ -292,7 +301,11 @@ function ShopMain(props) {
                       <CartFill className="position-absolute shopmain-cart-icon" />
                     </button>
                   </div>
-                  <Link to="#/" className="text-left shopmain-product-name">
+                  <Link
+                    to={`/shop/product-detail/23`}
+                    id={23}
+                    className="text-left shopmain-product-name"
+                  >
                     The North Face
                     <br />
                     戶外保暖羽絨外套
@@ -330,7 +343,7 @@ function ShopMain(props) {
                 <div className="col-3 px-0">
                   <div className="shopmain-product-card">
                     <div className="shopmain-product-img-box position-relative">
-                      <Link to="#/">
+                      <Link to={`/shop/product-detail/26`} id={26}>
                         <img
                           className="shopmain-cover-fit"
                           src={clothesPic8}
@@ -345,7 +358,11 @@ function ShopMain(props) {
                         <CartFill className="position-absolute shopmain-cart-icon" />
                       </button>
                     </div>
-                    <Link to="#/" className="text-left shopmain-product-name">
+                    <Link
+                      to={`/shop/product-detail/26`}
+                      id={26}
+                      className="text-left shopmain-product-name"
+                    >
                       The North Face
                       <br />
                       Summit L5 FUTURELIGHT
@@ -358,7 +375,7 @@ function ShopMain(props) {
                 <div className="col-3 px-0">
                   <div className="shopmain-product-card">
                     <div className="shopmain-product-img-box position-relative">
-                      <Link to="#/">
+                      <Link to={`/shop/product-detail/22`} id={22}>
                         <img
                           className="shopmain-cover-fit"
                           src={clothesPic4}
@@ -373,7 +390,11 @@ function ShopMain(props) {
                         <CartFill className="position-absolute shopmain-cart-icon" />
                       </button>
                     </div>
-                    <Link to="#/" className="text-left shopmain-product-name">
+                    <Link
+                      to={`/shop/product-detail/22`}
+                      id={22}
+                      className="text-left shopmain-product-name"
+                    >
                       Arcteryx 始祖鳥
                       <br />
                       Cerium SV 保暖羽絨連帽外套
@@ -386,7 +407,7 @@ function ShopMain(props) {
                 <div className="col-3 px-0">
                   <div className="shopmain-product-card">
                     <div className="shopmain-product-img-box position-relative">
-                      <Link to="#/">
+                      <Link to={`/shop/product-detail/15`} id={15}>
                         <img
                           className="shopmain-cover-fit"
                           src={bagsPic6}
@@ -401,7 +422,11 @@ function ShopMain(props) {
                         <CartFill className="position-absolute shopmain-cart-icon" />
                       </button>
                     </div>
-                    <Link to="#/" className="text-left shopmain-product-name">
+                    <Link
+                      to={`/shop/product-detail/15`}
+                      id={15}
+                      className="text-left shopmain-product-name"
+                    >
                       Arcteryx 始祖鳥
                       <br />
                       徒步背包 Brize 32
@@ -414,7 +439,7 @@ function ShopMain(props) {
                 <div className="col-3 px-0">
                   <div className="shopmain-product-card">
                     <div className="shopmain-product-img-box position-relative">
-                      <Link to="#/">
+                      <Link to={`/shop/product-detail/1`} id={1}>
                         <img
                           className="shopmain-cover-fit"
                           src={shoesPic1}
@@ -429,7 +454,11 @@ function ShopMain(props) {
                         <CartFill className="position-absolute shopmain-cart-icon" />
                       </button>
                     </div>
-                    <Link to="#/" className="text-left shopmain-product-name">
+                    <Link
+                      to={`/shop/product-detail/1`}
+                      id={1}
+                      className="text-left shopmain-product-name"
+                    >
                       MERRELL Tetrex Crest Wrap
                       <br />
                       女水陸三棲鞋
@@ -442,7 +471,7 @@ function ShopMain(props) {
                 <div className="col-3 px-0">
                   <div className="shopmain-product-card">
                     <div className="shopmain-product-img-box position-relative">
-                      <Link to="#/">
+                      <Link to={`/shop/product-detail/23`} id={23}>
                         <img
                           className="shopmain-cover-fit"
                           src={clothesPic5}
@@ -457,7 +486,11 @@ function ShopMain(props) {
                         <CartFill className="position-absolute shopmain-cart-icon" />
                       </button>
                     </div>
-                    <Link to="#/" className="text-left shopmain-product-name">
+                    <Link
+                      to={`/shop/product-detail/23`}
+                      id={23}
+                      className="text-left shopmain-product-name"
+                    >
                       The North Face
                       <br />
                       戶外保暖羽絨外套
@@ -470,7 +503,7 @@ function ShopMain(props) {
                 <div className="col-3 px-0">
                   <div className="shopmain-product-card">
                     <div className="shopmain-product-img-box position-relative">
-                      <Link to="#/">
+                      <Link to={`/shop/product-detail/11`} id={11}>
                         <img
                           className="shopmain-cover-fit"
                           src={bagsPic2}
@@ -485,7 +518,11 @@ function ShopMain(props) {
                         <CartFill className="position-absolute shopmain-cart-icon" />
                       </button>
                     </div>
-                    <Link to="#/" className="text-left shopmain-product-name">
+                    <Link
+                      to={`/shop/product-detail/11`}
+                      id={11}
+                      className="text-left shopmain-product-name"
+                    >
                       The North Face
                       <br />
                       黑灰色休閒後背包
@@ -512,7 +549,7 @@ function ShopMain(props) {
               <div className="col-lg-4 px-0">
                 <div className="shopmain-article-card">
                   <div className="shopmain-article-img-box">
-                    <Link to="/recommend/detail">
+                    <Link to="/recommend/detail/1">
                       <img
                         className="shopmain-cover-fit"
                         src={xiangshan}
@@ -522,7 +559,7 @@ function ShopMain(props) {
                     </Link>
                   </div>
                   <Link
-                    to="/recommend/detail"
+                    to="/recommend/detail/1"
                     className="shopmain-article-name"
                   >
                     象山親山步道
@@ -530,7 +567,7 @@ function ShopMain(props) {
                   <br />
                   <p className="text-right">
                     <Link
-                      to="/recommend/detail"
+                      to="/recommend/detail/1"
                       className="shopmain-see-more-btn"
                     >
                       查看更多
@@ -542,7 +579,7 @@ function ShopMain(props) {
               <div className="col-lg-4 px-0">
                 <div className="shopmain-article-card">
                   <div className="shopmain-article-img-box">
-                    <Link to="/recommend/detail">
+                    <Link to="/recommend/detail/2">
                       <img
                         className="shopmain-cover-fit"
                         src={Yangmingshan}
@@ -552,7 +589,7 @@ function ShopMain(props) {
                     </Link>
                   </div>
                   <Link
-                    to="/recommend/detail"
+                    to="/recommend/detail/2"
                     className="shopmain-article-name"
                   >
                     陽明山東西大縱走
@@ -560,7 +597,7 @@ function ShopMain(props) {
                   <br />
                   <p className="text-right">
                     <Link
-                      to="/recommend/detail"
+                      to="/recommend/detail/2"
                       className="shopmain-see-more-btn"
                     >
                       查看更多
@@ -572,7 +609,7 @@ function ShopMain(props) {
               <div className="col-lg-4 px-0">
                 <div className="shopmain-article-card">
                   <div className="shopmain-article-img-box">
-                    <Link to="/recommend/detail">
+                    <Link to="/recommend/detail/3">
                       <img
                         className="shopmain-cover-fit"
                         src={Tapachien}
@@ -582,7 +619,7 @@ function ShopMain(props) {
                     </Link>
                   </div>
                   <Link
-                    to="/recommend/detail"
+                    to="/recommend/detail/3"
                     className="shopmain-article-name"
                   >
                     大霸北稜線
@@ -590,7 +627,7 @@ function ShopMain(props) {
                   <br />
                   <p className="text-right">
                     <Link
-                      to="/recommend/detail"
+                      to="/recommend/detail/3"
                       className="shopmain-see-more-btn"
                     >
                       查看更多

@@ -10,17 +10,17 @@ function ProductCard(props) {
   const { productId, price, picture, name, brand } = props;
   const [likeList, setLikeList] = useState([1, 2]);
   // console.log(likeList);
-  let updateList = [];
+  // let updateList = [];
   const heartIconClick = function (e) {
     // console.log(e.currentTarget);
     $(e.currentTarget).toggleClass('shopmain-heart-icon-bkg-click');
     // setLikeList([...likeList, productId]);
     // setLikeList(likeList.push(productId));
-    console.log(productId);
-    var newLikeList = [...likeList, productId];
-    console.log('lL', newLikeList);
+    // console.log(productId);
+    // var newLikeList = [...likeList, productId];
+    // console.log('lL', newLikeList);
     //3.設定回原本的物件
-    setLikeList(newLikeList);
+    // setLikeList(newLikeList);
   };
 
   const cartIconClick = function () {
