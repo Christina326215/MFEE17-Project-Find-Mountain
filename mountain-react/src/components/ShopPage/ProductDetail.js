@@ -32,6 +32,45 @@ function ProductDetail(props) {
   const { id } = useParams();
   // console.log('id', id);
   useEffect(() => {
+    //local storage
+    var GetProductHistory = localStorage.getItem('ProductViewHistory');
+    if (GetProductHistory === null) {
+      //如果localstorage沒有product view history
+      // console.log('zero');
+      var ProductViewHistory = [];
+      localStorage.setItem(
+        'ProductViewHistory',
+        JSON.stringify(ProductViewHistory)
+      );
+      ProductViewHistory = JSON.parse(
+        localStorage.getItem('ProductViewHistory')
+      );
+      ProductViewHistory.push(id);
+      localStorage.setItem(
+        'ProductViewHistory',
+        JSON.stringify(ProductViewHistory)
+      );
+    } else {
+      //如果localstorage有product view history
+      // console.log('okay');
+      ProductViewHistory = JSON.parse(
+        localStorage.getItem('ProductViewHistory')
+      );
+      //判斷陣列裡面有沒有這樣商品 有的話要刪除 不然會重複太多
+      //寫一個function給filter用 過濾與之id相同的資料
+      function productClearDuplicatedItem(value) {
+        return value !== id;
+      }
+      ProductViewHistory = ProductViewHistory.filter(
+        productClearDuplicatedItem
+      );
+      //再把他push回最尾端
+      ProductViewHistory.push(id);
+      localStorage.setItem(
+        'ProductViewHistory',
+        JSON.stringify(ProductViewHistory)
+      );
+    }
     //api
     async function getProductData() {
       try {
@@ -229,11 +268,16 @@ function ProductDetail(props) {
               <div className="col-lg-5 productdetail-product-order-box my-4 position-relative">
                 <div className="productdetail-simple-introduce-box">
                   <p>商品簡介</p>
-                  <ul>
-                    <li>類型Alpin高山靴/男款</li>
+                  <ul
+                    dangerouslySetInnerHTML={{
+                      __html: productData.simple_intro,
+                    }}
+                  >
+                    {/* <li>類型Alpin高山靴/男款</li>
                     <li>冰爪卡槽〇</li>
                     <li>重量990g</li>
-                    <li>顏色黑灰色</li>
+                    <li>顏色黑灰色</li> */}
+                    {/* {productData.simple_intro} */}
                   </ul>
                 </div>
                 <div className="productdetail-size-box">
