@@ -1,6 +1,9 @@
 import React from 'react';
 import '../../styles/article.css';
 import { withRouter } from 'react-router';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { commentURL } from '../../utils/config';
 import CommmentList from './CommmentList';
 import slothBig from '../../img/article-img/sloth_big.svg';
 import slothSmall from '../../img/article-img/sloth_small.svg';
@@ -13,43 +16,45 @@ import {
 } from 'react-icons/bs';
 
 function Comment(props) {
-  // const [comment, setComment] = useState([
-  //   {
-  //     id: 0,
-  //     pic: '',
-  //     content: '',
-  //     time: '',
-  //     user_id: 0,
-  //     article_id: 0,
-  //     valid: 0,
-  //     users_id: 0,
-  //     users_name: '',
-  //     article_name: '',
-  //   },
-  // ]);
+  // 文章資料
+  const { detail } = props;
+  // 評論資料
+  const [comment, setComment] = useState([
+    {
+      id: 0,
+      pic: '',
+      content: '',
+      time: '',
+      user_id: 0,
+      article_id: 0,
+      valid: 0,
+      users_id: 0,
+      users_name: '',
+      article_name: '',
+    },
+  ]);
+  // 評論資料連線
+  useEffect(() => {
+    async function commentData() {
+      try {
+        const commentData = await axios.get(commentURL);
+        const commentTotalData = commentData.data;
+        const id = Number(props.match.params.id);
+        // 全部資料用find尋找id一樣的資料
+        const newcommentDetail = commentTotalData.filter((v) => {
+          return v.article_id === id;
+        });
+        console.log('newcommentDetail', newcommentDetail);
 
-  // useEffect(() => {
-  //   async function commentData() {
-  //     try {
-  //       const commentData = await axios.get(commentURL);
-  //       //   console.log('commentData.data', commentData.data);
-  //       const commentTotalData = commentData.data;
-  //       const id = Number(props.match.params.id);
-  //       //   console.log('id', id);
+        if (newcommentDetail) setComment(newcommentDetail);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    commentData();
+  }, [props.match.params.id]);
 
-  //       // 全部資料用find尋找id一樣的資料
-  //       const newcommentDetail = commentTotalData.find((v) => {
-  //         return v.article_id === id;
-  //       });
-  //       console.log('newcommentDetail', newcommentDetail);
-
-  //       if (newcommentDetail) setComment(newcommentDetail);
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   }
-  //   commentData();
-  // }, [props.match.params.id]);
+  // 新增資料連線
 
   return (
     <div>
@@ -83,7 +88,7 @@ function Comment(props) {
                       aria-labelledby="exampleModalLabel"
                       aria-hidden="true"
                     >
-                      <div className="modal-dialog">
+                      <div className="modal-dialog modal-lg">
                         <div className="modal-content">
                           <div className="modal-header">
                             <h5 className="modal-title" id="exampleModalLabel">
@@ -111,7 +116,22 @@ function Comment(props) {
                                   type="text"
                                   className="form-control"
                                   id="recipient-name"
-                                  value="會員登入後才帶入資料"
+                                  value="??會員登入後才帶入資料"
+                                  disabled
+                                />
+                              </div>
+                              <div className="form-group">
+                                <label
+                                  htmlFor="recipient-name"
+                                  className="col-form-label"
+                                >
+                                  文章名稱：
+                                </label>
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  id="recipient-name"
+                                  value={detail.name}
                                   disabled
                                 />
                               </div>
@@ -120,12 +140,40 @@ function Comment(props) {
                                   htmlFor="message-text"
                                   className="col-form-label"
                                 >
-                                  評論訊息：
+                                  評論內容：
                                 </label>
                                 <textarea
                                   className="form-control"
                                   id="message-text"
+                                  placeholder="請留下您想輸入的評論內容．．．留言不得超過100字"
                                 ></textarea>
+                              </div>
+                              <div className="form-group">
+                                <label
+                                  htmlFor="inputGroupFile01"
+                                  className="col-form-label"
+                                >
+                                  上傳圖片：
+                                </label>
+                                <div class="custom-file">
+                                  <input
+                                    type="file"
+                                    class="custom-file-input"
+                                    id="inputGroupFile01"
+                                    aria-describedby="inputGroupFileAddon01"
+                                    name="pic"
+                                    required
+                                  />
+                                  <label
+                                    class="custom-file-label"
+                                    for="inputGroupFile01"
+                                  >
+                                    選擇檔案
+                                  </label>
+                                </div>
+                                <div class="invalid-feedback">
+                                  請選擇照片檔案
+                                </div>
                               </div>
                               <div className="modal-footer">
                                 <button
@@ -150,43 +198,7 @@ function Comment(props) {
                     {/* Modal */}
                   </div>
                   <div className="d-flex flex-column">
-                    <CommmentList></CommmentList>
-                    {/* {comment.map((comment, i) => {
-                      return (
-                        <div className="recommend-commentBox">
-                          <div className="d-flex flex-column justify-content-between">
-                            <div className="d-flex">
-                              <div className="recommend-memberLevel1">
-                                <i className="bi recommend-bi-person-circle">
-                                  <BsPeopleCircle></BsPeopleCircle>
-                                </i>
-                              </div>
-                              <div className="">
-                                <div className="recommend-memberLevel1">
-                                  <p className="recommend-body-content-bold mt-1 mb-0 ml-1">
-                                    {comment.users_name}
-                                  </p>
-                                </div>
-                                <p className="recommend-body-content-small m-0 ml-1">
-                                  2021-08-18 14:21
-                                </p>
-                              </div>
-                            </div>
-                            <p className="m-0">這裡風景好美～</p>
-                          </div>
-                          <div className="d-flex ml-auto">
-                            <div className="recommend-commentPic">
-                              <img
-                                className="img-fluid"
-                                src={xiangshan}
-                                alt=""
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })} */}
-
+                    <CommmentList comment={comment}></CommmentList>
                     <div
                       className="btn-toolbar justify-content-center mt-md-2"
                       role="toolbar"

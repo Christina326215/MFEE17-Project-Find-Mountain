@@ -1,47 +1,11 @@
 import React from 'react';
-import axios from 'axios';
 import { BsPeopleCircle } from 'react-icons/bs';
-import { useEffect, useState } from 'react';
 import { withRouter } from 'react-router';
-import { commentURL, IMAGE_URL } from '../../utils/config';
+import { IMAGE_URL } from '../../utils/config';
 
 function CommmentList(props) {
-  const [comment, setComment] = useState([
-    {
-      id: 0,
-      pic: '',
-      content: '',
-      time: '',
-      user_id: 0,
-      article_id: 0,
-      valid: 0,
-      users_id: 0,
-      users_name: '',
-      article_name: '',
-    },
-  ]);
-
-  useEffect(() => {
-    async function commentData() {
-      try {
-        const commentData = await axios.get(commentURL);
-        const commentTotalData = commentData.data;
-        const id = Number(props.match.params.id);
-        // console.log('commentTotalData', commentTotalData);
-
-        // 全部資料用find尋找id一樣的資料
-        const newcommentDetail = commentTotalData.filter((v) => {
-          return v.article_id === id;
-        });
-        console.log('newcommentDetail', newcommentDetail);
-
-        if (newcommentDetail) setComment(newcommentDetail);
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    commentData();
-  }, [props.match.params.id]);
+  // 評論資料
+  const { comment } = props;
 
   return (
     <div>

@@ -18,6 +18,7 @@ import { BsHeartFill } from 'react-icons/bs';
 import { BsStarFill, BsFlagFill, BsQuestionCircle } from 'react-icons/bs';
 
 function DetailContent(props) {
+  // 當頁文章資料
   const [detail, setDetail] = useState([
     {
       id: 0,
@@ -378,7 +379,7 @@ function DetailContent(props) {
           </div>
         </div>
       </div>
-      <Comment></Comment>
+      <Comment detail={detail}></Comment>
       <div className="container recommend-body">
         <div className="recommend-wrapper">
           <h2 className="recommend-body-content-big-bold">查看其他文章</h2>
