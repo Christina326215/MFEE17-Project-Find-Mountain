@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom'; //a標籤要變成link
-// import { withRouter } from 'react-router-dom';
-import axios from 'axios';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom'; //a標籤要變成link
 import $ from 'jquery';
 import Swal from 'sweetalert2';
 import '../../styles/productdetail.css';
-import { shopURL, IMAGE_URL } from '../../utils/config';
 import {
   Dash,
   Plus,
@@ -28,23 +25,7 @@ import shop from '../../img/product-img/illustration/shop.svg';
 import bearbear from '../../img/product-img/illustration/bearbear.png';
 
 function ProductDetail(props) {
-  const [productData, setProductData] = useState([]);
-  const { id } = useParams();
-  // console.log('id', id);
   useEffect(() => {
-    //api
-    async function getProductData() {
-      try {
-        const productData = await axios.get(`${shopURL}/product-detail/${id}`);
-        console.log(productData.data[0]); //for check
-        // console.log(parseInt(productData.data[0].price).toLocaleString());
-        setProductData(productData.data[0]);
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    getProductData();
-    // console.log('p2', productData);
     //heart icon
     $('.productdetail-heart-icon-bkg').on('click', function () {
       $(this).toggleClass('productdetail-heart-icon-bkg-click');
@@ -137,7 +118,7 @@ function ProductDetail(props) {
         $('.cart-num').text(cartNum);
       }
     });
-  }, [id]);
+  }, []);
   return (
     <>
       <main>
@@ -212,17 +193,16 @@ function ProductDetail(props) {
           {/* <!-- =========product order start========= --> */}
           <div className="my-4">
             <h3 className="productdetail-product-title m-3">
-              {/* ASOLO 阿空加瓜牛皮冰攀靴 */}
-              {productData.name}
+              ASOLO 阿空加瓜牛皮冰攀靴
             </h3>
             <div className="row">
               <div className="col-lg-7 productdetail-product-pic-box my-4">
                 <figure>
                   <img
                     className="productdetail-cover-fit"
-                    src={`${IMAGE_URL}/img/product-img/${productData.pic}`}
-                    alt={productData.name}
-                    title={productData.name}
+                    src={shoesPic8}
+                    alt="ASOLO 阿空加瓜牛皮冰攀靴"
+                    title="ASOLO 阿空加瓜牛皮冰攀靴"
                   />
                 </figure>
               </div>
@@ -275,7 +255,7 @@ function ProductDetail(props) {
                 </div>
                 <div className="productdetail-line-box my-4"></div>
                 <div className="productdetail-price-box text-right pb-5">
-                  <p>NT ${parseInt(productData.price).toLocaleString()}</p>
+                  <p>NT $1,000</p>
                 </div>
                 <div
                   className="
@@ -336,13 +316,8 @@ function ProductDetail(props) {
               </div>
             </div>
             <div className="productdetail-introduce-box">
-              <div
-                className="productdetail-introduce m-5"
-                dangerouslySetInnerHTML={{
-                  __html: productData.introduction,
-                }}
-              >
-                {/* <figure className="productdetail-introduce-img-box">
+              <div className="productdetail-introduce m-5">
+                <figure className="productdetail-introduce-img-box">
                   <img
                     alt=""
                     src="https://www.asolo.com/modules/g_productinstagram/views/img/front/17940426415401752.jpg"
@@ -361,7 +336,7 @@ function ProductDetail(props) {
                   搭配底部堅實的 Vibram Vertige大底，每個部位都有
                   專業雪登等級的配備，價格
                   卻只要萬元以內，堪稱高CP值首選。除了高山攀爬、重裝徒步旅行外，也可以穿上它進行冬季雪地工作，可說是一款相當實用的登山與工作兩用靴。
-                </p> */}
+                </p>
               </div>
             </div>
           </div>
