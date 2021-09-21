@@ -26,13 +26,17 @@
     <!-- =========header star========= -->
     <header class="header sticky-top">
       <a href="./HomepageIndex.html" class="logo_top">
-        <img src="./img/logo.png" alt="logo_top" />
+        <img src="img/logo.png" alt="logo_top" />
       </a>
-      <div class="btns">
+      <div class="btns d-flex">
         <a href="#" class="search_button"><i class="bi bi-search h4"></i></a>
-        <a href="./shopping-1-content.html" class="shopping_button"
-          ><i class="bi bi-cart h4"></i
-        ></a>
+        <a
+          href="./shopping-1-content.html"
+          class="shopping_button position-relative"
+        >
+          <div class="cart-num position-absolute text-center">0</div>
+          <i class="bi bi-cart h4"></i>
+        </a>
         <a href="./member-login.html" class="sign_button">Sign In</a>
       </div>
       <!-- =========nav star========= -->
@@ -160,10 +164,6 @@
                     </div>
                     <div class="product">
                       <div class="product-img">
-                        <!-- <input
-                          type="hidden"
-                          value="Mont-Bell Light Alpine 連帽羽絨外套|clothes-pic2-removebg-preview.png|7000"
-                        /> -->
                         <img
                           src="./img/img-outfit/clothes-pic2-removebg-preview.png"
                           alt=""
@@ -180,10 +180,6 @@
                     </div>
                     <div class="product">
                       <div class="product-img">
-                        <!-- <input
-                          type="hidden"
-                          value="The North Face 戶外保暖羽絨外套|clothes-pic3-removebg-preview.png|6800"
-                        /> -->
                         <img
                           src="./img/img-outfit/clothes-pic3-removebg-preview.png"
                           alt=""
@@ -562,35 +558,27 @@
       <!-- 製作個人化明信片 end -->
       <!-- 訂購單 start     -->
       <div class="order">
-        <table class="order-table" id="cartList">
-          <thead>
-            <tr>
-              <td class="order-head">穿搭組合</td>
-              <td class="order-head">NT$ 4,000</td>
-            </tr>
-          </thead>
-          <!-- <tbody>
-            <tr class="tr">
-              <td style="width: 100px">
-                <img
-                  class="cover-fit"
-                  src="./img/img-outfit/shoes-pic3-removebg-preview.png"
-                  alt=""
-                />
-              </td>
-              <td>SALOMON EVASION GORE-TEX登山健行鞋</td>
-              <td>NT$ 1000</td>
-              <td>Ｘ１</td>
-            </tr>
-          </tbody> -->
-        </table>
+        <div class="orderTitle">
+          <p class="order-head mr-3">穿搭組合</p>
+          <p class="order-head">NT$ <span id="subtotal">0</span></p>
+        </div>
+        <div id="newItems">
+          <!-- <div class="newItem">
+            <div style="width: 100px">
+              <img
+                class="cover-fit"
+                src="./img/img-outfit/shoes-pic3-removebg-preview.png"
+                alt=""
+              />
+            </div>
+            <div class="">SALOMON EVASION GORE-TEX登山健行鞋</div>
+            <div class="">NT$ 1000</div>
+            <div class="">Ｘ１</div>
+          </div>
+        </div> -->
+        </div>
       </div>
       <!-- 訂購單 end -->
-      <div id="newItem">
-        <!-- <img src="imgs/formosa.jpg" />
-        <span>Formosa</span>
-        <span>$5000</span> -->
-      </div>
     </div>
     <div class="btnGroup">
       <button class="fb">
@@ -599,9 +587,8 @@
       <button class="btn btn-outline-primary" id="save">
         <i class="bi bi-download"></i>儲存明信片
       </button>
-      <button class="btn btn-primary">將所選商品加入購物車</button>
+      <button class="btn btn-primary outfit-cart">將所選商品加入購物車</button>
     </div>
-    <div id="newItem"></div>
     <!-- =========content end========= -->
 
     <!-- =========footer star========= -->
@@ -650,7 +637,7 @@
     <script src="canvas.js"></script>
     <!-- <script src="canvas-1.js"></script> -->
     <script src="outfit.js"></script>
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="http://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <!-- <script src="https://superal.github.io/canvas2image/canvas2image.js"></script> -->
     <!-- <script src="canvas2image.js"></script> -->

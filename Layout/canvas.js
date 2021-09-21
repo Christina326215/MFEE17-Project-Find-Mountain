@@ -28,6 +28,7 @@ function handleDragOver(e) {
 function handleDragLeave(e) {
   // e.stopPropagation();
 }
+// showSelectedData();
 function handleDrop(e) {
   e.stopPropagation();
   document.getElementById("hide").style.display = "none";
@@ -36,7 +37,7 @@ function handleDrop(e) {
   // }
   let id = e.dataTransfer.getData("text/plain");
   var img = document.querySelector("#" + id);
-  console.log(img);
+  // console.log(img);
 
   var newImage = new fabric.Image(img, {
     width: 0,
@@ -52,48 +53,73 @@ function handleDrop(e) {
 
   selectedImgs.push("#" + id);
   // console.log("selectedImgs", selectedImgs);
-  showSelectedImgs();
+  saveData();
   return false;
 }
-function showSelectedImgs() {
-  let newItem = document.getElementById("newItem");
-  newItem.innerHTML = "";
-
-  // 把tbody放進cartList內
-  newTbody = document.createElement("tbody");
-  document.getElementById("cartList").appendChild(newTbody);
-
+function saveData() {
+  console.log("selectedImgs save", selectedImgs);
   for (let i = 0; i < selectedImgs.length; i++) {
-    // // 建立每個品項的清單區域 -- tr
-    let trItemList = document.createElement("tr");
-    trItemList.className = "item";
-    newTbody.appendChild(trItemList);
+    let productPicUrl = document
+      .querySelector(selectedImgs[i])
+      .getAttribute("src");
+    // console.log('productPicUrl',productPicUrl);
+    // ./img/img-outfit/clothes-pic1-removebg-preview.png
+    let productName = document.querySelector(selectedImgs[i]).dataset
+      .productname;
+    // console.log('productName',productName);
+    // Arcteryx 始祖鳥 單件式GORE-TEX化纖保暖外套
+    let productPrice = document.querySelector(selectedImgs[i]).dataset.price;
+    // console.log('productPrice',productPrice); //5000
+    // let product_records = new Array();
+    let product_records = localStorage.getItem("products")
+      ? JSON.parse(localStorage.getItem("products"))
+      : [];
+    console.log("product_records", product_records);
+    if (
+      product_records.some((v) => {
+        return v.productName == productName;
+      })
+    ) {
+      console.log("duplicate data");
+    } else {
+      product_records.push({
+        productPicUrl: productPicUrl,
+        productName: productName,
+        productPrice: productPrice,
+      });
+      localStorage.setItem("products", JSON.stringify(product_records));
+    }
+  }
 
-    // // 建立商品圖片 -- 第一個 td
-    let tdImage = document.createElement("td");
-    tdImage.style.width = "100px";
+  showSelectedData();
+}
+function showSelectedData() {
+  let newItems = document.getElementById("newItems");
+  newItems.innerHTML = "";
 
-    // 存圖片
-    let image = new Image();
-    // console.log("new image",image);
-    let url = document.querySelector(selectedImgs[i]).getAttribute("src");
-    image.src = url;
-    image.setAttribute("class", "cover-fit");
+  let product_records = new Array();
+  product_records = localStorage.getItem("products")
+    ? JSON.parse(localStorage.getItem("products"))
+    : [];
+  // console.log("product_records.length", product_records.length);
 
-    tdImage.appendChild(image);
-    trItemList.appendChild(tdImage);
-
-    // // 建立商品名稱 -- 第二個 td
-    let tdTitle = document.createElement("td");
-
-    let perProductname = document.querySelector(selectedImgs[i]);
-    tdTitle.innerText = perProductname.dataset.productname;
-    trItemList.appendChild(tdTitle);
-
-    // // 建立商品價格 -- 第三個 td
-    let tdPrice = document.createElement("td");
-    tdPrice.innerText = perProductname.dataset.price;
-    trItemList.appendChild(tdPrice);
+  if (product_records) {
+    let subtotal = 0;
+    for (let i = 0; i < product_records.length; i++) {
+      let addDiv = document.createElement("div");
+      addDiv.className = "newItem";
+      addDiv.innerHTML =
+        '<div style="width: 100px"><img class="cover-fit" src="' +
+        product_records[i].productPicUrl +
+        '"/></div><div style="width: 60%">' +
+        product_records[i].productName +
+        '</div><div style="width: 14%">NT$ ' +
+        product_records[i].productPrice +
+        '</div><div style="width: 6%">Ｘ１</div></div>';
+      subtotal += parseInt(product_records[i].productPrice,10);
+      document.getElementById("newItems").appendChild(addDiv);
+      document.getElementById("subtotal").innerText = subtotal;
+    }
   }
 }
 var images = document.querySelectorAll(".product-img img");
@@ -107,6 +133,41 @@ canvasTarget.addEventListener("dragenter", handleDragEnter, false);
 canvasTarget.addEventListener("dragover", handleDragOver, false);
 canvasTarget.addEventListener("dragleave", handleDragLeave, false);
 canvasTarget.addEventListener("drop", handleDrop, false);
+
+//cart-icon
+$(".outfit-cart").click(function () {
+  //display none -> block
+  let cartDisplay = $(".cart-num").css("display");
+  if (cartDisplay === "none") {
+    $(".cart-num").css("display", "block");
+  }
+  // alert("已將商品加入購物車！");
+  Swal.fire({
+    icon: "success",
+    title: "已將商品加入購物車！",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+  //cart-num ++
+  // let cartNum = parseInt($(".cart-num").text());
+  //限制一次加進購物車數量
+  // if(cartNum>=10){
+  //   Swal.fire({
+  //   icon: 'error',
+  //   title: '一次最多只能放入10樣商品喔',
+  //   showConfirmButton: false,
+  //   timer: 1500
+  // })
+  // }else{
+  let product_records = new Array();
+  product_records = localStorage.getItem("products")
+    ? JSON.parse(localStorage.getItem("products"))
+    : [];
+  // console.log("product_records", product_records);
+  // console.log("product_records.length", product_records.length);
+  $(".cart-num").text(product_records.length);
+  // }
+});
 
 // //////////以下為canvas2image//////////////////
 var canvasPng,
