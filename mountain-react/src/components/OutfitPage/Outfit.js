@@ -12,7 +12,9 @@ import html2canvas from 'html2canvas';
 
 //=== components start===
 import SelectProduct from './SelectProduct';
-// import OutfitProductSlider from './OutfitProductSlider';
+import OutfitProductSliderL from './OutfitProductSliderL';
+import OutfitProductSliderM from './OutfitProductSliderM';
+import OutfitProductSliderH from './OutfitProductSliderH';
 import OrderList from './OrderList';
 //=== components end===
 
@@ -36,24 +38,24 @@ function Outfit(props) {
   const [outfitProducts, setOutfitProducts] = useState([]);
 
   useEffect(() => {
-    async function outfitData() {
-      try {
-        const outfitData = await axios.get(outfitURL);
-        console.log(outfitData.data); //for check
-        setListData(outfitData.data);
-        setOutfitProducts(outfitData.data);
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    outfitData();
+    // async function outfitData() {
+    //   try {
+    //     const outfitData = await axios.get(outfitURL);
+    //     console.log(outfitData.data); //for check
+    //     setListData(outfitData.data);
+    //     setOutfitProducts(outfitData.data);
+    //   } catch (e) {
+    //     console.log(e);
+    //   }
+    // }
+    // outfitData();
 
     $('#div1').show();
     $('#div2').hide();
     $('#div3').hide();
 
     $('.outfit-single').click(function () {
-      $('.outfit-target').hide();
+      $('.target').hide();
       $('#div' + $(this).attr('target')).show();
     });
 
@@ -81,6 +83,7 @@ function Outfit(props) {
 
     setTimeout(() => {
       let canvasTarget = document.querySelector('.outfit-canvas-target');
+      let selectedImgs = [];
       const canvas = new fabric.Canvas('canvas', {
         width: canvasTarget.clientWidth,
         height: canvasTarget.clientHeight,
@@ -93,46 +96,134 @@ function Outfit(props) {
         });
       };
 
-      const productImg = document.querySelectorAll('.outfit-product-img');
+      function handleDragStart(e) {
+        console.log('high');
+        e.dataTransfer.setData('text/plain', e.currentTarget.id);
+        console.log('e', e);
+        console.log('e.currentTarget.id', e.currentTarget.id);
+      }
+      function handleDragEnd(e) {}
+      function handleDragEnter(e) {
+        // e.stopPropagation();
+      }
+      function handleDragOver(e) {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'copy';
 
-      let movingImage;
-      let imgDragOffset = {
-        offsetX: 0,
-        offsetY: 0,
-      };
-      function saveImg(e) {
-        console.log(e.target.tagName);
-        if (e.target.tagName.toLowerCase() === 'img') {
-          console.log('high');
-          imgDragOffset.offsetX = e.clientX - e.target.offsetLeft;
-          imgDragOffset.offsetY = e.clientY - e.target.offsetTop;
-          movingImage = e.target;
-          console.log(movingImage);
+        return false;
+      }
+      function handleDragLeave(e) {
+        // e.stopPropagation();
+      }
+      // showSelectedData();
+      function handleDrop(e) {
+        handleDragStart();
+        e.stopPropagation();
+        document.getElementById('hide').style.display = 'none';
+        // if (e.stopPropagation) {
+        //     e.stopPropagation();
+        // }
+        let id = e.dataTransfer.getData('text/plain');
+        // console.log('id', id)
+        var img = document.querySelector('#' + id);
+        // console.log('img', img);
+        var img = '123';
+
+        var newImage = new fabric.Image(img, {
+          width: 0,
+          height: 0,
+          // Set the center of the new object based on the event coordinates relative
+          left: e.layerX - 47,
+          top: e.layerY - 70,
+        });
+        newImage.scaleToWidth(100);
+        newImage.scaleToHeight(100);
+        // console.log("newImage", newImage);
+        canvas.add(newImage);
+
+        selectedImgs.push('#' + id);
+        // console.log("selectedImgs", selectedImgs);
+        saveData();
+        return false;
+      }
+      function saveData() {
+        console.log('selectedImgs save', selectedImgs);
+        for (let i = 0; i < selectedImgs.length; i++) {
+          let productPicUrl = document
+            .querySelector(selectedImgs[i])
+            .getAttribute('src');
+          // console.log('productPicUrl',productPicUrl);
+          // ./img/img-outfit/clothes-pic1-removebg-preview.png
+          let productName = document.querySelector(selectedImgs[i]).dataset
+            .productname;
+          // console.log('productName',productName);
+          // Arcteryx 始祖鳥 單件式GORE-TEX化纖保暖外套
+          let productPrice = document.querySelector(selectedImgs[i]).dataset
+            .price;
+          // console.log('productPrice',productPrice); //5000
+          // let product_records = new Array();
+          let product_records = localStorage.getItem('products')
+            ? JSON.parse(localStorage.getItem('products'))
+            : [];
+          console.log('product_records', product_records);
+          if (
+            product_records.some((v) => {
+              return v.productName == productName;
+            })
+          ) {
+            console.log('duplicate data');
+          } else {
+            product_records.push({
+              productPicUrl: productPicUrl,
+              productName: productName,
+              productPrice: productPrice,
+            });
+            localStorage.setItem('products', JSON.stringify(product_records));
+          }
+        }
+
+        showSelectedData();
+      }
+      function showSelectedData() {
+        let newItems = document.getElementById('newItems');
+        newItems.innerHTML = '';
+
+        let product_records = new Array();
+        product_records = localStorage.getItem('products')
+          ? JSON.parse(localStorage.getItem('products'))
+          : [];
+        // console.log("product_records.length", product_records.length);
+
+        if (product_records) {
+          let subtotal = 0;
+          for (let i = 0; i < product_records.length; i++) {
+            let addDiv = document.createElement('div');
+            addDiv.className = 'newItem';
+            addDiv.innerHTML =
+              '<div style={{ width: "100px" }}><img class="cover-fit" src="' +
+              product_records[i].productPicUrl +
+              '"/></div><div style={{width: "60%"}}>' +
+              product_records[i].productName +
+              '</div><div style={{width: "14%"}}>NT$ ' +
+              product_records[i].productPrice +
+              '</div><div style={{width: "6%"}}>Ｘ１</div></div>';
+            subtotal += parseInt(product_records[i].productPrice, 10);
+            document.getElementById('newItems').appendChild(addDiv);
+            document.getElementById('subtotal').innerText = subtotal;
+          }
         }
       }
-      function dropImg(e) {
-        console.log('2');
-        document.getElementById('hide').style.display = 'none';
-        const { offsetX, offsetY } = e.e;
-        console.log(offsetX, offsetY);
-        const image = new fabric.Image(movingImage, {
-          width: movingImage.naturalWidth,
-          height: movingImage.naturalHeight,
-          scaleX: 100 / movingImage.naturalWidth,
-          scaleY: 100 / movingImage.naturalHeight,
-          top: offsetY,
-          left: offsetX,
-        });
-        console.log(image);
-        canvas.add(image);
-      }
+      var images = document.querySelectorAll('.product-img img');
+      [].forEach.call(images, function (img) {
+        img.addEventListener('dragstart', handleDragStart, false);
+        img.addEventListener('dragend', handleDragEnd, false);
+      });
 
-      canvas.on('drop', dropImg);
-
-      let i;
-      for (i = 0; i < productImg.length; i++) {
-        productImg[i].addEventListener('mousedown', saveImg);
-      }
+      // var canvasContainer = document.getElementsByClassName('canvas-target');
+      canvasTarget.addEventListener('dragenter', handleDragEnter, false);
+      canvasTarget.addEventListener('dragover', handleDragOver, false);
+      canvasTarget.addEventListener('dragleave', handleDragLeave, false);
+      canvasTarget.addEventListener('drop', handleDrop, false);
 
       //////////以下為canvas2image//////////////////
       var canvasPng,
@@ -222,10 +313,19 @@ function Outfit(props) {
                 <SelectProduct />
               </div>
               <div className="outfit-right-side col col-lg-8">
-                {/* <OutfitProductSlider /> */}
-                <div id="div1" className="outfit-target">
-                  {/* product-warpper start */}
-                  <div className="outfit-product-slider">
+                <div id="div1" className="target">
+                  <OutfitProductSliderL />
+                </div>
+                <div id="div2" className="target">
+                  <OutfitProductSliderM />
+                </div>
+                <div id="div3" className="target">
+                  <OutfitProductSliderH />
+                </div>
+
+                {/* <div id="div1" className="outfit-target"> */}
+                {/* product-warpper start */}
+                {/* <div className="outfit-product-slider">
                     <BsFillCaretLeftFill
                       className="outfit-prev mb-1"
                       id="slideLeft"
@@ -233,9 +333,11 @@ function Outfit(props) {
                     <BsFillCaretRightFill
                       className="outfit-next mb-1"
                       id="slideRight"
-                    />
-                    <div className="outfit-product-wrapper" id="slider">
-                      {outfitProducts.map((outfitProduct, i) => (
+                    /> */}
+                {/* <div className="outfit-product-wrapper" id="slider"> */}
+
+                {/* 連資料庫寫法 start */}
+                {/* {outfitProducts.map((outfitProduct, i) => (
                         <div className="outfit-product" key={i}>
                           <div className="outfit-product-img">
                             <img
@@ -244,22 +346,17 @@ function Outfit(props) {
                               className="outfit-slider-image outfit-cover-fit"
                               draggable
                             />
-                            {/* <img
-                              src={clothesPic1Removebg}
-                              alt=""
-                              className="outfit-slider-image outfit-cover-fit"
-                              draggable
-                            /> */}
                           </div>
                           <div className="outfit-product-info">
                             <p>{outfitProduct.name}</p>
                           </div>
                         </div>
-                      ))}
-                    </div>
-                  </div>
-                  {/* product-warpper end */}
-                </div>
+                      ))} */}
+                {/* 連資料庫寫法 end */}
+                {/* </div> */}
+                {/* </div> */}
+                {/* product-warpper end */}
+                {/* </div> */}
               </div>
               {/* 製作個人化明信片 start */}
               <div className="canvasWrap">
@@ -281,8 +378,27 @@ function Outfit(props) {
               </div>
               {/* 製作個人化明信片 end */}
               {/* 訂購單 start */}
-              <div className="">
-                <OrderList />
+              <div class="order">
+                <div class="orderTitle">
+                  <p class="order-head mr-3">穿搭組合</p>
+                  <p class="order-head">
+                    NT$ <span id="subtotal">0</span>
+                  </p>
+                </div>
+                <div id="newItems">
+                  {/* <div class="newItem">
+                    <div style={{ width: '100px' }}>
+                      <img
+                        class="cover-fit"
+                        src="./img/img-outfit/shoes-pic3-removebg-preview.png"
+                        alt=""
+                      />
+                    </div>
+                    <div>SALOMON EVASION GORE-TEX登山健行鞋</div>
+                    <div>NT$ 1000</div>
+                    <div>Ｘ１</div>
+                  </div> */}
+                </div>
               </div>
               {/* 訂購單 end */}
             </div>
