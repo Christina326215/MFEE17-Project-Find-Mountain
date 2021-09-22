@@ -201,7 +201,7 @@
   height: 32px;
   border-radius: 50px 0 0 50px;
   float: left;
-  width: calc(25.55%);
+  // width: calc(25.55%); // 9/21 歐陽 delete
   background-color: #6da77f;
   background: -webkit-linear-gradient(top, #6da77f, #6da77f);
 }
@@ -222,6 +222,7 @@
 //   color: #ffb943;
 // }
 .member-map-route-star {
+  cursor: pointer; // 9/21 歐陽 add
   color: #e2e3e1;
   /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
 }
@@ -234,3 +235,14 @@
 .member-map-route-star.active {
   color: #ffb943;
 }
+
+//=== 9/21 歐陽 add star===//
+.member-map-route-starNo {
+  font-size: 22px;
+  color: #e2e3e1;
+  /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+}
+.member-map-route-starNo.active {
+  color: #ffb943;
+}
+//=== 9/21 歐陽 add end===//
