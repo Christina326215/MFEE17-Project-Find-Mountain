@@ -230,9 +230,14 @@ body {
   font-weight: bold;
   font-size: 18px;
 }
-.productdetail-introduce-img-box {
+.productdetail-introduce figure {
   max-width: 100%;
   height: 400px;
+}
+.productdetail-introduce figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .productdetail-introduce {
   /* font-family: Source Sans Pro; */

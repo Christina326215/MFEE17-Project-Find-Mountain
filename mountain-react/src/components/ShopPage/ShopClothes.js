@@ -68,7 +68,8 @@ function ShopClothes(props) {
                 return (
                   <ProductCard
                     productId={item.id}
-                    name={item.name}
+                    brand={item.product_brand}
+                    name={item.product_name}
                     price={item.price}
                     picture={item.pic}
                     key={item.id}
