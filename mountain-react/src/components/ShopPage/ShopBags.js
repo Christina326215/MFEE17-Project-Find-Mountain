@@ -9,7 +9,6 @@ import { shopURL } from '../../utils/config';
 
 function ShopBags(props) {
   const [productData, setProductData] = useState([]);
-  const { price, picture, name } = props;
   useEffect(() => {
     //api
     async function getProductData() {
@@ -67,7 +66,9 @@ function ShopBags(props) {
               {productData.map((item, index) => {
                 return (
                   <ProductCard
-                    name={item.name}
+                    productId={item.id}
+                    brand={item.product_brand}
+                    name={item.product_name}
                     price={item.price}
                     picture={item.pic}
                     key={item.id}

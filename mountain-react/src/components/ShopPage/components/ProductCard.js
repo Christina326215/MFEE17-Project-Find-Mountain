@@ -7,20 +7,20 @@ import $ from 'jquery';
 import Swal from 'sweetalert2';
 
 function ProductCard(props) {
-  const { productId, price, picture, name } = props;
-  const [likeList, setLikeList] = useState([1,2]);
+  const { productId, price, picture, name, brand } = props;
+  const [likeList, setLikeList] = useState([1, 2]);
   // console.log(likeList);
-  let updateList = [];
+  // let updateList = [];
   const heartIconClick = function (e) {
     // console.log(e.currentTarget);
     $(e.currentTarget).toggleClass('shopmain-heart-icon-bkg-click');
     // setLikeList([...likeList, productId]);
     // setLikeList(likeList.push(productId));
-    console.log(productId);
-    var newLikeList = [...likeList, productId];
-    console.log("lL",newLikeList);
+    // console.log(productId);
+    // var newLikeList = [...likeList, productId];
+    // console.log('lL', newLikeList);
     //3.設定回原本的物件
-    setLikeList(newLikeList);
+    // setLikeList(newLikeList);
   };
 
   const cartIconClick = function () {
@@ -57,7 +57,7 @@ function ProductCard(props) {
       <div className="col-6 col-md-4 col-lg-3 px-0 my-2">
         <div className="shopmain-product-card">
           <div className="shopmain-product-img-box position-relative">
-            <Link to="#/">
+            <Link to={`/shop/product-detail/${productId}`} id={productId}>
               <img
                 className="shopmain-cover-fit"
                 src={`${IMAGE_URL}/img/product-img/${picture}`}
@@ -78,7 +78,13 @@ function ProductCard(props) {
               <CartFill className="position-absolute shopmain-cart-icon" />
             </button>
           </div>
-          <Link to="#/" className="text-left shopmain-product-name">
+          <Link
+            to={`/shop/product-detail/${productId}`}
+            id={productId}
+            className="text-left shopmain-product-name"
+          >
+            {brand}
+            <br />
             {name}
           </Link>
           <p className="text-right shopmain-product-price">NT ${price}</p>
