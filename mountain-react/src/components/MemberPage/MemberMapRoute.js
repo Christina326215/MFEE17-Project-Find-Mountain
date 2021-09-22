@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'; //可以獲取history,location,ma
 import $ from 'jquery';
 import '../../styles/MemberPage/MemberMapRoute.scss'; //member map and route style
 
-import { memberRouteURL } from '../../utils/config';
+import { memberRouteURL, IMAGE_URL } from '../../utils/config';
 import axios from 'axios';
 
 //====== below pages star ======//
@@ -17,18 +17,28 @@ import { BsStarFill } from 'react-icons/bs';
 //====== below icon end ======//
 
 //====== below img import start ======//
-import Xiangshan from '../../img/xiangshan.jpeg';
+// import { log } from 'fabric/fabric-impl';
 //====== above img import end ======//
 
 function MemberMapRoute() {
   const [data, setData] = useState([]);
+  const [info, setInfo] = useState([]);
+
+  const starIcon = (e) => {
+    $(e.currentTarget).toggleClass('active');
+  };
+
+  // $('.member-map-route-star').click(function () {
+  //   $(this).toggleClass('active');
+  // });
+
   useEffect(() => {
     async function getRouteData() {
       try {
         const RouteData = await axios.get(memberRouteURL);
-        console.log(RouteData.data); //for check
-        setData(RouteData.data);
-        // let data = RouteData.data;
+        console.log(RouteData.data.result); //for check
+        setData(RouteData.data.result);
+        setInfo(RouteData.data.totalInfo);
       } catch (e) {
         console.log(e);
       }
@@ -53,11 +63,9 @@ function MemberMapRoute() {
         this.classList.add('active');
       });
     }
-
-    $('.member-map-route-star').click(function () {
-      $(this).toggleClass('active');
-    });
   }, []);
+
+  console.log('info totalPoints:', info.totalPoints); //for check del
 
   return (
     <>
@@ -181,7 +189,7 @@ function MemberMapRoute() {
                           scope="row"
                           className="member-map-route-text-weight-bold"
                         >
-                          20 公里
+                          {info.totalDistance} 公里
                         </td>
                       </tr>
                       <tr>
@@ -197,7 +205,7 @@ function MemberMapRoute() {
                           scope="row"
                           className="member-map-route-text-weight-bold"
                         >
-                          3,900 公尺
+                          {info.totalHeight} 公尺
                         </td>
                       </tr>
                       <tr>
@@ -213,11 +221,15 @@ function MemberMapRoute() {
                           scope="row"
                           className="member-map-route-text-weight-bold"
                         >
-                          3 分{/* <!-- progress bar star --> */}
+                          {info.totalPoints} 分
+                          {/* <!-- progress bar star --> */}
                           <div className="member-map-route-bar_list align-items-center">
                             <div className="member-map-route-progress-bg">
                               <span className="member-map-route-progress-bg-font"></span>
-                              <div className="member-map-route-progress_achievement-bar"></div>
+                              <div
+                                style={{ width: `${info.totalPoints}%` }}
+                                className="member-map-route-progress_achievement-bar"
+                              ></div>
                             </div>
                           </div>
                           {/* <!-- progress bar end --> */}
@@ -246,47 +258,176 @@ function MemberMapRoute() {
                         </th>
                         <th scope="col-3"></th>
                         <th scope="col-5"></th>
-                        <th scope="col-2"></th>
+                        <th scope="col-2">
+                          {/* FIXME: 給舊會員選擇去過路線 */}
+                          <button className="btn btn-primary">
+                            新增去過路線
+                          </button>
+                        </th>
                       </tr>
                     </thead>
-                    {data.map((items, i) => (
-                      <tbody>
-                        <tr>
-                          <td className="member-map-route-picture-img-wrapper">
-                            <div className="member-map-route-picture-img-box">
-                              <img
-                                src={Xiangshan}
-                                alt=""
-                                className="member-map-route-picture-img"
-                              />
-                            </div>
-                          </td>
-                          <td className="member-map-route-text-weight align-middle">
-                            {items.article_name}
-                          </td>
-                          <td className="member-map-route-star-group member-map-route-text-weight align-middle">
-                            <i className="bi member-map-route-star">
-                              <BsStarFill></BsStarFill>
-                            </i>
-                            <i className="bi member-map-route-star">
-                              <BsStarFill></BsStarFill>
-                            </i>
-                            <i className="bi member-map-route-star">
-                              <BsStarFill></BsStarFill>
-                            </i>
-                            <i className="bi member-map-route-star">
-                              <BsStarFill></BsStarFill>
-                            </i>
-                            <i className="bi member-map-route-star">
-                              <BsStarFill></BsStarFill>
-                            </i>
-                          </td>
-                          <td className="member-map-route-text-weight align-middle">
+                    {/* FIXME: hello part 要改成給新會員選擇去過路線 */}
+                    {data.length === 0 ? (
+                      <p>hello</p>
+                    ) : (
+                      data.map((items, i) => (
+                        <tbody key={i}>
+                          <tr>
+                            <td className="member-map-route-picture-img-wrapper">
+                              <div className="member-map-route-picture-img-box">
+                                <img
+                                  src={`${IMAGE_URL}/img/article-img/${items.article_pic}`}
+                                  alt=""
+                                  className="member-map-route-picture-img"
+                                />
+                              </div>
+                            </td>
+                            <td className="member-map-route-text-weight align-middle">
+                              {items.article_name}
+                            </td>
+                            {/* 分已評分＆未評分 FIXME: 未評分點星星後可點送出紐加評分 */}
+                            {items.star !== undefined ? (
+                              items.star === 5 ? (
+                                <td className="member-map-route-star-group member-map-route-text-weight align-middle">
+                                  <i className="bi member-map-route-starNo active">
+                                    <BsStarFill></BsStarFill>
+                                  </i>
+                                  <i className="bi member-map-route-starNo active">
+                                    <BsStarFill></BsStarFill>
+                                  </i>
+                                  <i className="bi member-map-route-starNo active">
+                                    <BsStarFill></BsStarFill>
+                                  </i>
+                                  <i className="bi member-map-route-starNo active">
+                                    <BsStarFill></BsStarFill>
+                                  </i>
+                                  <i className="bi member-map-route-starNo active">
+                                    <BsStarFill></BsStarFill>
+                                  </i>
+                                </td>
+                              ) : items.star === 4 ? (
+                                <td className="member-map-route-star-group member-map-route-text-weight align-middle">
+                                  <i className="bi member-map-route-starNo active">
+                                    <BsStarFill></BsStarFill>
+                                  </i>
+                                  <i className="bi member-map-route-starNo active">
+                                    <BsStarFill></BsStarFill>
+                                  </i>
+                                  <i className="bi member-map-route-starNo active">
+                                    <BsStarFill></BsStarFill>
+                                  </i>
+                                  <i className="bi member-map-route-starNo active">
+                                    <BsStarFill></BsStarFill>
+                                  </i>
+                                  <i className="bi member-map-route-starNo">
+                                    <BsStarFill></BsStarFill>
+                                  </i>
+                                </td>
+                              ) : items.star === 3 ? (
+                                <td className="member-map-route-star-group member-map-route-text-weight align-middle">
+                                  <i className="bi member-map-route-starNo active">
+                                    <BsStarFill></BsStarFill>
+                                  </i>
+                                  <i className="bi member-map-route-starNo active">
+                                    <BsStarFill></BsStarFill>
+                                  </i>
+                                  <i className="bi member-map-route-starNo active">
+                                    <BsStarFill></BsStarFill>
+                                  </i>
+                                  <i className="bi member-map-route-starNo">
+                                    <BsStarFill></BsStarFill>
+                                  </i>
+                                  <i className="bi member-map-route-starNo">
+                                    <BsStarFill></BsStarFill>
+                                  </i>
+                                </td>
+                              ) : items.star === 2 ? (
+                                <td className="member-map-route-star-group member-map-route-text-weight align-middle">
+                                  <i className="bi member-map-route-starNo active">
+                                    <BsStarFill></BsStarFill>
+                                  </i>
+                                  <i className="bi member-map-route-starNo active">
+                                    <BsStarFill></BsStarFill>
+                                  </i>
+                                  <i className="bi member-map-route-starNo">
+                                    <BsStarFill></BsStarFill>
+                                  </i>
+                                  <i className="bi member-map-route-starNo">
+                                    <BsStarFill></BsStarFill>
+                                  </i>
+                                  <i className="bi member-map-route-starNo">
+                                    <BsStarFill></BsStarFill>
+                                  </i>
+                                </td>
+                              ) : (
+                                <td className="member-map-route-star-group member-map-route-text-weight align-middle">
+                                  <i className="bi member-map-route-starNo active">
+                                    <BsStarFill></BsStarFill>
+                                  </i>
+                                  <i className="bi member-map-route-starNo">
+                                    <BsStarFill></BsStarFill>
+                                  </i>
+                                  <i className="bi member-map-route-starNo">
+                                    <BsStarFill></BsStarFill>
+                                  </i>
+                                  <i className="bi member-map-route-starNo">
+                                    <BsStarFill></BsStarFill>
+                                  </i>
+                                  <i className="bi member-map-route-starNo">
+                                    <BsStarFill></BsStarFill>
+                                  </i>
+                                </td>
+                              )
+                            ) : (
+                              <td className="member-map-route-star-group member-map-route-text-weight align-middle">
+                                <i
+                                  className="bi member-map-route-star"
+                                  onClick={starIcon}
+                                >
+                                  <BsStarFill></BsStarFill>
+                                </i>
+                                <i
+                                  className="bi member-map-route-star"
+                                  onClick={starIcon}
+                                >
+                                  <BsStarFill></BsStarFill>
+                                </i>
+                                <i
+                                  className="bi member-map-route-star"
+                                  onClick={starIcon}
+                                >
+                                  <BsStarFill></BsStarFill>
+                                </i>
+                                <i
+                                  className="bi member-map-route-star"
+                                  onClick={starIcon}
+                                >
+                                  <BsStarFill></BsStarFill>
+                                </i>
+                                <i
+                                  className="bi member-map-route-star"
+                                  onClick={starIcon}
+                                >
+                                  <BsStarFill></BsStarFill>
+                                </i>
+                              </td>
+                            )}
+                            {items.star !== undefined ? (
+                              <td className="member-map-route-text-weight align-middle">
+                                給評{items.star}分
+                              </td>
+                            ) : (
+                              <td className="member-map-route-text-weight align-middle">
+                                未評分
+                              </td>
+                            )}
+                            {/* <td className="member-map-route-text-weight align-middle">
                             未評分
-                          </td>
-                        </tr>
-                      </tbody>
-                    ))}
+                          </td> */}
+                          </tr>
+                        </tbody>
+                      ))
+                    )}
                   </table>
                   {/* <!-- 分頁 start  --> */}
                   {pages_btn}
