@@ -26,6 +26,7 @@ import bearbear from '../../img/product-img/illustration/bearbear.png';
 function ProductDetail(props) {
   const [productData, setProductData] = useState([]);
   const [historyData, setHistoryData] = useState([]);
+  // const [orderInfo, setOrderInfo] = useState([]);
   const { id } = useParams();
   // console.log('id', id);
   useEffect(() => {
@@ -155,7 +156,46 @@ function ProductDetail(props) {
     });
     //加入購物車
     $('.productdetail-add-cart-btn').on('click', function () {
-      console.log(id);
+      let orderDetailSize = $('.productdetail-active').val();
+      let orderDetailNum = parseInt($('.productdetail-order-number').val());
+      console.log(orderDetailNum);
+      let orderDetail = { id: id, size: orderDetailSize, num: orderDetailNum };
+      console.log(orderDetail);
+      //localstorage for order detail start//
+      var GetProductOrder = localStorage.getItem('ProductOrderDetail');
+      if (GetProductOrder === null) {
+        var ProductOrder = [];
+        localStorage.setItem(
+          'ProductOrderDetail',
+          JSON.stringify(ProductOrder)
+        );
+        ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
+        ProductOrder.push(orderDetail);
+        localStorage.setItem(
+          'ProductOrderDetail',
+          JSON.stringify(ProductOrder)
+        );
+      } else {
+        //如果localstorage有product view history
+        // console.log('okay');
+        ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
+        //判斷陣列裡面有沒有這樣商品 有的話要刪除 不然會重複太多
+        //寫一個function給filter用 過濾與之id相同的資料
+        // function productClearDuplicatedItem(value) {
+        //   return value !== id;
+        // }
+        // ProductOrder = ProductOrder.filter(
+        //   productClearDuplicatedItem
+        // );
+        //再把他push回最尾端
+        ProductOrder.push(orderDetail);
+        localStorage.setItem(
+          'ProductOrderDetail',
+          JSON.stringify(ProductOrder)
+        );
+      }
+      //localstorage for order detail end//
+
       //display none -> block
       let cartDisplay = $('.cart-num').css('display');
       if (cartDisplay === 'none') {
@@ -184,6 +224,7 @@ function ProductDetail(props) {
         $('.cart-num').text(cartNum);
       }
     });
+    // setOrderInfo(ProductOrder);
   }, [id]);
   return (
     <>
@@ -378,6 +419,9 @@ function ProductDetail(props) {
                   __html: productData.introduction,
                 }}
               ></div>
+              {/* {orderInfo.map((item, index) => {
+                return <p>{item.id}</p>;
+              })} */}
             </div>
           </div>
           {/* <!-- =========product introduce end========= --> */}
