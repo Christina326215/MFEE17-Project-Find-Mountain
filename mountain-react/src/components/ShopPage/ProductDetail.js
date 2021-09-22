@@ -33,7 +33,7 @@ function ProductDetail(props) {
   const { id } = useParams();
   // console.log('id', id);
   useEffect(() => {
-    //local storage
+    //local storage for 瀏覽紀錄
     var GetProductHistory = localStorage.getItem('ProductViewHistory');
     if (GetProductHistory === null) {
       //如果localstorage沒有product view history
@@ -52,8 +52,6 @@ function ProductDetail(props) {
         JSON.stringify(ProductViewHistory)
       );
     } else {
-      //TODO:不想要瀏覽比數超過四筆
-
       //如果localstorage有product view history
       // console.log('okay');
       ProductViewHistory = JSON.parse(
@@ -177,7 +175,7 @@ function ProductDetail(props) {
       let cartNum = parseInt($('.cart-num').text());
       let orderNum = parseInt($('.productdetail-order-number').val());
       //限制一次加進購物車數量
-      if (cartNum >= 10) {
+      if (orderNum + cartNum >= 10) {
         Swal.fire({
           icon: 'error',
           title: '一次最多只能放入10樣商品喔',
