@@ -4,8 +4,8 @@ import { withRouter } from 'react-router-dom'; //可以獲取history,location,ma
 import $ from 'jquery';
 import { pages_btn } from '../MapPage/pages/PagesBtn'; //分頁按鈕
 import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
+import { shopURL, IMAGE_URL, shopcartURL } from '../../utils/config';
 
-import { shopcartURL } from '../../utils/config';
 import axios from 'axios';
 
 //====== below icon star ======//
@@ -17,7 +17,37 @@ import ShopCartImg from '../../img/shoes-pic7.jpeg';
 //====== above img import end ======//
 
 function ShopCartDetail() {
+  const [shopCartData, setShopCartData] = useState([]);
   useEffect(() => {
+    var ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
+    console.log(ProductOrder);
+    //api
+    async function getProductData() {
+      try {
+        //抓購物車的商品資料
+        var orderArray = [];
+        for (let i = 0; i < ProductOrder.length; i++) {
+          const productOrderData = await axios.get(
+            `${shopURL}/product-detail/${ProductOrder[i].id}`
+          );
+          //productOrderData.data[0]為資料庫商品資料 ProductOrder[i]為localstorage的購物車資料
+          // console.log(productOrderData.data[0], ProductOrder[i]);
+          //合併物件Object.assign 合併後原物件也會被改變
+          let assignedObj = Object.assign(
+            productOrderData.data[0],
+            ProductOrder[i]
+          );
+          // console.log('productOrderData.data[0]', productOrderData.data[0]);
+          // console.log('assignedObj', assignedObj);
+          orderArray.unshift(productOrderData.data[0]);
+        }
+        console.log('orderArray', orderArray);
+        setShopCartData(orderArray);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getProductData();
     // progress-bar
     $('.shopcart-btn-next').on('click', function () {
       var currentStepNum = $('#shopcart-checkout-progress').data(
@@ -154,49 +184,36 @@ function ShopCartDetail() {
         <div className="row">
           <div className="col-lg-12 mt-3">
             <h3 className="text-center mt-4">購物車明細</h3>
-            <table className="table table-borderless mt-4 text-center">
-              <thead className="shopcart-thead-tr-border">
-                <tr>
-                  <th scope="col">商品照片</th>
-                  <th scope="col" className="shopcart-product-name">
-                    商品名稱
-                  </th>
-                  <th scope="col" className="shopcart-product-size">
-                    尺寸
-                  </th>
-                  <th scope="col" className="shopcart-product-perprice">
-                    單價
-                  </th>
-                  <th scope="col" className="shopcart-product-count">
-                    數量
-                  </th>
-                  <th scope="col" className="shopcart-product-storage">
-                    庫存
-                  </th>
-                  <th scope="col" className="shopcart-product-subtotal">
-                    小計
-                  </th>
-                  <th scope="col" className="shopcart-product-delete">
-                    刪除
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="shopcart-tbody-tr-border">
-                <tr>
-                  <td scope="row">
-                    <div className="shopcart-product-img-box">
+            <hr />
+            {/* abby */}
+            {shopCartData.map((items, index) => {
+              return (
+                <div className="shopcart-product-infobox row my-3">
+                  <div className="col-4 col-lg-3">
+                    <figure className="shopcart-product-infobox-img p-2">
                       <Link to="/#">
                         <img
-                          src={ShopCartImg}
-                          alt=""
-                          className="shopcart-cover-fit"
+                          src={`${IMAGE_URL}/img/product-img/${items.pic}`}
+                          alt={items.name}
+                          title={items.name}
+                          className="shopcart-product-infobox-cover-fit"
                         />
                       </Link>
+                    </figure>
+                  </div>
+                  <div className="col-5">
+                    <div className="shopcart-product-infobox-name">
+                      <input
+                        type="text"
+                        value={items.name}
+                        name="productName"
+                        readOnly
+                        className="my-3 form-control"
+                      />
+                      <input type="text" value="productId" hidden />
                     </div>
-                  </td>
-                  <td scope="row">MERRELL Tetrex Crest Wrap 女水陸三棲鞋</td>
-                  <td scope="row">
-                    <div className="button-box m-3">
+                    <div className="button-box my-3">
+                      <p>尺寸選擇</p>
                       <input
                         type="button"
                         value="S"
@@ -213,252 +230,45 @@ function ShopCartDetail() {
                         className="shopcart-size-btn mx-1"
                       />
                     </div>
-                  </td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
-                    <button className="btn shopcart-minus-btn">
-                      <BsDash size={24} />
-                    </button>
-                    <input
-                      type="text"
-                      className="shopcart-order-number"
-                      value="1"
-                      readonly
-                    />
-                    <button className="btn shopcart-add-btn">
-                      <BsPlus size={24} />
-                    </button>
-                  </td>
-                  <td scope="row">10</td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
-                    <Link to="/#">
-                      <BsTrash size={24} />
-                    </Link>
-                  </td>
-                </tr>
-                <tr>
-                  <td scope="row">
-                    <div className="shopcart-product-img-box">
-                      <Link to="/#">
-                        <img
-                          src={ShopCartImg}
-                          alt=""
-                          className="shopcart-cover-fit"
+                    <div className="shopcart-product-infobox-storage">
+                      <p className="m-0">庫存剩餘：10</p>
+                    </div>
+                  </div>
+                  <div className="col-3 col-lg-4">
+                    <div className="d-flex align-items-end flex-column bd-highlight shopcart-product-infobox-right">
+                      <div className="bd-highlight">
+                        <p className="my-3">數量</p>
+                        <button className="btn shopcart-minus-btn">
+                          <BsDash size={24} />
+                        </button>
+                        <input
+                          type="text"
+                          className="shopcart-order-number"
+                          value={items.num}
+                          readOnly
                         />
-                      </Link>
+                        <button className="btn shopcart-add-btn">
+                          <BsPlus size={24} />
+                        </button>
+                        <hr className="my-0" />
+                      </div>
+                      <div className="bd-highlight">
+                        <p className="shopcart-product-infobox-price">
+                          NT${' '}
+                          {(parseInt(items.price) * items.num).toLocaleString()}
+                        </p>
+                      </div>
+                      <div className="mt-auto mb-2 bd-highlight">
+                        <Link to="/#">
+                          <BsTrash size={24} />
+                        </Link>
+                      </div>
                     </div>
-                  </td>
-                  <td scope="row">MERRELL Tetrex Crest Wrap 女水陸三棲鞋</td>
-                  <td scope="row">
-                    <div className="button-box m-3">
-                      <input
-                        type="button"
-                        value="S"
-                        className="shopcart-size-btn mx-1"
-                      />
-                      <input
-                        type="button"
-                        value="M"
-                        className="shopcart-size-btn mx-1"
-                      />
-                      <input
-                        type="button"
-                        value="L"
-                        className="shopcart-size-btn mx-1"
-                      />
-                    </div>
-                  </td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
-                    <button className="btn shopcart-minus-btn">
-                      <BsDash size={24} />
-                    </button>
-                    <input
-                      type="text"
-                      className="shopcart-order-number"
-                      value="1"
-                      readonly
-                    />
-                    <button className="btn shopcart-add-btn">
-                      <BsPlus size={24} />
-                    </button>
-                  </td>
-                  <td scope="row">10</td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
-                    <Link to="/#">
-                      <BsTrash size={24} />
-                    </Link>
-                  </td>
-                </tr>
-                <tr>
-                  <td scope="row">
-                    <div className="shopcart-product-img-box">
-                      <Link to="/#">
-                        <img
-                          src={ShopCartImg}
-                          alt=""
-                          className="shopcart-cover-fit"
-                        />
-                      </Link>
-                    </div>
-                  </td>
-                  <td scope="row">MERRELL Tetrex Crest Wrap 女水陸三棲鞋</td>
-                  <td scope="row">
-                    <div className="button-box m-3">
-                      <input
-                        type="button"
-                        value="S"
-                        className="shopcart-size-btn mx-1"
-                      />
-                      <input
-                        type="button"
-                        value="M"
-                        className="shopcart-size-btn mx-1"
-                      />
-                      <input
-                        type="button"
-                        value="L"
-                        className="shopcart-size-btn mx-1"
-                      />
-                    </div>
-                  </td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
-                    <button className="btn shopcart-minus-btn">
-                      <BsDash size={24} />
-                    </button>
-                    <input
-                      type="text"
-                      className="shopcart-order-number"
-                      value="1"
-                      readonly
-                    />
-                    <button className="btn shopcart-add-btn">
-                      <BsPlus size={24} />
-                    </button>
-                  </td>
-                  <td scope="row">10</td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
-                    <Link to="/#">
-                      <BsTrash size={24} />
-                    </Link>
-                  </td>
-                </tr>
-                <tr>
-                  <td scope="row">
-                    <div className="shopcart-product-img-box">
-                      <Link to="/#">
-                        <img
-                          src={ShopCartImg}
-                          alt=""
-                          className="shopcart-cover-fit"
-                        />
-                      </Link>
-                    </div>
-                  </td>
-                  <td scope="row">MERRELL Tetrex Crest Wrap 女水陸三棲鞋</td>
-                  <td scope="row">
-                    <div className="button-box m-3">
-                      <input
-                        type="button"
-                        value="S"
-                        className="shopcart-size-btn mx-1"
-                      />
-                      <input
-                        type="button"
-                        value="M"
-                        className="shopcart-size-btn mx-1"
-                      />
-                      <input
-                        type="button"
-                        value="L"
-                        className="shopcart-size-btn mx-1"
-                      />
-                    </div>
-                  </td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
-                    <button className="btn shopcart-minus-btn">
-                      <BsDash size={24} />
-                    </button>
-                    <input
-                      type="text"
-                      className="shopcart-order-number"
-                      value="1"
-                      readonly
-                    />
-                    <button className="btn shopcart-add-btn">
-                      <BsPlus size={24} />
-                    </button>
-                  </td>
-                  <td scope="row">10</td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
-                    <Link to="/#">
-                      <BsTrash size={24} />
-                    </Link>
-                  </td>
-                </tr>
-                <tr>
-                  <td scope="row">
-                    <div className="shopcart-product-img-box">
-                      <Link to="/#">
-                        <img
-                          src={ShopCartImg}
-                          alt=""
-                          className="shopcart-cover-fit"
-                        />
-                      </Link>
-                    </div>
-                  </td>
-                  <td scope="row">MERRELL Tetrex Crest Wrap 女水陸三棲鞋</td>
-                  <td scope="row">
-                    <div className="button-box m-3">
-                      <input
-                        type="button"
-                        value="S"
-                        className="shopcart-size-btn mx-1"
-                      />
-                      <input
-                        type="button"
-                        value="M"
-                        className="shopcart-size-btn mx-1"
-                      />
-                      <input
-                        type="button"
-                        value="L"
-                        className="shopcart-size-btn mx-1"
-                      />
-                    </div>
-                  </td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
-                    <button className="btn shopcart-minus-btn">
-                      <BsDash size={24} />
-                    </button>
-                    <input
-                      type="text"
-                      className="shopcart-order-number"
-                      value="1"
-                      readonly
-                    />
-                    <button className="btn shopcart-add-btn">
-                      <BsPlus size={24} />
-                    </button>
-                  </td>
-                  <td scope="row">10</td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
-                    <Link to="/#">
-                      <BsTrash size={24} />
-                    </Link>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                  </div>
+                </div>
+              );
+            })}
+            {/* abby */}
             {/* <!-- 分頁 start  --> */}
             {pages_btn}
             {/* <!-- 分頁 end  --> */}
