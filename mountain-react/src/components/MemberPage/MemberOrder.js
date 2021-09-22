@@ -18,23 +18,20 @@ import { BsTrash } from 'react-icons/bs';
 
 function MemberOrder() {
   const [orderDetail, setOrderDetail] = useState([]);
+  const [info, setInfo] = useState([]);
+  // const [totalPrice, setTotalPrice] = useState([]);
+  // const [totalTime, setTotalTime] = useState([]);
+  // const [totalNumber, setTotalNumber] = useState([]);
 
   useEffect(() => {
     async function getOrderDetail() {
       try {
         const orderDetailData = await axios.get(memberOrderURL);
-
         // console.log(orderDetailData.data); //for check
+        setOrderDetail(orderDetailData.data.result);
+        setInfo(orderDetailData.data.totalInfo);
 
-        // 訂單總額 start //
-        let sum = 0;
-        for (let i = 0; i < orderDetailData.data.length; i++) {
-          sum += orderDetailData.data[i].product_price;
-        }
-        console.log(sum);
-        // 訂單總額 end //
-
-        setOrderDetail(orderDetailData.data);
+        // console.log(orderDetailData.data.totalPrice);
       } catch (e) {
         console.log(e);
       }
@@ -174,102 +171,99 @@ function MemberOrder() {
                     p-md-4 p-lg-5
                   "
                   >
-                    {orderDetail.map((items, i) => (
-                      <tbody>
-                        <tr>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-top"
-                          >
-                            訂單編號：
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-top"
-                          >
-                            {items.time.replace(/[^0-9]/gm, '').match(/.{8}/) +
-                              '0' +
-                              items.id}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-top"
-                          >
-                            訂單時間：
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-top"
-                          >
-                            {items.time}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-top"
-                          >
-                            訂單金額：
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-top"
-                          >
-                            {'$' + items.product_price * items.user_order_num}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-top align-middle"
-                          >
-                            訂單狀態：
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-top"
-                          >
-                            <div className="progress_bar_inline_block">
-                              {/* <!-- class change to current "step-2" --> */}
-                              <div
-                                className="step-1"
-                                id="member_order_checkout-progress"
-                                data-current-step="1"
-                              >
-                                <div className="member_order_progress-bar1">
-                                  {/* <!-- "active" change to "valid" --> */}
-                                  <div className="member_order_step step-1 member_order_active">
-                                    <span></span>
-                                    {/* <!-- "opaque" change to "" --> */}
-                                    <div className="member_order_fa member_order_fa-check member_order_opaque"></div>
-                                    <div className="member_order_step-label">
-                                      未處理
-                                    </div>
+                    <tbody>
+                      <tr>
+                        <td
+                          scope="row"
+                          className="member-comment-text-weight-top"
+                        >
+                          訂單編號：
+                        </td>
+                        <td
+                          scope="row"
+                          className="member-comment-text-weight-top"
+                        >
+                          {info.number}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          scope="row"
+                          className="member-comment-text-weight-top"
+                        >
+                          訂單時間：
+                        </td>
+                        <td
+                          scope="row"
+                          className="member-comment-text-weight-top"
+                        >
+                          {info.time}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          scope="row"
+                          className="member-comment-text-weight-top"
+                        >
+                          訂單金額：
+                        </td>
+
+                        <td
+                          scope="row"
+                          className="member-comment-text-weight-top"
+                        >
+                          ${info.price}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          scope="row"
+                          className="member-comment-text-weight-top align-middle"
+                        >
+                          訂單狀態：
+                        </td>
+                        <td
+                          scope="row"
+                          className="member-comment-text-weight-top"
+                        >
+                          <div className="progress_bar_inline_block">
+                            {/* <!-- class change to current "step-2" --> */}
+                            <div
+                              className="step-1"
+                              id="member_order_checkout-progress"
+                              data-current-step="1"
+                            >
+                              <div className="member_order_progress-bar1">
+                                {/* <!-- "active" change to "valid" --> */}
+                                <div className="member_order_step step-1 member_order_active">
+                                  <span></span>
+                                  {/* <!-- "opaque" change to "" --> */}
+                                  <div className="member_order_fa member_order_fa-check member_order_opaque"></div>
+                                  <div className="member_order_step-label">
+                                    未處理
                                   </div>
-                                  {/* <!-- add class "active" --> */}
-                                  <div className="member_order_step member_order_step-2">
-                                    <span></span>
-                                    <div className="member_order_fa member_order_fa-check member_order_opaque"></div>
-                                    <div className="member_order_step-label">
-                                      處理中
-                                    </div>
+                                </div>
+                                {/* <!-- add class "active" --> */}
+                                <div className="member_order_step member_order_step-2">
+                                  <span></span>
+                                  <div className="member_order_fa member_order_fa-check member_order_opaque"></div>
+                                  <div className="member_order_step-label">
+                                    處理中
                                   </div>
-                                  <div className="member_order_step member_order_step-3">
-                                    <span></span>
-                                    <div className="member_order_fa member_order_fa-check member_order_opaque"></div>
-                                    <div className="member_order_step-label">
-                                      已完成
-                                    </div>
+                                </div>
+                                <div className="member_order_step member_order_step-3">
+                                  <span></span>
+                                  <div className="member_order_fa member_order_fa-check member_order_opaque"></div>
+                                  <div className="member_order_step-label">
+                                    已完成
                                   </div>
                                 </div>
                               </div>
                             </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    ))}
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
                   </table>
 
                   {/* <!-- <hr /> --> */}
@@ -390,66 +384,64 @@ function MemberOrder() {
                     <div className="">
                       <h2>配送資訊</h2>
                       <table className="table table-borderless mt-2 p-md-4 p-lg-5">
-                        {orderDetail.map((items, i) => (
-                          <tbody>
-                            <tr>
-                              <td
-                                scope="row"
-                                className="member-comment-text-weight-middle align-middle"
-                              >
-                                收件人姓名：
-                              </td>
-                              <td
-                                scope="row"
-                                className="member-comment-text-weight-middle align-middle"
-                              >
-                                {items.users_name}
-                              </td>
-                            </tr>
-                            <tr>
-                              <td
-                                scope="row"
-                                className="member-comment-text-weight-middle align-middle"
-                              >
-                                收件地址（取件超商）：
-                              </td>
-                              <td
-                                scope="row"
-                                className="member-comment-text-weight-middle align-middle"
-                              >
-                                {items.ship_name}
-                              </td>
-                            </tr>
-                            <tr>
-                              <td
-                                scope="row"
-                                className="member-comment-text-weight-middle align-middle"
-                              >
-                                收件人電話
-                              </td>
-                              <td
-                                scope="row"
-                                className="member-comment-text-weight-middle align-middle"
-                              >
-                                {items.users_phone}
-                              </td>
-                            </tr>
-                            <tr>
-                              <td
-                                scope="row"
-                                className="member-comment-text-weight-middle align-middle"
-                              >
-                                付款方式
-                              </td>
-                              <td
-                                scope="row"
-                                className="member-comment-text-weight-middle align-middle"
-                              >
-                                {items.pay_way_name}
-                              </td>
-                            </tr>
-                          </tbody>
-                        ))}
+                        <tbody>
+                          <tr>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              收件人姓名：
+                            </td>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              {info.usersName}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              收件地址（取件超商）：
+                            </td>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              {info.shipName}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              收件人電話
+                            </td>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              {info.usersPhone}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              付款方式
+                            </td>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              {info.payWayName}
+                            </td>
+                          </tr>
+                        </tbody>
                       </table>
                     </div>
                   </div>
@@ -464,68 +456,64 @@ function MemberOrder() {
                     p-md-4 p-lg-5
                   "
                   >
-                    {orderDetail.map((items, i) => (
-                      <tbody>
-                        <tr>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-top"
-                          >
-                            訂單編號：
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-top"
-                          >
-                            {items.time.replace(/[^0-9]/gm, '').match(/.{8}/) +
-                              '0' +
-                              items.id}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-top"
-                          >
-                            訂單時間：
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-top"
-                          >
-                            {items.time}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-top"
-                          >
-                            訂單金額：
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-top"
-                          >
-                            {'$' + items.product_price * items.user_order_num}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-top"
-                          >
-                            訂單狀態：
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-top"
-                          >
-                            已完成
-                          </td>
-                        </tr>
-                      </tbody>
-                    ))}
+                    <tbody>
+                      <tr>
+                        <td
+                          scope="row"
+                          className="member-comment-text-weight-top"
+                        >
+                          訂單編號：
+                        </td>
+                        <td
+                          scope="row"
+                          className="member-comment-text-weight-top"
+                        >
+                          {info.number}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          scope="row"
+                          className="member-comment-text-weight-top"
+                        >
+                          訂單時間：
+                        </td>
+                        <td
+                          scope="row"
+                          className="member-comment-text-weight-top"
+                        >
+                          {info.time}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          scope="row"
+                          className="member-comment-text-weight-top"
+                        >
+                          訂單金額：
+                        </td>
+                        <td
+                          scope="row"
+                          className="member-comment-text-weight-top"
+                        >
+                          ${info.price}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          scope="row"
+                          className="member-comment-text-weight-top"
+                        >
+                          訂單狀態：
+                        </td>
+                        <td
+                          scope="row"
+                          className="member-comment-text-weight-top"
+                        >
+                          已完成
+                        </td>
+                      </tr>
+                    </tbody>
                   </table>
                   {/* <!-- <hr /> --> */}
                   <div className="mt-5">
@@ -584,6 +572,7 @@ function MemberOrder() {
                           </th>
                         </tr>
                       </thead>
+
                       {orderDetail.map((items, i) => (
                         <tbody className="tbody-tr-border">
                           <tr>
@@ -645,66 +634,64 @@ function MemberOrder() {
                     <div className="">
                       <h2>配送資訊</h2>
                       <table className="table table-borderless mt-2 p-md-4 p-lg-5">
-                        {orderDetail.map((items, i) => (
-                          <tbody>
-                            <tr>
-                              <td
-                                scope="row"
-                                className="member-comment-text-weight-middle align-middle"
-                              >
-                                收件人姓名：
-                              </td>
-                              <td
-                                scope="row"
-                                className="member-comment-text-weight-middle align-middle"
-                              >
-                                {items.users_name}
-                              </td>
-                            </tr>
-                            <tr>
-                              <td
-                                scope="row"
-                                className="member-comment-text-weight-middle align-middle"
-                              >
-                                收件地址（取件超商）：
-                              </td>
-                              <td
-                                scope="row"
-                                className="member-comment-text-weight-middle align-middle"
-                              >
-                                {items.ship_name}
-                              </td>
-                            </tr>
-                            <tr>
-                              <td
-                                scope="row"
-                                className="member-comment-text-weight-middle align-middle"
-                              >
-                                收件人電話
-                              </td>
-                              <td
-                                scope="row"
-                                className="member-comment-text-weight-middle align-middle"
-                              >
-                                {items.users_phone}
-                              </td>
-                            </tr>
-                            <tr>
-                              <td
-                                scope="row"
-                                className="member-comment-text-weight-middle align-middle"
-                              >
-                                付款方式
-                              </td>
-                              <td
-                                scope="row"
-                                className="member-comment-text-weight-middle align-middle"
-                              >
-                                {items.pay_way_name}
-                              </td>
-                            </tr>
-                          </tbody>
-                        ))}
+                        <tbody>
+                          <tr>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              收件人姓名：
+                            </td>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              {info.usersName}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              收件地址（取件超商）：
+                            </td>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              {info.shipName}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              收件人電話
+                            </td>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              {info.usersPhone}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              付款方式
+                            </td>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              {info.payWayName}
+                            </td>
+                          </tr>
+                        </tbody>
                       </table>
                     </div>
                   </div>
