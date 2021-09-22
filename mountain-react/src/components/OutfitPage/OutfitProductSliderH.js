@@ -21,9 +21,9 @@ function OutfitProductSlider(props) {
     <>
       {/* product-warpper start */}
       <div className="outfit-product-slider">
-        <BsFillCaretLeftFill className="outfit-prev mb-1" id="slideLeft" />
-        <BsFillCaretRightFill className="outfit-next mb-1" id="slideRight" />
-        <div className="outfit-product-wrapper" id="slider">
+        <BsFillCaretLeftFill className="outfit-prev mb-1" id="slideLeft3" />
+        <BsFillCaretRightFill className="outfit-next mb-1" id="slideRight3" />
+        <div className="outfit-product-wrapper" id="slider3">
           <div className="outfit-product">
             <div className="outfit-product-img">
               <img

@@ -17,6 +17,10 @@ import shoesPic3Removebg from '../../img/img-outfit/shoes-pic3-removebg-preview.
 //===import img end===
 
 function OutfitProductSlider(props) {
+  // const handleDragStart = (e) => {
+  //   console.log('child', e);
+  //   props.dragStart(e);
+  // };
   return (
     <>
       {/* product-warpper start */}
@@ -25,7 +29,11 @@ function OutfitProductSlider(props) {
         <BsFillCaretRightFill className="outfit-next mb-1" id="slideRight" />
         <div className="outfit-product-wrapper" id="slider">
           <div className="outfit-product">
-            <div className="outfit-product-img">
+            <div
+              className="outfit-product-img"
+              // draggable="true"
+              // onDragStart={(e) => handleDragStart(e)}
+            >
               <img
                 src={bagsPic1Removebg}
                 alt=""
@@ -33,6 +41,8 @@ function OutfitProductSlider(props) {
                 id="10"
                 data-productName="The North Face 黑色便捷休閒腰包"
                 data-price="1780"
+                // draggable="true"
+                // onDragStart={(e) => handleDragStart(e)}
               />
             </div>
             <div className="outfit-product-info">

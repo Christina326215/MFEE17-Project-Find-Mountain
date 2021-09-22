@@ -37,6 +37,12 @@ function Outfit(props) {
   const [listData, setListData] = useState([]);
   const [outfitProducts, setOutfitProducts] = useState([]);
 
+  // const handleDragStart = (e) => {
+  //   console.log('e', e);
+  //   // e.dataTransfer.setData('text/plain', e.currentTarget.id);
+  //   // console.log('e.currentTarget.id', e.currentTarget.id);
+  // };
+
   useEffect(() => {
     // async function outfitData() {
     //   try {
@@ -59,25 +65,37 @@ function Outfit(props) {
       $('#div' + $(this).attr('target')).show();
     });
 
-    // let buttonRight = document.getElementById('slideRight');
-    // let buttonLeft = document.getElementById('slideLeft');
-
-    // buttonLeft.addEventListener('click', function () {
-    //   document.getElementById('slider').scrollLeft -= 180;
-    // });
-
-    // buttonRight.addEventListener('click', function () {
-    //   document.getElementById('slider').scrollLeft += 180;
-    // });
-    $('.outfit-prev').click(function () {
+    $('#slideLeft').click(function () {
       // $('#slider').scrollLeft -= 180;
       document.getElementById('slider').scrollLeft -= 180;
       // $('.outfit-product-wrapper').scrollLeft -= 180;
     });
-    $('.outfit-next').click(function () {
+    $('#slideRight').click(function () {
       // console.log('click');
       // $('#slider').scrollLeft += 180;
       document.getElementById('slider').scrollLeft += 180;
+      // $('.outfit-product-wrapper').scrollLeft += 180;
+    });
+    $('#slideLeft2').click(function () {
+      // $('#slider').scrollLeft -= 180;
+      document.getElementById('slider2').scrollLeft -= 180;
+      // $('.outfit-product-wrapper').scrollLeft -= 180;
+    });
+    $('#slideRight2').click(function () {
+      // console.log('click');
+      // $('#slider').scrollLeft += 180;
+      document.getElementById('slider2').scrollLeft += 180;
+      // $('.outfit-product-wrapper').scrollLeft += 180;
+    });
+    $('#slideLeft3').click(function () {
+      // $('#slider').scrollLeft -= 180;
+      document.getElementById('slider3').scrollLeft -= 180;
+      // $('.outfit-product-wrapper').scrollLeft -= 180;
+    });
+    $('#slideRight3').click(function () {
+      // console.log('click');
+      // $('#slider').scrollLeft += 180;
+      document.getElementById('slider3').scrollLeft += 180;
       // $('.outfit-product-wrapper').scrollLeft += 180;
     });
 
@@ -97,11 +115,9 @@ function Outfit(props) {
       };
 
       function handleDragStart(e) {
-        console.log('high');
-        e.dataTransfer.setData('text/plain', e.currentTarget.id);
-        console.log('e', e);
-        console.log('e.currentTarget.id', e.currentTarget.id);
+        e.dataTransfer.setData('text/plain', e.target.id);
       }
+
       function handleDragEnd(e) {}
       function handleDragEnter(e) {
         // e.stopPropagation();
@@ -117,7 +133,7 @@ function Outfit(props) {
       }
       // showSelectedData();
       function handleDrop(e) {
-        handleDragStart();
+        // handleDragStart();
         e.stopPropagation();
         document.getElementById('hide').style.display = 'none';
         // if (e.stopPropagation) {
@@ -125,9 +141,9 @@ function Outfit(props) {
         // }
         let id = e.dataTransfer.getData('text/plain');
         // console.log('id', id)
-        var img = document.querySelector('#' + id);
+        var img = document.getElementById(id);
         // console.log('img', img);
-        var img = '123';
+        // var img = '123';
 
         var newImage = new fabric.Image(img, {
           width: 0,
@@ -141,7 +157,7 @@ function Outfit(props) {
         // console.log("newImage", newImage);
         canvas.add(newImage);
 
-        selectedImgs.push('#' + id);
+        selectedImgs.push(id);
         // console.log("selectedImgs", selectedImgs);
         saveData();
         return false;
@@ -150,15 +166,15 @@ function Outfit(props) {
         console.log('selectedImgs save', selectedImgs);
         for (let i = 0; i < selectedImgs.length; i++) {
           let productPicUrl = document
-            .querySelector(selectedImgs[i])
+            .getElementById(selectedImgs[i])
             .getAttribute('src');
           // console.log('productPicUrl',productPicUrl);
           // ./img/img-outfit/clothes-pic1-removebg-preview.png
-          let productName = document.querySelector(selectedImgs[i]).dataset
+          let productName = document.getElementById(selectedImgs[i]).dataset
             .productname;
           // console.log('productName',productName);
           // Arcteryx 始祖鳥 單件式GORE-TEX化纖保暖外套
-          let productPrice = document.querySelector(selectedImgs[i]).dataset
+          let productPrice = document.getElementById(selectedImgs[i]).dataset
             .price;
           // console.log('productPrice',productPrice); //5000
           // let product_records = new Array();
@@ -200,20 +216,20 @@ function Outfit(props) {
             let addDiv = document.createElement('div');
             addDiv.className = 'newItem';
             addDiv.innerHTML =
-              '<div style={{ width: "100px" }}><img class="cover-fit" src="' +
+              '<div class="productPic"><img class="cover-fit" src="' +
               product_records[i].productPicUrl +
-              '"/></div><div style={{width: "60%"}}>' +
+              '"/></div><div class="productName">' +
               product_records[i].productName +
-              '</div><div style={{width: "14%"}}>NT$ ' +
+              '</div><div class="productPrice">NT$ ' +
               product_records[i].productPrice +
-              '</div><div style={{width: "6%"}}>Ｘ１</div></div>';
+              '</div><div class="productCount">Ｘ１</div></div>';
             subtotal += parseInt(product_records[i].productPrice, 10);
             document.getElementById('newItems').appendChild(addDiv);
             document.getElementById('subtotal').innerText = subtotal;
           }
         }
       }
-      var images = document.querySelectorAll('.product-img img');
+      var images = document.querySelectorAll('.outfit-product-img img');
       [].forEach.call(images, function (img) {
         img.addEventListener('dragstart', handleDragStart, false);
         img.addEventListener('dragend', handleDragEnd, false);
@@ -314,6 +330,7 @@ function Outfit(props) {
               </div>
               <div className="outfit-right-side col col-lg-8">
                 <div id="div1" className="target">
+                  {/* <OutfitProductSliderL dragStart={handleDragStart()} /> */}
                   <OutfitProductSliderL />
                 </div>
                 <div id="div2" className="target">
@@ -388,15 +405,13 @@ function Outfit(props) {
                 <div id="newItems">
                   {/* <div class="newItem">
                     <div style={{ width: '100px' }}>
-                      <img
-                        class="cover-fit"
-                        src="./img/img-outfit/shoes-pic3-removebg-preview.png"
-                        alt=""
-                      />
+                      <img class="cover-fit" src={clothesPic1Removebg} alt="" />
                     </div>
-                    <div>SALOMON EVASION GORE-TEX登山健行鞋</div>
-                    <div>NT$ 1000</div>
-                    <div>Ｘ１</div>
+                    <div style={{ width: '60%' }}>
+                      SALOMON EVASION GORE-TEX登山健行鞋
+                    </div>
+                    <div style={{ width: '80px' }}>NT$ 1000</div>
+                    <div style={{ width: '60px' }}>Ｘ１</div>
                   </div> */}
                 </div>
               </div>

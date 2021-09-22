@@ -15,10 +15,10 @@ window.onresize = function () {
 function handleDragStart(e) {
   e.dataTransfer.setData("text/plain", event.target.id);
 }
-function handleDragEnd(e) {}
-function handleDragEnter(e) {
-  // e.stopPropagation();
-}
+// function handleDragEnd(e) {}
+// function handleDragEnter(e) {
+//   // e.stopPropagation();
+// }
 function handleDragOver(e) {
   e.preventDefault();
   e.dataTransfer.dropEffect = "copy";
@@ -36,7 +36,7 @@ function handleDrop(e) {
   //     e.stopPropagation();
   // }
   let id = e.dataTransfer.getData("text/plain");
-  var img = document.querySelector("#" + id);
+  var img = document.getElementById("#" + id);
   // console.log(img);
 
   var newImage = new fabric.Image(img, {
@@ -125,11 +125,11 @@ function showSelectedData() {
 var images = document.querySelectorAll(".product-img img");
 [].forEach.call(images, function (img) {
   img.addEventListener("dragstart", handleDragStart, false);
-  img.addEventListener("dragend", handleDragEnd, false);
+  // img.addEventListener("dragend", handleDragEnd, false);
 });
 
 // var canvasContainer = document.getElementsByClassName("canvas-target");
-canvasTarget.addEventListener("dragenter", handleDragEnter, false);
+// canvasTarget.addEventListener("dragenter", handleDragEnter, false);
 canvasTarget.addEventListener("dragover", handleDragOver, false);
 canvasTarget.addEventListener("dragleave", handleDragLeave, false);
 canvasTarget.addEventListener("drop", handleDrop, false);
