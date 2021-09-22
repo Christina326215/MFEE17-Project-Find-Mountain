@@ -173,7 +173,7 @@ router.get("/productL", async function (req, res, next) {
     ) {
       // console.log("hi");
       switch (name) {
-        case "MERRELL Tetrex Crest Wrap 女水陸三棲鞋":
+        case "MERRELL 女水陸三棲鞋":
           data.name = "女水陸三棲鞋";
           data.brand = "MERRELL";
           //變成千分為符號 way 1//
@@ -194,9 +194,9 @@ router.get("/productL", async function (req, res, next) {
           data.price = (data.price).toLocaleString('en-US');
           newData.push(data); //將資料重整後push到新陣列
           break;
-        case "【2000mm 防水】男透氣休閒健行外套 QUECHUA":
+        case "QUECHUA 男透氣休閒健行外套":
           data.name = "男透氣休閒健行外套";
-          data.brand = "Decathlon";
+          data.brand = "QUECHUA";
           data.price = (data.price).toLocaleString('en-US');
           newData.push(data); //將資料重整後push到新陣列
           break;
