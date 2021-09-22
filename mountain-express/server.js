@@ -137,6 +137,11 @@ let memberCommentRouter = require("./routers/memberComment");
 app.use("/api/member/comment", memberCommentRouter);
 //===引用 memberComment 進來 end===//
 
+//===引用 memberOrder 進來 star===//
+let memberOrderRouter = require("./routers/memberOrder");
+app.use("/api/member/order", memberOrderRouter);
+//===引用 memberOrder 進來 end===//
+
 
 //====== error message star ======//
 app.use((req, res, next) => {

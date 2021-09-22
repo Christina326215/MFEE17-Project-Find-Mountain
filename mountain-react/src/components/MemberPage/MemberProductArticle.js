@@ -5,7 +5,11 @@ import { withRouter } from 'react-router-dom'; //可以獲取history,location,ma
 import $ from 'jquery';
 import '../../styles/MemberPage/MemberProductArticle.scss'; //member product and article style
 
-import { memberProductURL, memberArticleURL } from '../../utils/config';
+import {
+  memberProductURL,
+  memberArticleURL,
+  IMAGE_URL,
+} from '../../utils/config';
 import axios from 'axios';
 
 //====== below pages star ======//
@@ -17,11 +21,6 @@ import MemberSideHead from './pages/MemberSideHead'; //member Side Head
 import { BsTrash, BsStar, BsStarFill, BsXSquareFill } from 'react-icons/bs';
 import { Cart } from 'react-bootstrap-icons';
 //====== below icon end ======//
-
-//====== below img import start ======//
-import MemberProductImg from '../../img/shoes-pic2.jpeg';
-import Xiangshan from '../../img/xiangshan.jpeg';
-//====== above img import end ======//
 
 function MemberProductArticle() {
   const [dataProduct, setProductData] = useState([]);
@@ -247,7 +246,7 @@ function MemberProductArticle() {
                           >
                             <div className="member-product-article-product-picture-img-box">
                               <img
-                                src={MemberProductImg}
+                                src={`${IMAGE_URL}/img/${items.product_pic}`}
                                 alt=""
                                 className="member-product-article-product-picture-img"
                               />
@@ -301,7 +300,7 @@ function MemberProductArticle() {
                           >
                             <div className="member-product-article-article-picture-img-box">
                               <img
-                                src={Xiangshan}
+                                src={`${IMAGE_URL}/img/${items.article_pic}`}
                                 alt=""
                                 className="member-product-article-article-picture-img"
                               />

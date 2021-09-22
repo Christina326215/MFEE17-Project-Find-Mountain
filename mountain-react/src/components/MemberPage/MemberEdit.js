@@ -319,7 +319,7 @@ function MemberEdit() {
                     <input
                       type="email"
                       className="form-control"
-                      id="inputAccount"
+                      id="account"
                       placeholder="請輸入您的email"
                       name="account"
                       value={tempMember && tempMember.account}
@@ -334,8 +334,10 @@ function MemberEdit() {
                     <input
                       type="password"
                       className="form-control"
-                      id="inputPassword"
+                      id="password"
                       name="password"
+                      value={tempMember && tempMember.password}
+                      onChange={handleChange}
                     />
                   </div>
                   <button

@@ -29,6 +29,10 @@ export const memberCommentURL =
   process.env.REACT_APP_memberCommentURL ||
   'http://localhost:3500/api/member/comment';
 
+export const memberOrderURL =
+  process.env.REACT_APP_memberOrderURL ||
+  'http://localhost:3500/api/member/order';
+
 export const baseZipURL =
   process.env.REACT_APP_zipURL || 'http://localhost:3500/zip';
 
