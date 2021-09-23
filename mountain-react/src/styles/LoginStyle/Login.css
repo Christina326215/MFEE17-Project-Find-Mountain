@@ -1,9 +1,5 @@
-.logInImg-fit {
-  width: 100%;
-  height: 600px;
-  object-fit: cover;
+.login-bg-pic {
 }
-
 .login-right-side {
   display: flex;
   align-items: center;
@@ -22,7 +18,7 @@
   color: #111;
 }
 .login-input {
-  border-radius: 20px;
+  border-radius: px;
 }
 .login-password {
   color: #111;
@@ -46,12 +42,14 @@
   animation: slidein 2s;
 }
 /* ====slider==== */
-
+.black-mask {
+  background: #000;
+}
 .login-slick-photo-box {
   background: #414141;
-  height: 100vh;
-  width: 100%;
-  /* height: 300px; */
+  /* height: 100vh; */
+
+  height: 850px;
 }
 @keyframes slidein {
   0% {
@@ -69,12 +67,12 @@
   border-radius: 20px;
 }
 
-.login-btn-css {
+/* .login-btn {
   border: 1px solid #6da77f;
   color: #6da77f;
-}
+} */
 
-.login-btn-css:hover {
+.login-btn:hover {
   background: #6da77f;
   color: #f5f5f5;
 }
@@ -102,7 +100,7 @@
   margin: 20px 0;
 }
 
-.login-social-container a {
+.login-social-container .login-icon {
   border: 1px solid #ddd;
   border-radius: 50%;
   display: inline-flex;
@@ -111,4 +109,34 @@
   margin: 0 5px;
   height: 40px;
   width: 40px;
+  position: relative;
+  transition: 0.3s;
+}
+.login-h3 {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.login-icon-FB:hover {
+  border: 1px solid rgb(24, 119, 242);
+  color: rgb(24, 119, 242);
+}
+.login-icon-Google:hover {
+  border: 1px solid #ea4335;
+  color: #ea4335;
+  /* color: linear-gradient(
+    90deg,
+    rgba(66, 133, 244, 1) 0%,
+    rgba(235, 69, 55, 1) 20%,
+    rgba(250, 194, 48, 1) 40%,
+    rgba(66, 133, 244, 1) 60%,
+    rgba(85, 175, 123, 1) 80%,
+    rgba(235, 69, 55, 1) 100%
+  ); */
+}
+.login-social-container .login-icon-Line:hover {
+  border: 1px solid #07b53b;
+  color: #07b53b;
 }

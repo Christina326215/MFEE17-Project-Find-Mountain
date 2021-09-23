@@ -23,19 +23,10 @@ import slider3 from '../../img/pic3.webp';
 //===import img end===
 
 function Login(props) {
-  const [listData, setListData] = useState([]);
-  useEffect(() => {
-    async function homeData() {
-      try {
-        const homeData = await axios.get(authURL);
-        console.log(homeData.data); //for check
-        setListData(homeData.data);
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    homeData();
-  }, []);
+  const [user, setUser] = useState([]);
+  const [email, setEmail] = useState('ming@test');
+  const [password, setPassword] = useState('123456');
+
   useEffect(() => {
     $('.login-display-photo-box').slick({
       dots: false,
@@ -46,109 +37,127 @@ function Login(props) {
       cssEase: 'linear',
     });
   }, []);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      let result = await axios.post(`${authURL}/login`, {
+        email,
+        password,
+      });
+      console.log(result.data); //for check
+      setUser(result.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <>
-      <div class="">
-        <div class="d-flex">
-          <div class="login-w-50-l login-bg-pic p-3 position-relative">
-            <div className="login-display-photo-box">
-              <div class="login-slick-photo-box">
-                <img src={slider1} alt="" title="" class="cover-fit" />
+      <div>
+        <div className="d-flex">
+          <div className="login-w-50-l login-bg-pic p-3 position-relative">
+            <div className="login-display-photo-box black-mask">
+              <div className="login-slick-photo-box">
+                <img src={slider1} alt="" title="" className="cover-fit" />
               </div>
-              <div class="login-slick-photo-box">
-                <img src={slider2} alt="" title="" class="cover-fit" />
+              <div className="login-slick-photo-box">
+                <img src={slider2} alt="" title="" className="cover-fit" />
               </div>
-              <div class="login-slick-photo-box">
-                <img src={slider3} alt="" title="" class="cover-fit" />
+              <div className="login-slick-photo-box">
+                <img src={slider3} alt="" title="" className="cover-fit" />
               </div>
             </div>
-            <div class="position-absolute login-logobox">
-              <figure class="login-logo">
+            <div className="position-absolute login-logobox">
+              <figure className="login-logo">
                 <img src={loginLogo} alt="logo" />
               </figure>
             </div>
           </div>
-          <div class="login-w-50-l p-5 align-self-center">
-            <form>
-              <h2 class="text-center pb-5 login-title">會員登入</h2>
-              <div class="mb-3">
+          <div className="login-w-50-l p-5 align-self-center">
+            <form onSubmit={handleSubmit}>
+              <h2 className="text-center pb-5 login-title">會員登入</h2>
+              <div className="mb-3">
                 <label
-                  for="exampleInputEmail1"
-                  class="form-label login-account"
+                  htmlFor="InputEmail1"
+                  className="form-label login-account"
                 >
                   帳號
                 </label>
                 <input
                   type="email"
-                  class="form-control login-input"
-                  id="exampleInputEmail1"
+                  className="form-control login-input"
+                  id="InputEmail1"
                   aria-describedby="emailHelp"
                   placeholder="請輸入您的email"
+                  name="email"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
                 />
               </div>
-              <div class="mb-3">
+              <div className="mb-3">
                 <label
-                  for="exampleInputPassword1"
-                  class="form-label login-password"
+                  htmlFor="InputPassword1"
+                  className="form-label login-password"
                 >
                   密碼
                 </label>
                 <input
                   type="password"
-                  class="form-control login-input"
-                  id="exampleInputPassword1"
+                  className="form-control login-input"
+                  id="InputPassword1"
                   placeholder="請輸入您的密碼"
+                  name="password"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
                 />
               </div>
-              <div class="mb-3 form-check">
+              <div className="mb-3 form-check">
                 <input
                   type="checkbox"
-                  class="form-check-input"
+                  className="form-check-input"
                   id="exampleCheck1"
                 />
-                <label class="form-check-label login-stay" for="exampleCheck1">
+                <label
+                  className="form-check-label login-stay"
+                  htmlFor="exampleCheck1"
+                >
                   保持登入
                 </label>
               </div>
-              <div class="mb-3 text-center login-member">
-                <button type="submit" class="btn login-btn">
+              <div className="mb-3 text-center login-member">
+                <button type="submit" className="btn login-btn">
                   會員登入
                 </button>
               </div>
-              <div class="mb-3 text-center">
-                <Link class="login-forgetPassword" href="">
+              <div className="mb-3 text-center">
+                <Link className="login-forgetPassword" to="">
                   忘記密碼
                 </Link>
                 <span>&nbsp;&nbsp; &nbsp;&nbsp;</span>
-                <Link class="login-signUp" to="/signup-info">
+                <Link className="login-signUp" to="/signup">
                   註冊會員
                 </Link>
               </div>
               <hr />
-              <div class="mb-3">
-                <h6 class="login-fast">快速登入</h6>
+              <div className="mb-3">
+                <h6 className="login-fast">快速登入</h6>
                 <span>&nbsp;&nbsp;</span>
-                <div class="login-social-container">
-                  <Link href="#" class="">
-                    <FaFacebookSquare class="h3" />
+                <div className="login-social-container">
+                  <Link to="#" className="login-icon login-icon-FB">
+                    <FaFacebookSquare className="login-h3" />
                   </Link>
                   <span>&nbsp;&nbsp;</span>
-                  <Link href="#" class="">
-                    <FaGoogle class="h3" />
+                  <Link to="#" className="login-icon login-icon-Google">
+                    <FaGoogle className="login-h3" />
                   </Link>
                   <span>&nbsp;&nbsp;</span>
-                  <Link href="#" class="">
-                    <FaLine class="h3" />
+                  <Link to="#" className="login-icon login-icon-Line">
+                    <FaLine className="login-h3" />
                   </Link>
-                  {/* <a href="#" class="social">
-                    <ion-icon name="logo-facebook"></ion-icon>
-                  </a>
-                  <a href="#" class="social">
-                    <ion-icon name="logo-googleplus"></ion-icon>
-                  </a>
-                  <a href="#" class="social">
-                    <ion-icon name="logo-linkedin"></ion-icon>
-                  </a> */}
                 </div>
               </div>
             </form>
