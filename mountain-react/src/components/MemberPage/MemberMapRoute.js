@@ -126,7 +126,7 @@ function MemberMapRoute() {
                       to="/member/personal"
                       className="member-left-href-color"
                     >
-                      帳號設定
+                      會員資料
                     </Link>
                   </td>
                 </tr>

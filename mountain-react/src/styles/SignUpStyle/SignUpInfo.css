@@ -3,10 +3,30 @@
 }
 /* title */
 .signup-info-title {
+  margin-bottom: 50px;
   font-weight: bold;
   font-size: 34px;
   color: #19634a;
 }
+/* switch-tab start */
+#mapBtn {
+  cursor: pointer;
+  color: #4e4e4e;
+}
+#routeBtn {
+  cursor: pointer;
+  color: #4e4e4e;
+}
+#areaMap {
+  display: block;
+}
+#areaRoute {
+  display: block;
+}
+.member-map-route-content2 {
+  display: none;
+}
+/* switch-tab end */
 
 /* sign up content */
 .signUpInfo {
@@ -30,210 +50,6 @@
   margin: 10px auto;
   width: 40%;
   height: 30%;
-}
-
-/* progress bar */
-.signup-info-opaque {
-  opacity: 0;
-  -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
-}
-
-.signup-info-disabled {
-  opacity: 0.4;
-  pointer-events: none;
-}
-
-#signup-info-checkout-progress {
-  width: 80%;
-  margin: 0px auto;
-  font-size: 2em;
-  font-weight: 900;
-  position: relative;
-}
-@media (max-width: 767px) {
-  #signup-info-checkout-progress {
-    font-size: 1.5em;
-  }
-}
-#signup-info-checkout-progress:before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  height: 10px;
-  width: 100%;
-  background-color: #ccc;
-  -webkit-transform: translateY(-50%) perspective(1000px);
-  transform: translateY(-50%) perspective(1000px);
-}
-#signup-info-checkout-progress:after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  height: 10px;
-  width: 300%;
-  background-color: #6da77f;
-  -webkit-transform: scaleX(0) translateY(-50%) perspective(1000px);
-  transform: scaleX(0) translateY(-50%) perspective(1000px);
-  -webkit-transform-origin: left center;
-  transform-origin: left center;
-  -webkit-transition: -webkit-transform 0.5s ease;
-  transition: -webkit-transform 0.5s ease;
-  transition: transform 0.5s ease;
-  transition: transform 0.5s ease, -webkit-transform 0.5s ease;
-}
-#signup-info-checkout-progress.signup-info-step-2:after {
-  -webkit-transform: scaleX(0.333) translateY(-50%) perspective(1000px);
-  transform: scaleX(0.333) translateY(-50%) perspective(1000px);
-}
-#signup-info-checkout-progress.signup-info-step-3:after {
-  -webkit-transform: scaleX(0.666) translateY(-50%) perspective(1000px);
-  transform: scaleX(0.666) translateY(-50%) perspective(1000px);
-}
-#signup-info-checkout-progress.signup-info-step-4:after {
-  -webkit-transform: scaleX(1) translateY(-50%) perspective(1000px);
-  transform: scaleX(1) translateY(-50%) perspective(1000px);
-}
-#signup-info-checkout-progress.signup-info-step-5:after {
-  -webkit-transform: scaleX(1) translateY(-50%) perspective(1000px);
-  transform: scaleX(1) translateY(-50%) perspective(1000px);
-}
-#signup-info-checkout-progress .signup-info-progress-bar1 {
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  height: 100px;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-#signup-info-checkout-progress .signup-info-progress-bar1 .signup-info-step {
-  z-index: 2;
-  position: relative;
-}
-#signup-info-checkout-progress
-  .signup-info-progress-bar1
-  .signup-info-step
-  .signup-info-step-label {
-  position: absolute;
-  top: calc(100% + 25px);
-  left: 50%;
-  -webkit-transform: translateX(-50%) perspective(1000px);
-  transform: translateX(-50%) perspective(1000px);
-  white-space: nowrap;
-  font-size: 0.4em;
-  font-weight: 600;
-  color: #ccc;
-  -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
-}
-@media (max-width: 767px) {
-  #signup-info-checkout-progress
-    .signup-info-progress-bar1
-    .signup-info-step
-    .signup-info-step-label {
-    top: calc(100% + 15px);
-  }
-}
-#signup-info-checkout-progress
-  .signup-info-progress-bar1
-  .signup-info-step
-  span {
-  color: #ccc;
-  -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
-  /* display: block; */
-  -webkit-transform: translate3d(0, 0, 0) scale(1) perspective(1000px);
-  transform: translate3d(0, 0, 0) scale(1) perspective(1000px);
-}
-#signup-info-checkout-progress
-  .signup-info-progress-bar1
-  .signup-info-step
-  .fa-check {
-  color: #fff;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transition: -webkit-transform 0.3s ease;
-  transition: -webkit-transform 0.3s ease;
-  transition: transform 0.3s ease;
-  transition: transform 0.3s ease, -webkit-transform 0.3s ease;
-  -webkit-transform: translate3d(-50%, -50%, 0) scale(0) perspective(1000px);
-  transform: translate3d(-50%, -50%, 0) scale(0) perspective(1000px);
-}
-#signup-info-checkout-progress
-  .signup-info-progress-bar1
-  .signup-info-step.active
-  span,
-#signup-info-checkout-progress
-  .signup-info-progress-bar1
-  .signup-info-step.active
-  .signup-info-step-label {
-  color: #6da77f;
-}
-#signup-info-checkout-progress
-  .signup-info-progress-bar1
-  .signup-info-step.valid
-  .fa-check {
-  -webkit-transform: translate3d(-50%, -50%, 0) scale(1) perspective(1000px);
-  transform: translate3d(-50%, -50%, 0) scale(1) perspective(1000px);
-}
-#signup-info-checkout-progress
-  .signup-info-progress-bar1
-  .signup-info-step.valid
-  span {
-  color: #6da77f;
-  -webkit-transform: translate3d(0, 0, 0) scale(2) perspective(1000px);
-  transform: translate3d(0, 0, 0) scale(2) perspective(1000px);
-}
-#signup-info-checkout-progress
-  .signup-info-progress-bar1
-  .signup-info-step.valid
-  .step-label {
-  color: #2c3e50 !important;
-}
-#signup-info-checkout-progress
-  .signup-info-progress-bar1
-  .signup-info-step:after {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%) perspective(1000px);
-  transform: translate(-50%, -50%) perspective(1000px);
-  width: 50px;
-  height: 50px;
-  background-color: #fff;
-  border-radius: 50%;
-  border: 3px solid #ccc;
-  -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
-}
-@media (max-width: 767px) {
-  #signup-info-checkout-progress
-    .signup-info-progress-bar1
-    .signup-info-step:after {
-    width: 30px;
-    height: 30px;
-  }
-}
-#signup-info-checkout-progress
-  .signup-info-progress-bar1
-  .signup-info-step.active:after {
-  border: 3px solid #6da77f;
-}
-#signup-info-checkout-progress
-  .signup-info-progress-bar1
-  .signup-info-step.valid:after {
-  background-color: #6da77f;
-  border: 3px solid #6da77f;
 }
 
 .signup-info-button-container {

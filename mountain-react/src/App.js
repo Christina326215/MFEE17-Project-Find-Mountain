@@ -38,8 +38,9 @@ import MemberComment from './components/MemberPage/MemberComment';
 import MemberPersonal from './components/MemberPage/MemberPersonal';
 import MemberEdit from './components/MemberPage/MemberEdit';
 
-import SignUpInfo from './components/SignUpPage/SignUpInfo';
-import SignUpAcct from './components/SignUpPage/SignUpAcct';
+import SignUp from './components/SignUpPage/SignUp';
+// import SignUpInfo from './components/SignUpPage/SignUpInfo';
+// import SignUpAcct from './components/SignUpPage/SignUpAcct';
 import Login from './components/LoginPage/Login';
 
 import { AuthContext } from './context/auth';
@@ -151,12 +152,12 @@ function App() {
               <Route path="/member">
                 <MemberMapRoute />
               </Route>
-              <Route path="/signup-info">
-                <SignUpInfo />
+              <Route path="/signup">
+                <SignUp />
               </Route>
-              <Route path="/signup-acct">
+              {/* <Route path="/signup-acct">
                 <SignUpAcct />
-              </Route>
+              </Route> */}
               <Route path="/login">
                 <Login />
               </Route>

@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
 import $ from 'jquery';
+import Swal from 'sweetalert2';
 import '../../styles/MemberPage/MemberOrder.scss'; //member map and route style
 
-import { memberURL } from '../../utils/config';
+import { memberOrderURL, IMAGE_URL } from '../../utils/config';
 import axios from 'axios';
 
 //====== below pages star ======//
@@ -15,12 +16,28 @@ import MemberSideHead from './pages/MemberSideHead'; //member Side Head
 import { BsTrash } from 'react-icons/bs';
 //====== below icon end ======//
 
-//====== below img import start ======//
-import MemberOrderImg from '../../img/shoes-pic2.jpeg';
-//====== above img import end ======//
-
 function MemberOrder() {
+  const [orderDetail, setOrderDetail] = useState([]);
+  const [info, setInfo] = useState([]);
+  // const [totalPrice, setTotalPrice] = useState([]);
+  // const [totalTime, setTotalTime] = useState([]);
+  // const [totalNumber, setTotalNumber] = useState([]);
+
   useEffect(() => {
+    async function getOrderDetail() {
+      try {
+        const orderDetailData = await axios.get(memberOrderURL);
+        // console.log(orderDetailData.data); //for check
+        setOrderDetail(orderDetailData.data.result);
+        setInfo(orderDetailData.data.totalInfo);
+
+        // console.log(orderDetailData.data.totalPrice);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getOrderDetail();
+
     // 切換區域tab-switch
     let menu = document.querySelectorAll('#menu');
     let content = document.querySelectorAll('#content');
@@ -99,7 +116,7 @@ function MemberOrder() {
                       to="/member/personal"
                       className="member-left-href-color"
                     >
-                      帳號設定
+                      會員資料
                     </Link>
                   </td>
                 </tr>
@@ -166,7 +183,7 @@ function MemberOrder() {
                           scope="row"
                           className="member-comment-text-weight-top"
                         >
-                          20210621001
+                          {info.number}
                         </td>
                       </tr>
                       <tr>
@@ -174,13 +191,13 @@ function MemberOrder() {
                           scope="row"
                           className="member-comment-text-weight-top"
                         >
-                          訂單日期：
+                          訂單時間：
                         </td>
                         <td
                           scope="row"
                           className="member-comment-text-weight-top"
                         >
-                          2021/06/21
+                          {info.time}
                         </td>
                       </tr>
                       <tr>
@@ -190,11 +207,12 @@ function MemberOrder() {
                         >
                           訂單金額：
                         </td>
+
                         <td
                           scope="row"
                           className="member-comment-text-weight-top"
                         >
-                          $5,360
+                          ${info.price}
                         </td>
                       </tr>
                       <tr>
@@ -209,18 +227,15 @@ function MemberOrder() {
                           className="member-comment-text-weight-top"
                         >
                           <div className="progress_bar_inline_block">
-                            {/* <!--FIXME:???沒用到此className--> */}
                             {/* <!-- class change to current "step-2" --> */}
                             <div
                               className="step-1"
                               id="member_order_checkout-progress"
                               data-current-step="1"
                             >
-                              {/* <!--FIXME:???沒用到此className--> */}
                               <div className="member_order_progress-bar1">
                                 {/* <!-- "active" change to "valid" --> */}
                                 <div className="member_order_step step-1 member_order_active">
-                                  {/* <!--FIXME:???沒用到此step-1 className--> */}
                                   <span></span>
                                   {/* <!-- "opaque" change to "" --> */}
                                   <div className="member_order_fa member_order_fa-check member_order_opaque"></div>
@@ -308,268 +323,62 @@ function MemberOrder() {
                           </th>
                         </tr>
                       </thead>
-                      <tbody className="tbody-tr-border">
-                        <tr>
-                          <td
-                            scope="row"
-                            className="member-comment-picture-img-wrapper align-middle"
-                          >
-                            <div className="member-comment-picture-img-box">
-                              <img
-                                src={MemberOrderImg}
-                                alt=""
-                                className="member-comment-picture-img"
-                              />
-                            </div>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            MERRELL Tetrex Crest Wrap 女水陸三棲鞋
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <span>S</span>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            NT$ 5,000
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <span>1</span>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            NT$ 5,000
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <Link to="/#">
-                              <BsTrash size={20} />
-                            </Link>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            scope="row"
-                            className="member-comment-picture-img-wrapper align-middle"
-                          >
-                            <div className="member-comment-picture-img-box">
-                              <img
-                                src={MemberOrderImg}
-                                alt=""
-                                className="member-comment-picture-img"
-                              />
-                            </div>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            MERRELL Tetrex Crest Wrap 女水陸三棲鞋
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <span>S</span>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            NT$ 5,000
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <span>1</span>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            NT$ 5,000
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <Link to="/#">
-                              <BsTrash size={20} />
-                            </Link>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            scope="row"
-                            className="member-comment-picture-img-wrapper align-middle"
-                          >
-                            <div className="member-comment-picture-img-box">
-                              <img
-                                src={MemberOrderImg}
-                                alt=""
-                                className="member-comment-picture-img"
-                              />
-                            </div>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            MERRELL Tetrex Crest Wrap 女水陸三棲鞋
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <span>S</span>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            NT$ 5,000
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <span>1</span>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            NT$ 5,000
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <Link to="/#">
-                              <BsTrash size={20} />
-                            </Link>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            scope="row"
-                            className="member-comment-picture-img-wrapper align-middle"
-                          >
-                            <div className="member-comment-picture-img-box">
-                              <img
-                                src={MemberOrderImg}
-                                alt=""
-                                className="member-comment-picture-img"
-                              />
-                            </div>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            MERRELL Tetrex Crest Wrap 女水陸三棲鞋
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <span>S</span>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            NT$ 5,000
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <span>1</span>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            NT$ 5,000
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <Link to="">
-                              <BsTrash size={20} />
-                            </Link>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            scope="row"
-                            className="member-comment-picture-img-wrapper align-middle"
-                          >
-                            <div className="member-comment-picture-img-box">
-                              <img
-                                src={MemberOrderImg}
-                                alt=""
-                                className="member-comment-picture-img"
-                              />
-                            </div>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            MERRELL Tetrex Crest Wrap 女水陸三棲鞋
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <span>S</span>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            NT$ 5,000
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <span>1</span>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            NT$ 5,000
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <Link to="">
-                              <BsTrash size={20} />
-                            </Link>
-                          </td>
-                        </tr>
-                      </tbody>
+                      {orderDetail.map((items, i) => (
+                        <tbody className="tbody-tr-border">
+                          <tr>
+                            <td
+                              scope="row"
+                              className="member-comment-picture-img-wrapper align-middle"
+                            >
+                              <div className="member-comment-picture-img-box">
+                                <img
+                                  src={`${IMAGE_URL}/img/product-img/${items.product_pic}`}
+                                  alt=""
+                                  className="member-comment-picture-img"
+                                />
+                              </div>
+                            </td>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              {items.product_name}
+                            </td>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              <span>{items.user_order_size}</span>
+                            </td>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              {'$' + items.product_price}
+                            </td>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              <span>{items.user_order_num}</span>
+                            </td>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              {'$' + items.product_price * items.user_order_num}
+                            </td>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              <Link to="/#">
+                                <BsTrash size={20} />
+                              </Link>
+                            </td>
+                          </tr>
+                        </tbody>
+                      ))}
                     </table>
                     <hr />
                     <div className="">
@@ -587,7 +396,7 @@ function MemberOrder() {
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              王小明
+                              {info.usersName}
                             </td>
                           </tr>
                           <tr>
@@ -601,7 +410,7 @@ function MemberOrder() {
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              中央大學
+                              {info.shipName}
                             </td>
                           </tr>
                           <tr>
@@ -615,7 +424,7 @@ function MemberOrder() {
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              0900123456
+                              {info.usersPhone}
                             </td>
                           </tr>
                           <tr>
@@ -629,7 +438,7 @@ function MemberOrder() {
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              信用卡繳費
+                              {info.payWayName}
                             </td>
                           </tr>
                         </tbody>
@@ -659,7 +468,7 @@ function MemberOrder() {
                           scope="row"
                           className="member-comment-text-weight-top"
                         >
-                          20210621001
+                          {info.number}
                         </td>
                       </tr>
                       <tr>
@@ -667,13 +476,13 @@ function MemberOrder() {
                           scope="row"
                           className="member-comment-text-weight-top"
                         >
-                          訂單日期：
+                          訂單時間：
                         </td>
                         <td
                           scope="row"
                           className="member-comment-text-weight-top"
                         >
-                          2021/06/21
+                          {info.time}
                         </td>
                       </tr>
                       <tr>
@@ -687,7 +496,7 @@ function MemberOrder() {
                           scope="row"
                           className="member-comment-text-weight-top"
                         >
-                          $5,360
+                          ${info.price}
                         </td>
                       </tr>
                       <tr>
@@ -763,268 +572,63 @@ function MemberOrder() {
                           </th>
                         </tr>
                       </thead>
-                      <tbody className="tbody-tr-border">
-                        <tr>
-                          <td
-                            scope="row"
-                            className="member-comment-picture-img-wrapper align-middle"
-                          >
-                            <div className="member-comment-picture-img-box">
-                              <img
-                                src={MemberOrderImg}
-                                alt=""
-                                className="member-comment-picture-img"
-                              />
-                            </div>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            MERRELL Tetrex Crest Wrap 女水陸三棲鞋
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <span>S</span>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            NT$ 5,000
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <span>1</span>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            NT$ 5,000
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <Link to="">
-                              <BsTrash size={20} />
-                            </Link>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            scope="row"
-                            className="member-comment-picture-img-wrapper align-middle"
-                          >
-                            <div className="member-comment-picture-img-box">
-                              <img
-                                src={MemberOrderImg}
-                                alt=""
-                                className="member-comment-picture-img"
-                              />
-                            </div>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            MERRELL Tetrex Crest Wrap 女水陸三棲鞋
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <span>S</span>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            NT$ 5,000
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <span>1</span>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            NT$ 5,000
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <Link to="">
-                              <BsTrash size={20} />
-                            </Link>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            scope="row"
-                            className="member-comment-picture-img-wrapper align-middle"
-                          >
-                            <div className="member-comment-picture-img-box">
-                              <img
-                                src={MemberOrderImg}
-                                alt=""
-                                className="member-comment-picture-img"
-                              />
-                            </div>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            MERRELL Tetrex Crest Wrap 女水陸三棲鞋
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <span>S</span>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            NT$ 5,000
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <span>1</span>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            NT$ 5,000
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <Link to="">
-                              <BsTrash size={20} />
-                            </Link>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            scope="row"
-                            className="member-comment-picture-img-wrapper align-middle"
-                          >
-                            <div className="member-comment-picture-img-box">
-                              <img
-                                src={MemberOrderImg}
-                                alt=""
-                                className="member-comment-picture-img"
-                              />
-                            </div>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            MERRELL Tetrex Crest Wrap 女水陸三棲鞋
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <span>S</span>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            NT$ 5,000
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <span>1</span>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            NT$ 5,000
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <Link to="">
-                              <BsTrash size={20} />
-                            </Link>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            scope="row"
-                            className="member-comment-picture-img-wrapper align-middle"
-                          >
-                            <div className="member-comment-picture-img-box">
-                              <img
-                                src={MemberOrderImg}
-                                alt=""
-                                className="member-comment-picture-img"
-                              />
-                            </div>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            MERRELL Tetrex Crest Wrap 女水陸三棲鞋
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <span>S</span>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            NT$ 5,000
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <span>1</span>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            NT$ 5,000
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-middle align-middle"
-                          >
-                            <Link to="">
-                              <BsTrash size={20} />
-                            </Link>
-                          </td>
-                        </tr>
-                      </tbody>
+
+                      {orderDetail.map((items, i) => (
+                        <tbody className="tbody-tr-border">
+                          <tr>
+                            <td
+                              scope="row"
+                              className="member-comment-picture-img-wrapper align-middle"
+                            >
+                              <div className="member-comment-picture-img-box">
+                                <img
+                                  src={`${IMAGE_URL}/img/product-img/${items.product_pic}`}
+                                  alt=""
+                                  className="member-comment-picture-img"
+                                />
+                              </div>
+                            </td>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              {items.product_name}
+                            </td>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              <span>{items.user_order_size}</span>
+                            </td>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              {'$' + items.product_price}
+                            </td>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              <span>{items.user_order_num}</span>
+                            </td>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              {'$' + items.product_price * items.user_order_num}
+                            </td>
+                            <td
+                              scope="row"
+                              className="member-comment-text-weight-middle align-middle"
+                            >
+                              <Link to="">
+                                <BsTrash size={20} />
+                              </Link>
+                            </td>
+                          </tr>
+                        </tbody>
+                      ))}
                     </table>
                     <hr />
                     <div className="">
@@ -1042,7 +646,7 @@ function MemberOrder() {
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              王小明
+                              {info.usersName}
                             </td>
                           </tr>
                           <tr>
@@ -1056,7 +660,7 @@ function MemberOrder() {
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              中央大學
+                              {info.shipName}
                             </td>
                           </tr>
                           <tr>
@@ -1070,7 +674,7 @@ function MemberOrder() {
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              0900123456
+                              {info.usersPhone}
                             </td>
                           </tr>
                           <tr>
@@ -1084,7 +688,7 @@ function MemberOrder() {
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              信用卡繳費
+                              {info.payWayName}
                             </td>
                           </tr>
                         </tbody>
