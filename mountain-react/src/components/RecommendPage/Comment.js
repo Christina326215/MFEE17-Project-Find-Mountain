@@ -43,7 +43,8 @@ function Comment(props) {
   const [articleID, setArticleID] = useState(id);
   const [content, setContent] = useState('1111');
   const [pic, setPic] = useState('');
-  const [time, setTime] = useState('2021-09-17 12:12:59');
+  const event = new Date(Date.now());
+  const [time, setTime] = useState(event);
   const [valid, setValid] = useState('1');
 
   // 評論資料連線
@@ -66,6 +67,10 @@ function Comment(props) {
     }
     commentData();
   }, [props.match.params.id]);
+
+  // const setDisplayComment = async (newcommentDetail) => {
+  //   setComment(newcommentDetail);
+  // };
 
   // 新增評論資料庫
   const InsertComment = async (e) => {
@@ -138,19 +143,17 @@ function Comment(props) {
                             <form onSubmit={InsertComment}>
                               <div className="form-group">
                                 <label
-                                  htmlFor="userID"
+                                  htmlFor="articleName"
                                   className="col-form-label"
                                 >
-                                  userID：
+                                  文章名稱：
                                 </label>
                                 <input
                                   type="text"
                                   className="form-control"
-                                  id="userID"
-                                  value={userID}
-                                  onChange={(e) => {
-                                    setUserID(e.target.value);
-                                  }}
+                                  id="articleName"
+                                  value={detail.name}
+                                  disabled
                                 />
                               </div>
                               <div className="form-group">
@@ -164,13 +167,29 @@ function Comment(props) {
                                   type="text"
                                   className="form-control"
                                   id="articleID"
-                                  // detail={detail}
                                   value={articleID}
-                                  // setArticleID={detail.id}
                                   onChange={(e) => {
                                     setArticleID(e.target.value);
                                   }}
-                                  // disabled
+                                  disabled
+                                />
+                              </div>
+                              <div className="form-group">
+                                <label
+                                  htmlFor="userID"
+                                  className="col-form-label"
+                                >
+                                  userID：
+                                </label>
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  id="userID"
+                                  value={userID}
+                                  onChange={(e) => {
+                                    setUserID(e.target.value);
+                                  }}
+                                  disabled
                                 />
                               </div>
                               <div className="form-group">
@@ -188,6 +207,8 @@ function Comment(props) {
                                   onChange={(e) => {
                                     setContent(e.target.value);
                                   }}
+                                  required
+                                  maxLength="200"
                                 ></textarea>
                               </div>
                               <div className="form-group">
@@ -235,6 +256,7 @@ function Comment(props) {
                                   onChange={(e) => {
                                     setTime(e.target.value);
                                   }}
+                                  disabled
                                 />
                               </div>
                               <div className="form-group">
@@ -250,6 +272,7 @@ function Comment(props) {
                                   onChange={(e) => {
                                     setValid(e.target.value);
                                   }}
+                                  disabled
                                 />
                               </div>
                               <div className="modal-footer">
@@ -263,8 +286,6 @@ function Comment(props) {
                                 <button
                                   // type="submit"
                                   className="btn btn-warning text-white"
-                                  // onClick={window.location.reload()}
-                                  // onClick={commentData()}
                                 >
                                   送出評論
                                 </button>

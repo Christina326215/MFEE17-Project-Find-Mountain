@@ -45,7 +45,7 @@ const uploader = multer({
 
 // 評論資料
 router.get("/", async function (req, res, next) {
-  let dbResults = await connection.queryAsync("SELECT comments.*, user.id AS users_id, user.name AS users_name, article.name AS article_name FROM comments JOIN article ON comments.article_id = article.id  JOIN user ON comments.user_id = user.id WHERE comments.valid = 1 ORDER BY article.id"); // 等資料庫查詢資料
+  let dbResults = await connection.queryAsync("SELECT comments.*, user.id AS users_id, user.name AS users_name, article.name AS article_name FROM comments JOIN article ON comments.article_id = article.id  JOIN user ON comments.user_id = user.id WHERE comments.valid = 1 ORDER BY time DESC"); // 等資料庫查詢資料
   
   res.json(dbResults);
 });
@@ -62,7 +62,8 @@ router.post("/insert", uploader.single("pic") , async function (req, res, next) 
   console.log("req.file",req.file);
   // 設定圖片存進mysql資料庫的檔案位置 要儲存 uploads/member-1631240809142.jpg
   let filename = req.file ? req.file.filename : "";
-  let dbResults = await connection.queryAsync("INSERT INTO comments (user_id, content, time, article_id,valid,pic) VALUES (?);",[[req.body.userID,req.body.content,req.body.time,req.body.articleID,req.body.valid,filename]]); // 等資料庫查詢資料
+  let time = new Date();
+  let dbResults = await connection.queryAsync("INSERT INTO comments (user_id, content, time, article_id,valid,pic) VALUES (?);",[[req.body.userID,req.body.content,time,req.body.articleID,req.body.valid,filename]]); // 等資料庫查詢資料
 
   res.json(dbResults);
 });
