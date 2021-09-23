@@ -1,6 +1,10 @@
 export const shopcartURL =
   process.env.REACT_APP_shopcartURL || 'http://localhost:3500/api/shopCart/';
 
+export const shopcartPayURL =
+  process.env.REACT_APP_shopcartPayURL ||
+  'http://localhost:3500/api/shopCart/pay';
+
 export const memberURL =
   process.env.REACT_APP_memberURL || 'http://localhost:3500/api/member/';
 

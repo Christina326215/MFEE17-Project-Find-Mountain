@@ -8,7 +8,6 @@ router.get("", async function (req, res, next) {
   let result = dbResults;
   let price = 0;
   result.map((items)=>{
-    // console.log("product_price",items.product_price);
     price += items.product_price;
   })
 

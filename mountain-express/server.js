@@ -101,6 +101,11 @@ let shopCartRouter = require("./routers/shopCartPage");
 app.use("/api/shopCart", shopCartRouter);
 //===引用 shopCartPage 進來 end===//
 
+//===引用 shopCartPay 進來 star===//
+let shopCartPayRouter = require("./routers/shopCartPay");
+app.use("/api/shopCart/pay", shopCartPayRouter);
+//===引用 shopCartPay 進來 end===//
+
 //===引用 memberPage 進來 star===//
 let memberRouter = require("./routers/memberPage");
 app.use("/api/member", memberRouter);
