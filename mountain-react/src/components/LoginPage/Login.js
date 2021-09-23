@@ -23,21 +23,10 @@ import slider3 from '../../img/pic3.webp';
 //===import img end===
 
 function Login(props) {
-  const [listData, setListData] = useState([]);
-  const [name, setName] = useState([]);
-  const [password, setPassword] = useState([]);
-  useEffect(() => {
-    async function homeData() {
-      try {
-        const homeData = await axios.get(authURL);
-        console.log(homeData.data); //for check
-        setListData(homeData.data);
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    homeData();
-  }, []);
+  const [user, setUser] = useState([]);
+  const [email, setEmail] = useState('ming@test');
+  const [password, setPassword] = useState('123456');
+
   useEffect(() => {
     $('.login-display-photo-box').slick({
       dots: false,
@@ -48,12 +37,26 @@ function Login(props) {
       cssEase: 'linear',
     });
   }, []);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      let result = await axios.post(`${authURL}/login`, {
+        email,
+        password,
+      });
+      console.log(result.data); //for check
+      setUser(result.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <>
       <div>
         <div className="d-flex">
           <div className="login-w-50-l login-bg-pic p-3 position-relative">
-            <div className="login-display-photo-box">
+            <div className="login-display-photo-box black-mask">
               <div className="login-slick-photo-box">
                 <img src={slider1} alt="" title="" className="cover-fit" />
               </div>
@@ -71,11 +74,11 @@ function Login(props) {
             </div>
           </div>
           <div className="login-w-50-l p-5 align-self-center">
-            <form>
+            <form onSubmit={handleSubmit}>
               <h2 className="text-center pb-5 login-title">會員登入</h2>
               <div className="mb-3">
                 <label
-                  for="exampleInputEmail1"
+                  htmlFor="InputEmail1"
                   className="form-label login-account"
                 >
                   帳號
@@ -83,17 +86,19 @@ function Login(props) {
                 <input
                   type="email"
                   className="form-control login-input"
-                  id="exampleInputEmail1"
+                  id="InputEmail1"
                   aria-describedby="emailHelp"
                   placeholder="請輸入您的email"
+                  name="email"
+                  value={email}
                   onChange={(e) => {
-                    setName(e.target.value);
+                    setEmail(e.target.value);
                   }}
                 />
               </div>
               <div className="mb-3">
                 <label
-                  for="exampleInputPassword1"
+                  htmlFor="InputPassword1"
                   className="form-label login-password"
                 >
                   密碼
@@ -101,8 +106,13 @@ function Login(props) {
                 <input
                   type="password"
                   className="form-control login-input"
-                  id="exampleInputPassword1"
+                  id="InputPassword1"
                   placeholder="請輸入您的密碼"
+                  name="password"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
                 />
               </div>
               <div className="mb-3 form-check">
@@ -113,7 +123,7 @@ function Login(props) {
                 />
                 <label
                   className="form-check-label login-stay"
-                  for="exampleCheck1"
+                  htmlFor="exampleCheck1"
                 >
                   保持登入
                 </label>
@@ -124,11 +134,11 @@ function Login(props) {
                 </button>
               </div>
               <div className="mb-3 text-center">
-                <Link className="login-forgetPassword" href="">
+                <Link className="login-forgetPassword" to="">
                   忘記密碼
                 </Link>
                 <span>&nbsp;&nbsp; &nbsp;&nbsp;</span>
-                <Link className="login-signUp" to="/signup-info">
+                <Link className="login-signUp" to="/signup">
                   註冊會員
                 </Link>
               </div>
@@ -137,26 +147,17 @@ function Login(props) {
                 <h6 className="login-fast">快速登入</h6>
                 <span>&nbsp;&nbsp;</span>
                 <div className="login-social-container">
-                  <Link to="#" className="icon">
-                    <FaFacebookSquare className="h3" />
+                  <Link to="#" className="login-icon login-icon-FB">
+                    <FaFacebookSquare className="login-h3" />
                   </Link>
                   <span>&nbsp;&nbsp;</span>
-                  <Link to="#" className="icon">
-                    <FaGoogle className="h3" />
+                  <Link to="#" className="login-icon login-icon-Google">
+                    <FaGoogle className="login-h3" />
                   </Link>
                   <span>&nbsp;&nbsp;</span>
-                  <Link to="#" className="icon">
-                    <FaLine className="h3" />
+                  <Link to="#" className="login-icon login-icon-Line">
+                    <FaLine className="login-h3" />
                   </Link>
-                  {/* <a href="#" className="social">
-                    <ion-icon name="logo-facebook"></ion-icon>
-                  </a>
-                  <a href="#" className="social">
-                    <ion-icon name="logo-googleplus"></ion-icon>
-                  </a>
-                  <a href="#" className="social">
-                    <ion-icon name="logo-linkedin"></ion-icon>
-                  </a> */}
                 </div>
               </div>
             </form>

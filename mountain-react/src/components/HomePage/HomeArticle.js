@@ -148,18 +148,18 @@ function HomeArticle(props) {
                                   <div className="memory d-flex mt-3">
                                     <div className="new">最新留言</div>
                                     <div className="memoryLine"></div>
-                                    <div className="memoryUser">
-                                      {/* <img
-                                                className="cover-fit"
-                                                src={comment.user_id}
-                                              /> */}
-                                    </div>
+                                    {/* <div className="memoryUser">
+                                      <img
+                                        className="cover-fit"
+                                        src={article.user_name}
+                                      />
+                                    </div> */}
                                     <div className="memoryMember mx-4">
                                       <small className="memoryDate">
                                         {article.comments_time}
                                       </small>
                                       <div className="memoryName">
-                                        {/* {comment.users_name} */}
+                                        {article.user_name}
                                       </div>
                                     </div>
                                     <div className="memoryContent">
@@ -200,7 +200,7 @@ function HomeArticle(props) {
                                       <button className="btn d-flex align-items-center">
                                         <img src={lowLevel} className="mr-2" />
                                         <span className=" text-primary levelLow">
-                                          難度{article.level_name}
+                                          難易度{article.level_name}
                                         </span>
                                       </button>
                                       <button className="btn d-flex align-items-center">

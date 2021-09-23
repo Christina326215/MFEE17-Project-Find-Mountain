@@ -7,7 +7,7 @@ router.get('/', async function (req, res, next) {
         // 'SELECT id,name,level,distance,pic,content FROM article WHERE level = 1 '
 
         //僅限一筆留言
-        'SELECT article.id,article.name,article.level,article.distance,article.pic,article.content, comments.pic AS comments_pic, comments.content AS comments_content, comments.time AS comments_time FROM article JOIN comments ON comments.article_id = article.id  WHERE article.level = 1'
+        'SELECT article.id,article.name,article.level,article.distance,article.pic,article.content, comments.pic AS comments_pic, comments.content AS comments_content, comments.time AS comments_time ,user.name AS user_name ,article_level.name AS level_name FROM article JOIN comments ON comments.article_id = article.id JOIN user ON comments.user_id = user.id JOIN article_level ON article.level = article_level.id WHERE article.level = 1'
     ) // 等資料庫查詢資料
     res.json(dbResults)
 })
