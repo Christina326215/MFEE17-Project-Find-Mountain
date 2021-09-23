@@ -11,7 +11,7 @@ function CommmentList(props) {
     <div>
       {comment.map((comment, i) => {
         return (
-          <div className="recommend-commentBox">
+          <div key={i} className="recommend-commentBox">
             <div className="d-flex flex-column justify-content-between">
               <div className="d-flex">
                 <div className="recommend-memberLevel1">

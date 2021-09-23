@@ -87,8 +87,8 @@ app.use("/api/comment", commentRouter);
 //===引用 recommendPage 進來 end===//
 
 //===引用 recommendInsert 進來 star===//
-let commentInsertRouter = require("./routers/commentInsert");
-app.use("/api/commentInsert", commentInsertRouter);
+// let commentInsertRouter = require("./routers/commentInsert");
+// app.use("/api/commentInsert", commentInsertRouter);
 //===引用 recommendInsert 進來 end===//
 
 //===引用 shopPage 進來 star===//

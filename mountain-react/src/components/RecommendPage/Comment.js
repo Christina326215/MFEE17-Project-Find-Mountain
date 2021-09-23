@@ -3,6 +3,7 @@ import '../../styles/article.css';
 import { withRouter } from 'react-router';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { commentURL } from '../../utils/config';
 import CommmentList from './CommmentList';
 import slothBig from '../../img/article-img/sloth_big.svg';
@@ -18,6 +19,10 @@ import {
 function Comment(props) {
   // 文章資料
   const { detail } = props;
+  const { id } = useParams();
+  // console.log('id', id);
+  // console.log('detail111', detail);
+
   // 評論資料
   const [comment, setComment] = useState([
     {
@@ -33,6 +38,14 @@ function Comment(props) {
       article_name: '',
     },
   ]);
+  // 新增評論欄位
+  const [userID, setUserID] = useState('1');
+  const [articleID, setArticleID] = useState(id);
+  const [content, setContent] = useState('1111');
+  const [pic, setPic] = useState('');
+  const [time, setTime] = useState('2021-09-17 12:12:59');
+  const [valid, setValid] = useState('1');
+
   // 評論資料連線
   useEffect(() => {
     async function commentData() {
@@ -54,7 +67,24 @@ function Comment(props) {
     commentData();
   }, [props.match.params.id]);
 
-  // 新增資料連線
+  // 新增評論資料庫
+  const InsertComment = async (e) => {
+    e.preventDefault();
+    try {
+      let formData = new FormData();
+      formData.append('userID', userID);
+      formData.append('articleID', articleID);
+      formData.append('content', content);
+      formData.append('pic', pic);
+      formData.append('time', time);
+      formData.append('valid', valid);
+      let response = await axios.post(`${commentURL}/insert`, formData);
+      console.log('response', response);
+      // console.log('formData', formData);
+    } catch (e) {
+      console.error(e.response);
+    }
+  };
 
   return (
     <div>
@@ -81,6 +111,7 @@ function Comment(props) {
                     </button>
 
                     {/* Modal */}
+                    {/* <form onSubmit={InsertComment}> */}
                     <div
                       className="modal fade"
                       id="exampleModal"
@@ -104,48 +135,59 @@ function Comment(props) {
                             </button>
                           </div>
                           <div className="modal-body">
-                            <form>
+                            <form onSubmit={InsertComment}>
                               <div className="form-group">
                                 <label
-                                  htmlFor="recipient-name"
+                                  htmlFor="userID"
                                   className="col-form-label"
                                 >
-                                  會員名稱：
+                                  userID：
                                 </label>
                                 <input
                                   type="text"
                                   className="form-control"
-                                  id="recipient-name"
-                                  value="??會員登入後才帶入資料"
-                                  disabled
+                                  id="userID"
+                                  value={userID}
+                                  onChange={(e) => {
+                                    setUserID(e.target.value);
+                                  }}
                                 />
                               </div>
                               <div className="form-group">
                                 <label
-                                  htmlFor="recipient-name"
+                                  htmlFor="articleID"
                                   className="col-form-label"
                                 >
-                                  文章名稱：
+                                  articleID：
                                 </label>
                                 <input
                                   type="text"
                                   className="form-control"
-                                  id="recipient-name"
-                                  value={detail.name}
-                                  disabled
+                                  id="articleID"
+                                  // detail={detail}
+                                  value={articleID}
+                                  // setArticleID={detail.id}
+                                  onChange={(e) => {
+                                    setArticleID(e.target.value);
+                                  }}
+                                  // disabled
                                 />
                               </div>
                               <div className="form-group">
                                 <label
-                                  htmlFor="message-text"
+                                  htmlFor="content"
                                   className="col-form-label"
                                 >
                                   評論內容：
                                 </label>
                                 <textarea
                                   className="form-control"
-                                  id="message-text"
+                                  id="content"
                                   placeholder="請留下您想輸入的評論內容．．．留言不得超過100字"
+                                  value={content}
+                                  onChange={(e) => {
+                                    setContent(e.target.value);
+                                  }}
                                 ></textarea>
                               </div>
                               <div className="form-group">
@@ -155,25 +197,60 @@ function Comment(props) {
                                 >
                                   上傳圖片：
                                 </label>
-                                <div class="custom-file">
+                                <div className="custom-file">
                                   <input
                                     type="file"
-                                    class="custom-file-input"
+                                    className="custom-file-input"
                                     id="inputGroupFile01"
                                     aria-describedby="inputGroupFileAddon01"
                                     name="pic"
                                     required
+                                    onChange={(e) => {
+                                      setPic(e.target.files[0]);
+                                    }}
                                   />
                                   <label
-                                    class="custom-file-label"
-                                    for="inputGroupFile01"
+                                    className="custom-file-label"
+                                    htmlFor="inputGroupFile01"
                                   >
                                     選擇檔案
                                   </label>
                                 </div>
-                                <div class="invalid-feedback">
+                                <div className="invalid-feedback">
                                   請選擇照片檔案
                                 </div>
+                              </div>
+                              <div className="form-group">
+                                <label
+                                  htmlFor="time"
+                                  className="col-form-label"
+                                >
+                                  評論時間：
+                                </label>
+                                <input
+                                  // type="datetime-local"
+                                  id="time"
+                                  className="form-control"
+                                  value={time}
+                                  onChange={(e) => {
+                                    setTime(e.target.value);
+                                  }}
+                                />
+                              </div>
+                              <div className="form-group">
+                                <label
+                                  htmlFor="message-text"
+                                  className="col-form-label"
+                                >
+                                  審查狀態：
+                                </label>
+                                <input
+                                  className="form-control"
+                                  value={valid}
+                                  onChange={(e) => {
+                                    setValid(e.target.value);
+                                  }}
+                                />
                               </div>
                               <div className="modal-footer">
                                 <button
@@ -184,8 +261,10 @@ function Comment(props) {
                                   取消
                                 </button>
                                 <button
-                                  type="submit"
+                                  // type="submit"
                                   className="btn btn-warning text-white"
+                                  // onClick={window.location.reload()}
+                                  // onClick={commentData()}
                                 >
                                   送出評論
                                 </button>
@@ -195,6 +274,7 @@ function Comment(props) {
                         </div>
                       </div>
                     </div>
+                    {/* </form> */}
                     {/* Modal */}
                   </div>
                   <div className="d-flex flex-column">

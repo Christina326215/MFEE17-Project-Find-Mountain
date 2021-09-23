@@ -15,55 +15,6 @@ router.get("", async function (req, res, next) {
     item.season = item.season.replace('4', '冬季');
     return item;
   })
-
-
-  // let result = dbResults;
-
-  // result.map((data)=>{
-  //   // console.log(data.city); //for check "台北市信義區"
-  //   let seaseon = data.season;
-  //   // console.log('city',city); //for check "台北市"
-  //   // let area = data.city.substr(3, 3);
-  //   // console.log('area',area); //for check "信義區"
-  //   // data.city = city; //city: '台北市'
-  //   // data.area = area; //area: '北投區'
-  //   console.log("seaseon",seaseon);
-  // })
-// console.log("result",result); //for check
-
-// let perData = dbResults.map((item, index) => {
-//   return item.season;
-// })
-
-
-
-
-// article_season.name As season_name,
-
-// JOIN article_season_id ON article.id = article_season_id.article_id
-// // JOIN article_season_id ON article_season.id = article_season_id.season_id
-// JOIN article_season ON article_season_id.season_id = article_season.id 
-// (抓季節名稱)
-
-
-// $stmt3=$db_host->prepare("SELECT 
-// product.name(季節名稱) AS product_name,
-// product.pic AS product_pic,
-// product.price AS product_price,
-// user_order.* 
-// FROM user_order
-// JOIN order_ship ON user_order.ship = order_ship.id
-// JOIN order_status ON user_order.status = order_status.id
-// JOIN pay_status ON user_order.pay_status = pay_status.id
-// JOIN pay_way ON user_order.pay_way = pay_way.id  
-// JOIN order_invoice ON user_order.invoice = order_invoice.id
-// JOIN user ON user_order.user_id = user.id
-// JOIN user_order_detail (article_season_id) ON user_order.id = user_order_detail.user_order_id
-// JOIN product ON user_order_detail.product_id = product.id
-// WHERE user_order.id='$id'
-// ");
-
-  
   
   res.json(perData);
 });
