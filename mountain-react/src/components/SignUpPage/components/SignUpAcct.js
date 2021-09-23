@@ -1,50 +1,54 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
-import '../../styles/SignUpStyle/SignUpAcct.css';
+import '../../../styles/SignUpStyle/SignUpAcct.css';
 //api start
-import { authURL } from '../../utils/config';
+import { authURL } from '../../../utils/config';
 import axios from 'axios';
 //api end
 
 function SignUpAcct(props) {
   const [listData, setListData] = useState([]);
+  const [email, setEmail] = useState('sasa@gmail.com');
+  const [password, setPassword] = useState('123456');
+  const [repassword, setRepassword] = useState('123456');
 
-  useEffect(() => {
-    async function homeData() {
-      try {
-        const homeData = await axios.get(authURL);
-        console.log(homeData.data); //for check
-        setListData(homeData.data);
-      } catch (e) {
-        console.log(e);
-      }
+  //api
+  const handleSubmit = async (e) => {
+    e.target.preventDefault();
+    try {
+      let response = await axios.post(`${authURL}/register/acc`);
+      console.log(response.data); //for check
+      setListData(response.data);
+    } catch (e) {
+      console.log(e);
     }
-    homeData();
-    // (function () {
-    //   window.addEventListener(
-    //     'load',
-    //     function () {
-    //       // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    //       var forms = document.getElementsByClassName('needs-validation');
-    //       // Loop over them and prevent submission
-    //       var validation = Array.prototype.filter.call(forms, function (form) {
-    //         form.addEventListener(
-    //           'submit',
-    //           function (event) {
-    //             if (form.checkValidity() === false) {
-    //               event.preventDefault();
-    //               event.stopPropagation();
-    //             }
-    //             form.classList.add('was-validated');
-    //           },
-    //           false
-    //         );
-    //       });
-    //     },
-    //     false
-    //   );
-    // })();
-  }, []);
+  };
+
+  // (function () {
+  //   window.addEventListener(
+  //     'load',
+  //     function () {
+  //       // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  //       var forms = document.getElementsByClassName('needs-validation');
+  //       // Loop over them and prevent submission
+  //       var validation = Array.prototype.filter.call(forms, function (form) {
+  //         form.addEventListener(
+  //           'submit',
+  //           function (event) {
+  //             if (form.checkValidity() === false) {
+  //               event.preventDefault();
+  //               event.stopPropagation();
+  //             }
+  //             form.classList.add('was-validated');
+  //           },
+  //           false
+  //         );
+  //       });
+  //     },
+  //     false
+  //   );
+  // })();
+
   return (
     <>
       <main>
@@ -82,7 +86,7 @@ function SignUpAcct(props) {
                 <h1 className="h2 signup-acct-title">註冊會員</h1>
               </div>
               <div className="signup-acct-signUp d-flex justify-content-center pt-5">
-                <form>
+                <form onSubmit={handleSubmit}>
                   <div className="form-row d-flex justify-content-center">
                     <div className="form-group col-7 mb-3 account">
                       <label for="inputEmail2">Email 帳號</label>
@@ -91,13 +95,18 @@ function SignUpAcct(props) {
                         className="form-control"
                         id="inputEmail2"
                         placeholder="請輸入您的email"
+                        name="email"
+                        value={email}
+                        onChange={(e) => {
+                          setEmail(e.target.value);
+                        }}
                       />
                     </div>
                     <div className="form-group col-7 mb-3">
                       <div className="row">
                         <div className="col-7">
                           <input
-                            type="email"
+                            type="text"
                             className="form-control"
                             id="inputEmail3"
                             placeholder="請輸入驗證碼"
@@ -120,6 +129,11 @@ function SignUpAcct(props) {
                         className="form-control"
                         id="inputPassword4"
                         placeholder="請輸入您的密碼"
+                        name="password"
+                        value={password}
+                        onChange={(e) => {
+                          setPassword(e.target.value);
+                        }}
                       />
                     </div>
                     <div className="form-group col-7">
@@ -128,6 +142,11 @@ function SignUpAcct(props) {
                         className="form-control"
                         id="inputPassword5"
                         placeholder="請再次輸入您的密碼"
+                        name="repassword"
+                        value={repassword}
+                        onChange={(e) => {
+                          setRepassword(e.target.value);
+                        }}
                       />
                     </div>
                   </div>

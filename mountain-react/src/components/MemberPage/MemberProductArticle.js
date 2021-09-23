@@ -150,7 +150,7 @@ function MemberProductArticle() {
                       to="/member/personal"
                       className="member-left-href-color"
                     >
-                      帳號設定
+                      會員資料
                     </Link>
                   </td>
                 </tr>
@@ -246,7 +246,7 @@ function MemberProductArticle() {
                           >
                             <div className="member-product-article-product-picture-img-box">
                               <img
-                                src={`${IMAGE_URL}/img/${items.product_pic}`}
+                                src={`${IMAGE_URL}/img/product-img/${items.product_pic}`}
                                 alt=""
                                 className="member-product-article-product-picture-img"
                               />
@@ -300,7 +300,7 @@ function MemberProductArticle() {
                           >
                             <div className="member-product-article-article-picture-img-box">
                               <img
-                                src={`${IMAGE_URL}/img/${items.article_pic}`}
+                                src={`${IMAGE_URL}/img/article-img/${items.article_pic}`}
                                 alt=""
                                 className="member-product-article-article-picture-img"
                               />

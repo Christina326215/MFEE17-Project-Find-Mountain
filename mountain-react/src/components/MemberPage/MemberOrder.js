@@ -116,7 +116,7 @@ function MemberOrder() {
                       to="/member/personal"
                       className="member-left-href-color"
                     >
-                      帳號設定
+                      會員資料
                     </Link>
                   </td>
                 </tr>
@@ -332,7 +332,7 @@ function MemberOrder() {
                             >
                               <div className="member-comment-picture-img-box">
                                 <img
-                                  src={`${IMAGE_URL}/img/${items.product_pic}`}
+                                  src={`${IMAGE_URL}/img/product-img/${items.product_pic}`}
                                   alt=""
                                   className="member-comment-picture-img"
                                 />
@@ -582,7 +582,7 @@ function MemberOrder() {
                             >
                               <div className="member-comment-picture-img-box">
                                 <img
-                                  src={`${IMAGE_URL}/img/${items.product_pic}`}
+                                  src={`${IMAGE_URL}/img/product-img/${items.product_pic}`}
                                   alt=""
                                   className="member-comment-picture-img"
                                 />

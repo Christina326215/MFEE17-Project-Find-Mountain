@@ -196,7 +196,7 @@ function MemberEdit() {
                 <tr className="member-table-active">
                   <td scope="row" className="text-center">
                     <Link to="/member/edit" className="member-left-href-color">
-                      帳號設定
+                      會員資料
                     </Link>
                   </td>
                 </tr>
