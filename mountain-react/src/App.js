@@ -102,7 +102,7 @@ function App() {
               <Route path="/recommend">
                 <Recommend />
               </Route>
-              <Route path="/shop/product-detail">
+              <Route path="/shop/product-detail/:id?">
                 <ProductDetail />
               </Route>
               <Route path="/shop/clothes">
