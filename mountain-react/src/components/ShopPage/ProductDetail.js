@@ -28,8 +28,18 @@ function ProductDetail(props) {
   const [historyData, setHistoryData] = useState([]);
   // const [orderInfo, setOrderInfo] = useState([]);
   const { id } = useParams();
-  // console.log('id', id);
   useEffect(() => {
+    const ProductOrder =
+      JSON.parse(localStorage.getItem('ProductOrderDetail')) || [];
+    //TODO:NavBar cart icon 數字顯示 start//
+    var cartTotalNum = 0;
+    for (let i = 0; i < ProductOrder.length; i++) {
+      cartTotalNum += ProductOrder[i].num;
+    }
+    console.log('cartTotalNum', cartTotalNum);
+    //NavBar cart icon 數字顯示 end//
+
+    console.log('ProductOrder', ProductOrder);
     //local storage for 瀏覽紀錄
     var GetProductHistory = localStorage.getItem('ProductViewHistory');
     if (GetProductHistory === null) {
@@ -173,52 +183,26 @@ function ProductDetail(props) {
       let orderDetail = { id: id, size: orderDetailSize, num: orderDetailNum };
       console.log(orderDetail);
       //localstorage for order detail start//
-      const ProductOrder =
-        JSON.parse(localStorage.getItem('ProductOrderDetail')) || [];
       const index = ProductOrder.findIndex(
         (v) => v.id === orderDetail.id && v.size === orderDetail.size
       );
       if (index > -1) {
-        //currentCart[index].amount++
+        //改變同款項訂購數量
+        ProductOrder[index].num += orderDetailNum;
+        localStorage.setItem(
+          'ProductOrderDetail',
+          JSON.stringify(ProductOrder)
+        );
         console.log('這個商品已經加過了');
-        return;
+        // return;
       } else {
-        // ProductOrder.push(orderDetail);
+        ProductOrder.push(orderDetail);
+        localStorage.setItem(
+          'ProductOrderDetail',
+          JSON.stringify(ProductOrder)
+        );
         console.log('哎呦還沒喔');
       }
-
-      // var GetProductOrder = localStorage.getItem('ProductOrderDetail');
-      // if (GetProductOrder === null) {
-      //   var ProductOrder = [];
-      //   localStorage.setItem(
-      //     'ProductOrderDetail',
-      //     JSON.stringify(ProductOrder)
-      //   );
-      //   ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
-      //   ProductOrder.push(orderDetail);
-      //   localStorage.setItem(
-      //     'ProductOrderDetail',
-      //     JSON.stringify(ProductOrder)
-      //   );
-      // } else {
-      //   //如果localstorage有product view history
-      //   // console.log('okay');
-      //   ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
-      //   //判斷陣列裡面有沒有這樣商品 有的話要刪除 不然會重複太多
-      //   //寫一個function給filter用 過濾與之id相同的資料
-      //   // function productClearDuplicatedItem(value) {
-      //   //   return value !== id;
-      //   // }
-      //   // ProductOrder = ProductOrder.filter(
-      //   //   productClearDuplicatedItem
-      //   // );
-      //   //再把他push回最尾端
-      //   ProductOrder.push(orderDetail);
-      //   localStorage.setItem(
-      //     'ProductOrderDetail',
-      //     JSON.stringify(ProductOrder)
-      //   );
-      // }
       //localstorage for order detail end//
 
       //display none -> block

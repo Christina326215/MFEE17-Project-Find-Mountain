@@ -17,7 +17,12 @@ import ShopCartImg from '../../img/shoes-pic7.jpeg';
 //====== above img import end ======//
 
 function ShopCartDetail() {
+  //shopCartData為購物車local storage接完資料庫的整體一筆一筆的資料
   const [shopCartData, setShopCartData] = useState([]);
+  //historyItems為瀏覽紀錄local storage接完資料庫的整體一筆一筆的資料
+  const [historyItems, setHistoryItems] = useState([]);
+  //cartLocal為購物車的local storage
+  const [cartLocal, setCartLocal] = useState([]);
   const [num, setNum] = useState();
   // const handleChange = (event) => {
   //   setShopCartData({
@@ -25,12 +30,54 @@ function ShopCartDetail() {
   //     [event.target.name]: event.target.value,
   //   });
   // };
+  //取得local storage轉為陣列的資料 ProductOrder
+  var ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
+  const deleteItem = (items) => {
+    //抓這裡的商品ID
+    console.log(items.id, items.size);
+    //找到對應資料的index
+    const deleteIndex = ProductOrder.findIndex(
+      (v) => v.id === items.id && v.size === items.size
+    );
+    if (deleteIndex > -1) {
+      //if 有找到一樣id一樣尺寸的local storage
+      //把想刪除的商品資料從陣列中刪除
+      ProductOrder.splice(deleteIndex);
+      console.log('splicedProductOrder', ProductOrder);
+      //把處理好的資料塞回local storage
+      localStorage.setItem('ProductOrderDetail', JSON.stringify(ProductOrder));
+      console.log('有這個訂購資料');
+      //TODO:提示已刪除商品
+      //刪除後重整頁面
+      window.location.reload(false);
+      // return;
+    } else {
+      console.log('哎呦沒有東西可以刪耶');
+    }
+  };
+  //shopCartData
   useEffect(() => {
-    var ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
+    // var ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
     console.log(ProductOrder);
+    setCartLocal(ProductOrder);
     //api
     async function getProductData() {
       try {
+        //抓瀏覽紀錄資料
+        var ProductViewHistory = JSON.parse(
+          localStorage.getItem('ProductViewHistory')
+        );
+        var historyArray = [];
+        for (let i = 0; i < ProductViewHistory.length; i++) {
+          // console.log(ProductViewHistory[i]);
+          const productHistoryData = await axios.get(
+            `${shopURL}/product-detail/${ProductViewHistory[i]}`
+          );
+          // console.log(productHistoryData.data[0]);
+          historyArray.unshift(productHistoryData.data[0]);
+        }
+        // console.log('historyArray', historyArray);
+        setHistoryItems(historyArray);
         //抓購物車的商品資料
         var orderArray = [];
         for (let i = 0; i < ProductOrder.length; i++) {
@@ -47,8 +94,8 @@ function ShopCartDetail() {
           // console.log('productOrderData.data[0]', productOrderData.data[0]);
           // console.log('assignedObj', assignedObj);
           orderArray.unshift(productOrderData.data[0]);
-          setNum(Array(orderArray.length).fill(0));
-          console.log('num',num);
+          // setNum(Array(orderArray.length).fill(0));
+          // console.log('num', num);
         }
         console.log('orderArray', orderArray);
         setShopCartData(orderArray);
@@ -57,6 +104,8 @@ function ShopCartDetail() {
       }
     }
     getProductData();
+  }, []);
+  useEffect(() => {
     // progress-bar
     $('.shopcart-btn-next').on('click', function () {
       var currentStepNum = $('#shopcart-checkout-progress').data(
@@ -129,15 +178,15 @@ function ShopCartDetail() {
     //   number.val(num);
     //   console.log(num);
     // });
-    $('.shopcart-minus-btn').on('click', function () {
-      let number = $(this).parent().find('.shopcart-order-number');
-      let num = parseInt(number.val());
-      if (num > 1) {
-        num -= 1;
-        number.val(num);
-      }
-      // console.log(num);
-    });
+    // $('.shopcart-minus-btn').on('click', function () {
+    //   let number = $(this).parent().find('.shopcart-order-number');
+    //   let num = parseInt(number.val());
+    //   if (num > 1) {
+    //     num -= 1;
+    //     number.val(num);
+    //   }
+    //   // console.log(num);
+    // });
     //product order size選擇
     $('.shopcart-size-btn').on('click', function () {
       $(this).toggleClass('shopcart-active');
@@ -161,26 +210,22 @@ function ShopCartDetail() {
                 <span className="shopcart-step-num"> 1</span>
                 {/* <!-- "opaque" change to "" --> */}
                 <BsCheck className="shopcart-fa shopcart-fa-check shopcart-opaque" />
-                {/* <div className="shopcart-fa shopcart-fa-check shopcart-opaque"></div> */}
                 <div className="shopcart-step-label">確認購物車</div>
               </div>
               {/* <!-- add className "active" --> */}
               <div className="shopcart-step shopcart-step-2">
                 <span className="shopcart-step-num"> 2</span>
                 <BsCheck className="shopcart-fa shopcart-fa-check shopcart-opaque" />
-                {/* <div className="shopcart-fa shopcart-fa-check shopcart-opaque"></div> */}
                 <div className="shopcart-step-label">付款與運送方式</div>
               </div>
               <div className="shopcart-step shopcart-step-3">
                 <span className="shopcart-step-num"> 3</span>
                 <BsCheck className="shopcart-fa shopcart-fa-check shopcart-opaque" />
-                {/* <div className="shopcart-fa shopcart-fa-check shopcart-opaque"></div> */}
                 <div className="shopcart-step-label">資料確認</div>
               </div>
               <div className="shopcart-step shopcart-step-4">
                 <span className="shopcart-step-num"> 4</span>
                 <BsCheck className="shopcart-fa shopcart-fa-check shopcart-opaque" />
-                {/* <div className="shopcart-fa shopcart-fa-check shopcart-opaque"></div> */}
                 <div className="shopcart-step-label">完成訂單</div>
               </div>
             </div>
@@ -307,20 +352,21 @@ function ShopCartDetail() {
                         <button className="btn shopcart-minus-btn">
                           <BsDash size={24} />
                         </button>
-                        <input
+                        {/* <input
                           type="text"
                           className="shopcart-order-number"
                           // defaultValue={items.num}
                           value={num[index]}
                           name="num"
                           // onChange={handleChange}
-                        />
+                        /> */}
+                        {items.num}
                         <button
                           className="btn shopcart-add-btn"
-                          onClick={() => {
-                            const newNum = parseInt(num[index]) + 1;
-                            setNum(newNum);
-                          }}
+                          // onClick={() => {
+                          //   const newNum = parseInt(num[index]) + 1;
+                          //   setNum(newNum);
+                          // }}
                         >
                           <BsPlus size={24} />
                         </button>
@@ -333,9 +379,13 @@ function ShopCartDetail() {
                         </p>
                       </div>
                       <div className="mt-auto mb-2 bd-highlight">
-                        <Link to="/#">
+                        <button
+                          onClick={() => {
+                            deleteItem(items);
+                          }}
+                        >
                           <BsTrash size={24} />
-                        </Link>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -388,24 +438,20 @@ function ShopCartDetail() {
               <h5 className="mt-5">瀏覽紀錄</h5>
               <hr />
               <div className="row">
-                <Link to="/#">
-                  <figure className="shopcart-more-product-img-box ml-5 mb-5">
-                    <img
-                      src={ShopCartImg}
-                      alt=""
-                      className="shopcart-cover-fit"
-                    />
-                  </figure>
-                </Link>
-                <Link to="/#">
-                  <figure className="shopcart-more-product-img-box ml-5 mb-5">
-                    <img
-                      src={ShopCartImg}
-                      alt=""
-                      className="shopcart-cover-fit"
-                    />
-                  </figure>
-                </Link>
+                {historyItems.slice(0, 7).map((hisItems, hisIndex) => {
+                  return (
+                    <Link to={`/shop/product-detail/${hisItems.id}`}>
+                      <figure className="shopcart-more-product-img-box ml-5 mb-5">
+                        <img
+                          src={`${IMAGE_URL}/img/product-img/${hisItems.pic}`}
+                          alt={hisItems.name}
+                          title={hisItems.name}
+                          className="shopcart-cover-fit"
+                        />
+                      </figure>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </div>
