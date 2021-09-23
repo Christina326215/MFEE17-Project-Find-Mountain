@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'; //可以獲取history,location,ma
 import $ from 'jquery';
 import { pages_btn } from '../MapPage/pages/PagesBtn'; //分頁按鈕
 import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
-import { shopURL, IMAGE_URL, shopcartURL } from '../../utils/config';
+import { shopURL, IMAGE_URL } from '../../utils/config';
 
 import axios from 'axios';
 
@@ -18,6 +18,13 @@ import ShopCartImg from '../../img/shoes-pic7.jpeg';
 
 function ShopCartDetail() {
   const [shopCartData, setShopCartData] = useState([]);
+  const [num, setNum] = useState();
+  const handleChange = (event) => {
+    setShopCartData({
+      ...shopCartData,
+      [event.target.name]: event.target.value,
+    });
+  };
   useEffect(() => {
     var ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
     console.log(ProductOrder);
@@ -40,6 +47,8 @@ function ShopCartDetail() {
           // console.log('productOrderData.data[0]', productOrderData.data[0]);
           // console.log('assignedObj', assignedObj);
           orderArray.unshift(productOrderData.data[0]);
+          setNum(Array(orderArray.length).fill(0));
+          console.log('num',num);
         }
         console.log('orderArray', orderArray);
         setShopCartData(orderArray);
@@ -113,14 +122,14 @@ function ShopCartDetail() {
         .data('current-step', prevStepNum);
     });
     //product order 數量部分
-    $('.shopcart-add-btn').click(function () {
-      let number = $(this).parent().find('.shopcart-order-number');
-      let num = parseInt(number.val());
-      num += 1;
-      number.val(num);
-      // console.log(num);
-    });
-    $('.shopcart-minus-btn').click(function () {
+    // $('.shopcart-add-btn').on('click', function () {
+    //   let number = $(this).parent().find('.shopcart-order-number');
+    //   let num = parseInt(number.val());
+    //   num += 1;
+    //   number.val(num);
+    //   console.log(num);
+    // });
+    $('.shopcart-minus-btn').on('click', function () {
       let number = $(this).parent().find('.shopcart-order-number');
       let num = parseInt(number.val());
       if (num > 1) {
@@ -130,11 +139,9 @@ function ShopCartDetail() {
       // console.log(num);
     });
     //product order size選擇
-    $('.shopcart-size-btn').each(function () {
-      $(this).click(function () {
-        $(this).toggleClass('shopcart-active');
-        $(this).siblings().removeClass('shopcart-active');
-      });
+    $('.shopcart-size-btn').on('click', function () {
+      $(this).toggleClass('shopcart-active');
+      $(this).siblings().removeClass('shopcart-active');
     });
   }, []);
   return (
@@ -191,7 +198,7 @@ function ShopCartDetail() {
                 <div className="shopcart-product-infobox row my-3">
                   <div className="col-4 col-lg-3">
                     <figure className="shopcart-product-infobox-img p-2">
-                      <Link to="/#">
+                      <Link to={`/shop/product-detail/${items.id}`}>
                         <img
                           src={`${IMAGE_URL}/img/product-img/${items.pic}`}
                           alt={items.name}
@@ -206,30 +213,89 @@ function ShopCartDetail() {
                       <input
                         type="text"
                         value={items.name}
-                        name="productName"
+                        name="name"
                         readOnly
                         className="my-3 form-control"
                       />
                       <input type="text" value="productId" hidden />
                     </div>
-                    <div className="button-box my-3">
-                      <p>尺寸選擇</p>
-                      <input
-                        type="button"
-                        value="S"
-                        className="shopcart-size-btn mx-1"
-                      />
-                      <input
-                        type="button"
-                        value="M"
-                        className="shopcart-size-btn mx-1"
-                      />
-                      <input
-                        type="button"
-                        value="L"
-                        className="shopcart-size-btn mx-1"
-                      />
-                    </div>
+                    {items.type === '2' ? (
+                      <div className="button-box my-3">
+                        <p>尺寸選擇</p>
+                        <input
+                          type="button"
+                          value="F"
+                          name="size"
+                          className="shopcart-size-btn mx-1 shopcart-active"
+                        />
+                      </div>
+                    ) : items.size === 'S' ? (
+                      <div className="button-box my-3">
+                        <p>尺寸選擇</p>
+                        <input
+                          type="button"
+                          value="S"
+                          name="size"
+                          className="shopcart-size-btn mx-1 shopcart-active"
+                        />
+                        <input
+                          type="button"
+                          value="M"
+                          name="size"
+                          className="shopcart-size-btn mx-1"
+                        />
+                        <input
+                          type="button"
+                          value="L"
+                          name="size"
+                          className="shopcart-size-btn mx-1"
+                        />
+                      </div>
+                    ) : items.size === 'M' ? (
+                      <div className="button-box my-3">
+                        <p>尺寸選擇</p>
+                        <input
+                          type="button"
+                          value="S"
+                          name="size"
+                          className="shopcart-size-btn mx-1"
+                        />
+                        <input
+                          type="button"
+                          value="M"
+                          name="size"
+                          className="shopcart-size-btn mx-1 shopcart-active"
+                        />
+                        <input
+                          type="button"
+                          value="L"
+                          name="size"
+                          className="shopcart-size-btn mx-1"
+                        />
+                      </div>
+                    ) : (
+                      <div className="button-box my-3">
+                        <p>尺寸選擇</p>
+                        <input
+                          type="button"
+                          value="S"
+                          name="size"
+                          className="shopcart-size-btn mx-1"
+                        />
+                        <input
+                          type="button"
+                          value="M"
+                          name="size"
+                          className="shopcart-size-btn mx-1"
+                        />
+                        <input
+                          type="button"
+                          value="L"
+                          name="size"
+                          className="shopcart-size-btn mx-1 shopcart-active"
+                        />
+                      </div>
+                    )}
                     <div className="shopcart-product-infobox-storage">
                       <p className="m-0">庫存剩餘：10</p>
                     </div>
@@ -244,10 +310,18 @@ function ShopCartDetail() {
                         <input
                           type="text"
                           className="shopcart-order-number"
-                          value={items.num}
-                          readOnly
+                          // defaultValue={items.num}
+                          value={num[index]}
+                          name="num"
+                          // onChange={handleChange}
                         />
-                        <button className="btn shopcart-add-btn">
+                        <button
+                          className="btn shopcart-add-btn"
+                          onClick={() => {
+                            const newNum = parseInt(num[index]) + 1;
+                            setNum(newNum);
+                          }}
+                        >
                           <BsPlus size={24} />
                         </button>
                         <hr className="my-0" />
