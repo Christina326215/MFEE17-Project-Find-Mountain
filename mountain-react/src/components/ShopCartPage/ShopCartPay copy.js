@@ -27,11 +27,11 @@ function ShopCartPay() {
 
   // 3.
   const [cartData, setCartData] = useState({
-    ship: 1,
-    pay_way: 1,
+    ship: '1',
+    pay_way: '1',
     zip_code: null,
     addr: '',
-    invoice: 1,
+    invoice: '1',
     name: '',
     phone: '',
   });
@@ -135,20 +135,6 @@ function ShopCartPay() {
     }
   }
   // 自動填入會員收件地址 end //
-
-  // 處理發票類型 start //
-  function invoiceChange(e) {
-    console.log(e.target.value);
-    setCartData({ ...cartData, invoice: e.target.value });
-  }
-  // 處理發票類型 end //
-
-  // 處理付款方式 start //
-  function payWayChange(e) {
-    console.log(e.target.value);
-    setCartData({ ...cartData, pay_way: e.target.value });
-  }
-  // 處理付款方式 end //
 
   // 準備 INSERT INTO 資料庫 start
   const handleSubmit = async (e) => {
@@ -492,8 +478,7 @@ function ShopCartPay() {
                       name="invoice"
                       id="duplicateForm"
                       value="1"
-                      onChange={invoiceChange}
-                      checked={cartData && cartData.invoice == 1}
+                      // checked
                     />
                     <label className="form-check-label" for="duplicateForm">
                       二聯式
@@ -506,8 +491,6 @@ function ShopCartPay() {
                       name="invoice"
                       id="VATNumber"
                       value="2"
-                      onChange={invoiceChange}
-                      checked={cartData && cartData.invoice == 2}
                     />
                     <label className="form-check-label" for="VATNumber">
                       開立統編
@@ -526,8 +509,7 @@ function ShopCartPay() {
                       name="pay_way"
                       id="creditCard"
                       value="1"
-                      onChange={payWayChange}
-                      checked={cartData && cartData.pay_way == 1}
+                      // checked
                     />
                     <label className="form-check-label" for="creditCard">
                       信用卡
@@ -540,8 +522,6 @@ function ShopCartPay() {
                       name="pay_way"
                       id="homePay"
                       value="2"
-                      onChange={payWayChange}
-                      checked={cartData && cartData.pay_way == 2}
                     />
                     <label className="form-check-label" for="homePay">
                       貨到付款

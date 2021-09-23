@@ -6,6 +6,10 @@
 .homepage-contentShop {
   padding: 80px 0px 0px;
 }
+.homepage-blobs2 {
+  right: 0;
+  top: -230px;
+}
 
 .homepage-product-card {
   margin: 10px auto;
@@ -24,7 +28,8 @@
 .homepage-article-name {
   display: block;
   margin: 10px 0;
-  font-family: Source Sans Pro;
+  height: 70px;
+  /* font-family: Source Sans Pro; */
   font-size: 16px;
   line-height: 22px;
   color: #4e4e4e;
@@ -37,6 +42,7 @@
 }
 /*icon start*/
 .homepage-heart-icon {
+  font-size: 18px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -95,6 +101,7 @@
 .homepage-btnMore {
   width: 100%;
   text-align: center;
+  margin-top: 50px;
 }
 .homepage-more {
   max-width: 200px;

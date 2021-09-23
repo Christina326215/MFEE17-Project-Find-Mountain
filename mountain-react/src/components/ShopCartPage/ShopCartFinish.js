@@ -172,7 +172,7 @@ function ShopCartFinish() {
                 上一步
               </Link>
               <Link
-                to=""
+                to="/member/order"
                 className="shopcart-btn btn-next btn btn-primary mr-3"
               >
                 查看我的訂單
