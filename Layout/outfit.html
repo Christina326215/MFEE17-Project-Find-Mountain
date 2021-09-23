@@ -26,13 +26,17 @@
     <!-- =========header star========= -->
     <header class="header sticky-top">
       <a href="./HomepageIndex.html" class="logo_top">
-        <img src="./img/logo.png" alt="logo_top" />
+        <img src="img/logo.png" alt="logo_top" />
       </a>
-      <div class="btns">
+      <div class="btns d-flex">
         <a href="#" class="search_button"><i class="bi bi-search h4"></i></a>
-        <a href="./shopping-1-content.html" class="shopping_button"
-          ><i class="bi bi-cart h4"></i
-        ></a>
+        <a
+          href="./shopping-1-content.html"
+          class="shopping_button position-relative"
+        >
+          <div class="cart-num position-absolute text-center">0</div>
+          <i class="bi bi-cart h4"></i>
+        </a>
         <a href="./member-login.html" class="sign_button">Sign In</a>
       </div>
       <!-- =========nav star========= -->
@@ -123,7 +127,7 @@
                   <img src="./img/img-outfit/bear.svg" alt="" />
                   <div class="mountains position-absolute position-relative">
                     <div class="low-mountain single" target="1">
-                      <span>低階</span>
+                      <span>初階</span>
                     </div>
                     <div class="high-mountain single" target="3">
                       <span>高階</span>
@@ -144,12 +148,14 @@
                   <i class="fas fa-chevron-right next" id="slideRight"></i>
                   <div class="product-wrapper" id="slider">
                     <div class="product">
-                      <div class="product-img test1">
+                      <div class="product-img">
                         <img
                           src="./img/img-outfit/clothes-pic1-removebg-preview.png"
                           alt=""
                           class="slider-image cover-fit"
-                          draggable
+                          id="A1001"
+                          data-productName="Arcteryx 始祖鳥 單件式GORE-TEX化纖保暖外套"
+                          data-price="5000"
                         />
                       </div>
                       <div class="product-info">
@@ -157,12 +163,15 @@
                       </div>
                     </div>
                     <div class="product">
-                      <div class="product-img test1">
+                      <div class="product-img">
                         <img
                           src="./img/img-outfit/clothes-pic2-removebg-preview.png"
                           alt=""
                           class="slider-image cover-fit"
                           draggable
+                          id="A1002"
+                          data-productName="Mont-Bell Light Alpine 連帽羽絨外套"
+                          data-price="7000"
                         />
                       </div>
                       <div class="product-info">
@@ -170,12 +179,15 @@
                       </div>
                     </div>
                     <div class="product">
-                      <div class="product-img test1">
+                      <div class="product-img">
                         <img
                           src="./img/img-outfit/clothes-pic3-removebg-preview.png"
                           alt=""
                           class="slider-image cover-fit"
                           draggable
+                          id="A1003"
+                          data-productName="The North Face 戶外保暖羽絨外套"
+                          data-price="6800"
                         />
                       </div>
                       <div class="product-info">
@@ -546,60 +558,25 @@
       <!-- 製作個人化明信片 end -->
       <!-- 訂購單 start     -->
       <div class="order">
-        <table class="order-table">
-          <thead>
-            <tr>
-              <td class="order-head">穿搭組合</td>
-              <td class="order-head">NT$ 4,000</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="tr">
-              <div>
-                <td>
-                  <div>
-                    <img
-                      class="cover-fit"
-                      src="./img/img-outfit/shoes-pic3-removebg-preview.png"
-                      alt=""
-                    />
-                  </div>
-                </td>
-                <td>SALOMON EVASION GORE-TEX登山健行鞋</td>
-                <td>NT$ 1000</td>
-                <td>Ｘ１</td>
-              </div>
-            </tr>
-            <tr>
-              <td>
-                <div>
-                  <img
-                    class="cover-fit"
-                    src="./img/img-outfit/clothes-pic7-removebg-preview.png"
-                    alt=""
-                  />
-                </div>
-              </td>
-              <td>MERRELL Tetrex Crest Wrap 女水陸三棲鞋</td>
-              <td>NT$ 1000</td>
-              <td>Ｘ１</td>
-            </tr>
-            <tr>
-              <td>
-                <div>
-                  <img
-                    class="cover-fit"
-                    src="./img/img-outfit/bags-pic7-removebg-preview.png"
-                    alt=""
-                  />
-                </div>
-              </td>
-              <td>The North Face 黑灰色休閒後背包</td>
-              <td>NT$ 1000</td>
-              <td>Ｘ１</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="orderTitle">
+          <p class="order-head mr-3">穿搭組合</p>
+          <p class="order-head">NT$ <span id="subtotal">0</span></p>
+        </div>
+        <div id="newItems">
+          <!-- <div class="newItem">
+            <div style="width: 100px">
+              <img
+                class="cover-fit"
+                src="./img/img-outfit/shoes-pic3-removebg-preview.png"
+                alt=""
+              />
+            </div>
+            <div class="">SALOMON EVASION GORE-TEX登山健行鞋</div>
+            <div class="">NT$ 1000</div>
+            <div class="">Ｘ１</div>
+          </div>
+        </div> -->
+        </div>
       </div>
       <!-- 訂購單 end -->
     </div>
@@ -610,7 +587,7 @@
       <button class="btn btn-outline-primary" id="save">
         <i class="bi bi-download"></i>儲存明信片
       </button>
-      <button class="btn btn-primary">將所選商品加入購物車</button>
+      <button class="btn btn-primary outfit-cart">將所選商品加入購物車</button>
     </div>
     <!-- =========content end========= -->
 
@@ -656,9 +633,11 @@
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
       crossorigin="anonymous"
     ></script>
-    <script src="outfit.js"></script>
     <script src="fabric.js"></script>
     <script src="canvas.js"></script>
+    <!-- <script src="canvas-1.js"></script> -->
+    <script src="outfit.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="http://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <!-- <script src="https://superal.github.io/canvas2image/canvas2image.js"></script> -->
     <!-- <script src="canvas2image.js"></script> -->
