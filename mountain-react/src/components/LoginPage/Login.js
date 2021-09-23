@@ -24,8 +24,16 @@ import slider3 from '../../img/pic3.webp';
 
 function Login(props) {
   const [user, setUser] = useState([]);
-  const [email, setEmail] = useState('ming@test');
-  const [password, setPassword] = useState('123456');
+  // const [email, setEmail] = useState('ming@test');
+  // const [password, setPassword] = useState('123456');
+  const [loginData, setLoginData] = useState({
+    email: '',
+    password: '',
+  });
+
+  function handleChange(e) {
+    setLoginData({ ...loginData, [e.target.name]: e.target.value });
+  }
 
   useEffect(() => {
     $('.login-display-photo-box').slick({
@@ -37,19 +45,33 @@ function Login(props) {
       cssEase: 'linear',
     });
   }, []);
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     let result = await axios.post(`${authURL}/login`, {
+  //       email,
+  //       password,
+  //     });
+  //     console.log(result.data); //for check
+  //     setUser(result.data);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+  // 準備 INSERT INTO 資料庫 start
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let result = await axios.post(`${authURL}/login`, {
-        email,
-        password,
-      });
-      console.log(result.data); //for check
-      setUser(result.data);
+      let formData = new FormData();
+      formData.append('email', loginData.email);
+      formData.append('password', loginData.password);
+      let response = await axios.post(`${authURL}/login`, formData);
+      console.log(response);
     } catch (e) {
-      console.log(e);
+      console.error(e.response);
     }
   };
+  // 準備 INSERT INTO 資料庫 end
 
   return (
     <>
@@ -90,10 +112,8 @@ function Login(props) {
                   aria-describedby="emailHelp"
                   placeholder="請輸入您的email"
                   name="email"
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
+                  value={loginData && loginData.email}
+                  onChange={handleChange}
                 />
               </div>
               <div className="mb-3">
@@ -109,10 +129,8 @@ function Login(props) {
                   id="InputPassword1"
                   placeholder="請輸入您的密碼"
                   name="password"
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                  }}
+                  value={loginData && loginData.password}
+                  onChange={handleChange}
                 />
               </div>
               <div className="mb-3 form-check">

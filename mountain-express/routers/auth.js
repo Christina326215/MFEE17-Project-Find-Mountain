@@ -21,7 +21,11 @@ router.get('/', function (req, res, next) {
     console.log('hello')
     res.json('hello')
 })
-router.post('/register', registerRule, async function (req, res, next) {
+
+const multer = require("multer");
+const upload = multer();
+router.post('/register',upload.none(), registerRule, async function (req, res, next) {
+    console.log("req.body",req.body.email)
     const validateResult = validationResult(req)
     console.log(validateResult)
     if (!validateResult.isEmpty()) {
@@ -32,7 +36,7 @@ router.post('/register', registerRule, async function (req, res, next) {
         return res.status(400).json({ field: error[0].param, message: error[0].msg })
     }
     //檢查帳號是否重複
-    let account = await connection.queryAsync('SELECT * user WHERE email=?', [req.body.email])
+    let account = await connection.queryAsync('SELECT * FROM user WHERE account=?', [req.body.email])
     if (account.length > 0) {
         return next({
             // code: "330002",
@@ -45,13 +49,25 @@ router.post('/register', registerRule, async function (req, res, next) {
     //3.建立使用者存進資料庫
     //密碼不可以是明文
     //格式驗證
+
+  
     let hashPassword = await bcrypt.hash(req.body.password, 10)
-    let dbResults = await connection.queryAsync('INSERT INTO user(email,password,name,birthday,phone,addr) VALUES(?)', [
-        [req.body.email, hashPassword, req.body.name, req.body.birthday, req.body.phone, req.body.addr],
+    let dbResults = await connection.queryAsync('INSERT INTO user SET ?', [
+        {account: req.body.email, 
+        password: hashPassword, 
+        name: req.body.name, 
+        birthday: req.body.birthday, 
+        phone: req.body.phone, 
+        zip_code: req.body.zip_code,
+        addr: req.body.addr}
     ]) // 等資料庫查詢資料
-    res.json(dbResults)
+    
+    // res.json(dbResults)
+    res.json({});
 })
-router.post('/login', async (req, res, next) => {
+
+
+router.post('/login',upload.none(), async (req, res, next) => {
     console.log(req.body)
     // - 確認有沒有帳號 (email 是否存在)
     //     - 如果沒有這個帳號，就回覆錯誤(400)

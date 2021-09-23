@@ -15,6 +15,15 @@ app.use(
     })
 )
 
+// 啟用 session 機制
+const expressSession = require("express-session");
+app.use(
+  expressSession({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+  })
+);
+
 //使用中間件，才能讀到body資料
 app.use(express.urlencoded({ extended: true }))
 //使用中間件，解析json的資料
@@ -107,10 +116,20 @@ let shopCartRouter = require('./routers/shopCartPage')
 app.use('/api/shopCart', shopCartRouter)
 //===引用 shopCartPage 進來 end===//
 
+//===引用 shopCartPay 進來 star===//
+let shopCartPayRouter = require("./routers/shopCartPay");
+app.use("/api/shopCart/pay", shopCartPayRouter);
+//===引用 shopCartPay 進來 end===//
+
 //===引用 memberPage 進來 star===//
 let memberRouter = require('./routers/memberPage')
 app.use('/api/member', memberRouter)
 //===引用 memberPage 進來 end===//
+
+//===引用 memberEditPage 進來 star===//
+let memberEditRouter = require("./routers/memberEdit");
+app.use("/api/member/edit", memberEditRouter);
+//===引用 memberEditPage 進來 end===//
 
 //===引用 memberRoute 進來 star===//
 let memberRouteRouter = require('./routers/memberRoute')
@@ -137,6 +156,12 @@ app.use('/api/member/article', memberArticleRouter)
 let memberCommentRouter = require('./routers/memberComment')
 app.use('/api/member/comment', memberCommentRouter)
 //===引用 memberComment 進來 end===//
+
+//===引用 memberOrder 進來 star===//
+let memberOrderRouter = require("./routers/memberOrder");
+app.use("/api/member/order", memberOrderRouter);
+//===引用 memberOrder 進來 end===//
+
 
 //====== error message star ======//
 app.use((req, res, next) => {

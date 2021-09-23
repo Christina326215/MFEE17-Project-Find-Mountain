@@ -1,8 +1,16 @@
 export const shopcartURL =
   process.env.REACT_APP_shopcartURL || 'http://localhost:3500/api/shopCart/';
 
+export const shopcartPayURL =
+  process.env.REACT_APP_shopcartPayURL ||
+  'http://localhost:3500/api/shopCart/pay';
+
 export const memberURL =
   process.env.REACT_APP_memberURL || 'http://localhost:3500/api/member/';
+
+export const memberEditURL =
+  process.env.REACT_APP_memberEditURL ||
+  'http://localhost:3500/api/member/edit';
 
 export const memberRouteURL =
   process.env.REACT_APP_memberRouteURL ||
@@ -24,6 +32,10 @@ export const memberArticleURL =
 export const memberCommentURL =
   process.env.REACT_APP_memberCommentURL ||
   'http://localhost:3500/api/member/comment';
+
+export const memberOrderURL =
+  process.env.REACT_APP_memberOrderURL ||
+  'http://localhost:3500/api/member/order';
 
 export const baseZipURL =
   process.env.REACT_APP_zipURL || 'http://localhost:3500/zip';
