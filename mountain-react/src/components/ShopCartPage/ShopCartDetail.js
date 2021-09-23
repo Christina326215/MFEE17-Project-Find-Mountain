@@ -19,12 +19,12 @@ import ShopCartImg from '../../img/shoes-pic7.jpeg';
 function ShopCartDetail() {
   const [shopCartData, setShopCartData] = useState([]);
   const [num, setNum] = useState();
-  const handleChange = (event) => {
-    setShopCartData({
-      ...shopCartData,
-      [event.target.name]: event.target.value,
-    });
-  };
+  // const handleChange = (event) => {
+  //   setShopCartData({
+  //     ...shopCartData,
+  //     [event.target.name]: event.target.value,
+  //   });
+  // };
   useEffect(() => {
     var ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
     console.log(ProductOrder);

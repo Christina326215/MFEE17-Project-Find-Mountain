@@ -156,44 +156,69 @@ function ProductDetail(props) {
     });
     //加入購物車
     $('.productdetail-add-cart-btn').on('click', function () {
+      //確認是否有選擇尺寸
+      let sizeChosen = Boolean($('.productdetail-active').length > 0);
+      if (!sizeChosen) {
+        Swal.fire({
+          icon: 'error',
+          title: '請選擇尺寸！',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        return;
+      }
       let orderDetailSize = $('.productdetail-active').val();
       let orderDetailNum = parseInt($('.productdetail-order-number').val());
       console.log(orderDetailNum);
       let orderDetail = { id: id, size: orderDetailSize, num: orderDetailNum };
       console.log(orderDetail);
       //localstorage for order detail start//
-      var GetProductOrder = localStorage.getItem('ProductOrderDetail');
-      if (GetProductOrder === null) {
-        var ProductOrder = [];
-        localStorage.setItem(
-          'ProductOrderDetail',
-          JSON.stringify(ProductOrder)
-        );
-        ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
-        ProductOrder.push(orderDetail);
-        localStorage.setItem(
-          'ProductOrderDetail',
-          JSON.stringify(ProductOrder)
-        );
+      const ProductOrder =
+        JSON.parse(localStorage.getItem('ProductOrderDetail')) || [];
+      const index = ProductOrder.findIndex(
+        (v) => v.id === orderDetail.id && v.size === orderDetail.size
+      );
+      if (index > -1) {
+        //currentCart[index].amount++
+        console.log('這個商品已經加過了');
+        return;
       } else {
-        //如果localstorage有product view history
-        // console.log('okay');
-        ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
-        //判斷陣列裡面有沒有這樣商品 有的話要刪除 不然會重複太多
-        //寫一個function給filter用 過濾與之id相同的資料
-        // function productClearDuplicatedItem(value) {
-        //   return value !== id;
-        // }
-        // ProductOrder = ProductOrder.filter(
-        //   productClearDuplicatedItem
-        // );
-        //再把他push回最尾端
-        ProductOrder.push(orderDetail);
-        localStorage.setItem(
-          'ProductOrderDetail',
-          JSON.stringify(ProductOrder)
-        );
+        // ProductOrder.push(orderDetail);
+        console.log('哎呦還沒喔');
       }
+
+      // var GetProductOrder = localStorage.getItem('ProductOrderDetail');
+      // if (GetProductOrder === null) {
+      //   var ProductOrder = [];
+      //   localStorage.setItem(
+      //     'ProductOrderDetail',
+      //     JSON.stringify(ProductOrder)
+      //   );
+      //   ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
+      //   ProductOrder.push(orderDetail);
+      //   localStorage.setItem(
+      //     'ProductOrderDetail',
+      //     JSON.stringify(ProductOrder)
+      //   );
+      // } else {
+      //   //如果localstorage有product view history
+      //   // console.log('okay');
+      //   ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
+      //   //判斷陣列裡面有沒有這樣商品 有的話要刪除 不然會重複太多
+      //   //寫一個function給filter用 過濾與之id相同的資料
+      //   // function productClearDuplicatedItem(value) {
+      //   //   return value !== id;
+      //   // }
+      //   // ProductOrder = ProductOrder.filter(
+      //   //   productClearDuplicatedItem
+      //   // );
+      //   //再把他push回最尾端
+      //   ProductOrder.push(orderDetail);
+      //   localStorage.setItem(
+      //     'ProductOrderDetail',
+      //     JSON.stringify(ProductOrder)
+      //   );
+      // }
       //localstorage for order detail end//
 
       //display none -> block
