@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { commentURL } from '../../utils/config';
+import { articlecommentURL } from '../../utils/config';
 import CommmentList from './CommmentList';
 import slothBig from '../../img/article-img/sloth_big.svg';
 import slothSmall from '../../img/article-img/sloth_small.svg';
@@ -51,7 +51,7 @@ function Comment(props) {
   useEffect(() => {
     async function commentData() {
       try {
-        const commentData = await axios.get(commentURL);
+        const commentData = await axios.get(articlecommentURL);
         const commentTotalData = commentData.data;
         const id = Number(props.match.params.id);
         // 全部資料用find尋找id一樣的資料
@@ -83,7 +83,7 @@ function Comment(props) {
       formData.append('pic', pic);
       formData.append('time', time);
       formData.append('valid', valid);
-      let response = await axios.post(`${commentURL}/insert`, formData);
+      let response = await axios.post(`${articlecommentURL}/insert`, formData);
       console.log('response', response);
       // console.log('formData', formData);
     } catch (e) {
