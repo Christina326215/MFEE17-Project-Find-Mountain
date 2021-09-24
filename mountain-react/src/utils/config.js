@@ -51,6 +51,16 @@ export const recommendURL =
   process.env.REACT_APP_recommendURL || 'http://localhost:3500/api/recommend';
 //=== recommend url star ===//
 
+//=== tag url star ===//
+export const tagURL =
+  process.env.REACT_APP_tagURL || 'http://localhost:3500/api/tag';
+//=== tag url star ===//
+
+//=== comment url star ===//
+export const articlecommentURL =
+  process.env.REACT_APP_commentURL || 'http://localhost:3500/api/comment';
+//=== comment url star ===//
+
 //=== log url star ===//
 export const authURL =
   process.env.REACT_APP_authURL || 'http://localhost:3500/api/auth';
