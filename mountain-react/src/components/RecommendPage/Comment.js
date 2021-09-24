@@ -58,7 +58,7 @@ function Comment(props) {
         const newcommentDetail = commentTotalData.filter((v) => {
           return v.article_id === id;
         });
-        console.log('newcommentDetail', newcommentDetail);
+        // console.log('newcommentDetail', newcommentDetail);
 
         if (newcommentDetail) setComment(newcommentDetail);
       } catch (e) {

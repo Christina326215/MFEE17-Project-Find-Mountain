@@ -6,11 +6,10 @@ import { recommendURL, IMAGE_URL } from '../../utils/config';
 ///////////////////////////////////////////連接資料庫
 import Comment from './Comment';
 import RecommendCard from './RecommendCard';
+import ProductTag from './ProductTag';
 import '../../styles/article.css';
-import { Link } from 'react-router-dom';
 import $ from 'jquery';
 import level from '../../img/article-img/level_low.svg';
-import bag from '../../img/article-img/bags-pic1.jpeg';
 import { FaShoePrints } from 'react-icons/fa';
 import { BsHeartFill } from 'react-icons/bs';
 import { BsStarFill, BsFlagFill, BsQuestionCircle } from 'react-icons/bs';
@@ -55,15 +54,6 @@ function DetailContent(props) {
       $(this).toggleClass('active');
     });
 
-    $('.recommend-tag-small').mouseover(function () {
-      $('.recommend-tag-small').hide();
-      $('.recommend-tag-big').show();
-    });
-
-    $('.recommend-tag-big').mouseout(function () {
-      $('.recommend-tag-big').hide();
-      $('.recommend-tag-small').show();
-    });
     // js
 
     // 連線資料庫
@@ -315,75 +305,7 @@ function DetailContent(props) {
           {/* googlemap */}
           {/* <GoogleMap></GoogleMap> */}
           {/* googlemap */}
-          <h2 className="recommend-body-content-big-bold">此景點產品推薦</h2>
-          <div className="row">
-            <div className="col-lg-6 col-md-12 mb-md-3">
-              <div className="recommend-productTagBg">
-                <div className="recommend-tag-small">
-                  {/* (導連頁還要調整) */}
-                  <Link className="recommend-tag recommend-hatTag" to="/shop">
-                    #tag 登山帽
-                  </Link>
-                </div>
-                <div className="recommend-tag-big">
-                  {/* (導連頁還要調整) */}
-                  <Link
-                    className="recommend-tagHover recommend-bagTag"
-                    to="/shop"
-                  >
-                    <div className="row m-0">
-                      <div className="col recommend-tagText">
-                        <p className="recommend-tagName">
-                          # The North Face 黑色舒適休閒後背包
-                        </p>
-                        <p className="recommend-tagPrice">$ 5,292</p>
-                      </div>
-                      <div className="recommend-productTagWrap col p-0">
-                        <img
-                          className="img-fluid recommend-productTagHover"
-                          src={bag}
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-6 col-md-12 mb-md-3">
-              <div className="recommend-productTagBg">
-                <div className="recommend-tag-small">
-                  {/* (導連頁還要調整) */}
-                  <Link className="recommend-tag recommend-hatTag" to="/shop">
-                    #tag 登山帽
-                  </Link>
-                </div>
-                <div className="recommend-tag-big">
-                  {/* (導連頁還要調整) */}
-                  <Link
-                    className="recommend-tagHover recommend-bagTag"
-                    to="/shop"
-                  >
-                    <div className="row m-0">
-                      <div className="col recommend-tagText">
-                        <p className="recommend-tagName">
-                          # The North Face 黑色舒適休閒後背包
-                        </p>
-                        <p className="recommend-tagPrice">$ 5,292</p>
-                      </div>
-                      <div className="recommend-productTagWrap col p-0">
-                        <img
-                          className="img-fluid recommend-productTagHover"
-                          src={bag}
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
+          <ProductTag></ProductTag>
         </div>
       </div>
       <Comment detail={detail}></Comment>
