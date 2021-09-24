@@ -23,6 +23,7 @@ import slider3 from '../../img/pic3.webp';
 //===import img end===
 
 function Login(props) {
+  const [user, setUser] = useState([]);
   // const [email, setEmail] = useState('ming@test');
   // const [password, setPassword] = useState('123456');
   const [loginData, setLoginData] = useState({
@@ -132,7 +133,7 @@ function Login(props) {
                   onChange={handleChange}
                 />
               </div>
-              {/* <div className="mb-3 form-check">
+              <div className="mb-3 form-check">
                 <input
                   type="checkbox"
                   className="form-check-input"
@@ -144,7 +145,7 @@ function Login(props) {
                 >
                   保持登入
                 </label>
-              </div> */}
+              </div>
               <div className="mb-3 text-center login-member">
                 <button type="submit" className="btn login-btn">
                   會員登入

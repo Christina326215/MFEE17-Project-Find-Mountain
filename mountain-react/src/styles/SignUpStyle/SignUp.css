@@ -26,13 +26,18 @@
   left: 50%;
   transform: translateX(-50%);
   top: 20px;
-  border: 1px solid #19634a;
+  border: 2px solid #6da77f;
   box-sizing: border-box;
   border-radius: 10px;
   padding: 50px 30px;
 }
 .sign-input label {
   color: #747474;
+}
+.signup-info-button-container {
+  position: absolute;
+  bottom: -70px;
+  left: 0px;
 }
 .signup-info-button-container .btn {
   display: inline-block;
@@ -42,7 +47,7 @@
   border-radius: 10px;
   text-transform: uppercase;
   font-weight: 900;
-  border: 3px solid #6da77f;
+  border: 2px solid #6da77f;
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
   cursor: pointer;
@@ -56,8 +61,8 @@
 }
 
 .signup-info-button-container .btn:hover {
-  background-color: transparent;
+  background-color: #fff;
   color: #6da77f;
   -webkit-transform: scale(1.02) perspective(1000px);
-  transform: scale(1.05) perspective(1000px);
+  /* transform: scale(1.2) perspective(1000px); */
 }
