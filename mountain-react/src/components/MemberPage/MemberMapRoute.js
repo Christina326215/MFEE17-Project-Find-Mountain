@@ -67,7 +67,6 @@ function MemberMapRoute() {
         this.classList.add('active');
       });
     }
-    console.log('testhi123');
   }, [show]);
 
   return (
@@ -88,10 +87,7 @@ function MemberMapRoute() {
               <tbody>
                 <tr className="member-table-active">
                   <td scope="row" className="text-center">
-                    <Link
-                      to="/member/map-route"
-                      className="member-left-href-color"
-                    >
+                    <Link to="/member" className="member-left-href-color">
                       路線地圖
                     </Link>
                   </td>
@@ -271,7 +267,7 @@ function MemberMapRoute() {
                         <th scope="col-3"></th>
                         <th scope="col-5"></th>
                         <th scope="col-2">
-                          {/* FIXME: 給舊會員選擇去過路線 */}
+                          {/* 給新舊會員選擇去過路線 */}
                           <MemberMapAddRoute show={show} setShow={setShow} />
                         </th>
                       </tr>
