@@ -2,10 +2,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
-import $, { data } from 'jquery';
+import $ from 'jquery';
 import '../../styles/MemberPage/MemberProductArticle.scss'; //member product and article style
 
-import { memberProductURL, memberArticleURL } from '../../utils/config';
+import {
+  memberProductURL,
+  memberArticleURL,
+  IMAGE_URL,
+} from '../../utils/config';
 import axios from 'axios';
 
 //====== below pages star ======//
@@ -17,11 +21,6 @@ import MemberSideHead from './pages/MemberSideHead'; //member Side Head
 import { BsTrash, BsStar, BsStarFill, BsXSquareFill } from 'react-icons/bs';
 import { Cart } from 'react-bootstrap-icons';
 //====== below icon end ======//
-
-//====== below img import start ======//
-import MemberProductImg from '../../img/shoes-pic2.jpeg';
-import Xiangshan from '../../img/xiangshan.jpeg';
-//====== above img import end ======//
 
 function MemberProductArticle() {
   const [dataProduct, setProductData] = useState([]);
@@ -148,10 +147,10 @@ function MemberProductArticle() {
                 <tr>
                   <td scope="row" className="text-center">
                     <Link
-                      to="/mamber/personal"
+                      to="/member/personal"
                       className="member-left-href-color"
                     >
-                      帳號設定
+                      會員資料
                     </Link>
                   </td>
                 </tr>
@@ -247,7 +246,7 @@ function MemberProductArticle() {
                           >
                             <div className="member-product-article-product-picture-img-box">
                               <img
-                                src={MemberProductImg}
+                                src={`${IMAGE_URL}/img/product-img/${items.product_pic}`}
                                 alt=""
                                 className="member-product-article-product-picture-img"
                               />
@@ -301,7 +300,7 @@ function MemberProductArticle() {
                           >
                             <div className="member-product-article-article-picture-img-box">
                               <img
-                                src={Xiangshan}
+                                src={`${IMAGE_URL}/img/article-img/${items.article_pic}`}
                                 alt=""
                                 className="member-product-article-article-picture-img"
                               />

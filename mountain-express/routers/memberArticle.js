@@ -3,7 +3,7 @@ const router = express.Router();
 const connection = require("../utils/db");
 
 router.get("", async function (req, res, next) {
-  let dbResults = await connection.queryAsync("SELECT article.name AS article_name, user_article.* FROM user_article JOIN article ON user_article.article_id = article.id"); // 等資料庫查詢資料
+  let dbResults = await connection.queryAsync("SELECT article.name AS article_name, article.pic AS article_pic, user_article.* FROM user_article JOIN article ON user_article.article_id = article.id"); // 等資料庫查詢資料
   res.json(dbResults);
 });
 // router.get("", async function (req, res, next) {
