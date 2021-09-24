@@ -46,6 +46,13 @@ function Comment(props) {
   const event = new Date(Date.now());
   const [time, setTime] = useState(event);
   const [valid, setValid] = useState('1');
+  // rerender狀態
+  const [show, setShow] = useState(false);
+
+  // rerender函式
+  const rerender = () => {
+    setShow(true);
+  };
 
   // 評論資料連線
   useEffect(() => {
@@ -66,11 +73,7 @@ function Comment(props) {
       }
     }
     commentData();
-  }, [props.match.params.id]);
-
-  // const setDisplayComment = async (newcommentDetail) => {
-  //   setComment(newcommentDetail);
-  // };
+  }, [props.match.params.id, show]);
 
   // 新增評論資料庫
   const InsertComment = async (e) => {
@@ -284,8 +287,8 @@ function Comment(props) {
                                   取消
                                 </button>
                                 <button
-                                  // type="submit"
                                   className="btn btn-warning text-white"
+                                  onClick={rerender}
                                 >
                                   送出評論
                                 </button>
