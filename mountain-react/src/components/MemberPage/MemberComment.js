@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'; //a標籤要變成link
+import { Link, useParams } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
 import $ from 'jquery';
 import '../../styles/MemberPage/MemberComment.scss'; //member comment style
 
-import { memberCommentURL } from '../../utils/config';
+import { memberCommentURL, IMAGE_URL } from '../../utils/config';
 import axios from 'axios';
 
 //====== below pages star ======//
@@ -22,6 +22,8 @@ import Xiangshan from '../../img/xiangshan.jpeg';
 
 function MemberComment() {
   const [data, setData] = useState([]);
+  const { id } = useParams();
+  console.log('id', id);
 
   useEffect(() => {
     async function getCommentData() {
@@ -144,8 +146,8 @@ function MemberComment() {
                   </th>
                 </tr>
               </thead>
-              {data.map((items, i) => (
-                <tbody>
+              {data.map((items) => (
+                <tbody key={items.id}>
                   <tr>
                     <td
                       scope="row"
@@ -153,7 +155,7 @@ function MemberComment() {
                     >
                       <div className="member-comment-picture-img-box">
                         <img
-                          src={Xiangshan}
+                          src={`${IMAGE_URL}/img/comment-img/${items.pic}`}
                           alt=""
                           className="member-comment-picture-img"
                         />
@@ -163,13 +165,13 @@ function MemberComment() {
                       scope="row"
                       className="member-comment-text-weight align-middle"
                     >
-                      象山步道
+                      {items.article_name}
                     </td>
                     <td
                       scope="row"
                       className="member-comment-text-weight align-middle"
                     >
-                      {items.comments_content}
+                      {items.content}
                     </td>
                     <td
                       scope="row"
