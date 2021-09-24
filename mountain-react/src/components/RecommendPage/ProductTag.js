@@ -17,13 +17,15 @@ function ProductTag(props) {
   //   const [picTag, SetPicTag] = useState([]);
 
   const tagBig = (e) => {
-    $('.recommend-tag-small').hide();
-    $('.recommend-tag-big').show();
+    $(e.currentTarget).hide();
+    // 下一個元素
+    $(e.currentTarget.nextElementSibling).show();
   };
 
-  const tagSmall = () => {
-    $('.recommend-tag-big').hide();
-    $('.recommend-tag-small').show();
+  const tagSmall = (e) => {
+    $(e.currentTarget).hide();
+    // 上一個元素
+    $(e.currentTarget.previousElementSibling).show();
   };
 
   useEffect(() => {
