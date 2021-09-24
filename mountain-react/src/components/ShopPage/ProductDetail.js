@@ -102,68 +102,6 @@ function ProductDetail(props) {
       }
     }
     getProductData();
-    //heart icon
-    $('.productdetail-heart-icon-bkg').on('click', function () {
-      $(this).toggleClass('productdetail-heart-icon-bkg-click');
-    });
-    //cart icon
-    $('.productdetail-cart-icon-bkg').on('click', () => {
-      //display none -> block
-      let cartDisplay = $('.cart-num').css('display');
-      if (cartDisplay === 'none') {
-        $('.cart-num').css('display', 'block');
-      }
-      // alert("已將商品加入購物車！");
-      Swal.fire({
-        icon: 'success',
-        title: '已將商品加入購物車！',
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      //cart-num ++
-      let cartNum = parseInt($('.cart-num').text());
-      let orderNum = parseInt($('.productdetail-order-number').val());
-      //限制一次加進購物車數量
-      if (cartNum >= 10) {
-        Swal.fire({
-          icon: 'error',
-          title: '一次最多只能放入10樣商品喔',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      } else {
-        cartNum += orderNum;
-        $('.cart-num').text(cartNum);
-      }
-    });
-    //會員制度泡泡
-    $('.productdetail-see-member').on('click', function () {
-      $('.productdetail-about-membership-bubble').toggle('display');
-    });
-    //like-icon
-    $('.productdetail-like-btn').on('click', function () {
-      $(this).toggleClass('productdetail-active');
-    });
-    //product order size選擇
-    $('.productdetail-size-btn').on('click', function () {
-      $(this).toggleClass('productdetail-active');
-      $(this).siblings().removeClass('productdetail-active');
-    });
-    //product order 數量部分
-    $('.productdetail-add-btn').on('click', function () {
-      let num = parseInt($('.productdetail-order-number').val());
-      num += 1;
-      $('.productdetail-order-number').val(num);
-      // console.log(num);
-    });
-    $('.productdetail-minus-btn').on('click', function () {
-      let num = parseInt($('.productdetail-order-number').val());
-      if (num > 1) {
-        num -= 1;
-        $('.productdetail-order-number').val(num);
-      }
-      // console.log(num);
-    });
     //加入購物車
     $('.productdetail-add-cart-btn').on('click', function () {
       //確認是否有選擇尺寸
@@ -235,6 +173,70 @@ function ProductDetail(props) {
     });
     // setOrderInfo(ProductOrder);
   }, [id]);
+  useEffect(() => {
+    //heart icon
+    $('.productdetail-heart-icon-bkg').on('click', function () {
+      $(this).toggleClass('productdetail-heart-icon-bkg-click');
+    });
+    //cart icon
+    $('.productdetail-cart-icon-bkg').on('click', () => {
+      //display none -> block
+      let cartDisplay = $('.cart-num').css('display');
+      if (cartDisplay === 'none') {
+        $('.cart-num').css('display', 'block');
+      }
+      // alert("已將商品加入購物車！");
+      Swal.fire({
+        icon: 'success',
+        title: '已將商品加入購物車！',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      //cart-num ++
+      let cartNum = parseInt($('.cart-num').text());
+      let orderNum = parseInt($('.productdetail-order-number').val());
+      //限制一次加進購物車數量
+      if (cartNum >= 10) {
+        Swal.fire({
+          icon: 'error',
+          title: '一次最多只能放入10樣商品喔',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else {
+        cartNum += orderNum;
+        $('.cart-num').text(cartNum);
+      }
+    });
+    //會員制度泡泡
+    $('.productdetail-see-member').on('click', function () {
+      $('.productdetail-about-membership-bubble').toggle('display');
+    });
+    //like-icon
+    $('.productdetail-like-btn').on('click', function () {
+      $(this).toggleClass('productdetail-active');
+    });
+    //product order size選擇
+    $('.productdetail-size-btn').on('click', function () {
+      $(this).toggleClass('productdetail-active');
+      $(this).siblings().removeClass('productdetail-active');
+    });
+    //product order 數量部分
+    $('.productdetail-add-btn').on('click', function () {
+      let num = parseInt($('.productdetail-order-number').val());
+      num += 1;
+      $('.productdetail-order-number').val(num);
+      // console.log(num);
+    });
+    $('.productdetail-minus-btn').on('click', function () {
+      let num = parseInt($('.productdetail-order-number').val());
+      if (num > 1) {
+        num -= 1;
+        $('.productdetail-order-number').val(num);
+      }
+      // console.log(num);
+    });
+  }, []);
   return (
     <>
       <main>

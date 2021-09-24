@@ -23,43 +23,77 @@ function ShopCartDetail() {
   const [historyItems, setHistoryItems] = useState([]);
   //cartLocal為購物車的local storage
   const [cartLocal, setCartLocal] = useState([]);
-  const [num, setNum] = useState();
-  // const handleChange = (event) => {
-  //   setShopCartData({
-  //     ...shopCartData,
-  //     [event.target.name]: event.target.value,
-  //   });
-  // };
   //取得local storage轉為陣列的資料 ProductOrder
-  var ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
+  function getCartFromLocalStorage() {
+    const ProductOrder =
+      JSON.parse(localStorage.getItem('ProductOrderDetail')) || '[]';
+    console.log(ProductOrder);
+    setCartLocal(ProductOrder);
+  }
+  //一進畫面先讀取local storage
+  useEffect(() => {
+    getCartFromLocalStorage();
+  }, []);
+  //刪除商品
+  //TODO:刪除商品提示msg
   const deleteItem = (items) => {
+    const currentProductOrder =
+      JSON.parse(localStorage.getItem('ProductOrderDetail')) || '[]';
     //抓這裡的商品ID
     console.log(items.id, items.size);
     //找到對應資料的index
-    const deleteIndex = ProductOrder.findIndex(
+    const deleteIndex = currentProductOrder.findIndex(
       (v) => v.id === items.id && v.size === items.size
     );
     if (deleteIndex > -1) {
       //if 有找到一樣id一樣尺寸的local storage
       //把想刪除的商品資料從陣列中刪除
-      ProductOrder.splice(deleteIndex);
-      console.log('splicedProductOrder', ProductOrder);
+      console.log('deleteIndex', deleteIndex);
+      currentProductOrder.splice(deleteIndex, 1);
+      console.log('splicedProductOrder', currentProductOrder);
       //把處理好的資料塞回local storage
-      localStorage.setItem('ProductOrderDetail', JSON.stringify(ProductOrder));
+      localStorage.setItem(
+        'ProductOrderDetail',
+        JSON.stringify(currentProductOrder)
+      );
       console.log('有這個訂購資料');
+      setCartLocal(currentProductOrder);
       //TODO:提示已刪除商品
       //刪除後重整頁面
-      window.location.reload(false);
-      // return;
+      // window.location.reload(false);
     } else {
       console.log('哎呦沒有東西可以刪耶');
     }
   };
-  //shopCartData
+  //更新購物車數量
+  const UpdateAmounts = (items, isAdded) => {
+    const newProductOrder = JSON.parse(
+      localStorage.getItem('ProductOrderDetail')
+    );
+    //找到對應資料的index
+    const amountIndex = newProductOrder.findIndex(
+      (v) => v.id === items.id && v.size === items.size
+    );
+    console.log('amountIndex', amountIndex);
+    if (amountIndex > -1) {
+      isAdded
+        ? newProductOrder[amountIndex].num++
+        : newProductOrder[amountIndex].num--;
+    }
+    localStorage.setItem('ProductOrderDetail', JSON.stringify(newProductOrder));
+    setCartLocal(newProductOrder);
+  };
+  // 計算總價用的函式
+  const sum = (items) => {
+    let total = 0;
+    for (let i = 0; i < items.length; i++) {
+      total += items[i].num * items[i].price;
+    }
+    return total;
+  };
+  //local storage接API --> shopCartData
   useEffect(() => {
-    // var ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
-    console.log(ProductOrder);
-    setCartLocal(ProductOrder);
+    var ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
     //api
     async function getProductData() {
       try {
@@ -94,8 +128,6 @@ function ShopCartDetail() {
           // console.log('productOrderData.data[0]', productOrderData.data[0]);
           // console.log('assignedObj', assignedObj);
           orderArray.unshift(productOrderData.data[0]);
-          // setNum(Array(orderArray.length).fill(0));
-          // console.log('num', num);
         }
         console.log('orderArray', orderArray);
         setShopCartData(orderArray);
@@ -104,7 +136,8 @@ function ShopCartDetail() {
       }
     }
     getProductData();
-  }, []);
+  }, [cartLocal]);
+  //FIXME:一些待整理的東西
   useEffect(() => {
     // progress-bar
     $('.shopcart-btn-next').on('click', function () {
@@ -170,28 +203,11 @@ function ShopCartDetail() {
         .addClass('shopcart-step-' + prevStepNum)
         .data('current-step', prevStepNum);
     });
-    //product order 數量部分
-    // $('.shopcart-add-btn').on('click', function () {
-    //   let number = $(this).parent().find('.shopcart-order-number');
-    //   let num = parseInt(number.val());
-    //   num += 1;
-    //   number.val(num);
-    //   console.log(num);
-    // });
-    // $('.shopcart-minus-btn').on('click', function () {
-    //   let number = $(this).parent().find('.shopcart-order-number');
-    //   let num = parseInt(number.val());
-    //   if (num > 1) {
-    //     num -= 1;
-    //     number.val(num);
-    //   }
-    //   // console.log(num);
-    // });
     //product order size選擇
-    $('.shopcart-size-btn').on('click', function () {
-      $(this).toggleClass('shopcart-active');
-      $(this).siblings().removeClass('shopcart-active');
-    });
+    // $('.shopcart-size-btn').on('click', function () {
+    //   $(this).toggleClass('shopcart-active');
+    //   $(this).siblings().removeClass('shopcart-active');
+    // });
   }, []);
   return (
     <>
@@ -288,12 +304,14 @@ function ShopCartDetail() {
                           value="M"
                           name="size"
                           className="shopcart-size-btn mx-1"
+                          disabled
                         />
                         <input
                           type="button"
                           value="L"
                           name="size"
                           className="shopcart-size-btn mx-1"
+                          disabled
                         />
                       </div>
                     ) : items.size === 'M' ? (
@@ -304,6 +322,7 @@ function ShopCartDetail() {
                           value="S"
                           name="size"
                           className="shopcart-size-btn mx-1"
+                          disabled
                         />
                         <input
                           type="button"
@@ -316,6 +335,7 @@ function ShopCartDetail() {
                           value="L"
                           name="size"
                           className="shopcart-size-btn mx-1"
+                          disabled
                         />
                       </div>
                     ) : (
@@ -326,12 +346,14 @@ function ShopCartDetail() {
                           value="S"
                           name="size"
                           className="shopcart-size-btn mx-1"
+                          disabled
                         />
                         <input
                           type="button"
                           value="M"
                           name="size"
                           className="shopcart-size-btn mx-1"
+                          disabled
                         />
                         <input
                           type="button"
@@ -349,7 +371,12 @@ function ShopCartDetail() {
                     <div className="d-flex align-items-end flex-column bd-highlight shopcart-product-infobox-right">
                       <div className="bd-highlight">
                         <p className="my-3">數量</p>
-                        <button className="btn shopcart-minus-btn">
+                        <button
+                          className="btn shopcart-minus-btn"
+                          onClick={() => {
+                            UpdateAmounts(items, false);
+                          }}
+                        >
                           <BsDash size={24} />
                         </button>
                         {/* <input
@@ -367,6 +394,9 @@ function ShopCartDetail() {
                           //   const newNum = parseInt(num[index]) + 1;
                           //   setNum(newNum);
                           // }}
+                          onClick={() => {
+                            UpdateAmounts(items, true);
+                          }}
                         >
                           <BsPlus size={24} />
                         </button>
@@ -380,11 +410,12 @@ function ShopCartDetail() {
                       </div>
                       <div className="mt-auto mb-2 bd-highlight">
                         <button
+                          className="shopcart-delete-btn"
                           onClick={() => {
                             deleteItem(items);
                           }}
                         >
-                          <BsTrash size={24} />
+                          <BsTrash size={20} className="text-white"/>
                         </button>
                       </div>
                     </div>
@@ -397,7 +428,9 @@ function ShopCartDetail() {
             {pages_btn}
             {/* <!-- 分頁 end  --> */}
             <div className="text-right mt-3 text-right">
-              <p className="shopcart-total">商品總計： NT$ 5,000</p>
+              <p className="shopcart-total">
+                商品總計： NT$ {sum(shopCartData).toLocaleString()}
+              </p>
             </div>
             {/* <!-- button --> */}
             <div className="shopcart-button-container text-right mb-5">

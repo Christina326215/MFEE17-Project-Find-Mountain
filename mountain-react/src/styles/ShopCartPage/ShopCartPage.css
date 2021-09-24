@@ -38,10 +38,10 @@
   background: none;
   transition: 0.4s;
 }
-.shopcart-size-btn:hover {
+/* .shopcart-size-btn:hover {
   color: #fff;
   background: #bae29a;
-}
+} */
 .shopcart-size-btn.shopcart-active {
   color: #fff;
   background: #6da77f;
@@ -410,5 +410,12 @@
 }
 .shopcart-product-infobox-storage p{
   font-size: 14px;
+}
+.shopcart-delete-btn {
+  width: 110px;
+  border: none;
+  border-radius: 8px;
+  background: #6da77f;
+
 }
 /*abby*/
