@@ -58,7 +58,7 @@ function Result() {
                 推薦路線
               </h2>
               <p className="recommend-inline ml-2">9筆資料</p>
-              <Card></Card>
+              {/* <Card></Card> */}
               <div
                 className="btn-toolbar justify-content-center"
                 role="toolbar"
