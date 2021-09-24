@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { CartFill, HeartFill } from 'react-bootstrap-icons';
 import '../../../styles/product.css';
@@ -78,7 +78,9 @@ function ProductCard(props) {
             <br />
             {name}
           </Link>
-          <p className="text-right shopmain-product-price">NT ${price}</p>
+          <p className="text-right shopmain-product-price">
+            NT ${parseInt(price).toLocaleString()}
+          </p>
         </div>
       </div>
     </>
