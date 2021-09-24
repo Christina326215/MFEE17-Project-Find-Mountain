@@ -10,6 +10,7 @@ import axios from 'axios';
 //====== below pages star ======//
 import { pages_btn } from '../MapPage/pages/PagesBtn'; //分頁按鈕
 import MemberSideHead from './pages/MemberSideHead'; //member Side Head
+import MemberMapAddRoute from './pages/MemberMapAddRoute';
 //====== below pages end ======//
 
 //====== below icon star ======//
@@ -21,6 +22,9 @@ import { BsStarFill } from 'react-icons/bs';
 //====== above img import end ======//
 
 function MemberMapRoute() {
+  //=== 彈跳視窗開關 star ===//
+  const [show, setShow] = useState(false);
+  //=== 彈跳視窗開關 end ===//
   const [data, setData] = useState([]);
   const [info, setInfo] = useState([]);
 
@@ -36,7 +40,7 @@ function MemberMapRoute() {
     async function getRouteData() {
       try {
         const RouteData = await axios.get(memberRouteURL);
-        console.log(RouteData.data.result); //for check
+        // console.log(RouteData.data.result); //for check
         setData(RouteData.data.result);
         setInfo(RouteData.data.totalInfo);
       } catch (e) {
@@ -63,9 +67,7 @@ function MemberMapRoute() {
         this.classList.add('active');
       });
     }
-  }, []);
-
-  console.log('info totalPoints:', info.totalPoints); //for check del
+  }, [show]);
 
   return (
     <>
@@ -85,10 +87,7 @@ function MemberMapRoute() {
               <tbody>
                 <tr className="member-table-active">
                   <td scope="row" className="text-center">
-                    <Link
-                      to="/member/map-route"
-                      className="member-left-href-color"
-                    >
+                    <Link to="/member" className="member-left-href-color">
                       路線地圖
                     </Link>
                   </td>
@@ -151,7 +150,7 @@ function MemberMapRoute() {
                   role="group"
                   aria-label="Basic example"
                 >
-                  <Link
+                  {/* <Link
                     type="button"
                     id="menu"
                     className="btn btn-outline-primary menu active"
@@ -168,7 +167,16 @@ function MemberMapRoute() {
                     to="#/"
                   >
                     路線
-                  </Link>
+                  </Link> */}
+                  <button
+                    id="menu"
+                    className="btn btn-outline-primary menu active"
+                  >
+                    地圖
+                  </button>
+                  <button id="menu" className="btn btn-outline-primary menu">
+                    路線
+                  </button>
                 </div>
               </div>
               <div className="tab-content">
@@ -259,16 +267,20 @@ function MemberMapRoute() {
                         <th scope="col-3"></th>
                         <th scope="col-5"></th>
                         <th scope="col-2">
-                          {/* FIXME: 給舊會員選擇去過路線 */}
-                          <button className="btn btn-primary">
-                            新增去過路線
-                          </button>
+                          {/* 給新舊會員選擇去過路線 */}
+                          <MemberMapAddRoute show={show} setShow={setShow} />
                         </th>
                       </tr>
                     </thead>
-                    {/* FIXME: hello part 要改成給新會員選擇去過路線 */}
                     {data.length === 0 ? (
-                      <p>hello</p>
+                      <tbody>
+                        <tr>
+                          <td className="member-map-route-picture-img-wrapper"></td>
+                          <td className="member-map-route-text-weight align-middle"></td>
+                          <td className="member-map-route-star-group member-map-route-text-weight align-middle"></td>
+                          <td className="member-map-route-text-weight align-middle"></td>
+                        </tr>
+                      </tbody>
                     ) : (
                       data.map((items, i) => (
                         <tbody key={i}>
