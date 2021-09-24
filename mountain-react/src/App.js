@@ -14,7 +14,6 @@ import Recommend from './components/RecommendPage/Recommend';
 import Bear from './components/RecommendPage/Bear';
 import Result from './components/RecommendPage/Result';
 import Manual from './components/RecommendPage/Manual';
-import Detail from './components/RecommendPage/Detail';
 import DetailContent from './components/RecommendPage/DetailContent';
 import ShopMain from './components/ShopPage/ShopMain';
 import ShopShoes from './components/ShopPage/ShopShoes';
@@ -87,9 +86,6 @@ function App() {
               </Route>
               <Route path="/recommend/detail/:id?">
                 <DetailContent />
-              </Route>
-              <Route path="/recommend/detail">
-                <Detail />
               </Route>
               <Route path="/map/levelH">
                 <MapH />

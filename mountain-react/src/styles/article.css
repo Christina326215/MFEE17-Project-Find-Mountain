@@ -403,7 +403,7 @@
   justify-content: center;
 }
 .recommend-productTagBg {
-  background: url(../img/article-img/hiking_1.jpg);
+  /* background: url(../img/article-img/hiking_1.jpg); */
   border-radius: 10px;
   height: 360px;
   background-size: cover;
@@ -422,6 +422,7 @@
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
 }
 .recommend-tag-small {
+  font-size: 14px;
   display: block;
 }
 .recommend-tag-big {
@@ -447,32 +448,36 @@
   justify-content: space-between;
   padding: 0;
 }
-.recommend-hatTag {
-  transform: translate(260px, 160px);
-}
-.recommend-alpenstockTag {
+/* .recommend-alpenstockTag {
   transform: translate(310px, 230px);
-}
-.recommend-bagTag {
-  transform: translate(180px, 100px);
-  width: 250px;
-  height: 150px;
+} */
+/* .recommend-hatTag {
+  transform: translate(260px, 160px);
+} */
+.recommend-Tag {
+  /* transform: translate(180px, 100px); */
+  width: 215px;
+  height: 125px;
 }
 .recommend-tagName {
+  font-size: 14px;
   margin: 0;
-  padding: 10px;
+  padding: 5px;
   text-align: left;
 }
 .recommend-tagPrice {
+  color: #ffb943;
+  font-size: 16px;
   margin: 0;
-  padding: 10px;
+  padding: 5px;
   text-align: right;
 }
 .recommend-productTagWrap {
-  width: 150px;
-  height: auto;
+  width: 100%;
+  height: 100%;
 }
 .recommend-productTagHover {
+  object-fit: cover;
   border-radius: 0 10px 10px 0;
   height: 100%;
   width: 100%;
@@ -505,6 +510,7 @@
 }
 .recommend-commentPic {
   width: 150px;
+  height: 120px;
   margin-left: 15px;
   /* margin: 5px 0 5px 10px; */
 }
