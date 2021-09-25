@@ -10,7 +10,7 @@ import axios from 'axios';
 import MemberSideHead from './pages/MemberSideHead'; //member Side Head
 //====== below pages end ======//
 
-function MemberEdit() {
+function MemberEdit(props) {
   // 1. 首先，建立好 html 在 return(<>...</>)。
   // 2. 設定狀態，關於共用會員資料使用useAuth()，關於地址資料放在靜態檔案中則使用useState()。
   const { member } = useAuth(); // 取得會員資料
@@ -19,6 +19,9 @@ function MemberEdit() {
   const [zipCode, setZipCode] = useState(null);
   const [cities, setCities] = useState([]); // 各縣市陣列
   const [districts, setDistricts] = useState([]); //各行政區陣列
+
+  const { show, setShow } = props;
+  // const handleClose = () => setShow(false);
 
   // 3. 因為不能直接去改動member的資料，需要先設定一個tempMember變數，將由資料庫而來的member放進setTempMember中改變狀態，最後才會把改變後的狀態存進資料庫。
   const [tempMember, setTempMember] = useState(null);
@@ -78,7 +81,7 @@ function MemberEdit() {
   }, []);
 
   useEffect(() => {
-    if (tempMember && zipCode && zipGroup) {
+    if (tempMember && zipCode && zipGroup && cities) {
       // 表示上述資料都已經有了！
       if (tempMember.zip_code) {
         // 表示這個使用者的 zip code 已經設定過了
@@ -158,10 +161,7 @@ function MemberEdit() {
               <tbody>
                 <tr>
                   <td scope="row" className="text-center">
-                    <Link
-                      to="/member/map-route"
-                      className="member-left-href-color"
-                    >
+                    <Link to="/member" className="member-left-href-color">
                       路線地圖
                     </Link>
                   </td>
@@ -195,7 +195,10 @@ function MemberEdit() {
                 </tr>
                 <tr className="member-table-active">
                   <td scope="row" className="text-center">
-                    <Link to="/member/edit" className="member-left-href-color">
+                    <Link
+                      to="/member/personal"
+                      className="member-left-href-color"
+                    >
                       會員資料
                     </Link>
                   </td>
@@ -340,9 +343,15 @@ function MemberEdit() {
                       onChange={handleChange}
                     />
                   </div>
+
                   <button
                     type="submit"
                     className="border-bottom-left-radius my-5 mx-3 text-right btn btn-primary"
+                    onClick={() => {
+                      setShow(false);
+                      props.history.goBack();
+                    }}
+                    // onClick={handleClose}
                   >
                     確定
                   </button>

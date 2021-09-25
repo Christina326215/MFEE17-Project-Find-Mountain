@@ -53,6 +53,10 @@ function App() {
   const [auth, setAuth] = useState(false); //驗證登入與否用，一開始預設都是false
   const [member, setMember] = useState(null);
 
+  //=== 彈跳視窗開關 star ===//
+  const [show, setShow] = useState(false);
+  //=== 彈跳視窗開關 end ===//
+
   useEffect(() => {
     // 每次重新整理或開啟頁面時，都去確認一下是否在已經登入的狀態。
     // 從資料庫抓資料
@@ -66,7 +70,7 @@ function App() {
       }
     }
     getPersonalData();
-  }, []);
+  }, [show]);
 
   return (
     <AuthContext.Provider value={{ member, setMember }}>
@@ -144,10 +148,10 @@ function App() {
                 <MemberComment />
               </Route>
               <Route path="/member/personal">
-                <MemberPersonal />
+                <MemberPersonal show={show} setShow={setShow} />
               </Route>
               <Route path="/member/edit">
-                <MemberEdit />
+                <MemberEdit show={show} setShow={setShow} />
               </Route>
               <Route path="/member">
                 <MemberMapRoute />
