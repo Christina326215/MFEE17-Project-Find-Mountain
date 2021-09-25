@@ -2,8 +2,8 @@ import React from 'react';
 import Card from './Card';
 import '../../styles/article.css';
 import $ from 'jquery';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+// import { useState } from 'react';
 import axios from 'axios';
 import { recommendURL } from '../../utils/config';
 import {

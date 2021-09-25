@@ -8,6 +8,7 @@ import { articlecommentURL } from '../../utils/config';
 import CommmentList from './CommmentList';
 import slothBig from '../../img/article-img/sloth_big.svg';
 import slothSmall from '../../img/article-img/sloth_small.svg';
+import $ from 'jquery';
 import {
   BsChevronBarLeft,
   BsChevronLeft,
@@ -39,7 +40,7 @@ function Comment(props) {
     },
   ]);
   // 新增評論欄位
-  const [userID, setUserID] = useState('1');
+  const [userID, setUserID] = useState('3');
   const [articleID, setArticleID] = useState(id);
   const [content, setContent] = useState('1111');
   const [pic, setPic] = useState('');
@@ -47,11 +48,51 @@ function Comment(props) {
   const [time, setTime] = useState(event);
   const [valid, setValid] = useState('1');
   // rerender狀態
-  const [show, setShow] = useState(false);
+  // const [show, setShow] = useState(false);
 
   // rerender函式
-  const rerender = () => {
-    setShow(true);
+  // const rerender = () => {
+  //   setShow(true);
+  //   alert('111');
+  // };
+
+  // 新增評論資料庫
+  const InsertComment = async (e) => {
+    // setShow(false); // 關閉彈跳視窗
+    e.preventDefault();
+
+    try {
+      let formData = new FormData();
+      formData.append('userID', userID);
+      formData.append('articleID', articleID);
+      formData.append('content', content);
+      formData.append('pic', pic);
+      formData.append('time', time);
+      formData.append('valid', valid);
+      let response = await axios.post(`${articlecommentURL}/insert`, formData);
+      console.log('response', response);
+      // console.log('formData', formData);
+    } catch (e) {
+      console.error(e.response);
+    }
+
+    async function commentData() {
+      try {
+        const commentData = await axios.get(articlecommentURL);
+        const commentTotalData = commentData.data;
+        const id = Number(props.match.params.id);
+        // 全部資料用find尋找id一樣的資料
+        const newcommentDetail = commentTotalData.filter((v) => {
+          return v.article_id === id;
+        });
+        // console.log('newcommentDetail', newcommentDetail);
+
+        if (newcommentDetail) setComment(newcommentDetail);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    commentData();
   };
 
   // 評論資料連線
@@ -73,26 +114,8 @@ function Comment(props) {
       }
     }
     commentData();
-  }, [props.match.params.id, show]);
-
-  // 新增評論資料庫
-  const InsertComment = async (e) => {
-    e.preventDefault();
-    try {
-      let formData = new FormData();
-      formData.append('userID', userID);
-      formData.append('articleID', articleID);
-      formData.append('content', content);
-      formData.append('pic', pic);
-      formData.append('time', time);
-      formData.append('valid', valid);
-      let response = await axios.post(`${articlecommentURL}/insert`, formData);
-      console.log('response', response);
-      // console.log('formData', formData);
-    } catch (e) {
-      console.error(e.response);
-    }
-  };
+    //props.match.params.id,show
+  }, [props.match.params.id]);
 
   return (
     <div>
@@ -111,6 +134,9 @@ function Comment(props) {
                       data-toggle="modal"
                       data-target="#exampleModal"
                       data-whatever="@mdo"
+                      // onClick={() => {
+                      //   setShow(true);
+                      // }}
                     >
                       新增評論
                       {/* <i className="bi recommend-bi-plus-square"> */}
@@ -144,6 +170,7 @@ function Comment(props) {
                           </div>
                           <div className="modal-body">
                             <form onSubmit={InsertComment}>
+                              {/* <form> */}
                               <div className="form-group">
                                 <label
                                   htmlFor="articleName"
@@ -287,8 +314,12 @@ function Comment(props) {
                                   取消
                                 </button>
                                 <button
+                                  // type="submit"
                                   className="btn btn-warning text-white"
-                                  onClick={rerender}
+                                  // onClick={() => {
+                                  //   $('#exampleModal').hide();
+                                  //   $('.modal-backdrop').hide();
+                                  // }}
                                 >
                                   送出評論
                                 </button>

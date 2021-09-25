@@ -2,7 +2,9 @@ import React from 'react';
 import '../../styles/article.css';
 import { Link } from 'react-router-dom';
 import { IMAGE_URL } from '../../utils/config';
-import level from '../../img/article-img/level_low.svg';
+import levelLow from '../../img/article-img/level_low.svg';
+import levelMiddle from '../../img/article-img/level_medium.svg';
+import levelHigh from '../../img/article-img/level_high.svg';
 import { FaShoePrints } from 'react-icons/fa';
 import { BsHeartFill } from 'react-icons/bs';
 import { BsStarFill } from 'react-icons/bs';
@@ -34,7 +36,21 @@ function Card(props) {
                           {article.name}
                         </h5>
                         <p className="text-primary recommend-body-content mr-3 ">
-                          <img className="mr-1" src={level} alt="..." />
+                          {article.level_name === '低' ? (
+                            <img className="mr-1" src={levelLow} alt="..." />
+                          ) : (
+                            ''
+                          )}
+                          {article.level_name === '中' ? (
+                            <img className="mr-1" src={levelMiddle} alt="..." />
+                          ) : (
+                            ''
+                          )}
+                          {article.level_name === '高' ? (
+                            <img className="mr-1" src={levelHigh} alt="..." />
+                          ) : (
+                            ''
+                          )}
                           難度{article.level_name}
                         </p>
                         <p className="text-primary recommend-body-content mr-3 ">

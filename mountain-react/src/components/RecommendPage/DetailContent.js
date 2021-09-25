@@ -9,7 +9,9 @@ import RecommendCard from './RecommendCard';
 import ProductTag from './ProductTag';
 import '../../styles/article.css';
 import $ from 'jquery';
-import level from '../../img/article-img/level_low.svg';
+import levelLow from '../../img/article-img/level_low.svg';
+import levelMiddle from '../../img/article-img/level_medium.svg';
+import levelHigh from '../../img/article-img/level_high.svg';
 import { FaShoePrints } from 'react-icons/fa';
 import { BsHeartFill } from 'react-icons/bs';
 import { BsStarFill, BsFlagFill, BsQuestionCircle } from 'react-icons/bs';
@@ -138,7 +140,21 @@ function DetailContent(props) {
                     </i>
                   </div>
                   <p className="text-primary recommend-body-content mr-3 mt-1">
-                    <img className="mr-2" src={level} alt="" />
+                    {detail.level_name === '低' ? (
+                      <img className="mr-1" src={levelLow} alt="..." />
+                    ) : (
+                      ''
+                    )}
+                    {detail.level_name === '中' ? (
+                      <img className="mr-1" src={levelMiddle} alt="..." />
+                    ) : (
+                      ''
+                    )}
+                    {detail.level_name === '高' ? (
+                      <img className="mr-1" src={levelHigh} alt="..." />
+                    ) : (
+                      ''
+                    )}
                     難度{detail.level_name}
                   </p>
                   <p className="text-primary recommend-body-content mt-1">
