@@ -14,6 +14,7 @@ import MemberSideHead from './pages/MemberSideHead'; //member Side Head
 
 //====== below icon star ======//
 import { BsExclamationTriangleFill } from 'react-icons/bs';
+import { FcApproval, FcVlc } from 'react-icons/fc';
 //====== below icon end ======//
 
 //====== below img import start ======//
@@ -29,8 +30,8 @@ function MemberComment() {
     async function getCommentData() {
       try {
         const CommentData = await axios.get(memberCommentURL);
-        console.log(CommentData.data); //for check
-        setData(CommentData.data);
+        console.log(CommentData.data.dbResults); //for check
+        setData(CommentData.data.dbResults);
         // let data = CommentData.data;
       } catch (e) {
         console.log(e);
@@ -142,7 +143,7 @@ function MemberComment() {
                     scope="col-4 col-md-1"
                     className="member-comment-text-weight-bold align-moddle"
                   >
-                    檢舉
+                    狀態
                   </th>
                 </tr>
               </thead>
@@ -177,19 +178,70 @@ function MemberComment() {
                       scope="row"
                       className="member-comment-text-weight align-middle"
                     >
-                      <Link to="/#">
+                      {items.dislike_status === 2 ? (
+                        <FcApproval size={20} />
+                      ) : items.dislike_status === 3 ? (
+                        <FcVlc size={20} />
+                      ) : (
                         <BsExclamationTriangleFill
                           className="member-comment-warning-icon"
                           size={20}
                         />
-                      </Link>
+                      )}
                     </td>
                   </tr>
                 </tbody>
               ))}
             </table>
             {/* <!-- 分頁 start  --> */}
-            {pages_btn}
+            {/* {pages_btn} */}
+            <div
+              className="btn-toolbar justify-content-center mountain_btn-toolbar"
+              role="toolbar"
+              aria-label="Toolbar with button groups"
+            >
+              <div
+                className="btn-group mr-2"
+                role="group"
+                aria-label="Third group"
+              >
+                <button type="button" className="btn btn-primary">
+                  |&lt;
+                </button>
+              </div>
+              <div
+                className="btn-group mr-2"
+                role="group"
+                aria-label="First group"
+              >
+                <button type="button" className="btn btn-primary">
+                  &lt;
+                </button>
+              </div>
+              <div
+                className="btn-group mr-2"
+                role="group"
+                aria-label="Second group"
+              >
+                <button type="button" className="btn btn-primary">
+                  1
+                </button>
+              </div>
+              <div
+                className="btn-group mr-2"
+                role="group"
+                aria-label="Third group"
+              >
+                <button type="button" className="btn btn-primary">
+                  &gt;
+                </button>
+              </div>
+              <div className="btn-group" role="group" aria-label="Third group">
+                <button type="button" className="btn btn-primary">
+                  &gt;|
+                </button>
+              </div>
+            </div>
             {/* <!-- 分頁 end  --> */}
           </div>
           {/* <!-- manage-right-side end--> */}
