@@ -70,6 +70,7 @@ function ShopShoes(props) {
                     brand={item.product_brand}
                     name={item.product_name}
                     price={item.price}
+                    type={item.type}
                     picture={item.pic}
                     key={item.id}
                   />

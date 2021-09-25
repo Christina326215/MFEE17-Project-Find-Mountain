@@ -4,8 +4,9 @@ import { withRouter } from 'react-router-dom'; //可以獲取history,location,ma
 import $ from 'jquery';
 import { pages_btn } from '../MapPage/pages/PagesBtn'; //分頁按鈕
 import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
+import { shopURL, IMAGE_URL } from '../../utils/config';
+import { useAuth } from '../../context/auth'; // 取得會員資料
 
-import { shopcartURL } from '../../utils/config';
 import axios from 'axios';
 
 //====== below icon star ======//
@@ -17,6 +18,129 @@ import ShopCartImg from '../../img/shoes-pic7.jpeg';
 //====== above img import end ======//
 
 function ShopCartDetail() {
+  const { setCartChange } = useAuth(); // 取得會員資料
+  //shopCartData為購物車local storage接完資料庫的整體一筆一筆的資料
+  const [shopCartData, setShopCartData] = useState([]);
+  //historyItems為瀏覽紀錄local storage接完資料庫的整體一筆一筆的資料
+  const [historyItems, setHistoryItems] = useState([]);
+  //cartLocal為購物車的local storage
+  const [cartLocal, setCartLocal] = useState([]);
+  //取得local storage轉為陣列的資料 ProductOrder
+  function getCartFromLocalStorage() {
+    const ProductOrder =
+      JSON.parse(localStorage.getItem('ProductOrderDetail')) || '[]';
+    console.log(ProductOrder);
+    setCartLocal(ProductOrder);
+  }
+  //一進畫面先讀取local storage
+  useEffect(() => {
+    getCartFromLocalStorage();
+  }, []);
+  //刪除商品
+  //TODO:刪除商品提示msg
+  const deleteItem = (items) => {
+    const currentProductOrder =
+      JSON.parse(localStorage.getItem('ProductOrderDetail')) || '[]';
+    //抓這裡的商品ID
+    console.log(items.id, items.size);
+    //找到對應資料的index
+    const deleteIndex = currentProductOrder.findIndex(
+      (v) => v.id === items.id && v.size === items.size
+    );
+    if (deleteIndex > -1) {
+      //if 有找到一樣id一樣尺寸的local storage
+      //把想刪除的商品資料從陣列中刪除
+      console.log('deleteIndex', deleteIndex);
+      currentProductOrder.splice(deleteIndex, 1);
+      console.log('splicedProductOrder', currentProductOrder);
+      //把處理好的資料塞回local storage
+      localStorage.setItem(
+        'ProductOrderDetail',
+        JSON.stringify(currentProductOrder)
+      );
+      console.log('有這個訂購資料');
+      setCartLocal(currentProductOrder);
+      //TODO:提示已刪除商品
+      //刪除後重整頁面
+      // window.location.reload(false);
+    } else {
+      console.log('哎呦沒有東西可以刪耶');
+    }
+  };
+  //更新購物車數量
+  const UpdateAmounts = (items, isAdded) => {
+    const newProductOrder = JSON.parse(
+      localStorage.getItem('ProductOrderDetail')
+    );
+    //找到對應資料的index
+    const amountIndex = newProductOrder.findIndex(
+      (v) => v.id === items.id && v.size === items.size
+    );
+    console.log('amountIndex', amountIndex);
+    if (amountIndex > -1) {
+      isAdded
+        ? newProductOrder[amountIndex].num++
+        : newProductOrder[amountIndex].num--;
+    }
+    localStorage.setItem('ProductOrderDetail', JSON.stringify(newProductOrder));
+    setCartChange(true);
+    setCartLocal(newProductOrder);
+  };
+  // 計算總價用的函式
+  const sum = (items) => {
+    let total = 0;
+    for (let i = 0; i < items.length; i++) {
+      total += items[i].num * items[i].price;
+    }
+    return total;
+  };
+  //local storage接API --> shopCartData
+  useEffect(() => {
+    var ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
+    //api
+    async function getProductData() {
+      try {
+        //抓瀏覽紀錄資料
+        var ProductViewHistory = JSON.parse(
+          localStorage.getItem('ProductViewHistory')
+        );
+        var historyArray = [];
+        for (let i = 0; i < ProductViewHistory.length; i++) {
+          // console.log(ProductViewHistory[i]);
+          const productHistoryData = await axios.get(
+            `${shopURL}/product-detail/${ProductViewHistory[i]}`
+          );
+          // console.log(productHistoryData.data[0]);
+          historyArray.unshift(productHistoryData.data[0]);
+        }
+        // console.log('historyArray', historyArray);
+        setHistoryItems(historyArray);
+        //抓購物車的商品資料
+        var orderArray = [];
+        for (let i = 0; i < ProductOrder.length; i++) {
+          const productOrderData = await axios.get(
+            `${shopURL}/product-detail/${ProductOrder[i].id}`
+          );
+          //productOrderData.data[0]為資料庫商品資料 ProductOrder[i]為localstorage的購物車資料
+          // console.log(productOrderData.data[0], ProductOrder[i]);
+          //合併物件Object.assign 合併後原物件也會被改變
+          let assignedObj = Object.assign(
+            productOrderData.data[0],
+            ProductOrder[i]
+          );
+          // console.log('productOrderData.data[0]', productOrderData.data[0]);
+          // console.log('assignedObj', assignedObj);
+          orderArray.unshift(productOrderData.data[0]);
+        }
+        console.log('orderArray', orderArray);
+        setShopCartData(orderArray);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getProductData();
+  }, [cartLocal]);
+  //FIXME:一些待整理的東西
   useEffect(() => {
     // progress-bar
     $('.shopcart-btn-next').on('click', function () {
@@ -82,30 +206,11 @@ function ShopCartDetail() {
         .addClass('shopcart-step-' + prevStepNum)
         .data('current-step', prevStepNum);
     });
-    //product order 數量部分
-    $('.shopcart-add-btn').click(function () {
-      let number = $(this).parent().find('.shopcart-order-number');
-      let num = parseInt(number.val());
-      num += 1;
-      number.val(num);
-      // console.log(num);
-    });
-    $('.shopcart-minus-btn').click(function () {
-      let number = $(this).parent().find('.shopcart-order-number');
-      let num = parseInt(number.val());
-      if (num > 1) {
-        num -= 1;
-        number.val(num);
-      }
-      // console.log(num);
-    });
     //product order size選擇
-    $('.shopcart-size-btn').each(function () {
-      $(this).click(function () {
-        $(this).toggleClass('shopcart-active');
-        $(this).siblings().removeClass('shopcart-active');
-      });
-    });
+    // $('.shopcart-size-btn').on('click', function () {
+    //   $(this).toggleClass('shopcart-active');
+    //   $(this).siblings().removeClass('shopcart-active');
+    // });
   }, []);
   return (
     <>
@@ -124,26 +229,22 @@ function ShopCartDetail() {
                 <span className="shopcart-step-num"> 1</span>
                 {/* <!-- "opaque" change to "" --> */}
                 <BsCheck className="shopcart-fa shopcart-fa-check shopcart-opaque" />
-                {/* <div className="shopcart-fa shopcart-fa-check shopcart-opaque"></div> */}
                 <div className="shopcart-step-label">確認購物車</div>
               </div>
               {/* <!-- add className "active" --> */}
               <div className="shopcart-step shopcart-step-2">
                 <span className="shopcart-step-num"> 2</span>
                 <BsCheck className="shopcart-fa shopcart-fa-check shopcart-opaque" />
-                {/* <div className="shopcart-fa shopcart-fa-check shopcart-opaque"></div> */}
                 <div className="shopcart-step-label">付款與運送方式</div>
               </div>
               <div className="shopcart-step shopcart-step-3">
                 <span className="shopcart-step-num"> 3</span>
                 <BsCheck className="shopcart-fa shopcart-fa-check shopcart-opaque" />
-                {/* <div className="shopcart-fa shopcart-fa-check shopcart-opaque"></div> */}
                 <div className="shopcart-step-label">資料確認</div>
               </div>
               <div className="shopcart-step shopcart-step-4">
                 <span className="shopcart-step-num"> 4</span>
                 <BsCheck className="shopcart-fa shopcart-fa-check shopcart-opaque" />
-                {/* <div className="shopcart-fa shopcart-fa-check shopcart-opaque"></div> */}
                 <div className="shopcart-step-label">完成訂單</div>
               </div>
             </div>
@@ -154,316 +255,185 @@ function ShopCartDetail() {
         <div className="row">
           <div className="col-lg-12 mt-3">
             <h3 className="text-center mt-4">購物車明細</h3>
-            <table className="table table-borderless mt-4 text-center">
-              <thead className="shopcart-thead-tr-border">
-                <tr>
-                  <th scope="col">商品照片</th>
-                  <th scope="col" className="shopcart-product-name">
-                    商品名稱
-                  </th>
-                  <th scope="col" className="shopcart-product-size">
-                    尺寸
-                  </th>
-                  <th scope="col" className="shopcart-product-perprice">
-                    單價
-                  </th>
-                  <th scope="col" className="shopcart-product-count">
-                    數量
-                  </th>
-                  <th scope="col" className="shopcart-product-storage">
-                    庫存
-                  </th>
-                  <th scope="col" className="shopcart-product-subtotal">
-                    小計
-                  </th>
-                  <th scope="col" className="shopcart-product-delete">
-                    刪除
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="shopcart-tbody-tr-border">
-                <tr>
-                  <td scope="row">
-                    <div className="shopcart-product-img-box">
-                      <Link to="/#">
+            <hr />
+            {/* abby */}
+            {shopCartData.map((items, index) => {
+              return (
+                <div className="shopcart-product-infobox row my-3">
+                  <div className="col-4 col-lg-3">
+                    <figure className="shopcart-product-infobox-img p-2">
+                      <Link to={`/shop/product-detail/${items.id}`}>
                         <img
-                          src={ShopCartImg}
-                          alt=""
-                          className="shopcart-cover-fit"
+                          src={`${IMAGE_URL}/img/product-img/${items.pic}`}
+                          alt={items.name}
+                          title={items.name}
+                          className="shopcart-product-infobox-cover-fit"
                         />
                       </Link>
+                    </figure>
+                  </div>
+                  <div className="col-5">
+                    <div className="shopcart-product-infobox-name">
+                      <input
+                        type="text"
+                        value={items.name}
+                        name="name"
+                        readOnly
+                        className="my-3 form-control"
+                      />
+                      <input type="text" value="productId" hidden />
                     </div>
-                  </td>
-                  <td scope="row">MERRELL Tetrex Crest Wrap 女水陸三棲鞋</td>
-                  <td scope="row">
-                    <div className="button-box m-3">
-                      <input
-                        type="button"
-                        value="S"
-                        className="shopcart-size-btn mx-1"
-                      />
-                      <input
-                        type="button"
-                        value="M"
-                        className="shopcart-size-btn mx-1"
-                      />
-                      <input
-                        type="button"
-                        value="L"
-                        className="shopcart-size-btn mx-1"
-                      />
-                    </div>
-                  </td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
-                    <button className="btn shopcart-minus-btn">
-                      <BsDash size={24} />
-                    </button>
-                    <input
-                      type="text"
-                      className="shopcart-order-number"
-                      value="1"
-                      readonly
-                    />
-                    <button className="btn shopcart-add-btn">
-                      <BsPlus size={24} />
-                    </button>
-                  </td>
-                  <td scope="row">10</td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
-                    <Link to="/#">
-                      <BsTrash size={24} />
-                    </Link>
-                  </td>
-                </tr>
-                <tr>
-                  <td scope="row">
-                    <div className="shopcart-product-img-box">
-                      <Link to="/#">
-                        <img
-                          src={ShopCartImg}
-                          alt=""
-                          className="shopcart-cover-fit"
+                    {items.type === '2' ? (
+                      <div className="button-box my-3">
+                        <p>尺寸選擇</p>
+                        <input
+                          type="button"
+                          value="F"
+                          name="size"
+                          className="shopcart-size-btn mx-1 shopcart-active"
                         />
-                      </Link>
-                    </div>
-                  </td>
-                  <td scope="row">MERRELL Tetrex Crest Wrap 女水陸三棲鞋</td>
-                  <td scope="row">
-                    <div className="button-box m-3">
-                      <input
-                        type="button"
-                        value="S"
-                        className="shopcart-size-btn mx-1"
-                      />
-                      <input
-                        type="button"
-                        value="M"
-                        className="shopcart-size-btn mx-1"
-                      />
-                      <input
-                        type="button"
-                        value="L"
-                        className="shopcart-size-btn mx-1"
-                      />
-                    </div>
-                  </td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
-                    <button className="btn shopcart-minus-btn">
-                      <BsDash size={24} />
-                    </button>
-                    <input
-                      type="text"
-                      className="shopcart-order-number"
-                      value="1"
-                      readonly
-                    />
-                    <button className="btn shopcart-add-btn">
-                      <BsPlus size={24} />
-                    </button>
-                  </td>
-                  <td scope="row">10</td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
-                    <Link to="/#">
-                      <BsTrash size={24} />
-                    </Link>
-                  </td>
-                </tr>
-                <tr>
-                  <td scope="row">
-                    <div className="shopcart-product-img-box">
-                      <Link to="/#">
-                        <img
-                          src={ShopCartImg}
-                          alt=""
-                          className="shopcart-cover-fit"
+                      </div>
+                    ) : items.size === 'S' ? (
+                      <div className="button-box my-3">
+                        <p>尺寸選擇</p>
+                        <input
+                          type="button"
+                          value="S"
+                          name="size"
+                          className="shopcart-size-btn mx-1 shopcart-active"
                         />
-                      </Link>
-                    </div>
-                  </td>
-                  <td scope="row">MERRELL Tetrex Crest Wrap 女水陸三棲鞋</td>
-                  <td scope="row">
-                    <div className="button-box m-3">
-                      <input
-                        type="button"
-                        value="S"
-                        className="shopcart-size-btn mx-1"
-                      />
-                      <input
-                        type="button"
-                        value="M"
-                        className="shopcart-size-btn mx-1"
-                      />
-                      <input
-                        type="button"
-                        value="L"
-                        className="shopcart-size-btn mx-1"
-                      />
-                    </div>
-                  </td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
-                    <button className="btn shopcart-minus-btn">
-                      <BsDash size={24} />
-                    </button>
-                    <input
-                      type="text"
-                      className="shopcart-order-number"
-                      value="1"
-                      readonly
-                    />
-                    <button className="btn shopcart-add-btn">
-                      <BsPlus size={24} />
-                    </button>
-                  </td>
-                  <td scope="row">10</td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
-                    <Link to="/#">
-                      <BsTrash size={24} />
-                    </Link>
-                  </td>
-                </tr>
-                <tr>
-                  <td scope="row">
-                    <div className="shopcart-product-img-box">
-                      <Link to="/#">
-                        <img
-                          src={ShopCartImg}
-                          alt=""
-                          className="shopcart-cover-fit"
+                        <input
+                          type="button"
+                          value="M"
+                          name="size"
+                          className="shopcart-size-btn mx-1"
+                          disabled
                         />
-                      </Link>
-                    </div>
-                  </td>
-                  <td scope="row">MERRELL Tetrex Crest Wrap 女水陸三棲鞋</td>
-                  <td scope="row">
-                    <div className="button-box m-3">
-                      <input
-                        type="button"
-                        value="S"
-                        className="shopcart-size-btn mx-1"
-                      />
-                      <input
-                        type="button"
-                        value="M"
-                        className="shopcart-size-btn mx-1"
-                      />
-                      <input
-                        type="button"
-                        value="L"
-                        className="shopcart-size-btn mx-1"
-                      />
-                    </div>
-                  </td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
-                    <button className="btn shopcart-minus-btn">
-                      <BsDash size={24} />
-                    </button>
-                    <input
-                      type="text"
-                      className="shopcart-order-number"
-                      value="1"
-                      readonly
-                    />
-                    <button className="btn shopcart-add-btn">
-                      <BsPlus size={24} />
-                    </button>
-                  </td>
-                  <td scope="row">10</td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
-                    <Link to="/#">
-                      <BsTrash size={24} />
-                    </Link>
-                  </td>
-                </tr>
-                <tr>
-                  <td scope="row">
-                    <div className="shopcart-product-img-box">
-                      <Link to="/#">
-                        <img
-                          src={ShopCartImg}
-                          alt=""
-                          className="shopcart-cover-fit"
+                        <input
+                          type="button"
+                          value="L"
+                          name="size"
+                          className="shopcart-size-btn mx-1"
+                          disabled
                         />
-                      </Link>
+                      </div>
+                    ) : items.size === 'M' ? (
+                      <div className="button-box my-3">
+                        <p>尺寸選擇</p>
+                        <input
+                          type="button"
+                          value="S"
+                          name="size"
+                          className="shopcart-size-btn mx-1"
+                          disabled
+                        />
+                        <input
+                          type="button"
+                          value="M"
+                          name="size"
+                          className="shopcart-size-btn mx-1 shopcart-active"
+                        />
+                        <input
+                          type="button"
+                          value="L"
+                          name="size"
+                          className="shopcart-size-btn mx-1"
+                          disabled
+                        />
+                      </div>
+                    ) : (
+                      <div className="button-box my-3">
+                        <p>尺寸選擇</p>
+                        <input
+                          type="button"
+                          value="S"
+                          name="size"
+                          className="shopcart-size-btn mx-1"
+                          disabled
+                        />
+                        <input
+                          type="button"
+                          value="M"
+                          name="size"
+                          className="shopcart-size-btn mx-1"
+                          disabled
+                        />
+                        <input
+                          type="button"
+                          value="L"
+                          name="size"
+                          className="shopcart-size-btn mx-1 shopcart-active"
+                        />
+                      </div>
+                    )}
+                    <div className="shopcart-product-infobox-storage">
+                      <p className="m-0">庫存剩餘：10</p>
                     </div>
-                  </td>
-                  <td scope="row">MERRELL Tetrex Crest Wrap 女水陸三棲鞋</td>
-                  <td scope="row">
-                    <div className="button-box m-3">
-                      <input
-                        type="button"
-                        value="S"
-                        className="shopcart-size-btn mx-1"
-                      />
-                      <input
-                        type="button"
-                        value="M"
-                        className="shopcart-size-btn mx-1"
-                      />
-                      <input
-                        type="button"
-                        value="L"
-                        className="shopcart-size-btn mx-1"
-                      />
+                  </div>
+                  <div className="col-3 col-lg-4">
+                    <div className="d-flex align-items-end flex-column bd-highlight shopcart-product-infobox-right">
+                      <div className="bd-highlight">
+                        <p className="my-3">數量</p>
+                        <button
+                          className="btn shopcart-minus-btn"
+                          onClick={() => {
+                            UpdateAmounts(items, false);
+                          }}
+                        >
+                          <BsDash size={24} />
+                        </button>
+                        {/* <input
+                          type="text"
+                          className="shopcart-order-number"
+                          // defaultValue={items.num}
+                          value={num[index]}
+                          name="num"
+                          // onChange={handleChange}
+                        /> */}
+                        {items.num}
+                        <button
+                          className="btn shopcart-add-btn"
+                          // onClick={() => {
+                          //   const newNum = parseInt(num[index]) + 1;
+                          //   setNum(newNum);
+                          // }}
+                          onClick={() => {
+                            UpdateAmounts(items, true);
+                          }}
+                        >
+                          <BsPlus size={24} />
+                        </button>
+                        <hr className="my-0" />
+                      </div>
+                      <div className="bd-highlight">
+                        <p className="shopcart-product-infobox-price">
+                          NT${' '}
+                          {(parseInt(items.price) * items.num).toLocaleString()}
+                        </p>
+                      </div>
+                      <div className="mt-auto mb-2 bd-highlight">
+                        <button
+                          className="shopcart-delete-btn"
+                          onClick={() => {
+                            deleteItem(items);
+                          }}
+                        >
+                          <BsTrash size={20} className="text-white"/>
+                        </button>
+                      </div>
                     </div>
-                  </td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
-                    <button className="btn shopcart-minus-btn">
-                      <BsDash size={24} />
-                    </button>
-                    <input
-                      type="text"
-                      className="shopcart-order-number"
-                      value="1"
-                      readonly
-                    />
-                    <button className="btn shopcart-add-btn">
-                      <BsPlus size={24} />
-                    </button>
-                  </td>
-                  <td scope="row">10</td>
-                  <td scope="row">NT$ 5,000</td>
-                  <td scope="row">
-                    <Link to="/#">
-                      <BsTrash size={24} />
-                    </Link>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                  </div>
+                </div>
+              );
+            })}
+            {/* abby */}
             {/* <!-- 分頁 start  --> */}
             {pages_btn}
             {/* <!-- 分頁 end  --> */}
             <div className="text-right mt-3 text-right">
-              <p className="shopcart-total">商品總計： NT$ 5,000</p>
+              <p className="shopcart-total">
+                商品總計： NT$ {sum(shopCartData).toLocaleString()}
+              </p>
             </div>
             {/* <!-- button --> */}
             <div className="shopcart-button-container text-right mb-5">
@@ -504,24 +474,20 @@ function ShopCartDetail() {
               <h5 className="mt-5">瀏覽紀錄</h5>
               <hr />
               <div className="row">
-                <Link to="/#">
-                  <figure className="shopcart-more-product-img-box ml-5 mb-5">
-                    <img
-                      src={ShopCartImg}
-                      alt=""
-                      className="shopcart-cover-fit"
-                    />
-                  </figure>
-                </Link>
-                <Link to="/#">
-                  <figure className="shopcart-more-product-img-box ml-5 mb-5">
-                    <img
-                      src={ShopCartImg}
-                      alt=""
-                      className="shopcart-cover-fit"
-                    />
-                  </figure>
-                </Link>
+                {historyItems.slice(0, 7).map((hisItems, hisIndex) => {
+                  return (
+                    <Link to={`/shop/product-detail/${hisItems.id}`}>
+                      <figure className="shopcart-more-product-img-box ml-5 mb-5">
+                        <img
+                          src={`${IMAGE_URL}/img/product-img/${hisItems.pic}`}
+                          alt={hisItems.name}
+                          title={hisItems.name}
+                          className="shopcart-cover-fit"
+                        />
+                      </figure>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </div>

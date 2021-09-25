@@ -14,7 +14,6 @@ import Recommend from './components/RecommendPage/Recommend';
 import Bear from './components/RecommendPage/Bear';
 import Result from './components/RecommendPage/Result';
 import Manual from './components/RecommendPage/Manual';
-import Detail from './components/RecommendPage/Detail';
 import DetailContent from './components/RecommendPage/DetailContent';
 import ShopMain from './components/ShopPage/ShopMain';
 import ShopShoes from './components/ShopPage/ShopShoes';
@@ -52,6 +51,8 @@ import axios from 'axios';
 function App() {
   const [auth, setAuth] = useState(false); //驗證登入與否用，一開始預設都是false
   const [member, setMember] = useState(null);
+  const [pay, setPay] = useState(null);
+  const [cartChange, setCartChange] = useState(false);
 
   //=== 彈跳視窗開關 star ===//
   const [show, setShow] = useState(false);
@@ -73,7 +74,9 @@ function App() {
   }, [show]);
 
   return (
-    <AuthContext.Provider value={{ member, setMember }}>
+    <AuthContext.Provider
+      value={{ member, setMember, pay, setPay, cartChange, setCartChange }}
+    >
       <Router>
         <>
           <Navbar auth={auth} setAuth={setAuth} />
@@ -91,9 +94,6 @@ function App() {
               </Route>
               <Route path="/recommend/detail/:id?">
                 <DetailContent />
-              </Route>
-              <Route path="/recommend/detail">
-                <Detail />
               </Route>
               <Route path="/map/levelH">
                 <MapH />

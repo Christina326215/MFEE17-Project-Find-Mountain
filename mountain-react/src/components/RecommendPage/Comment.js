@@ -1,58 +1,95 @@
 import React from 'react';
 import '../../styles/article.css';
 import { withRouter } from 'react-router';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { articlecommentURL } from '../../utils/config';
 import CommmentList from './CommmentList';
 import slothBig from '../../img/article-img/sloth_big.svg';
 import slothSmall from '../../img/article-img/sloth_small.svg';
-import xiangshan from '../../img/article-img/xiangshan.jpeg';
-import tapachien from '../../img/article-img/Tapachien.jpeg';
 import {
   BsChevronBarLeft,
   BsChevronLeft,
   BsChevronRight,
   BsChevronBarRight,
   BsPlusSquare,
-  BsPeopleCircle,
 } from 'react-icons/bs';
 
 function Comment(props) {
-  // const [comment, setComment] = useState([
-  //   {
-  //     id: 0,
-  //     pic: '',
-  //     content: '',
-  //     time: '',
-  //     user_id: 0,
-  //     article_id: 0,
-  //     valid: 0,
-  //     users_id: 0,
-  //     users_name: '',
-  //     article_name: '',
-  //   },
-  // ]);
+  // 文章資料
+  const { detail } = props;
+  const { id } = useParams();
+  // console.log('id', id);
+  // console.log('detail111', detail);
 
-  // useEffect(() => {
-  //   async function commentData() {
-  //     try {
-  //       const commentData = await axios.get(commentURL);
-  //       //   console.log('commentData.data', commentData.data);
-  //       const commentTotalData = commentData.data;
-  //       const id = Number(props.match.params.id);
-  //       //   console.log('id', id);
+  // 評論資料
+  const [comment, setComment] = useState([
+    {
+      id: 0,
+      pic: '',
+      content: '',
+      time: '',
+      user_id: 0,
+      article_id: 0,
+      valid: 0,
+      users_id: 0,
+      users_name: '',
+      article_name: '',
+    },
+  ]);
+  // 新增評論欄位
+  const [userID, setUserID] = useState('1');
+  const [articleID, setArticleID] = useState(id);
+  const [content, setContent] = useState('1111');
+  const [pic, setPic] = useState('');
+  const event = new Date(Date.now());
+  const [time, setTime] = useState(event);
+  const [valid, setValid] = useState('1');
 
-  //       // 全部資料用find尋找id一樣的資料
-  //       const newcommentDetail = commentTotalData.find((v) => {
-  //         return v.article_id === id;
-  //       });
-  //       console.log('newcommentDetail', newcommentDetail);
+  // 評論資料連線
+  useEffect(() => {
+    async function commentData() {
+      try {
+        const commentData = await axios.get(articlecommentURL);
+        const commentTotalData = commentData.data;
+        const id = Number(props.match.params.id);
+        // 全部資料用find尋找id一樣的資料
+        const newcommentDetail = commentTotalData.filter((v) => {
+          return v.article_id === id;
+        });
+        // console.log('newcommentDetail', newcommentDetail);
 
-  //       if (newcommentDetail) setComment(newcommentDetail);
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   }
-  //   commentData();
-  // }, [props.match.params.id]);
+        if (newcommentDetail) setComment(newcommentDetail);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    commentData();
+  }, [props.match.params.id]);
+
+  // const setDisplayComment = async (newcommentDetail) => {
+  //   setComment(newcommentDetail);
+  // };
+
+  // 新增評論資料庫
+  const InsertComment = async (e) => {
+    e.preventDefault();
+    try {
+      let formData = new FormData();
+      formData.append('userID', userID);
+      formData.append('articleID', articleID);
+      formData.append('content', content);
+      formData.append('pic', pic);
+      formData.append('time', time);
+      formData.append('valid', valid);
+      let response = await axios.post(`${articlecommentURL}/insert`, formData);
+      console.log('response', response);
+      // console.log('formData', formData);
+    } catch (e) {
+      console.error(e.response);
+    }
+  };
 
   return (
     <div>
@@ -79,6 +116,7 @@ function Comment(props) {
                     </button>
 
                     {/* Modal */}
+                    {/* <form onSubmit={InsertComment}> */}
                     <div
                       className="modal fade"
                       id="exampleModal"
@@ -86,7 +124,7 @@ function Comment(props) {
                       aria-labelledby="exampleModalLabel"
                       aria-hidden="true"
                     >
-                      <div className="modal-dialog">
+                      <div className="modal-dialog modal-lg">
                         <div className="modal-content">
                           <div className="modal-header">
                             <h5 className="modal-title" id="exampleModalLabel">
@@ -102,19 +140,122 @@ function Comment(props) {
                             </button>
                           </div>
                           <div className="modal-body">
-                            <form>
+                            <form onSubmit={InsertComment}>
                               <div className="form-group">
                                 <label
-                                  htmlFor="recipient-name"
+                                  htmlFor="articleName"
                                   className="col-form-label"
                                 >
-                                  會員名稱：
+                                  文章名稱：
                                 </label>
                                 <input
                                   type="text"
                                   className="form-control"
-                                  id="recipient-name"
-                                  value="會員登入後才帶入資料"
+                                  id="articleName"
+                                  value={detail.name}
+                                  disabled
+                                />
+                              </div>
+                              <div className="form-group">
+                                <label
+                                  htmlFor="articleID"
+                                  className="col-form-label"
+                                >
+                                  articleID：
+                                </label>
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  id="articleID"
+                                  value={articleID}
+                                  onChange={(e) => {
+                                    setArticleID(e.target.value);
+                                  }}
+                                  disabled
+                                />
+                              </div>
+                              <div className="form-group">
+                                <label
+                                  htmlFor="userID"
+                                  className="col-form-label"
+                                >
+                                  userID：
+                                </label>
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  id="userID"
+                                  value={userID}
+                                  onChange={(e) => {
+                                    setUserID(e.target.value);
+                                  }}
+                                  disabled
+                                />
+                              </div>
+                              <div className="form-group">
+                                <label
+                                  htmlFor="content"
+                                  className="col-form-label"
+                                >
+                                  評論內容：
+                                </label>
+                                <textarea
+                                  className="form-control"
+                                  id="content"
+                                  placeholder="請留下您想輸入的評論內容．．．留言不得超過100字"
+                                  value={content}
+                                  onChange={(e) => {
+                                    setContent(e.target.value);
+                                  }}
+                                  required
+                                  maxLength="200"
+                                ></textarea>
+                              </div>
+                              <div className="form-group">
+                                <label
+                                  htmlFor="inputGroupFile01"
+                                  className="col-form-label"
+                                >
+                                  上傳圖片：
+                                </label>
+                                <div className="custom-file">
+                                  <input
+                                    type="file"
+                                    className="custom-file-input"
+                                    id="inputGroupFile01"
+                                    aria-describedby="inputGroupFileAddon01"
+                                    name="pic"
+                                    required
+                                    onChange={(e) => {
+                                      setPic(e.target.files[0]);
+                                    }}
+                                  />
+                                  <label
+                                    className="custom-file-label"
+                                    htmlFor="inputGroupFile01"
+                                  >
+                                    選擇檔案
+                                  </label>
+                                </div>
+                                <div className="invalid-feedback">
+                                  請選擇照片檔案
+                                </div>
+                              </div>
+                              <div className="form-group">
+                                <label
+                                  htmlFor="time"
+                                  className="col-form-label"
+                                >
+                                  評論時間：
+                                </label>
+                                <input
+                                  // type="datetime-local"
+                                  id="time"
+                                  className="form-control"
+                                  value={time}
+                                  onChange={(e) => {
+                                    setTime(e.target.value);
+                                  }}
                                   disabled
                                 />
                               </div>
@@ -123,12 +264,16 @@ function Comment(props) {
                                   htmlFor="message-text"
                                   className="col-form-label"
                                 >
-                                  評論訊息：
+                                  審查狀態：
                                 </label>
-                                <textarea
+                                <input
                                   className="form-control"
-                                  id="message-text"
-                                ></textarea>
+                                  value={valid}
+                                  onChange={(e) => {
+                                    setValid(e.target.value);
+                                  }}
+                                  disabled
+                                />
                               </div>
                               <div className="modal-footer">
                                 <button
@@ -139,7 +284,7 @@ function Comment(props) {
                                   取消
                                 </button>
                                 <button
-                                  type="submit"
+                                  // type="submit"
                                   className="btn btn-warning text-white"
                                 >
                                   送出評論
@@ -150,46 +295,11 @@ function Comment(props) {
                         </div>
                       </div>
                     </div>
+                    {/* </form> */}
                     {/* Modal */}
                   </div>
                   <div className="d-flex flex-column">
-                    <CommmentList></CommmentList>
-                    {/* {comment.map((comment, i) => {
-                      return (
-                        <div className="recommend-commentBox">
-                          <div className="d-flex flex-column justify-content-between">
-                            <div className="d-flex">
-                              <div className="recommend-memberLevel1">
-                                <i className="bi recommend-bi-person-circle">
-                                  <BsPeopleCircle></BsPeopleCircle>
-                                </i>
-                              </div>
-                              <div className="">
-                                <div className="recommend-memberLevel1">
-                                  <p className="recommend-body-content-bold mt-1 mb-0 ml-1">
-                                    {comment.users_name}
-                                  </p>
-                                </div>
-                                <p className="recommend-body-content-small m-0 ml-1">
-                                  2021-08-18 14:21
-                                </p>
-                              </div>
-                            </div>
-                            <p className="m-0">這裡風景好美～</p>
-                          </div>
-                          <div className="d-flex ml-auto">
-                            <div className="recommend-commentPic">
-                              <img
-                                className="img-fluid"
-                                src={xiangshan}
-                                alt=""
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })} */}
-
+                    <CommmentList comment={comment}></CommmentList>
                     <div
                       className="btn-toolbar justify-content-center mt-md-2"
                       role="toolbar"
