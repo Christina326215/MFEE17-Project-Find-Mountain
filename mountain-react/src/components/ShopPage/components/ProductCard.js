@@ -108,15 +108,21 @@ function ProductCard(props) {
       showConfirmButton: false,
       timer: 1500,
     });
-    setTimeout(() => {
-      window.location.reload(false);
-    }, 1500);
+    // setTimeout(() => {
+    //   window.location.reload(false);
+    // }, 1500);
+    handleClose();
   };
   //一進畫面先讀取local storage
   useEffect(() => {
     getCartFromLocalStorage();
   }, []);
   // 計算總價
+  useEffect(() => {
+    setCartNum(1);
+    setCartSize('');
+    setCartPrice(0);
+  }, [show]);
   useEffect(() => {
     setCartPrice(cartNum * price);
     // console.log(cartPrice);
