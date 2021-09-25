@@ -5,6 +5,7 @@ import $ from 'jquery';
 import { pages_btn } from '../MapPage/pages/PagesBtn'; //分頁按鈕
 import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
 import { shopURL, IMAGE_URL } from '../../utils/config';
+import { useAuth } from '../../context/auth'; // 取得會員資料
 
 import axios from 'axios';
 
@@ -17,6 +18,7 @@ import ShopCartImg from '../../img/shoes-pic7.jpeg';
 //====== above img import end ======//
 
 function ShopCartDetail() {
+  const { setCartChange } = useAuth(); // 取得會員資料
   //shopCartData為購物車local storage接完資料庫的整體一筆一筆的資料
   const [shopCartData, setShopCartData] = useState([]);
   //historyItems為瀏覽紀錄local storage接完資料庫的整體一筆一筆的資料
@@ -81,6 +83,7 @@ function ShopCartDetail() {
         : newProductOrder[amountIndex].num--;
     }
     localStorage.setItem('ProductOrderDetail', JSON.stringify(newProductOrder));
+    setCartChange(true);
     setCartLocal(newProductOrder);
   };
   // 計算總價用的函式

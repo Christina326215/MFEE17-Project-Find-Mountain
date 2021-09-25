@@ -51,6 +51,8 @@ import axios from 'axios';
 function App() {
   const [auth, setAuth] = useState(false); //驗證登入與否用，一開始預設都是false
   const [member, setMember] = useState(null);
+  const [pay, setPay] = useState(null);
+  const [cartChange, setCartChange] = useState(false);
 
   useEffect(() => {
     // 每次重新整理或開啟頁面時，都去確認一下是否在已經登入的狀態。
@@ -68,7 +70,9 @@ function App() {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ member, setMember }}>
+    <AuthContext.Provider
+      value={{ member, setMember, pay, setPay, cartChange, setCartChange }}
+    >
       <Router>
         <>
           <Navbar auth={auth} setAuth={setAuth} />

@@ -71,6 +71,7 @@ function ShopBags(props) {
                     name={item.product_name}
                     price={item.price}
                     picture={item.pic}
+                    type={item.type}
                     key={item.id}
                   />
                 );
