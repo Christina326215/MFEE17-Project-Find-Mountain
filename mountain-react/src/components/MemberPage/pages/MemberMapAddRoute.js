@@ -1,12 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import CheckBox from './CheckBox';
 
+//====== below pages star ======//
+import CheckBox from './CheckBox';
+//====== above pages end ======//
+
+//====== below catch member info star ======//
+import { useAuth } from '../../../context/auth';
+//====== below catch member info end ======//
+
+//====== below api connect tool star ======//
 import axios from 'axios';
 import { memberRouteURL } from '../../../utils/config';
+//====== above api connect tool end ======//
+
 // import { log } from 'fabric/fabric-impl';
 
 function MemberMapAddRoute(props) {
+  const { member } = useAuth(); //把 member 從 useContext中拿出來
   const { show, setShow } = props;
   const [data, setData] = useState([]);
 
@@ -27,22 +38,34 @@ function MemberMapAddRoute(props) {
     //=== 記住你輸入時的值,submit時不會清空 ===//
     e.preventDefault();
 
-    try {
-      let response = await axios.post(memberRouteURL + '/wentRoute', {
-        wentList,
-        selectedOption,
-      }); //NEXT: 送到伺服器去
-      //console.log('wentRoute response:', response); //for check
-    } catch (e) {
-      console.log(e);
+    if (member === null) {
+      return;
+    } else {
+      try {
+        console.log('WentmemberID:', member); //for check
+        let response = await axios.post(memberRouteURL + '/wentRoute', {
+          wentList,
+          selectedOption,
+          member,
+        }); //NEXT: 送到伺服器去
+        //console.log('wentRoute response:', response); //for check
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
   //====== 接表單輸入的資料(Form) end ======//
 
   useEffect(() => {
+    if (member === null) {
+      return;
+    }
     async function getRouteData() {
       try {
-        const RouteData = await axios.get(memberRouteURL + '/catchArticle');
+        const RouteData = await axios.post(
+          memberRouteURL + '/catchArticle',
+          member
+        );
         console.log('catchArticle沒去過路線:', RouteData.data.dbResults); //for check
         setData(RouteData.data.dbResults);
       } catch (e) {
@@ -50,7 +73,7 @@ function MemberMapAddRoute(props) {
       }
     }
     getRouteData();
-  }, [show]);
+  }, [show, member]);
 
   return (
     <>
@@ -67,7 +90,6 @@ function MemberMapAddRoute(props) {
         </Modal.Header>
         <Modal.Body>
           <form>
-            {/* TODO: value=product id */}
             {data.map((v) => {
               return (
                 <CheckBox
