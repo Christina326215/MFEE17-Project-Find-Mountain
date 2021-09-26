@@ -9,6 +9,8 @@ import CommmentList from './CommmentList';
 import slothBig from '../../img/article-img/sloth_big.svg';
 import slothSmall from '../../img/article-img/sloth_small.svg';
 import $ from 'jquery';
+import { Button, Modal } from 'react-bootstrap';
+import { IMAGE_URL } from '../../utils/config';
 import {
   BsChevronBarLeft,
   BsChevronLeft,
@@ -47,6 +49,14 @@ function Comment(props) {
   const event = new Date(Date.now());
   const [time, setTime] = useState(event);
   const [valid, setValid] = useState('1');
+  // modal顯示狀態
+  const [show, setShow] = useState(false);
+  // input中照片的儲存狀態
+  const [fileSrc, setFileSrc] = useState(null);
+  // 控制modal的函示
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   // rerender狀態
   // const [show, setShow] = useState(false);
 
@@ -56,9 +66,31 @@ function Comment(props) {
   //   alert('111');
   // };
 
+  //uploadPic 有上傳圖片時即時顯示上傳照片
+  const uploadPic = (e) => {
+    // const file = $('.updatePic').files[0];
+    // const reader = new FileReader();
+    // reader.addEventListener(
+    //   'load',
+    //   function () {
+    //     // convert image file to base64 string
+    //     $('.preview').src = reader.result;
+    //   },
+    //   false
+    // );
+
+    // if (file) {
+    //   reader.readAsDataURL(file);
+    // }
+
+    // 設定最後上傳圖片的狀態
+    setPic(e.target.files[0]);
+  };
+
   // 新增評論資料庫
   const InsertComment = async (e) => {
     // setShow(false); // 關閉彈跳視窗
+    // handleClose();
     e.preventDefault();
 
     try {
@@ -71,28 +103,10 @@ function Comment(props) {
       formData.append('valid', valid);
       let response = await axios.post(`${articlecommentURL}/insert`, formData);
       console.log('response', response);
-      // console.log('formData', formData);
+      setShow(false); // 關閉彈跳視窗
     } catch (e) {
       console.error(e.response);
     }
-
-    async function commentData() {
-      try {
-        const commentData = await axios.get(articlecommentURL);
-        const commentTotalData = commentData.data;
-        const id = Number(props.match.params.id);
-        // 全部資料用find尋找id一樣的資料
-        const newcommentDetail = commentTotalData.filter((v) => {
-          return v.article_id === id;
-        });
-        // console.log('newcommentDetail', newcommentDetail);
-
-        if (newcommentDetail) setComment(newcommentDetail);
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    commentData();
   };
 
   // 評論資料連線
@@ -114,8 +128,7 @@ function Comment(props) {
       }
     }
     commentData();
-    //props.match.params.id,show
-  }, [props.match.params.id]);
+  }, [props.match.params.id, show]);
 
   return (
     <div>
@@ -127,210 +140,177 @@ function Comment(props) {
               <div className="recommend-commentWhiteBox">
                 <div className="recommend-commentContent d-flex flex-column">
                   <div className="d-flex justify-content-end">
-                    {/* Button trigger modal */}
-                    <button
-                      type="button"
+                    {/* ----- react bs modal btn----- */}
+                    <Button
                       className="btn btn-warning mb-lg-3 mb-md-2 text-white"
-                      data-toggle="modal"
-                      data-target="#exampleModal"
-                      data-whatever="@mdo"
-                      // onClick={() => {
-                      //   setShow(true);
-                      // }}
+                      variant="primary"
+                      onClick={handleShow}
                     >
                       新增評論
-                      {/* <i className="bi recommend-bi-plus-square"> */}
                       <BsPlusSquare className="ml-2 mb-1 bi recommend-bi-plus-square"></BsPlusSquare>
-                      {/* </i> */}
-                    </button>
+                    </Button>
 
                     {/* Modal */}
-                    {/* <form onSubmit={InsertComment}> */}
-                    <div
-                      className="modal fade"
-                      id="exampleModal"
-                      tabIndex="-1"
-                      aria-labelledby="exampleModalLabel"
-                      aria-hidden="true"
-                    >
-                      <div className="modal-dialog modal-lg">
-                        <div className="modal-content">
-                          <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">
-                              新增評論
-                            </h5>
-                            <button
-                              type="button"
-                              className="close"
-                              data-dismiss="modal"
-                              aria-label="Close"
+                    {/* ----- react bs modal ----- */}
+                    <Modal size="lg" show={show} onHide={handleClose}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>新增評論</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        {/* <form onSubmit={InsertComment}> */}
+                        <form>
+                          <div className="form-group">
+                            <label
+                              htmlFor="articleName"
+                              className="col-form-label"
                             >
-                              <span aria-hidden="true">&times;</span>
-                            </button>
+                              文章名稱：
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="articleName"
+                              value={detail.name}
+                              disabled
+                            />
                           </div>
-                          <div className="modal-body">
-                            <form onSubmit={InsertComment}>
-                              {/* <form> */}
-                              <div className="form-group">
-                                <label
-                                  htmlFor="articleName"
-                                  className="col-form-label"
-                                >
-                                  文章名稱：
-                                </label>
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  id="articleName"
-                                  value={detail.name}
-                                  disabled
-                                />
-                              </div>
-                              <div className="form-group">
-                                <label
-                                  htmlFor="articleID"
-                                  className="col-form-label"
-                                >
-                                  articleID：
-                                </label>
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  id="articleID"
-                                  value={articleID}
-                                  onChange={(e) => {
-                                    setArticleID(e.target.value);
-                                  }}
-                                  disabled
-                                />
-                              </div>
-                              <div className="form-group">
-                                <label
-                                  htmlFor="userID"
-                                  className="col-form-label"
-                                >
-                                  userID：
-                                </label>
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  id="userID"
-                                  value={userID}
-                                  onChange={(e) => {
-                                    setUserID(e.target.value);
-                                  }}
-                                  disabled
-                                />
-                              </div>
-                              <div className="form-group">
-                                <label
-                                  htmlFor="content"
-                                  className="col-form-label"
-                                >
-                                  評論內容：
-                                </label>
-                                <textarea
-                                  className="form-control"
-                                  id="content"
-                                  placeholder="請留下您想輸入的評論內容．．．留言不得超過100字"
-                                  value={content}
-                                  onChange={(e) => {
-                                    setContent(e.target.value);
-                                  }}
-                                  required
-                                  maxLength="200"
-                                ></textarea>
-                              </div>
-                              <div className="form-group">
-                                <label
-                                  htmlFor="inputGroupFile01"
-                                  className="col-form-label"
-                                >
-                                  上傳圖片：
-                                </label>
-                                <div className="custom-file">
-                                  <input
-                                    type="file"
-                                    className="custom-file-input"
-                                    id="inputGroupFile01"
-                                    aria-describedby="inputGroupFileAddon01"
-                                    name="pic"
-                                    required
-                                    onChange={(e) => {
-                                      setPic(e.target.files[0]);
-                                    }}
-                                  />
-                                  <label
-                                    className="custom-file-label"
-                                    htmlFor="inputGroupFile01"
-                                  >
-                                    選擇檔案
-                                  </label>
-                                </div>
-                                <div className="invalid-feedback">
-                                  請選擇照片檔案
-                                </div>
-                              </div>
-                              <div className="form-group">
-                                <label
-                                  htmlFor="time"
-                                  className="col-form-label"
-                                >
-                                  評論時間：
-                                </label>
-                                <input
-                                  // type="datetime-local"
-                                  id="time"
-                                  className="form-control"
-                                  value={time}
-                                  onChange={(e) => {
-                                    setTime(e.target.value);
-                                  }}
-                                  disabled
-                                />
-                              </div>
-                              <div className="form-group">
-                                <label
-                                  htmlFor="message-text"
-                                  className="col-form-label"
-                                >
-                                  審查狀態：
-                                </label>
-                                <input
-                                  className="form-control"
-                                  value={valid}
-                                  onChange={(e) => {
-                                    setValid(e.target.value);
-                                  }}
-                                  disabled
-                                />
-                              </div>
-                              <div className="modal-footer">
-                                <button
-                                  type="button"
-                                  className="btn btn-secondary"
-                                  data-dismiss="modal"
-                                >
-                                  取消
-                                </button>
-                                <button
-                                  // type="submit"
-                                  className="btn btn-warning text-white"
-                                  // onClick={() => {
-                                  //   $('#exampleModal').hide();
-                                  //   $('.modal-backdrop').hide();
-                                  // }}
-                                >
-                                  送出評論
-                                </button>
-                              </div>
-                            </form>
+                          <div
+                            className="form-group"
+                            style={{ display: 'none' }}
+                          >
+                            <label
+                              htmlFor="articleID"
+                              className="col-form-label"
+                            >
+                              articleID：
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="articleID"
+                              value={articleID}
+                              onChange={(e) => {
+                                setArticleID(e.target.value);
+                              }}
+                              disabled
+                            />
                           </div>
-                        </div>
-                      </div>
-                    </div>
-                    {/* </form> */}
-                    {/* Modal */}
+                          <div
+                            className="form-group"
+                            style={{ display: 'none' }}
+                          >
+                            <label htmlFor="userID" className="col-form-label">
+                              userID：
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="userID"
+                              value={userID}
+                              onChange={(e) => {
+                                setUserID(e.target.value);
+                              }}
+                              disabled
+                            />
+                          </div>
+                          <div className="form-group">
+                            <label htmlFor="content" className="col-form-label">
+                              評論內容：
+                            </label>
+                            <textarea
+                              className="form-control"
+                              id="content"
+                              placeholder="請留下您想輸入的評論內容．．．留言不得超過100字"
+                              value={content}
+                              onChange={(e) => {
+                                setContent(e.target.value);
+                              }}
+                              required
+                              maxLength="200"
+                            ></textarea>
+                          </div>
+                          <div className="form-group">
+                            <label
+                              htmlFor="inputGroupFile01"
+                              className="col-form-label"
+                            >
+                              上傳圖片：
+                            </label>
+                            <div className="custom-file">
+                              <input
+                                type="file"
+                                className="custom-file-input updatePic"
+                                id="inputGroupFile01"
+                                aria-describedby="inputGroupFileAddon01"
+                                name="pic"
+                                required
+                                onChange={uploadPic}
+                              />
+                              <label
+                                className="custom-file-label"
+                                htmlFor="inputGroupFile01"
+                              >
+                                選擇檔案
+                              </label>
+                            </div>
+                            {/* <img
+                              src=""
+                              className="preview"
+                              style={{ width: 100, height: 100 }}
+                              alt=""
+                            ></img> */}
+                            <div className="invalid-feedback">
+                              請選擇照片檔案
+                            </div>
+                          </div>
+                          <div
+                            className="form-group"
+                            style={{ display: 'none' }}
+                          >
+                            <label htmlFor="time" className="col-form-label">
+                              評論時間：
+                            </label>
+                            <input
+                              id="time"
+                              className="form-control"
+                              value={time}
+                              onChange={(e) => {
+                                setTime(e.target.value);
+                              }}
+                              disabled
+                            />
+                          </div>
+                          <div
+                            className="form-group"
+                            style={{ display: 'none' }}
+                          >
+                            <label
+                              htmlFor="message-text"
+                              className="col-form-label"
+                            >
+                              審查狀態：
+                            </label>
+                            <input
+                              className="form-control"
+                              value={valid}
+                              onChange={(e) => {
+                                setValid(e.target.value);
+                              }}
+                              disabled
+                            />
+                          </div>
+                        </form>
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>
+                          取消
+                        </Button>
+                        <Button variant="primary" onClick={InsertComment}>
+                          送出評論
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
+                    {/* ----- react bs modal ----- */}
                   </div>
                   <div className="d-flex flex-column">
                     <CommmentList comment={comment}></CommmentList>
