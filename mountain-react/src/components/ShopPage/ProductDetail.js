@@ -144,10 +144,10 @@ function ProductDetail(props) {
       //localstorage for order detail end//
 
       //display none -> block
-      let cartDisplay = $('.cart-num').css('display');
-      if (cartDisplay === 'none') {
-        $('.cart-num').css('display', 'block');
-      }
+      // let cartDisplay = $('.cart-num').css('display');
+      // if (cartDisplay === 'none') {
+      //   $('.cart-num').css('display', 'block');
+      // }
       // alert("已將商品加入購物車！");
       Swal.fire({
         icon: 'success',
@@ -155,21 +155,21 @@ function ProductDetail(props) {
         showConfirmButton: false,
         timer: 1500,
       });
-      //cart-num ++
-      let cartNum = parseInt($('.cart-num').text());
-      let orderNum = parseInt($('.productdetail-order-number').val());
-      //限制一次加進購物車數量
-      if (orderNum + cartNum > 10) {
-        Swal.fire({
-          icon: 'error',
-          title: '一次最多只能放入10樣商品喔',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      } else {
-        cartNum += orderNum;
-        $('.cart-num').text(cartNum);
-      }
+      // //cart-num ++
+      // let cartNum = parseInt($('.cart-num').text());
+      // let orderNum = parseInt($('.productdetail-order-number').val());
+      // //限制一次加進購物車數量
+      // if (orderNum + cartNum > 10) {
+      //   Swal.fire({
+      //     icon: 'error',
+      //     title: '一次最多只能放入10樣商品喔',
+      //     showConfirmButton: false,
+      //     timer: 1500,
+      //   });
+      // } else {
+      //   cartNum += orderNum;
+      //   $('.cart-num').text(cartNum);
+      // }
     });
     // setOrderInfo(ProductOrder);
   }, [id]);

@@ -29,10 +29,13 @@ app.use(express.urlencoded({ extended: true }))
 //使用中間件，解析json的資料
 app.use(express.json())
 //========================================================//
-app.use(express.static(path.join(__dirname, 'public')))
 
 // 處理靜態檔案
 app.use(express.static(path.join(__dirname, 'public')))
+
+//process.env 連接後台php img部分
+// app.use("/img/product", express.static("/Applications/XAMPP/xamppfiles/htdocs/project/product/img"))
+// app.use("/img/comment", express.static("/Applications/XAMPP/xamppfiles/htdocs/project/comments/upload"))
 
 // react yarn build star
 // app.use(express.static(path.join(__dirname, "react")));

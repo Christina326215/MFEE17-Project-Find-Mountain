@@ -18,13 +18,13 @@ import { BsCheck } from 'react-icons/bs';
 function ShopCartPay() {
   // 1. 首先，建立好 html 在 return(<>...</>)。
   // 2. 設定狀態，關於共用會員資料使用useAuth()，關於地址資料放在靜態檔案中則使用useState()。
-  const { member } = useAuth(); // 取得會員資料
+  const { member, pay, setPay } = useAuth(); // 取得會員資料
   const [zipGroup, setZipGroup] = useState(null);
   // zipGroup是一個物件，key為city(是字串)，value為一陣列(陣列中由多個小物件組成)。
   const [zipCode, setZipCode] = useState(null);
   const [cities, setCities] = useState([]); // 各縣市陣列
   const [districts, setDistricts] = useState([]); //各行政區陣列
-
+  console.log(pay);
   // 3.
   const [cartData, setCartData] = useState({
     ship: 1,
@@ -35,6 +35,12 @@ function ShopCartPay() {
     name: '',
     phone: '',
   });
+  useEffect(() => {
+    if (pay !== null) {
+      console.log('hellooooo');
+      setCartData({ ...cartData, addr: pay.addr });
+    }
+  }, [pay]);
 
   // 5. 填入原始member資料後，當Html input欄位有輸入變動時，onChange呼叫handleChange函式，將react的變數tempMember，轉換成html上偵測的變數與其值([e.target.name]: e.target.value)，其中[e.target.name]為key。
   function handleChange(e) {
@@ -71,7 +77,7 @@ function ShopCartPay() {
   }, []);
 
   useEffect(() => {
-    if (cartData && zipCode && zipGroup) {
+    if (cartData && zipCode && zipGroup && cities) {
       // 表示上述資料都已經有了！
       if (cartData.zip_code) {
         // 表示這個使用者的 zip code 已經設定過了
@@ -568,6 +574,9 @@ function ShopCartPay() {
               <Link
                 to="/shoppingcart/step3-check"
                 className="shopcart-btn btn-next btn btn-primary mr-3"
+                onClick={() => {
+                  setPay({ ...cartData });
+                }}
               >
                 下一步
               </Link>

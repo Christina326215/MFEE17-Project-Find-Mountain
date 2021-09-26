@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
+import { useAuth } from '../../context/auth'; // 取得會員資料
 import $ from 'jquery';
 import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
 
@@ -16,6 +17,8 @@ import { BsCheck } from 'react-icons/bs';
 //====== above img import end ======//
 
 function ShopCartCheck() {
+  const { pay } = useAuth(); // 取得會員資料
+  // console.log('pay', pay);
   useEffect(() => {
     // progress-bar
     $('.shopcart-btn-next').on('click', function () {
