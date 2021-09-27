@@ -17,6 +17,10 @@ router.get("", async function (req, res, next) {
   console.log(total, lastPage);
 
   // TODO：取得這一頁應該要有的資料
+  // page 1: 1-10 跳過0筆
+  // page 2: 11-20 跳過10筆
+  // LIMIT: 要取幾筆資料
+  // OFFSET: 要跳過幾筆資料
   let offset = (page - 1) * perPage;
 
   let dbResults = await connection.queryAsync("SELECT comments.*, user.name AS user_name, article.name AS article_name, dislike.dislike_status AS dislike_status FROM comments JOIN user on comments.user_id = user.id JOIN article ON comments.article_id = article.id JOIN dislike ON comments.id = dislike.comments_id ORDER BY id LIMIT ? OFFSET ?",[perPage, offset]); 

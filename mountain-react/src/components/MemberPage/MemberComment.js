@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
 import $ from 'jquery';
 import '../../styles/MemberPage/MemberComment.scss'; //member comment style
+import { useAuth } from '../../context/auth'; // 取得會員資料
 
 import { memberCommentURL, IMAGE_URL } from '../../utils/config';
 import axios from 'axios';
@@ -22,23 +23,56 @@ import Xiangshan from '../../img/xiangshan.jpeg';
 //====== above img import end ======//
 
 function MemberComment() {
+  const { member } = useAuth(); // 取得會員資料
   const [data, setData] = useState([]);
-  const { id } = useParams();
-  console.log('id', id);
+  const [lastPage, setLastPage] = useState(0);
+
+  // 分頁屬性
+  // 記錄現在在第幾頁
+  const [page, setPage] = useState(1);
+  // 總共有幾頁
+  const [totalPage, setTotalPage] = useState(0);
+
+  const getPages = () => {
+    let pages = [];
+    for (let i = 1; i <= totalPage; i++) {
+      pages.push(
+        <div className="btn-group mr-2" role="group" aria-label="Second group">
+          <button
+            type="button"
+            className="btn btn-primary"
+            key={i}
+            onClick={(e) => {
+              setPage(i);
+            }}
+          >
+            {i}
+          </button>
+        </div>
+      );
+    }
+    return pages;
+  };
 
   useEffect(() => {
     async function getCommentData() {
       try {
-        const CommentData = await axios.get(memberCommentURL);
-        console.log(CommentData.data.dbResults); //for check
+        const CommentData = await axios.get(`${memberCommentURL}?page=${page}`);
+        // console.log(CommentData.data.dbResults); //for check
         setData(CommentData.data.dbResults);
+        setLastPage(CommentData.data.pagination.lastPage);
+        console.log(
+          'CommentData.data.pagination',
+          CommentData.data.pagination.lastPage
+        );
         // let data = CommentData.data;
+        setTotalPage(CommentData.data.pagination.lastPage);
       } catch (e) {
         console.log(e);
       }
     }
     getCommentData();
-  }, []);
+  }, [page]);
 
   return (
     <>
@@ -218,15 +252,16 @@ function MemberComment() {
                   &lt;
                 </button>
               </div>
-              <div
+              {getPages()}
+              {/* <div
                 className="btn-group mr-2"
                 role="group"
                 aria-label="Second group"
               >
                 <button type="button" className="btn btn-primary">
-                  1
+                  2
                 </button>
-              </div>
+              </div> */}
               <div
                 className="btn-group mr-2"
                 role="group"
@@ -236,11 +271,24 @@ function MemberComment() {
                   &gt;
                 </button>
               </div>
-              <div className="btn-group" role="group" aria-label="Third group">
-                <button type="button" className="btn btn-primary">
-                  &gt;|
-                </button>
-              </div>
+              {/* {pagination.map((page, i) => (
+                <div
+                  className="btn-group"
+                  role="group"
+                  aria-label="Third group"
+                >
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    key={i}
+                    onClick={(e) => {
+                      setPage(`${page.lastPage}`);
+                    }}
+                  >
+                    &gt;|
+                  </button>
+                </div>
+              ))} */}
             </div>
             {/* <!-- 分頁 end  --> */}
           </div>
