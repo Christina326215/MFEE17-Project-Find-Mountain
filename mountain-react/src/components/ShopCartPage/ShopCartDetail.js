@@ -59,6 +59,7 @@ function ShopCartDetail() {
         JSON.stringify(currentProductOrder)
       );
       console.log('有這個訂購資料');
+      setCartChange(true);
       setCartLocal(currentProductOrder);
       //TODO:提示已刪除商品
       //刪除後重整頁面
@@ -76,11 +77,22 @@ function ShopCartDetail() {
     const amountIndex = newProductOrder.findIndex(
       (v) => v.id === items.id && v.size === items.size
     );
-    console.log('amountIndex', amountIndex);
+    // console.log('amountIndex', amountIndex);
     if (amountIndex > -1) {
-      isAdded
-        ? newProductOrder[amountIndex].num++
-        : newProductOrder[amountIndex].num--;
+      if (isAdded) {
+        //限制可以選擇的數量
+        if (newProductOrder[amountIndex].num < 10) {
+          newProductOrder[amountIndex].num++;
+        } else {
+          return;
+        }
+      } else {
+        if (newProductOrder[amountIndex].num > 1) {
+          newProductOrder[amountIndex].num--;
+        } else {
+          return;
+        }
+      }
     }
     localStorage.setItem('ProductOrderDetail', JSON.stringify(newProductOrder));
     setCartChange(true);
@@ -259,7 +271,10 @@ function ShopCartDetail() {
             {/* abby */}
             {shopCartData.map((items, index) => {
               return (
-                <div className="shopcart-product-infobox row my-3">
+                <div
+                  className="shopcart-product-infobox row my-3"
+                  key={`${items.id}${items.size}`}
+                >
                   <div className="col-4 col-lg-3">
                     <figure className="shopcart-product-infobox-img p-2">
                       <Link to={`/shop/product-detail/${items.id}`}>
@@ -281,11 +296,10 @@ function ShopCartDetail() {
                         readOnly
                         className="my-3 form-control"
                       />
-                      <input type="text" value="productId" hidden />
                     </div>
                     {items.type === '2' ? (
                       <div className="button-box my-3">
-                        <p>尺寸選擇</p>
+                        <p>所選尺寸</p>
                         <input
                           type="button"
                           value="F"
@@ -295,27 +309,10 @@ function ShopCartDetail() {
                       </div>
                     ) : items.size === 'S' ? (
                       <div className="button-box my-3">
-                        <p>尺寸選擇</p>
-                        <input
-                          type="button"
-                          value="S"
-                          name="size"
-                          className="shopcart-size-btn mx-1 shopcart-active"
-                        />
-                        <input
-                          type="button"
-                          value="M"
-                          name="size"
-                          className="shopcart-size-btn mx-1"
-                          disabled
-                        />
-                        <input
-                          type="button"
-                          value="L"
-                          name="size"
-                          className="shopcart-size-btn mx-1"
-                          disabled
-                        />
+                        <p>所選尺寸</p>
+                        <select value="S" className="form-control" readOnly>
+                          <option value="S">S</option>
+                        </select>
                       </div>
                     ) : items.size === 'M' ? (
                       <div className="button-box my-3">
@@ -418,7 +415,7 @@ function ShopCartDetail() {
                             deleteItem(items);
                           }}
                         >
-                          <BsTrash size={20} className="text-white"/>
+                          <BsTrash size={20} className="text-white" />
                         </button>
                       </div>
                     </div>
@@ -476,7 +473,10 @@ function ShopCartDetail() {
               <div className="row">
                 {historyItems.slice(0, 7).map((hisItems, hisIndex) => {
                   return (
-                    <Link to={`/shop/product-detail/${hisItems.id}`}>
+                    <Link
+                      to={`/shop/product-detail/${hisItems.id}`}
+                      key={`${hisItems.id}00`}
+                    >
                       <figure className="shopcart-more-product-img-box ml-5 mb-5">
                         <img
                           src={`${IMAGE_URL}/img/product-img/${hisItems.pic}`}

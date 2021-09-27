@@ -37,14 +37,11 @@ function Navbar(props) {
     console.log('ProductOrder', ProductOrder);
     setNavbarLocalCart(ProductOrder);
   }
+  //一進畫面先讀取local storage
   useEffect(() => {
     getCartFromLocalStorage();
   }, []);
-  //一進畫面先讀取local storage
   useEffect(() => {
-    if (cartChange === false) {
-      return;
-    }
     const navbarProductOrder =
       JSON.parse(localStorage.getItem('ProductOrderDetail')) || '[]';
     // setNavbarLocalCart(navbarProductOrder);
@@ -71,6 +68,9 @@ function Navbar(props) {
     } else {
       $('.cart-num').css('display', 'none');
       console.log('no product');
+    }
+    if (cartChange === false) {
+      return;
     }
     setCartChange(false);
   }, [cartChange]);
