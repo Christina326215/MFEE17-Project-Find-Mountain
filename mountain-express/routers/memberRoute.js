@@ -251,14 +251,14 @@ router.post("/catchStar", async function (req, res, next) {
   // console.log('star:',star); //for check
   // console.log('memberId:',memberId); //for check
 
-  //=== 全部的文章 star ===//
+  //=== 文章的星星評分 db star ===//
   let dbResults = await connection.queryAsync("INSERT INTO article_star SET ?",[{
     article_id: id,
     user_id: memberId,
     star_grade: star,
   }]
   );
-  //=== 全部的文章 end ===//
+  //=== 文章的星星評分 db end ===//
 
   res.json({});
 });
