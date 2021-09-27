@@ -43,6 +43,12 @@ function DetailContent(props) {
       apply_name: '',
     },
   ]);
+  // 當頁文章星星評分
+  const [star, setStar] = useState(0);
+  // 新增收藏文章狀態
+  const [likeUserId, setLikeUserId] = useState('');
+  const [likeArticleId, setLikeArticleId] = useState('');
+  const [likeArticlePast, setLikeArticlePast] = useState('');
 
   useEffect(() => {
     // js
@@ -56,41 +62,87 @@ function DetailContent(props) {
       $(this).toggleClass('active');
     });
 
-    // js
-
-    // 連線資料庫
+    // 連線當頁的資料庫
     async function recommendData() {
       try {
+        // 全部文章資料
         const recommendData = await axios.get(recommendURL);
-        // console.log('recommendData.data', recommendData.data); //for check
         const totalDetail = recommendData.data;
-        // this.setTotal(totalDetail);
-        // setTotal(totalDetail);
-        // console.log('total', total);
-        // 抓網址id 並將string轉成number
-        // console.log(typeof id);
+
+        // 網址id判斷此篇文章資料
         const id = Number(props.match.params.id);
-
-        // console.log('totalDetail', totalDetail);
-        // console.log('id', id);
-
-        // 全部資料用find尋找id一樣的資料
         const newDetail = totalDetail.find((v) => {
           return v.id === id;
         });
+        if (newDetail) setDetail(newDetail);
 
+        // 推薦同等級文章
         const RecommentCard = totalDetail.filter((v) => {
           return v.level === newDetail.level;
         });
-
-        if (newDetail) setDetail(newDetail);
         if (RecommentCard) setLevelCard(RecommentCard);
+
+        // 全部文章星星資料
+        const totalStarData = await axios.get(`${recommendURL}/star`);
+        const starData = totalStarData.data;
+        // 當篇文章星星資料
+        //計算星星平均分數
+        let stararray = [];
+        starData.filter((e) => {
+          if (e.article_id === id) {
+            stararray.push(e.star_grade);
+          }
+        });
+        // console.log('stararray', stararray);
+        const total = stararray.reduce((acc, cur) => {
+          return acc + cur;
+        });
+        // console.log('tota/l', total);
+        // 分數四捨五入
+        let starResult = Math.round(total / stararray.length);
+        console.log('starResult', starResult);
+        setStar(starResult);
+
+        //加入收藏功能
+        //FIXME:帶入使用者ID
+        // FIXME:問去過路線的資料
+        setLikeUserId(1);
+        setLikeArticleId(id);
+        setLikeArticlePast(id);
       } catch (e) {
         console.log(e);
       }
     }
     recommendData();
   }, [props.match.params.id]);
+
+  // 判斷有沒有收藏過的狀態 true收藏 fasle沒收藏
+  const [heartHandle, setHeartHandle] = useState(true);
+
+  // 移除收藏功能
+  const deletHeart = async (e) => {
+    setHeartHandle(false);
+    $(e.currentTarget.firstChild).css('color', '#e2e3e1');
+
+    let response = await axios.post(`${recommendURL}/deleteLikeArticle`, {
+      likeUserId,
+      likeArticleId,
+    });
+    console.log('response', response);
+  };
+
+  //加入收藏功能
+  const addHeart = async (e) => {
+    setHeartHandle(true);
+    $(e.currentTarget.firstChild).css('color', '#cc543a');
+
+    let response = await axios.post(`${recommendURL}/likeArticle`, {
+      likeUserId,
+      likeArticleId,
+      likeArticlePast,
+    });
+    console.log('response', response);
+  };
 
   return (
     <div>
@@ -119,27 +171,123 @@ function DetailContent(props) {
         <div className="recommend-wrapper">
           <div className="d-flex justify-content-between">
             <h2 className="col-5 recommend-h2">{detail.name}</h2>
-            <div className="col-7 row align-items-center">
+            <div className="col-7 row align-items-center my-1">
               <div className="col-12">
-                <div className="d-flex justify-content-end">
-                  <div className="recommend-starGroup mr-3">
-                    <i className="bi recommend-bi-star-fill">
-                      <BsStarFill></BsStarFill>
-                    </i>
-                    <i className="bi recommend-bi-star-fill">
-                      <BsStarFill></BsStarFill>
-                    </i>
-                    <i className="bi recommend-bi-star-fill">
-                      <BsStarFill></BsStarFill>
-                    </i>
-                    <i className="bi recommend-bi-star-fill">
-                      <BsStarFill></BsStarFill>
-                    </i>
-                    <i className="bi recommend-bi-star-fill">
-                      <BsStarFill></BsStarFill>
-                    </i>
+                <div className="d-flex align-items-center justify-content-end">
+                  <div className="mr-3">
+                    {star === 0 ? (
+                      <>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill mr-1"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>{' '}
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill mr-1"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill mr-1"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill mr-1"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                      </>
+                    ) : (
+                      ''
+                    )}
+                    {star === 1 ? (
+                      <>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill mr-1"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill mr-1"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill mr-1"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                      </>
+                    ) : (
+                      ''
+                    )}
+                    {star === 2 ? (
+                      <>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill mr-1"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill mr-1"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                      </>
+                    ) : (
+                      ''
+                    )}
+                    {star === 3 ? (
+                      <>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill mr-1"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                      </>
+                    ) : (
+                      ''
+                    )}
+                    {star === 4 ? (
+                      <>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                      </>
+                    ) : (
+                      ''
+                    )}
+                    {star === 5 ? (
+                      <>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill className="bi recommend-bi-star-fill"></BsStarFill>
+                      </>
+                    ) : (
+                      ''
+                    )}
                   </div>
-                  <p className="text-primary recommend-body-content mr-3 mt-1">
+                  <div className="text-primary recommend-body-content mr-3">
                     {detail.level_name === '低' ? (
                       <img className="mr-1" src={levelLow} alt="..." />
                     ) : (
@@ -156,25 +304,37 @@ function DetailContent(props) {
                       ''
                     )}
                     難度{detail.level_name}
-                  </p>
-                  <p className="text-primary recommend-body-content mt-1">
+                  </div>
+                  <div className="text-primary recommend-body-content">
                     <i className="fas recommend-fa-shoe-prints mr-2">
                       <FaShoePrints size={20}></FaShoePrints>
                     </i>
                     {detail.distance}公里
-                  </p>
+                  </div>
                 </div>
               </div>
               <div className="col-12">
-                <div className="d-flex justify-content-end">
-                  <i className="bi recommend-bi-heart-fill mr-2 ml-auto">
-                    <BsHeartFill></BsHeartFill>
-                  </i>
-                  <p className="recommend-body-content mr-2">加入收藏</p>
-                  <i className="bi recommend-bi-flag-fill mr-2">
-                    <BsFlagFill size={25}></BsFlagFill>
-                  </i>
-                  <p className="mr-2">加入去過路線</p>
+                <div className="d-flex align-items-center justify-content-end">
+                  <div
+                    className="d-flex align-items-center heartbtn"
+                    onClick={(e) => {
+                      if (heartHandle) {
+                        deletHeart(e);
+                      } else {
+                        addHeart(e);
+                      }
+                    }}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <BsHeartFill className="bi recommend-bi-heart-fill mr-1 mt-1"></BsHeartFill>
+                    <div className="recommend-body-content mr-2">加入收藏</div>
+                  </div>
+                  <div className="d-flex align-items-center">
+                    <i className="bi recommend-bi-flag-fill mr-1">
+                      <BsFlagFill size={25}></BsFlagFill>
+                    </i>
+                    <div className="mr-2">加入去過路線</div>
+                  </div>
                   {/* =========about-membership-bubble start========= */}
                   <div className="recommend-about-membership">
                     <div to="" id="seeMember" className="recommend-see-member">
