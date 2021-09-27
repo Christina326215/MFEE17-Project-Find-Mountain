@@ -24,7 +24,7 @@ router.post("", upload.none(),  async function (req, res, next) {
         birthday: req.body.birthday,
         zip_code: req.body.zip_code, 
         addr: req.body.addr
-      },1]
+      },9]
     );
       
       console.log("req.body.name", req.body.name)

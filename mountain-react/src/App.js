@@ -54,12 +54,18 @@ function App() {
   const [pay, setPay] = useState(null);
   const [cartChange, setCartChange] = useState(false);
 
+  //=== 彈跳視窗開關 star ===//
+  const [show, setShow] = useState(false);
+  //=== 彈跳視窗開關 end ===//
+
   useEffect(() => {
     // 每次重新整理或開啟頁面時，都去確認一下是否在已經登入的狀態。
     // 從資料庫抓資料
     async function getPersonalData() {
       try {
-        const PersonalData = await axios.get(memberURL);
+        const PersonalData = await axios.get(memberURL, {
+          withCredentials: true,
+        });
 
         setMember(PersonalData.data);
       } catch (e) {
@@ -67,7 +73,7 @@ function App() {
       }
     }
     getPersonalData();
-  }, []);
+  }, [show]);
 
   return (
     <AuthContext.Provider
@@ -144,10 +150,10 @@ function App() {
                 <MemberComment />
               </Route>
               <Route path="/member/personal">
-                <MemberPersonal />
+                <MemberPersonal show={show} setShow={setShow} />
               </Route>
               <Route path="/member/edit">
-                <MemberEdit />
+                <MemberEdit show={show} setShow={setShow} />
               </Route>
               <Route path="/member">
                 <MemberMapRoute />

@@ -11,10 +11,12 @@ import axios from 'axios';
 import MemberSideHead from './pages/MemberSideHead'; //member Side Head
 //====== below pages end ======//
 
-function MemberPersonal() {
+function MemberPersonal(props) {
   // 把 member 從 useContext中拿出來
   const { member } = useAuth();
   const [zipCode, setZipCode] = useState(null);
+  const { show, setShow } = props;
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
     // 從靜態檔案抓資料
@@ -50,10 +52,7 @@ function MemberPersonal() {
               <tbody>
                 <tr>
                   <td scope="row" className="text-center">
-                    <Link
-                      to="/member/map-route"
-                      className="member-left-href-color"
-                    >
+                    <Link to="/member" className="member-left-href-color">
                       路線地圖
                     </Link>
                   </td>
@@ -155,7 +154,12 @@ function MemberPersonal() {
               </table>
             </div>
             <div className="border-bottom-left-radius my-5 mx-3 text-right">
-              <Link type="button" className="btn btn-primary" to="/member/edit">
+              <Link
+                type="button"
+                className="btn btn-primary"
+                to="/member/edit"
+                onClick={handleShow}
+              >
                 編輯
               </Link>
             </div>

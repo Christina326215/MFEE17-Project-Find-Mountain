@@ -8,15 +8,19 @@ router.post("", async function (req, res, next) {
 
   //=== 全部去過的文章 star ===//
   let dbResults = await connection.queryAsync(
+
     "SELECT article.name AS article_name, article.distance AS article_distance, article.height AS article_height, article.level AS article_level, article.pic AS article_pic, user_article.* FROM user_article JOIN article ON user_article.article_id_past = article.id WHERE user_id = ?",
     [req.body.id]
+
   ); // 等資料庫查詢資料
   //=== 全部去過的文章 end ===//
 
   //=== 去過後有評分的文章 star ===//
   let dbResultsStar = await connection.queryAsync(
+
     "SELECT article.name AS article_name, article_star.star_grade AS star, user_article.* FROM user_article JOIN article ON user_article.article_id_past = article.id JOIN article_star ON user_article.user_id = article_star.user_id WHERE user_article.user_id = article_star.user_id AND user_article.article_id = article_star.article_id AND user_article.user_id = ?",
     [req.body.id]
+
   );
   //=== 去過後有評分的文章 end ===//
 
