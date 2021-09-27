@@ -246,6 +246,9 @@ body {
   color: #414141;
   text-align: justify;
 }
+.productdetail-introduce img {
+  max-width: 100%;
+}
 /*introduce part end*/
 /*product end*/
 /*guideline start*/
