@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
-import $ from 'jquery';
+// import $ from 'jquery';
 import '../../styles/MemberPage/MemberMapRoute.scss'; //member map and route style
 
 //====== below catch member info star ======//
@@ -40,9 +40,6 @@ function MemberMapRoute() {
   const [data, setData] = useState([]);
   const [info, setInfo] = useState([]);
 
-  // const starIcon = (e) => {
-  //   $(e.currentTarget).toggleClass('active');
-  // };
   //====== 接星星評分的資料 star ======//
   useEffect(() => {
     if (star === undefined) {
@@ -74,7 +71,7 @@ function MemberMapRoute() {
     }
     async function getRouteData() {
       try {
-        // console.log('memberID:', member); //for check
+        console.log('memberID:', member); //for check
         const RouteData = await axios.post(memberRouteURL, member);
         console.log('RouteData:', RouteData.data.result); //for check
         setData(RouteData.data.result);
@@ -315,7 +312,7 @@ function MemberMapRoute() {
                             <td className="member-map-route-text-weight align-middle">
                               {items.article_name}
                             </td>
-                            {/* 分已評分＆未評分 FIXME: 未評分點星星後可點送出紐加評分 */}
+                            {/* 分已評分＆未評分點星星後可加評分 */}
                             {items.star !== undefined ? (
                               items.star === 5 ? (
                                 <td className="member-map-route-star-group member-map-route-text-weight align-middle">
@@ -435,9 +432,6 @@ function MemberMapRoute() {
                                 未評分
                               </td>
                             )}
-                            {/* <td className="member-map-route-text-weight align-middle">
-                            未評分
-                          </td> */}
                           </tr>
                         </tbody>
                       ))

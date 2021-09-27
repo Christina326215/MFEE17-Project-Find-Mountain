@@ -75,10 +75,7 @@ function MemberOrder() {
               <tbody>
                 <tr>
                   <td scope="row" className="text-center">
-                    <Link
-                      to="/member/map-route"
-                      className="member-left-href-color"
-                    >
+                    <Link to="/member" className="member-left-href-color">
                       路線地圖
                     </Link>
                   </td>
