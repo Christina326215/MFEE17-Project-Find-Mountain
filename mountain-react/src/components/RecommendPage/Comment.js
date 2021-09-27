@@ -44,7 +44,7 @@ function Comment(props) {
   // 新增評論欄位
   const [userID, setUserID] = useState('3');
   const [articleID, setArticleID] = useState(id);
-  const [content, setContent] = useState('1111');
+  const [content, setContent] = useState('');
   const [pic, setPic] = useState('');
   const event = new Date(Date.now());
   const [time, setTime] = useState(event);
@@ -55,7 +55,14 @@ function Comment(props) {
   const [fileSrc, setFileSrc] = useState(null);
   // 控制modal的函示
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // const handleShow = () => setShow(true);
+  const handleShow = () => {
+    setShow(true);
+    // FIXME:重新點擊新增評論 資料清空...
+    // setUserID('');
+    setContent('');
+    setPic('');
+  };
 
   // rerender狀態
   // const [show, setShow] = useState(false);
@@ -67,25 +74,10 @@ function Comment(props) {
   // };
 
   //uploadPic 有上傳圖片時即時顯示上傳照片
-  const uploadPic = (e) => {
-    // const file = $('.updatePic').files[0];
-    // const reader = new FileReader();
-    // reader.addEventListener(
-    //   'load',
-    //   function () {
-    //     // convert image file to base64 string
-    //     $('.preview').src = reader.result;
-    //   },
-    //   false
-    // );
-
-    // if (file) {
-    //   reader.readAsDataURL(file);
-    // }
-
-    // 設定最後上傳圖片的狀態
-    setPic(e.target.files[0]);
-  };
+  // const uploadPic = (e) => {
+  //   // 設定最後上傳圖片的狀態;
+  //   setPic(e.target.files[0]);
+  // };
 
   // 新增評論資料庫
   const InsertComment = async (e) => {
@@ -118,7 +110,7 @@ function Comment(props) {
         const id = Number(props.match.params.id);
         // 全部資料用find尋找id一樣的資料
         const newcommentDetail = commentTotalData.filter((v) => {
-          return v.article_id === id;
+          return v.article_id === id && v.dislike_status !== 1;
         });
         // console.log('newcommentDetail', newcommentDetail);
 
@@ -243,8 +235,10 @@ function Comment(props) {
                                 id="inputGroupFile01"
                                 aria-describedby="inputGroupFileAddon01"
                                 name="pic"
+                                onChange={(e) => {
+                                  setPic(e.target.files[0]);
+                                }}
                                 required
-                                onChange={uploadPic}
                               />
                               <label
                                 className="custom-file-label"

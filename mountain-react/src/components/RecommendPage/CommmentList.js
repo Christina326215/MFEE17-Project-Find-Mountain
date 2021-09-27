@@ -1,12 +1,47 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import { BsPeopleCircle } from 'react-icons/bs';
 import { withRouter } from 'react-router';
 import { IMAGE_URL } from '../../utils/config';
+import { useState } from 'react';
+// 使用sweetalert2彈跳視窗
+import Swal from 'sweetalert2';
 
 function CommmentList(props) {
   // 評論資料
   const { comment } = props;
+  // 檢舉modal
+  const [show, setShow] = useState(false);
+  // modal彈跳視窗
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  // 被檢舉得內容狀態
+  const [dislikeContent, setDislikeContent] = useState({});
+  // 檢舉的欄位->新增檢舉狀態是3的資料表
+  const [commentId, setCommentId] = useState('');
+  const [dislikeReason, setDislikeReason] = useState('');
+  const [dislikeStatus, setDislikeStatus] = useState('');
+  const event = new Date(Date.now());
+  const [dislikeTime, setDislikeTime] = useState(event);
+  const [dislikeValid, setDislikeValid] = useState('1');
+
+  // handleChange(event) {
+  //   this.setState({value: event.target.value});
+  // }
+
+  // 檢舉
+  const dislike = (e) => {
+    setShow(true);
+    const dislikeId = parseInt(e.target.id);
+    // console.log('dislikeId', dislikeId);
+    const dislike = comment.filter((v, i) => {
+      return v.id === dislikeId;
+    });
+    const content = dislike[0];
+    console.log('content', content);
+    setDislikeContent(content);
+    console.log('dislikeContent', dislikeContent);
+  };
 
   return (
     <div>
@@ -110,7 +145,11 @@ function CommmentList(props) {
                   />
                 </div>
                 <div className="mx-2 d-flex align-items-center">
-                  <Button variant="outline-primary" size="sm">
+                  <Button
+                    variant="outline-secondary"
+                    id={comment.id}
+                    onClick={dislike}
+                  >
                     檢舉
                   </Button>
                 </div>
@@ -119,6 +158,77 @@ function CommmentList(props) {
           </>
         );
       })}
+      {/* FIXME:沒選檢舉原因驗證 */}
+      {/* FIXME:前台不顯示未通過的評論 */}
+      {/* 按檢舉後狀態變3審核中 後台才能調整審核狀態 */}
+      {/* 檢舉modal */}
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>檢舉評論</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p className="recommend-body recommend-body-content">
+            確定要檢舉此則評論嗎？
+          </p>
+          <input
+            name="comments_id"
+            className="form-control"
+            value={dislikeContent.id}
+            // onChange={setCommentId(dislikeContent.id)}
+          ></input>
+          <textarea
+            style={{ height: 120 }}
+            className="form-control"
+            value={dislikeContent.content}
+            disabled
+          ></textarea>
+          <p className="recommend-body recommend-body-content mt-3">
+            請選擇檢舉原因：
+          </p>
+          <div class="input-group mb-3" name="dislike_reason">
+            <select
+              class="custom-select"
+              id="inputGroupSelect01"
+              value={dislikeReason}
+              // onChange={(e) => {
+              //   setDislikeReason(e.target.value);
+              // }}
+            >
+              <option value="">檢舉原因...</option>
+              <option value="1">垃圾內容</option>
+              <option value="2">騷擾內容</option>
+            </select>
+          </div>
+          <input
+            name="dislike_status"
+            className="form-control"
+            value="3"
+            // onChange={(e) => {
+            //   setDislikeStatus(e.target.value);
+            // }}
+          ></input>
+          <input
+            id="time"
+            className="form-control"
+            value={dislikeTime}
+            // onChange={(e) => {
+            //   setDislikeTime(e.target.value);
+            // }}
+            disabled
+          />
+          <p className="text-danger recommend-body-content-small">
+            提醒！多次惡意檢舉，可能會被列入黑名單
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            取消
+          </Button>
+          <Button variant="danger" onClick={handleClose}>
+            確定檢舉
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
