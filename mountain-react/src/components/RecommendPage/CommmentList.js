@@ -223,12 +223,8 @@ function CommmentList(props) {
               name="comments_id"
               className="form-control"
               value={commentId}
-              // onChange={(e) => {
-              //   setCommentId(e.target.value);
-              // }}
-              // setCommentId={dislikeContent.id}
-              // onLoad={setCommentId(dislikeContent.id)}
               readOnly
+              style={{ display: 'none' }}
             ></input>
             <textarea
               style={{ height: 120 }}
@@ -257,27 +253,21 @@ function CommmentList(props) {
               name="dislike_status"
               className="form-control"
               value={dislikeStatus}
-              // onChange={(e) => {
-              //   setDislikeStatus(e.target.value);
-              // }}
+              style={{ display: 'none' }}
               readOnly
             ></input>
             <input
               id="time"
               className="form-control"
               value={dislikeTime}
-              // onChange={(e) => {
-              //   setDislikeTime(e.target.value);
-              // }}
+              style={{ display: 'none' }}
               readOnly
             />
             <input
               name="dislike_valid"
               className="form-control"
               value={dislikeValid}
-              // onChange={(e) => {
-              //   setDislikeValid(e.target.value);
-              // }}
+              style={{ display: 'none' }}
               readOnly
             ></input>
             <p className="text-danger recommend-body-content-small">
