@@ -65,7 +65,9 @@ function Login(props) {
       let formData = new FormData();
       formData.append('email', loginData.email);
       formData.append('password', loginData.password);
-      let response = await axios.post(`${authURL}/login`, formData);
+      let response = await axios.post(`${authURL}/login`, formData, {
+        withCredentials: true,
+      });
       console.log(response);
     } catch (e) {
       console.error(e.response);
