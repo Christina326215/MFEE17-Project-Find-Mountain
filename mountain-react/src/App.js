@@ -53,6 +53,7 @@ function App() {
   const [member, setMember] = useState(null);
   const [pay, setPay] = useState(null);
   const [cartChange, setCartChange] = useState(false);
+  const [mapRouteShow, setMapRouteShow] = useState(false); //會員路線地圖，新增路線重算積分，會員level需重抓
 
   useEffect(() => {
     // 每次重新整理或開啟頁面時，都去確認一下是否在已經登入的狀態。
@@ -67,11 +68,20 @@ function App() {
       }
     }
     getPersonalData();
-  }, []);
+  }, [mapRouteShow]);
 
   return (
     <AuthContext.Provider
-      value={{ member, setMember, pay, setPay, cartChange, setCartChange }}
+      value={{
+        member,
+        setMember,
+        pay,
+        setPay,
+        cartChange,
+        setCartChange,
+        mapRouteShow,
+        setMapRouteShow,
+      }}
     >
       <Router>
         <>

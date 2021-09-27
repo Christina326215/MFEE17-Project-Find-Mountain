@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import $ from 'jquery';
 import { useAuth } from '../../../context/auth';
+import React, { useEffect } from 'react';
 
 //====== below icon star ======//
 import { BsQuestionCircle } from 'react-icons/bs';
@@ -8,7 +9,9 @@ import { BsQuestionCircle } from 'react-icons/bs';
 
 //====== below img import start ======//
 import Avatar from '../../../img/signin.jpg';
-import MemberLevel from '../../../img/low.svg';
+import MemberLevel_L from '../../../img/low.svg';
+import MemberLevel_M from '../../../img/medium.svg';
+import MemberLevel_H from '../../../img/high.svg';
 //====== above img import end ======//
 
 const bubble = () => {
@@ -26,13 +29,30 @@ const MemberSideHead = () => {
     <>
       <tr>
         <th scope="col" className="text-center">
-          <div className="member-headshot-img-box">
+          {/* <div className="member-headshot-img-box">
             <img src={Avatar} alt="" className="member-cover-fit" />
+          </div> */}
+          <div className="headshot_icon">
+            {member && member.name.substr(0, 1)}
           </div>
           <h3 className="m-2 member-member-name">{member && member.name}</h3>
-          <img src={MemberLevel} alt="" />
+          {member &&
+            (member.level === '1' ? (
+              <img src={MemberLevel_L} alt="" />
+            ) : member.level === '2' ? (
+              <img src={MemberLevel_M} alt="" />
+            ) : (
+              <img src={MemberLevel_H} alt="" />
+            ))}
           <div className="position-relative member-level">
-            <span className="member-grade-icon">肉腳</span>
+            {member &&
+              (member.level === '1' ? (
+                <span className="member-grade-icon">肉腳</span>
+              ) : member.level === '2' ? (
+                <span className="member-grade-icon">山友</span>
+              ) : (
+                <span className="member-grade-icon">山神</span>
+              ))}
             <div
               // to="javascript:void(0)"
               // to="#/"

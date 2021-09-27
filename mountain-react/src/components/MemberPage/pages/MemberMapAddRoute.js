@@ -17,7 +17,7 @@ import { memberRouteURL } from '../../../utils/config';
 // import { log } from 'fabric/fabric-impl';
 
 function MemberMapAddRoute(props) {
-  const { member } = useAuth(); //把 member 從 useContext中拿出來
+  const { member, mapRouteShow, setMapRouteShow } = useAuth(); //把 member＆新增路線重算積分，會員level需重抓開關，從 useContext中拿出來
   const { show, setShow } = props;
   const [data, setData] = useState([]);
 
@@ -48,6 +48,13 @@ function MemberMapAddRoute(props) {
           selectedOption,
           member,
         }); //NEXT: 送到伺服器去
+        setWentList([]); //送完後清空陣列，以免上次資料重複送到後端
+        setSelectedOption([]); //送完後清空陣列，以免上次資料重複送到後端
+        if (mapRouteShow === false) {
+          setMapRouteShow(true); //將member資料重抓開關
+        } else {
+          setMapRouteShow(false); //將member資料重抓開關
+        }
         //console.log('wentRoute response:', response); //for check
       } catch (e) {
         console.log(e);
