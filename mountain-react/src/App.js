@@ -63,7 +63,9 @@ function App() {
     // 從資料庫抓資料
     async function getPersonalData() {
       try {
-        const PersonalData = await axios.get(memberURL);
+        const PersonalData = await axios.get(memberURL, {
+          withCredentials: true,
+        });
 
         setMember(PersonalData.data);
       } catch (e) {
