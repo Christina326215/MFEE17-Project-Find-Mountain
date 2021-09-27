@@ -73,4 +73,18 @@ router.post("/insert", uploader.single("pic") , async function (req, res, next) 
   res.json(dbResults);
 });
 
+
+// 檢舉評論
+router.post("/dislike", async function (req, res, next) {
+// commentId: 64
+// dislikeReason: "1"
+// dislikeStatus: "3"
+// dislikeTime: "2021-09-27T08:45:30.913Z"
+// dislikeValid: "1"
+  let time = new Date();
+  let dbResults = await connection.queryAsync('UPDATE dislike SET dislike_reason = ?, dislike_status = ?,dislike_time = ?,dislike_valid = ? WHERE comments_id = ?', [ req.body.dislikeReason, req.body.dislikeStatus, time, req.body.dislikeValid, req.body.commentId]); // 等資料庫查詢資料
+  
+  res.json(dbResults);
+});
+
 module.exports = router;

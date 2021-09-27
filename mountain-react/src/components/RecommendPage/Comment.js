@@ -8,9 +8,9 @@ import { articlecommentURL } from '../../utils/config';
 import CommmentList from './CommmentList';
 import slothBig from '../../img/article-img/sloth_big.svg';
 import slothSmall from '../../img/article-img/sloth_small.svg';
-import $ from 'jquery';
+// import $ from 'jquery';
 import { Button, Modal } from 'react-bootstrap';
-import { IMAGE_URL } from '../../utils/config';
+// import { IMAGE_URL } from '../../utils/config';
 import {
   BsChevronBarLeft,
   BsChevronLeft,
@@ -52,7 +52,7 @@ function Comment(props) {
   // modal顯示狀態
   const [show, setShow] = useState(false);
   // input中照片的儲存狀態
-  const [fileSrc, setFileSrc] = useState(null);
+  // const [fileSrc, setFileSrc] = useState(null);
   // 控制modal的函示
   const handleClose = () => setShow(false);
   // const handleShow = () => setShow(true);
@@ -63,21 +63,6 @@ function Comment(props) {
     setContent('');
     setPic('');
   };
-
-  // rerender狀態
-  // const [show, setShow] = useState(false);
-
-  // rerender函式
-  // const rerender = () => {
-  //   setShow(true);
-  //   alert('111');
-  // };
-
-  //uploadPic 有上傳圖片時即時顯示上傳照片
-  // const uploadPic = (e) => {
-  //   // 設定最後上傳圖片的狀態;
-  //   setPic(e.target.files[0]);
-  // };
 
   // 新增評論資料庫
   const InsertComment = async (e) => {
