@@ -5,17 +5,13 @@ import $ from 'jquery';
 import { pages_btn } from '../MapPage/pages/PagesBtn'; //分頁按鈕
 import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
 import { shopURL, IMAGE_URL } from '../../utils/config';
-import { useAuth } from '../../context/auth'; // 取得會員資料
+import { useAuth } from '../../context/auth'; // 取得setCartChange狀態
 
 import axios from 'axios';
 
 //====== below icon star ======//
 import { BsPlus, BsDash, BsTrash, BsCheck } from 'react-icons/bs';
 //====== below icon end ======//
-
-//====== below img import start ======//
-import ShopCartImg from '../../img/shoes-pic7.jpeg';
-//====== above img import end ======//
 
 function ShopCartDetail() {
   const { setCartChange } = useAuth(); // 取得會員資料
@@ -25,6 +21,7 @@ function ShopCartDetail() {
   const [historyItems, setHistoryItems] = useState([]);
   //cartLocal為購物車的local storage
   const [cartLocal, setCartLocal] = useState([]);
+  const [randomProduct, setRandomProduct] = useState([]);
   //取得local storage轉為陣列的資料 ProductOrder
   function getCartFromLocalStorage() {
     const ProductOrder =
@@ -106,6 +103,29 @@ function ShopCartDetail() {
     }
     return total;
   };
+  // 隨機打亂陣列函式
+  const shuffle = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
+  //更多推薦 api
+  useEffect(() => {
+    //FIXME:應該要在隨機排序商品資料中，刪除購物車中有的品項 (little bug)
+    async function getAllRandomProductData() {
+      try {
+        const allProductData = await axios.get(`${shopURL}/`);
+        const RandomProductData = shuffle(allProductData.data).slice(0, 5);
+        // console.log('RandomProductData', RandomProductData);
+        setRandomProduct(RandomProductData);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getAllRandomProductData();
+  }, []);
   //local storage接API --> shopCartData
   useEffect(() => {
     var ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
@@ -130,8 +150,9 @@ function ShopCartDetail() {
         //抓購物車的商品資料
         var orderArray = [];
         for (let i = 0; i < ProductOrder.length; i++) {
+          //對應尺寸剩餘庫存及售出量的api
           const productOrderData = await axios.get(
-            `${shopURL}/product-detail/${ProductOrder[i].id}`
+            `${shopURL}/size-storage/${ProductOrder[i].id}/${ProductOrder[i].size}`
           );
           //productOrderData.data[0]為資料庫商品資料 ProductOrder[i]為localstorage的購物車資料
           // console.log(productOrderData.data[0], ProductOrder[i]);
@@ -218,11 +239,6 @@ function ShopCartDetail() {
         .addClass('shopcart-step-' + prevStepNum)
         .data('current-step', prevStepNum);
     });
-    //product order size選擇
-    // $('.shopcart-size-btn').on('click', function () {
-    //   $(this).toggleClass('shopcart-active');
-    //   $(this).siblings().removeClass('shopcart-active');
-    // });
   }, []);
   return (
     <>
@@ -297,74 +313,28 @@ function ShopCartDetail() {
                         className="my-3 form-control"
                       />
                     </div>
-                    {items.type === '2' ? (
-                      <div className="button-box my-3">
-                        <p>所選尺寸</p>
-                        <input
-                          type="button"
-                          value="F"
-                          name="size"
-                          className="shopcart-size-btn mx-1 shopcart-active"
-                        />
-                      </div>
-                    ) : items.size === 'S' ? (
-                      <div className="button-box my-3">
-                        <p>所選尺寸</p>
+                    <div className="my-3">
+                      <p>所選尺寸</p>
+                      {items.type === '2' ? (
+                        <select value="F" className="form-control" readOnly>
+                          <option value="F">F</option>
+                        </select>
+                      ) : items.size === 'S' ? (
                         <select value="S" className="form-control" readOnly>
                           <option value="S">S</option>
                         </select>
-                      </div>
-                    ) : items.size === 'M' ? (
-                      <div className="button-box my-3">
-                        <p>尺寸選擇</p>
-                        <input
-                          type="button"
-                          value="S"
-                          name="size"
-                          className="shopcart-size-btn mx-1"
-                          disabled
-                        />
-                        <input
-                          type="button"
-                          value="M"
-                          name="size"
-                          className="shopcart-size-btn mx-1 shopcart-active"
-                        />
-                        <input
-                          type="button"
-                          value="L"
-                          name="size"
-                          className="shopcart-size-btn mx-1"
-                          disabled
-                        />
-                      </div>
-                    ) : (
-                      <div className="button-box my-3">
-                        <p>尺寸選擇</p>
-                        <input
-                          type="button"
-                          value="S"
-                          name="size"
-                          className="shopcart-size-btn mx-1"
-                          disabled
-                        />
-                        <input
-                          type="button"
-                          value="M"
-                          name="size"
-                          className="shopcart-size-btn mx-1"
-                          disabled
-                        />
-                        <input
-                          type="button"
-                          value="L"
-                          name="size"
-                          className="shopcart-size-btn mx-1 shopcart-active"
-                        />
-                      </div>
-                    )}
+                      ) : items.size === 'M' ? (
+                        <select value="M" className="form-control" readOnly>
+                          <option value="M">M</option>
+                        </select>
+                      ) : (
+                        <select value="L" className="form-control" readOnly>
+                          <option value="L">L</option>
+                        </select>
+                      )}
+                    </div>
                     <div className="shopcart-product-infobox-storage">
-                      <p className="m-0">庫存剩餘：10</p>
+                      <p className="m-0">庫存剩餘：{items.size_storage}</p>
                     </div>
                   </div>
                   <div className="col-3 col-lg-4">
@@ -379,21 +349,9 @@ function ShopCartDetail() {
                         >
                           <BsDash size={24} />
                         </button>
-                        {/* <input
-                          type="text"
-                          className="shopcart-order-number"
-                          // defaultValue={items.num}
-                          value={num[index]}
-                          name="num"
-                          // onChange={handleChange}
-                        /> */}
                         {items.num}
                         <button
                           className="btn shopcart-add-btn"
-                          // onClick={() => {
-                          //   const newNum = parseInt(num[index]) + 1;
-                          //   setNum(newNum);
-                          // }}
                           onClick={() => {
                             UpdateAmounts(items, true);
                           }}
@@ -444,27 +402,27 @@ function ShopCartDetail() {
             </div>
 
             <div>
+            {/* FIXME:樣式設計再改一下 */}
               <h5>更多推薦</h5>
               <hr />
               <div className="row">
-                <Link to="/#">
-                  <figure className="shopcart-more-product-img-box ml-5">
-                    <img
-                      src={ShopCartImg}
-                      alt=""
-                      className="shopcart-cover-fit"
-                    />
-                  </figure>
-                </Link>
-                <Link to="/#">
-                  <figure className="shopcart-more-product-img-box ml-5">
-                    <img
-                      src={ShopCartImg}
-                      alt=""
-                      className="shopcart-cover-fit"
-                    />
-                  </figure>
-                </Link>
+                {randomProduct.map((randomItems, index) => {
+                  return (
+                    <Link
+                      to={`/shop/product-detail/${randomItems.id}`}
+                      key={`${randomItems.id}`}
+                    >
+                      <figure className="shopcart-more-product-img-box ml-5">
+                        <img
+                          src={`${IMAGE_URL}/img/product-img/${randomItems.pic}`}
+                          alt={randomItems.name}
+                          title={randomItems.name}
+                          className="shopcart-cover-fit"
+                        />
+                      </figure>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
             <div>
