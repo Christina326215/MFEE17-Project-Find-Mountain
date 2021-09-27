@@ -104,7 +104,7 @@ router.post('/login',upload.none(), async (req, res, next) => {
     //     - CSR: 回覆成功的訊息
     let returnAccount = {
         id: account.id,
-        email: account.email,
+        email: account.account,
         name: account.name,
         isAdmin: false, // 理論上是資料庫要存，但我們假造一下作 demo
     }
