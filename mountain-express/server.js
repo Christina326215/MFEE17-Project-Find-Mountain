@@ -163,7 +163,7 @@ app.use('/api/member/article', memberArticleRouter)
 
 //===引用 memberComment 進來 star===//
 let memberCommentRouter = require('./routers/memberComment')
-app.use('/api/member/comment/:page', memberCommentRouter)
+app.use('/api/member/comment', memberCommentRouter)
 //===引用 memberComment 進來 end===//
 
 //===引用 memberOrder 進來 star===//
