@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'; //可以獲取history,location,ma
 import $ from 'jquery';
 import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
 import { useAuth } from '../../context/auth'; // 取得會員資料
-import { shopcartPayURL, zipGroupURL, zipCodeURL } from '../../utils/config';
+import { zipGroupURL, zipCodeURL } from '../../utils/config';
 import axios from 'axios';
 
 //====== below icon star ======//
@@ -109,11 +109,32 @@ function ShopCartPay() {
   }, [cartData, zipCode, zipGroup, cities]);
 
   // 自動填入會員收件地址 start //
+  // function checkAutoInputAddr(e) {
+  //   if (
+  //     member &&
+  //     zipCode &&
+  //     document.getElementById('city').value &&
+  //     cartData &&
+  //     document.getElementById('addr').value
+  //   ) {
+  //     if (e.target.checked) {
+  //       document.getElementById('city').value =
+  //         zipCode[member && member.zip_code].city;
+  //       setCartData({ ...cartData, zip_code: member.zip_code });
+  //       document.getElementById('addr').value = member.addr;
+  //       setCartData({
+  //         ...cartData,
+  //         zip_code: member.zip_code,
+  //         addr: member.addr,
+  //       });
+  //     }
+  //   }
+  // }
   function checkAutoInputAddr(e) {
     if (e.target.checked) {
       document.getElementById('city').value =
         zipCode[member && member.zip_code].city;
-      setCartData({ ...cartData, zip_code: member.zip_code });
+      // setCartData({ ...cartData, zip_code: member.zip_code });
       document.getElementById('addr').value = member.addr;
       setCartData({
         ...cartData,
@@ -142,6 +163,20 @@ function ShopCartPay() {
   }
 
   // 自動填入會員姓名及電話 start //
+  // function checkAutoNamePhone(e) {
+  //   if (
+  //     member &&
+  //     document.getElementById('name').value &&
+  //     document.getElementById('phone').value &&
+  //     cartData
+  //   ) {
+  //     if (e.target.checked) {
+  //       document.getElementById('name').value = member.name;
+  //       document.getElementById('phone').value = member.phone;
+  //       setCartData({ ...cartData, name: member.name, phone: member.phone });
+  //     }
+  //   }
+  // }
   function checkAutoNamePhone(e) {
     if (e.target.checked) {
       document.getElementById('name').value = member.name;
@@ -164,26 +199,6 @@ function ShopCartPay() {
     setCartData({ ...cartData, pay_way: e.target.value });
   }
   // 處理付款方式 end //
-
-  // 準備 INSERT INTO 資料庫 start
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      let formData = new FormData();
-      formData.append('ship', cartData.ship);
-      formData.append('pay_way', cartData.pay_way);
-      formData.append('zip_code', cartData.zip_code);
-      formData.append('addr', cartData.addr);
-      formData.append('invoice', cartData.invoice);
-      formData.append('name', cartData.name);
-      formData.append('phone', cartData.phone);
-      let response = await axios.post(`${shopcartPayURL}`, formData);
-      console.log(response);
-    } catch (e) {
-      console.error(e.response);
-    }
-  };
-  // 準備 INSERT INTO 資料庫 end
 
   useEffect(() => {
     // progress-bar
@@ -301,7 +316,7 @@ function ShopCartPay() {
             <h3 className="text-center mt-4 shopcart-title-dash">
               付款與運送方式
             </h3>
-            <form onSubmit={handleSubmit}>
+            <form>
               <fieldset className="form-group row mt-4">
                 <legend className="col-form-label col-sm-2 float-sm-left pt-0 mb-4">
                   收件方式：

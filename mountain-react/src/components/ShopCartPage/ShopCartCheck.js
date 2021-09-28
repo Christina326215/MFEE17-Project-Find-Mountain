@@ -5,7 +5,7 @@ import { useAuth } from '../../context/auth'; // 取得會員資料
 import $ from 'jquery';
 import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
 
-import { shopcartURL } from '../../utils/config';
+import { shopcartPayURL } from '../../utils/config';
 import axios from 'axios';
 
 //====== below icon star ======//
@@ -32,6 +32,30 @@ function ShopCartCheck() {
   useEffect(() => {
     getCartFromLocalStorage();
   }, []);
+
+  // 準備 INSERT INTO 資料庫 start
+  const handleSubmit = async (e) => {
+    const moment = require('moment');
+    e.preventDefault();
+    try {
+      let formData = new FormData();
+      formData.append('ship', pay.ship);
+      formData.append('pay_way', pay.pay_way);
+      formData.append('zip_code', pay.zip_code);
+      formData.append('addr', pay.addr);
+      formData.append('invoice', pay.invoice);
+      formData.append('name', pay.name);
+      formData.append('phone', pay.phone);
+      formData.append('time', moment().format('YYYY/MM/DD HH:mm:ss'));
+      let response = await axios.post(`${shopcartPayURL}`, formData, {
+        withCredentials: true,
+      });
+      console.log(response);
+    } catch (e) {
+      console.error(e.response);
+    }
+  };
+  // 準備 INSERT INTO 資料庫 end
 
   useEffect(() => {
     // progress-bar
@@ -147,46 +171,49 @@ function ShopCartCheck() {
           <div className="col-12 mt-3">
             <h3 className="text-center mt-4 shopcart-title-dash">資料確認</h3>
             <h5 className="text-center mt-4">請確認以下資料是否正確？</h5>
-            <table className="table table-borderless d-flex justify-content-center">
-              <tbody>
-                <tr>
-                  <th scope="row">收件人姓名：</th>
-                  <td>{pay.name}</td>
-                </tr>
-                <tr>
-                  <th scope="row">收件人聯絡電話：</th>
-                  <td>{pay.phone}</td>
-                </tr>
-                <tr>
-                  <th scope="row">收件地址（收件超商）：</th>
-                  <td>{pay.addr}</td>
-                </tr>
-                <tr>
-                  <th scope="row">發票類型：</th>
-                  <td>{pay.invoice}</td>
-                </tr>
-                <tr>
-                  <th scope="row">付款方式：</th>
-                  <td>{pay.pay_way}</td>
-                </tr>
-              </tbody>
-            </table>
-            {/* <!-- button --> */}
-            <div className="shopcart-button-container text-right my-5">
-              <Link
-                to="/shoppingcart/step2-pay"
-                className="shopcart-btn btn-prev btn btn-outline-primary mr-3"
-              >
-                上一步
-              </Link>
-              <div></div>
-              <Link
-                to="/shoppingcart/step4-finish"
-                className="shopcart-btn btn-next btn btn-primary mr-3"
-              >
-                下一步
-              </Link>
-            </div>
+            <form onSubmit={handleSubmit}>
+              <table className="table table-borderless d-flex justify-content-center">
+                <tbody>
+                  <tr>
+                    <th scope="row">收件人姓名：</th>
+                    <td>{pay && pay.name}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">收件人聯絡電話：</th>
+                    <td>{pay && pay.phone}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">收件地址（收件超商）：</th>
+                    <td>{pay && pay.addr}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">發票類型：</th>
+                    <td>{pay && pay.invoice}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">付款方式：</th>
+                    <td>{pay && pay.pay_way}</td>
+                  </tr>
+                </tbody>
+              </table>
+              {/* <!-- button --> */}
+              <div className="shopcart-button-container text-right my-5">
+                <Link
+                  to="/shoppingcart/step2-pay"
+                  className="shopcart-btn btn-prev btn btn-outline-primary mr-3"
+                >
+                  上一步
+                </Link>
+                <div></div>
+                <button
+                  type="submit"
+                  to="/shoppingcart/step4-finish"
+                  className="shopcart-btn btn-next btn btn-primary mr-3"
+                >
+                  下一步
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

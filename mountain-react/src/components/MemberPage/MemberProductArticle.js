@@ -28,7 +28,9 @@ function MemberProductArticle() {
   useEffect(() => {
     async function getProductData() {
       try {
-        const ProductData = await axios.get(memberProductURL);
+        const ProductData = await axios.get(memberProductURL, {
+          withCredentials: true,
+        });
 
         console.log(ProductData.data); //for check
 
@@ -43,7 +45,9 @@ function MemberProductArticle() {
 
     async function getArticleData() {
       try {
-        const ArticleData = await axios.get(memberArticleURL);
+        const ArticleData = await axios.get(memberArticleURL, {
+          withCredentials: true,
+        });
 
         console.log(ArticleData.data); //for check
 

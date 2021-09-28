@@ -55,7 +55,9 @@ function MemberEdit(props) {
   useEffect(() => {
     async function getZipGroup() {
       try {
-        const zipGroupRes = await axios.get(zipGroupURL);
+        const zipGroupRes = await axios.get(zipGroupURL, {
+          withCredentials: true,
+        });
         let data = zipGroupRes.data;
         // 6.1 設定 setZipGroup 狀態，取得 group.json 所有資料。
         setZipGroup(data);
@@ -69,7 +71,9 @@ function MemberEdit(props) {
 
     async function getZipCode() {
       try {
-        const zipCodeRes = await axios.get(zipCodeURL);
+        const zipCodeRes = await axios.get(zipCodeURL, {
+          withCredentials: true,
+        });
         let data2 = zipCodeRes.data;
         // 6.3 設定 setZipCode 狀態，取得 code.json 所有資料。
         setZipCode(data2);
@@ -136,7 +140,9 @@ function MemberEdit(props) {
       formData.append('birthday', tempMember.birthday);
       formData.append('zip_code', tempMember.zip_code);
       formData.append('addr', tempMember.addr);
-      let response = await axios.post(`${memberEditURL}`, formData);
+      let response = await axios.post(`${memberEditURL}`, formData, {
+        withCredentials: true,
+      });
       console.log(response);
     } catch (e) {
       console.error(e.response);
@@ -351,7 +357,6 @@ function MemberEdit(props) {
                       setShow(false);
                       props.history.goBack();
                     }}
-                    // onClick={handleClose}
                   >
                     確定
                   </button>

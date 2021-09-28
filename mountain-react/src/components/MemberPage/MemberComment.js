@@ -26,7 +26,9 @@ function MemberComment() {
   useEffect(() => {
     async function getCommentData() {
       try {
-        const CommentData = await axios.get(memberCommentURL);
+        const CommentData = await axios.get(memberCommentURL, {
+          withCredentials: true,
+        });
         console.log(CommentData.data); //for check
         setData(CommentData.data);
         // let data = CommentData.data;
