@@ -2,10 +2,10 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import '../../styles/outfit.css';
 import { outfitURL, IMAGE_URL } from '../../utils/config';
-import axios from 'axios';
 
 //=== package start===
 import $ from 'jquery';
+import axios from 'axios';
 import { fabric } from 'fabric';
 import html2canvas from 'html2canvas';
 //=== package end===
@@ -15,7 +15,6 @@ import SelectProduct from './SelectProduct';
 import OutfitProductSliderL from './OutfitProductSliderL';
 import OutfitProductSliderM from './OutfitProductSliderM';
 import OutfitProductSliderH from './OutfitProductSliderH';
-import OrderList from './OrderList';
 //=== components end===
 
 // ===icon start===
@@ -56,6 +55,7 @@ function Outfit(props) {
     // }
     // outfitData();
 
+    // 左側選初中高階種類商品
     $('#div1').show();
     $('#div2').hide();
     $('#div3').hide();
@@ -65,41 +65,28 @@ function Outfit(props) {
       $('#div' + $(this).attr('target')).show();
     });
 
+    // 選定初中高階種類，左右箭頭移動
     $('#slideLeft').click(function () {
-      // $('#slider').scrollLeft -= 180;
       document.getElementById('slider').scrollLeft -= 180;
-      // $('.outfit-product-wrapper').scrollLeft -= 180;
     });
     $('#slideRight').click(function () {
-      // console.log('click');
-      // $('#slider').scrollLeft += 180;
       document.getElementById('slider').scrollLeft += 180;
-      // $('.outfit-product-wrapper').scrollLeft += 180;
     });
     $('#slideLeft2').click(function () {
-      // $('#slider').scrollLeft -= 180;
       document.getElementById('slider2').scrollLeft -= 180;
-      // $('.outfit-product-wrapper').scrollLeft -= 180;
     });
     $('#slideRight2').click(function () {
-      // console.log('click');
-      // $('#slider').scrollLeft += 180;
       document.getElementById('slider2').scrollLeft += 180;
-      // $('.outfit-product-wrapper').scrollLeft += 180;
     });
     $('#slideLeft3').click(function () {
-      // $('#slider').scrollLeft -= 180;
       document.getElementById('slider3').scrollLeft -= 180;
-      // $('.outfit-product-wrapper').scrollLeft -= 180;
     });
     $('#slideRight3').click(function () {
-      // console.log('click');
-      // $('#slider').scrollLeft += 180;
       document.getElementById('slider3').scrollLeft += 180;
-      // $('.outfit-product-wrapper').scrollLeft += 180;
     });
 
     setTimeout(() => {
+      // 設定canvas fabric
       let canvasTarget = document.querySelector('.outfit-canvas-target');
       let selectedImgs = [];
       const canvas = new fabric.Canvas('canvas', {
@@ -107,6 +94,7 @@ function Outfit(props) {
         height: canvasTarget.clientHeight,
       });
 
+      // canvas fabric隨視窗寬度高度縮放
       window.onresize = function () {
         canvas.setDimensions({
           width: canvasTarget.clientWidth,
@@ -118,32 +106,26 @@ function Outfit(props) {
         e.dataTransfer.setData('text/plain', e.target.id);
       }
 
-      function handleDragEnd(e) {}
-      function handleDragEnter(e) {
-        // e.stopPropagation();
-      }
+      // function handleDragEnd(e) {}
+      // function handleDragEnter(e) {
+      // e.stopPropagation();
+      // }
       function handleDragOver(e) {
         e.preventDefault();
         e.dataTransfer.dropEffect = 'copy';
 
-        return false;
+        // return false;
       }
-      function handleDragLeave(e) {
-        // e.stopPropagation();
-      }
-      // showSelectedData();
+      // function handleDragLeave(e) {
+      // e.stopPropagation();
+      // }
       function handleDrop(e) {
-        // handleDragStart();
         e.stopPropagation();
         document.getElementById('hide').style.display = 'none';
-        // if (e.stopPropagation) {
-        //     e.stopPropagation();
-        // }
         let id = e.dataTransfer.getData('text/plain');
         // console.log('id', id)
         var img = document.getElementById(id);
         // console.log('img', img);
-        // var img = '123';
 
         var newImage = new fabric.Image(img, {
           width: 0,
@@ -181,7 +163,7 @@ function Outfit(props) {
           let product_records = localStorage.getItem('products')
             ? JSON.parse(localStorage.getItem('products'))
             : [];
-          console.log('product_records', product_records);
+          // console.log('product_records', product_records);
           if (
             product_records.some((v) => {
               return v.productName == productName;
@@ -197,7 +179,6 @@ function Outfit(props) {
             localStorage.setItem('products', JSON.stringify(product_records));
           }
         }
-
         showSelectedData();
       }
       function showSelectedData() {
@@ -232,75 +213,17 @@ function Outfit(props) {
       var images = document.querySelectorAll('.outfit-product-img img');
       [].forEach.call(images, function (img) {
         img.addEventListener('dragstart', handleDragStart, false);
-        img.addEventListener('dragend', handleDragEnd, false);
+        // img.addEventListener('dragend', handleDragEnd, false);
       });
 
-      // var canvasContainer = document.getElementsByClassName('canvas-target');
-      canvasTarget.addEventListener('dragenter', handleDragEnter, false);
+      // canvasTarget.addEventListener('dragenter', handleDragEnter, false);
       canvasTarget.addEventListener('dragover', handleDragOver, false);
-      canvasTarget.addEventListener('dragleave', handleDragLeave, false);
+      // canvasTarget.addEventListener('dragleave', handleDragLeave, false);
       canvasTarget.addEventListener('drop', handleDrop, false);
 
-      //////////以下為canvas2image//////////////////
-      var canvasPng,
-        bMouseIsDown = false,
-        iLastX,
-        iLastY,
-        $save,
-        $imgs;
-
-      function init() {
-        canvasPng = document.querySelector('.cvs');
-        // ctx = canvasPng.getContext("2d");
-        $save = document.getElementById('save');
-        $imgs = document.getElementById('imgs');
-        bind();
-      }
-      function bind() {
-        canvasPng.onmousedown = function (e) {
-          bMouseIsDown = true;
-          iLastX =
-            e.clientX -
-            canvasPng.offsetLeft +
-            (window.pageXOffset ||
-              document.body.scrollLeft ||
-              document.documentElement.scrollLeft);
-          iLastY =
-            e.clientY -
-            canvasPng.offsetTop +
-            (window.pageYOffset ||
-              document.body.scrollTop ||
-              document.documentElement.scrollTop);
-        };
-        canvasPng.onmouseup = function () {
-          bMouseIsDown = false;
-          iLastX = -1;
-          iLastY = -1;
-        };
-        canvasPng.onmousemove = function (e) {
-          if (bMouseIsDown) {
-            var iX =
-              e.clientX -
-              canvasPng.offsetLeft +
-              (window.pageXOffset ||
-                document.body.scrollLeft ||
-                document.documentElement.scrollLeft);
-            var iY =
-              e.clientY -
-              canvasPng.offsetTop +
-              (window.pageYOffset ||
-                document.body.scrollTop ||
-                document.documentElement.scrollTop);
-            // ctx.moveTo(iLastX, iLastY);
-            // ctx.lineTo(iX, iY);
-            // ctx.stroke();
-            iLastX = iX;
-            iLastY = iY;
-          }
-        };
-      }
+      // 使用html2canvas截圖，儲存照片
       $('#save').click(function () {
-        console.log(document.getElementById('canvasBox'));
+        // console.log(document.getElementById('canvasBox'));
         html2canvas(document.getElementById('canvasBox')).then(function (
           canvas
         ) {
@@ -339,7 +262,6 @@ function Outfit(props) {
                 <div id="div3" className="target">
                   <OutfitProductSliderH />
                 </div>
-
                 {/* <div id="div1" className="outfit-target"> */}
                 {/* product-warpper start */}
                 {/* <div className="outfit-product-slider">
@@ -390,7 +312,7 @@ function Outfit(props) {
                   </div>
                 </div>
                 {/* canvas2image儲存圖片 start */}
-                <div id="imgs"></div>
+                {/* <div id="imgs"></div> */}
                 {/* canvas2image儲存圖片 start */}
               </div>
               {/* 製作個人化明信片 end */}
@@ -403,6 +325,7 @@ function Outfit(props) {
                   </p>
                 </div>
                 <div id="newItems">
+                  {/* 要用js innerHTML的內容 */}
                   {/* <div class="newItem">
                     <div style={{ width: '100px' }}>
                       <img class="cover-fit" src={clothesPic1Removebg} alt="" />

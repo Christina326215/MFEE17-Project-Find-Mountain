@@ -1,41 +1,61 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'; //a標籤要變成link
+import { Link, useParams } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
 import $ from 'jquery';
 import '../../styles/MemberPage/MemberComment.scss'; //member comment style
+import { useAuth } from '../../context/auth'; // 取得會員資料
 
-import { memberCommentURL } from '../../utils/config';
+import { memberCommentURL, IMAGE_URL } from '../../utils/config';
 import axios from 'axios';
 
 //====== below pages star ======//
-import { pages_btn } from '../MapPage/pages/PagesBtn'; //分頁按鈕
+import PagesBtn from '../PagesBtn'; //分頁按鈕
 import MemberSideHead from './pages/MemberSideHead'; //member Side Head
 //====== below pages end ======//
 
 //====== below icon star ======//
 import { BsExclamationTriangleFill } from 'react-icons/bs';
+import { FcApproval, FcVlc } from 'react-icons/fc';
 //====== below icon end ======//
 
-//====== below img import start ======//
-import Xiangshan from '../../img/xiangshan.jpeg';
-//====== above img import end ======//
-
 function MemberComment() {
+  const { member, page, setPage, totalPage, setTotalPage } = useAuth(); // 取得會員資料
   const [data, setData] = useState([]);
 
+  // 分頁屬性
+  // 記錄現在在第幾頁
+  // const [page, setPage] = useState(1);
+  // 總共有幾頁
+  // const [totalPage, setTotalPage] = useState(0);
+
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      // left: 0,
+      behavior: 'smooth',
+    });
+    // if (member === null) {
+    //   return;
+    // }
+    // console.log('comment memberID:', member); //for check
     async function getCommentData() {
       try {
-        const CommentData = await axios.get(memberCommentURL);
-        console.log(CommentData.data); //for check
-        setData(CommentData.data);
+        // console.log('member id', member.id); // for check
+        const CommentData = await axios.post(
+          `${memberCommentURL}?page=${page}`,
+          { member }
+        );
+        // console.log(CommentData.data.dbResults); //for check
+        setData(CommentData.data.dbResults);
+
         // let data = CommentData.data;
+        setTotalPage(CommentData.data.pagination.lastPage);
       } catch (e) {
         console.log(e);
       }
     }
     getCommentData();
-  }, []);
+  }, [page, member]);
 
   return (
     <>
@@ -137,12 +157,12 @@ function MemberComment() {
                     scope="col-4 col-md-1"
                     className="member-comment-text-weight-bold align-moddle"
                   >
-                    檢舉
+                    狀態
                   </th>
                 </tr>
               </thead>
-              {data.map((items, i) => (
-                <tbody>
+              {data.map((items) => (
+                <tbody key={items.id}>
                   <tr>
                     <td
                       scope="row"
@@ -150,7 +170,7 @@ function MemberComment() {
                     >
                       <div className="member-comment-picture-img-box">
                         <img
-                          src={Xiangshan}
+                          src={`${IMAGE_URL}/img/comment-img/${items.pic}`}
                           alt=""
                           className="member-comment-picture-img"
                         />
@@ -160,31 +180,60 @@ function MemberComment() {
                       scope="row"
                       className="member-comment-text-weight align-middle"
                     >
-                      象山步道
+                      {items.article_name}
                     </td>
                     <td
                       scope="row"
                       className="member-comment-text-weight align-middle"
                     >
-                      {items.comments_content}
+                      {items.content}
                     </td>
                     <td
                       scope="row"
                       className="member-comment-text-weight align-middle"
                     >
-                      <Link to="/#">
+                      {/* {items.dislike_status === 2 ? (
+                        <FcApproval size={20} />
+                      ) : items.dislike_status === 3 ? (
+                        <FcVlc size={20} />
+                      ) : (
                         <BsExclamationTriangleFill
                           className="member-comment-warning-icon"
                           size={20}
                         />
-                      </Link>
+                      )} */}
+                      <div className="d-flex flex-wrap justify-content-center">
+                        {items.dislike_status === 2 ? (
+                          <FcApproval size={24} />
+                        ) : items.dislike_status === 3 ? (
+                          <FcVlc size={24} />
+                        ) : (
+                          <BsExclamationTriangleFill
+                            className="member-comment-warning-icon"
+                            size={24}
+                          />
+                        )}
+                        {items.dislike_status === 2 ? (
+                          <span className="member-comment-status">
+                            評論通過
+                          </span>
+                        ) : items.dislike_status === 3 ? (
+                          <span className="member-comment-status">
+                            被檢舉審核中
+                          </span>
+                        ) : (
+                          <span className="member-comment-status">
+                            評論不通過
+                          </span>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 </tbody>
               ))}
             </table>
             {/* <!-- 分頁 start  --> */}
-            {pages_btn}
+            <PagesBtn />
             {/* <!-- 分頁 end  --> */}
           </div>
           {/* <!-- manage-right-side end--> */}

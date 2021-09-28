@@ -7,21 +7,23 @@ import '../../../styles/product.css';
 import { IMAGE_URL } from '../../../utils/config';
 import $ from 'jquery';
 import Swal from 'sweetalert2';
+import { useAuth } from '../../../context/auth'; // 取得setCartChange狀態
 
 function ProductCard(props) {
   const { productId, price, picture, name, brand, type } = props;
+  const { setCartChange } = useAuth(); // 取得購物車數字狀態
   const [show, setShow] = useState(false);
   const [cartNum, setCartNum] = useState(1);
   const [cartSize, setCartSize] = useState('');
   const [cartPrice, setCartPrice] = useState(0);
   //cartLocal為購物車的local storage
-  const [cartLocal, setCartLocal] = useState([]);
+  const [cardCartLocal, setCardCartLocal] = useState([]);
   //取得local storage轉為陣列的資料 ProductOrder
   function getCartFromLocalStorage() {
     const ProductOrder =
       JSON.parse(localStorage.getItem('ProductOrderDetail')) || '[]';
     // console.log(ProductOrder);
-    setCartLocal(ProductOrder);
+    setCardCartLocal(ProductOrder);
   }
   const heartIconClick = function (e) {
     // console.log(e.currentTarget);
@@ -65,6 +67,9 @@ function ProductCard(props) {
     handleShow();
   };
   const addCart = () => {
+    const newProductOrder = JSON.parse(
+      localStorage.getItem('ProductOrderDetail') || '[]'
+    );
     if (cartSize === '') {
       console.log('choose size plz');
       Swal.fire({
@@ -83,23 +88,32 @@ function ProductCard(props) {
       };
       //localstorage for order detail start//
       //確認local storage裡面有無相同id size的資料
-      const index = cartLocal.findIndex(
+      const index = newProductOrder.findIndex(
         (v) => v.id === orderDetail.id && v.size === orderDetail.size
       );
       console.log('index', index);
       console.log('orderDetail', orderDetail);
-      console.log('cartLocal', cartLocal);
+      console.log('newProductOrder', newProductOrder);
       if (index > -1) {
         //改變同款項訂購數量
-        cartLocal[index].num += orderDetail.num;
-        localStorage.setItem('ProductOrderDetail', JSON.stringify(cartLocal));
+        newProductOrder[index].num += orderDetail.num;
+        localStorage.setItem(
+          'ProductOrderDetail',
+          JSON.stringify(newProductOrder)
+        );
         console.log('這個商品已經加過了');
         // return;
       } else {
-        cartLocal.push(orderDetail);
-        localStorage.setItem('ProductOrderDetail', JSON.stringify(cartLocal));
+        newProductOrder.push(orderDetail);
+        localStorage.setItem(
+          'ProductOrderDetail',
+          JSON.stringify(newProductOrder)
+        );
         console.log('哎呦還沒喔');
       }
+      //更新localstorage資料cartLocal
+      // getCartFromLocalStorage();
+      setCardCartLocal(newProductOrder);
       //localstorage for order detail end//
     }
     Swal.fire({
@@ -108,6 +122,7 @@ function ProductCard(props) {
       showConfirmButton: false,
       timer: 1500,
     });
+    setCartChange(true);
     // setTimeout(() => {
     //   window.location.reload(false);
     // }, 1500);
