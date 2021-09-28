@@ -65,6 +65,13 @@ function ShopCartDetail() {
       console.log('哎呦沒有東西可以刪耶');
     }
   };
+  //清空購物車
+  const clearCart = (e) => {
+    e.preventDefault();
+    localStorage.removeItem('ProductOrderDetail');
+    setCartChange(true);
+    setCartLocal([]);
+  };
   //更新購物車數量
   const UpdateAmounts = (items, isAdded) => {
     const newProductOrder = JSON.parse(
@@ -130,48 +137,54 @@ function ShopCartDetail() {
   useEffect(() => {
     var ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
     //api
-    async function getProductData() {
-      try {
-        //抓瀏覽紀錄資料
-        var ProductViewHistory = JSON.parse(
-          localStorage.getItem('ProductViewHistory')
-        );
-        var historyArray = [];
-        for (let i = 0; i < ProductViewHistory.length; i++) {
-          // console.log(ProductViewHistory[i]);
-          const productHistoryData = await axios.get(
-            `${shopURL}/product-detail/${ProductViewHistory[i]}`
+    if (ProductOrder !== [] && ProductOrder !== null) {
+      async function getProductData() {
+        try {
+          //抓瀏覽紀錄資料
+          var ProductViewHistory = JSON.parse(
+            localStorage.getItem('ProductViewHistory')
           );
-          // console.log(productHistoryData.data[0]);
-          historyArray.unshift(productHistoryData.data[0]);
+          var historyArray = [];
+          for (let i = 0; i < ProductViewHistory.length; i++) {
+            // console.log(ProductViewHistory[i]);
+            const productHistoryData = await axios.get(
+              `${shopURL}/product-detail/${ProductViewHistory[i]}`
+            );
+            // console.log(productHistoryData.data[0]);
+            historyArray.unshift(productHistoryData.data[0]);
+          }
+          // console.log('historyArray', historyArray);
+          setHistoryItems(historyArray);
+          //抓購物車的商品資料
+          var orderArray = [];
+          for (let i = 0; i < ProductOrder.length; i++) {
+            //對應尺寸剩餘庫存及售出量的api
+            const productOrderData = await axios.get(
+              `${shopURL}/size-storage/${ProductOrder[i].id}/${ProductOrder[i].size}`
+            );
+            //productOrderData.data[0]為資料庫商品資料 ProductOrder[i]為localstorage的購物車資料
+            console.log(productOrderData.data[0], ProductOrder[i]);
+            //合併物件Object.assign 合併後原物件也會被改變
+            let assignedObj = Object.assign(
+              productOrderData.data[0],
+              ProductOrder[i]
+            );
+            // console.log('productOrderData.data[0]', productOrderData.data[0]);
+            // console.log('assignedObj', assignedObj);
+            orderArray.unshift(productOrderData.data[0]);
+          }
+          console.log('orderArray', orderArray);
+          setShopCartData(orderArray);
+        } catch (e) {
+          console.log(e);
         }
-        // console.log('historyArray', historyArray);
-        setHistoryItems(historyArray);
-        //抓購物車的商品資料
-        var orderArray = [];
-        for (let i = 0; i < ProductOrder.length; i++) {
-          //對應尺寸剩餘庫存及售出量的api
-          const productOrderData = await axios.get(
-            `${shopURL}/size-storage/${ProductOrder[i].id}/${ProductOrder[i].size}`
-          );
-          //productOrderData.data[0]為資料庫商品資料 ProductOrder[i]為localstorage的購物車資料
-          // console.log(productOrderData.data[0], ProductOrder[i]);
-          //合併物件Object.assign 合併後原物件也會被改變
-          let assignedObj = Object.assign(
-            productOrderData.data[0],
-            ProductOrder[i]
-          );
-          // console.log('productOrderData.data[0]', productOrderData.data[0]);
-          // console.log('assignedObj', assignedObj);
-          orderArray.unshift(productOrderData.data[0]);
-        }
-        console.log('orderArray', orderArray);
-        setShopCartData(orderArray);
-      } catch (e) {
-        console.log(e);
       }
+      getProductData();
+    } else {
+      console.log('沒有商品');
+      setShopCartData([]);
+      return;
     }
-    getProductData();
   }, [cartLocal]);
   //FIXME:一些待整理的東西
   useEffect(() => {
@@ -284,6 +297,9 @@ function ShopCartDetail() {
           <div className="col-lg-12 mt-3">
             <h3 className="text-center mt-4">購物車明細</h3>
             <hr />
+            <div className="d-flex justify-content-end">
+              <button onClick={clearCart}>清空購物車</button>
+            </div>
             {/* abby */}
             {shopCartData.map((items, index) => {
               return (
@@ -402,7 +418,7 @@ function ShopCartDetail() {
             </div>
 
             <div>
-            {/* FIXME:樣式設計再改一下 */}
+              {/* FIXME:樣式設計再改一下 */}
               <h5>更多推薦</h5>
               <hr />
               <div className="row">
