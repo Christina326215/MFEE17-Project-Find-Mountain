@@ -18,23 +18,38 @@ import { BsCheck } from 'react-icons/bs';
 function ShopCartPay() {
   // 1. 首先，建立好 html 在 return(<>...</>)。
   // 2. 設定狀態，關於共用會員資料使用useAuth()，關於地址資料放在靜態檔案中則使用useState()。
-  const { member } = useAuth(); // 取得會員資料
+  const { member, pay, setPay } = useAuth(); // 取得會員資料
   const [zipGroup, setZipGroup] = useState(null);
   // zipGroup是一個物件，key為city(是字串)，value為一陣列(陣列中由多個小物件組成)。
   const [zipCode, setZipCode] = useState(null);
   const [cities, setCities] = useState([]); // 各縣市陣列
   const [districts, setDistricts] = useState([]); //各行政區陣列
-
+  console.log(pay);
   // 3.
   const [cartData, setCartData] = useState({
     ship: 1,
-    pay_way: 1,
+    pay_way: '信用卡付款',
     zip_code: null,
     addr: '',
-    invoice: 1,
+    invoice: '二聯式發票',
     name: '',
     phone: '',
   });
+  useEffect(() => {
+    if (pay !== null) {
+      console.log('hellooooo');
+      setCartData({
+        ...cartData,
+        addr: pay.addr,
+        invoice: pay.invoice,
+        name: pay.name,
+        pay_way: pay.pay_way,
+        phone: pay.phone,
+        ship: pay.ship,
+        zip_code: pay.zip_code,
+      });
+    }
+  }, [pay]);
 
   // 5. 填入原始member資料後，當Html input欄位有輸入變動時，onChange呼叫handleChange函式，將react的變數tempMember，轉換成html上偵測的變數與其值([e.target.name]: e.target.value)，其中[e.target.name]為key。
   function handleChange(e) {
@@ -71,7 +86,7 @@ function ShopCartPay() {
   }, []);
 
   useEffect(() => {
-    if (cartData && zipCode && zipGroup) {
+    if (cartData && zipCode && zipGroup && cities) {
       // 表示上述資料都已經有了！
       if (cartData.zip_code) {
         // 表示這個使用者的 zip code 已經設定過了
@@ -289,7 +304,7 @@ function ShopCartPay() {
             <form onSubmit={handleSubmit}>
               <fieldset className="form-group row mt-4">
                 <legend className="col-form-label col-sm-2 float-sm-left pt-0 mb-4">
-                  請選擇收件方式：
+                  收件方式：
                 </legend>
                 <div className="col-sm-10 mb-4">
                   <div className="form-check">
@@ -491,12 +506,12 @@ function ShopCartPay() {
                       type="radio"
                       name="invoice"
                       id="duplicateForm"
-                      value="1"
+                      value="二聯式發票"
                       onChange={invoiceChange}
-                      checked={cartData && cartData.invoice == 1}
+                      checked={cartData && cartData.invoice == '二聯式發票'}
                     />
                     <label className="form-check-label" for="duplicateForm">
-                      二聯式
+                      二聯式發票
                     </label>
                   </div>
                   <div className="form-check">
@@ -505,12 +520,12 @@ function ShopCartPay() {
                       type="radio"
                       name="invoice"
                       id="VATNumber"
-                      value="2"
+                      value="三聯式發票"
                       onChange={invoiceChange}
-                      checked={cartData && cartData.invoice == 2}
+                      checked={cartData && cartData.invoice == '三聯式發票'}
                     />
                     <label className="form-check-label" for="VATNumber">
-                      開立統編
+                      三聯式發票
                     </label>
                   </div>
                 </div>
@@ -525,12 +540,12 @@ function ShopCartPay() {
                       type="radio"
                       name="pay_way"
                       id="creditCard"
-                      value="1"
+                      value="信用卡付款"
                       onChange={payWayChange}
-                      checked={cartData && cartData.pay_way == 1}
+                      checked={cartData && cartData.pay_way == '信用卡付款'}
                     />
                     <label className="form-check-label" for="creditCard">
-                      信用卡
+                      信用卡付款
                     </label>
                   </div>
                   <div className="form-check">
@@ -539,9 +554,9 @@ function ShopCartPay() {
                       type="radio"
                       name="pay_way"
                       id="homePay"
-                      value="2"
+                      value="貨到付款"
                       onChange={payWayChange}
-                      checked={cartData && cartData.pay_way == 2}
+                      checked={cartData && cartData.pay_way == '貨到付款'}
                     />
                     <label className="form-check-label" for="homePay">
                       貨到付款
@@ -549,12 +564,12 @@ function ShopCartPay() {
                   </div>
                 </div>
               </fieldset>
-              <button
+              {/* <button
                 type="submit"
                 className="border-bottom-left-radius my-5 mx-3 text-right btn btn-primary"
               >
                 確定
-              </button>
+              </button> */}
             </form>
 
             {/* <!-- button --> */}
@@ -568,6 +583,9 @@ function ShopCartPay() {
               <Link
                 to="/shoppingcart/step3-check"
                 className="shopcart-btn btn-next btn btn-primary mr-3"
+                onClick={() => {
+                  setPay({ ...cartData });
+                }}
               >
                 下一步
               </Link>

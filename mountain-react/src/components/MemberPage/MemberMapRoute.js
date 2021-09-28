@@ -1,46 +1,79 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
-import $ from 'jquery';
+// import $ from 'jquery';
 import '../../styles/MemberPage/MemberMapRoute.scss'; //member map and route style
 
+//====== below catch member info star ======//
+import { useAuth } from '../../context/auth';
+//====== below catch member info end ======//
+
+//====== below api connect tool star ======//
 import { memberRouteURL, IMAGE_URL } from '../../utils/config';
 import axios from 'axios';
+//====== above api connect tool end ======//
+
+//====== below 星星評分 star ======//
+import ReactStars from 'react-rating-stars-component';
+//====== above 星星評分 star ======//
 
 //====== below pages star ======//
 import { pages_btn } from '../MapPage/pages/PagesBtn'; //分頁按鈕
 import MemberSideHead from './pages/MemberSideHead'; //member Side Head
 import MemberMapAddRoute from './pages/MemberMapAddRoute';
-//====== below pages end ======//
+//====== above pages end ======//
 
 //====== below icon star ======//
 import { BsStarFill } from 'react-icons/bs';
-//====== below icon end ======//
+//====== above icon end ======//
 
 //====== below img import start ======//
 // import { log } from 'fabric/fabric-impl';
 //====== above img import end ======//
 
 function MemberMapRoute() {
+  const { member } = useAuth(); //把 member 從 useContext中拿出來
   //=== 彈跳視窗開關 star ===//
   const [show, setShow] = useState(false);
   //=== 彈跳視窗開關 end ===//
+  const [star, setStar] = useState();
   const [data, setData] = useState([]);
   const [info, setInfo] = useState([]);
 
-  const starIcon = (e) => {
-    $(e.currentTarget).toggleClass('active');
-  };
-
-  // $('.member-map-route-star').click(function () {
-  //   $(this).toggleClass('active');
-  // });
+  //====== 接星星評分的資料 star ======//
+  useEffect(() => {
+    if (star === undefined) {
+      return;
+    }
+    if (member === null) {
+      return;
+    }
+    async function getStarData() {
+      try {
+        console.log('star:', star); //for check
+        console.log('star memberID:', member); //for check
+        const starData = await axios.post(memberRouteURL + '/catchStar', {
+          member,
+          star,
+        });
+        //console.log('starData:', starData); //for check
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getStarData();
+  }, [star, member]);
+  //====== 接星星評分的資料 end ======//
 
   useEffect(() => {
+    if (member === null) {
+      return;
+    }
     async function getRouteData() {
       try {
-        const RouteData = await axios.get(memberRouteURL);
-        // console.log(RouteData.data.result); //for check
+        console.log('memberID:', member); //for check
+        const RouteData = await axios.post(memberRouteURL, member);
+        console.log('RouteData:', RouteData.data.result); //for check
         setData(RouteData.data.result);
         setInfo(RouteData.data.totalInfo);
       } catch (e) {
@@ -67,7 +100,7 @@ function MemberMapRoute() {
         this.classList.add('active');
       });
     }
-  }, [show]);
+  }, [show, member, star]);
 
   return (
     <>
@@ -150,24 +183,6 @@ function MemberMapRoute() {
                   role="group"
                   aria-label="Basic example"
                 >
-                  {/* <Link
-                    type="button"
-                    id="menu"
-                    className="btn btn-outline-primary menu active"
-                    click=""
-                    to="#/"
-                  >
-                    地圖
-                  </Link>
-                  <Link
-                    type="button"
-                    id="menu"
-                    className="btn btn-outline-primary menu"
-                    click=""
-                    to="#/"
-                  >
-                    路線
-                  </Link> */}
                   <button
                     id="menu"
                     className="btn btn-outline-primary menu active"
@@ -297,7 +312,7 @@ function MemberMapRoute() {
                             <td className="member-map-route-text-weight align-middle">
                               {items.article_name}
                             </td>
-                            {/* 分已評分＆未評分 FIXME: 未評分點星星後可點送出紐加評分 */}
+                            {/* 分已評分＆未評分點星星後可加評分 */}
                             {items.star !== undefined ? (
                               items.star === 5 ? (
                                 <td className="member-map-route-star-group member-map-route-text-weight align-middle">
@@ -392,36 +407,20 @@ function MemberMapRoute() {
                               )
                             ) : (
                               <td className="member-map-route-star-group member-map-route-text-weight align-middle">
-                                <i
-                                  className="bi member-map-route-star"
-                                  onClick={starIcon}
-                                >
-                                  <BsStarFill></BsStarFill>
-                                </i>
-                                <i
-                                  className="bi member-map-route-star"
-                                  onClick={starIcon}
-                                >
-                                  <BsStarFill></BsStarFill>
-                                </i>
-                                <i
-                                  className="bi member-map-route-star"
-                                  onClick={starIcon}
-                                >
-                                  <BsStarFill></BsStarFill>
-                                </i>
-                                <i
-                                  className="bi member-map-route-star"
-                                  onClick={starIcon}
-                                >
-                                  <BsStarFill></BsStarFill>
-                                </i>
-                                <i
-                                  className="bi member-map-route-star"
-                                  onClick={starIcon}
-                                >
-                                  <BsStarFill></BsStarFill>
-                                </i>
+                                <ReactStars
+                                  classNames="mx-auto"
+                                  count={5}
+                                  emptyIcon={
+                                    <BsStarFill className="bi member-map-route-star" />
+                                  }
+                                  filledIcon={
+                                    <BsStarFill className="bi member-map-route-star active" />
+                                  }
+                                  onChange={(newValue) => {
+                                    setStar(items.article_id + ':' + newValue);
+                                  }}
+                                  size={24}
+                                />
                               </td>
                             )}
                             {items.star !== undefined ? (
@@ -429,13 +428,10 @@ function MemberMapRoute() {
                                 給評{items.star}分
                               </td>
                             ) : (
-                              <td className="member-map-route-text-weight align-middle">
+                              <td className="member-map-route-text-weight align-middle text-danger">
                                 未評分
                               </td>
                             )}
-                            {/* <td className="member-map-route-text-weight align-middle">
-                            未評分
-                          </td> */}
                           </tr>
                         </tbody>
                       ))

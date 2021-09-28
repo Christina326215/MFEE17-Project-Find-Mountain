@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
+import { useAuth } from '../../context/auth'; // 取得會員資料
 import $ from 'jquery';
 import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
 
@@ -16,6 +17,22 @@ import { BsCheck } from 'react-icons/bs';
 //====== above img import end ======//
 
 function ShopCartCheck() {
+  const { pay } = useAuth(); // 取得會員資料
+  const [navbarLocalCart, setNavbarLocalCart] = useState([]);
+
+  console.log('pay', pay);
+
+  //取得local storage轉為陣列的資料 ProductOrder
+  function getCartFromLocalStorage() {
+    const ProductOrder =
+      JSON.parse(localStorage.getItem('ProductOrderDetail')) || '[]';
+    console.log('ProductOrder', ProductOrder);
+    setNavbarLocalCart(ProductOrder);
+  }
+  useEffect(() => {
+    getCartFromLocalStorage();
+  }, []);
+
   useEffect(() => {
     // progress-bar
     $('.shopcart-btn-next').on('click', function () {
@@ -134,23 +151,23 @@ function ShopCartCheck() {
               <tbody>
                 <tr>
                   <th scope="row">收件人姓名：</th>
-                  <td>王小明</td>
+                  <td>{pay.name}</td>
                 </tr>
                 <tr>
                   <th scope="row">收件人聯絡電話：</th>
-                  <td>0900123456</td>
+                  <td>{pay.phone}</td>
                 </tr>
                 <tr>
                   <th scope="row">收件地址（收件超商）：</th>
-                  <td>中央大學</td>
+                  <td>{pay.addr}</td>
                 </tr>
                 <tr>
                   <th scope="row">發票類型：</th>
-                  <td>二聯式</td>
+                  <td>{pay.invoice}</td>
                 </tr>
                 <tr>
                   <th scope="row">付款方式：</th>
-                  <td>信用卡繳費</td>
+                  <td>{pay.pay_way}</td>
                 </tr>
               </tbody>
             </table>

@@ -98,7 +98,7 @@ function SignUp(props) {
 
   //===Zip 地址
   useEffect(() => {
-    if (registerData && zipCode && zipGroup) {
+    if (registerData && zipCode && zipGroup && cities) {
       // 表示上述資料都已經有了！
       if (registerData.zip_code) {
         // 表示這個使用者的 zip code 已經設定過了

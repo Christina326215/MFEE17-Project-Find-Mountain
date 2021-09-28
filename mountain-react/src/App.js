@@ -51,13 +51,22 @@ import axios from 'axios';
 function App() {
   const [auth, setAuth] = useState(false); //驗證登入與否用，一開始預設都是false
   const [member, setMember] = useState(null);
+  const [pay, setPay] = useState(null);
+  const [cartChange, setCartChange] = useState(false);
+  const [mapRouteShow, setMapRouteShow] = useState(false); //會員路線地圖，新增路線重算積分，會員level需重抓
+
+  //=== 彈跳視窗開關 star ===//
+  const [show, setShow] = useState(false);
+  //=== 彈跳視窗開關 end ===//
 
   useEffect(() => {
     // 每次重新整理或開啟頁面時，都去確認一下是否在已經登入的狀態。
     // 從資料庫抓資料
     async function getPersonalData() {
       try {
-        const PersonalData = await axios.get(memberURL);
+        const PersonalData = await axios.get(memberURL, {
+          withCredentials: true,
+        });
 
         setMember(PersonalData.data);
       } catch (e) {
@@ -65,10 +74,21 @@ function App() {
       }
     }
     getPersonalData();
-  }, []);
+  }, [show, mapRouteShow]);
 
   return (
-    <AuthContext.Provider value={{ member, setMember }}>
+    <AuthContext.Provider
+      value={{
+        member,
+        setMember,
+        pay,
+        setPay,
+        cartChange,
+        setCartChange,
+        mapRouteShow,
+        setMapRouteShow,
+      }}
+    >
       <Router>
         <>
           <Navbar auth={auth} setAuth={setAuth} />
@@ -140,10 +160,10 @@ function App() {
                 <MemberComment />
               </Route>
               <Route path="/member/personal">
-                <MemberPersonal />
+                <MemberPersonal show={show} setShow={setShow} />
               </Route>
               <Route path="/member/edit">
-                <MemberEdit />
+                <MemberEdit show={show} setShow={setShow} />
               </Route>
               <Route path="/member">
                 <MemberMapRoute />

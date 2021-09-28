@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
 import '../styles/Navbar.scss'; //header & footer 樣式
+import $ from 'jquery';
+import { useAuth } from '../context/auth'; // 取得會員資料
 
 //====== below icon star ======//
 import { Cart, PersonCircle } from 'react-bootstrap-icons';
@@ -13,8 +15,11 @@ import logoPng from '../img/logo.png';
 //====== above img import end ======//
 
 function Navbar(props) {
+  const { cartChange, setCartChange } = useAuth(); // 取得會員資料
   const { auth, setAuth } = props;
-
+  const [navbarLocalCart, setNavbarLocalCart] = useState([]);
+  const [cartNum, setCartNum] = useState(0);
+  //nav toggle
   const navToggle = () => {
     let btn_nav = document.querySelector('.btn_nav');
     let nav = document.querySelector('.nav');
@@ -25,8 +30,51 @@ function Navbar(props) {
     };
   };
 
-  
 
+  //取得local storage轉為陣列的資料 ProductOrder
+  function getCartFromLocalStorage() {
+    const ProductOrder =
+      JSON.parse(localStorage.getItem('ProductOrderDetail')) || '[]';
+    console.log('ProductOrder', ProductOrder);
+    setNavbarLocalCart(ProductOrder);
+  }
+  useEffect(() => {
+    getCartFromLocalStorage();
+  }, []);
+  //一進畫面先讀取local storage
+  useEffect(() => {
+    if (cartChange === false) {
+      return;
+    }
+    const navbarProductOrder =
+      JSON.parse(localStorage.getItem('ProductOrderDetail')) || '[]';
+    // setNavbarLocalCart(navbarProductOrder);
+    // console.log('navbarProductOrder', navbarProductOrder);
+    // console.log('navbarProductOrder length', navbarProductOrder.length);
+    console.log('navbarProductOrder', navbarProductOrder);
+    //判斷localstorage裡有沒有商品
+    let itemsInsideCart = Boolean(
+      navbarProductOrder !== '[]' && navbarProductOrder.length !== 0
+    );
+    console.log('itemsInsideCart', itemsInsideCart);
+    //if有商品
+    if (itemsInsideCart) {
+      $('.cart-num').css('display', 'block');
+      console.log('hello im here');
+      var totalNum = 0;
+      for (let i = 0; i < navbarProductOrder.length; i++) {
+        totalNum += navbarProductOrder[i].num;
+      }
+      console.log('totalNum', totalNum);
+      if (totalNum !== cartNum) {
+        setCartNum(totalNum);
+      }
+    } else {
+      $('.cart-num').css('display', 'none');
+      console.log('no product');
+    }
+    setCartChange(false);
+  }, [cartChange]);
   return (
     <>
       <header className="header sticky-top">
@@ -42,7 +90,9 @@ function Navbar(props) {
             to="/shoppingcart/step1-detail"
             className="shopping_button h4 position-relative"
           >
-            <div className="cart-num position-absolute text-center">0</div>
+            <div className="cart-num position-absolute text-center">
+              {cartNum}
+            </div>
             <Cart size={24} />
           </Link>
           {/* to Sign In star */}

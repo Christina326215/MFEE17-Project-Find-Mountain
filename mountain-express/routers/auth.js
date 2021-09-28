@@ -67,16 +67,17 @@ router.post('/register', upload.none(), registerRule, async function (req, res, 
     // res.json(dbResults)
     res.json({})
 })
-//======= 登入 =======
-router.post('/login', upload.none(), async (req, res, next) => {
-    console.log(req.body)
+
+
+router.post('/login',upload.none(), async (req, res, next) => {
+    // console.log(req.body)
     // - 確認有沒有帳號 (email 是否存在)
     //     - 如果沒有這個帳號，就回覆錯誤(400)
     // 測試:
     //  - 有註冊過的 email V
     //  - 沒有註冊過的 email
     let account = await connection.queryAsync('SELECT * FROM user WHERE account = ?;', [req.body.email])
-    console.log(account)
+    // console.log(account)
     if (account.length === 0) {
         // account 陣列是空的 => 表示沒找到
         return next({
@@ -105,11 +106,12 @@ router.post('/login', upload.none(), async (req, res, next) => {
     //     - CSR: 回覆成功的訊息
     let returnAccount = {
         id: account.id,
-        email: account.email,
+        email: account.account,
         name: account.name,
         isAdmin: false, // 理論上是資料庫要存，但我們假造一下作 demo
     }
     req.session.account = returnAccount
+    console.log('session:',req.session.account);
     // 回覆給前端
     res.json({
         name: account.name,

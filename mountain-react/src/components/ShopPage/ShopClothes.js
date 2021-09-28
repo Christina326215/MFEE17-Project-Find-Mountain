@@ -9,7 +9,6 @@ import { shopURL } from '../../utils/config';
 
 function ShopClothes(props) {
   const [productData, setProductData] = useState([]);
-  const [wishList, setWishList] = useState([]);
   useEffect(() => {
     //api
     async function getProductData() {
@@ -71,10 +70,9 @@ function ShopClothes(props) {
                     brand={item.product_brand}
                     name={item.product_name}
                     price={item.price}
+                    type={item.type}
                     picture={item.pic}
                     key={item.id}
-                    likeList={wishList}
-                    setLikeList={setWishList}
                   />
                 );
               })}
