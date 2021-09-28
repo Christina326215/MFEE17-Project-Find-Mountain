@@ -30,6 +30,7 @@ function Navbar(props) {
     };
   };
 
+
   //取得local storage轉為陣列的資料 ProductOrder
   function getCartFromLocalStorage() {
     const ProductOrder =
