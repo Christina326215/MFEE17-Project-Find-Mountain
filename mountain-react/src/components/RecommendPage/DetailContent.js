@@ -15,15 +15,29 @@ import levelHigh from '../../img/article-img/level_high.svg';
 import { FaShoePrints } from 'react-icons/fa';
 import { BsHeartFill } from 'react-icons/bs';
 import { BsStarFill, BsFlagFill, BsQuestionCircle } from 'react-icons/bs';
+// 使用sweetalert2彈跳視窗
+import Swal from 'sweetalert2';
 
 //====== below catch member info star ======//
-// import { useAuth } from '../../context/auth';
+import { useAuth } from '../../context/auth';
 //====== below catch member info end ======//
 
 function DetailContent(props) {
+  // const { star, setStar } = props;
+  // 當頁文章星星評分
+  const [star, setStar] = useState(0);
   // 登入會員狀態
-  // const { member } = useAuth(); //把 member 從 useContext中拿出來
-  // console.log('member', member);
+  const { member } = useAuth(); // 把 member 從 useContext中拿出來
+  // {account: "lily516liu@gmail.com"
+  // addr: "1號"
+  // birthday: "2021-09-28"
+  // id: 10
+  // level: null
+  // name: "lily"
+  // password: "$2b$10$/xjqKd4G3NrdcVgAc28eo.TadXpzr0dUipJjNQeJ2imd.5cSaATzi"
+  // phone: "0918819399"
+  // valid: null
+  // zip_code: "100"}
 
   // 推薦文章卡片
   const [levelCard, setLevelCard] = useState([]);
@@ -51,21 +65,22 @@ function DetailContent(props) {
       apply_name: '',
     },
   ]);
-  // 當頁文章星星評分
-  const [star, setStar] = useState(0);
+
   // 新增收藏文章狀態
   const [likeUserId, setLikeUserId] = useState('');
   const [likeArticleId, setLikeArticleId] = useState('');
   const [likeArticlePast, setLikeArticlePast] = useState('');
   // 判斷有沒有收藏過的狀態 true收藏 fasle沒收藏
   const [heartHandle, setHeartHandle] = useState(true);
+  // 判斷有沒有去過的狀態
+  // const [flgHandle, setFlgHandle] = useState(true);
 
   useEffect(() => {
-    // 判斷是否有登入
-    // if (member === null) {
-    //   return;
-    // }
-
+    // 判斷是否有登入 有登入才繼續
+    if (member === null) {
+      return;
+    }
+    // console.log('member', member.id); // for check
     // js
     //  about-membership-bubble start
     $('.recommend-see-member').click((e) => {
@@ -117,17 +132,17 @@ function DetailContent(props) {
         // console.log('tota/l', total);
         // 分數四捨五入
         let starResult = Math.round(total / stararray.length);
-        console.log('starResult', starResult);
+        // console.log('starResult', starResult);
         setStar(starResult);
 
-        //加入收藏功能
         // FIXME:帶入使用者ID
-        setLikeUserId(1);
+        setLikeUserId(member.id);
         setLikeArticleId(id);
         setLikeArticlePast(id);
+
         /// 資料庫檢查是否有收藏過此文章
         // console.log('id', id);
-        const response = await axios.get(`${recommendURL}/like`);
+        const response = await axios.post(`${recommendURL}/like`, { member });
         const likeData = response.data;
         // console.log('likeData', likeData);
         const likeArray = [];
@@ -150,15 +165,33 @@ function DetailContent(props) {
           $('.recommend-bi-heart-fill').css('color', '#cc543a');
           // console.log('true');
         }
+
+        /// 資料庫檢查是否去過此文章
+        // const response = await axios.post(`${recommendURL}/like`, { member });
+        // const likeData = response.data;
+        // const likeArray = [];
+        // likeData.filter((e) => {
+        //   if (e.article_id === props.match.params.id) {
+        //     likeArray.push(id);
+        //   }
+        //   return null;
+        // });
+        // if (!likeArray[0]) {
+        //   setHeartHandle(false);
+        //   $('.recommend-bi-heart-fill').css('color', '#e2e3e1');
+        // } else {
+        //   setHeartHandle(true);
+        //   $('.recommend-bi-heart-fill').css('color', '#cc543a');
+        // }
       } catch (e) {
         console.log(e);
       }
     }
     recommendData();
-  }, [props.match.params.id]);
+  }, [props.match.params.id, member]);
 
   // 移除收藏功能
-  const deletHeart = async (e) => {
+  const deleteHeart = async (e) => {
     setHeartHandle(false);
     $(e.currentTarget.firstChild).css('color', '#e2e3e1');
     await axios.post(`${recommendURL}/deleteLikeArticle`, {
@@ -166,6 +199,14 @@ function DetailContent(props) {
       likeArticleId,
     });
     // console.log('response', response);
+
+    // 使用sweetalert2彈跳視窗
+    Swal.fire({
+      icon: 'error',
+      title: '已移除文章',
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
   //加入收藏功能
@@ -178,6 +219,14 @@ function DetailContent(props) {
       likeArticlePast,
     });
     // console.log('response', response);
+
+    // 使用sweetalert2彈跳視窗
+    Swal.fire({
+      icon: 'success',
+      title: '已加入收藏文章',
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
   return (
@@ -355,12 +404,12 @@ function DetailContent(props) {
                     className="d-flex align-items-center heartbtn"
                     onClick={(e) => {
                       if (heartHandle) {
-                        deletHeart(e);
+                        deleteHeart(e);
                       } else {
                         addHeart(e);
                       }
                     }}
-                    // 愛心hover
+                    // FIXME:愛心hover
                     // onMouseEnter={(e) => {
                     //   console.log(
                     //     'e.currentTarget.nextElementSibling',
@@ -372,10 +421,20 @@ function DetailContent(props) {
                     <BsHeartFill className="bi recommend-bi-heart-fill mr-1 mt-1"></BsHeartFill>
                     <div className="recommend-body-content mr-2">加入收藏</div>
                   </div>
-                  <div className="d-flex align-items-center">
-                    <i className="bi recommend-bi-flag-fill mr-1">
-                      <BsFlagFill size={25}></BsFlagFill>
-                    </i>
+                  <div
+                    className="d-flex align-items-center"
+                    // onClick={(e) => {
+                    //   if (flgHandle) {
+                    //     deleteFlg(e);
+                    //   } else {
+                    //     addFlg(e);
+                    //   }
+                    // }}
+                  >
+                    <BsFlagFill
+                      className="bi recommend-bi-flag-fill mr-1 mt-1"
+                      size={25}
+                    ></BsFlagFill>
                     <div className="mr-2">加入去過路線</div>
                   </div>
                   {/* =========about-membership-bubble start========= */}

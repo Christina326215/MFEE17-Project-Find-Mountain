@@ -15,25 +15,43 @@ router.get('/', async function (req, res, next) {
     item.season = item.season.replace('4', '冬季');
     return item;
   })
-  
+
+  // let starData = await connection.queryAsync('SELECT * FROM article_star ORDER BY article_id') 
+  // res.json(starData);
+  // starData.filter((e,i)=>{
+  //   let array =[]
+  //   if(!array.includes(e.article_id)){
+  //     let number =0
+  //     let total = number+=e.star_grade
+  //     let result = total/(i+1)
+  //     // console.log();
+  //     array.push(result)
+  //   } })
+
   res.json(perData);
 });
 
-// 抓取article_star資料表星星資料
+// 抓取全部星星分數
 router.get('/star', async function (req, res, next) {
   let starData = await connection.queryAsync('SELECT * FROM article_star ORDER BY article_id') 
   res.json(starData);
 });
 
-//TODO:預設原本是否有收藏此文章
-// 抓取文章收藏功能 user_article
-router.get('/like', async function (req, res, next) {
-  // let likeData = await connection.queryAsync('SELECT * FROM user_article WHERE article_id = ? AND user_id = ? ORDER BY id',[[req.body.likeArticleId,req.body.likeUserId]]) 
-  let likeData = await connection.queryAsync('SELECT * FROM user_article ORDER BY id') 
+
+// 抓取全部文章收藏資料
+router.get('/totalLike', async function (req, res, next) {
+  let totalLike = await connection.queryAsync('SELECT * FROM user_article ORDER BY id') 
+  res.json(totalLike);
+});
+
+// user抓取文章收藏功能 user_article
+router.post('/like', async function (req, res, next) {
+  let likeData = await connection.queryAsync('SELECT * FROM user_article WHERE user_id = ? ORDER BY id',[[req.body.member.id]]) 
+  // let likeData = await connection.queryAsync('SELECT * FROM user_article ORDER BY id') 
   res.json(likeData);
 });
 
-// 新增文章收藏功能 user_article
+// user新增文章收藏功能 user_article
 router.post('/likeArticle', async function (req, res, next) {
   let likeData = await connection.queryAsync('INSERT INTO user_article (user_id,article_id,article_id_past) VALUES (?);',[[req.body.likeUserId,
     req.body.likeArticleId,
@@ -41,7 +59,7 @@ router.post('/likeArticle', async function (req, res, next) {
   res.json(likeData);
 });
 
-// 刪除文章收藏功能 user_article
+// user刪除文章收藏功能 user_article
 router.post('/deleteLikeArticle', async function (req, res, next) {
   let Data = await connection.queryAsync('SELECT * FROM user_article ORDER BY id') 
   const result = Data.filter((e)=>{
