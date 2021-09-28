@@ -45,7 +45,7 @@ function HomeMountain(props) {
       }
     }
     homeData();
-  }, []);
+  }, [listData]);
 
   const changeLevel = () => {
     let btn = document.querySelectorAll('.homepage-sliderBtn');

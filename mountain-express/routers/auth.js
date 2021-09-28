@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const connection = require('../utils/db')
+const nodemailer = require('nodemailer')
 
 const { body, validationResult } = require('express-validator')
 //建立註冊規則
@@ -22,10 +23,10 @@ router.get('/', function (req, res, next) {
     res.json('hello')
 })
 
-const multer = require("multer");
-const upload = multer();
-router.post('/register',upload.none(), registerRule, async function (req, res, next) {
-    console.log("req.body",req.body.email)
+const multer = require('multer')
+const upload = multer()
+router.post('/register', upload.none(), registerRule, async function (req, res, next) {
+    console.log('req.body', req.body.email)
     const validateResult = validationResult(req)
     console.log(validateResult)
     if (!validateResult.isEmpty()) {
@@ -50,20 +51,21 @@ router.post('/register',upload.none(), registerRule, async function (req, res, n
     //密碼不可以是明文
     //格式驗證
 
-  
     let hashPassword = await bcrypt.hash(req.body.password, 10)
     let dbResults = await connection.queryAsync('INSERT INTO user SET ?', [
-        {account: req.body.email, 
-        password: hashPassword, 
-        name: req.body.name, 
-        birthday: req.body.birthday, 
-        phone: req.body.phone, 
-        zip_code: req.body.zip_code,
-        addr: req.body.addr}
+        {
+            account: req.body.email,
+            password: hashPassword,
+            name: req.body.name,
+            birthday: req.body.birthday,
+            phone: req.body.phone,
+            zip_code: req.body.zip_code,
+            addr: req.body.addr,
+        },
     ]) // 等資料庫查詢資料
-    
+
     // res.json(dbResults)
-    res.json({});
+    res.json({})
 })
 
 
@@ -114,6 +116,30 @@ router.post('/login',upload.none(), async (req, res, next) => {
     res.json({
         name: account.name,
     })
+})
+//======= 忘記密碼 =======
+router.post('/forget', async (req, res, next) => {
+    console.log(req.body)
+    let result = await connection.queryAsync('SELECT account FROM user WHERE account = ?', [req.body.email])
+    // if (req.body.email === '') {
+    //     res.json('email required')
+    // }
+    if (result.length === 0) {
+        return next({
+            // code: "330002",
+            status: 400,
+            message: '找不到帳號',
+        })
+    }
+    console.log(req.body.email)
+})
+
+//======= 登出 =======
+router.post('/logout', (req, res) => {
+    req.session.destroy()
+    req.logout()
+    res.redirect('/')
+    // res.json({ message: 'success' })
 })
 
 module.exports = router
