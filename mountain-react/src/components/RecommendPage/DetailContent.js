@@ -5,19 +5,19 @@ import axios from 'axios';
 import { recommendURL, IMAGE_URL } from '../../utils/config';
 ///////////////////////////////////////////連接資料庫
 import Comment from './Comment';
+import RecommendCard from './RecommendCard';
+import ProductTag from './ProductTag';
 import '../../styles/article.css';
-import { Link } from 'react-router-dom';
 import $ from 'jquery';
 import level from '../../img/article-img/level_low.svg';
-import xiangshan from '../../img/article-img/xiangshan.jpeg';
-import yangmingshan from '../../img/article-img/Yangmingshan.jpeg';
-import tapachien from '../../img/article-img/Tapachien.jpeg';
-import bag from '../../img/article-img/bags-pic1.jpeg';
 import { FaShoePrints } from 'react-icons/fa';
 import { BsHeartFill } from 'react-icons/bs';
 import { BsStarFill, BsFlagFill, BsQuestionCircle } from 'react-icons/bs';
 
 function DetailContent(props) {
+  // 推薦文章卡片
+  const [levelCard, setLevelCard] = useState([]);
+  // 當頁文章資料
   const [detail, setDetail] = useState([
     {
       id: 0,
@@ -54,23 +54,17 @@ function DetailContent(props) {
       $(this).toggleClass('active');
     });
 
-    $('.recommend-tag-small').mouseover(function () {
-      $('.recommend-tag-small').hide();
-      $('.recommend-tag-big').show();
-    });
-
-    $('.recommend-tag-big').mouseout(function () {
-      $('.recommend-tag-big').hide();
-      $('.recommend-tag-small').show();
-    });
     // js
 
     // 連線資料庫
     async function recommendData() {
       try {
         const recommendData = await axios.get(recommendURL);
-        // console.log(recommendData.data); //for check
+        // console.log('recommendData.data', recommendData.data); //for check
         const totalDetail = recommendData.data;
+        // this.setTotal(totalDetail);
+        // setTotal(totalDetail);
+        // console.log('total', total);
         // 抓網址id 並將string轉成number
         // console.log(typeof id);
         const id = Number(props.match.params.id);
@@ -82,9 +76,13 @@ function DetailContent(props) {
         const newDetail = totalDetail.find((v) => {
           return v.id === id;
         });
-        // console.log(newDetail);
+
+        const RecommentCard = totalDetail.filter((v) => {
+          return v.level === newDetail.level;
+        });
 
         if (newDetail) setDetail(newDetail);
+        if (RecommentCard) setLevelCard(RecommentCard);
       } catch (e) {
         console.log(e);
       }
@@ -163,11 +161,7 @@ function DetailContent(props) {
                   <p className="mr-2">加入去過路線</p>
                   {/* =========about-membership-bubble start========= */}
                   <div className="recommend-about-membership">
-                    <div
-                      to="javascript:void(0)"
-                      id="seeMember"
-                      className="recommend-see-member"
-                    >
+                    <div to="" id="seeMember" className="recommend-see-member">
                       <i className="bi recommend-bi-question-circle">
                         <BsQuestionCircle></BsQuestionCircle>
                       </i>
@@ -311,156 +305,11 @@ function DetailContent(props) {
           {/* googlemap */}
           {/* <GoogleMap></GoogleMap> */}
           {/* googlemap */}
-          <h2 className="recommend-body-content-big-bold">此景點產品推薦</h2>
-          <div className="row">
-            <div className="col-lg-6 col-md-12 mb-md-3">
-              <div className="recommend-productTagBg">
-                <div className="recommend-tag-small">
-                  {/* (導連頁還要調整) */}
-                  <Link className="recommend-tag recommend-hatTag" to="/shop">
-                    #tag 登山帽
-                  </Link>
-                </div>
-                <div className="recommend-tag-big">
-                  {/* (導連頁還要調整) */}
-                  <Link
-                    className="recommend-tagHover recommend-bagTag"
-                    to="/shop"
-                  >
-                    <div className="row m-0">
-                      <div className="col recommend-tagText">
-                        <p className="recommend-tagName">
-                          # The North Face 黑色舒適休閒後背包
-                        </p>
-                        <p className="recommend-tagPrice">$ 5,292</p>
-                      </div>
-                      <div className="recommend-productTagWrap col p-0">
-                        <img
-                          className="img-fluid recommend-productTagHover"
-                          src={bag}
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-6 col-md-12 mb-md-3">
-              <div className="recommend-productTagBg">
-                <div className="recommend-tag-small">
-                  {/* (導連頁還要調整) */}
-                  <Link className="recommend-tag recommend-hatTag" to="/shop">
-                    #tag 登山帽
-                  </Link>
-                </div>
-                <div className="recommend-tag-big">
-                  {/* (導連頁還要調整) */}
-                  <Link
-                    className="recommend-tagHover recommend-bagTag"
-                    to="/shop"
-                  >
-                    <div className="row m-0">
-                      <div className="col recommend-tagText">
-                        <p className="recommend-tagName">
-                          # The North Face 黑色舒適休閒後背包
-                        </p>
-                        <p className="recommend-tagPrice">$ 5,292</p>
-                      </div>
-                      <div className="recommend-productTagWrap col p-0">
-                        <img
-                          className="img-fluid recommend-productTagHover"
-                          src={bag}
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
+          <ProductTag></ProductTag>
         </div>
       </div>
-      <Comment></Comment>
-      <div className="container recommend-body">
-        <div className="recommend-wrapper">
-          <h2 className="recommend-body-content-big-bold">查看其他文章</h2>
-          <div>
-            <div className="row my-4">
-              {/* 象山親山步道 */}
-              <div className="col-lg-4 px-0">
-                <div className="recommend-article-card">
-                  <div className="recommend-article-img-box">
-                    <Link to="#/">
-                      <img
-                        className="recommend-cover-fit"
-                        src={xiangshan}
-                        alt=""
-                      />
-                    </Link>
-                  </div>
-                  <Link to="#/" className="recommend-article-name">
-                    象山親山步道
-                  </Link>
-                  <br />
-                  <p className="text-right">
-                    <Link to="#/" className="recommend-see-more-btn">
-                      查看更多
-                    </Link>
-                  </p>
-                </div>
-              </div>
-              {/* 陽明山東西大縱走 */}
-              <div className="col-lg-4 px-0">
-                <div className="recommend-article-card">
-                  <div className="recommend-article-img-box">
-                    <Link to="#/">
-                      <img
-                        className="recommend-cover-fit"
-                        src={yangmingshan}
-                        alt=""
-                      />
-                    </Link>
-                  </div>
-                  <Link to="#/" className="recommend-article-name">
-                    陽明山東西大縱走
-                  </Link>
-                  <br />
-                  <p className="text-right">
-                    <Link to="#/" className="recommend-see-more-btn">
-                      查看更多
-                    </Link>
-                  </p>
-                </div>
-              </div>
-              {/* 大霸北稜線 */}
-              <div className="col-lg-4 px-0">
-                <div className="recommend-article-card">
-                  <div className="recommend-article-img-box">
-                    <Link to="#/">
-                      <img
-                        className="recommend-cover-fit"
-                        src={tapachien}
-                        alt=""
-                      />
-                    </Link>
-                  </div>
-                  <Link to="#/" className="recommend-article-name">
-                    大霸北稜線
-                  </Link>
-                  <br />
-                  <p className="text-right">
-                    <Link to="#/" className="recommend-see-more-btn">
-                      查看更多
-                    </Link>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Comment detail={detail}></Comment>
+      <RecommendCard levelCard={levelCard}></RecommendCard>
     </div>
   );
 }

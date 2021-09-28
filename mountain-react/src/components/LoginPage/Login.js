@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import $ from 'jquery';
 import '../../styles/LoginStyle/Login.css';
 import '../../../node_modules/slick-carousel/slick/slick.css';
@@ -9,6 +9,7 @@ import '../../../node_modules/slick-carousel/slick/slick-theme.css';
 import { authURL } from '../../utils/config';
 import axios from 'axios';
 //===api end====
+import ForgetPassword from './ForgetPassword';
 
 // ===icon start===
 import { FaFacebookSquare, FaGoogle, FaLine } from 'react-icons/fa';
@@ -23,6 +24,8 @@ import slider3 from '../../img/pic3.webp';
 //===import img end===
 
 function Login(props) {
+  const [user, setUser] = useState([]);
+
   // const [email, setEmail] = useState('ming@test');
   // const [password, setPassword] = useState('123456');
   const [loginData, setLoginData] = useState({
@@ -64,7 +67,9 @@ function Login(props) {
       let formData = new FormData();
       formData.append('email', loginData.email);
       formData.append('password', loginData.password);
-      let response = await axios.post(`${authURL}/login`, formData);
+      let response = await axios.post(`${authURL}/login`, formData, {
+        withCredentials: true,
+      });
       console.log(response);
     } catch (e) {
       console.error(e.response);
@@ -146,14 +151,21 @@ function Login(props) {
                 </label>
               </div> */}
               <div className="mb-3 text-center login-member">
-                <button type="submit" className="btn login-btn">
-                  會員登入
+                <button
+                  type="submit"
+                  className="btn login-btn"
+                  onClick={() => {
+                    // props.history.push('/');
+                  }}
+                >
+                  登入
                 </button>
               </div>
               <div className="mb-3 text-center">
-                <Link className="login-forgetPassword" to="">
+                {/* <Link className="login-forgetPassword" to="/forget">
                   忘記密碼
-                </Link>
+                </Link> */}
+                <ForgetPassword />
                 <span>&nbsp;&nbsp; &nbsp;&nbsp;</span>
                 <Link className="login-signUp" to="/signup">
                   註冊會員
@@ -185,4 +197,4 @@ function Login(props) {
   );
 }
 
-export default Login;
+export default withRouter(Login);

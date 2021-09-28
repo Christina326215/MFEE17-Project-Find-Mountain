@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'; //可以獲取history,location,ma
 import $ from 'jquery';
 import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
 import { useAuth } from '../../context/auth'; // 取得會員資料
-import { shopcartURL, zipGroupURL, zipCodeURL } from '../../utils/config';
+import { shopcartPayURL, zipGroupURL, zipCodeURL } from '../../utils/config';
 import axios from 'axios';
 
 //====== below icon star ======//
@@ -16,43 +16,30 @@ import { BsCheck } from 'react-icons/bs';
 //====== above img import end ======//
 
 function ShopCartPay() {
-  const [data, setData] = useState([]);
   // 1. 首先，建立好 html 在 return(<>...</>)。
   // 2. 設定狀態，關於共用會員資料使用useAuth()，關於地址資料放在靜態檔案中則使用useState()。
-  const { member } = useAuth();
+  const { member } = useAuth(); // 取得會員資料
   const [zipGroup, setZipGroup] = useState(null);
+  // zipGroup是一個物件，key為city(是字串)，value為一陣列(陣列中由多個小物件組成)。
   const [zipCode, setZipCode] = useState(null);
   const [cities, setCities] = useState([]); // 各縣市陣列
-  const [city, setCity] = useState(null); // 選擇的唯一縣市
   const [districts, setDistricts] = useState([]); //各行政區陣列
-  const [codes, setCodes] = useState([]);
 
-  // 3. 因為不能直接去改動member的資料，需要先設定一個tempMember變數，將由資料庫而來的member放進setTempMember中改變狀態，最後才會把改變後的狀態存進資料庫。
+  // 3.
   const [cartData, setCartData] = useState({
     ship: 1,
     pay_way: 1,
     zip_code: null,
     addr: '',
+    invoice: 1,
+    name: '',
+    phone: '',
   });
 
   // 5. 填入原始member資料後，當Html input欄位有輸入變動時，onChange呼叫handleChange函式，將react的變數tempMember，轉換成html上偵測的變數與其值([e.target.name]: e.target.value)，其中[e.target.name]為key。
   function handleChange(e) {
-    // console.log(e.target.name, e.target.value);
-    // console.log('onChange', e.target.name, e.target.value);
     setCartData({ ...cartData, [e.target.name]: e.target.value });
-    // console.log('onChange After');
   }
-
-  // 還沒input之前，出現兩次useEffect for tempMember，結果如下：
-  // useEffect for tempMember
-  // useEffect for tempMember
-  // 是因為第一次render原本是空的，第二次render才有東西。
-
-  // 輸入input之後(使input欄位有變動)，結果如下：
-  // onChange name 王大明1
-  // onChange After
-  // useEffect for tempMember
-  // 因為setXXX是非同步且Single Thread，所以會把setTempMember丟給quere，先繼續下一行console.log('useEffect for tempMember');
 
   // 6. 從靜態檔案抓資料，取得 group.json 與 code.json 地址相關資料。
   useEffect(() => {
@@ -76,9 +63,6 @@ function ShopCartPay() {
         let data2 = zipCodeRes.data;
         // 6.3 設定 setZipCode 狀態，取得 code.json 所有資料。
         setZipCode(data2);
-        console.log(data2[100].city);
-        // 6.4 設定 setCodes 狀態，取得物件的key值，處理成各個郵遞區號的陣列。
-        setCodes(Object.keys(data2));
       } catch (e) {
         console.log(e);
       }
@@ -109,6 +93,22 @@ function ShopCartPay() {
     }
   }, [cartData, zipCode, zipGroup, cities]);
 
+  // 自動填入會員收件地址 start //
+  function checkAutoInputAddr(e) {
+    if (e.target.checked) {
+      document.getElementById('city').value =
+        zipCode[member && member.zip_code].city;
+      setCartData({ ...cartData, zip_code: member.zip_code });
+      document.getElementById('addr').value = member.addr;
+      setCartData({
+        ...cartData,
+        zip_code: member.zip_code,
+        addr: member.addr,
+      });
+    }
+  }
+  // 自動填入會員收件地址 end //
+
   // 7. 當html select選單有onChange時，呼叫changeCity函式，此時選擇到的是唯一的值(e.target.value)，利用setCity來將原始狀態的null，改變成select到的value。
   function changeCity(e) {
     // 7.2 當city有選擇時，就會自動列出該縣市的所有行政區，此時的districts也是一陣列，可利用剛剛選擇到的city作為key值，在group.json裡面找到該city的districts，並且設定到option中讓使用者選擇行政區。
@@ -126,21 +126,51 @@ function ShopCartPay() {
     setCartData({ ...cartData, [e.target.name]: e.target.value });
   }
 
-  useEffect(() => {
-    async function getAddrData() {
-      try {
-        let AddrData = await axios.get(zipGroupURL);
-        let data = AddrData.data;
-        console.log(data); //for check
-        // console.log(AddrData); //for check
-
-        setData(data);
-      } catch (e) {
-        console.log(e);
-      }
+  // 自動填入會員姓名及電話 start //
+  function checkAutoNamePhone(e) {
+    if (e.target.checked) {
+      document.getElementById('name').value = member.name;
+      document.getElementById('phone').value = member.phone;
+      setCartData({ ...cartData, name: member.name, phone: member.phone });
     }
-    getAddrData();
+  }
+  // 自動填入會員收件地址 end //
 
+  // 處理發票類型 start //
+  function invoiceChange(e) {
+    console.log(e.target.value);
+    setCartData({ ...cartData, invoice: e.target.value });
+  }
+  // 處理發票類型 end //
+
+  // 處理付款方式 start //
+  function payWayChange(e) {
+    console.log(e.target.value);
+    setCartData({ ...cartData, pay_way: e.target.value });
+  }
+  // 處理付款方式 end //
+
+  // 準備 INSERT INTO 資料庫 start
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      let formData = new FormData();
+      formData.append('ship', cartData.ship);
+      formData.append('pay_way', cartData.pay_way);
+      formData.append('zip_code', cartData.zip_code);
+      formData.append('addr', cartData.addr);
+      formData.append('invoice', cartData.invoice);
+      formData.append('name', cartData.name);
+      formData.append('phone', cartData.phone);
+      let response = await axios.post(`${shopcartPayURL}`, formData);
+      console.log(response);
+    } catch (e) {
+      console.error(e.response);
+    }
+  };
+  // 準備 INSERT INTO 資料庫 end
+
+  useEffect(() => {
     // progress-bar
     $('.shopcart-btn-next').on('click', function () {
       var currentStepNum = $('#shopcart-checkout-progress').data(
@@ -256,230 +286,277 @@ function ShopCartPay() {
             <h3 className="text-center mt-4 shopcart-title-dash">
               付款與運送方式
             </h3>
-            <fieldset className="form-group row mt-4">
-              <legend className="col-form-label col-sm-2 float-sm-left pt-0 mb-4">
-                請選擇收件方式：
-              </legend>
-              <div className="col-sm-10 mb-4">
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="gridRadios1"
-                    id="gridRadios1"
-                    value="option1"
-                    checked
-                  />
-                  <label className="form-check-label" for="gridRadios1">
-                    宅配到府
-                  </label>
-                </div>
-                <div className="form-check">
-                  {/* <input
-                    className="form-check-input"
-                    type="radio"
-                    name="gridRadios1"
-                    id="gridRadios2"
-                    value="option2"
-                  />
-                  <label className="form-check-label" for="gridRadios2">
-                    超商取貨
-                  </label> */}
+            <form onSubmit={handleSubmit}>
+              <fieldset className="form-group row mt-4">
+                <legend className="col-form-label col-sm-2 float-sm-left pt-0 mb-4">
+                  請選擇收件方式：
+                </legend>
+                <div className="col-sm-10 mb-4">
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      name="ship"
+                      id="shipHome"
+                      value={cartData && cartData.ship}
+                      checked
+                    />
+                    <label className="form-check-label" for="shipHome">
+                      宅配到府
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    {/* <input
+                      className="form-check-input"
+                      type="radio"
+                      name="ship"
+                      id="shipStore"
+                      value="2"
+                    />
+                    <label className="form-check-label" for="shipStore">
+                      超商取貨
+                    </label> */}
 
-                  {/* <!-- Button trigger modal --> */}
-                  {/* <button
-                    type="button"
-                    className="btn btn-primary ml-3"
-                    data-toggle="modal"
-                    data-target="#exampleModal"
-                  >
-                    選擇門市
-                  </button> */}
-                  {/* <!-- Modal --> */}
-                  <div
-                    className="modal fade"
-                    id="exampleModal"
-                    tabindex="-1"
-                    aria-labelledby="exampleModalLabel"
-                    aria-hidden="true"
-                  >
-                    <div className="modal-dialog">
-                      <div className="modal-content">
-                        <div className="modal-header">
-                          <h5 className="modal-title" id="exampleModalLabel">
-                            付款運送方式
-                          </h5>
-                          <button
-                            type="button"
-                            className="close"
-                            data-dismiss="modal"
-                            aria-label="Close"
-                          >
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div className="modal-body"></div>
-                        <div className="modal-footer">
-                          <button
-                            type="button"
-                            className="btn btn-secondary"
-                            data-dismiss="modal"
-                          >
-                            取消
-                          </button>
-                          <button type="button" className="btn btn-primary">
-                            確定
-                          </button>
+                    {/* <!-- Button trigger modal --> */}
+                    {/* <button
+                      type="button"
+                      className="btn btn-primary ml-3"
+                      data-toggle="modal"
+                      data-target="#exampleModal"
+                    >
+                      選擇門市
+                    </button> */}
+                    {/* <!-- Modal --> */}
+                    {/* <div
+                      className="modal fade"
+                      id="exampleModal"
+                      tabindex="-1"
+                      aria-labelledby="exampleModalLabel"
+                      aria-hidden="true"
+                    >
+                      <div className="modal-dialog">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">
+                              付款運送方式
+                            </h5>
+                            <button
+                              type="button"
+                              className="close"
+                              data-dismiss="modal"
+                              aria-label="Close"
+                            >
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div className="modal-body"></div>
+                          <div className="modal-footer">
+                            <button
+                              type="button"
+                              className="btn btn-secondary"
+                              data-dismiss="modal"
+                            >
+                              取消
+                            </button>
+                            <button type="button" className="btn btn-primary">
+                              確定
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
-              </div>
 
-              <legend className="col-form-label col-sm-2 float-sm-left pt-0 mb-4">
-                請填寫收件地址：
-              </legend>
-              <div className="col-sm-10 mb-4">
-                <div className="form-check mb-2">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="gridCheck1"
-                  />
-                  <label className="form-check-label" for="gridCheck1">
-                    自動填入會員聯絡地址
-                  </label>
+                <legend className="col-form-label col-sm-2 float-sm-left pt-0 mb-4">
+                  請填寫收件地址：
+                </legend>
+                <div className="col-sm-10 mb-4">
+                  <div className="form-check mb-2">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id="autoInputAddr"
+                      name="autoInputAddr"
+                      value="autoComplete"
+                      onChange={checkAutoInputAddr}
+                      // checked
+                    />
+                    <label className="form-check-label" for="autoInputAddr">
+                      自動填入會員聯絡地址
+                    </label>
+                  </div>
+                  {/* 選擇地址 start */}
+                  <div className="form-group">
+                    {/* 請選擇縣市 */}
+                    <select
+                      className="form-control"
+                      name="city"
+                      id="city"
+                      value={
+                        cartData &&
+                        zipCode &&
+                        cartData.zip_code &&
+                        zipCode[cartData.zip_code].city
+                      }
+                      onChange={changeCity}
+                    >
+                      {cities &&
+                        cities.map((city, i) => (
+                          <option key={i} value={city}>
+                            {city}
+                          </option>
+                        ))}
+                    </select>
+                    {/* 請選擇行政區 */}
+                    <select
+                      className="form-control"
+                      value={cartData && cartData.zip_code}
+                      id="zip_code"
+                      onChange={changeDistrict}
+                      name="zip_code"
+                    >
+                      {cities &&
+                        districts &&
+                        districts.map((item, i) => (
+                          <option key={i} value={item.zip_code}>
+                            {item.district}
+                          </option>
+                        ))}
+                    </select>
+                    {/* 輸入路名 */}
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="addr"
+                      placeholder="請輸入路名"
+                      name="addr"
+                      // value={cartData && cartData.addr}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  {/* 選擇地址 end */}
                 </div>
-                {/* 選擇地址 start */}
-                <div className="form-group">
-                  {/* 請選擇縣市 */}
-                  <select
-                    className="form-control"
-                    name="city"
-                    value={
-                      cartData &&
-                      zipCode &&
-                      cartData.zip_code &&
-                      zipCode[cartData.zip_code].city
-                    }
-                    onChange={changeCity}
-                  >
-                    {cities &&
-                      cities.map((city, i) => (
-                        <option key={i} value={city}>
-                          {city}
-                        </option>
-                      ))}
-                  </select>
-                  {/* 請選擇行政區 */}
-                  <select
-                    className="form-control"
-                    value={cartData && cartData.zip_code}
-                    onChange={changeDistrict}
-                    name="zip_code"
-                  >
-                    {cities &&
-                      districts &&
-                      districts.map((item, i) => (
-                        <option key={i} value={item.zip_code}>
-                          {item.district}
-                        </option>
-                      ))}
-                  </select>
-                  {/* 輸入地址 */}
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="inputAddress"
-                    placeholder="請輸入地址"
-                  />
-                </div>
-                {/* 選擇地址 end */}
-              </div>
 
-              <legend className="col-form-label col-sm-2 float-sm-left pt-0 mb-4">
-                請填寫收件人資訊：
-              </legend>
-              <div className="col-sm-10 mb-4">
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="inputName"
-                    placeholder="請輸入收件人姓名"
-                  />
-                  <input
-                    type="text"
-                    className="form-control mt-3"
-                    id="inputPhone"
-                    placeholder="請輸入聯絡電話"
-                  />
+                <legend className="col-form-label col-sm-2 float-sm-left pt-0 mb-4">
+                  請填寫收件人資訊：
+                </legend>
+                <div className="col-sm-10 mb-4">
+                  <div className="form-check mb-2">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id="autoInputNamePhone"
+                      name="autoInputNamePhone"
+                      value="autoCompleteNamePhone"
+                      onChange={checkAutoNamePhone}
+                      // checked
+                    />
+                    <label
+                      className="form-check-label"
+                      for="autoInputNamePhone"
+                    >
+                      自動填入會員個人姓名及電話
+                    </label>
+                  </div>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="name"
+                      name="name"
+                      value={cartData && cartData.name}
+                      placeholder="請輸入收件人姓名"
+                      onChange={handleChange}
+                    />
+                    <input
+                      type="text"
+                      className="form-control mt-3"
+                      id="phone"
+                      name="phone"
+                      value={cartData && cartData.phone}
+                      placeholder="請輸入聯絡電話"
+                      onChange={handleChange}
+                    />
+                  </div>
                 </div>
-              </div>
 
-              <legend className="col-form-label col-sm-2 float-sm-left pt-0 mb-4">
-                請選擇發票類型：
-              </legend>
-              <div className="col-sm-10 mb-4">
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="gridRadios2"
-                    id="gridRadios3"
-                    value="option3"
-                    checked
-                  />
-                  <label className="form-check-label" for="gridRadios3">
-                    二聯式
-                  </label>
+                <legend className="col-form-label col-sm-2 float-sm-left pt-0 mb-4">
+                  請選擇發票類型：
+                </legend>
+                <div className="col-sm-10 mb-4">
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      name="invoice"
+                      id="duplicateForm"
+                      value="1"
+                      onChange={invoiceChange}
+                      checked={cartData && cartData.invoice == 1}
+                    />
+                    <label className="form-check-label" for="duplicateForm">
+                      二聯式
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      name="invoice"
+                      id="VATNumber"
+                      value="2"
+                      onChange={invoiceChange}
+                      checked={cartData && cartData.invoice == 2}
+                    />
+                    <label className="form-check-label" for="VATNumber">
+                      開立統編
+                    </label>
+                  </div>
                 </div>
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="gridRadios2"
-                    id="gridRadios4"
-                    value="option4"
-                  />
-                  <label className="form-check-label" for="gridRadios4">
-                    開立統編
-                  </label>
-                </div>
-              </div>
 
-              <legend className="col-form-label col-sm-2 float-sm-left pt-0 mb-4">
-                請選擇付款方式：
-              </legend>
-              <div className="col-sm-10 mb-4">
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="gridRadios3"
-                    id="gridRadios5"
-                    value="option5"
-                    checked
-                  />
-                  <label className="form-check-label" for="gridRadios5">
-                    信用卡
-                  </label>
+                <legend className="col-form-label col-sm-2 float-sm-left pt-0 mb-4">
+                  請選擇付款方式：
+                </legend>
+                <div className="col-sm-10 mb-4">
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      name="pay_way"
+                      id="creditCard"
+                      value="1"
+                      onChange={payWayChange}
+                      checked={cartData && cartData.pay_way == 1}
+                    />
+                    <label className="form-check-label" for="creditCard">
+                      信用卡
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      name="pay_way"
+                      id="homePay"
+                      value="2"
+                      onChange={payWayChange}
+                      checked={cartData && cartData.pay_way == 2}
+                    />
+                    <label className="form-check-label" for="homePay">
+                      貨到付款
+                    </label>
+                  </div>
                 </div>
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="gridRadios3"
-                    id="gridRadios6"
-                    value="option6"
-                  />
-                  <label className="form-check-label" for="gridRadios6">
-                    貨到付款
-                  </label>
-                </div>
-              </div>
-            </fieldset>
+              </fieldset>
+              <button
+                type="submit"
+                className="border-bottom-left-radius my-5 mx-3 text-right btn btn-primary"
+              >
+                確定
+              </button>
+            </form>
+
             {/* <!-- button --> */}
             <div className="shopcart-button-container text-right mb-5">
               <Link

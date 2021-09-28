@@ -1,8 +1,16 @@
 export const shopcartURL =
   process.env.REACT_APP_shopcartURL || 'http://localhost:3500/api/shopCart/';
 
+export const shopcartPayURL =
+  process.env.REACT_APP_shopcartPayURL ||
+  'http://localhost:3500/api/shopCart/pay';
+
 export const memberURL =
   process.env.REACT_APP_memberURL || 'http://localhost:3500/api/member/';
+
+export const memberEditURL =
+  process.env.REACT_APP_memberEditURL ||
+  'http://localhost:3500/api/member/edit';
 
 export const memberRouteURL =
   process.env.REACT_APP_memberRouteURL ||
@@ -25,6 +33,10 @@ export const memberCommentURL =
   process.env.REACT_APP_memberCommentURL ||
   'http://localhost:3500/api/member/comment';
 
+export const memberOrderURL =
+  process.env.REACT_APP_memberOrderURL ||
+  'http://localhost:3500/api/member/order';
+
 export const baseZipURL =
   process.env.REACT_APP_zipURL || 'http://localhost:3500/zip';
 
@@ -38,6 +50,16 @@ export const zipCodeURL = baseZipURL + '/code.json';
 export const recommendURL =
   process.env.REACT_APP_recommendURL || 'http://localhost:3500/api/recommend';
 //=== recommend url star ===//
+
+//=== tag url star ===//
+export const tagURL =
+  process.env.REACT_APP_tagURL || 'http://localhost:3500/api/tag';
+//=== tag url star ===//
+
+//=== comment url star ===//
+export const articlecommentURL =
+  process.env.REACT_APP_commentURL || 'http://localhost:3500/api/comment';
+//=== comment url star ===//
 
 //=== log url star ===//
 export const authURL =

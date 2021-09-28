@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const connection = require('../utils/db')
+const nodemailer = require('nodemailer')
 
 const { body, validationResult } = require('express-validator')
 //建立註冊規則
@@ -66,7 +67,7 @@ router.post('/register', upload.none(), registerRule, async function (req, res, 
     // res.json(dbResults)
     res.json({})
 })
-
+//======= 登入 =======
 router.post('/login', upload.none(), async (req, res, next) => {
     console.log(req.body)
     // - 確認有沒有帳號 (email 是否存在)
@@ -114,6 +115,24 @@ router.post('/login', upload.none(), async (req, res, next) => {
         name: account.name,
     })
 })
+//======= 忘記密碼 =======
+router.post('/forget', async (req, res, next) => {
+    console.log(req.body)
+    let result = await connection.queryAsync('SELECT account FROM user WHERE account = ?', [req.body.email])
+    // if (req.body.email === '') {
+    //     res.json('email required')
+    // }
+    if (result.length === 0) {
+        return next({
+            // code: "330002",
+            status: 400,
+            message: '找不到帳號',
+        })
+    }
+    console.log(req.body.email)
+})
+
+//======= 登出 =======
 router.post('/logout', (req, res) => {
     req.session.destroy()
     req.logout()

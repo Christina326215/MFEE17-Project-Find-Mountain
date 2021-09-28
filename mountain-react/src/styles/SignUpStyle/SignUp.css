@@ -3,7 +3,7 @@
 }
 /* title */
 .signup-info-title {
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   font-weight: bold;
   font-size: 34px;
   color: #19634a;
@@ -16,7 +16,251 @@
 .signup-content2 {
   display: none;
 }
+.signup-label {
+  border-radius: 10px 0px 0px 10px;
+}
 /* tab switch end */
+/* progress-adj start */
+.signup-progress-adj {
+  margin: 30px auto;
+  width: 80%;
+  height: 80%;
+}
+/* progress-adj end */
+
+/* progress bar step start */
+.signup-opaque {
+  opacity: 0;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+
+.signup-disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+#signup-checkout-progress {
+  width: 90%;
+  margin: 0px auto 20px;
+  font-size: 2em;
+  font-weight: 900;
+  position: relative;
+}
+@media (max-width: 767px) {
+  #signup-checkout-progress {
+    font-size: 1.5em;
+  }
+}
+#signup-checkout-progress:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 10px;
+  width: 100%;
+  background-color: #ccc;
+  -webkit-transform: translateY(-50%) perspective(1000px);
+  transform: translateY(-50%) perspective(1000px);
+}
+#signup-checkout-progress:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 10px;
+  width: 100%;
+  background-color: #6da77f;
+  -webkit-transform: scaleX(0) translateY(-50%) perspective(1000px);
+  transform: scaleX(0) translateY(-50%) perspective(1000px);
+  -webkit-transform-origin: left center;
+  transform-origin: left center;
+  -webkit-transition: -webkit-transform 0.5s ease;
+  transition: -webkit-transform 0.5s ease;
+  transition: transform 0.5s ease;
+  transition: transform 0.5s ease, -webkit-transform 0.5s ease;
+}
+#signup-checkout-progress.signup-step-2:after {
+  -webkit-transform: scaleX(0.333) translateY(-50%) perspective(1000px);
+  transform: scaleX(0.333) translateY(-50%) perspective(1000px);
+}
+#signup-checkout-progress.signup-step-3:after {
+  -webkit-transform: scaleX(0.666) translateY(-50%) perspective(1000px);
+  transform: scaleX(0.666) translateY(-50%) perspective(1000px);
+}
+#signup-checkout-progress.signup-step-4:after {
+  -webkit-transform: scaleX(1) translateY(-50%) perspective(1000px);
+  transform: scaleX(1) translateY(-50%) perspective(1000px);
+}
+#signup-checkout-progress.signup-step-5:after {
+  -webkit-transform: scaleX(1) translateY(-50%) perspective(1000px);
+  transform: scaleX(1) translateY(-50%) perspective(1000px);
+}
+#signup-checkout-progress .signup-progress-bar1 {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100px;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+#signup-checkout-progress .signup-progress-bar1 .signup-step {
+  z-index: 2;
+  position: relative;
+}
+#signup-checkout-progress
+  .signup-progress-bar1
+  .signup-step
+  .signup-step-label {
+  position: absolute;
+  top: calc(100% + 25px);
+  left: 50%;
+  -webkit-transform: translateX(-50%) perspective(1000px);
+  transform: translateX(-50%) perspective(1000px);
+  white-space: nowrap;
+  font-size: 0.4em;
+  font-weight: 600;
+  color: #ccc;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+@media (max-width: 767px) {
+  #signup-checkout-progress
+    .signup-progress-bar1
+    .signup-step
+    .signup-step-label {
+    top: calc(100% + 15px);
+  }
+}
+#signup-checkout-progress .signup-progress-bar1 .signup-step .signup-step-num {
+  color: #ccc;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+  /* display: block; */
+  -webkit-transform: translate3d(0, 0, 0) scale(1) perspective(1000px);
+  transform: translate3d(0, 0, 0) scale(1) perspective(1000px);
+}
+#signup-checkout-progress .signup-progress-bar1 .signup-step .signup-fa-check {
+  color: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transition: -webkit-transform 0.3s ease;
+  transition: -webkit-transform 0.3s ease;
+  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+  -webkit-transform: translate3d(-50%, -50%, 0) scale(0) perspective(1000px);
+  transform: translate3d(-50%, -50%, 0) scale(0) perspective(1000px);
+}
+#signup-checkout-progress
+  .signup-progress-bar1
+  .signup-step.signup-active
+  .signup-step-num,
+#signup-checkout-progress
+  .signup-progress-bar1
+  .signup-step.signup-active
+  .signup-step-label {
+  color: #6da77f;
+}
+
+#signup-checkout-progress
+  .signup-progress-bar1
+  .signup-step.signup-valid
+  .signup-fa-check {
+  -webkit-transform: translate3d(-50%, -50%, 0) scale(1) perspective(1000px);
+  transform: translate3d(-50%, -50%, 0) scale(1) perspective(1000px);
+}
+#signup-checkout-progress
+  .signup-progress-bar1
+  .signup-step.signup-valid
+  .signup-step-num {
+  color: #6da77f;
+  -webkit-transform: translate3d(0, 0, 0) scale(2) perspective(1000px);
+  transform: translate3d(0, 0, 0) scale(2) perspective(1000px);
+}
+#signup-checkout-progress
+  .signup-progress-bar1
+  .signup-step.signup-valid
+  .signup-step-label {
+  color: #2c3e50 !important;
+}
+#signup-checkout-progress .signup-progress-bar1 .signup-step:after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%) perspective(1000px);
+  transform: translate(-50%, -50%) perspective(1000px);
+  width: 50px;
+  height: 50px;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 3px solid #ccc;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+@media (max-width: 767px) {
+  #signup-checkout-progress .signup-progress-bar1 .signup-step:after {
+    width: 30px;
+    height: 30px;
+  }
+}
+#signup-checkout-progress
+  .signup-progress-bar1
+  .signup-step.signup-active:after {
+  border: 3px solid #6da77f;
+}
+#signup-checkout-progress
+  .signup-progress-bar1
+  .signup-step.signup-valid:after {
+  background-color: #6da77f;
+  border: 3px solid #6da77f;
+}
+
+.signup-button-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  width: 100%;
+  margin: 20px auto;
+}
+.signup-button-container .signup-btn {
+  display: inline-block;
+  background-color: #6da77f;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  font-weight: 900;
+  border: 3px solid #6da77f;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+  cursor: pointer;
+  text-align: center;
+}
+@media (max-width: 767px) {
+  .signup-button-container .signup-btn {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+}
+.signup-button-container .signup-btn:hover {
+  background-color: transparent;
+  color: #6da77f;
+  -webkit-transform: scale(1.02) perspective(1000px);
+  transform: scale(1.02) perspective(1000px);
+}
+/* progress bar step end */
 
 /* sign up content */
 .signUpInfo {
@@ -41,7 +285,6 @@
 }
 .signup-info-button-container .btn {
   display: inline-block;
-  background-color: #6da77f;
   color: #fff;
   padding: 10px 15px;
   border-radius: 10px;
@@ -65,4 +308,7 @@
   color: #6da77f;
   -webkit-transform: scale(1.02) perspective(1000px);
   /* transform: scale(1.2) perspective(1000px); */
+}
+.login-error {
+  color: #cc543a;
 }

@@ -94,10 +94,15 @@ let recommendRouter = require('./routers/recommendPage')
 app.use('/api/recommend', recommendRouter)
 //===引用 recommendPage 進來 end===//
 
-//===引用 recommendPage 進來 star===//
+//===引用 comment 進來 star===//
 let commentRouter = require('./routers/comment')
 app.use('/api/comment', commentRouter)
-//===引用 recommendPage 進來 end===//
+//===引用 comment 進來 end===//
+
+//===引用 tag 進來 star===//
+let tagRouter = require('./routers/tag')
+app.use('/api/tag', tagRouter)
+//===引用 tag 進來 end===//
 
 //===引用 shopPage 進來 star===//
 let shopRouter = require('./routers/shopPage')
@@ -114,10 +119,20 @@ let shopCartRouter = require('./routers/shopCartPage')
 app.use('/api/shopCart', shopCartRouter)
 //===引用 shopCartPage 進來 end===//
 
+//===引用 shopCartPay 進來 star===//
+let shopCartPayRouter = require('./routers/shopCartPay')
+app.use('/api/shopCart/pay', shopCartPayRouter)
+//===引用 shopCartPay 進來 end===//
+
 //===引用 memberPage 進來 star===//
 let memberRouter = require('./routers/memberPage')
 app.use('/api/member', memberRouter)
 //===引用 memberPage 進來 end===//
+
+//===引用 memberEditPage 進來 star===//
+let memberEditRouter = require('./routers/memberEdit')
+app.use('/api/member/edit', memberEditRouter)
+//===引用 memberEditPage 進來 end===//
 
 //===引用 memberRoute 進來 star===//
 let memberRouteRouter = require('./routers/memberRoute')
@@ -144,6 +159,11 @@ app.use('/api/member/article', memberArticleRouter)
 let memberCommentRouter = require('./routers/memberComment')
 app.use('/api/member/comment', memberCommentRouter)
 //===引用 memberComment 進來 end===//
+
+//===引用 memberOrder 進來 star===//
+let memberOrderRouter = require('./routers/memberOrder')
+app.use('/api/member/order', memberOrderRouter)
+//===引用 memberOrder 進來 end===//
 
 //====== error message star ======//
 app.use((req, res, next) => {

@@ -1,26 +1,15 @@
 import React, { useState, useEffect } from 'react';
+
 import { Link, withRouter } from 'react-router-dom';
+
 import '../../styles/SignUpStyle/SignUp.css';
 //api start
 import { authURL, zipGroupURL, zipCodeURL } from '../../utils/config';
 import axios from 'axios';
 //api end
+// import { BsCheck } from 'react-icons/bs';
 
 function SignUp(props) {
-  const {
-    name,
-    label,
-    type,
-    state,
-    setState,
-    error,
-    password,
-    required,
-    minLength,
-    maxLength,
-    pattern,
-  } = props;
-  const fieldType = type ? type : 'text';
   // 設定zip_code狀態 start //
   const [zipGroup, setZipGroup] = useState(null);
   const [zipCode, setZipCode] = useState(null);
@@ -38,6 +27,18 @@ function SignUp(props) {
     password: '',
     repassword: '',
   });
+  // 存入錯誤訊息用 start //
+  const [fieldErrors, setFieldErrors] = useState({
+    name: '',
+    birthday: '',
+    phone: '',
+    zip_code: null,
+    addr: '',
+    email: '',
+    password: '',
+    repassword: '',
+  });
+  // 存入錯誤訊息用 end //
 
   function handleChange(e) {
     setRegisterData({ ...registerData, [e.target.name]: e.target.value });
@@ -68,32 +69,33 @@ function SignUp(props) {
     getZipCode();
   }, []);
 
-  // TODO: validation 存入錯誤訊息用
-  const [fieldErrors, setFieldErrors] = useState({
-    username: '',
-    email: '',
-    password: '',
-    agree: '', // 核取方塊的如果有不合法的訊息
-  });
-
-  // 當表單有不合法的檢查出現時
+  // === 當表單有不合法的檢查出現時
   const handleFormInvalid = (e) => {
     // 擋住錯誤訊息的預設呈現的方式(popup)
     e.preventDefault();
 
-    const updatedFieldError =
-      e.target.name === 'agree'
-        ? '註冊會員需要勾選我同意'
-        : e.target.validationMessage;
-
     const updatedFieldErrors = {
       ...fieldErrors,
-      [e.target.name]: updatedFieldError,
+      [e.target.name]: e.target.validationMessage,
+    };
+    // 3. 設定回原狀態物件
+    setFieldErrors(updatedFieldErrors);
+  };
+
+  // === 整個表單有變動時(ex.其中一個欄位有輸入時)
+  // 認定使用者正在改正某個有錯誤的欄位
+  // 清除某個欄位錯誤訊
+  const handleFormChange = (e) => {
+    console.log('目前更新欄位 ', e.target.name);
+    const updatedFieldErrors = {
+      ...fieldErrors,
+      [e.target.name]: '',
     };
 
     // 3. 設定回原狀態物件
     setFieldErrors(updatedFieldErrors);
   };
+
   //===Zip 地址
   useEffect(() => {
     if (registerData && zipCode && zipGroup) {
@@ -154,23 +156,48 @@ function SignUp(props) {
   // 準備 INSERT INTO 資料庫 end
 
   // 切換區域tab-switch
-  let menu = document.querySelectorAll('#signup-menu');
-  let content = document.querySelectorAll('#signup-content');
-  for (let i = 0; i < menu.length; i++) {
-    menu[i].addEventListener('click', function () {
-      for (let k = 0; k < content.length; k++) {
-        if (i === k) {
-          content[k].style.display = 'block';
-        } else {
-          content[k].style.display = 'none';
-        }
-      }
-      for (let j = 0; j < menu.length; j++) {
-        menu[j].classList.remove('active');
-      }
-      this.classList.add('active');
-    });
+  let step1 = document.querySelector('#signup-menu1');
+  let step2 = document.querySelector('#signup-menu2');
+  let contentInfo = document.querySelector('#signup-contentInfo');
+  let contentRegister = document.querySelector('#signup-contentRegister');
+  let nextContent = document.querySelector('#clickNext');
+  let prevContent = document.querySelector('#clickPrev');
+  //=== 按了下一步
+  function next() {
+    contentInfo.style.display = 'none';
+    contentRegister.style.display = 'block';
+    step1.classList.remove('signup-active');
+    step2.classList.add('signup-active');
   }
+  //=== 按了上一步
+  function prev() {
+    contentInfo.style.display = 'block';
+    contentRegister.style.display = 'none';
+    step2.classList.remove('signup-active');
+    step1.classList.add('signup-active');
+  }
+  if (nextContent) {
+    nextContent.addEventListener('click', next, false);
+  }
+  if (prevContent) {
+    prevContent.addEventListener('click', prev, false);
+  }
+
+  // for (let i = 0; i < menu.length; i++) {
+  //   menu[i].addEventListener('click', function () {
+  //     for (let k = 0; k < content.length; k++) {
+  //       if (i === k) {
+  //         content[k].style.display = 'block';
+  //       } else {
+  //         content[k].style.display = 'none';
+  //       }
+  //     }
+  //     for (let j = 0; j < menu.length; j++) {
+  //       menu[j].classList.remove('active');
+  //     }
+  //     this.classList.add('active');
+  //   });
+  // }
 
   return (
     <>
@@ -181,44 +208,65 @@ function SignUp(props) {
               <div className="text-center">
                 <h1 className="h2 signup-info-title">註冊會員</h1>
               </div>
-              <div className="signup-tab">
+              <div
+                className="signup-step-1"
+                id="signup-checkout-progress"
+                data-current-step="1"
+              >
+                <div className="signup-progress-bar1">
+                  {/* <!-- "active" change to "valid" --> */}
+                  <div
+                    className="signup-step signup-step-1 signup-active"
+                    id="signup-menu1"
+                  >
+                    <span className="signup-step-num"> 1</span>
+                    {/* <!-- "opaque" change to "" --> */}
+                    {/* <BsCheck className="signup-fa signup-fa-check signup-opaque" /> */}
+                    <div className="signup-step-label">會員資料</div>
+                  </div>
+                  {/* <!-- add className "active" --> */}
+                  <div className="signup-step signup-step-2" id="signup-menu2">
+                    <span className="signup-step-num"> 2</span>
+                    {/* <BsCheck className="signup-fa signup-fa-check signup-opaque" /> */}
+                    <div className="signup-step-label">帳號密碼</div>
+                  </div>
+                </div>
+              </div>
+              {/* <div className="signup-tab">
                 <div
                   className="btn-group signup-switch-category"
                   role="group"
                   aria-label="Basic example"
                 >
-                  <Link
-                    type="button"
-                    id="signup-menu"
-                    className="btn btn-outline-primary signup-menu active"
-                    click=""
-                    to="#/"
+                  <div
+                    id="signup-menu1"
+                    className="signup-label btn-outline-primary active col-6"
                   >
                     會員資料
-                  </Link>
-                  <Link
-                    type="button"
-                    id="signup-menu"
-                    className="btn btn-outline-primary signup-menu"
-                    click=""
-                    to="#/"
+                  </div>
+                  <div
+                    id="signup-menu2"
+                    className="btn btn-outline-primary col-6"
                   >
                     帳號密碼
-                  </Link>
+                  </div>
                 </div>
-              </div>
+              </div> */}
               <div className="tab-content">
-                <form onSubmit={handleSubmit} onInvalid={handleFormInvalid}>
-                  <div id="signup-content">
+                <form
+                  onSubmit={handleSubmit}
+                  onInvalid={handleFormInvalid}
+                  onChange={handleFormChange}
+                  class="needs-validation"
+                  novalidate
+                >
+                  <div id="signup-contentInfo">
                     <div className="signUpInfo d-flex pt-5">
                       <div className="form-row d-flex justify-content-center">
                         <div className="form-group sign-input col-7 mb-2">
                           <label htmlFor="signup-inputName">姓名</label>
                           <input
-                            type={fieldType}
-                            className={`form-control ${
-                              error !== '' ? 'is-invalid' : ''
-                            }`}
+                            className="form-control"
                             id="signup-inputName"
                             placeholder="請輸入您的姓名"
                             name="name"
@@ -226,9 +274,9 @@ function SignUp(props) {
                             onChange={handleChange}
                             required
                           />
-                          {fieldErrors.username !== '' && (
-                            <small className="error">
-                              {fieldErrors.username}
+                          {fieldErrors.name !== '' && (
+                            <small className="login-error">
+                              {fieldErrors.name}
                             </small>
                           )}
                         </div>
@@ -244,6 +292,11 @@ function SignUp(props) {
                             onChange={handleChange}
                             required
                           />
+                          {fieldErrors.birthday !== '' && (
+                            <small className="login-error">
+                              {fieldErrors.birthday}
+                            </small>
+                          )}
                         </div>
                         <div className="form-group  sign-input col-7 mb-2">
                           <label htmlFor="inputTel">聯絡電話</label>
@@ -258,6 +311,11 @@ function SignUp(props) {
                             onChange={handleChange}
                             required
                           />
+                          {fieldErrors.phone !== '' && (
+                            <small className="login-error">
+                              {fieldErrors.phone}
+                            </small>
+                          )}
                         </div>
                         <div className="form-group sign-input col-7 mb-2">
                           {/* 選擇地址 start */}
@@ -299,6 +357,11 @@ function SignUp(props) {
                                     </option>
                                   ))}
                               </select>
+                              {fieldErrors.zip_code !== '' && (
+                                <small className="login-error">
+                                  {fieldErrors.zip_code}
+                                </small>
+                              )}
                             </div>
                             {/* 輸入路名 */}
                             <input
@@ -310,6 +373,11 @@ function SignUp(props) {
                               value={registerData && registerData.addr}
                               onChange={handleChange}
                             />
+                            {fieldErrors.addr !== '' && (
+                              <small className="login-error">
+                                {fieldErrors.addr}
+                              </small>
+                            )}
                           </div>
                           {/* 選擇地址 end */}
                         </div>
@@ -318,13 +386,14 @@ function SignUp(props) {
                         <button
                           type="button"
                           className="btn btn-next btn-primary"
+                          id="clickNext"
                         >
                           下一步
                         </button>
                       </div>
                     </div>
                   </div>
-                  <div id="signup-content" className="signup-content2">
+                  <div id="signup-contentRegister" className="signup-content2">
                     <div className="signUpInfo d-flex pt-5">
                       <div className="form-row d-flex justify-content-center">
                         <div className="form-group col-7 mb-2 account">
@@ -335,10 +404,16 @@ function SignUp(props) {
                             id="inputEmail2"
                             placeholder="請輸入您的email"
                             name="email"
-                            pattern="^[a-zA-Z0-9]{1,63}+@[a-zA-Z0-9]{2,63}{1,64}$"
+                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$"
                             value={registerData && registerData.email}
                             onChange={handleChange}
+                            required
                           />
+                          {fieldErrors.email !== '' && (
+                            <small className="login-error">
+                              {fieldErrors.email}
+                            </small>
+                          )}
                         </div>
                         <div className="form-group col-7 mb-4">
                           <div className="row">
@@ -371,7 +446,13 @@ function SignUp(props) {
                             value={registerData && registerData.password}
                             onChange={handleChange}
                             minLength="6"
+                            required
                           />
+                          {fieldErrors.password !== '' && (
+                            <small className="login-error">
+                              {fieldErrors.password}
+                            </small>
+                          )}
                         </div>
                         <div className="form-group col-7">
                           <input
@@ -383,25 +464,35 @@ function SignUp(props) {
                             value={registerData && registerData.repassword}
                             onChange={handleChange}
                           />
+                          {fieldErrors.repassword !== '' && (
+                            <small className="login-error">
+                              {fieldErrors.repassword}
+                            </small>
+                          )}
                         </div>
                       </div>
-                      <div className="signup-info-button-container my-5 col-12">
-                        <button
-                          type="submit"
-                          className="btn btn-next btn-primary"
-                          onClick={() => {
-                            props.history.push('/login');
-                          }}
-                        >
-                          註冊
-                        </button>
-                        {/* <Link
-                          to="/login"
-                          type="submit"
-                          className="btn btn-next btn-primary"
-                        >
-                          註冊
-                        </Link> */}
+                      <div className="signup-info-button-container d-flex col-12">
+                        <div className="my-5 col-6">
+                          <button
+                            type="button"
+                            className="btn btn-next btn-primary"
+                            id="clickPrev"
+                          >
+                            上一步
+                          </button>
+                        </div>
+                        <div className="my-5 col-6">
+                          <button
+                            type="submit"
+                            className="btn btn-next btn-primary"
+                            // onClick={() => {
+                            //   props.history.push('/login');
+                            // }}
+                            disabled={!registerData}
+                          >
+                            註冊
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
