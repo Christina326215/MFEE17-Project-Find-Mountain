@@ -16,7 +16,15 @@ import { FaShoePrints } from 'react-icons/fa';
 import { BsHeartFill } from 'react-icons/bs';
 import { BsStarFill, BsFlagFill, BsQuestionCircle } from 'react-icons/bs';
 
+//====== below catch member info star ======//
+// import { useAuth } from '../../context/auth';
+//====== below catch member info end ======//
+
 function DetailContent(props) {
+  // 登入會員狀態
+  // const { member } = useAuth(); //把 member 從 useContext中拿出來
+  // console.log('member', member);
+
   // 推薦文章卡片
   const [levelCard, setLevelCard] = useState([]);
   // 當頁文章資料
@@ -53,6 +61,11 @@ function DetailContent(props) {
   const [heartHandle, setHeartHandle] = useState(true);
 
   useEffect(() => {
+    // 判斷是否有登入
+    // if (member === null) {
+    //   return;
+    // }
+
     // js
     //  about-membership-bubble start
     $('.recommend-see-member').click((e) => {
@@ -347,6 +360,13 @@ function DetailContent(props) {
                         addHeart(e);
                       }
                     }}
+                    // 愛心hover
+                    // onMouseEnter={(e) => {
+                    //   console.log(
+                    //     'e.currentTarget.nextElementSibling',
+                    //     e.currentTarget.nextElementSibling
+                    //   );
+                    // }}
                     style={{ cursor: 'pointer' }}
                   >
                     <BsHeartFill className="bi recommend-bi-heart-fill mr-1 mt-1"></BsHeartFill>
