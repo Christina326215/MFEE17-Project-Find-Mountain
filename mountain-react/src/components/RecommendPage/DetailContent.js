@@ -49,6 +49,8 @@ function DetailContent(props) {
   const [likeUserId, setLikeUserId] = useState('');
   const [likeArticleId, setLikeArticleId] = useState('');
   const [likeArticlePast, setLikeArticlePast] = useState('');
+  // 判斷有沒有收藏過的狀態 true收藏 fasle沒收藏
+  const [heartHandle, setHeartHandle] = useState(true);
 
   useEffect(() => {
     // js
@@ -92,11 +94,13 @@ function DetailContent(props) {
           if (e.article_id === id) {
             stararray.push(e.star_grade);
           }
+          return null;
         });
         // console.log('stararray', stararray);
         const total = stararray.reduce((acc, cur) => {
           return acc + cur;
         });
+
         // console.log('tota/l', total);
         // 分數四捨五入
         let starResult = Math.round(total / stararray.length);
@@ -104,11 +108,35 @@ function DetailContent(props) {
         setStar(starResult);
 
         //加入收藏功能
-        //FIXME:帶入使用者ID
-        // FIXME:問去過路線的資料
+        // FIXME:帶入使用者ID
         setLikeUserId(1);
         setLikeArticleId(id);
         setLikeArticlePast(id);
+        /// 資料庫檢查是否有收藏過此文章
+        // console.log('id', id);
+        const response = await axios.get(`${recommendURL}/like`);
+        const likeData = response.data;
+        // console.log('likeData', likeData);
+        const likeArray = [];
+        likeData.filter((e) => {
+          if (e.article_id === props.match.params.id) {
+            likeArray.push(id);
+          }
+          return null;
+        });
+        // console.log('likeArray', likeArray);
+        if (!likeArray[0]) {
+          // console.log('沒收藏');
+          setHeartHandle(false);
+          $('.recommend-bi-heart-fill').css('color', '#e2e3e1');
+          // console.log('false');
+        } else {
+          // addHeart();
+          // console.log('有收藏');
+          setHeartHandle(true);
+          $('.recommend-bi-heart-fill').css('color', '#cc543a');
+          // console.log('true');
+        }
       } catch (e) {
         console.log(e);
       }
@@ -116,33 +144,27 @@ function DetailContent(props) {
     recommendData();
   }, [props.match.params.id]);
 
-  // 判斷有沒有收藏過的狀態 true收藏 fasle沒收藏
-  const [heartHandle, setHeartHandle] = useState(true);
-  //
-
   // 移除收藏功能
   const deletHeart = async (e) => {
     setHeartHandle(false);
     $(e.currentTarget.firstChild).css('color', '#e2e3e1');
-
-    let response = await axios.post(`${recommendURL}/deleteLikeArticle`, {
+    await axios.post(`${recommendURL}/deleteLikeArticle`, {
       likeUserId,
       likeArticleId,
     });
-    console.log('response', response);
+    // console.log('response', response);
   };
 
   //加入收藏功能
   const addHeart = async (e) => {
     setHeartHandle(true);
     $(e.currentTarget.firstChild).css('color', '#cc543a');
-
-    let response = await axios.post(`${recommendURL}/likeArticle`, {
+    await axios.post(`${recommendURL}/likeArticle`, {
       likeUserId,
       likeArticleId,
       likeArticlePast,
     });
-    console.log('response', response);
+    // console.log('response', response);
   };
 
   return (

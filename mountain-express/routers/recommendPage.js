@@ -27,10 +27,11 @@ router.get('/star', async function (req, res, next) {
 
 //TODO:預設原本是否有收藏此文章
 // 抓取文章收藏功能 user_article
-// router.post('/like', async function (req, res, next) {
-//   let likeData = await connection.queryAsync('SELECT * FROM user_article ORDER BY id') 
-//   res.json(likeData);
-// });
+router.get('/like', async function (req, res, next) {
+  // let likeData = await connection.queryAsync('SELECT * FROM user_article WHERE article_id = ? AND user_id = ? ORDER BY id',[[req.body.likeArticleId,req.body.likeUserId]]) 
+  let likeData = await connection.queryAsync('SELECT * FROM user_article ORDER BY id') 
+  res.json(likeData);
+});
 
 // 新增文章收藏功能 user_article
 router.post('/likeArticle', async function (req, res, next) {
