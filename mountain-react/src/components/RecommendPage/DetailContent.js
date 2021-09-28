@@ -118,6 +118,7 @@ function DetailContent(props) {
 
   // 判斷有沒有收藏過的狀態 true收藏 fasle沒收藏
   const [heartHandle, setHeartHandle] = useState(true);
+  //
 
   // 移除收藏功能
   const deletHeart = async (e) => {
