@@ -385,7 +385,6 @@
   background: #ededed;
   margin: 0 auto;
   border-radius: 8px;
-
 }
 .shopcart-product-infobox-img {
   width: 200px;
@@ -408,7 +407,7 @@
 .shopcart-product-infobox-right {
   height: 200px;
 }
-.shopcart-product-infobox-storage p{
+.shopcart-product-infobox-storage p {
   font-size: 14px;
 }
 .shopcart-delete-btn {
@@ -416,6 +415,5 @@
   border: none;
   border-radius: 8px;
   background: #6da77f;
-
 }
 /*abby*/

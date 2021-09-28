@@ -9,6 +9,7 @@ let app = express();
 // 處理cors
 const cors = require("cors");
 app.use(
+
   cors({
     origin: ["http://localhost:3000"],
     credentials: true,
@@ -109,13 +110,13 @@ app.use("/api/recommend", recommendRouter);
 //===引用 recommendPage 進來 end===//
 
 //===引用 comment 進來 star===//
-let commentRouter = require("./routers/comment");
-app.use("/api/comment", commentRouter);
+let commentRouter = require('./routers/comment')
+app.use('/api/comment', commentRouter)
 //===引用 comment 進來 end===//
 
 //===引用 tag 進來 star===//
-let tagRouter = require("./routers/tag");
-app.use("/api/tag", tagRouter);
+let tagRouter = require('./routers/tag')
+app.use('/api/tag', tagRouter)
 //===引用 tag 進來 end===//
 
 //===引用 shopPage 進來 star===//
@@ -134,8 +135,8 @@ app.use("/api/shopCart", shopCartRouter);
 //===引用 shopCartPage 進來 end===//
 
 //===引用 shopCartPay 進來 star===//
-let shopCartPayRouter = require("./routers/shopCartPay");
-app.use("/api/shopCart/pay", shopCartPayRouter);
+let shopCartPayRouter = require('./routers/shopCartPay')
+app.use('/api/shopCart/pay', shopCartPayRouter)
 //===引用 shopCartPay 進來 end===//
 
 //===引用 memberPage 進來 star===//
@@ -144,8 +145,8 @@ app.use("/api/member", memberRouter);
 //===引用 memberPage 進來 end===//
 
 //===引用 memberEditPage 進來 star===//
-let memberEditRouter = require("./routers/memberEdit");
-app.use("/api/member/edit", memberEditRouter);
+let memberEditRouter = require('./routers/memberEdit')
+app.use('/api/member/edit', memberEditRouter)
 //===引用 memberEditPage 進來 end===//
 
 //===引用 memberRoute 進來 star===//
@@ -175,8 +176,8 @@ app.use("/api/member/comment", memberCommentRouter);
 //===引用 memberComment 進來 end===//
 
 //===引用 memberOrder 進來 star===//
-let memberOrderRouter = require("./routers/memberOrder");
-app.use("/api/member/order", memberOrderRouter);
+let memberOrderRouter = require('./routers/memberOrder')
+app.use('/api/member/order', memberOrderRouter)
 //===引用 memberOrder 進來 end===//
 
 //====== error message star ======//
