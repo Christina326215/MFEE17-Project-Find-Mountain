@@ -53,6 +53,7 @@ function App() {
   const [member, setMember] = useState(null);
   const [pay, setPay] = useState(null);
   const [cartChange, setCartChange] = useState(false);
+  const [mapRouteShow, setMapRouteShow] = useState(false); //會員路線地圖，新增路線重算積分，會員level需重抓
 
   //=== 彈跳視窗開關 star ===//
   const [show, setShow] = useState(false);
@@ -73,11 +74,20 @@ function App() {
       }
     }
     getPersonalData();
-  }, [show]);
+  }, [show, mapRouteShow]);
 
   return (
     <AuthContext.Provider
-      value={{ member, setMember, pay, setPay, cartChange, setCartChange }}
+      value={{
+        member,
+        setMember,
+        pay,
+        setPay,
+        cartChange,
+        setCartChange,
+        mapRouteShow,
+        setMapRouteShow,
+      }}
     >
       <Router>
         <>
