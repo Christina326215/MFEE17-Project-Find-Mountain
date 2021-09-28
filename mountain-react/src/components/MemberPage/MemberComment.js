@@ -9,7 +9,7 @@ import { memberCommentURL, IMAGE_URL } from '../../utils/config';
 import axios from 'axios';
 
 //====== below pages star ======//
-import { pages_btn } from '../MapPage/pages/PagesBtn'; //分頁按鈕
+import PagesBtn from '../PagesBtn'; //分頁按鈕
 import MemberSideHead from './pages/MemberSideHead'; //member Side Head
 //====== below pages end ======//
 
@@ -18,53 +18,36 @@ import { BsExclamationTriangleFill } from 'react-icons/bs';
 import { FcApproval, FcVlc } from 'react-icons/fc';
 //====== below icon end ======//
 
-//====== below img import start ======//
-import Xiangshan from '../../img/xiangshan.jpeg';
-//====== above img import end ======//
-
 function MemberComment() {
-  const { member } = useAuth(); // 取得會員資料
+  const { member, page, setPage, totalPage, setTotalPage } = useAuth(); // 取得會員資料
   const [data, setData] = useState([]);
-  const [lastPage, setLastPage] = useState(0);
 
   // 分頁屬性
   // 記錄現在在第幾頁
-  const [page, setPage] = useState(1);
+  // const [page, setPage] = useState(1);
   // 總共有幾頁
-  const [totalPage, setTotalPage] = useState(0);
-
-  const getPages = () => {
-    let pages = [];
-    for (let i = 1; i <= totalPage; i++) {
-      pages.push(
-        <div className="btn-group mr-2" role="group" aria-label="Second group">
-          <button
-            type="button"
-            className="btn btn-primary"
-            key={i}
-            onClick={(e) => {
-              setPage(i);
-            }}
-          >
-            {i}
-          </button>
-        </div>
-      );
-    }
-    return pages;
-  };
+  // const [totalPage, setTotalPage] = useState(0);
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      // left: 0,
+      behavior: 'smooth',
+    });
+    // if (member === null) {
+    //   return;
+    // }
+    // console.log('comment memberID:', member); //for check
     async function getCommentData() {
       try {
-        const CommentData = await axios.get(`${memberCommentURL}?page=${page}`);
+        // console.log('member id', member.id); // for check
+        const CommentData = await axios.post(
+          `${memberCommentURL}?page=${page}`,
+          { member }
+        );
         // console.log(CommentData.data.dbResults); //for check
         setData(CommentData.data.dbResults);
-        setLastPage(CommentData.data.pagination.lastPage);
-        console.log(
-          'CommentData.data.pagination',
-          CommentData.data.pagination.lastPage
-        );
+
         // let data = CommentData.data;
         setTotalPage(CommentData.data.pagination.lastPage);
       } catch (e) {
@@ -72,7 +55,7 @@ function MemberComment() {
       }
     }
     getCommentData();
-  }, [page]);
+  }, [page, member]);
 
   return (
     <>
@@ -209,7 +192,7 @@ function MemberComment() {
                       scope="row"
                       className="member-comment-text-weight align-middle"
                     >
-                      {items.dislike_status === 2 ? (
+                      {/* {items.dislike_status === 2 ? (
                         <FcApproval size={20} />
                       ) : items.dislike_status === 3 ? (
                         <FcVlc size={20} />
@@ -218,75 +201,39 @@ function MemberComment() {
                           className="member-comment-warning-icon"
                           size={20}
                         />
-                      )}
+                      )} */}
+                      <div className="d-flex flex-wrap justify-content-center">
+                        {items.dislike_status === 2 ? (
+                          <FcApproval size={24} />
+                        ) : items.dislike_status === 3 ? (
+                          <FcVlc size={24} />
+                        ) : (
+                          <BsExclamationTriangleFill
+                            className="member-comment-warning-icon"
+                            size={24}
+                          />
+                        )}
+                        {items.dislike_status === 2 ? (
+                          <span className="member-comment-status">
+                            評論通過
+                          </span>
+                        ) : items.dislike_status === 3 ? (
+                          <span className="member-comment-status">
+                            被檢舉審核中
+                          </span>
+                        ) : (
+                          <span className="member-comment-status">
+                            評論不通過
+                          </span>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 </tbody>
               ))}
             </table>
             {/* <!-- 分頁 start  --> */}
-            {/* {pages_btn} */}
-            <div
-              className="btn-toolbar justify-content-center mountain_btn-toolbar"
-              role="toolbar"
-              aria-label="Toolbar with button groups"
-            >
-              <div
-                className="btn-group mr-2"
-                role="group"
-                aria-label="Third group"
-              >
-                <button type="button" className="btn btn-primary">
-                  |&lt;
-                </button>
-              </div>
-              <div
-                className="btn-group mr-2"
-                role="group"
-                aria-label="First group"
-              >
-                <button type="button" className="btn btn-primary">
-                  &lt;
-                </button>
-              </div>
-              {getPages()}
-              {/* <div
-                className="btn-group mr-2"
-                role="group"
-                aria-label="Second group"
-              >
-                <button type="button" className="btn btn-primary">
-                  2
-                </button>
-              </div> */}
-              <div
-                className="btn-group mr-2"
-                role="group"
-                aria-label="Third group"
-              >
-                <button type="button" className="btn btn-primary">
-                  &gt;
-                </button>
-              </div>
-              {/* {pagination.map((page, i) => (
-                <div
-                  className="btn-group"
-                  role="group"
-                  aria-label="Third group"
-                >
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    key={i}
-                    onClick={(e) => {
-                      setPage(`${page.lastPage}`);
-                    }}
-                  >
-                    &gt;|
-                  </button>
-                </div>
-              ))} */}
-            </div>
+            <PagesBtn />
             {/* <!-- 分頁 end  --> */}
           </div>
           {/* <!-- manage-right-side end--> */}
