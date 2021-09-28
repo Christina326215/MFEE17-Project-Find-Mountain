@@ -297,107 +297,117 @@ function ShopCartDetail() {
           <div className="col-lg-12 mt-3">
             <h3 className="text-center mt-4">購物車明細</h3>
             <hr />
-            <div className="d-flex justify-content-end">
-              <button onClick={clearCart}>清空購物車</button>
-            </div>
-            {/* abby */}
-            {shopCartData.map((items, index) => {
-              return (
-                <div
-                  className="shopcart-product-infobox row my-3"
-                  key={`${items.id}${items.size}`}
-                >
-                  <div className="col-4 col-lg-3">
-                    <figure className="shopcart-product-infobox-img p-2">
-                      <Link to={`/shop/product-detail/${items.id}`}>
-                        <img
-                          src={`${IMAGE_URL}/img/product-img/${items.pic}`}
-                          alt={items.name}
-                          title={items.name}
-                          className="shopcart-product-infobox-cover-fit"
-                        />
-                      </Link>
-                    </figure>
-                  </div>
-                  <div className="col-5">
-                    <div className="shopcart-product-infobox-name">
-                      <input
-                        type="text"
-                        value={items.name}
-                        name="name"
-                        readOnly
-                        className="my-3 form-control"
-                      />
-                    </div>
-                    <div className="my-3">
-                      <p>所選尺寸</p>
-                      {items.type === '2' ? (
-                        <select value="F" className="form-control" readOnly>
-                          <option value="F">F</option>
-                        </select>
-                      ) : items.size === 'S' ? (
-                        <select value="S" className="form-control" readOnly>
-                          <option value="S">S</option>
-                        </select>
-                      ) : items.size === 'M' ? (
-                        <select value="M" className="form-control" readOnly>
-                          <option value="M">M</option>
-                        </select>
-                      ) : (
-                        <select value="L" className="form-control" readOnly>
-                          <option value="L">L</option>
-                        </select>
-                      )}
-                    </div>
-                    <div className="shopcart-product-infobox-storage">
-                      <p className="m-0">庫存剩餘：{items.size_storage}</p>
-                    </div>
-                  </div>
-                  <div className="col-3 col-lg-4">
-                    <div className="d-flex align-items-end flex-column bd-highlight shopcart-product-infobox-right">
-                      <div className="bd-highlight">
-                        <p className="my-3">數量</p>
-                        <button
-                          className="btn shopcart-minus-btn"
-                          onClick={() => {
-                            UpdateAmounts(items, false);
-                          }}
-                        >
-                          <BsDash size={24} />
-                        </button>
-                        {items.num}
-                        <button
-                          className="btn shopcart-add-btn"
-                          onClick={() => {
-                            UpdateAmounts(items, true);
-                          }}
-                        >
-                          <BsPlus size={24} />
-                        </button>
-                        <hr className="my-0" />
-                      </div>
-                      <div className="bd-highlight">
-                        <p className="shopcart-product-infobox-price">
-                          NT${' '}
-                          {(parseInt(items.price) * items.num).toLocaleString()}
-                        </p>
-                      </div>
-                      <div className="mt-auto mb-2 bd-highlight">
-                        <button
-                          className="shopcart-delete-btn"
-                          onClick={() => {
-                            deleteItem(items);
-                          }}
-                        >
-                          <BsTrash size={20} className="text-white" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+            {cartLocal.length > 0 ? (
+              <div>
+                <div className="d-flex justify-content-end">
+                  <button onClick={clearCart}>清空購物車</button>
                 </div>
-              );
-            })}
-            {/* abby */}
+                {/* abby */}
+                {shopCartData.map((items, index) => {
+                  return (
+                    <div
+                      className="shopcart-product-infobox row my-3"
+                      key={`${items.id}${items.size}`}
+                    >
+                      <div className="col-4 col-lg-3">
+                        <figure className="shopcart-product-infobox-img p-2">
+                          <Link to={`/shop/product-detail/${items.id}`}>
+                            <img
+                              src={`${IMAGE_URL}/img/product-img/${items.pic}`}
+                              alt={items.name}
+                              title={items.name}
+                              className="shopcart-product-infobox-cover-fit"
+                            />
+                          </Link>
+                        </figure>
+                      </div>
+                      <div className="col-5">
+                        <div className="shopcart-product-infobox-name">
+                          <input
+                            type="text"
+                            value={items.name}
+                            name="name"
+                            readOnly
+                            className="my-3 form-control"
+                          />
+                        </div>
+                        <div className="my-3">
+                          <p>所選尺寸</p>
+                          {items.type === '2' ? (
+                            <select value="F" className="form-control" readOnly>
+                              <option value="F">F</option>
+                            </select>
+                          ) : items.size === 'S' ? (
+                            <select value="S" className="form-control" readOnly>
+                              <option value="S">S</option>
+                            </select>
+                          ) : items.size === 'M' ? (
+                            <select value="M" className="form-control" readOnly>
+                              <option value="M">M</option>
+                            </select>
+                          ) : (
+                            <select value="L" className="form-control" readOnly>
+                              <option value="L">L</option>
+                            </select>
+                          )}
+                        </div>
+                        <div className="shopcart-product-infobox-storage">
+                          <p className="m-0">庫存剩餘：{items.size_storage}</p>
+                        </div>
+                      </div>
+                      <div className="col-3 col-lg-4">
+                        <div className="d-flex align-items-end flex-column bd-highlight shopcart-product-infobox-right">
+                          <div className="bd-highlight">
+                            <p className="my-3">數量</p>
+                            <button
+                              className="btn shopcart-minus-btn"
+                              onClick={() => {
+                                UpdateAmounts(items, false);
+                              }}
+                            >
+                              <BsDash size={24} />
+                            </button>
+                            {items.num}
+                            <button
+                              className="btn shopcart-add-btn"
+                              onClick={() => {
+                                UpdateAmounts(items, true);
+                              }}
+                            >
+                              <BsPlus size={24} />
+                            </button>
+                            <hr className="my-0" />
+                          </div>
+                          <div className="bd-highlight">
+                            <p className="shopcart-product-infobox-price">
+                              NT${' '}
+                              {(
+                                parseInt(items.price) * items.num
+                              ).toLocaleString()}
+                            </p>
+                          </div>
+                          <div className="mt-auto mb-2 bd-highlight">
+                            <button
+                              className="shopcart-delete-btn"
+                              onClick={() => {
+                                deleteItem(items);
+                              }}
+                            >
+                              <BsTrash size={20} className="text-white" />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+                {/* abby */}
+              </div>
+            ) : (
+              <div className="d-flex shopcart-noproduct-box text-center justify-content-center align-items-center">
+                <p className="p-0">購物車內沒有商品呦</p>
+              </div>
+            )}
             {/* <!-- 分頁 start  --> */}
             {pages_btn}
             {/* <!-- 分頁 end  --> */}
