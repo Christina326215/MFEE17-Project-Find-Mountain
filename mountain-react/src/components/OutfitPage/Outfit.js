@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import '../../styles/outfit.css';
 import { outfitURL, IMAGE_URL } from '../../utils/config';
+import { Link } from 'react-router-dom'; //a標籤要變成link
 
 //=== package start===
 import $ from 'jquery';
@@ -18,7 +19,7 @@ import OutfitProductSliderH from './OutfitProductSliderH';
 //=== components end===
 
 // ===icon start===
-import { FaFacebookSquare } from 'react-icons/fa';
+import { FaFacebookSquare, FaTwitterSquare, FaLine } from 'react-icons/fa';
 import {
   BsFillCaretLeftFill,
   BsFillCaretRightFill,
@@ -83,6 +84,35 @@ function Outfit(props) {
     });
     $('#slideRight3').click(function () {
       document.getElementById('slider3').scrollLeft += 180;
+    });
+
+    // facebook分享按鈕
+    $('.fb-share-button').click(function () {
+      window.open(
+        // 'https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5501/outfit.html',
+        'https://www.facebook.com/dialog/share?app_id=168633835347111&href=http://127.0.0.1:5501/outfit.html&hashtag=%23%E6%89%BE%E9%9D%A0%E5%B1%B1%E5%BB%BA%E8%AD%B0%E7%A9%BF%E6%90%AD%E5%80%8B%E4%BA%BA%E5%8C%96%E6%98%8E%E4%BF%A1%E7%89%87',
+        'facebook-share-dialog',
+        'width=800,height=600'
+      );
+      return false;
+    });
+    // twitter分享按鈕
+    $('.twitter-share-button').click(function () {
+      window.open(
+        'http://twitter.com/share?text=%23%E6%89%BE%E9%9D%A0%E5%B1%B1%20%23%E5%BB%BA%E8%AD%B0%E7%A9%BF%E6%90%AD%20%23%E5%80%8B%E4%BA%BA%E5%8C%96%E6%98%8E%E4%BF%A1%E7%89%87&url=http://127.0.0.1:5501/outfit.html',
+        'twitter-share-dialog',
+        'width=800,height=600'
+      );
+      return false;
+    });
+    // twitter分享按鈕
+    $('.line-share-button').click(function () {
+      window.open(
+        'https://social-plugins.line.me/lineit/share?text=%23%E6%89%BE%E9%9D%A0%E5%B1%B1%20%23%E5%BB%BA%E8%AD%B0%E7%A9%BF%E6%90%AD%20%23%E5%80%8B%E4%BA%BA%E5%8C%96%E6%98%8E%E4%BF%A1%E7%89%87&url=http://127.0.0.1:5501/outfit.html',
+        'line-share-dialog',
+        'width=800,height=600'
+      );
+      return false;
     });
 
     setTimeout(() => {
@@ -344,10 +374,10 @@ function Outfit(props) {
         </div>
       </div>
       <div className="outfit-btnGroup">
-        <button className="outfit-fb">
-          <FaFacebookSquare className="outfit-sharedBtn mb-1" />
-          分享明信片
-        </button>
+        <span>分享：</span>
+        <FaFacebookSquare className="fb-share-button" />
+        <FaTwitterSquare className="twitter-share-button" />
+        <FaLine className="line-share-button" />
         <button className="btn btn-outline-primary" id="save">
           <BsDownload className="outfit-downloadBtn mb-1" />
           儲存明信片
