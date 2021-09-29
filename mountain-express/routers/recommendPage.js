@@ -16,17 +16,42 @@ router.get('/', async function (req, res, next) {
     return item;
   })
 
-  // let starData = await connection.queryAsync('SELECT * FROM article_star ORDER BY article_id') 
-  // res.json(starData);
-  // starData.filter((e,i)=>{
-  //   let array =[]
-  //   if(!array.includes(e.article_id)){
-  //     let number =0
-  //     let total = number+=e.star_grade
-  //     let result = total/(i+1)
-  //     // console.log();
-  //     array.push(result)
-  //   } })
+  let starData = await connection.queryAsync('SELECT * FROM article_star WHERE article_id =1 ORDER BY article_id') 
+   //計算星星平均分數
+   let stararray = [];
+   console.log("starData",starData);
+   for(let i=0;i<starData.length;i++){
+    stararray.push(starData[i].star_grade)
+   }
+  
+   console.log("stararray",stararray);
+   const totalstar = stararray.reduce((acc, cur) => {
+    return acc + cur;
+  });
+  console.log("totalstar",totalstar);
+  const average = Math.round(totalstar/stararray.length)
+  console.log("average",average);
+
+  //
+  // dbResults.average
+
+  //全部去過文章裡如果跟去過後有評分的文章id一樣時，將星星塞進去
+  perData.map((data) => {
+    console.log("data.id",data.id);
+    if(data.id == 1){
+      data.average = average
+    }
+  });
+
+  ////
+// let dbResults = await connection.queryAsync(
+//   'SELECT article.*, article_status.name AS status_name, article_level.name AS level_name, article_mountain_type.name AS mountain_type_name ,article_apply.name AS apply_name FROM article JOIN article_status ON article.status = article_status.id JOIN article_level ON article.level = article_level.id JOIN article_mountain_type ON article.mountain_type = article_mountain_type.id JOIN article_apply ON article.apply = article_apply.id ORDER BY article.id'
+// ) // 等資料庫查詢資料
+
+
+
+
+
 
   res.json(perData);
 });
