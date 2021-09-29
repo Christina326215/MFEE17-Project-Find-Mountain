@@ -81,16 +81,6 @@ function DetailContent(props) {
       return;
     }
     // console.log('member', member.id); // for check
-    // js
-    //  about-membership-bubble start
-    $('.recommend-see-member').click((e) => {
-      $('.recommend-about-membership-bubble').toggle('display');
-    });
-    //  about-membership-bubble end
-
-    $('i').click(function () {
-      $(this).toggleClass('active');
-    });
 
     // 連線當頁的資料庫
     async function recommendData() {
@@ -188,6 +178,17 @@ function DetailContent(props) {
       }
     }
     recommendData();
+
+    // js
+    //  about-membership-bubble start
+    $('.recommend-see-member').click((e) => {
+      $('.recommend-about-membership-bubble').toggle('display');
+    });
+    //  about-membership-bubble end
+
+    $('i').click(function () {
+      $(this).toggleClass('active');
+    });
   }, [props.match.params.id, member]);
 
   // 移除收藏功能
