@@ -32,6 +32,7 @@ function ShopCartDetail() {
   //一進畫面先讀取local storage
   useEffect(() => {
     getCartFromLocalStorage();
+    console.log('cartLocal', cartLocal);
   }, []);
   //刪除商品
   //TODO:刪除商品提示msg
@@ -297,7 +298,7 @@ function ShopCartDetail() {
           <div className="col-lg-12 mt-3">
             <h3 className="text-center mt-4">購物車明細</h3>
             <hr />
-            {cartLocal.length > 0 ? (
+            {cartLocal.length > 0 && cartLocal !== '[]' ? (
               <div>
                 <div className="d-flex justify-content-end">
                   <button onClick={clearCart}>清空購物車</button>
