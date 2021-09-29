@@ -95,7 +95,7 @@ function MapH() {
         // map api end //
 
         // product api star //
-        const productData = await axios.get(mapURL + 'productH');
+        const productData = await axios.get(mapURL + 'product/3');
         console.log('productData:', productData.data); //for check
         setProductData(productData.data);
         // product api end //
@@ -392,7 +392,28 @@ function MapH() {
           {/* <!-- =========pages_btn end========= --> */}
           <div className="ountain_content_line"></div>
           {/* <!-- =========推薦商品 start========= --> */}
-          <ProductRecH productData={productData} />
+          <div className="mountain_product_box">
+            <div className="mountain_product_title">
+              <h3 className="h2">推薦商品</h3>
+            </div>
+            <div className="mountain_product-list my-4">
+              {productData.map((item) => {
+                return (
+                  <ProductRecH
+                    productId={item.id}
+                    brand={item.product_brand}
+                    name={item.product_name}
+                    price={item.price}
+                    picture={item.pic}
+                    type={item.type}
+                    key={item.id}
+                  />
+                );
+              })}
+              <div className="mountain_H_downLowBear"></div>
+              <div className="mountain_H_bearSpeak"></div>
+            </div>
+          </div>
           {/* <!-- =========推薦商品 end========= --> */}
         </div>
       </div>
