@@ -62,7 +62,7 @@ function Navbar(props) {
       for (let i = 0; i < navbarProductOrder.length; i++) {
         totalNum += navbarProductOrder[i].num;
       }
-      console.log('totalNum', totalNum);
+      // console.log('totalNum', totalNum);
       if (totalNum !== cartNum) {
         setCartNum(totalNum);
       }
