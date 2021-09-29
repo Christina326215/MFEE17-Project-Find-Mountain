@@ -14,4 +14,9 @@ export const weather = [
     elementName: 'TEMP,Weather',
     parameterName: 'CITY',
   },
+  {
+    locationName: '宜蘭',
+    elementName: 'TEMP,Weather',
+    parameterName: 'CITY',
+  },
 ];
