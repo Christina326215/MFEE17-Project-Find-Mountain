@@ -37,7 +37,7 @@ router.get('/', async function (req, res, next) {
 
   //全部去過文章裡如果跟去過後有評分的文章id一樣時，將星星塞進去
   perData.map((data) => {
-    console.log("data.id",data.id);
+    // console.log("data.id",data.id);
     if(data.id == 1){
       data.average = average
     }
@@ -48,9 +48,28 @@ router.get('/', async function (req, res, next) {
 //   'SELECT article.*, article_status.name AS status_name, article_level.name AS level_name, article_mountain_type.name AS mountain_type_name ,article_apply.name AS apply_name FROM article JOIN article_status ON article.status = article_status.id JOIN article_level ON article.level = article_level.id JOIN article_mountain_type ON article.mountain_type = article_mountain_type.id JOIN article_apply ON article.apply = article_apply.id ORDER BY article.id'
 // ) // 等資料庫查詢資料
 
-
-
-
+let joinResults = await connection.queryAsync(
+  'SELECT article.*, article_status.name AS status_name, article_level.name AS level_name, article_mountain_type.name AS mountain_type_name ,article_apply.name AS apply_name, article_star.star_grade AS star_grade FROM article JOIN article_status ON article.status = article_status.id JOIN article_level ON article.level = article_level.id JOIN article_mountain_type ON article.mountain_type = article_mountain_type.id JOIN article_apply ON article.apply = article_apply.id JOIN article_star ON article.id = article_star.article_id ORDER BY article.id'
+)
+//FIXME:i最大長度為文章篇數
+for(let i=1; i<=9; i++){
+  var gradeArr=[];
+  for(let j=0; j<joinResults.length; j++){
+    if(joinResults[j].id === i){
+      // console.log('ij', i, joinResults[j]);
+      gradeArr.push(joinResults[j].star_grade);
+    }
+  }
+  console.log('i gradeArr',i , gradeArr);
+  const joinTotal = gradeArr.reduce((acc, cur) => {
+    return acc + cur;
+  });
+  // console.log('joinTotal', joinTotal);
+  const joinAverage = Math.round(joinTotal/gradeArr.length);
+  console.log('joinAverage', joinAverage);
+  //FIXME:只有全部文章都有評分資料時才能用
+  perData[(i-1)].average = joinAverage;
+}
 
 
   res.json(perData);
