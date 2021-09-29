@@ -50,30 +50,29 @@ router.get('/star', async function (req, res, next) {
 });
 
 
-// 抓取全部文章收藏資料
-router.get('/totalLike', async function (req, res, next) {
-  let totalLike = await connection.queryAsync('SELECT * FROM user_article ORDER BY id') 
-  res.json(totalLike);
-});
+// 抓取全部文章收藏資料 user_heart
+// router.get('/totalLike', async function (req, res, next) {
+//   let totalLike = await connection.queryAsync('SELECT * FROM user_heart ORDER BY id') 
+//   res.json(totalLike);
+// });
 
-// user抓取文章收藏功能 user_article
+// user抓取文章收藏功能 user_heart
 router.post('/like', async function (req, res, next) {
-  let likeData = await connection.queryAsync('SELECT * FROM user_article WHERE user_id = ? ORDER BY id',[[req.body.member.id]]) 
-  // let likeData = await connection.queryAsync('SELECT * FROM user_article ORDER BY id') 
+  let likeData = await connection.queryAsync('SELECT * FROM user_heart WHERE user_id = ? ORDER BY id',[[req.body.member.id]]) 
+  // let likeData = await connection.queryAsync('SELECT * FROM user_heart ORDER BY id') 
   res.json(likeData);
 });
 
-// user新增文章收藏功能 user_article
+// user新增文章收藏功能 user_heart
 router.post('/likeArticle', async function (req, res, next) {
-  let likeData = await connection.queryAsync('INSERT INTO user_article (user_id,article_id,article_id_past) VALUES (?);',[[req.body.likeUserId,
-    req.body.likeArticleId,
-    req.body.likeArticlePast,]]) 
+  let likeData = await connection.queryAsync('INSERT INTO user_heart (user_id,article_id) VALUES (?);',[[req.body.likeUserId,
+    req.body.likeArticleId]]) 
   res.json(likeData);
 });
 
-// user刪除文章收藏功能 user_article
+// user刪除文章收藏功能 user_heart
 router.post('/deleteLikeArticle', async function (req, res, next) {
-  let Data = await connection.queryAsync('SELECT * FROM user_article ORDER BY id') 
+  let Data = await connection.queryAsync('SELECT * FROM user_heart ORDER BY id') 
   const result = Data.filter((e)=>{
     // 如果userid跟文章id有的話抓取id
     if(e.user_id == req.body.likeUserId && e.article_id == req.body.likeArticleId){
@@ -81,7 +80,7 @@ router.post('/deleteLikeArticle', async function (req, res, next) {
     }
   })
   // 並刪除此筆資料
-  let deleteLikeData = await connection.queryAsync('DELETE FROM user_article WHERE id=? ',[[result[0].id]]) 
+  let deleteLikeData = await connection.queryAsync('DELETE FROM user_heart WHERE id=? ',[[result[0].id]]) 
   res.json(deleteLikeData);
 });
 

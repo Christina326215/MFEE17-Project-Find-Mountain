@@ -73,7 +73,12 @@ function DetailContent(props) {
   // const [flgHandle, setFlgHandle] = useState(true);
 
   useEffect(() => {
-    // console.log('member', member.id); // for check
+    // FIXME: 沒登入的跳轉頁面 沒登入無法看見文章
+    // 判斷是否有登入 有登入才繼續執行下面動作!!
+    if (member === null) {
+      return;
+    }
+    console.log('member', member.id); // for check
 
     // 連線當頁的資料庫
     async function recommendData() {
@@ -101,25 +106,19 @@ function DetailContent(props) {
         setLikeArticleId(id);
         setLikeArticlePast(id);
 
-        // FIXME: 沒登入的跳轉頁面
-        // 判斷是否有登入 有登入才繼續執行下面動作!!
-        if (member === null) {
-          return;
-        }
-
         /// 資料庫檢查是否有收藏過此文章
         // console.log('id', id);
         const response = await axios.post(`${recommendURL}/like`, { member });
         const likeData = response.data;
-        // console.log('likeData', likeData);
+        console.log('likeData', likeData);
         const likeArray = [];
         likeData.filter((e) => {
-          if (e.article_id === props.match.params.id) {
+          if (e.article_id === id) {
             likeArray.push(id);
           }
           return null;
         });
-        // console.log('likeArray', likeArray);
+        console.log('likeArray', likeArray);
         if (!likeArray[0]) {
           // console.log('沒收藏');
           setHeartHandle(false);
@@ -132,24 +131,6 @@ function DetailContent(props) {
           $('.recommend-bi-heart-fill').css('color', '#cc543a');
           // console.log('true');
         }
-
-        /// 資料庫檢查是否去過此文章
-        // const response = await axios.post(`${recommendURL}/like`, { member });
-        // const likeData = response.data;
-        // const likeArray = [];
-        // likeData.filter((e) => {
-        //   if (e.article_id === props.match.params.id) {
-        //     likeArray.push(id);
-        //   }
-        //   return null;
-        // });
-        // if (!likeArray[0]) {
-        //   setHeartHandle(false);
-        //   $('.recommend-bi-heart-fill').css('color', '#e2e3e1');
-        // } else {
-        //   setHeartHandle(true);
-        //   $('.recommend-bi-heart-fill').css('color', '#cc543a');
-        // }
       } catch (e) {
         console.log(e);
       }
@@ -168,25 +149,6 @@ function DetailContent(props) {
     });
   }, [props.match.params.id, member]);
 
-  // 移除收藏功能
-  const deleteHeart = async (e) => {
-    setHeartHandle(false);
-    $(e.currentTarget.firstChild).css('color', '#e2e3e1');
-    await axios.post(`${recommendURL}/deleteLikeArticle`, {
-      likeUserId,
-      likeArticleId,
-    });
-    // console.log('response', response);
-
-    // 使用sweetalert2彈跳視窗
-    Swal.fire({
-      icon: 'error',
-      title: '已移除文章',
-      showConfirmButton: false,
-      timer: 1500,
-    });
-  };
-
   //加入收藏功能
   const addHeart = async (e) => {
     setHeartHandle(true);
@@ -202,6 +164,25 @@ function DetailContent(props) {
     Swal.fire({
       icon: 'success',
       title: '已加入收藏文章',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  };
+
+  // 移除收藏功能
+  const deleteHeart = async (e) => {
+    setHeartHandle(false);
+    $(e.currentTarget.firstChild).css('color', '#e2e3e1');
+    await axios.post(`${recommendURL}/deleteLikeArticle`, {
+      likeUserId,
+      likeArticleId,
+    });
+    // console.log('response', response);
+
+    // 使用sweetalert2彈跳視窗
+    Swal.fire({
+      icon: 'error',
+      title: '已移除文章',
       showConfirmButton: false,
       timer: 1500,
     });
