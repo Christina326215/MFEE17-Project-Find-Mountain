@@ -45,7 +45,7 @@ const uploader = multer({
 
 // 評論資料
 router.get("/", async function (req, res, next) {
-  let dbResults = await connection.queryAsync("SELECT comments.*, user.id AS users_id, user.name AS users_name, article.name AS article_name FROM comments JOIN article ON comments.article_id = article.id  JOIN user ON comments.user_id = user.id WHERE comments.valid = 1 ORDER BY time DESC"); // 等資料庫查詢資料
+  let dbResults = await connection.queryAsync("SELECT comments.*, user.id AS users_id, user.name AS users_name, user.level AS user_level, article.name AS article_name ,dislike.dislike_status AS dislike_status FROM comments JOIN article ON comments.article_id = article.id  JOIN user ON comments.user_id = user.id JOIN dislike on comments.id = dislike.comments_id WHERE comments.valid = 1 ORDER BY time DESC"); // 等資料庫查詢資料
   
   res.json(dbResults);
 });
@@ -64,7 +64,27 @@ router.post("/insert", uploader.single("pic") , async function (req, res, next) 
   let filename = req.file ? req.file.filename : "";
   let time = new Date();
   let dbResults = await connection.queryAsync("INSERT INTO comments (user_id, content, time, article_id,valid,pic) VALUES (?);",[[req.body.userID,req.body.content,time,req.body.articleID,req.body.valid,filename]]); // 等資料庫查詢資料
-
+  // console.log("dbResults",dbResults);
+  // console.log("dbResults.insertId",dbResults.insertId);
+  // 如果改vaild怕後台也要改
+  // 新增dislike資料 同步新增dislike表格 原因0 狀態2通過
+  let insertDislike = await connection.queryAsync("INSERT INTO dislike (comments_id, dislike_reason,dislike_status,dislike_time,dislike_valid) VALUES (?);",[[dbResults.insertId, 0,2,time,1]]); // 等資料庫查詢資料
+  // console.log("insertDislike",insertDislike);
   res.json(dbResults);
 });
+
+
+// 檢舉評論
+router.post("/dislike", async function (req, res, next) {
+// commentId: 64
+// dislikeReason: "1"
+// dislikeStatus: "3"
+// dislikeTime: "2021-09-27T08:45:30.913Z"
+// dislikeValid: "1"
+  let time = new Date();
+  let dbResults = await connection.queryAsync('UPDATE dislike SET dislike_reason = ?, dislike_status = ?,dislike_time = ?,dislike_valid = ? WHERE comments_id = ?', [ req.body.dislikeReason, req.body.dislikeStatus, time, req.body.dislikeValid, req.body.commentId]); // 等資料庫查詢資料
+  
+  res.json(dbResults);
+});
+
 module.exports = router;

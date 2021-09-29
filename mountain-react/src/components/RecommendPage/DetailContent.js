@@ -9,12 +9,36 @@ import RecommendCard from './RecommendCard';
 import ProductTag from './ProductTag';
 import '../../styles/article.css';
 import $ from 'jquery';
-import level from '../../img/article-img/level_low.svg';
+import levelLow from '../../img/article-img/level_low.svg';
+import levelMiddle from '../../img/article-img/level_medium.svg';
+import levelHigh from '../../img/article-img/level_high.svg';
 import { FaShoePrints } from 'react-icons/fa';
 import { BsHeartFill } from 'react-icons/bs';
 import { BsStarFill, BsFlagFill, BsQuestionCircle } from 'react-icons/bs';
+// 使用sweetalert2彈跳視窗
+import Swal from 'sweetalert2';
+
+//====== below catch member info star ======//
+import { useAuth } from '../../context/auth';
+//====== below catch member info end ======//
 
 function DetailContent(props) {
+  // const { star, setStar } = props;
+  // 當頁文章星星評分
+  const [star, setStar] = useState(0);
+  // 登入會員狀態
+  const { member } = useAuth(); // 把 member 從 useContext中拿出來
+  // {account: "lily516liu@gmail.com"
+  // addr: "1號"
+  // birthday: "2021-09-28"
+  // id: 10
+  // level: null
+  // name: "lily"
+  // password: "$2b$10$/xjqKd4G3NrdcVgAc28eo.TadXpzr0dUipJjNQeJ2imd.5cSaATzi"
+  // phone: "0918819399"
+  // valid: null
+  // zip_code: "100"}
+
   // 推薦文章卡片
   const [levelCard, setLevelCard] = useState([]);
   // 當頁文章資料
@@ -42,7 +66,119 @@ function DetailContent(props) {
     },
   ]);
 
+  // 新增收藏文章狀態
+  const [likeUserId, setLikeUserId] = useState('');
+  const [likeArticleId, setLikeArticleId] = useState('');
+  const [likeArticlePast, setLikeArticlePast] = useState('');
+  // 判斷有沒有收藏過的狀態 true收藏 fasle沒收藏
+  const [heartHandle, setHeartHandle] = useState(true);
+  // 判斷有沒有去過的狀態
+  // const [flgHandle, setFlgHandle] = useState(true);
+
   useEffect(() => {
+    // 判斷是否有登入 有登入才繼續
+    if (member === null) {
+      return;
+    }
+    // console.log('member', member.id); // for check
+
+    // 連線當頁的資料庫
+    async function recommendData() {
+      try {
+        // 全部文章資料
+        const recommendData = await axios.get(recommendURL);
+        const totalDetail = recommendData.data;
+
+        // 網址id判斷此篇文章資料
+        const id = Number(props.match.params.id);
+        const newDetail = totalDetail.find((v) => {
+          return v.id === id;
+        });
+        if (newDetail) setDetail(newDetail);
+
+        // 推薦同等級文章
+        const RecommentCard = totalDetail.filter((v) => {
+          return v.level === newDetail.level;
+        });
+        if (RecommentCard) setLevelCard(RecommentCard);
+
+        // 全部文章星星資料
+        const totalStarData = await axios.get(`${recommendURL}/star`);
+        const starData = totalStarData.data;
+        // 當篇文章星星資料
+        //計算星星平均分數
+        let stararray = [];
+        starData.filter((e) => {
+          if (e.article_id === id) {
+            stararray.push(e.star_grade);
+          }
+          return null;
+        });
+        // console.log('stararray', stararray);
+        const total = stararray.reduce((acc, cur) => {
+          return acc + cur;
+        });
+
+        // console.log('tota/l', total);
+        // 分數四捨五入
+        let starResult = Math.round(total / stararray.length);
+        // console.log('starResult', starResult);
+        setStar(starResult);
+
+        // FIXME:帶入使用者ID
+        setLikeUserId(member.id);
+        setLikeArticleId(id);
+        setLikeArticlePast(id);
+
+        /// 資料庫檢查是否有收藏過此文章
+        // console.log('id', id);
+        const response = await axios.post(`${recommendURL}/like`, { member });
+        const likeData = response.data;
+        // console.log('likeData', likeData);
+        const likeArray = [];
+        likeData.filter((e) => {
+          if (e.article_id === props.match.params.id) {
+            likeArray.push(id);
+          }
+          return null;
+        });
+        // console.log('likeArray', likeArray);
+        if (!likeArray[0]) {
+          // console.log('沒收藏');
+          setHeartHandle(false);
+          $('.recommend-bi-heart-fill').css('color', '#e2e3e1');
+          // console.log('false');
+        } else {
+          // addHeart();
+          // console.log('有收藏');
+          setHeartHandle(true);
+          $('.recommend-bi-heart-fill').css('color', '#cc543a');
+          // console.log('true');
+        }
+
+        /// 資料庫檢查是否去過此文章
+        // const response = await axios.post(`${recommendURL}/like`, { member });
+        // const likeData = response.data;
+        // const likeArray = [];
+        // likeData.filter((e) => {
+        //   if (e.article_id === props.match.params.id) {
+        //     likeArray.push(id);
+        //   }
+        //   return null;
+        // });
+        // if (!likeArray[0]) {
+        //   setHeartHandle(false);
+        //   $('.recommend-bi-heart-fill').css('color', '#e2e3e1');
+        // } else {
+        //   setHeartHandle(true);
+        //   $('.recommend-bi-heart-fill').css('color', '#cc543a');
+        // }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    recommendData();
+
     // js
     //  about-membership-bubble start
     $('.recommend-see-member').click((e) => {
@@ -53,42 +189,46 @@ function DetailContent(props) {
     $('i').click(function () {
       $(this).toggleClass('active');
     });
+  }, [props.match.params.id, member]);
 
-    // js
+  // 移除收藏功能
+  const deleteHeart = async (e) => {
+    setHeartHandle(false);
+    $(e.currentTarget.firstChild).css('color', '#e2e3e1');
+    await axios.post(`${recommendURL}/deleteLikeArticle`, {
+      likeUserId,
+      likeArticleId,
+    });
+    // console.log('response', response);
 
-    // 連線資料庫
-    async function recommendData() {
-      try {
-        const recommendData = await axios.get(recommendURL);
-        // console.log('recommendData.data', recommendData.data); //for check
-        const totalDetail = recommendData.data;
-        // this.setTotal(totalDetail);
-        // setTotal(totalDetail);
-        // console.log('total', total);
-        // 抓網址id 並將string轉成number
-        // console.log(typeof id);
-        const id = Number(props.match.params.id);
+    // 使用sweetalert2彈跳視窗
+    Swal.fire({
+      icon: 'error',
+      title: '已移除文章',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  };
 
-        // console.log('totalDetail', totalDetail);
-        // console.log('id', id);
+  //加入收藏功能
+  const addHeart = async (e) => {
+    setHeartHandle(true);
+    $(e.currentTarget.firstChild).css('color', '#cc543a');
+    await axios.post(`${recommendURL}/likeArticle`, {
+      likeUserId,
+      likeArticleId,
+      likeArticlePast,
+    });
+    // console.log('response', response);
 
-        // 全部資料用find尋找id一樣的資料
-        const newDetail = totalDetail.find((v) => {
-          return v.id === id;
-        });
-
-        const RecommentCard = totalDetail.filter((v) => {
-          return v.level === newDetail.level;
-        });
-
-        if (newDetail) setDetail(newDetail);
-        if (RecommentCard) setLevelCard(RecommentCard);
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    recommendData();
-  }, [props.match.params.id]);
+    // 使用sweetalert2彈跳視窗
+    Swal.fire({
+      icon: 'success',
+      title: '已加入收藏文章',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  };
 
   return (
     <div>
@@ -117,48 +257,187 @@ function DetailContent(props) {
         <div className="recommend-wrapper">
           <div className="d-flex justify-content-between">
             <h2 className="col-5 recommend-h2">{detail.name}</h2>
-            <div className="col-7 row align-items-center">
+            <div className="col-7 row align-items-center my-1">
               <div className="col-12">
-                <div className="d-flex justify-content-end">
-                  <div className="recommend-starGroup mr-3">
-                    <i className="bi recommend-bi-star-fill">
-                      <BsStarFill></BsStarFill>
-                    </i>
-                    <i className="bi recommend-bi-star-fill">
-                      <BsStarFill></BsStarFill>
-                    </i>
-                    <i className="bi recommend-bi-star-fill">
-                      <BsStarFill></BsStarFill>
-                    </i>
-                    <i className="bi recommend-bi-star-fill">
-                      <BsStarFill></BsStarFill>
-                    </i>
-                    <i className="bi recommend-bi-star-fill">
-                      <BsStarFill></BsStarFill>
-                    </i>
+                <div className="d-flex align-items-center justify-content-end">
+                  <div className="mr-3">
+                    {star === 0 ? (
+                      <>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill mr-1"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>{' '}
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill mr-1"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill mr-1"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill mr-1"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                      </>
+                    ) : (
+                      ''
+                    )}
+                    {star === 1 ? (
+                      <>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill mr-1"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill mr-1"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill mr-1"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                      </>
+                    ) : (
+                      ''
+                    )}
+                    {star === 2 ? (
+                      <>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill mr-1"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill mr-1"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                      </>
+                    ) : (
+                      ''
+                    )}
+                    {star === 3 ? (
+                      <>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill mr-1"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                      </>
+                    ) : (
+                      ''
+                    )}
+                    {star === 4 ? (
+                      <>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill
+                          className="bi recommend-bi-star-fill"
+                          style={{ color: '#e2e3e1' }}
+                        ></BsStarFill>
+                      </>
+                    ) : (
+                      ''
+                    )}
+                    {star === 5 ? (
+                      <>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+                        <BsStarFill className="bi recommend-bi-star-fill"></BsStarFill>
+                      </>
+                    ) : (
+                      ''
+                    )}
                   </div>
-                  <p className="text-primary recommend-body-content mr-3 mt-1">
-                    <img className="mr-2" src={level} alt="" />
+                  <div className="text-primary recommend-body-content mr-3">
+                    {detail.level_name === '低' ? (
+                      <img className="mr-1" src={levelLow} alt="..." />
+                    ) : (
+                      ''
+                    )}
+                    {detail.level_name === '中' ? (
+                      <img className="mr-1" src={levelMiddle} alt="..." />
+                    ) : (
+                      ''
+                    )}
+                    {detail.level_name === '高' ? (
+                      <img className="mr-1" src={levelHigh} alt="..." />
+                    ) : (
+                      ''
+                    )}
                     難度{detail.level_name}
-                  </p>
-                  <p className="text-primary recommend-body-content mt-1">
+                  </div>
+                  <div className="text-primary recommend-body-content">
                     <i className="fas recommend-fa-shoe-prints mr-2">
                       <FaShoePrints size={20}></FaShoePrints>
                     </i>
                     {detail.distance}公里
-                  </p>
+                  </div>
                 </div>
               </div>
               <div className="col-12">
-                <div className="d-flex justify-content-end">
-                  <i className="bi recommend-bi-heart-fill mr-2 ml-auto">
-                    <BsHeartFill></BsHeartFill>
-                  </i>
-                  <p className="recommend-body-content mr-2">加入收藏</p>
-                  <i className="bi recommend-bi-flag-fill mr-2">
-                    <BsFlagFill size={25}></BsFlagFill>
-                  </i>
-                  <p className="mr-2">加入去過路線</p>
+                <div className="d-flex align-items-center justify-content-end">
+                  <div
+                    className="d-flex align-items-center heartbtn"
+                    onClick={(e) => {
+                      if (heartHandle) {
+                        deleteHeart(e);
+                      } else {
+                        addHeart(e);
+                      }
+                    }}
+                    // FIXME:愛心hover
+                    // onMouseEnter={(e) => {
+                    //   console.log(
+                    //     'e.currentTarget.nextElementSibling',
+                    //     e.currentTarget.nextElementSibling
+                    //   );
+                    // }}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <BsHeartFill className="bi recommend-bi-heart-fill mr-1 mt-1"></BsHeartFill>
+                    <div className="recommend-body-content mr-2">加入收藏</div>
+                  </div>
+                  <div
+                    className="d-flex align-items-center"
+                    // onClick={(e) => {
+                    //   if (flgHandle) {
+                    //     deleteFlg(e);
+                    //   } else {
+                    //     addFlg(e);
+                    //   }
+                    // }}
+                  >
+                    <BsFlagFill
+                      className="bi recommend-bi-flag-fill mr-1 mt-1"
+                      size={25}
+                    ></BsFlagFill>
+                    <div className="mr-2">加入去過路線</div>
+                  </div>
                   {/* =========about-membership-bubble start========= */}
                   <div className="recommend-about-membership">
                     <div to="" id="seeMember" className="recommend-see-member">
