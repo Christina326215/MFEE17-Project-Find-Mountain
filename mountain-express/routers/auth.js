@@ -68,8 +68,7 @@ router.post('/register', upload.none(), registerRule, async function (req, res, 
     res.json({})
 })
 
-
-router.post('/login',upload.none(), async (req, res, next) => {
+router.post('/login', upload.none(), async (req, res, next) => {
     // console.log(req.body)
     // - 確認有沒有帳號 (email 是否存在)
     //     - 如果沒有這個帳號，就回覆錯誤(400)
@@ -111,9 +110,10 @@ router.post('/login',upload.none(), async (req, res, next) => {
         isAdmin: false, // 理論上是資料庫要存，但我們假造一下作 demo
     }
     req.session.account = returnAccount
-    console.log('session:',req.session.account);
+    console.log('session:', req.session.account)
     // 回覆給前端
     res.json({
+        id: account.id,
         name: account.name,
     })
 })
@@ -121,25 +121,64 @@ router.post('/login',upload.none(), async (req, res, next) => {
 router.post('/forget', async (req, res, next) => {
     console.log(req.body)
     let result = await connection.queryAsync('SELECT account FROM user WHERE account = ?', [req.body.email])
-    // if (req.body.email === '') {
-    //     res.json('email required')
-    // }
-    if (result.length === 0) {
-        return next({
-            // code: "330002",
-            status: 400,
-            message: '找不到帳號',
-        })
+    if (req.body.email === '') {
+        res.json('email required')
     }
     console.log(req.body.email)
+
+    if (result.account === 0) {
+        // return next({
+        //     // code: "330002",
+        //     status: 400,
+        //     message: '找不到帳號',
+        // })
+        console.log('查無此帳號')
+        res.json('查無此帳號')
+    } else {
+        const token = bcrypt.hash(req.body.password, 10)
+        console.log(token)
+        result.account.update({
+            resetPasswordToken: token,
+            resetPasswordExpires: Date.now() + 60000,
+        })
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                account: `${process.env.EMAIL_ADDRESS}`,
+                pass: `${process.env.EMAIL_PASSWORD}`,
+            },
+        })
+        const mailOptions = {
+            from: `mySqlDemoEmail@gmail.com`,
+            to: `${result.account}`,
+            subject: '重新設定密碼',
+            text:
+                'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+                'Please click on the following link, or paste this into your browser to complete the process within one hour of receiving it:\n\n' +
+                `http://localhost:3031/reset/${token}\n\n` +
+                'If you did not request this, please ignore this email and your password will remain unchanged.\n',
+        }
+        console.log('信件寄出')
+
+        transporter.sendMail(mailOptions, (err, response) => {
+            if (err) {
+                console.error('there was an error: ', err)
+            } else {
+                console.log('here is the res: ', response)
+                res.status(200).json('recovery email sent')
+            }
+        })
+    }
 })
 
 //======= 登出 =======
-router.post('/logout', (req, res) => {
-    req.session.destroy()
-    req.logout()
-    res.redirect('/')
-    // res.json({ message: 'success' })
+// router.post('/logout', (req, res) => {
+//     req.session.destroy()
+//     req.logout()
+//     res.redirect('/')
+// })
+router.post('/logout', (req, res, next) => {
+    req.session.member = null
+    res.sendStatus(202)
 })
-
 module.exports = router
