@@ -38,4 +38,13 @@ router.get("/size-storage/:id/:size", async function (req, res, next) {
   let dbResults = await connection.queryAsync("SELECT * FROM product_size_storage JOIN product ON product_size_storage.product_id = product.id WHERE product_size_storage.product_id=? and product_size_storage.product_size=?", [req.params.id, req.params.size]); // 等資料庫查詢資料
   res.json(dbResults);
 });
+
+//wish list
+router.post("/wish-list", async function(req, res, next) {
+  let dbResults = await connection.queryAsync("SELECT * FROM user_product WHERE user_id=?", [req.body.id]);
+  console.log('req.body.id', req.body.id);
+  console.log(dbResults);
+  res.json(dbResults);
+})
+
 module.exports = router;

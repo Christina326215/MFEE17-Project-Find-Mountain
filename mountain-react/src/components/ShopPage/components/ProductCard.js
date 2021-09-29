@@ -4,14 +4,15 @@ import { CartFill, HeartFill } from 'react-bootstrap-icons';
 //bootstrap彈出視窗
 import { Modal, Button, Row, Col } from 'react-bootstrap';
 import '../../../styles/product.css';
-import { IMAGE_URL } from '../../../utils/config';
+import { shopURL, IMAGE_URL } from '../../../utils/config';
 import $ from 'jquery';
 import Swal from 'sweetalert2';
 import { useAuth } from '../../../context/auth'; // 取得setCartChange狀態
+import axios from 'axios';
 
 function ProductCard(props) {
   const { productId, price, picture, name, brand, type } = props;
-  const { setCartChange } = useAuth(); // 取得購物車數字狀態
+  const { setCartChange, member } = useAuth(); // 取得購物車數字狀態
   const [show, setShow] = useState(false);
   const [cartNum, setCartNum] = useState(1);
   const [cartSize, setCartSize] = useState('');
@@ -28,38 +29,17 @@ function ProductCard(props) {
   const heartIconClick = function (e) {
     // console.log(e.currentTarget);
     $(e.currentTarget).toggleClass('shopmain-heart-icon-bkg-click');
-    // console.log(productId);
+    console.log('productId, memberId', productId, member.id);
+    async function getWishListData() {
+      try {
+        const wishListData = await axios.post(`${shopURL}/wish-list`, member);
+        console.log('wishListData', wishListData.data);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getWishListData();
   };
-  // const cartIconClick = function () {
-  //   //display none -> block
-  //   // console.log('hi');
-  //   let cartDisplay = $('.cart-num').css('display');
-  //   if (cartDisplay === 'none') {
-  //     $('.cart-num').css('display', 'block');
-  //   }
-  //   // alert("已將商品加入購物車！");
-  //   Swal.fire({
-  //     icon: 'success',
-  //     title: '已將商品加入購物車！',
-  //     showConfirmButton: false,
-  //     timer: 1500,
-  //   });
-  //   //cart-num ++
-  //   let cartNum = parseInt($('.cart-num').text());
-  //   //限制一次加進購物車數量
-  //   if (cartNum >= 10) {
-  //     Swal.fire({
-  //       icon: 'error',
-  //       title: '一次最多只能放入10樣商品喔',
-  //       showConfirmButton: false,
-  //       timer: 1500,
-  //     });
-  //   } else {
-  //     cartNum++;
-  //     $('.cart-num').text(cartNum);
-  //   }
-  // };
-
   //控制modal show or not show
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
