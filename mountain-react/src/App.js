@@ -30,6 +30,7 @@ import ShopCartDetail from './components/ShopCartPage/ShopCartDetail';
 import ShopCartPay from './components/ShopCartPage/ShopCartPay';
 import ShopCartCheck from './components/ShopCartPage/ShopCartCheck';
 import ShopCartFinish from './components/ShopCartPage/ShopCartFinish';
+import ShopCartFinal from './components/ShopCartPage/ShopCartFinal';
 import MemberMapRoute from './components/MemberPage/MemberMapRoute';
 import MemberProductArticle from './components/MemberPage/MemberProductArticle';
 import MemberOrder from './components/MemberPage/MemberOrder';
@@ -57,6 +58,7 @@ function App() {
 
   //=== 彈跳視窗開關 star ===//
   const [show, setShow] = useState(false);
+  console.log('outside-show', show);
   //=== 彈跳視窗開關 end ===//
 
   useEffect(() => {
@@ -75,6 +77,8 @@ function App() {
     }
     getPersonalData();
   }, [show, mapRouteShow]);
+
+  console.log('outside-member', member);
 
   return (
     <AuthContext.Provider
@@ -143,8 +147,11 @@ function App() {
               <Route path="/shoppingcart/step3-check">
                 <ShopCartCheck />
               </Route>
-              <Route path="/shoppingcart/step4-finish">
+              <Route path="/shoppingcart/credit-card-pay">
                 <ShopCartFinish />
+              </Route>
+              <Route path="/shoppingcart/step4-final">
+                <ShopCartFinal />
               </Route>
               <Route path="/outfit">
                 <Outfit />

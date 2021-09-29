@@ -5,6 +5,7 @@ const multer = require("multer");
 const upload = multer();
 
 router.post("", upload.none(), async function (req, res, next) {
+  const moment = require('moment');
   let dbResults = await connection.queryAsync("INSERT INTO user_order SET ?",[{
     ship: req.body.ship, 
     zip_code: req.body.zip_code, 
@@ -12,18 +13,11 @@ router.post("", upload.none(), async function (req, res, next) {
     invoice: req.body.invoice, 
     pay_way: req.body.pay_way, 
     name: req.body.name, 
-    phone: req.body.phone
+    phone: req.body.phone,
+    user_id: req.session.account.id,
+    time: moment().format('YYYY/MM/DD HH:mm:ss')
   }]
   ); 
-
-  // "UPDATE user SET ? WHERE id=?", [{
-  //   name : req.body.name,
-  //   account: req.body.account,
-  //   phone: req.body.phone,
-  //   birthday: req.body.birthday,
-  //   zip_code: req.body.zip_code, 
-  //   addr: req.body.addr
-  // },1]
 
   console.log(dbResults)
 

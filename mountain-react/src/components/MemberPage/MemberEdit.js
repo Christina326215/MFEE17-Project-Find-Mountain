@@ -21,7 +21,6 @@ function MemberEdit(props) {
   const [districts, setDistricts] = useState([]); //各行政區陣列
 
   const { show, setShow } = props;
-  // const handleClose = () => setShow(false);
 
   // 3. 因為不能直接去改動member的資料，需要先設定一個tempMember變數，將由資料庫而來的member放進setTempMember中改變狀態，最後才會把改變後的狀態存進資料庫。
   const [tempMember, setTempMember] = useState(null);
@@ -55,9 +54,7 @@ function MemberEdit(props) {
   useEffect(() => {
     async function getZipGroup() {
       try {
-        const zipGroupRes = await axios.get(zipGroupURL, {
-          withCredentials: true,
-        });
+        const zipGroupRes = await axios.get(zipGroupURL);
         let data = zipGroupRes.data;
         // 6.1 設定 setZipGroup 狀態，取得 group.json 所有資料。
         setZipGroup(data);
@@ -71,9 +68,7 @@ function MemberEdit(props) {
 
     async function getZipCode() {
       try {
-        const zipCodeRes = await axios.get(zipCodeURL, {
-          withCredentials: true,
-        });
+        const zipCodeRes = await axios.get(zipCodeURL);
         let data2 = zipCodeRes.data;
         // 6.3 設定 setZipCode 狀態，取得 code.json 所有資料。
         setZipCode(data2);
@@ -144,6 +139,8 @@ function MemberEdit(props) {
         withCredentials: true,
       });
       console.log(response);
+      setShow(false);
+      console.log('inside-show', show);
     } catch (e) {
       console.error(e.response);
     }
@@ -354,7 +351,6 @@ function MemberEdit(props) {
                     type="submit"
                     className="border-bottom-left-radius my-5 mx-3 text-right btn btn-primary"
                     onClick={() => {
-                      setShow(false);
                       props.history.goBack();
                     }}
                   >

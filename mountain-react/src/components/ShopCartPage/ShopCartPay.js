@@ -28,10 +28,10 @@ function ShopCartPay() {
   // 3.
   const [cartData, setCartData] = useState({
     ship: 1,
-    pay_way: '信用卡付款',
+    pay_way: 1,
     zip_code: null,
     addr: '',
-    invoice: '二聯式發票',
+    invoice: 1,
     name: '',
     phone: '',
   });
@@ -86,6 +86,9 @@ function ShopCartPay() {
   }, []);
 
   useEffect(() => {
+    if (cities === null) {
+      return;
+    }
     if (cartData && zipCode && zipGroup && cities) {
       // 表示上述資料都已經有了！
       if (cartData.zip_code) {
@@ -109,33 +112,13 @@ function ShopCartPay() {
   }, [cartData, zipCode, zipGroup, cities]);
 
   // 自動填入會員收件地址 start //
-  // function checkAutoInputAddr(e) {
-  //   if (
-  //     member &&
-  //     zipCode &&
-  //     document.getElementById('city').value &&
-  //     cartData &&
-  //     document.getElementById('addr').value
-  //   ) {
-  //     if (e.target.checked) {
-  //       document.getElementById('city').value =
-  //         zipCode[member && member.zip_code].city;
-  //       setCartData({ ...cartData, zip_code: member.zip_code });
-  //       document.getElementById('addr').value = member.addr;
-  //       setCartData({
-  //         ...cartData,
-  //         zip_code: member.zip_code,
-  //         addr: member.addr,
-  //       });
-  //     }
-  //   }
-  // }
   function checkAutoInputAddr(e) {
     if (e.target.checked) {
+      // zipCode[cartData.zip_code].city = zipCode[member && member.zip_code].city;
       document.getElementById('city').value =
         zipCode[member && member.zip_code].city;
-      // setCartData({ ...cartData, zip_code: member.zip_code });
       document.getElementById('addr').value = member.addr;
+      // cartData.addr = member.addr;
       setCartData({
         ...cartData,
         zip_code: member.zip_code,
@@ -163,24 +146,12 @@ function ShopCartPay() {
   }
 
   // 自動填入會員姓名及電話 start //
-  // function checkAutoNamePhone(e) {
-  //   if (
-  //     member &&
-  //     document.getElementById('name').value &&
-  //     document.getElementById('phone').value &&
-  //     cartData
-  //   ) {
-  //     if (e.target.checked) {
-  //       document.getElementById('name').value = member.name;
-  //       document.getElementById('phone').value = member.phone;
-  //       setCartData({ ...cartData, name: member.name, phone: member.phone });
-  //     }
-  //   }
-  // }
   function checkAutoNamePhone(e) {
     if (e.target.checked) {
       document.getElementById('name').value = member.name;
       document.getElementById('phone').value = member.phone;
+      // cartData.name = member.name;
+      // cartData.phone = member.phone;
       setCartData({ ...cartData, name: member.name, phone: member.phone });
     }
   }
@@ -461,7 +432,7 @@ function ShopCartPay() {
                       id="addr"
                       placeholder="請輸入路名"
                       name="addr"
-                      // value={cartData && cartData.addr}
+                      value={cartData && cartData.addr}
                       onChange={handleChange}
                     />
                   </div>
@@ -521,9 +492,9 @@ function ShopCartPay() {
                       type="radio"
                       name="invoice"
                       id="duplicateForm"
-                      value="二聯式發票"
+                      value="1"
                       onChange={invoiceChange}
-                      checked={cartData && cartData.invoice == '二聯式發票'}
+                      checked={cartData && cartData.invoice == 1}
                     />
                     <label className="form-check-label" for="duplicateForm">
                       二聯式發票
@@ -535,9 +506,9 @@ function ShopCartPay() {
                       type="radio"
                       name="invoice"
                       id="VATNumber"
-                      value="三聯式發票"
+                      value="2"
                       onChange={invoiceChange}
-                      checked={cartData && cartData.invoice == '三聯式發票'}
+                      checked={cartData && cartData.invoice == 2}
                     />
                     <label className="form-check-label" for="VATNumber">
                       三聯式發票
@@ -555,9 +526,9 @@ function ShopCartPay() {
                       type="radio"
                       name="pay_way"
                       id="creditCard"
-                      value="信用卡付款"
+                      value="1"
                       onChange={payWayChange}
-                      checked={cartData && cartData.pay_way == '信用卡付款'}
+                      checked={cartData && cartData.pay_way == 1}
                     />
                     <label className="form-check-label" for="creditCard">
                       信用卡付款
@@ -569,9 +540,9 @@ function ShopCartPay() {
                       type="radio"
                       name="pay_way"
                       id="homePay"
-                      value="貨到付款"
+                      value="2"
                       onChange={payWayChange}
-                      checked={cartData && cartData.pay_way == '貨到付款'}
+                      checked={cartData && cartData.pay_way == 2}
                     />
                     <label className="form-check-label" for="homePay">
                       貨到付款
@@ -579,12 +550,6 @@ function ShopCartPay() {
                   </div>
                 </div>
               </fieldset>
-              {/* <button
-                type="submit"
-                className="border-bottom-left-radius my-5 mx-3 text-right btn btn-primary"
-              >
-                確定
-              </button> */}
             </form>
 
             {/* <!-- button --> */}
