@@ -70,7 +70,7 @@ function DetailContent(props) {
   // 判斷有沒有收藏過的狀態 true收藏 fasle沒收藏
   const [heartHandle, setHeartHandle] = useState(true);
   // 判斷有沒有去過的狀態
-  // const [flgHandle, setFlgHandle] = useState(true);
+  const [flagHandle, setFlagHandle] = useState(true);
 
   useEffect(() => {
     // FIXME: 沒登入的跳轉頁面 沒登入無法看見文章
@@ -78,7 +78,7 @@ function DetailContent(props) {
     if (member === null) {
       return;
     }
-    console.log('member', member.id); // for check
+    // console.log('member', member.id); // for check
 
     // 連線當頁的資料庫
     async function recommendData() {
@@ -106,19 +106,18 @@ function DetailContent(props) {
         setLikeArticleId(id);
         setLikeArticlePast(id);
 
-        /// 資料庫檢查是否有收藏過此文章
-        // console.log('id', id);
+        /// 資料庫檢查是否有收藏過此文章 heart
         const response = await axios.post(`${recommendURL}/like`, { member });
         const likeData = response.data;
-        console.log('likeData', likeData);
+        // console.log('likeData', likeData);
         const likeArray = [];
         likeData.filter((e) => {
-          if (e.article_id === id) {
+          if (e.article_id == id) {
             likeArray.push(id);
           }
           return null;
         });
-        console.log('likeArray', likeArray);
+        // console.log('likeArray', likeArray);
         if (!likeArray[0]) {
           // console.log('沒收藏');
           setHeartHandle(false);
@@ -129,6 +128,31 @@ function DetailContent(props) {
           // console.log('有收藏');
           setHeartHandle(true);
           $('.recommend-bi-heart-fill').css('color', '#cc543a');
+          // console.log('true');
+        }
+
+        /// 資料庫檢查是否有去過此文章 flag
+        const Past = await axios.post(`${recommendURL}/past`, { member });
+        const pastData = Past.data;
+        // console.log('likeData', likeData);
+        const pastArray = [];
+        pastData.filter((e) => {
+          if (e.article_id_past == id) {
+            pastArray.push(id);
+          }
+          return null;
+        });
+        // console.log('pastArray', pastArray);
+        if (!pastArray[0]) {
+          // console.log('沒去過');
+          setFlagHandle(false);
+          $('.recommend-bi-flag-fill').css('color', '#e2e3e1');
+          // console.log('false');
+        } else {
+          // addHeart();
+          // console.log('有去過');
+          setFlagHandle(true);
+          $('.recommend-bi-flag-fill').css('color', '#ffb943');
           // console.log('true');
         }
       } catch (e) {
@@ -182,7 +206,46 @@ function DetailContent(props) {
     // 使用sweetalert2彈跳視窗
     Swal.fire({
       icon: 'error',
-      title: '已移除文章',
+      title: '已移除收藏文章',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  };
+
+  //加入去過功能
+  const addFlag = async (e) => {
+    setFlagHandle(true);
+    $(e.currentTarget.firstChild).css('color', '#ffb943');
+    await axios.post(`${recommendURL}/addPast`, {
+      likeUserId,
+      likeArticleId,
+      likeArticlePast,
+    });
+    // console.log('response', response);
+
+    // 使用sweetalert2彈跳視窗
+    Swal.fire({
+      icon: 'success',
+      title: '已加入去過路線',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  };
+
+  // 移除去過功能
+  const deleteFlag = async (e) => {
+    setFlagHandle(false);
+    $(e.currentTarget.firstChild).css('color', '#e2e3e1');
+    await axios.post(`${recommendURL}/deletePast`, {
+      likeUserId,
+      likeArticleId,
+    });
+    // console.log('response', response);
+
+    // 使用sweetalert2彈跳視窗
+    Swal.fire({
+      icon: 'error',
+      title: '已移除去過路線',
       showConfirmButton: false,
       timer: 1500,
     });
@@ -368,6 +431,7 @@ function DetailContent(props) {
                         addHeart(e);
                       }
                     }}
+                    style={{ cursor: 'pointer' }}
                     // FIXME:愛心hover
                     // onMouseEnter={(e) => {
                     //   console.log(
@@ -375,20 +439,20 @@ function DetailContent(props) {
                     //     e.currentTarget.nextElementSibling
                     //   );
                     // }}
-                    style={{ cursor: 'pointer' }}
                   >
                     <BsHeartFill className="bi recommend-bi-heart-fill mr-1 mt-1"></BsHeartFill>
                     <div className="recommend-body-content mr-2">加入收藏</div>
                   </div>
                   <div
                     className="d-flex align-items-center"
-                    // onClick={(e) => {
-                    //   if (flgHandle) {
-                    //     deleteFlg(e);
-                    //   } else {
-                    //     addFlg(e);
-                    //   }
-                    // }}
+                    onClick={(e) => {
+                      if (flagHandle) {
+                        deleteFlag(e);
+                      } else {
+                        addFlag(e);
+                      }
+                    }}
+                    style={{ cursor: 'pointer' }}
                   >
                     <BsFlagFill
                       className="bi recommend-bi-flag-fill mr-1 mt-1"

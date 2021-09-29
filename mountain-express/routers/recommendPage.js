@@ -44,10 +44,10 @@ for(let i=1; i<=perData.length; i++){
 });
 
 // 抓取全部星星分數
-router.get('/star', async function (req, res, next) {
-  let starData = await connection.queryAsync('SELECT * FROM article_star ORDER BY article_id') 
-  res.json(starData);
-});
+// router.get('/star', async function (req, res, next) {
+//   let starData = await connection.queryAsync('SELECT * FROM article_star ORDER BY article_id') 
+//   res.json(starData);
+// });
 
 
 // 抓取全部文章收藏資料 user_heart
@@ -81,6 +81,36 @@ router.post('/deleteLikeArticle', async function (req, res, next) {
   })
   // 並刪除此筆資料
   let deleteLikeData = await connection.queryAsync('DELETE FROM user_heart WHERE id=? ',[[result[0].id]]) 
+  res.json(deleteLikeData);
+});
+
+////////////
+
+// user抓取文章去過功能 user_article
+router.post('/past', async function (req, res, next) {
+  let likeData = await connection.queryAsync('SELECT * FROM user_article WHERE user_id = ? ORDER BY id',[[req.body.member.id]]) 
+  // let likeData = await connection.queryAsync('SELECT * FROM user_article ORDER BY id') 
+  res.json(likeData);
+});
+
+// user新增文章去過功能 user_article
+router.post('/addPast', async function (req, res, next) {
+  let likeData = await connection.queryAsync('INSERT INTO user_article (user_id,article_id,article_id_past) VALUES (?);',[[req.body.likeUserId,
+    req.body.likeArticleId,req.body.likeArticlePast]]) 
+  res.json(likeData);
+});
+
+// user刪除文章去過功能 user_article
+router.post('/deletePast', async function (req, res, next) {
+  let Data = await connection.queryAsync('SELECT * FROM user_article ORDER BY id') 
+  const result = Data.filter((e)=>{
+    // 如果userid跟文章id有的話抓取id
+    if(e.user_id == req.body.likeUserId && e.article_id == req.body.likeArticleId){
+      return(e.id)
+    }
+  })
+  // 並刪除此筆資料
+  let deleteLikeData = await connection.queryAsync('DELETE FROM user_article WHERE id=? ',[[result[0].id]]) 
   res.json(deleteLikeData);
 });
 
