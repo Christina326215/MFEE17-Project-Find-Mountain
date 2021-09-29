@@ -431,7 +431,7 @@ function Manual() {
           <div className="container recommend-body">
             <div className="recommend-bg-wrapper">
               <Card result={result}></Card>
-              <div
+              {/* <div
                 className="btn-toolbar justify-content-center"
                 role="toolbar"
                 aria-label="Toolbar with button groups"
@@ -481,7 +481,7 @@ function Manual() {
                     <BsChevronBarRight></BsChevronBarRight>
                   </button>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           <a

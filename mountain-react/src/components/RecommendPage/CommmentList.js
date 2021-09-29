@@ -78,18 +78,18 @@ function CommmentList(props) {
         dislikeValid,
       });
       console.log('dislike', dislike);
+
+      // 使用sweetalert2彈跳視窗
+      Swal.fire({
+        icon: 'success',
+        title: '檢舉提交成功!',
+        text: '管理員會盡快審核此評論',
+        showConfirmButton: false,
+        timer: 1500,
+      });
     } catch (e) {
       console.error(e.response);
     }
-
-    // 使用sweetalert2彈跳視窗
-    Swal.fire({
-      icon: 'success',
-      title: '檢舉提交成功!',
-      text: '管理員會盡快審核此評論',
-      showConfirmButton: false,
-      timer: 1500,
-    });
   };
 
   return (

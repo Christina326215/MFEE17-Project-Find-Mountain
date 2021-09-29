@@ -8,6 +8,8 @@ import { articlecommentURL } from '../../utils/config';
 import CommmentList from './CommmentList';
 import slothBig from '../../img/article-img/sloth_big.svg';
 import slothSmall from '../../img/article-img/sloth_small.svg';
+// 使用sweetalert2彈跳視窗
+import Swal from 'sweetalert2';
 // import $ from 'jquery';
 import { Button, Modal } from 'react-bootstrap';
 // import { IMAGE_URL } from '../../utils/config';
@@ -19,7 +21,13 @@ import {
   BsPlusSquare,
 } from 'react-icons/bs';
 
+//====== below catch member info star ======//
+import { useAuth } from '../../context/auth';
+//====== below catch member info end ======//
+
 function Comment(props) {
+  // 登入會員狀態
+  const { member } = useAuth();
   // 文章資料
   const { detail } = props;
   const { id } = useParams();
@@ -42,7 +50,7 @@ function Comment(props) {
     },
   ]);
   // 新增評論欄位
-  const [userID, setUserID] = useState('3');
+  const [userID, setUserID] = useState('');
   const [articleID, setArticleID] = useState(id);
   const [content, setContent] = useState('');
   const [pic, setPic] = useState('');
@@ -81,6 +89,15 @@ function Comment(props) {
       let response = await axios.post(`${articlecommentURL}/insert`, formData);
       console.log('response', response);
       setShow(false); // 關閉彈跳視窗
+
+      // 使用sweetalert2彈跳視窗
+      Swal.fire({
+        icon: 'success',
+        title: '評論新增成功!',
+        // text: '管理員會盡快審核此評論',
+        showConfirmButton: false,
+        timer: 1500,
+      });
     } catch (e) {
       console.error(e.response);
     }
@@ -88,6 +105,13 @@ function Comment(props) {
 
   // 評論資料連線
   useEffect(() => {
+    // FIXME: 沒登入的跳轉頁面
+    // 判斷是否有登入 有登入才繼續執行下面動作!!
+    if (member === null) {
+      return;
+    }
+    // console.log('member.id', member.id);
+    setUserID(member.id);
     async function commentData() {
       try {
         const commentData = await axios.get(articlecommentURL);
@@ -105,7 +129,7 @@ function Comment(props) {
       }
     }
     commentData();
-  }, [props.match.params.id, show]);
+  }, [props.match.params.id, show, member]);
 
   return (
     <div>
@@ -184,10 +208,10 @@ function Comment(props) {
                               className="form-control"
                               id="userID"
                               value={userID}
-                              onChange={(e) => {
-                                setUserID(e.target.value);
-                              }}
-                              disabled
+                              // onChange={(e) => {
+                              //   setUserID(e.target.value);
+                              // }}
+                              readOnly
                             />
                           </div>
                           <div className="form-group">

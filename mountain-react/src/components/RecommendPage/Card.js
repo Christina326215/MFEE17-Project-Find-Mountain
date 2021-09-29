@@ -11,16 +11,15 @@ import axios from 'axios';
 import { recommendURL } from '../../utils/config';
 import { IMAGE_URL } from '../../utils/config';
 import DetailContent from './DetailContent';
-
-//====== below 星星評分 star ======//
-// import ReactStars from 'react-rating-stars-component';
-//====== above 星星評分 star ======//
+import PagesBtn from '../PagesBtn'; //分頁按鈕
+// import { useAuth } from '../../context/auth'; // 取得會員資料
 
 //====== below catch member info star ======//
 // import { useAuth } from '../../context/auth';
 //====== below catch member info end ======//
 
 function Card(props) {
+  // const { page, setPage, totalPage, setTotalPage } = useAuth(); // 取得會員資料
   // 篩選結果
   const { result } = props;
   const length = result.length;
@@ -221,6 +220,9 @@ function Card(props) {
           </div>
         );
       })}
+      {/* <!-- 分頁 start  --> */}
+      <PagesBtn />
+      {/* <!-- 分頁 end  --> */}
     </div>
   );
 }
