@@ -52,7 +52,8 @@ function MemberMapRoute() {
       try {
         console.log('star:', star); //for check
         console.log('star memberID:', member); //for check
-        const starData = await axios.post(memberRouteURL + '/catchStar', {
+        // const starData =
+        await axios.post(memberRouteURL + '/catchStar', {
           member,
           star,
         });
@@ -71,9 +72,9 @@ function MemberMapRoute() {
     }
     async function getRouteData() {
       try {
-        console.log('memberID:', member); //for check
+        // console.log('memberID:', member); //for check
         const RouteData = await axios.post(memberRouteURL, member);
-        console.log('RouteData:', RouteData.data.result); //for check
+        // console.log('RouteData:', RouteData.data.result); //for check
         setData(RouteData.data.result);
         setInfo(RouteData.data.totalInfo);
       } catch (e) {
@@ -282,7 +283,7 @@ function MemberMapRoute() {
                         <th scope="col-3"></th>
                         <th scope="col-5"></th>
                         <th scope="col-2">
-                          {/* 給新舊會員選擇去過路線 */}
+                          {/* 給新(舊)會員選擇去過路線 */}
                           <MemberMapAddRoute show={show} setShow={setShow} />
                         </th>
                       </tr>
