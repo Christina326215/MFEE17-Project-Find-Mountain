@@ -22,7 +22,7 @@ import { BsCheck } from 'react-icons/bs';
 //====== above img import end ======//
 
 function ShopCartCheck() {
-  const { pay } = useAuth(); // 取得會員資料
+  const { pay, member } = useAuth(); // 取得會員資料
   console.log('pay', pay);
 
   //shopCartData為購物車local storage接完資料庫的整體一筆一筆的資料
@@ -125,10 +125,9 @@ function ShopCartCheck() {
       formData.append('name', pay.name);
       formData.append('phone', pay.phone);
       formData.append('time', moment().format('YYYY/MM/DD HH:mm:ss'));
-      let response = await axios.post(`${shopcartPayURL}`, formData, {
-        withCredentials: true,
-      });
-      console.log(response);
+      formData.append('user_id', member.id);
+      let response = await axios.post(`${shopcartPayURL}`, formData);
+      console.log('submit:', response);
     } catch (e) {
       console.error(e.response);
     }

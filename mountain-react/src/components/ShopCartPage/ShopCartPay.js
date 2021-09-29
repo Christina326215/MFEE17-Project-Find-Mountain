@@ -86,6 +86,9 @@ function ShopCartPay() {
   }, []);
 
   useEffect(() => {
+    // if (cities === null || cities[0] === null || cities[0][0] === null) {
+    //   return;
+    // }
     if (cities === null) {
       return;
     }
@@ -113,6 +116,9 @@ function ShopCartPay() {
 
   // 自動填入會員收件地址 start //
   function checkAutoInputAddr(e) {
+    if (document.getElementById('city').value === null) {
+      return;
+    }
     if (e.target.checked) {
       // zipCode[cartData.zip_code].city = zipCode[member && member.zip_code].city;
       document.getElementById('city').value =
