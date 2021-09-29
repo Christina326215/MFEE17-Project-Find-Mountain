@@ -28,4 +28,14 @@ router.get("/product-detail/:id", async function (req, res, next) {
   res.json(dbResults);
 });
 
+router.get("/product-detail/level/:level", async function (req, res, next) {
+  let dbResults = await connection.queryAsync("SELECT * FROM product JOIN product_brand_name ON product.id = product_brand_name.id WHERE product.level=?", [req.params.level]); // 等資料庫查詢資料
+  
+  res.json(dbResults);
+});
+
+router.get("/size-storage/:id/:size", async function (req, res, next) {
+  let dbResults = await connection.queryAsync("SELECT * FROM product_size_storage JOIN product ON product_size_storage.product_id = product.id WHERE product_size_storage.product_id=? and product_size_storage.product_size=?", [req.params.id, req.params.size]); // 等資料庫查詢資料
+  res.json(dbResults);
+});
 module.exports = router;

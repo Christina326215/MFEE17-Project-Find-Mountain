@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import '../../styles/productbag.css';
 import ProductCard from './components/ProductCard';
 //api s
