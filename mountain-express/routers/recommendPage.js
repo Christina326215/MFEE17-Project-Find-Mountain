@@ -2,12 +2,12 @@ const express = require('express')
 const router = express.Router()
 const connection = require('../utils/db')
 
+// 包含平均星星分數得所有文章資料
 router.get('/', async function (req, res, next) {
     // let dbResults = await connection.queryAsync("SELECT article.*, article_status.name AS status_name, article_level.name AS level_name, article_mountain_type.name AS mountain_type_name ,article_apply.name AS apply_name FROM article JOIN article_status ON article.status = article_status.id JOIN article_level ON article.level = article_level.id JOIN article_mountain_type ON article.mountain_type = article_mountain_type.id JOIN article_apply ON article.apply = article_apply.id ORDER BY article.id"); // 等資料庫查詢資料
     let dbResults = await connection.queryAsync(
         'SELECT article.*, article_status.name AS status_name, article_level.name AS level_name, article_mountain_type.name AS mountain_type_name ,article_apply.name AS apply_name FROM article JOIN article_status ON article.status = article_status.id JOIN article_level ON article.level = article_level.id JOIN article_mountain_type ON article.mountain_type = article_mountain_type.id JOIN article_apply ON article.apply = article_apply.id ORDER BY article.id'
     ) // 等資料庫查詢資料
-
   let perData = dbResults.map((item, index) => {
     item.season = item.season.replace('1', '春季');
     item.season = item.season.replace('2', '夏季');
@@ -15,63 +15,31 @@ router.get('/', async function (req, res, next) {
     item.season = item.season.replace('4', '冬季');
     return item;
   })
-
-  let starData = await connection.queryAsync('SELECT * FROM article_star WHERE article_id =1 ORDER BY article_id') 
-   //計算星星平均分數
-   let stararray = [];
-   console.log("starData",starData);
-   for(let i=0;i<starData.length;i++){
-    stararray.push(starData[i].star_grade)
-   }
-  
-   console.log("stararray",stararray);
-   const totalstar = stararray.reduce((acc, cur) => {
-    return acc + cur;
-  });
-  console.log("totalstar",totalstar);
-  const average = Math.round(totalstar/stararray.length)
-  console.log("average",average);
-
-  //
-  // dbResults.average
-
-  //全部去過文章裡如果跟去過後有評分的文章id一樣時，將星星塞進去
-  perData.map((data) => {
-    // console.log("data.id",data.id);
-    if(data.id == 1){
-      data.average = average
-    }
-  });
-
-  ////
-// let dbResults = await connection.queryAsync(
-//   'SELECT article.*, article_status.name AS status_name, article_level.name AS level_name, article_mountain_type.name AS mountain_type_name ,article_apply.name AS apply_name FROM article JOIN article_status ON article.status = article_status.id JOIN article_level ON article.level = article_level.id JOIN article_mountain_type ON article.mountain_type = article_mountain_type.id JOIN article_apply ON article.apply = article_apply.id ORDER BY article.id'
-// ) // 等資料庫查詢資料
-
+// join每個星星評分
 let joinResults = await connection.queryAsync(
   'SELECT article.*, article_status.name AS status_name, article_level.name AS level_name, article_mountain_type.name AS mountain_type_name ,article_apply.name AS apply_name, article_star.star_grade AS star_grade FROM article JOIN article_status ON article.status = article_status.id JOIN article_level ON article.level = article_level.id JOIN article_mountain_type ON article.mountain_type = article_mountain_type.id JOIN article_apply ON article.apply = article_apply.id JOIN article_star ON article.id = article_star.article_id ORDER BY article.id'
 )
-//FIXME:i最大長度為文章篇數
-for(let i=1; i<=9; i++){
+// perData的迴圈
+for(let i=1; i<=perData.length; i++){
   var gradeArr=[];
+  // join每個星星評分的迴圈
   for(let j=0; j<joinResults.length; j++){
     if(joinResults[j].id === i){
       // console.log('ij', i, joinResults[j]);
+      // 根據文id將平分的星星變成陣列 i gradeArr 1 [ 4, 5, 4, 5, 3 ]
       gradeArr.push(joinResults[j].star_grade);
     }
   }
-  console.log('i gradeArr',i , gradeArr);
+  // console.log('第i篇文章 的星星陣列gradeArr',i , gradeArr);
   const joinTotal = gradeArr.reduce((acc, cur) => {
     return acc + cur;
   });
-  // console.log('joinTotal', joinTotal);
   const joinAverage = Math.round(joinTotal/gradeArr.length);
-  console.log('joinAverage', joinAverage);
+  //
+  // console.log(' i joinAverage',i , joinAverage);
   //FIXME:只有全部文章都有評分資料時才能用
   perData[(i-1)].average = joinAverage;
 }
-
-
   res.json(perData);
 });
 

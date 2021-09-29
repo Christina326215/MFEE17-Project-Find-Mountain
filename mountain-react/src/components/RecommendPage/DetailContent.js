@@ -23,9 +23,6 @@ import { useAuth } from '../../context/auth';
 //====== below catch member info end ======//
 
 function DetailContent(props) {
-  // const { star, setStar } = props;
-  // 當頁文章星星評分
-  const [star, setStar] = useState(0);
   // 登入會員狀態
   const { member } = useAuth(); // 把 member 從 useContext中拿出來
   // {account: "lily516liu@gmail.com"
@@ -76,10 +73,6 @@ function DetailContent(props) {
   // const [flgHandle, setFlgHandle] = useState(true);
 
   useEffect(() => {
-    // 判斷是否有登入 有登入才繼續
-    if (member === null) {
-      return;
-    }
     // console.log('member', member.id); // for check
 
     // 連線當頁的資料庫
@@ -94,6 +87,7 @@ function DetailContent(props) {
         const newDetail = totalDetail.find((v) => {
           return v.id === id;
         });
+        // FIXME:沒有評分會看不到文章
         if (newDetail) setDetail(newDetail);
 
         // 推薦同等級文章
@@ -102,33 +96,16 @@ function DetailContent(props) {
         });
         if (RecommentCard) setLevelCard(RecommentCard);
 
-        // 全部文章星星資料
-        const totalStarData = await axios.get(`${recommendURL}/star`);
-        const starData = totalStarData.data;
-        // 當篇文章星星資料
-        //計算星星平均分數
-        let stararray = [];
-        starData.filter((e) => {
-          if (e.article_id === id) {
-            stararray.push(e.star_grade);
-          }
-          return null;
-        });
-        // console.log('stararray', stararray);
-        const total = stararray.reduce((acc, cur) => {
-          return acc + cur;
-        });
-
-        // console.log('tota/l', total);
-        // 分數四捨五入
-        let starResult = Math.round(total / stararray.length);
-        // console.log('starResult', starResult);
-        setStar(starResult);
-
-        // FIXME:帶入使用者ID
+        // 帶入使用者ID
         setLikeUserId(member.id);
         setLikeArticleId(id);
         setLikeArticlePast(id);
+
+        // FIXME: 沒登入的跳轉頁面
+        // 判斷是否有登入 有登入才繼續執行下面動作!!
+        if (member === null) {
+          return;
+        }
 
         /// 資料庫檢查是否有收藏過此文章
         // console.log('id', id);
@@ -261,7 +238,7 @@ function DetailContent(props) {
               <div className="col-12">
                 <div className="d-flex align-items-center justify-content-end">
                   <div className="mr-3">
-                    {star === 0 ? (
+                    {!detail.average || detail.average === 0 ? (
                       <>
                         <BsStarFill
                           className="bi recommend-bi-star-fill mr-1"
@@ -287,7 +264,7 @@ function DetailContent(props) {
                     ) : (
                       ''
                     )}
-                    {star === 1 ? (
+                    {detail.average === 1 ? (
                       <>
                         <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
                         <BsStarFill
@@ -310,7 +287,7 @@ function DetailContent(props) {
                     ) : (
                       ''
                     )}
-                    {star === 2 ? (
+                    {detail.average === 2 ? (
                       <>
                         <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
                         <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
@@ -330,7 +307,7 @@ function DetailContent(props) {
                     ) : (
                       ''
                     )}
-                    {star === 3 ? (
+                    {detail.average === 3 ? (
                       <>
                         <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
                         <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
@@ -347,7 +324,7 @@ function DetailContent(props) {
                     ) : (
                       ''
                     )}
-                    {star === 4 ? (
+                    {detail.average === 4 ? (
                       <>
                         <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
                         <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
@@ -361,7 +338,7 @@ function DetailContent(props) {
                     ) : (
                       ''
                     )}
-                    {star === 5 ? (
+                    {detail.average === 5 ? (
                       <>
                         <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
                         <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>

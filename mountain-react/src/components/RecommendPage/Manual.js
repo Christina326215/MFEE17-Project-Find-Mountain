@@ -48,8 +48,6 @@ function Manual() {
   const [time, setTime] = useState([]);
   // 1 步道種類tag篩選
   const [mtype, setType] = useState([]);
-  // 當頁文章星星評分
-  const [star, setStar] = useState(0);
 
   //資料庫連線
   useEffect(() => {
@@ -432,7 +430,7 @@ function Manual() {
         <div className="recommend-filter">
           <div className="container recommend-body">
             <div className="recommend-bg-wrapper">
-              <Card result={result} star={star} setStar={setStar}></Card>
+              <Card result={result}></Card>
               <div
                 className="btn-toolbar justify-content-center"
                 role="toolbar"
