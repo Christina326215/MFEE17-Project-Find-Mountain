@@ -83,8 +83,8 @@ function DetailContent(props) {
   //   setLikeUserId(member.id);
   // }, [member]);
 
-  console.log('member', member);
-  console.log('auth', auth);
+  console.log('外面member', member);
+  // console.log('auth', auth);
 
   useEffect(() => {
     // FIXME: 沒登入的跳轉頁面 沒登入無法看見文章
@@ -125,8 +125,13 @@ function DetailContent(props) {
         setLikeArticleId(id);
         setLikeArticlePast(id);
 
+        // console.log('裡面member', member); // for check
         // 判斷user是否有登入 有登入才帶入使用者ID 繼續執行下面動作!!
         if (member === null) {
+          setHeartHandle(false);
+          setFlagHandle(false);
+          $('.recommend-bi-heart-fill').css('color', '#e2e3e1');
+          $('.recommend-bi-flag-fill').css('color', '#e2e3e1');
           return;
         }
         // console.log('member', member.id); // for check
@@ -186,7 +191,7 @@ function DetailContent(props) {
       }
     }
     recommendData();
-  }, [props.match.params.id, member, auth]);
+  }, [props.match.params.id, member]);
 
   //加入收藏功能
   const addHeart = async (e) => {
