@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
   },
   // 設定儲存名稱
   filename: function (req, file, cb) {
-    console.log(file);
+    // console.log(file);
     const ext = file.originalname.split(".").pop();
     // cb(null, 新名字)
     cb(null, `comment-${Date.now()}.${ext}`);
@@ -57,9 +57,9 @@ router.post("/insert", uploader.single("pic") , async function (req, res, next) 
   // 用validateResult韓式接住req
   // const validateResult = validationResult(req);
   // console.log("validateResult",validateResult);
-  console.log("req.body",req.body);
-  console.log("req.body.userID",req.body.userID);
-  console.log("req.file",req.file);
+  // console.log("req.body",req.body);
+  // console.log("req.body.userID",req.body.userID);
+  // console.log("req.file",req.file);
   // 設定圖片存進mysql資料庫的檔案位置 要儲存 uploads/member-1631240809142.jpg
   let filename = req.file ? req.file.filename : "";
   let time = new Date();

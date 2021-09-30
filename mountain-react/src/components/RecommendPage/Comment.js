@@ -59,16 +59,28 @@ function Comment(props) {
   const handleClose = () => setShow(false);
   // const handleShow = () => setShow(true);
   const handleShow = () => {
-    setShow(true);
-    // 重新點擊新增評論 資料清空...
-    // setUserID('');
-    setContent('');
-    setPic('');
-    setFileSrc('請選擇檔案');
+    if (member === null) {
+      // 使用sweetalert2彈跳視窗
+      Swal.fire({
+        icon: 'warning',
+        title: '需要先登入才能新增評論',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else {
+      setShow(true);
+      // 重新點擊新增評論 資料清空...
+      // setUserID('');
+      setContent('');
+      setPic('');
+      setFileSrc('請選擇檔案');
+    }
   };
 
   // 新增評論資料庫
   const InsertComment = async (e) => {
+    // console.log('member.id', member.id);
+    setUserID(member.id);
     // 評論資料驗證
     if (content === '') {
       $('.contentVal').show();
@@ -128,12 +140,6 @@ function Comment(props) {
   // 評論資料連線
   useEffect(() => {
     // FIXME: 沒登入的跳轉頁面
-    // 判斷是否有登入 有登入才繼續執行下面動作!!
-    if (member === null) {
-      return;
-    }
-    // console.log('member.id', member.id);
-    setUserID(member.id);
     async function commentData() {
       try {
         const commentData = await axios.get(articlecommentURL);
@@ -151,7 +157,7 @@ function Comment(props) {
       }
     }
     commentData();
-  }, [props.match.params.id, show, member]);
+  }, [props.match.params.id, show]);
 
   return (
     <div>

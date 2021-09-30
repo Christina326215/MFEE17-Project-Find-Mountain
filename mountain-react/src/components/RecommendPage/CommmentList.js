@@ -7,11 +7,17 @@ import { useState } from 'react';
 import { articlecommentURL } from '../../utils/config';
 import $ from 'jquery';
 
+//====== below catch member info star ======//
+import { useAuth } from '../../context/auth';
+//====== below catch member info end ======//
+
 // 使用sweetalert2彈跳視窗
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
 function CommmentList(props) {
+  // 登入會員狀態
+  const { member } = useAuth();
   // 評論資料
   const { comment } = props;
   // 檢舉modal
@@ -36,20 +42,30 @@ function CommmentList(props) {
 
   // 檢舉彈跳視窗
   const dislike = (e) => {
-    setShow(true);
-    setDislikeReason('');
-    const dislikeId = parseInt(e.target.id);
-    // console.log('dislikeId', dislikeId);
-    const dislike = comment.filter((v, i) => {
-      return v.id === dislikeId;
-    });
-    const content = dislike[0];
-    console.log('content', content);
-    setDislikeContent(content);
-    console.log('dislikeContent', dislikeContent);
-    setCommentId(content.id);
-    setDislikeStatus('3');
-    setDislikeValid('1');
+    if (member === null) {
+      // 使用sweetalert2彈跳視窗
+      Swal.fire({
+        icon: 'warning',
+        title: '需要先登入才能檢舉評論',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else {
+      setShow(true);
+      setDislikeReason('');
+      const dislikeId = parseInt(e.target.id);
+      // console.log('dislikeId', dislikeId);
+      const dislike = comment.filter((v, i) => {
+        return v.id === dislikeId;
+      });
+      const content = dislike[0];
+      console.log('content', content);
+      setDislikeContent(content);
+      console.log('dislikeContent', dislikeContent);
+      setCommentId(content.id);
+      setDislikeStatus('3');
+      setDislikeValid('1');
+    }
   };
 
   // 檢舉送出資料給後端
