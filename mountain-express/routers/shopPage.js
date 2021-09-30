@@ -90,4 +90,9 @@ router.get("/ranking", async function (req, res, next) {
   res.json(newResults);
 });
 
+router.get("/selected-items", async function(req, res, next){
+  let dbResults = await connection.queryAsync("SELECT * FROM product JOIN product_brand_name ON product.id = product_brand_name.id WHERE product.status=3"); 
+  res.json(dbResults);
+})
+
 module.exports = router;
