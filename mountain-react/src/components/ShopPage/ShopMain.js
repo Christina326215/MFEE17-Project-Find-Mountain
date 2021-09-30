@@ -7,12 +7,8 @@ import '../../../node_modules/slick-carousel/slick/slick-theme.css';
 // import 'slick-carousel';
 import Swal from 'sweetalert2';
 import '../../styles/product.css';
-import {
-  CaretLeftFill,
-  CaretRightFill,
-  CartFill,
-  HeartFill,
-} from 'react-bootstrap-icons';
+import RankingItems from './components/RankingItems';
+import { CartFill, HeartFill } from 'react-bootstrap-icons';
 //api s
 import axios from 'axios';
 import { shopURL } from '../../utils/config';
@@ -24,11 +20,7 @@ import display3 from '../../img/display-photo3.jpeg';
 import bagsPic2 from '../../img/product-img/bags-pic2.jpeg';
 import bagsPic8 from '../../img/product-img/bags-pic8.jpeg';
 import shoesPic8 from '../../img/product-img/shoes-pic8.jpeg';
-import shoesPic1 from '../../img/product-img/shoes-pic1.jpeg';
 import clothesPic5 from '../../img/product-img/clothes-pic5.jpeg';
-import clothesPic8 from '../../img/product-img/clothes-pic8v2.png';
-import clothesPic4 from '../../img/product-img/clothes-pic4.jpeg';
-import bagsPic6 from '../../img/product-img/bags-pic6.png';
 import xiangshan from '../../img/article-img/xiangshan.jpeg';
 import Yangmingshan from '../../img/article-img/Yangmingshan.jpeg';
 import Tapachien from '../../img/article-img/Tapachien.jpeg';
@@ -53,41 +45,6 @@ function ShopMain(props) {
       speed: 300,
       autoplay: true,
       autoplaySpeed: 3500,
-    });
-    $('.shopmain-product-slider').slick({
-      dots: true,
-      speed: 300,
-      slidesToShow: 4,
-      slidesToScroll: 4,
-      autoplay: true,
-      autoplaySpeed: 3500,
-      nextArrow: $('.shopmain-next'),
-      prevArrow: $('.shopmain-prev'),
-      responsive: [
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 3,
-            infinite: true,
-            dots: true,
-          },
-        },
-        {
-          breakpoint: 753,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2,
-          },
-        },
-        {
-          breakpoint: 480,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-          },
-        },
-      ],
     });
     $('.shopmain-heart-icon-bkg').on('click', function () {
       $(this).toggleClass('shopmain-heart-icon-bkg-click');
@@ -317,224 +274,7 @@ function ShopMain(props) {
           </div>
           {/* <!-- =========編輯嚴選 end========= --> */}
           {/* <!-- =========熱銷不敗(本月暢銷排行) start========= --> */}
-          <div>
-            <div className="position-relative shopmain-title-box">
-              <h3 className="shopmain-selected-title text-center">
-                熱銷不敗(本月暢銷排行)
-              </h3>
-              <div className="shopmain-title-underline position-absolute"></div>
-            </div>
-            <div className="shopmain-product-list my-4 position-relative">
-              <Link
-                to="#/"
-                className="position-absolute shopmain-slider-arrows-left text-center shopmain-prev"
-              >
-                {/* <i className="bi bi-chevron-left"></i> */}
-                <CaretLeftFill className="shopmain-slider-arrows-left-height" />
-              </Link>
-              <Link
-                to="#/"
-                className="position-absolute shopmain-slider-arrows-right text-center shopmain-next"
-              >
-                {/* <i className="bi bi-chevron-right"></i> */}
-                <CaretRightFill className="shopmain-slider-arrows-right-height" />
-              </Link>
-              <div className="shopmain-product-slider row">
-                <div className="col-3 px-0">
-                  <div className="shopmain-product-card">
-                    <div className="shopmain-product-img-box position-relative">
-                      <Link to={`/shop/product-detail/26`} id={26}>
-                        <img
-                          className="shopmain-cover-fit"
-                          src={clothesPic8}
-                          alt="The North Face Summit L5 FUTURELIGHT"
-                          title="The North Face Summit L5 FUTURELIGHT"
-                        />
-                      </Link>
-                      <button className="position-absolute shopmain-heart-icon-bkg position-relative">
-                        <HeartFill className="position-absolute shopmain-heart-icon" />
-                      </button>
-                      <button className="position-absolute shopmain-cart-icon-bkg position-relative">
-                        <CartFill className="position-absolute shopmain-cart-icon" />
-                      </button>
-                    </div>
-                    <Link
-                      to={`/shop/product-detail/26`}
-                      id={26}
-                      className="text-left shopmain-product-name"
-                    >
-                      The North Face
-                      <br />
-                      Summit L5 FUTURELIGHT
-                    </Link>
-                    <p className="text-right shopmain-product-price">
-                      NT $18,200
-                    </p>
-                  </div>
-                </div>
-                <div className="col-3 px-0">
-                  <div className="shopmain-product-card">
-                    <div className="shopmain-product-img-box position-relative">
-                      <Link to={`/shop/product-detail/22`} id={22}>
-                        <img
-                          className="shopmain-cover-fit"
-                          src={clothesPic4}
-                          alt="Arcteryx 始祖鳥 Cerium SV 保暖羽絨連帽外套"
-                          title="Arcteryx 始祖鳥 Cerium SV 保暖羽絨連帽外套"
-                        />
-                      </Link>
-                      <button className="position-absolute shopmain-heart-icon-bkg position-relative">
-                        <HeartFill className="position-absolute shopmain-heart-icon" />
-                      </button>
-                      <button className="position-absolute shopmain-cart-icon-bkg position-relative">
-                        <CartFill className="position-absolute shopmain-cart-icon" />
-                      </button>
-                    </div>
-                    <Link
-                      to={`/shop/product-detail/22`}
-                      id={22}
-                      className="text-left shopmain-product-name"
-                    >
-                      Arcteryx 始祖鳥
-                      <br />
-                      Cerium SV 保暖羽絨連帽外套
-                    </Link>
-                    <p className="text-right shopmain-product-price">
-                      NT $8,380
-                    </p>
-                  </div>
-                </div>
-                <div className="col-3 px-0">
-                  <div className="shopmain-product-card">
-                    <div className="shopmain-product-img-box position-relative">
-                      <Link to={`/shop/product-detail/15`} id={15}>
-                        <img
-                          className="shopmain-cover-fit"
-                          src={bagsPic6}
-                          alt="Arcteryx 始祖鳥 徒步背包 Brize 32"
-                          title="Arcteryx 始祖鳥 徒步背包 Brize 32"
-                        />
-                      </Link>
-                      <button className="position-absolute shopmain-heart-icon-bkg position-relative">
-                        <HeartFill className="position-absolute shopmain-heart-icon" />
-                      </button>
-                      <button className="position-absolute shopmain-cart-icon-bkg position-relative">
-                        <CartFill className="position-absolute shopmain-cart-icon" />
-                      </button>
-                    </div>
-                    <Link
-                      to={`/shop/product-detail/15`}
-                      id={15}
-                      className="text-left shopmain-product-name"
-                    >
-                      Arcteryx 始祖鳥
-                      <br />
-                      徒步背包 Brize 32
-                    </Link>
-                    <p className="text-right shopmain-product-price">
-                      NT $8,341
-                    </p>
-                  </div>
-                </div>
-                <div className="col-3 px-0">
-                  <div className="shopmain-product-card">
-                    <div className="shopmain-product-img-box position-relative">
-                      <Link to={`/shop/product-detail/1`} id={1}>
-                        <img
-                          className="shopmain-cover-fit"
-                          src={shoesPic1}
-                          alt="MERRELL Tetrex Crest Wrap 女水陸三棲鞋"
-                          title="MERRELL Tetrex Crest Wrap 女水陸三棲鞋"
-                        />
-                      </Link>
-                      <button className="position-absolute shopmain-heart-icon-bkg position-relative">
-                        <HeartFill className="position-absolute shopmain-heart-icon" />
-                      </button>
-                      <button className="position-absolute shopmain-cart-icon-bkg position-relative">
-                        <CartFill className="position-absolute shopmain-cart-icon" />
-                      </button>
-                    </div>
-                    <Link
-                      to={`/shop/product-detail/1`}
-                      id={1}
-                      className="text-left shopmain-product-name"
-                    >
-                      MERRELL Tetrex Crest Wrap
-                      <br />
-                      女水陸三棲鞋
-                    </Link>
-                    <p className="text-right shopmain-product-price">
-                      NT $2,680
-                    </p>
-                  </div>
-                </div>
-                <div className="col-3 px-0">
-                  <div className="shopmain-product-card">
-                    <div className="shopmain-product-img-box position-relative">
-                      <Link to={`/shop/product-detail/23`} id={23}>
-                        <img
-                          className="shopmain-cover-fit"
-                          src={clothesPic5}
-                          alt="The North Face 戶外保暖羽絨外套"
-                          title="The North Face 戶外保暖羽絨外套"
-                        />
-                      </Link>
-                      <button className="position-absolute shopmain-heart-icon-bkg position-relative">
-                        <HeartFill className="position-absolute shopmain-heart-icon" />
-                      </button>
-                      <button className="position-absolute shopmain-cart-icon-bkg position-relative">
-                        <CartFill className="position-absolute shopmain-cart-icon" />
-                      </button>
-                    </div>
-                    <Link
-                      to={`/shop/product-detail/23`}
-                      id={23}
-                      className="text-left shopmain-product-name"
-                    >
-                      The North Face
-                      <br />
-                      戶外保暖羽絨外套
-                    </Link>
-                    <p className="text-right shopmain-product-price">
-                      NT $8,310
-                    </p>
-                  </div>
-                </div>
-                <div className="col-3 px-0">
-                  <div className="shopmain-product-card">
-                    <div className="shopmain-product-img-box position-relative">
-                      <Link to={`/shop/product-detail/11`} id={11}>
-                        <img
-                          className="shopmain-cover-fit"
-                          src={bagsPic2}
-                          alt="The North Face 黑灰色休閒後背包"
-                          title="The North Face 黑灰色休閒後背包"
-                        />
-                      </Link>
-                      <button className="position-absolute shopmain-heart-icon-bkg position-relative">
-                        <HeartFill className="position-absolute shopmain-heart-icon" />
-                      </button>
-                      <button className="position-absolute shopmain-cart-icon-bkg position-relative">
-                        <CartFill className="position-absolute shopmain-cart-icon" />
-                      </button>
-                    </div>
-                    <Link
-                      to={`/shop/product-detail/11`}
-                      id={11}
-                      className="text-left shopmain-product-name"
-                    >
-                      The North Face
-                      <br />
-                      黑灰色休閒後背包
-                    </Link>
-                    <p className="text-right shopmain-product-price">
-                      NT $2,180
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <RankingItems />
           {/* <!-- =========熱銷不敗(本月暢銷排行) end========= --> */}
           {/* <!-- =========熱門登山攻略 start========= --> */}
           <div>
