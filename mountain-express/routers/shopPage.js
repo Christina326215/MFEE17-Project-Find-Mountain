@@ -53,4 +53,41 @@ router.post("/wish-list", async function(req, res, next) {
   res.json(dbResults);
 })
 
+//ranking
+router.get("/ranking", async function (req, res, next) {
+  let dbResults = await connection.queryAsync("SELECT * FROM product JOIN product_brand_name ON product.id = product_brand_name.id");
+  let soldResults = await connection.queryAsync("SELECT * FROM product JOIN product_size_storage ON product.id = product_size_storage.product_id");
+  //把售出跟庫存加總起來存回原始資料
+  for(let i = 0; i < dbResults.length; i ++){
+    var soldArr = [];
+    var storageArr = [];
+    for(let j = 0; j < soldResults.length; j++){
+      if(soldResults[j].id === dbResults[i].id){
+        // console.log('ij', i, soldResults[j].size_sold);
+        soldArr.push(soldResults[j].size_sold);
+        storageArr.push(soldResults[j].size_storage);
+      }
+    }
+    // console.log('i arr', i, soldArr);
+    const totalSold = soldArr.reduce((acc, cur) => {
+      return acc + cur;
+    });
+    const totalStorage = storageArr.reduce((acc, cur) => {
+      return acc + cur;
+    });
+    // console.log('i totalSold', i, totalSold);
+    dbResults[i].sold = totalSold;
+    dbResults[i].storage = totalStorage;
+  }
+  //依銷售量排序
+  let newResults = dbResults.sort(function(a, b) {
+    // boolean false == 0; true == 1
+    return a.sold - b.sold;
+  });
+  //銷售量高的在前面
+  newResults = newResults.reverse();
+  // console.log('id', newResults)
+  res.json(newResults);
+});
+
 module.exports = router;
