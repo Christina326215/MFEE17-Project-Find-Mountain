@@ -37,7 +37,7 @@ function ShopCartPay() {
   });
   useEffect(() => {
     if (pay !== null) {
-      console.log('hellooooo');
+      // console.log('hellooooo');
       setCartData({
         ...cartData,
         addr: pay.addr,
@@ -45,7 +45,7 @@ function ShopCartPay() {
         name: pay.name,
         pay_way: pay.pay_way,
         phone: pay.phone,
-        ship: pay.ship,
+        ship: 1,
         zip_code: pay.zip_code,
       });
     }

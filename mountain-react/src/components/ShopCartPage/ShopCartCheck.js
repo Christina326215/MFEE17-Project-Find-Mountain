@@ -22,8 +22,8 @@ import { BsCheck } from 'react-icons/bs';
 //====== above img import end ======//
 
 function ShopCartCheck() {
-  const { pay, member } = useAuth(); // 取得會員資料
-  console.log('pay', pay);
+  const { pay, member, setCartChange } = useAuth(); // 取得會員資料
+  // console.log('pay', pay);
 
   //shopCartData為購物車local storage接完資料庫的整體一筆一筆的資料
   const [shopCartData, setShopCartData] = useState([]);
@@ -34,7 +34,7 @@ function ShopCartCheck() {
   function getCartFromLocalStorage() {
     const ProductOrder =
       JSON.parse(localStorage.getItem('ProductOrderDetail')) || '[]';
-    console.log(ProductOrder);
+    // console.log(ProductOrder);
     setCartLocal(ProductOrder);
   }
   //一進畫面先讀取local storage
@@ -112,12 +112,38 @@ function ShopCartCheck() {
   }, []);
 
   const [isSubmit, setIsSubmit] = useState(false);
+
   // 準備 INSERT INTO 資料庫 start
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let response = await axios.post(`${shopcartPayURL}`, { ...pay });
-      console.log('submit:', response);
+      // console.log('submit_pay:', pay);
+
+      let responsePayInfo = await axios.post(
+        `${shopcartPayURL}/pay-info`,
+        { ...pay },
+        {
+          withCredentials: true,
+        }
+      );
+
+      // let responseOrderDetail = await axios.post(
+      //   `${shopcartPayURL}/order-detail`,
+      //   { ...shopCartData },
+      //   {
+      //     withCredentials: true,
+      //   }
+      // );
+      // console.log('submit:', response);
+      // console.log('submit_pay:', pay);
+
+      //清空購物車
+      const clearCart = (e) => {
+        e.preventDefault();
+        localStorage.removeItem('ProductOrderDetail');
+        setCartChange(true);
+        setCartLocal([]);
+      };
       setIsSubmit(true);
     } catch (e) {
       console.error(e.response);
@@ -255,6 +281,10 @@ function ShopCartCheck() {
                   <tr>
                     <th scope="row">收件人聯絡電話：</th>
                     <td>{pay && pay.phone}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">收件方式：</th>
+                    <td>{pay && pay.ship == 1 ? '宅配到府' : '超商取貨'}</td>
                   </tr>
                   <tr>
                     <th scope="row">收件地址：</th>
