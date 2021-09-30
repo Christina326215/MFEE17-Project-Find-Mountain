@@ -4,6 +4,7 @@ import { withRouter, Redirect } from 'react-router-dom'; //可以獲取history,l
 import { useAuth } from '../../context/auth'; // 取得會員資料
 import $ from 'jquery';
 import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
+import { Button, Modal } from 'react-bootstrap';
 
 import {
   shopcartPayURL,
@@ -25,6 +26,37 @@ function ShopCartCheck() {
   const { pay, member, setCartChange } = useAuth(); // 取得會員資料
   // console.log('pay', pay);
 
+  /* zip-code 靜態檔案 start*/
+  const [zipGroup, setZipGroup] = useState(null);
+  const [zipCode, setZipCode] = useState(null);
+
+  useEffect(() => {
+    async function getZipGroup() {
+      try {
+        const zipGroupRes = await axios.get(zipGroupURL);
+        let data = zipGroupRes.data;
+        setZipGroup(data);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getZipGroup();
+
+    async function getZipCode() {
+      try {
+        const zipCodeRes = await axios.get(zipCodeURL);
+        let data2 = zipCodeRes.data;
+        // 6.3 設定 setZipCode 狀態，取得 code.json 所有資料。
+        setZipCode(data2);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getZipCode();
+  }, []);
+  /* zip-code 靜態檔案 end */
+
+  /* 購物車明細local storage start */
   //shopCartData為購物車local storage接完資料庫的整體一筆一筆的資料
   const [shopCartData, setShopCartData] = useState([]);
   //cartLocal為購物車的local storage
@@ -82,38 +114,33 @@ function ShopCartCheck() {
     }
     return total;
   };
+  /* 購物車明細local storage end */
 
-  const [zipGroup, setZipGroup] = useState(null);
-  const [zipCode, setZipCode] = useState(null);
+  /* 信用卡彈出式視窗 start */
+  const [showCreditCard, setShowCreditCard] = useState(false);
+  const handleClose = () => setShowCreditCard(false);
+  const creditCardPay = () => setShowCreditCard(true);
 
   useEffect(() => {
-    async function getZipGroup() {
-      try {
-        const zipGroupRes = await axios.get(zipGroupURL);
-        let data = zipGroupRes.data;
-        setZipGroup(data);
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    getZipGroup();
+    $('#payment-button').click(function (e) {
+      // Fetch form to apply Bootstrap validation
+      var form = $(this).parents('form');
 
-    async function getZipCode() {
-      try {
-        const zipCodeRes = await axios.get(zipCodeURL);
-        let data2 = zipCodeRes.data;
-        // 6.3 設定 setZipCode 狀態，取得 code.json 所有資料。
-        setZipCode(data2);
-      } catch (e) {
-        console.log(e);
+      if (form[0].checkValidity() === false) {
+        e.preventDefault();
+        e.stopPropagation();
+      } else {
+        // Perform ajax submit here
+        // form.submit();
       }
-    }
-    getZipCode();
+
+      form.addClass('was-validated');
+    });
   }, []);
+  /* 信用卡彈出式視窗 end */
 
+  /* 準備 INSERT INTO 資料庫 start */
   const [isSubmit, setIsSubmit] = useState(false);
-
-  // 準備 INSERT INTO 資料庫 start
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -155,8 +182,9 @@ function ShopCartCheck() {
       return <Redirect to="/shopcart/credit-card" />;
     }
   }, [isSubmit]);
-  // 準備 INSERT INTO 資料庫 end
+  /* 準備 INSERT INTO 資料庫 end */
 
+  /* progress bar start */
   useEffect(() => {
     // progress-bar
     $('.shopcart-btn-next').on('click', function () {
@@ -223,6 +251,8 @@ function ShopCartCheck() {
         .data('current-step', prevStepNum);
     });
   }, []);
+  /* progress bar end */
+
   return (
     <>
       <div className="container">
@@ -319,7 +349,6 @@ function ShopCartCheck() {
                       </tr>
                       <tr>
                         <th scope="row">訂購單一品項小計：</th>
-                        {/* <td>NT$ {item.price.toLocaleString()}</td> */}
                         <td>
                           NT${' '}
                           {(parseInt(item.price) * item.num).toLocaleString()}
@@ -344,12 +373,176 @@ function ShopCartCheck() {
                   否，進行修改
                 </Link>
                 <div></div>
-                <button
+                <Button
+                  variant="primary"
+                  onClick={creditCardPay}
+                  className="shopcart-btn btn-next btn btn-primary mr-3"
+                >
+                  是，進行付款
+                </Button>
+
+                <Modal show={showCreditCard} onHide={handleClose}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>信用卡支付</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    {/* Woohoo, you're reading this text in a modal! */}
+                    <div id="pay-invoice" className="card">
+                      <div className="card-body">
+                        <div className="card-title">
+                          <h3 className="text-center">Credit Card</h3>
+                        </div>
+                        {/* <hr> */}
+                        <form
+                          action="/echo"
+                          method="post"
+                          novalidate="novalidate"
+                          className="needs-validation"
+                        >
+                          <div className="form-group text-center">
+                            <ul className="list-inline">
+                              <li className="list-inline-item">
+                                <i className="text-muted fa fa-cc-visa fa-2x"></i>
+                              </li>
+                              <li className="list-inline-item">
+                                <i className="fa fa-cc-mastercard fa-2x"></i>
+                              </li>
+                              <li className="list-inline-item">
+                                <i className="fa fa-cc-amex fa-2x"></i>
+                              </li>
+                              <li className="list-inline-item">
+                                <i className="fa fa-cc-discover fa-2x"></i>
+                              </li>
+                            </ul>
+                          </div>
+                          <div className="form-group has-success">
+                            <label for="cc-name" className="control-label mb-1">
+                              Name on card
+                            </label>
+                            <input
+                              id="cc-name"
+                              name="cc-name"
+                              type="text"
+                              className="form-control cc-name"
+                              required
+                              autocomplete="cc-name"
+                              aria-required="true"
+                              aria-invalid="false"
+                              aria-describedby="cc-name-error"
+                            />
+                            <span className="invalid-feedback">
+                              Enter the name as shown on credit card
+                            </span>
+                          </div>
+                          <div className="form-group">
+                            <label
+                              for="cc-number"
+                              className="control-label mb-1"
+                            >
+                              Card number
+                            </label>
+                            <input
+                              id="cc-number"
+                              name="cc-number"
+                              type="tel"
+                              className="form-control cc-number identified visa"
+                              required=""
+                              pattern="[0-9]{16}"
+                            />
+                            <span className="invalid-feedback">
+                              Enter a valid 16 digit card number
+                            </span>
+                          </div>
+                          <div className="row">
+                            <div className="col-6">
+                              <div className="form-group">
+                                <label
+                                  for="cc-exp"
+                                  className="control-label mb-1"
+                                >
+                                  Expiration
+                                </label>
+                                <input
+                                  id="cc-exp"
+                                  name="cc-exp"
+                                  type="tel"
+                                  className="form-control cc-exp"
+                                  required
+                                  placeholder="MM / YY"
+                                  autocomplete="cc-exp"
+                                />
+                                <span className="invalid-feedback">
+                                  Enter the expiration date
+                                </span>
+                              </div>
+                            </div>
+                            <div className="col-6">
+                              <label
+                                for="x_card_code"
+                                className="control-label mb-1"
+                              >
+                                Security code
+                              </label>
+                              <div className="input-group">
+                                <input
+                                  id="x_card_code"
+                                  name="x_card_code"
+                                  type="tel"
+                                  className="form-control cc-cvc"
+                                  required
+                                  autocomplete="off"
+                                />
+                                <span className="invalid-feedback order-last">
+                                  Enter the 3-digit code on back
+                                </span>
+                                <div className="input-group-append">
+                                  <div className="input-group-text">
+                                    <span
+                                      className="fa fa-question-circle fa-lg"
+                                      data-toggle="popover"
+                                      data-container="body"
+                                      data-html="true"
+                                      data-title="Security Code"
+                                      data-content="<div className='text-center one-card'>The 3 digit code on back of the card..<div className='visa-mc-cvc-preview'></div></div>"
+                                      data-trigger="hover"
+                                    ></span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div>
+                            <Link className="btn btn-lg btn-info btn-block">
+                              <i className="fa fa-lock fa-lg"></i>&nbsp;
+                              <span id="payment-button-amount">
+                                Pay NT$ {sum(shopCartData).toLocaleString()}
+                              </span>
+                            </Link>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                      取消
+                    </Button>
+                    <Button
+                      variant="primary"
+                      onClick={handleSubmit}
+                      id="payment-button"
+                    >
+                      確認支付
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
+
+                {/* <button
                   type="submit"
                   className="shopcart-btn btn-next btn btn-primary mr-3"
                 >
                   是，進行付款
-                </button>
+                </button> */}
               </div>
             </form>
           </div>
