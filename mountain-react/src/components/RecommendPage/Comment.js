@@ -53,8 +53,8 @@ function Comment(props) {
   const [valid, setValid] = useState('1');
   // modal顯示狀態
   const [show, setShow] = useState(false);
-  // input中照片的儲存狀態
-  // const [fileSrc, setFileSrc] = useState(null);
+  // input上傳照片檔案顯示檔名
+  const [fileSrc, setFileSrc] = useState('請選擇檔案');
   // 控制modal的函示
   const handleClose = () => setShow(false);
   // const handleShow = () => setShow(true);
@@ -64,6 +64,7 @@ function Comment(props) {
     // setUserID('');
     setContent('');
     setPic('');
+    setFileSrc('請選擇檔案');
   };
 
   // 新增評論資料庫
@@ -271,6 +272,8 @@ function Comment(props) {
                                 name="pic"
                                 onChange={(e) => {
                                   setPic(e.target.files[0]);
+                                  // 上傳檔案顯示檔名
+                                  setFileSrc(e.target.files[0].name);
                                 }}
                                 required
                               />
@@ -278,7 +281,7 @@ function Comment(props) {
                                 className="custom-file-label"
                                 htmlFor="inputGroupFile01"
                               >
-                                選擇檔案
+                                {fileSrc}
                               </label>
                             </div>
                             <div
