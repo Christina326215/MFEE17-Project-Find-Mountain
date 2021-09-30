@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
-import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
+import { withRouter, Redirect } from 'react-router-dom'; //可以獲取history,location,match,來使用
 import { useAuth } from '../../context/auth'; // 取得會員資料
 import $ from 'jquery';
 import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
@@ -111,27 +111,24 @@ function ShopCartCheck() {
     getZipCode();
   }, []);
 
+  const [isSubmit, setIsSubmit] = useState(false);
   // 準備 INSERT INTO 資料庫 start
   const handleSubmit = async (e) => {
-    const moment = require('moment');
     e.preventDefault();
     try {
-      let formData = new FormData();
-      formData.append('ship', pay.ship);
-      formData.append('pay_way', pay.pay_way);
-      formData.append('zip_code', pay.zip_code);
-      formData.append('addr', pay.addr);
-      formData.append('invoice', pay.invoice);
-      formData.append('name', pay.name);
-      formData.append('phone', pay.phone);
-      formData.append('time', moment().format('YYYY/MM/DD HH:mm:ss'));
-      formData.append('user_id', member.id);
-      let response = await axios.post(`${shopcartPayURL}`, formData);
+      let response = await axios.post(`${shopcartPayURL}`, { ...pay });
       console.log('submit:', response);
+      setIsSubmit(true);
     } catch (e) {
       console.error(e.response);
     }
   };
+
+  useEffect(() => {
+    if (isSubmit === true) {
+      return <Redirect to="/shopcart/credit-card" />;
+    }
+  }, [isSubmit]);
   // 準備 INSERT INTO 資料庫 end
 
   useEffect(() => {
@@ -317,14 +314,12 @@ function ShopCartCheck() {
                   否，進行修改
                 </Link>
                 <div></div>
-                <Link to="/shoppingcart/credit-card-pay">
-                  <button
-                    type="submit"
-                    className="shopcart-btn btn-next btn btn-primary mr-3"
-                  >
-                    是，進行付款
-                  </button>
-                </Link>
+                <button
+                  type="submit"
+                  className="shopcart-btn btn-next btn btn-primary mr-3"
+                >
+                  是，進行付款
+                </button>
               </div>
             </form>
           </div>

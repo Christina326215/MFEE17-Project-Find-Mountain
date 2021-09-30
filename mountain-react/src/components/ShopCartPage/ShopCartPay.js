@@ -86,13 +86,7 @@ function ShopCartPay() {
   }, []);
 
   useEffect(() => {
-    // if (cities === null || cities[0] === null || cities[0][0] === null) {
-    //   return;
-    // }
-    if (cities === null) {
-      return;
-    }
-    if (cartData && zipCode && zipGroup && cities) {
+    if (cartData && zipCode && zipGroup && cities.length > 0) {
       // 表示上述資料都已經有了！
       if (cartData.zip_code) {
         // 表示這個使用者的 zip code 已經設定過了
@@ -116,15 +110,7 @@ function ShopCartPay() {
 
   // 自動填入會員收件地址 start //
   function checkAutoInputAddr(e) {
-    if (document.getElementById('city').value === null) {
-      return;
-    }
     if (e.target.checked) {
-      // zipCode[cartData.zip_code].city = zipCode[member && member.zip_code].city;
-      document.getElementById('city').value =
-        zipCode[member && member.zip_code].city;
-      document.getElementById('addr').value = member.addr;
-      // cartData.addr = member.addr;
       setCartData({
         ...cartData,
         zip_code: member.zip_code,
@@ -154,10 +140,6 @@ function ShopCartPay() {
   // 自動填入會員姓名及電話 start //
   function checkAutoNamePhone(e) {
     if (e.target.checked) {
-      document.getElementById('name').value = member.name;
-      document.getElementById('phone').value = member.phone;
-      // cartData.name = member.name;
-      // cartData.phone = member.phone;
       setCartData({ ...cartData, name: member.name, phone: member.phone });
     }
   }

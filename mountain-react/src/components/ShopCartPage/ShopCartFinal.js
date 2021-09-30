@@ -231,12 +231,12 @@ function ShopCartFinish() {
             </div>
             {/* <!-- button --> */}
             <div className="shopcart-button-container text-right mb-5">
-              <Link
+              {/* <Link
                 to="/shoppingcart/credit-card-pay"
                 className="shopcart-btn btn-prev btn btn-outline-primary mr-3"
               >
                 上一步
-              </Link>
+              </Link> */}
               <Link
                 to="/member/order"
                 className="shopcart-btn btn-next btn btn-primary mr-3"
