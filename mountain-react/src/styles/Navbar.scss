@@ -5,6 +5,9 @@
 body {
   font-family: "Noto Sans TC", Arial, Helvetica, sans-serif;
 }
+::-webkit-scrollbar {
+  display: none;
+}
 /*shopping cart-num*/
 .cart-num {
   top: -6px;
