@@ -87,11 +87,13 @@ function App() {
         setCartChange,
         mapRouteShow,
         setMapRouteShow,
+        auth,
+        setAuth,
       }}
     >
       <Router>
         <>
-          <Navbar auth={auth} setAuth={setAuth} />
+          <Navbar />
           <ScrollToTop>
             <Switch>
               {/* //===other 路由放homepage上面 */}

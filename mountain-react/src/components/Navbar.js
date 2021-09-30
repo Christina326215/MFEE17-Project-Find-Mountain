@@ -12,6 +12,8 @@ import axios from 'axios';
 //====== below icon star ======//
 import { Cart, PersonCircle } from 'react-bootstrap-icons';
 import { BsSearch } from 'react-icons/bs';
+import { FaSignOutAlt } from 'react-icons/fa';
+
 //====== below icon end ======//
 
 //====== below img import start ======//
@@ -19,8 +21,8 @@ import logoPng from '../img/logo.png';
 //====== above img import end ======//
 
 function Navbar(props) {
-  const { cartChange, setCartChange } = useAuth(); // 取得會員資料
-  const { auth, setAuth } = props;
+  const { cartChange, setCartChange, auth, setAuth } = useAuth(); // 取得會員資料
+
   const [navbarLocalCart, setNavbarLocalCart] = useState([]);
   const [cartNum, setCartNum] = useState(0);
   //nav toggle
@@ -36,10 +38,10 @@ function Navbar(props) {
   //登出
   const handleLogout = async (e) => {
     e.preventDefault();
-    await axios.post(`${authURL}/logout`, {
+    await axios.get(authURL + '/logout', {
       withCredentials: true,
     });
-    setAuth(null);
+    setAuth(false);
   };
 
   //取得local storage轉為陣列的資料 ProductOrder
@@ -113,9 +115,13 @@ function Navbar(props) {
                 <PersonCircle size={24} />
               </Link>
 
-              <Link to="/" className="sign_button" onClick={handleLogout}>
-                Log Out
-              </Link>
+              {/* <Link to="/" className="sign_button" onClick={handleLogout}> */}
+              <FaSignOutAlt
+                className="shopping_button h4"
+                size={24}
+                onClick={handleLogout}
+              />
+              {/* </Link> */}
             </>
           ) : (
             <>

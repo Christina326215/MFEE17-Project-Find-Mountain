@@ -82,7 +82,8 @@ router.post('/login', upload.none(), async (req, res, next) => {
         return next({
             // code: "330002",
             status: 400,
-            message: '找不到帳號',
+            message: '1',
+            //msg:1->找不到帳號
         })
     }
     // 有找到，而且應該只會有一個（因為我們註冊的地方有檢查 email 有沒有重複）
@@ -97,7 +98,8 @@ router.post('/login', upload.none(), async (req, res, next) => {
         return next({
             // code: "330002",
             status: 400,
-            message: '密碼錯誤',
+            message: '0',
+            //msg:0->密碼錯誤
         })
     }
     // - 有帳號且密碼正確
@@ -113,8 +115,8 @@ router.post('/login', upload.none(), async (req, res, next) => {
     console.log('session:', req.session.account)
     // 回覆給前端
     res.json({
-        id: account.id,
-        name: account.name,
+        returnAccount,
+        password: account.password,
     })
 })
 //======= 忘記密碼 =======
@@ -177,8 +179,18 @@ router.post('/forget', async (req, res, next) => {
 //     req.logout()
 //     res.redirect('/')
 // })
-router.post('/logout', (req, res, next) => {
-    req.session.member = null
+router.get('/logout', (req, res, next) => {
+    console.log('HelloHello')
+    console.log('req.session.account', req.session.account)
+    // req.session.account.destroy()
+    // let returnAccount = {
+    //     id: null,
+    //     email: null,
+    //     name: null,
+    //     isAdmin: false, // 理論上是資料庫要存，但我們假造一下作 demo
+    // }
+    // req.session.account = returnAccount
+    req.session.account = null
     res.sendStatus(202)
 })
 module.exports = router
