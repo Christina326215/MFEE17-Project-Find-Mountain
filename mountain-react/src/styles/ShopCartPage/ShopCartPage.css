@@ -380,6 +380,9 @@
 /* progress bar step end */
 /*abby*/
 /*no product box*/
+.shopcart-product-clear-btn {
+  border: none;
+}
 .shopcart-noproduct-box {
   width: 100%;
   height: 300px;

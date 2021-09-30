@@ -48,7 +48,7 @@ function Navbar(props) {
   function getCartFromLocalStorage() {
     const ProductOrder =
       JSON.parse(localStorage.getItem('ProductOrderDetail')) || '[]';
-    console.log('ProductOrder', ProductOrder);
+    // console.log('ProductOrder', ProductOrder);
     setNavbarLocalCart(ProductOrder);
   }
   //一進畫面先讀取local storage
@@ -61,27 +61,27 @@ function Navbar(props) {
     // setNavbarLocalCart(navbarProductOrder);
     // console.log('navbarProductOrder', navbarProductOrder);
     // console.log('navbarProductOrder length', navbarProductOrder.length);
-    console.log('navbarProductOrder', navbarProductOrder);
+    // console.log('navbarProductOrder', navbarProductOrder);
     //判斷localstorage裡有沒有商品
     let itemsInsideCart = Boolean(
       navbarProductOrder !== '[]' && navbarProductOrder.length !== 0
     );
-    console.log('itemsInsideCart', itemsInsideCart);
+    // console.log('itemsInsideCart', itemsInsideCart);
     //if有商品
     if (itemsInsideCart) {
       $('.cart-num').css('display', 'block');
-      console.log('hello im here');
+      // console.log('hello im here');
       var totalNum = 0;
       for (let i = 0; i < navbarProductOrder.length; i++) {
         totalNum += navbarProductOrder[i].num;
       }
-      console.log('totalNum', totalNum);
+      // console.log('totalNum', totalNum);
       if (totalNum !== cartNum) {
         setCartNum(totalNum);
       }
     } else {
       $('.cart-num').css('display', 'none');
-      console.log('no product');
+      // console.log('no product');
     }
     if (cartChange === false) {
       return;

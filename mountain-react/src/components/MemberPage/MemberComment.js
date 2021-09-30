@@ -160,6 +160,8 @@ function MemberComment() {
                   </th>
                 </tr>
               </thead>
+              {/* FIXME:三元運算子，如果沒資料的話，顯示沒資料 */}
+              {/* {data == null ? ():} */}
               {data.map((items) => (
                 <tbody key={items.id}>
                   <tr>
