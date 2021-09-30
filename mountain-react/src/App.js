@@ -91,6 +91,8 @@ function App() {
         setCartChange,
         mapRouteShow,
         setMapRouteShow,
+        auth,
+        setAuth,
         page,
         setPage,
         totalPage,
@@ -99,7 +101,7 @@ function App() {
     >
       <Router>
         <>
-          <Navbar auth={auth} setAuth={setAuth} />
+          <Navbar />
           <ScrollToTop>
             <Switch>
               {/* //===other 路由放homepage上面 */}

@@ -34,16 +34,15 @@ function MemberMapAddRoute(props) {
   //====== 接表單輸入的資料(Form) star ======//
   const handleSumbmit = async (e) => {
     setShow(false); //將彈跳視窗關閉
-
-    //=== 記住你輸入時的值,submit時不會清空 ===//
-    e.preventDefault();
+    e.preventDefault(); //記住你輸入時的值,submit時不會清空(也可以用在btn在form時不讓它提交)
 
     if (member === null) {
       return;
     } else {
       try {
         console.log('WentmemberID:', member); //for check
-        let response = await axios.post(memberRouteURL + '/wentRoute', {
+        // let response =
+        await axios.post(memberRouteURL + '/wentRoute', {
           wentList,
           selectedOption,
           member,
@@ -73,7 +72,7 @@ function MemberMapAddRoute(props) {
           memberRouteURL + '/catchArticle',
           member
         );
-        console.log('catchArticle沒去過路線:', RouteData.data.dbResults); //for check
+        // console.log('catchArticle沒去過路線:', RouteData.data.dbResults); //for check
         setData(RouteData.data.dbResults);
       } catch (e) {
         console.log(e);
