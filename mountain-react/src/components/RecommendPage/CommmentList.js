@@ -6,6 +6,7 @@ import { IMAGE_URL } from '../../utils/config';
 import { useState } from 'react';
 import { articlecommentURL } from '../../utils/config';
 import $ from 'jquery';
+import bear from '../../img/article-img/bear.png';
 
 //====== below catch member info star ======//
 import { useAuth } from '../../context/auth';
@@ -112,6 +113,22 @@ function CommmentList(props) {
 
   return (
     <div>
+      {comment.length < 1 ? (
+        <div
+          className="d-flex align-items-center p-3"
+          style={{ background: '#eeee', borderRadius: '10px' }}
+        >
+          <div
+            className="recommend-bearwrap"
+            style={{ width: 100, height: 100 }}
+          >
+            <img className="recommend-bear" src={bear} alt="" />
+          </div>
+          <h5 className="ml-5">目前暫無評論...快寫下第一個評論吧！</h5>
+        </div>
+      ) : (
+        ''
+      )}
       {comment.map((comment, i) => {
         return (
           <div key={i}>
