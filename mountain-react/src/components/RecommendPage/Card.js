@@ -6,12 +6,8 @@ import levelMiddle from '../../img/article-img/level_medium.svg';
 import levelHigh from '../../img/article-img/level_high.svg';
 import { FaShoePrints } from 'react-icons/fa';
 import { BsStarFill } from 'react-icons/bs';
-import { useEffect } from 'react';
-import axios from 'axios';
-import { recommendURL } from '../../utils/config';
 import { IMAGE_URL } from '../../utils/config';
-import DetailContent from './DetailContent';
-import PagesBtn from '../PagesBtn'; //分頁按鈕
+// import PagesBtn from '../PagesBtn'; //分頁按鈕
 // import { useAuth } from '../../context/auth'; // 取得會員資料
 
 //====== below catch member info star ======//
@@ -221,7 +217,7 @@ function Card(props) {
         );
       })}
       {/* <!-- 分頁 start  --> */}
-      <PagesBtn />
+      {/* <PagesBtn /> */}
       {/* <!-- 分頁 end  --> */}
     </div>
   );

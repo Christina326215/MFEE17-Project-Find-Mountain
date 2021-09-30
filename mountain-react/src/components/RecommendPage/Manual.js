@@ -3,17 +3,14 @@ import Card from './Card';
 import '../../styles/article.css';
 import $ from 'jquery';
 import { useEffect, useState } from 'react';
-// import { useState } from 'react';
+//====== below catch member info star ======//
+// import { useAuth } from '../../context/auth';
+//====== below catch member info end ======//
 import axios from 'axios';
 import { recommendURL } from '../../utils/config';
-import {
-  BsChevronBarLeft,
-  BsChevronLeft,
-  BsChevronRight,
-  BsChevronBarRight,
-} from 'react-icons/bs';
 
 function Manual() {
+  // const { page, setPage, totalPage, setTotalPage } = useAuth(); // 取得會員資料
   // 原始資料庫狀態
   const [listData, setListData] = useState([
     {
@@ -54,8 +51,16 @@ function Manual() {
     async function recommendData() {
       try {
         const recommendData = await axios.get(recommendURL);
+        // const recommendData = await axios.get(`${recommendURL}?page=${page}`);
+        // const CommentData = await axios.post(
+        //   `${memberCommentURL}?page=${page}`,
+        //   { member }
+        // );
         // console.log(recommendData.data); //for check
         setListData(recommendData.data);
+        ///
+        // let data = CommentData.data;
+        // setTotalPage(recommendData.data.pagination.lastPage);
       } catch (e) {
         console.log(e);
       }

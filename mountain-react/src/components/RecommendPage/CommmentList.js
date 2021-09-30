@@ -5,6 +5,7 @@ import { withRouter } from 'react-router';
 import { IMAGE_URL } from '../../utils/config';
 import { useState } from 'react';
 import { articlecommentURL } from '../../utils/config';
+import $ from 'jquery';
 
 // 使用sweetalert2彈跳視窗
 import Swal from 'sweetalert2';
@@ -36,6 +37,7 @@ function CommmentList(props) {
   // 檢舉彈跳視窗
   const dislike = (e) => {
     setShow(true);
+    setDislikeReason('');
     const dislikeId = parseInt(e.target.id);
     // console.log('dislikeId', dislikeId);
     const dislike = comment.filter((v, i) => {
@@ -52,23 +54,23 @@ function CommmentList(props) {
 
   // 檢舉送出資料給後端
   const changeDislike = async (e) => {
+    // 檢舉資料驗證
+    if (dislikeReason === '') {
+      $('.reasonVal').show();
+      $('.custom-select').addClass('border-danger');
+      return;
+    } else {
+      $('.reasonVal').hide();
+      $('.custom-select').removeClass('border-danger');
+      $('.custom-select').addClass('border-success');
+    }
+
     console.log('e.target', e.target);
     e.preventDefault();
     setShow(false);
     // console.log('e.target', e.target);
 
     try {
-      // let formData = new FormData();
-      // formData.append('userID', userID);
-      // formData.append('articleID', articleID);
-      // formData.append('content', content);
-      // formData.append('pic', pic);
-      // formData.append('time', time);
-      // formData.append('valid', valid);
-      // let response = await axios.post(`${articlecommentURL}/insert`, formData);
-      // console.log('response', response);
-      // setShow(false); // 關閉彈跳視窗
-
       ///// 改變檢舉狀態
       let dislike = await axios.post(`${articlecommentURL}/dislike`, {
         commentId,
@@ -77,7 +79,7 @@ function CommmentList(props) {
         dislikeTime,
         dislikeValid,
       });
-      console.log('dislike', dislike);
+      // console.log('dislike', dislike);
 
       // 使用sweetalert2彈跳視窗
       Swal.fire({
@@ -207,7 +209,6 @@ function CommmentList(props) {
           </div>
         );
       })}
-      {/* FIXME:沒選檢舉原因驗證 */}
       {/* 按檢舉後狀態變3審核中 後台才能調整審核狀態 */}
       {/* 檢舉modal */}
       <Modal show={show} onHide={handleClose}>
@@ -235,7 +236,7 @@ function CommmentList(props) {
             <p className="recommend-body recommend-body-content mt-3">
               請選擇檢舉原因：
             </p>
-            <div className="input-group mb-3" name="dislike_reason">
+            <div className="input-group mb-3 " name="dislike_reason">
               <select
                 className="custom-select"
                 id="inputGroupSelect01"
@@ -248,6 +249,12 @@ function CommmentList(props) {
                 <option value="1">垃圾內容</option>
                 <option value="2">騷擾內容</option>
               </select>
+              <div
+                id="validationServer03Feedback"
+                className="invalid-feedback reasonVal"
+              >
+                請選擇檢舉原因
+              </div>
             </div>
             <input
               name="dislike_status"
