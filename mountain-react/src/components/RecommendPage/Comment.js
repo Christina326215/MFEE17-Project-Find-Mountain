@@ -121,7 +121,7 @@ function Comment(props) {
       formData.append('time', time);
       formData.append('valid', valid);
       let response = await axios.post(`${articlecommentURL}/insert`, formData);
-      console.log('response', response);
+      // console.log('response', response);
       setShow(false); // 關閉彈跳視窗
 
       // 使用sweetalert2彈跳視窗

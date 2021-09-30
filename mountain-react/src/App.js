@@ -78,7 +78,7 @@ function App() {
       }
     }
     getPersonalData();
-  }, [show, mapRouteShow]);
+  }, [show, mapRouteShow, auth]);
 
   return (
     <AuthContext.Provider

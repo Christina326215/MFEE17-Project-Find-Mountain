@@ -24,7 +24,7 @@ import { useAuth } from '../../context/auth';
 
 function DetailContent(props) {
   // 登入會員狀態
-  const { member } = useAuth(); // 把 member 從 useContext中拿出來
+  const { member, auth } = useAuth(); // 把 member 從 useContext中拿出來
   // {account: "lily516liu@gmail.com"
   // addr: "1號"
   // birthday: "2021-09-28"
@@ -82,6 +82,9 @@ function DetailContent(props) {
   //   console.log('member', member.id); // for check
   //   setLikeUserId(member.id);
   // }, [member]);
+
+  console.log('member', member);
+  console.log('auth', auth);
 
   useEffect(() => {
     // FIXME: 沒登入的跳轉頁面 沒登入無法看見文章
@@ -183,7 +186,7 @@ function DetailContent(props) {
       }
     }
     recommendData();
-  }, [props.match.params.id, member]);
+  }, [props.match.params.id, member, auth]);
 
   //加入收藏功能
   const addHeart = async (e) => {

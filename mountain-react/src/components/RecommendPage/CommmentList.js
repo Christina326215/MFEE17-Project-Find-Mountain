@@ -59,9 +59,9 @@ function CommmentList(props) {
         return v.id === dislikeId;
       });
       const content = dislike[0];
-      console.log('content', content);
+      // console.log('content', content);
       setDislikeContent(content);
-      console.log('dislikeContent', dislikeContent);
+      // console.log('dislikeContent', dislikeContent);
       setCommentId(content.id);
       setDislikeStatus('3');
       setDislikeValid('1');
@@ -81,7 +81,7 @@ function CommmentList(props) {
       $('.custom-select').addClass('border-success');
     }
 
-    console.log('e.target', e.target);
+    // console.log('e.target', e.target);
     e.preventDefault();
     setShow(false);
     // console.log('e.target', e.target);
