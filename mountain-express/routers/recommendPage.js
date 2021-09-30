@@ -68,7 +68,7 @@ router.post('/like', async function (req, res, next) {
 router.post('/likeArticle', async function (req, res, next) {
   let likeData = await connection.queryAsync('INSERT INTO user_heart (user_id,article_id) VALUES (?);',[[req.body.likeUserId,
     req.body.likeArticleId]]) 
-  res.json(likeData);
+    res.json(likeData);
 });
 
 // user刪除文章收藏功能 user_heart
@@ -90,15 +90,53 @@ router.post('/deleteLikeArticle', async function (req, res, next) {
 // user抓取文章去過功能 user_article
 router.post('/past', async function (req, res, next) {
   let likeData = await connection.queryAsync('SELECT * FROM user_article WHERE user_id = ? ORDER BY id',[[req.body.member.id]]) 
-  // let likeData = await connection.queryAsync('SELECT * FROM user_article ORDER BY id') 
+  // console.log("likeData",likeData);
+  
   res.json(likeData);
 });
 
 // user新增文章去過功能 user_article
 router.post('/addPast', async function (req, res, next) {
+  // 新增 user_article 資料
   let likeData = await connection.queryAsync('INSERT INTO user_article (user_id,article_id,article_id_past) VALUES (?);',[[req.body.likeUserId,
     req.body.likeArticleId,req.body.likeArticlePast]]) 
-  res.json(likeData);
+  // 更改user level
+  // 抓取這個user 全部文章的去過資料
+  let Data = await connection.queryAsync('SELECT user_article.*, article.level AS article_level FROM user_article JOIN article ON user_article.article_id = article.id WHERE user_id = ? ORDER BY id',[[req.body.member.id]]) 
+  let userPoint =[]
+  Data.filter((e)=>{
+    if(e.article_level == 1 ){
+      userPoint.push(3)
+    }
+    if(e.article_level == 2 ){
+      userPoint.push(5)
+    }
+    if(e.article_level == 3 ){
+      userPoint.push(10)
+    }
+  })
+  // console.log("userPoint",userPoint);
+  const totalPoints = userPoint.reduce((acc, cur) => {
+    return acc + cur;
+  });
+  // console.log("totalPoints",totalPoints);
+  // 判斷user的level 完成積分:0~19 level 1(肉腳) //
+  let level = "";
+  if (totalPoints >= 0 && totalPoints < 20) {
+    level = "1";
+  }
+  // 完成積分:20~49 level 2(山友) //
+  else if (totalPoints >= 20 && totalPoints < 50) {
+    level = "2";
+  }
+  // 完成積分:50(含)以上 level 3(山神) //
+  else {
+    level = "3";
+  }
+  // 將user level塞進資料庫
+  let updateUserLevel = await connection.queryAsync("UPDATE user SET ? WHERE id=?", [{level: level,},req.body.likeUserId]);
+
+  res.json(updateUserLevel);
 });
 
 // user刪除文章去過功能 user_article
@@ -112,7 +150,45 @@ router.post('/deletePast', async function (req, res, next) {
   })
   // 並刪除此筆資料
   let deleteLikeData = await connection.queryAsync('DELETE FROM user_article WHERE id=? ',[[result[0].id]]) 
-  res.json(deleteLikeData);
+  
+  // 更改user level
+  // 抓取這個user 全部文章的去過資料
+  let totalData = await connection.queryAsync('SELECT user_article.*, article.level AS article_level FROM user_article JOIN article ON user_article.article_id = article.id WHERE user_id = ? ORDER BY id',[[req.body.member.id]]) 
+  let userPoint =[]
+  totalData.filter((e)=>{
+    if(e.article_level == 1 ){
+      userPoint.push(3)
+    }
+    if(e.article_level == 2 ){
+      userPoint.push(5)
+    }
+    if(e.article_level == 3 ){
+      userPoint.push(10)
+    }
+  })
+  // console.log("userPoint",userPoint);
+  const totalPoints = userPoint.reduce((acc, cur) => {
+    return acc + cur;
+  });
+  // console.log("totalPoints",totalPoints);
+  // 判斷user的level 完成積分:0~19 level 1(肉腳) //
+  let level = "";
+  if (totalPoints >= 0 && totalPoints < 20) {
+    level = "1";
+  }
+  // 完成積分:20~49 level 2(山友) //
+  else if (totalPoints >= 20 && totalPoints < 50) {
+    level = "2";
+  }
+  // 完成積分:50(含)以上 level 3(山神) //
+  else {
+    level = "3";
+  }
+  // 將user level塞進資料庫
+  let updateUserLevel = await connection.queryAsync("UPDATE user SET ? WHERE id=?", [{level: level,},req.body.likeUserId]);
+
+
+  res.json(updateUserLevel);
 });
 
 module.exports = router;

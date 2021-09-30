@@ -134,7 +134,7 @@ function DetailContent(props) {
         /// 資料庫檢查是否有去過此文章 flag
         const Past = await axios.post(`${recommendURL}/past`, { member });
         const pastData = Past.data;
-        // console.log('likeData', likeData);
+        console.log('pastData', pastData);
         const pastArray = [];
         pastData.filter((e) => {
           if (e.article_id_past == id) {
@@ -220,8 +220,9 @@ function DetailContent(props) {
       likeUserId,
       likeArticleId,
       likeArticlePast,
+      member,
     });
-    // console.log('response', response);
+    // console.log('123response', response);
 
     // 使用sweetalert2彈跳視窗
     Swal.fire({
@@ -239,6 +240,8 @@ function DetailContent(props) {
     await axios.post(`${recommendURL}/deletePast`, {
       likeUserId,
       likeArticleId,
+      likeArticlePast,
+      member,
     });
     // console.log('response', response);
 

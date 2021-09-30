@@ -72,7 +72,7 @@ function CommmentList(props) {
 
     try {
       ///// 改變檢舉狀態
-      let dislike = await axios.post(`${articlecommentURL}/dislike`, {
+      await axios.post(`${articlecommentURL}/dislike`, {
         commentId,
         dislikeReason,
         dislikeStatus,
