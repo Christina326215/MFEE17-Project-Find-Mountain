@@ -8,6 +8,7 @@ import '../../../node_modules/slick-carousel/slick/slick-theme.css';
 import Swal from 'sweetalert2';
 import '../../styles/product.css';
 import RankingItems from './components/RankingItems';
+import SelectedItems from './components/SelectedItems';
 import { CartFill, HeartFill } from 'react-bootstrap-icons';
 //api s
 import axios from 'axios';
@@ -144,134 +145,7 @@ function ShopMain(props) {
           </div>
           {/* <!-- =========vegas end========= --> */}
           {/* <!-- =========編輯嚴選 start========= --> */}
-          <div>
-            <div className="position-relative shopmain-title-box">
-              <h3 className="shopmain-selected-title text-center">編輯嚴選</h3>
-              <div className="shopmain-title-underline position-absolute"></div>
-            </div>
-            <div className="row shopmain-product-list my-4">
-              <div className="col-6 col-md-4 col-lg-3 px-0">
-                <div className="shopmain-product-card">
-                  <div className="shopmain-product-img-box position-relative">
-                    <Link to={`/shop/product-detail/11`} id={11}>
-                      <img
-                        className="shopmain-cover-fit"
-                        src={bagsPic2}
-                        alt="The North Face 黑灰色休閒後背包"
-                        title="The North Face 黑灰色休閒後背包"
-                      />
-                    </Link>
-                    <button className="position-absolute shopmain-heart-icon-bkg position-relative">
-                      <HeartFill className="position-absolute shopmain-heart-icon" />
-                    </button>
-                    <button className="position-absolute shopmain-cart-icon-bkg position-relative">
-                      <CartFill className="position-absolute shopmain-cart-icon" />
-                    </button>
-                  </div>
-                  <Link
-                    to={`/shop/product-detail/11`}
-                    id={11}
-                    className="text-left shopmain-product-name"
-                  >
-                    The North Face
-                    <br />
-                    黑灰色休閒後背包
-                  </Link>
-                  <p className="text-right shopmain-product-price">NT $2,180</p>
-                </div>
-              </div>
-              <div className="col-6 col-md-4 col-lg-3 px-0">
-                <div className="shopmain-product-card">
-                  <div className="shopmain-product-img-box position-relative">
-                    <Link to={`/shop/product-detail/17`} id={17}>
-                      <img
-                        className="shopmain-cover-fit"
-                        src={bagsPic8}
-                        alt="The North Face 藍色專業登山後背包"
-                        title="The North Face 藍色專業登山後背包"
-                      />
-                    </Link>
-                    <button className="position-absolute shopmain-heart-icon-bkg position-relative">
-                      <HeartFill className="position-absolute shopmain-heart-icon" />
-                    </button>
-                    <button className="position-absolute shopmain-cart-icon-bkg position-relative">
-                      <CartFill className="position-absolute shopmain-cart-icon" />
-                    </button>
-                  </div>
-                  <Link
-                    to={`/shop/product-detail/17`}
-                    id={17}
-                    className="text-left shopmain-product-name"
-                  >
-                    The North Face
-                    <br />
-                    藍色專業登山後背包
-                  </Link>
-                  <p className="text-right shopmain-product-price">NT $8,380</p>
-                </div>
-              </div>
-              <div className="col-6 col-md-4 col-lg-3 px-0">
-                <div className="shopmain-product-card">
-                  <div className="shopmain-product-img-box position-relative">
-                    <Link to={`/shop/product-detail/8`} id={8}>
-                      <img
-                        className="shopmain-cover-fit"
-                        src={shoesPic8}
-                        alt="ASOLO 阿空加瓜牛皮冰攀靴"
-                        title="ASOLO 阿空加瓜牛皮冰攀靴"
-                      />
-                    </Link>
-                    <button className="position-absolute shopmain-heart-icon-bkg position-relative">
-                      <HeartFill className="position-absolute shopmain-heart-icon" />
-                    </button>
-                    <button className="position-absolute shopmain-cart-icon-bkg position-relative">
-                      <CartFill className="position-absolute shopmain-cart-icon" />
-                    </button>
-                  </div>
-                  <Link
-                    to={`/shop/product-detail/8`}
-                    id={8}
-                    className="text-left shopmain-product-name"
-                  >
-                    ASOLO
-                    <br />
-                    阿空加瓜牛皮冰攀靴
-                  </Link>
-                  <p className="text-right shopmain-product-price">NT $8,980</p>
-                </div>
-              </div>
-              <div className="col-6 col-md-4 col-lg-3 px-0">
-                <div className="shopmain-product-card">
-                  <div className="shopmain-product-img-box position-relative">
-                    <Link to={`/shop/product-detail/23`} id={23}>
-                      <img
-                        className="shopmain-cover-fit"
-                        src={clothesPic5}
-                        alt="The North Face 戶外保暖羽絨外套"
-                        title="The North Face 戶外保暖羽絨外套"
-                      />
-                    </Link>
-                    <button className="position-absolute shopmain-heart-icon-bkg position-relative">
-                      <HeartFill className="position-absolute shopmain-heart-icon" />
-                    </button>
-                    <button className="position-absolute shopmain-cart-icon-bkg position-relative">
-                      <CartFill className="position-absolute shopmain-cart-icon" />
-                    </button>
-                  </div>
-                  <Link
-                    to={`/shop/product-detail/23`}
-                    id={23}
-                    className="text-left shopmain-product-name"
-                  >
-                    The North Face
-                    <br />
-                    戶外保暖羽絨外套
-                  </Link>
-                  <p className="text-right shopmain-product-price">NT $8,310</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <SelectedItems />
           {/* <!-- =========編輯嚴選 end========= --> */}
           {/* <!-- =========熱銷不敗(本月暢銷排行) start========= --> */}
           <RankingItems />

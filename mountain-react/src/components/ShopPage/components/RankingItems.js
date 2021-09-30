@@ -24,9 +24,9 @@ function RankingItems(props) {
     }
     getRankingData();
   }, []);
-  //FIXME:想想除了setTimeout還有什麼方法
   useEffect(() => {
-    setTimeout(() => {
+    if (rankingData.length > 0) {
+      console.log('有了歐');
       $('.shopmain-product-slider').slick({
         dots: true,
         speed: 300,
@@ -62,8 +62,10 @@ function RankingItems(props) {
           },
         ],
       });
-    }, 1500);
-  }, []);
+    } else {
+      console.log('還沒歐');
+    }
+  }, [rankingData]);
   return (
     <>
       {/* <!-- =========熱銷不敗(本月暢銷排行) start========= --> */}
