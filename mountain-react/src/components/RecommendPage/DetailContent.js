@@ -99,7 +99,10 @@ function DetailContent(props) {
         const RecommentCard = totalDetail.filter((v) => {
           return v.level === newDetail.level;
         });
-        if (RecommentCard) setLevelCard(RecommentCard);
+        // console.log('RecommentCard', RecommentCard);
+        const top3 = RecommentCard.slice(0, 3);
+        // console.log('top3', top3);
+        if (RecommentCard) setLevelCard(top3);
 
         // 帶入使用者ID
         setLikeUserId(member.id);
