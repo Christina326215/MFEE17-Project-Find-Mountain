@@ -145,17 +145,19 @@ function ShopCartDetail() {
           var ProductViewHistory = JSON.parse(
             localStorage.getItem('ProductViewHistory')
           );
-          var historyArray = [];
-          for (let i = 0; i < ProductViewHistory.length; i++) {
-            // console.log(ProductViewHistory[i]);
-            const productHistoryData = await axios.get(
-              `${shopURL}/product-detail/${ProductViewHistory[i]}`
-            );
-            // console.log(productHistoryData.data[0]);
-            historyArray.unshift(productHistoryData.data[0]);
+          if (ProductViewHistory !== null && ProductViewHistory.length > 0) {
+            var historyArray = [];
+            for (let i = 0; i < ProductViewHistory.length; i++) {
+              console.log('ProductViewHistory[i]', ProductViewHistory[i]);
+              const productHistoryData = await axios.get(
+                `${shopURL}/product-detail/${ProductViewHistory[i]}`
+              );
+              // console.log(productHistoryData.data[0]);
+              historyArray.unshift(productHistoryData.data[0]);
+            }
+            // console.log('historyArray', historyArray);
+            setHistoryItems(historyArray);
           }
-          // console.log('historyArray', historyArray);
-          setHistoryItems(historyArray);
           //抓購物車的商品資料
           var orderArray = [];
           for (let i = 0; i < ProductOrder.length; i++) {
@@ -182,9 +184,33 @@ function ShopCartDetail() {
       }
       getProductData();
     } else {
+      //如果購物車為空 還是要抓瀏覽紀錄
+      async function getProductData() {
+        try {
+          //抓瀏覽紀錄資料
+          var ProductViewHistory = JSON.parse(
+            localStorage.getItem('ProductViewHistory')
+          );
+          if (ProductViewHistory !== null && ProductViewHistory.length > 0) {
+            var historyArray = [];
+            for (let i = 0; i < ProductViewHistory.length; i++) {
+              console.log('ProductViewHistory[i]', ProductViewHistory[i]);
+              const productHistoryData = await axios.get(
+                `${shopURL}/product-detail/${ProductViewHistory[i]}`
+              );
+              // console.log(productHistoryData.data[0]);
+              historyArray.unshift(productHistoryData.data[0]);
+            }
+            // console.log('historyArray', historyArray);
+            setHistoryItems(historyArray);
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      }
+      getProductData();
       console.log('沒有商品');
       setShopCartData([]);
-      return;
     }
   }, [cartLocal]);
   //FIXME:一些待整理的東西
@@ -458,25 +484,31 @@ function ShopCartDetail() {
             <div>
               <h5 className="mt-5">瀏覽紀錄</h5>
               <hr />
-              <div className="row">
-                {historyItems.slice(0, 7).map((hisItems, hisIndex) => {
-                  return (
-                    <Link
-                      to={`/shop/product-detail/${hisItems.id}`}
-                      key={`${hisItems.id}00`}
-                    >
-                      <figure className="shopcart-more-product-img-box ml-5 mb-5">
-                        <img
-                          src={`${IMAGE_URL}/img/product-img/${hisItems.pic}`}
-                          alt={hisItems.name}
-                          title={hisItems.name}
-                          className="shopcart-cover-fit"
-                        />
-                      </figure>
-                    </Link>
-                  );
-                })}
-              </div>
+              {historyItems === [] || historyItems.length === 0 ? (
+                <div className="d-flex shopcart-no-historyproduct text-center justify-content-center align-items-center my-3">
+                  <p className="p-0">尚未有瀏覽紀錄</p>
+                </div>
+              ) : (
+                <div className="row">
+                  {historyItems.slice(0, 7).map((hisItems, hisIndex) => {
+                    return (
+                      <Link
+                        to={`/shop/product-detail/${hisItems.id}`}
+                        key={`${hisItems.id}00`}
+                      >
+                        <figure className="shopcart-more-product-img-box ml-5 mb-5">
+                          <img
+                            src={`${IMAGE_URL}/img/product-img/${hisItems.pic}`}
+                            alt={hisItems.name}
+                            title={hisItems.name}
+                            className="shopcart-cover-fit"
+                          />
+                        </figure>
+                      </Link>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
         </div>
