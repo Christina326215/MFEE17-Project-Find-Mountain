@@ -41,6 +41,7 @@ function OutfitProductSlider(props) {
                 id="10"
                 data-productName="The North Face 黑色便捷休閒腰包"
                 data-price="1780"
+                data-type="2"
                 // draggable="true"
                 // onDragStart={(e) => handleDragStart(e)}
               />
@@ -59,6 +60,7 @@ function OutfitProductSlider(props) {
                 id="11"
                 data-productName="The North Face 黑灰色休閒後背包"
                 data-price="2180"
+                data-type="2"
               />
             </div>
             <div className="outfit-product-info">
@@ -75,6 +77,7 @@ function OutfitProductSlider(props) {
                 id="12"
                 data-productName="The North Face 黑色舒適休閒後背包"
                 data-price="5292"
+                data-type="2"
               />
             </div>
             <div className="outfit-product-info">
@@ -91,6 +94,7 @@ function OutfitProductSlider(props) {
                 id="1"
                 data-productName="MERRELL Tetrex Crest Wrap 女水陸三棲鞋"
                 data-price="2680"
+                data-type="1"
               />
             </div>
             <div className="outfit-product-info">
@@ -107,6 +111,7 @@ function OutfitProductSlider(props) {
                 id="2"
                 data-productName="TEVA Arrowood 2 Low WP 低筒防潑水休閒鞋"
                 data-price="2706"
+                data-type="1"
               />
             </div>
             <div className="outfit-product-info">
@@ -123,6 +128,7 @@ function OutfitProductSlider(props) {
                 id="3"
                 data-productName="KEEN Terradora Mid 女戶外防水 登山鞋"
                 data-price="3915"
+                data-type="1"
               />
             </div>
             <div className="outfit-product-info">
@@ -139,6 +145,7 @@ function OutfitProductSlider(props) {
                 id="19"
                 data-productName="【2000mm 防水】男透氣休閒健行外套 QUECHUA"
                 data-price="499"
+                data-type="3"
               />
             </div>
             <div className="outfit-product-info">
@@ -155,6 +162,7 @@ function OutfitProductSlider(props) {
                 id="20"
                 data-productName="男士透氣連帽跑步 風衣 KALENJI RUN WIND"
                 data-price="499"
+                data-type="3"
               />
             </div>
             <div className="outfit-product-info">
@@ -171,6 +179,7 @@ function OutfitProductSlider(props) {
                 id="21"
                 data-productName="【2000mm 防水】女透氣健行外套 QUECHUA"
                 data-price="499"
+                data-type="3"
               />
             </div>
             <div className="outfit-product-info">
