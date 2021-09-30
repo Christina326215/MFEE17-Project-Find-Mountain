@@ -2,12 +2,15 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import '../../styles/outfit.css';
 import { outfitURL, IMAGE_URL } from '../../utils/config';
+import { Link } from 'react-router-dom'; //a標籤要變成link
+import { Modal, Button, Row, Col } from 'react-bootstrap';
 
 //=== package start===
 import $ from 'jquery';
 import axios from 'axios';
 import { fabric } from 'fabric';
 import html2canvas from 'html2canvas';
+import Swal from 'sweetalert2';
 //=== package end===
 
 //=== components start===
@@ -18,7 +21,7 @@ import OutfitProductSliderH from './OutfitProductSliderH';
 //=== components end===
 
 // ===icon start===
-import { FaFacebookSquare } from 'react-icons/fa';
+import { FaFacebookSquare, FaTwitterSquare, FaLine } from 'react-icons/fa';
 import {
   BsFillCaretLeftFill,
   BsFillCaretRightFill,
@@ -35,6 +38,13 @@ import clothesPic3Removebg from '../../img/img-outfit/clothes-pic3-removebg-prev
 function Outfit(props) {
   const [listData, setListData] = useState([]);
   const [outfitProducts, setOutfitProducts] = useState([]);
+  const [productLocal, setProdcutLocal] = useState([]);
+  const [show, setShow] = useState(false);
+  const [cartNum, setCartNum] = useState(1);
+  const [cartSize, setCartSize] = useState('');
+  const [cartPrice, setCartPrice] = useState(0);
+  // let price = productLocal[0].productPrice;
+  // console.log('price', price);
 
   // const handleDragStart = (e) => {
   //   console.log('e', e);
@@ -43,6 +53,11 @@ function Outfit(props) {
   // };
 
   useEffect(() => {
+    // 網頁重新整理時，清空localStorage
+    const product_records_first = JSON.parse(localStorage.getItem('products'));
+    if (product_records_first !== null) {
+      localStorage.removeItem('products');
+    }
     // async function outfitData() {
     //   try {
     //     const outfitData = await axios.get(outfitURL);
@@ -83,6 +98,35 @@ function Outfit(props) {
     });
     $('#slideRight3').click(function () {
       document.getElementById('slider3').scrollLeft += 180;
+    });
+
+    // facebook分享按鈕
+    $('.fb-share-button').click(function () {
+      window.open(
+        // 'https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5501/outfit.html',
+        'https://www.facebook.com/dialog/share?app_id=168633835347111&href=http://127.0.0.1:5501/outfit.html&hashtag=%23%E6%89%BE%E9%9D%A0%E5%B1%B1%E5%BB%BA%E8%AD%B0%E7%A9%BF%E6%90%AD%E5%80%8B%E4%BA%BA%E5%8C%96%E6%98%8E%E4%BF%A1%E7%89%87',
+        'facebook-share-dialog',
+        'width=800,height=600'
+      );
+      return false;
+    });
+    // twitter分享按鈕
+    $('.twitter-share-button').click(function () {
+      window.open(
+        'http://twitter.com/share?text=%23%E6%89%BE%E9%9D%A0%E5%B1%B1%20%23%E5%BB%BA%E8%AD%B0%E7%A9%BF%E6%90%AD%20%23%E5%80%8B%E4%BA%BA%E5%8C%96%E6%98%8E%E4%BF%A1%E7%89%87&url=http://127.0.0.1:5501/outfit.html',
+        'twitter-share-dialog',
+        'width=800,height=600'
+      );
+      return false;
+    });
+    // twitter分享按鈕
+    $('.line-share-button').click(function () {
+      window.open(
+        'https://social-plugins.line.me/lineit/share?text=%23%E6%89%BE%E9%9D%A0%E5%B1%B1%20%23%E5%BB%BA%E8%AD%B0%E7%A9%BF%E6%90%AD%20%23%E5%80%8B%E4%BA%BA%E5%8C%96%E6%98%8E%E4%BF%A1%E7%89%87&url=http://127.0.0.1:5501/outfit.html',
+        'line-share-dialog',
+        'width=800,height=600'
+      );
+      return false;
     });
 
     setTimeout(() => {
@@ -147,6 +191,8 @@ function Outfit(props) {
       function saveData() {
         console.log('selectedImgs save', selectedImgs);
         for (let i = 0; i < selectedImgs.length; i++) {
+          let productId = document.getElementById(selectedImgs[i]).id;
+          // console.log('productId', productId);
           let productPicUrl = document
             .getElementById(selectedImgs[i])
             .getAttribute('src');
@@ -158,6 +204,8 @@ function Outfit(props) {
           // Arcteryx 始祖鳥 單件式GORE-TEX化纖保暖外套
           let productPrice = document.getElementById(selectedImgs[i]).dataset
             .price;
+          let productType = document.getElementById(selectedImgs[i]).dataset
+            .type;
           // console.log('productPrice',productPrice); //5000
           // let product_records = new Array();
           let product_records = localStorage.getItem('products')
@@ -172,9 +220,11 @@ function Outfit(props) {
             console.log('duplicate data');
           } else {
             product_records.push({
+              productId: productId,
               productPicUrl: productPicUrl,
               productName: productName,
               productPrice: productPrice,
+              productType: productType,
             });
             localStorage.setItem('products', JSON.stringify(product_records));
           }
@@ -185,11 +235,11 @@ function Outfit(props) {
         let newItems = document.getElementById('newItems');
         newItems.innerHTML = '';
 
-        let product_records = new Array();
-        product_records = localStorage.getItem('products')
+        // let product_records = new Array();
+        let product_records = localStorage.getItem('products')
           ? JSON.parse(localStorage.getItem('products'))
           : [];
-        // console.log("product_records.length", product_records.length);
+        console.log('product_records', product_records);
 
         if (product_records) {
           let subtotal = 0;
@@ -209,6 +259,7 @@ function Outfit(props) {
             document.getElementById('subtotal').innerText = subtotal;
           }
         }
+        setProdcutLocal(product_records);
       }
       var images = document.querySelectorAll('.outfit-product-img img');
       [].forEach.call(images, function (img) {
@@ -236,10 +287,217 @@ function Outfit(props) {
           a.click();
         });
       });
+      // console.log('productLocal', productLocal);
+      // console.log('productLocal[0]', productLocal[0].productId);
     }, 500);
   }, []);
+  //控制modal show or not show
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const showModal = () => {
+    handleShow();
+  };
+  const addCart = () => {
+    const newProductOrder = JSON.parse(
+      localStorage.getItem('ProductOrderDetail') || '[]'
+    );
+    // let modalId = document.getElementById('modalId').value;
+    // console.log('modalId', modalId);
+    // let modalIds = [];
+    // modalIds.push(modalId);
+    // console.log('modalIds', modalIds);
+
+    if (cartSize === '') {
+      console.log('choose size plz');
+      Swal.fire({
+        icon: 'error',
+        title: '請先選擇尺寸',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    } else {
+      console.log('cartSize', cartSize);
+      console.log('cartNum', cartNum);
+
+      //為了符合local storage格式 字串 字串 數字
+      let orderDetail = {
+        // id: productId.toString(),
+        size: cartSize,
+        num: parseInt(cartNum),
+      };
+      // //localstorage for order detail start//
+      // //確認local storage裡面有無相同id size的資料
+      // const index = newProductOrder.findIndex(
+      //   (v) => v.id === orderDetail.id && v.size === orderDetail.size
+      // );
+      // console.log('index', index);
+      // console.log('orderDetail', orderDetail);
+      // console.log('newProductOrder', newProductOrder);
+      // if (index > -1) {
+      //   //改變同款項訂購數量
+      //   newProductOrder[index].num += orderDetail.num;
+      //   localStorage.setItem(
+      //     'ProductOrderDetail',
+      //     JSON.stringify(newProductOrder)
+      //   );
+      //   console.log('這個商品已經加過了');
+      //   // return;
+      // } else {
+      //   newProductOrder.push(orderDetail);
+      //   localStorage.setItem(
+      //     'ProductOrderDetail',
+      //     JSON.stringify(newProductOrder)
+      //   );
+      //   console.log('哎呦還沒喔');
+      // }
+      // //更新localstorage資料cartLocal
+      // // getCartFromLocalStorage();
+      // setCardCartLocal(newProductOrder);
+      // //localstorage for order detail end//
+    }
+    // Swal.fire({
+    //   icon: 'success',
+    //   title: '已加入購物車',
+    //   showConfirmButton: false,
+    //   timer: 1500,
+    // });
+    // setCartChange(true);
+    // // setTimeout(() => {
+    // //   window.location.reload(false);
+    // // }, 1500);
+    handleClose();
+  };
+
+  useEffect(() => {
+    setCartNum(1);
+    setCartSize('');
+    setCartPrice(0);
+  }, [show]);
+
+  // useEffect(() => {
+  //   setCartPrice(cartNum * price);
+  //   console.log(cartPrice);
+  // }, [cartNum, cartPrice, price]);
+
   return (
     <>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        size="md"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        //把動畫關掉就不會報錯
+        // animation={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter" className="h5">
+            {/* {`${brand}${name}`} */}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {productLocal.map((product, i) => {
+            return (
+              <Row>
+                <Col xs={12} md={6} key={i}>
+                  <input
+                    type="hidden"
+                    id="modalId"
+                    value={product.productId}
+                  ></input>
+                  <img
+                    className="shopmain-cover-fit shadow-sm bg-white rounded"
+                    src={product.productPicUrl}
+                    alt={product.productName}
+                    title={product.productName}
+                  />
+                </Col>
+                <Col xs={6} md={6}>
+                  <div className="input-group mb-3">
+                    <div className="input-group-prepend">
+                      <span
+                        className="input-group-text"
+                        id="inputGroup-sizing-default"
+                      >
+                        數量
+                      </span>
+                    </div>
+                    {/* FIXME:記得寫判斷和提示訊息 數量不能多於10小於1 */}
+                    <input
+                      type="number"
+                      className="form-control"
+                      aria-label="Default"
+                      aria-describedby="inputGroup-sizing-default"
+                      value={cartNum}
+                      name="cartnum"
+                      min="1"
+                      max="10"
+                      //防止使用者亂key數字
+                      onKeyDown={(e) => {
+                        e.preventDefault();
+                      }}
+                      onChange={(e) => {
+                        setCartNum(e.target.value);
+                      }}
+                    />
+                  </div>
+
+                  <div className="input-group mb-3">
+                    <div className="input-group-prepend">
+                      <label className="input-group-text">尺寸</label>
+                    </div>
+                    {product.productType === '2' ? (
+                      <select
+                        className="custom-select"
+                        name="size"
+                        value={cartSize}
+                        onChange={(e) => {
+                          setCartSize(e.target.value);
+                        }}
+                      >
+                        <option value="">請選擇尺寸</option>
+                        <option value="F">F</option>
+                      </select>
+                    ) : (
+                      <select
+                        className="custom-select"
+                        name="size"
+                        value={cartSize}
+                        onChange={(e) => {
+                          setCartSize(e.target.value);
+                        }}
+                      >
+                        <option value="">請選擇尺寸</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                      </select>
+                    )}
+                  </div>
+                  <Row className="my-3">
+                    <Col xs={6} md={6}>
+                      總價：
+                    </Col>
+                    <Col xs={6} md={6}>
+                      <div className="text-right">
+                        {/* NT$ {cartPrice.toLocaleString()} */}
+                        {/* NT$ {product.productPrice.toLocaleString()} */}
+                      </div>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            );
+          })}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button onClick={addCart}>Add</Button>
+        </Modal.Footer>
+      </Modal>
       <h2 className="outfit-title">建議穿搭</h2>
       <p className="outfit-intro">
         依下面步驟來挑選最佳商品搭配並製作出個人化明信片
@@ -344,15 +602,22 @@ function Outfit(props) {
         </div>
       </div>
       <div className="outfit-btnGroup">
-        <button className="outfit-fb">
-          <FaFacebookSquare className="outfit-sharedBtn mb-1" />
-          分享明信片
-        </button>
+        <span>分享：</span>
+        <FaFacebookSquare className="fb-share-button" />
+        <FaTwitterSquare className="twitter-share-button" />
+        <FaLine className="line-share-button" />
         <button className="btn btn-outline-primary" id="save">
           <BsDownload className="outfit-downloadBtn mb-1" />
           儲存明信片
         </button>
-        <button className="btn btn-primary">將所選商品加入購物車</button>
+        <button
+          className="btn btn-primary"
+          onClick={() => {
+            showModal();
+          }}
+        >
+          將所選商品加入購物車
+        </button>
       </div>
     </>
   );

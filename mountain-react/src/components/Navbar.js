@@ -4,10 +4,16 @@ import { withRouter } from 'react-router-dom'; //可以獲取history,location,ma
 import '../styles/Navbar.scss'; //header & footer 樣式
 import $ from 'jquery';
 import { useAuth } from '../context/auth'; // 取得會員資料
+//===api start===
+import { authURL } from '../utils/config';
+import axios from 'axios';
+//===api end====
 
 //====== below icon star ======//
 import { Cart, PersonCircle } from 'react-bootstrap-icons';
 import { BsSearch } from 'react-icons/bs';
+import { FaSignOutAlt } from 'react-icons/fa';
+
 //====== below icon end ======//
 
 //====== below img import start ======//
@@ -15,8 +21,8 @@ import logoPng from '../img/logo.png';
 //====== above img import end ======//
 
 function Navbar(props) {
-  const { cartChange, setCartChange } = useAuth(); // 取得會員資料
-  const { auth, setAuth } = props;
+  const { cartChange, setCartChange, auth, setAuth } = useAuth(); // 取得會員資料
+
   const [navbarLocalCart, setNavbarLocalCart] = useState([]);
   const [cartNum, setCartNum] = useState(0);
   //nav toggle
@@ -29,7 +35,14 @@ function Navbar(props) {
       nav.classList.toggle('nav_show');
     };
   };
-
+  //登出
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    await axios.get(authURL + '/logout', {
+      withCredentials: true,
+    });
+    setAuth(false);
+  };
 
   //取得local storage轉為陣列的資料 ProductOrder
   function getCartFromLocalStorage() {
@@ -97,23 +110,25 @@ function Navbar(props) {
           </Link>
           {/* to Sign In star */}
           {auth ? (
-            <Link
-              to="/member"
-              // onClick={() => {
-              //   setAuth(false);
-              //   //出現訊息
-              //   alert('you are out');
-              //   //跳回首頁
-              //   props.history.push('/');
-              // }}
-              className="shopping_button h4"
-            >
-              <PersonCircle size={24} />
-            </Link>
+            <>
+              <Link to="/member" className="shopping_button h4">
+                <PersonCircle size={24} />
+              </Link>
+
+              {/* <Link to="/" className="sign_button" onClick={handleLogout}> */}
+              <FaSignOutAlt
+                className="shopping_button h4"
+                size={24}
+                onClick={handleLogout}
+              />
+              {/* </Link> */}
+            </>
           ) : (
-            <Link to="/login" className="sign_button">
-              Log In
-            </Link>
+            <>
+              <Link to="/login" className="sign_button">
+                Log In
+              </Link>
+            </>
           )}
           {/* to Sign In end */}
         </div>
