@@ -3,10 +3,12 @@ const router = express.Router();
 const connection = require("../utils/db");
 
 router.get("", async function (req, res, next) {
-  
+  // console.log("req.session.account.id", req.session.account.id);
+  if (req.session.account === null) {
+    res.json(null)
+  }
 
   let dbResults = await connection.queryAsync("SELECT * FROM user WHERE id = ?",[req.session.account.id]); // 等資料庫查詢資料
-
 
   console.log('dbResults[0].id:',dbResults[0].id, 'dbResults[0].name:',dbResults[0].name)
   

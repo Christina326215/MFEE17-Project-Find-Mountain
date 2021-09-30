@@ -8,18 +8,20 @@ import { articlecommentURL } from '../../utils/config';
 import CommmentList from './CommmentList';
 import slothBig from '../../img/article-img/sloth_big.svg';
 import slothSmall from '../../img/article-img/sloth_small.svg';
-// import $ from 'jquery';
+// 使用sweetalert2彈跳視窗
+import Swal from 'sweetalert2';
+import $ from 'jquery';
 import { Button, Modal } from 'react-bootstrap';
 // import { IMAGE_URL } from '../../utils/config';
-import {
-  BsChevronBarLeft,
-  BsChevronLeft,
-  BsChevronRight,
-  BsChevronBarRight,
-  BsPlusSquare,
-} from 'react-icons/bs';
+import { BsPlusSquare } from 'react-icons/bs';
+
+//====== below catch member info star ======//
+import { useAuth } from '../../context/auth';
+//====== below catch member info end ======//
 
 function Comment(props) {
+  // 登入會員狀態
+  const { member } = useAuth();
   // 文章資料
   const { detail } = props;
   const { id } = useParams();
@@ -42,7 +44,7 @@ function Comment(props) {
     },
   ]);
   // 新增評論欄位
-  const [userID, setUserID] = useState('3');
+  const [userID, setUserID] = useState('');
   const [articleID, setArticleID] = useState(id);
   const [content, setContent] = useState('');
   const [pic, setPic] = useState('');
@@ -51,25 +53,65 @@ function Comment(props) {
   const [valid, setValid] = useState('1');
   // modal顯示狀態
   const [show, setShow] = useState(false);
-  // input中照片的儲存狀態
-  // const [fileSrc, setFileSrc] = useState(null);
+  // input上傳照片檔案顯示檔名
+  const [fileSrc, setFileSrc] = useState('請選擇檔案');
   // 控制modal的函示
   const handleClose = () => setShow(false);
   // const handleShow = () => setShow(true);
   const handleShow = () => {
-    setShow(true);
-    // FIXME:重新點擊新增評論 資料清空...
-    // setUserID('');
-    setContent('');
-    setPic('');
+    if (member === null) {
+      // 使用sweetalert2彈跳視窗
+      Swal.fire({
+        icon: 'warning',
+        title: '需要先登入才能新增評論',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else {
+      setShow(true);
+      // 重新點擊新增評論 資料清空...
+      // setUserID('');
+      setContent('');
+      setPic('');
+      setFileSrc('請選擇檔案');
+    }
   };
 
   // 新增評論資料庫
   const InsertComment = async (e) => {
+    // console.log('member.id', member.id);
+    setUserID(member.id);
+    // 評論資料驗證
+    if (content === '') {
+      $('.contentVal').show();
+      $('textarea').addClass('border-danger');
+      if (pic === '') {
+        $('.picVal').show();
+        $('.custom-file-label').addClass('border-danger');
+        return;
+      } else {
+        $('.picVal').hide();
+        $('.custom-file-label').removeClass('border-danger');
+        $('.custom-file-label').addClass('border-success');
+        return;
+      }
+    } else {
+      $('.contentVal').hide();
+      $('textarea').removeClass('border-danger');
+      $('textarea').addClass('border-success');
+      if (pic === '') {
+        $('.picVal').show();
+        $('.custom-file-label').addClass('border-danger');
+        return;
+      } else {
+        $('.picVal').hide();
+        $('.custom-file-label').addClass('border-success');
+      }
+    }
+
     // setShow(false); // 關閉彈跳視窗
     // handleClose();
     e.preventDefault();
-
     try {
       let formData = new FormData();
       formData.append('userID', userID);
@@ -79,8 +121,17 @@ function Comment(props) {
       formData.append('time', time);
       formData.append('valid', valid);
       let response = await axios.post(`${articlecommentURL}/insert`, formData);
-      console.log('response', response);
+      // console.log('response', response);
       setShow(false); // 關閉彈跳視窗
+
+      // 使用sweetalert2彈跳視窗
+      Swal.fire({
+        icon: 'success',
+        title: '評論新增成功!',
+        // text: '管理員會盡快審核此評論',
+        showConfirmButton: false,
+        timer: 1500,
+      });
     } catch (e) {
       console.error(e.response);
     }
@@ -88,6 +139,7 @@ function Comment(props) {
 
   // 評論資料連線
   useEffect(() => {
+    // FIXME: 沒登入的跳轉頁面
     async function commentData() {
       try {
         const commentData = await axios.get(articlecommentURL);
@@ -135,7 +187,7 @@ function Comment(props) {
                       </Modal.Header>
                       <Modal.Body>
                         {/* <form onSubmit={InsertComment}> */}
-                        <form>
+                        <form className="needs-validation" novalidate>
                           <div className="form-group">
                             <label
                               htmlFor="articleName"
@@ -184,17 +236,15 @@ function Comment(props) {
                               className="form-control"
                               id="userID"
                               value={userID}
-                              onChange={(e) => {
-                                setUserID(e.target.value);
-                              }}
-                              disabled
+                              readOnly
                             />
                           </div>
-                          <div className="form-group">
+                          <div className="form-group contentWrap">
                             <label htmlFor="content" className="col-form-label">
                               評論內容：
                             </label>
                             <textarea
+                              type="text"
                               className="form-control"
                               id="content"
                               placeholder="請留下您想輸入的評論內容．．．留言不得超過100字"
@@ -202,9 +252,15 @@ function Comment(props) {
                               onChange={(e) => {
                                 setContent(e.target.value);
                               }}
+                              maxlength="100"
                               required
-                              maxLength="200"
                             ></textarea>
+                            <div
+                              id="validationServer03Feedback"
+                              className="invalid-feedback contentVal"
+                            >
+                              請填寫評論
+                            </div>
                           </div>
                           <div className="form-group">
                             <label
@@ -222,6 +278,8 @@ function Comment(props) {
                                 name="pic"
                                 onChange={(e) => {
                                   setPic(e.target.files[0]);
+                                  // 上傳檔案顯示檔名
+                                  setFileSrc(e.target.files[0].name);
                                 }}
                                 required
                               />
@@ -229,17 +287,14 @@ function Comment(props) {
                                 className="custom-file-label"
                                 htmlFor="inputGroupFile01"
                               >
-                                選擇檔案
+                                {fileSrc}
                               </label>
                             </div>
-                            {/* <img
-                              src=""
-                              className="preview"
-                              style={{ width: 100, height: 100 }}
-                              alt=""
-                            ></img> */}
-                            <div className="invalid-feedback">
-                              請選擇照片檔案
+                            <div
+                              id="validationServer03Feedback"
+                              className="invalid-feedback contentVal picVal"
+                            >
+                              請選擇照片
                             </div>
                           </div>
                           <div
@@ -279,6 +334,8 @@ function Comment(props) {
                             />
                           </div>
                         </form>
+                        {/* ////react bootstrap */}
+                        {/* <CommentForm></CommentForm> */}
                       </Modal.Body>
                       <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
@@ -293,57 +350,6 @@ function Comment(props) {
                   </div>
                   <div className="d-flex flex-column">
                     <CommmentList comment={comment}></CommmentList>
-                    <div
-                      className="btn-toolbar justify-content-center mt-md-2"
-                      role="toolbar"
-                      aria-label="Toolbar with button groups"
-                    >
-                      <div
-                        className="btn-group mr-2"
-                        role="group"
-                        aria-label="Third group"
-                      >
-                        <button type="button" className="btn btn-primary">
-                          <BsChevronBarLeft></BsChevronBarLeft>
-                        </button>
-                      </div>
-                      <div
-                        className="btn-group mr-2"
-                        role="group"
-                        aria-label="First group"
-                      >
-                        <button type="button" className="btn btn-primary">
-                          <BsChevronLeft></BsChevronLeft>
-                        </button>
-                      </div>
-                      <div
-                        className="btn-group mr-2"
-                        role="group"
-                        aria-label="Second group"
-                      >
-                        <button type="button" className="btn btn-primary">
-                          1
-                        </button>
-                      </div>
-                      <div
-                        className="btn-group mr-2"
-                        role="group"
-                        aria-label="Third group"
-                      >
-                        <button type="button" className="btn btn-primary">
-                          <BsChevronRight></BsChevronRight>
-                        </button>
-                      </div>
-                      <div
-                        className="btn-group"
-                        role="group"
-                        aria-label="Third group"
-                      >
-                        <button type="button" className="btn btn-primary">
-                          <BsChevronBarRight></BsChevronBarRight>
-                        </button>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>

@@ -80,7 +80,7 @@ function App() {
       }
     }
     getPersonalData();
-  }, [show, mapRouteShow]);
+  }, [show, mapRouteShow, auth]);
 
   console.log('outside-member', member);
 
