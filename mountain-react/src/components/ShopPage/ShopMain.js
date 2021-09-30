@@ -1,82 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link .
 import $ from 'jquery';
 import '../../../node_modules/slick-carousel/slick/slick.css';
 import '../../../node_modules/slick-carousel/slick/slick.min.js';
 import '../../../node_modules/slick-carousel/slick/slick-theme.css';
 // import 'slick-carousel';
-import Swal from 'sweetalert2';
 import '../../styles/product.css';
+// import component
 import RankingItems from './components/RankingItems';
 import SelectedItems from './components/SelectedItems';
-import { CartFill, HeartFill } from 'react-bootstrap-icons';
-//api s
-import axios from 'axios';
-import { shopURL } from '../../utils/config';
-//api e
 
 import display1 from '../../img/display-photo1.jpeg';
 import display2 from '../../img/display-photo2.jpeg';
 import display3 from '../../img/display-photo3.jpeg';
-import bagsPic2 from '../../img/product-img/bags-pic2.jpeg';
-import bagsPic8 from '../../img/product-img/bags-pic8.jpeg';
-import shoesPic8 from '../../img/product-img/shoes-pic8.jpeg';
-import clothesPic5 from '../../img/product-img/clothes-pic5.jpeg';
 import xiangshan from '../../img/article-img/xiangshan.jpeg';
 import Yangmingshan from '../../img/article-img/Yangmingshan.jpeg';
 import Tapachien from '../../img/article-img/Tapachien.jpeg';
 
+//FIXME: 會無法slick
 function ShopMain(props) {
-  const [productData, setProductData] = useState([]);
   useEffect(() => {
-    //api
-    async function getProductData() {
-      try {
-        const productData = await axios.get(shopURL);
-        console.log(productData.data); //for check
-        setProductData(productData.data);
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    getProductData();
     //slick
     $('.shopmain-display-photo-box').slick({
       dots: true,
       speed: 300,
       autoplay: true,
       autoplaySpeed: 3500,
-    });
-    $('.shopmain-heart-icon-bkg').on('click', function () {
-      $(this).toggleClass('shopmain-heart-icon-bkg-click');
-    });
-    $('.shopmain-cart-icon-bkg').on('click', () => {
-      //display none -> block
-      let cartDisplay = $('.cart-num').css('display');
-      if (cartDisplay === 'none') {
-        $('.cart-num').css('display', 'block');
-      }
-      // alert("已將商品加入購物車！");
-      Swal.fire({
-        icon: 'success',
-        title: '已將商品加入購物車！',
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      //cart-num ++
-      let cartNum = parseInt($('.cart-num').text());
-      //限制一次加進購物車數量
-      if (cartNum >= 10) {
-        Swal.fire({
-          icon: 'error',
-          title: '一次最多只能放入10樣商品喔',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      } else {
-        cartNum++;
-        $('.cart-num').text(cartNum);
-      }
     });
   }, []);
   return (
