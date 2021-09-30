@@ -2,8 +2,8 @@ import React from 'react';
 import Card from './Card';
 import '../../styles/article.css';
 import $ from 'jquery';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+// import { useState } from 'react';
 import axios from 'axios';
 import { recommendURL } from '../../utils/config';
 import {
@@ -12,9 +12,6 @@ import {
   BsChevronRight,
   BsChevronBarRight,
 } from 'react-icons/bs';
-
-// 1 連資料庫
-// 2
 
 function Manual() {
   // 原始資料庫狀態
@@ -51,8 +48,10 @@ function Manual() {
   const [time, setTime] = useState([]);
   // 1 步道種類tag篩選
   const [mtype, setType] = useState([]);
+  // 當頁文章星星評分
+  const [star, setStar] = useState(0);
 
-  //////////////////////////資料庫連線
+  //資料庫連線
   useEffect(() => {
     async function recommendData() {
       try {
@@ -254,6 +253,7 @@ function Manual() {
     newArticle = seasonTags(newArticle, season);
     newArticle = timeRange(newArticle, time);
     newArticle = typeTags(newArticle, mtype);
+    // console.log('11newArticle', newArticle);
 
     setResult(newArticle);
     // console.log('listData', listData);
@@ -263,19 +263,15 @@ function Manual() {
     $('.recommend-level-btn').click(function () {
       $(this).toggleClass('active');
     });
-
     $('.recommend-season-btn').click(function () {
       $(this).toggleClass('active');
     });
-
     $('.recommend-time-btn').click(function () {
       $(this).toggleClass('active');
     });
-
     $('.recommend-mountain-type-btn').click(function () {
       $(this).toggleClass('active');
     });
-
     $('i').click(function () {
       $(this).toggleClass('active');
     });
@@ -436,11 +432,7 @@ function Manual() {
         <div className="recommend-filter">
           <div className="container recommend-body">
             <div className="recommend-bg-wrapper">
-              <h2 className="recommend-body-content-big-bold recommend-inline">
-                推薦路線
-              </h2>
-              <p className="recommend-inline ml-2">9筆資料</p>
-              <Card result={result}></Card>
+              <Card result={result} star={star} setStar={setStar}></Card>
               <div
                 className="btn-toolbar justify-content-center"
                 role="toolbar"
