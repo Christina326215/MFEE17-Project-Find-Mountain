@@ -89,7 +89,7 @@ function MapL() {
     async function mapLData() {
       try {
         // map api star //
-        const mapData = await axios.get(mapURL);
+        const mapData = await axios.get(mapURL + '1');
         console.log('mapData:', mapData.data); //for check
         setListData(mapData.data);
         // map api end //
@@ -284,12 +284,16 @@ function MapL() {
                           {weatherData.map((item, i) =>
                             item.parameter[0].parameterValue ===
                             `${list.city}` ? (
-                              <span key={i}>
-                                {Math.floor(
-                                  item.weatherElement[0].elementValue
-                                )}
-                                度
-                              </span>
+                              item.weatherElement[0].elementValue === '-99' ? (
+                                <span key={i}>無溫度資料</span>
+                              ) : (
+                                <span key={i}>
+                                  {Math.floor(
+                                    item.weatherElement[0].elementValue
+                                  )}
+                                  度
+                                </span>
+                              )
                             ) : (
                               ''
                             )

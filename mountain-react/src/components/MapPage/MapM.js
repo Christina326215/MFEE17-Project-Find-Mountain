@@ -89,7 +89,7 @@ function MapM() {
     async function mapLData() {
       try {
         // map api star //
-        const mapData = await axios.get(mapURL + 'middle');
+        const mapData = await axios.get(mapURL + '2');
         console.log('mapData:', mapData.data); //for check
         setListData(mapData.data);
         // map api end //
