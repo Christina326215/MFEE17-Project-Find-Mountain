@@ -301,7 +301,9 @@ function ShopCartDetail() {
             {cartLocal.length > 0 && cartLocal !== '[]' ? (
               <div>
                 <div className="d-flex justify-content-end">
-                  <button onClick={clearCart}>清空購物車</button>
+                  <button className="btn-primary btn" onClick={clearCart}>
+                    清空購物車
+                  </button>
                 </div>
                 {/* abby */}
                 {shopCartData.map((items, index) => {
@@ -410,6 +412,7 @@ function ShopCartDetail() {
               </div>
             )}
             {/* <!-- 分頁 start  --> */}
+            {/* FIXME: page btn 功能 */}
             {pages_btn}
             {/* <!-- 分頁 end  --> */}
             <div className="text-right mt-3 text-right">
