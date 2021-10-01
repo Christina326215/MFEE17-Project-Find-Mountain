@@ -5,6 +5,7 @@ import { useAuth } from '../../context/auth'; // 取得會員資料
 import $ from 'jquery';
 import Swal from 'sweetalert2';
 import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
+import '../../styles/MemberPage/MemberPersonal.scss';
 import { Button, Modal } from 'react-bootstrap';
 
 import {
@@ -194,6 +195,9 @@ function ShopCartCheck(props) {
   const handleSubmit = async (e) => {
     // e.preventDefault();
     try {
+      // pay.order_detail = shopCartData;
+      pay.order_detail = cartLocal;
+      console.log('所有資料：', pay);
       let responsePayInfo = await axios.post(
         `${shopcartPayURL}/pay-info`,
         { ...pay },
@@ -202,15 +206,6 @@ function ShopCartCheck(props) {
         }
       );
 
-      // let responseOrderDetail = await axios.post(
-      //   `${shopcartPayURL}/order-detail`,
-      //   { ...shopCartData },
-      //   {
-      //     withCredentials: true,
-      //   }
-      // );
-      // console.log('submit:', response);
-      // console.log('submit_pay:', pay);
       //清空購物車
       localStorage.removeItem('ProductOrderDetail');
       setCartChange(true);
@@ -408,7 +403,39 @@ function ShopCartCheck(props) {
                   <hr />
                   <tr>
                     <th scope="row">訂購商品總額：</th>
-                    <td>NT$ {sum(shopCartData).toLocaleString()}</td>
+                    <td>
+                      <del>NT$ {sum(shopCartData).toLocaleString()}</del>
+                    </td>
+                  </tr>
+                  <tr>
+                    {member &&
+                      (member.level === '1' ? (
+                        <th scope="row" className="member-membership-low h5">
+                          會員肉腳優惠價(95折)：
+                        </th>
+                      ) : member.level === '2' ? (
+                        <th scope="row" className="member-membership-medium h5">
+                          會員山友優惠價(90折)：
+                        </th>
+                      ) : (
+                        <th scope="row" className="member-membership-high h5">
+                          會員山神優惠價(85折)：
+                        </th>
+                      ))}
+                    {member &&
+                      (member.level === '1' ? (
+                        <td className="member-membership-low h5">
+                          NT$ {(sum(shopCartData) * 0.95).toLocaleString()}
+                        </td>
+                      ) : member.level === '2' ? (
+                        <td className="member-membership-medium h5">
+                          NT$ {(sum(shopCartData) * 0.9).toLocaleString()}
+                        </td>
+                      ) : (
+                        <td className="member-membership-high h5">
+                          NT$ {(sum(shopCartData) * 0.85).toLocaleString()}
+                        </td>
+                      ))}
                   </tr>
                 </tbody>
               </table>
