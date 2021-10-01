@@ -195,6 +195,7 @@ function MemberComment() {
                       <td
                         scope="row"
                         className="member-comment-text-weight align-middle"
+                        style={{ width: '70px' }}
                       >
                         {/* {items.dislike_status === 2 ? (
                         <FcApproval size={20} />
