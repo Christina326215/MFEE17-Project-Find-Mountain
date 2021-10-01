@@ -30,10 +30,11 @@ function OutfitProductModal(props) {
   //   let modalId = document.getElementById('modalId').value;
   //   console.log('modalId', modalId);
   // }, []);
+
   useEffect(() => {
     let orderDetail = { id: productId, size: cartSize, num: cartNum };
-    // setProductOrder(productOrder.push(orderDetail));
-    console.log('orderDetail child', orderDetail);
+    setProductOrder(orderDetail);
+    // console.log('orderDetail child', orderDetail);
   }, [cartNum, cartSize]);
   return (
     <>
