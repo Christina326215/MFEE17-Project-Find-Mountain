@@ -80,6 +80,13 @@ function Comment(props) {
 
   // 新增評論資料庫
   const InsertComment = async (e) => {
+    // if (
+    //   file.mimetype !== 'image/jpeg' &&
+    //   file.mimetype !== 'image/jpg' &&
+    //   file.mimetype !== 'image/png'
+    // ) {
+    //   cb(new Error('不接受的檔案型態'), false);
+    // }
     // console.log('member.id', member.id);
     // setUserID(member.id);
     // 評論資料驗證
@@ -188,7 +195,7 @@ function Comment(props) {
                       </Modal.Header>
                       <Modal.Body>
                         {/* <form onSubmit={InsertComment}> */}
-                        <form className="needs-validation" novalidate>
+                        <form className="needs-validation" noValidate>
                           <div className="form-group">
                             <label
                               htmlFor="articleName"
@@ -253,7 +260,7 @@ function Comment(props) {
                               onChange={(e) => {
                                 setContent(e.target.value);
                               }}
-                              maxlength="100"
+                              maxLength="100"
                               required
                             ></textarea>
                             <div
@@ -278,9 +285,26 @@ function Comment(props) {
                                 aria-describedby="inputGroupFileAddon01"
                                 name="pic"
                                 onChange={(e) => {
-                                  setPic(e.target.files[0]);
-                                  // 上傳檔案顯示檔名
-                                  setFileSrc(e.target.files[0].name);
+                                  if (
+                                    e.target.files[0].type !== 'image/jpeg' ||
+                                    e.target.files[0].type !== 'image/jpg' ||
+                                    e.target.files[0].type !== 'image/png'
+                                  ) {
+                                    // 清空上傳資料
+                                    setPic('');
+                                    setFileSrc('請選擇檔案');
+                                    // 使用sweetalert2彈跳視窗
+                                    Swal.fire({
+                                      icon: 'error',
+                                      title: '上傳圖片不符合檔案格式',
+                                      showConfirmButton: false,
+                                      timer: 1500,
+                                    });
+                                  } else {
+                                    setPic(e.target.files[0]);
+                                    // 上傳檔案顯示檔名
+                                    setFileSrc(e.target.files[0].name);
+                                  }
                                 }}
                                 required
                               />

@@ -23,8 +23,9 @@ import { useAuth } from '../../context/auth';
 //====== below catch member info end ======//
 
 function DetailContent(props) {
+  const { flagHandle, setFlagHandle } = props;
   // 登入會員狀態
-  const { member, auth } = useAuth(); // 把 member 從 useContext中拿出來
+  const { member } = useAuth(); // 把 member 從 useContext中拿出來
   // {account: "lily516liu@gmail.com"
   // addr: "1號"
   // birthday: "2021-09-28"
@@ -69,8 +70,10 @@ function DetailContent(props) {
   const [likeArticlePast, setLikeArticlePast] = useState('');
   // 判斷有沒有收藏過的狀態 true收藏 fasle沒收藏
   const [heartHandle, setHeartHandle] = useState(true);
-  // 判斷有沒有去過的狀態
-  const [flagHandle, setFlagHandle] = useState(true);
+  // // 判斷有沒有去過的狀態
+  // const [flagHandle, setFlagHandle] = useState(true);
+  // 去過路線會影響到member level等級 設定一個level影響user的狀態
+  // const [userLevel, setUserLevel] = useState(false);
 
   // useEffect(() => {
   //   // 判斷user是否有登入 有登入才帶入使用者ID 繼續執行下面動作!!
@@ -87,7 +90,6 @@ function DetailContent(props) {
   // console.log('測試 auth', auth);
 
   useEffect(() => {
-    // FIXME: 沒登入的跳轉頁面 沒登入無法看見文章
     // js
     //  about-membership-bubble start
     $('.recommend-see-member').click((e) => {
@@ -502,13 +504,6 @@ function DetailContent(props) {
                       }
                     }}
                     style={{ cursor: 'pointer' }}
-                    // FIXME:愛心hover
-                    // onMouseEnter={(e) => {
-                    //   console.log(
-                    //     'e.currentTarget.nextElementSibling',
-                    //     e.currentTarget.nextElementSibling
-                    //   );
-                    // }}
                   >
                     <BsHeartFill className="bi recommend-bi-heart-fill mr-1 mt-1"></BsHeartFill>
                     <div className="recommend-body-content mr-2">加入收藏</div>
