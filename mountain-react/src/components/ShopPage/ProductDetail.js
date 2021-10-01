@@ -460,7 +460,17 @@ function ProductDetail(props) {
           {/* <!-- =========outfit start========= --> */}
           <div className="my-4 productdetail-outfit-box position-relative">
             <div className="position-absolute position-relative productdetail-shop-svg">
-              <Link to="/outfit">
+              <Link
+                to="/outfit"
+                onMouseEnter={(e) => {
+                  // e.target.className += 'animate__heartBeat';
+                  $(e.target).addClass('animate__heartBeat');
+                }}
+                onMouseLeave={(e) => {
+                  // e.target.className -= 'animate__heartBeat';
+                  $(e.target).removeClass('animate__heartBeat');
+                }}
+              >
                 <img src={shop} alt="穿搭商店" title="穿搭商店" />
               </Link>
               <div className="position-absolute productdetail-bearbear">

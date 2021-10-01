@@ -21,7 +21,6 @@ function MemberEdit(props) {
   const [districts, setDistricts] = useState([]); //各行政區陣列
 
   const { show, setShow } = props;
-  // const handleClose = () => setShow(false);
 
   // 3. 因為不能直接去改動member的資料，需要先設定一個tempMember變數，將由資料庫而來的member放進setTempMember中改變狀態，最後才會把改變後的狀態存進資料庫。
   const [tempMember, setTempMember] = useState(null);
@@ -136,8 +135,12 @@ function MemberEdit(props) {
       formData.append('birthday', tempMember.birthday);
       formData.append('zip_code', tempMember.zip_code);
       formData.append('addr', tempMember.addr);
-      let response = await axios.post(`${memberEditURL}`, formData);
+      let response = await axios.post(`${memberEditURL}`, formData, {
+        withCredentials: true,
+      });
       console.log(response);
+      setShow(false);
+      console.log('inside-show', show);
     } catch (e) {
       console.error(e.response);
     }
@@ -348,10 +351,8 @@ function MemberEdit(props) {
                     type="submit"
                     className="border-bottom-left-radius my-5 mx-3 text-right btn btn-primary"
                     onClick={() => {
-                      setShow(false);
                       props.history.goBack();
                     }}
-                    // onClick={handleClose}
                   >
                     確定
                   </button>

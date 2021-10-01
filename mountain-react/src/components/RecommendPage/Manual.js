@@ -3,17 +3,14 @@ import Card from './Card';
 import '../../styles/article.css';
 import $ from 'jquery';
 import { useEffect, useState } from 'react';
-// import { useState } from 'react';
+//====== below catch member info star ======//
+// import { useAuth } from '../../context/auth';
+//====== below catch member info end ======//
 import axios from 'axios';
 import { recommendURL } from '../../utils/config';
-import {
-  BsChevronBarLeft,
-  BsChevronLeft,
-  BsChevronRight,
-  BsChevronBarRight,
-} from 'react-icons/bs';
 
 function Manual() {
+  // const { page, setPage, totalPage, setTotalPage } = useAuth(); // 取得會員資料
   // 原始資料庫狀態
   const [listData, setListData] = useState([
     {
@@ -48,16 +45,22 @@ function Manual() {
   const [time, setTime] = useState([]);
   // 1 步道種類tag篩選
   const [mtype, setType] = useState([]);
-  // 當頁文章星星評分
-  const [star, setStar] = useState(0);
 
   //資料庫連線
   useEffect(() => {
     async function recommendData() {
       try {
         const recommendData = await axios.get(recommendURL);
+        // const recommendData = await axios.get(`${recommendURL}?page=${page}`);
+        // const CommentData = await axios.post(
+        //   `${memberCommentURL}?page=${page}`,
+        //   { member }
+        // );
         // console.log(recommendData.data); //for check
         setListData(recommendData.data);
+        ///
+        // let data = CommentData.data;
+        // setTotalPage(recommendData.data.pagination.lastPage);
       } catch (e) {
         console.log(e);
       }
@@ -432,8 +435,8 @@ function Manual() {
         <div className="recommend-filter">
           <div className="container recommend-body">
             <div className="recommend-bg-wrapper">
-              <Card result={result} star={star} setStar={setStar}></Card>
-              <div
+              <Card result={result}></Card>
+              {/* <div
                 className="btn-toolbar justify-content-center"
                 role="toolbar"
                 aria-label="Toolbar with button groups"
@@ -483,7 +486,7 @@ function Manual() {
                     <BsChevronBarRight></BsChevronBarRight>
                   </button>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           <a
