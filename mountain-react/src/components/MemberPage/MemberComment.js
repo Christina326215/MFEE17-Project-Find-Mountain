@@ -143,6 +143,7 @@ function MemberComment() {
                   <th
                     scope="col-4 col-md-3"
                     className="member-comment-text-weight-bold align-moddle"
+                    style={{ width: '110px' }}
                   >
                     評論文章
                   </th>
@@ -162,38 +163,41 @@ function MemberComment() {
               </thead>
               {/* FIXME:三元運算子，如果沒資料的話，顯示沒資料 */}
               {/* {data == null ? ():} */}
-              {data.map((items) => (
-                <tbody key={items.id}>
-                  <tr>
-                    <td
-                      scope="row"
-                      className="member-comment-picture-img-wrapper"
-                    >
-                      <div className="member-comment-picture-img-box">
-                        <img
-                          src={`${IMAGE_URL}/img/comment-img/${items.pic}`}
-                          alt=""
-                          className="member-comment-picture-img"
-                        />
-                      </div>
-                    </td>
-                    <td
-                      scope="row"
-                      className="member-comment-text-weight align-middle"
-                    >
-                      {items.article_name}
-                    </td>
-                    <td
-                      scope="row"
-                      className="member-comment-text-weight align-middle"
-                    >
-                      {items.content}
-                    </td>
-                    <td
-                      scope="row"
-                      className="member-comment-text-weight align-middle"
-                    >
-                      {/* {items.dislike_status === 2 ? (
+              {data.length > 0 && data !== '[]' ? (
+                <tbody>
+                  {data.map((items) => (
+                    <tr>
+                      <td
+                        key={items.id}
+                        scope="row"
+                        className="member-comment-picture-img-wrapper"
+                      >
+                        <div className="member-comment-picture-img-box">
+                          <img
+                            src={`${IMAGE_URL}/img/comment-img/${items.pic}`}
+                            alt=""
+                            className="member-comment-picture-img"
+                          />
+                        </div>
+                      </td>
+                      <td
+                        scope="row"
+                        className="member-comment-text-weight align-middle"
+                      >
+                        {items.article_name}
+                      </td>
+                      <td
+                        scope="row"
+                        className="member-comment-text-weight align-middle"
+                      >
+                        {items.content}
+                      </td>
+                      <td
+                        scope="row"
+                        className="member-comment-text-weight align-middle"
+                        style={{ width: '70px' }}
+                      >
+                        {/* {items.dislike_status === 2 ? (
                         <FcApproval size={20} />
                       ) : items.dislike_status === 3 ? (
                         <FcVlc size={20} />
@@ -203,38 +207,51 @@ function MemberComment() {
                           size={20}
                         />
                       )} */}
-                      <div className="d-flex flex-wrap justify-content-center">
-                        {items.dislike_status === 2 ? (
-                          <FcApproval size={24} />
-                        ) : items.dislike_status === 3 ? (
-                          <FcVlc size={24} />
-                        ) : (
-                          <BsExclamationTriangleFill
-                            className="member-comment-warning-icon"
-                            size={24}
-                          />
-                        )}
-                        {items.dislike_status === 2 ? (
-                          <span className="member-comment-status">
-                            評論通過
-                          </span>
-                        ) : items.dislike_status === 3 ? (
-                          <span className="member-comment-status">
-                            被檢舉審核中
-                          </span>
-                        ) : (
-                          <span className="member-comment-status">
-                            評論不通過
-                          </span>
-                        )}
-                      </div>
+                        <div className="d-flex flex-wrap justify-content-center">
+                          {items.dislike_status === 2 ? (
+                            <FcApproval size={24} />
+                          ) : items.dislike_status === 3 ? (
+                            <FcVlc size={24} />
+                          ) : (
+                            <BsExclamationTriangleFill
+                              className="member-comment-warning-icon"
+                              size={24}
+                            />
+                          )}
+                          {items.dislike_status === 2 ? (
+                            <span className="member-comment-status">
+                              評論通過
+                            </span>
+                          ) : items.dislike_status === 3 ? (
+                            <span className="member-comment-status">
+                              被檢舉審核中
+                            </span>
+                          ) : (
+                            <span className="member-comment-status">
+                              評論不通過
+                            </span>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              ) : (
+                <tbody>
+                  {/* <tr className="d-flex member-nocomment-box text-center justify-content-center align-items-center">
+                    <p className="p-0">目前尚未新增評論</p>
+                  </tr> */}
+                  <tr>
+                    <td colspan="4" className="member-nocomment-box">
+                      <p className="nocomment">目前尚未新增評論</p>
                     </td>
                   </tr>
                 </tbody>
-              ))}
+              )}
             </table>
             {/* <!-- 分頁 start  --> */}
-            <PagesBtn />
+            {data.length > 0 && data !== '[]' ? <PagesBtn /> : <div></div>}
+
             {/* <!-- 分頁 end  --> */}
           </div>
           {/* <!-- manage-right-side end--> */}
