@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter, Redirect } from 'react-router-dom'; //可以獲取history,location,match,來使用
 import { useAuth } from '../../context/auth'; // 取得會員資料
 import $ from 'jquery';
+import Swal from 'sweetalert2';
 import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
+import { Button, Modal } from 'react-bootstrap';
 
 import {
   shopcartPayURL,
@@ -21,68 +23,11 @@ import { BsCheck } from 'react-icons/bs';
 
 //====== above img import end ======//
 
-function ShopCartCheck() {
+function ShopCartCheck(props) {
   const { pay, member, setCartChange } = useAuth(); // 取得會員資料
   // console.log('pay', pay);
 
-  //shopCartData為購物車local storage接完資料庫的整體一筆一筆的資料
-  const [shopCartData, setShopCartData] = useState([]);
-  //cartLocal為購物車的local storage
-  const [cartLocal, setCartLocal] = useState([]);
-
-  //取得local storage轉為陣列的資料 ProductOrder
-  function getCartFromLocalStorage() {
-    const ProductOrder =
-      JSON.parse(localStorage.getItem('ProductOrderDetail')) || '[]';
-    // console.log(ProductOrder);
-    setCartLocal(ProductOrder);
-  }
-  //一進畫面先讀取local storage
-  useEffect(() => {
-    getCartFromLocalStorage();
-  }, []);
-
-  //local storage接API --> shopCartData
-  useEffect(() => {
-    var ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
-    //api
-    async function getProductData() {
-      try {
-        //抓購物車的商品資料
-        var orderArray = [];
-        for (let i = 0; i < ProductOrder.length; i++) {
-          const productOrderData = await axios.get(
-            `${shopURL}/product-detail/${ProductOrder[i].id}`
-          );
-          //productOrderData.data[0]為資料庫商品資料 ProductOrder[i]為localstorage的購物車資料
-          // console.log(productOrderData.data[0], ProductOrder[i]);
-          //合併物件Object.assign 合併後原物件也會被改變
-          let assignedObj = Object.assign(
-            productOrderData.data[0],
-            ProductOrder[i]
-          );
-          // console.log('productOrderData.data[0]', productOrderData.data[0]);
-          // console.log('assignedObj', assignedObj);
-          orderArray.unshift(productOrderData.data[0]);
-        }
-        console.log('new_orderArray', orderArray);
-        setShopCartData(orderArray);
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    getProductData();
-  }, [cartLocal]);
-
-  // 計算總價用的函式
-  const sum = (items) => {
-    let total = 0;
-    for (let i = 0; i < items.length; i++) {
-      total += items[i].num * items[i].price;
-    }
-    return total;
-  };
-
+  /* zip-code 靜態檔案 start*/
   const [zipGroup, setZipGroup] = useState(null);
   const [zipCode, setZipCode] = useState(null);
 
@@ -110,15 +55,145 @@ function ShopCartCheck() {
     }
     getZipCode();
   }, []);
+  /* zip-code 靜態檔案 end */
 
-  const [isSubmit, setIsSubmit] = useState(false);
+  /* 購物車明細local storage start */
+  //shopCartData為購物車local storage接完資料庫的整體一筆一筆的資料
+  const [shopCartData, setShopCartData] = useState([]);
+  //historyItems為瀏覽紀錄local storage接完資料庫的整體一筆一筆的資料
+  const [historyItems, setHistoryItems] = useState([]);
+  //cartLocal為購物車的local storage
+  const [cartLocal, setCartLocal] = useState([]);
+  //取得local storage轉為陣列的資料 ProductOrder
+  function getCartFromLocalStorage() {
+    const ProductOrder =
+      JSON.parse(localStorage.getItem('ProductOrderDetail')) || '[]';
+    // console.log(ProductOrder);
+    setCartLocal(ProductOrder);
+  }
+  //一進畫面先讀取local storage
+  useEffect(() => {
+    getCartFromLocalStorage();
+    // console.log('cartLocal', cartLocal);
+  }, []);
 
-  // 準備 INSERT INTO 資料庫 start
+  // 計算總價用的函式
+  const sum = (items) => {
+    let total = 0;
+    for (let i = 0; i < items.length; i++) {
+      total += items[i].num * items[i].price;
+    }
+    return total;
+  };
+
+  //local storage接API --> shopCartData
+  useEffect(() => {
+    var ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
+    //api
+    if (ProductOrder !== [] && ProductOrder !== null) {
+      async function getProductData() {
+        try {
+          //抓瀏覽紀錄資料
+          var ProductViewHistory = JSON.parse(
+            localStorage.getItem('ProductViewHistory')
+          );
+          if (ProductViewHistory !== null && ProductViewHistory.length > 0) {
+            var historyArray = [];
+            for (let i = 0; i < ProductViewHistory.length; i++) {
+              // console.log('ProductViewHistory[i]', ProductViewHistory[i]);
+              const productHistoryData = await axios.get(
+                `${shopURL}/product-detail/${ProductViewHistory[i]}`
+              );
+              // console.log(productHistoryData.data[0]);
+              historyArray.unshift(productHistoryData.data[0]);
+            }
+            // console.log('historyArray', historyArray);
+            setHistoryItems(historyArray);
+          }
+          //抓購物車的商品資料
+          var orderArray = [];
+          for (let i = 0; i < ProductOrder.length; i++) {
+            //對應尺寸剩餘庫存及售出量的api
+            const productOrderData = await axios.get(
+              `${shopURL}/size-storage/${ProductOrder[i].id}/${ProductOrder[i].size}`
+            );
+            //productOrderData.data[0]為資料庫商品資料 ProductOrder[i]為localstorage的購物車資料
+            // console.log(productOrderData.data[0], ProductOrder[i]);
+            //合併物件Object.assign 合併後原物件也會被改變
+            let assignedObj = Object.assign(
+              productOrderData.data[0],
+              ProductOrder[i]
+            );
+            // console.log('productOrderData.data[0]', productOrderData.data[0]);
+            // console.log('assignedObj', assignedObj);
+            orderArray.unshift(productOrderData.data[0]);
+          }
+          // console.log('orderArray', orderArray);
+          setShopCartData(orderArray);
+        } catch (e) {
+          console.log(e);
+        }
+      }
+      getProductData();
+    } else {
+      //如果購物車為空 還是要抓瀏覽紀錄
+      async function getProductData() {
+        try {
+          //抓瀏覽紀錄資料
+          var ProductViewHistory = JSON.parse(
+            localStorage.getItem('ProductViewHistory')
+          );
+          if (ProductViewHistory !== null && ProductViewHistory.length > 0) {
+            var historyArray = [];
+            for (let i = 0; i < ProductViewHistory.length; i++) {
+              // console.log('ProductViewHistory[i]', ProductViewHistory[i]);
+              const productHistoryData = await axios.get(
+                `${shopURL}/product-detail/${ProductViewHistory[i]}`
+              );
+              // console.log(productHistoryData.data[0]);
+              historyArray.unshift(productHistoryData.data[0]);
+            }
+            // console.log('historyArray', historyArray);
+            setHistoryItems(historyArray);
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      }
+      getProductData();
+      // console.log('沒有商品');
+      setShopCartData([]);
+    }
+  }, [cartLocal]);
+  /* 購物車明細local storage end */
+
+  /* 信用卡彈出式視窗 start */
+  const [showCreditCard, setShowCreditCard] = useState(false);
+  const handleClose = () => setShowCreditCard(false);
+  const creditCardPay = () => setShowCreditCard(true);
+
+  useEffect(() => {
+    $('#payment-button').click(function (e) {
+      // Fetch form to apply Bootstrap validation
+      var form = $(this).parents('form');
+
+      if (form[0].checkValidity() === false) {
+        e.preventDefault();
+        e.stopPropagation();
+      } else {
+        // Perform ajax submit here
+        // form.submit();
+      }
+
+      form.addClass('was-validated');
+    });
+  }, []);
+  /* 信用卡彈出式視窗 end */
+
+  /* 準備 INSERT INTO 資料庫 start */
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     try {
-      // console.log('submit_pay:', pay);
-
       let responsePayInfo = await axios.post(
         `${shopcartPayURL}/pay-info`,
         { ...pay },
@@ -136,27 +211,28 @@ function ShopCartCheck() {
       // );
       // console.log('submit:', response);
       // console.log('submit_pay:', pay);
-
       //清空購物車
-      const clearCart = (e) => {
-        e.preventDefault();
-        localStorage.removeItem('ProductOrderDetail');
-        setCartChange(true);
-        setCartLocal([]);
-      };
-      setIsSubmit(true);
+      localStorage.removeItem('ProductOrderDetail');
+      setCartChange(true);
+      setCartLocal([]);
+
+      setShowCreditCard(false);
+
+      Swal.fire({
+        icon: 'success',
+        title: '付款成功',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+      props.history.replace('/shoppingcart/step4-final');
     } catch (e) {
       console.error(e.response);
     }
   };
+  /* 準備 INSERT INTO 資料庫 end */
 
-  useEffect(() => {
-    if (isSubmit === true) {
-      return <Redirect to="/shopcart/credit-card" />;
-    }
-  }, [isSubmit]);
-  // 準備 INSERT INTO 資料庫 end
-
+  /* progress bar start */
   useEffect(() => {
     // progress-bar
     $('.shopcart-btn-next').on('click', function () {
@@ -223,6 +299,8 @@ function ShopCartCheck() {
         .data('current-step', prevStepNum);
     });
   }, []);
+  /* progress bar end */
+
   return (
     <>
       <div className="container">
@@ -311,7 +389,7 @@ function ShopCartCheck() {
                       <hr />
                       <tr>
                         <th scope="row">訂購商品名稱：</th>
-                        <td>{item.product_name}</td>
+                        <td>{item.name}</td>
                       </tr>
                       <tr>
                         <th scope="row">訂購單一品項數量：</th>
@@ -319,7 +397,6 @@ function ShopCartCheck() {
                       </tr>
                       <tr>
                         <th scope="row">訂購單一品項小計：</th>
-                        {/* <td>NT$ {item.price.toLocaleString()}</td> */}
                         <td>
                           NT${' '}
                           {(parseInt(item.price) * item.num).toLocaleString()}
@@ -344,12 +421,176 @@ function ShopCartCheck() {
                   否，進行修改
                 </Link>
                 <div></div>
-                <button
+                <Button
+                  variant="primary"
+                  onClick={creditCardPay}
+                  className="shopcart-btn btn-next btn btn-primary mr-3"
+                >
+                  是，進行付款
+                </Button>
+
+                <Modal show={showCreditCard} onHide={handleClose}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>信用卡支付</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    {/* Woohoo, you're reading this text in a modal! */}
+                    <div id="pay-invoice" className="card">
+                      <div className="card-body">
+                        <div className="card-title">
+                          <h3 className="text-center">Credit Card</h3>
+                        </div>
+                        {/* <hr> */}
+                        <form
+                          action="/echo"
+                          method="post"
+                          novalidate="novalidate"
+                          className="needs-validation"
+                        >
+                          <div className="form-group text-center">
+                            <ul className="list-inline">
+                              <li className="list-inline-item">
+                                <i className="text-muted fa fa-cc-visa fa-2x"></i>
+                              </li>
+                              <li className="list-inline-item">
+                                <i className="fa fa-cc-mastercard fa-2x"></i>
+                              </li>
+                              <li className="list-inline-item">
+                                <i className="fa fa-cc-amex fa-2x"></i>
+                              </li>
+                              <li className="list-inline-item">
+                                <i className="fa fa-cc-discover fa-2x"></i>
+                              </li>
+                            </ul>
+                          </div>
+                          <div className="form-group has-success">
+                            <label for="cc-name" className="control-label mb-1">
+                              Name on card
+                            </label>
+                            <input
+                              id="cc-name"
+                              name="cc-name"
+                              type="text"
+                              className="form-control cc-name"
+                              required
+                              autocomplete="cc-name"
+                              aria-required="true"
+                              aria-invalid="false"
+                              aria-describedby="cc-name-error"
+                            />
+                            <span className="invalid-feedback">
+                              Enter the name as shown on credit card
+                            </span>
+                          </div>
+                          <div className="form-group">
+                            <label
+                              for="cc-number"
+                              className="control-label mb-1"
+                            >
+                              Card number
+                            </label>
+                            <input
+                              id="cc-number"
+                              name="cc-number"
+                              type="tel"
+                              className="form-control cc-number identified visa"
+                              required=""
+                              pattern="[0-9]{16}"
+                            />
+                            <span className="invalid-feedback">
+                              Enter a valid 16 digit card number
+                            </span>
+                          </div>
+                          <div className="row">
+                            <div className="col-6">
+                              <div className="form-group">
+                                <label
+                                  for="cc-exp"
+                                  className="control-label mb-1"
+                                >
+                                  Expiration
+                                </label>
+                                <input
+                                  id="cc-exp"
+                                  name="cc-exp"
+                                  type="tel"
+                                  className="form-control cc-exp"
+                                  required
+                                  placeholder="MM / YY"
+                                  autocomplete="cc-exp"
+                                />
+                                <span className="invalid-feedback">
+                                  Enter the expiration date
+                                </span>
+                              </div>
+                            </div>
+                            <div className="col-6">
+                              <label
+                                for="x_card_code"
+                                className="control-label mb-1"
+                              >
+                                Security code
+                              </label>
+                              <div className="input-group">
+                                <input
+                                  id="x_card_code"
+                                  name="x_card_code"
+                                  type="tel"
+                                  className="form-control cc-cvc"
+                                  required
+                                  autocomplete="off"
+                                />
+                                <span className="invalid-feedback order-last">
+                                  Enter the 3-digit code on back
+                                </span>
+                                <div className="input-group-append">
+                                  <div className="input-group-text">
+                                    <span
+                                      className="fa fa-question-circle fa-lg"
+                                      data-toggle="popover"
+                                      data-container="body"
+                                      data-html="true"
+                                      data-title="Security Code"
+                                      data-content="<div className='text-center one-card'>The 3 digit code on back of the card..<div className='visa-mc-cvc-preview'></div></div>"
+                                      data-trigger="hover"
+                                    ></span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div>
+                            {/* <Link className="btn btn-lg btn-info btn-block">
+                              <i className="fa fa-lock fa-lg"></i>&nbsp;
+                              <span id="payment-button-amount">
+                                Pay NT$ {sum(shopCartData).toLocaleString()}
+                              </span>
+                            </Link> */}
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                      取消
+                    </Button>
+                    <Button
+                      variant="primary"
+                      onClick={handleSubmit}
+                      id="payment-button"
+                    >
+                      確認支付
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
+
+                {/* <button
                   type="submit"
                   className="shopcart-btn btn-next btn btn-primary mr-3"
                 >
                   是，進行付款
-                </button>
+                </button> */}
               </div>
             </form>
           </div>

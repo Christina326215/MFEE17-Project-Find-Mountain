@@ -6,6 +6,7 @@ import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
 import { useAuth } from '../../context/auth'; // 取得會員資料
 import { zipGroupURL, zipCodeURL } from '../../utils/config';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 //====== below icon star ======//
 import { BsCheck } from 'react-icons/bs';
@@ -15,7 +16,7 @@ import { BsCheck } from 'react-icons/bs';
 
 //====== above img import end ======//
 
-function ShopCartPay() {
+function ShopCartPay(props) {
   // 1. 首先，建立好 html 在 return(<>...</>)。
   // 2. 設定狀態，關於共用會員資料使用useAuth()，關於地址資料放在靜態檔案中則使用useState()。
   const { member, pay, setPay } = useAuth(); // 取得會員資料
@@ -158,6 +159,30 @@ function ShopCartPay() {
     setCartData({ ...cartData, pay_way: e.target.value });
   }
   // 處理付款方式 end //
+
+  /* 處理 local storage 是否為空  start */
+  function getCartFromLocalStorage() {
+    const ProductOrder =
+      JSON.parse(localStorage.getItem('ProductOrderDetail')) || '[]';
+    console.log('檢查購物車', ProductOrder);
+    if (ProductOrder === '[]') {
+      console.log('購物車是空的喔！');
+      Swal.fire({
+        icon: 'warning',
+        title: '您的購物車目前是空的喲！',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      props.history.goBack();
+    }
+  }
+  //一進畫面先讀取local storage
+  useEffect(() => {
+    getCartFromLocalStorage();
+    // console.log('cartLocal', cartLocal);
+  }, []);
+
+  /* 處理 local storage 是否為空  end */
 
   useEffect(() => {
     // progress-bar

@@ -22,7 +22,7 @@ import loginLogo from '../../img/logo.svg';
 import slider1 from '../../img/pic1.webp';
 import slider2 from '../../img/pic2.webp';
 import slider3 from '../../img/pic3.webp';
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 //===import img end===
 
 //===第三方登入===
@@ -224,7 +224,12 @@ function Login(props) {
       console.log('loginData', loginData);
     } catch (e) {
       console.error(e.response);
-      swal('登入失敗', '請重新輸入帳號密碼!', 'error');
+      Swal.fire({
+        icon: 'error',
+        title: '登入失敗',
+        text: '請重新輸入帳號密碼!',
+      });
+      // swal('登入失敗', '請重新輸入帳號密碼!', 'error');
     }
   };
   console.log(auth);
