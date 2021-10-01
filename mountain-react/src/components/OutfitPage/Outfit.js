@@ -4,6 +4,7 @@ import '../../styles/outfit.css';
 import { outfitURL, IMAGE_URL } from '../../utils/config';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import { Modal, Button, Row, Col } from 'react-bootstrap';
+import { useAuth } from '../../context/auth'; // 取得setCartChange狀態
 
 //=== package start===
 import $ from 'jquery';
@@ -37,6 +38,7 @@ import clothesPic3Removebg from '../../img/img-outfit/clothes-pic3-removebg-prev
 //===import img end===
 
 function Outfit(props) {
+  const { setCartChange } = useAuth(); //navbar 改變購物車狀態
   const [listData, setListData] = useState([]);
   const [outfitProducts, setOutfitProducts] = useState([]);
   const [productLocal, setProdcutLocal] = useState([]);
@@ -44,6 +46,8 @@ function Outfit(props) {
   const [cartNum, setCartNum] = useState(1);
   const [cartSize, setCartSize] = useState('');
   const [cartPrice, setCartPrice] = useState(0);
+  const [productOrder, setProductOrder] = useState([]);
+  console.log('productOrder', productOrder);
   // let price = productLocal[0].productPrice;
   // console.log('price', price);
 
@@ -225,6 +229,26 @@ function Outfit(props) {
             });
             localStorage.setItem('products', JSON.stringify(product_records));
           }
+          let ProductOrderDetail = localStorage.getItem('ProductOrderDetail')
+            ? JSON.parse(localStorage.getItem('ProductOrderDetail'))
+            : [];
+          if (
+            ProductOrderDetail.some((v) => {
+              return v.id == productId;
+            })
+          ) {
+            console.log('duplicate data');
+          } else {
+            ProductOrderDetail.push({
+              id: productId,
+              size: 'F',
+              num: 1,
+            });
+            localStorage.setItem(
+              'ProductOrderDetail',
+              JSON.stringify(ProductOrderDetail)
+            );
+          }
         }
         showSelectedData();
       }
@@ -257,6 +281,7 @@ function Outfit(props) {
           }
         }
         setProdcutLocal(product_records);
+        setCartChange(true);
       }
       var images = document.querySelectorAll('.outfit-product-img img');
       [].forEach.call(images, function (img) {
@@ -295,17 +320,12 @@ function Outfit(props) {
     handleShow();
   };
   const addCart = () => {
-    let modalId = document.getElementById('modalId').value;
-    console.log('modalId', modalId);
     // const newProductOrder = JSON.parse(
     //   localStorage.getItem('ProductOrderDetail') || '[]'
     // );
-    // let modalId = document.getElementById('modalId').value;
-    // console.log('modalId', modalId);
-    // let modalIds = [];
-    // modalIds.push(modalId);
-    // console.log('modalIds', modalIds);
-
+    let modalId = document.getElementById('modalId').value;
+    console.log('modalId', modalId);
+    // console.log('cartSize', cartSize);
     // if (cartSize === '') {
     //   console.log('choose size plz');
     //   Swal.fire({
@@ -315,7 +335,8 @@ function Outfit(props) {
     //     timer: 1500,
     //   });
     //   return;
-    // } else {
+    // }
+    // else {
     //   console.log('cartSize', cartSize);
     //   console.log('cartNum', cartNum);
 
@@ -408,6 +429,8 @@ function Outfit(props) {
                 key={product.productId}
                 show={show}
                 setShow={setShow}
+                productOrder={productOrder}
+                setProductOrder={setProductOrder}
               />
             );
           })}

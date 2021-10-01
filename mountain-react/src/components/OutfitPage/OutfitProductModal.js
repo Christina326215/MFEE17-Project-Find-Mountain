@@ -6,7 +6,16 @@ function OutfitProductModal(props) {
   const [cartNum, setCartNum] = useState(1);
   const [cartSize, setCartSize] = useState('');
   const [cartPrice, setCartPrice] = useState(0);
-  const { productId, price, picture, name, type, show } = props;
+  const {
+    productId,
+    price,
+    picture,
+    name,
+    type,
+    show,
+    productOrder,
+    setProductOrder,
+  } = props;
 
   useEffect(() => {
     setCartNum(1);
@@ -21,6 +30,11 @@ function OutfitProductModal(props) {
   //   let modalId = document.getElementById('modalId').value;
   //   console.log('modalId', modalId);
   // }, []);
+  useEffect(() => {
+    let orderDetail = { id: productId, size: cartSize, num: cartNum };
+    // setProductOrder(productOrder.push(orderDetail));
+    console.log('orderDetail child', orderDetail);
+  }, [cartNum, cartSize]);
   return (
     <>
       <Row>
