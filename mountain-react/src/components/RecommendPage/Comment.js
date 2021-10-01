@@ -195,7 +195,7 @@ function Comment(props) {
                       </Modal.Header>
                       <Modal.Body>
                         {/* <form onSubmit={InsertComment}> */}
-                        <form className="needs-validation" novalidate>
+                        <form className="needs-validation" noValidate>
                           <div className="form-group">
                             <label
                               htmlFor="articleName"
@@ -260,7 +260,7 @@ function Comment(props) {
                               onChange={(e) => {
                                 setContent(e.target.value);
                               }}
-                              maxlength="100"
+                              maxLength="100"
                               required
                             ></textarea>
                             <div
