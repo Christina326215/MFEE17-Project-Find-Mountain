@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter, Redirect } from 'react-router-dom'; //可以獲取history,location,match,來使用
 import { useAuth } from '../../context/auth'; // 取得會員資料
 import $ from 'jquery';
+import Swal from 'sweetalert2';
 import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
 import { Button, Modal } from 'react-bootstrap';
 
@@ -22,7 +23,7 @@ import { BsCheck } from 'react-icons/bs';
 
 //====== above img import end ======//
 
-function ShopCartCheck() {
+function ShopCartCheck(props) {
   const { pay, member, setCartChange } = useAuth(); // 取得會員資料
   // console.log('pay', pay);
 
@@ -59,9 +60,10 @@ function ShopCartCheck() {
   /* 購物車明細local storage start */
   //shopCartData為購物車local storage接完資料庫的整體一筆一筆的資料
   const [shopCartData, setShopCartData] = useState([]);
+  //historyItems為瀏覽紀錄local storage接完資料庫的整體一筆一筆的資料
+  const [historyItems, setHistoryItems] = useState([]);
   //cartLocal為購物車的local storage
   const [cartLocal, setCartLocal] = useState([]);
-
   //取得local storage轉為陣列的資料 ProductOrder
   function getCartFromLocalStorage() {
     const ProductOrder =
@@ -72,39 +74,8 @@ function ShopCartCheck() {
   //一進畫面先讀取local storage
   useEffect(() => {
     getCartFromLocalStorage();
+    // console.log('cartLocal', cartLocal);
   }, []);
-
-  //local storage接API --> shopCartData
-  useEffect(() => {
-    var ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
-    //api
-    async function getProductData() {
-      try {
-        //抓購物車的商品資料
-        var orderArray = [];
-        for (let i = 0; i < ProductOrder.length; i++) {
-          const productOrderData = await axios.get(
-            `${shopURL}/product-detail/${ProductOrder[i].id}`
-          );
-          //productOrderData.data[0]為資料庫商品資料 ProductOrder[i]為localstorage的購物車資料
-          // console.log(productOrderData.data[0], ProductOrder[i]);
-          //合併物件Object.assign 合併後原物件也會被改變
-          let assignedObj = Object.assign(
-            productOrderData.data[0],
-            ProductOrder[i]
-          );
-          // console.log('productOrderData.data[0]', productOrderData.data[0]);
-          // console.log('assignedObj', assignedObj);
-          orderArray.unshift(productOrderData.data[0]);
-        }
-        console.log('new_orderArray', orderArray);
-        setShopCartData(orderArray);
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    getProductData();
-  }, [cartLocal]);
 
   // 計算總價用的函式
   const sum = (items) => {
@@ -114,6 +85,86 @@ function ShopCartCheck() {
     }
     return total;
   };
+
+  //local storage接API --> shopCartData
+  useEffect(() => {
+    var ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
+    //api
+    if (ProductOrder !== [] && ProductOrder !== null) {
+      async function getProductData() {
+        try {
+          //抓瀏覽紀錄資料
+          var ProductViewHistory = JSON.parse(
+            localStorage.getItem('ProductViewHistory')
+          );
+          if (ProductViewHistory !== null && ProductViewHistory.length > 0) {
+            var historyArray = [];
+            for (let i = 0; i < ProductViewHistory.length; i++) {
+              // console.log('ProductViewHistory[i]', ProductViewHistory[i]);
+              const productHistoryData = await axios.get(
+                `${shopURL}/product-detail/${ProductViewHistory[i]}`
+              );
+              // console.log(productHistoryData.data[0]);
+              historyArray.unshift(productHistoryData.data[0]);
+            }
+            // console.log('historyArray', historyArray);
+            setHistoryItems(historyArray);
+          }
+          //抓購物車的商品資料
+          var orderArray = [];
+          for (let i = 0; i < ProductOrder.length; i++) {
+            //對應尺寸剩餘庫存及售出量的api
+            const productOrderData = await axios.get(
+              `${shopURL}/size-storage/${ProductOrder[i].id}/${ProductOrder[i].size}`
+            );
+            //productOrderData.data[0]為資料庫商品資料 ProductOrder[i]為localstorage的購物車資料
+            // console.log(productOrderData.data[0], ProductOrder[i]);
+            //合併物件Object.assign 合併後原物件也會被改變
+            let assignedObj = Object.assign(
+              productOrderData.data[0],
+              ProductOrder[i]
+            );
+            // console.log('productOrderData.data[0]', productOrderData.data[0]);
+            // console.log('assignedObj', assignedObj);
+            orderArray.unshift(productOrderData.data[0]);
+          }
+          // console.log('orderArray', orderArray);
+          setShopCartData(orderArray);
+        } catch (e) {
+          console.log(e);
+        }
+      }
+      getProductData();
+    } else {
+      //如果購物車為空 還是要抓瀏覽紀錄
+      async function getProductData() {
+        try {
+          //抓瀏覽紀錄資料
+          var ProductViewHistory = JSON.parse(
+            localStorage.getItem('ProductViewHistory')
+          );
+          if (ProductViewHistory !== null && ProductViewHistory.length > 0) {
+            var historyArray = [];
+            for (let i = 0; i < ProductViewHistory.length; i++) {
+              // console.log('ProductViewHistory[i]', ProductViewHistory[i]);
+              const productHistoryData = await axios.get(
+                `${shopURL}/product-detail/${ProductViewHistory[i]}`
+              );
+              // console.log(productHistoryData.data[0]);
+              historyArray.unshift(productHistoryData.data[0]);
+            }
+            // console.log('historyArray', historyArray);
+            setHistoryItems(historyArray);
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      }
+      getProductData();
+      // console.log('沒有商品');
+      setShopCartData([]);
+    }
+  }, [cartLocal]);
   /* 購物車明細local storage end */
 
   /* 信用卡彈出式視窗 start */
@@ -140,12 +191,9 @@ function ShopCartCheck() {
   /* 信用卡彈出式視窗 end */
 
   /* 準備 INSERT INTO 資料庫 start */
-  const [isSubmit, setIsSubmit] = useState(false);
   const handleSubmit = async (e) => {
     // e.preventDefault();
     try {
-      // console.log('submit_pay:', pay);
-
       let responsePayInfo = await axios.post(
         `${shopcartPayURL}/pay-info`,
         { ...pay },
@@ -163,28 +211,25 @@ function ShopCartCheck() {
       // );
       // console.log('submit:', response);
       // console.log('submit_pay:', pay);
-
       //清空購物車
       localStorage.removeItem('ProductOrderDetail');
       setCartChange(true);
       setCartLocal([]);
 
-      setIsSubmit(true);
-      <Redirect to="/shoppingcart/step4-final" />;
+      setShowCreditCard(false);
+
+      Swal.fire({
+        icon: 'success',
+        title: '付款成功',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+      props.history.replace('/shoppingcart/step4-final');
     } catch (e) {
       console.error(e.response);
     }
   };
-
-  console.log('isSubmit:', isSubmit);
-
-  // useEffect(() => {
-  //   if (isSubmit === true) {
-  //     console.log('hi is true');
-
-  //     return <Redirect to="/shoppingcart/step4-final" />;
-  //   }
-  // }, [isSubmit]);
   /* 準備 INSERT INTO 資料庫 end */
 
   /* progress bar start */
@@ -344,7 +389,7 @@ function ShopCartCheck() {
                       <hr />
                       <tr>
                         <th scope="row">訂購商品名稱：</th>
-                        <td>{item.product_name}</td>
+                        <td>{item.name}</td>
                       </tr>
                       <tr>
                         <th scope="row">訂購單一品項數量：</th>
