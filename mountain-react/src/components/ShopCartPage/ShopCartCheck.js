@@ -142,7 +142,7 @@ function ShopCartCheck() {
   /* 準備 INSERT INTO 資料庫 start */
   const [isSubmit, setIsSubmit] = useState(false);
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     try {
       // console.log('submit_pay:', pay);
 
@@ -165,23 +165,26 @@ function ShopCartCheck() {
       // console.log('submit_pay:', pay);
 
       //清空購物車
-      const clearCart = (e) => {
-        e.preventDefault();
-        localStorage.removeItem('ProductOrderDetail');
-        setCartChange(true);
-        setCartLocal([]);
-      };
+      localStorage.removeItem('ProductOrderDetail');
+      setCartChange(true);
+      setCartLocal([]);
+
       setIsSubmit(true);
+      <Redirect to="/shoppingcart/step4-final" />;
     } catch (e) {
       console.error(e.response);
     }
   };
 
-  useEffect(() => {
-    if (isSubmit === true) {
-      return <Redirect to="/shopcart/credit-card" />;
-    }
-  }, [isSubmit]);
+  console.log('isSubmit:', isSubmit);
+
+  // useEffect(() => {
+  //   if (isSubmit === true) {
+  //     console.log('hi is true');
+
+  //     return <Redirect to="/shoppingcart/step4-final" />;
+  //   }
+  // }, [isSubmit]);
   /* 準備 INSERT INTO 資料庫 end */
 
   /* progress bar start */
@@ -512,12 +515,12 @@ function ShopCartCheck() {
                             </div>
                           </div>
                           <div>
-                            <Link className="btn btn-lg btn-info btn-block">
+                            {/* <Link className="btn btn-lg btn-info btn-block">
                               <i className="fa fa-lock fa-lg"></i>&nbsp;
                               <span id="payment-button-amount">
                                 Pay NT$ {sum(shopCartData).toLocaleString()}
                               </span>
-                            </Link>
+                            </Link> */}
                           </div>
                         </form>
                       </div>
