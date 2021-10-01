@@ -286,10 +286,14 @@ function Comment(props) {
                                 name="pic"
                                 onChange={(e) => {
                                   if (
-                                    e.target.files[0].type !== 'image/jpeg' ||
-                                    e.target.files[0].type !== 'image/jpg' ||
-                                    e.target.files[0].type !== 'image/png'
+                                    e.target.files[0].type === 'image/jpeg' ||
+                                    e.target.files[0].type === 'image/jpg' ||
+                                    e.target.files[0].type === 'image/png'
                                   ) {
+                                    setPic(e.target.files[0]);
+                                    // 上傳檔案顯示檔名
+                                    setFileSrc(e.target.files[0].name);
+                                  } else {
                                     // 清空上傳資料
                                     setPic('');
                                     setFileSrc('請選擇檔案');
@@ -300,10 +304,6 @@ function Comment(props) {
                                       showConfirmButton: false,
                                       timer: 1500,
                                     });
-                                  } else {
-                                    setPic(e.target.files[0]);
-                                    // 上傳檔案顯示檔名
-                                    setFileSrc(e.target.files[0].name);
                                   }
                                 }}
                                 required
