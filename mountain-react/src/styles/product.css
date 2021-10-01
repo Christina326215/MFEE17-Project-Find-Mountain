@@ -232,6 +232,11 @@ body {
   right: -20px;
   z-index: 2;
 }
+@media screen and (max-width: 768px) {
+  .shopmain-slider-arrows-left, .shopmain-slider-arrows-right {
+    display: none !important;
+  }
+}
 /*編輯嚴選 熱銷不敗 end*/
 /*熱門登山攻略開始*/
 .shopmain-article-card {

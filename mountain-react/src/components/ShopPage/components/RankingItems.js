@@ -25,7 +25,7 @@ function RankingItems(props) {
     getRankingData();
   }, []);
   useEffect(() => {
-    if (rankingData.length > 0) {
+    if (rankingData.length > 0 && rankingData !== []) {
       console.log('有了歐');
       $('.shopmain-product-slider').slick({
         dots: true,

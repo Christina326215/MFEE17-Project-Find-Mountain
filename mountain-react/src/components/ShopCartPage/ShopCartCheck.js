@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
-import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
+import { withRouter, Redirect } from 'react-router-dom'; //可以獲取history,location,match,來使用
 import { useAuth } from '../../context/auth'; // 取得會員資料
 import $ from 'jquery';
 import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
 
-import { shopcartURL } from '../../utils/config';
+import {
+  shopcartPayURL,
+  shopURL,
+  zipGroupURL,
+  zipCodeURL,
+} from '../../utils/config';
 import axios from 'axios';
 
 //====== below icon star ======//
@@ -17,21 +22,140 @@ import { BsCheck } from 'react-icons/bs';
 //====== above img import end ======//
 
 function ShopCartCheck() {
-  const { pay } = useAuth(); // 取得會員資料
-  const [navbarLocalCart, setNavbarLocalCart] = useState([]);
+  const { pay, member, setCartChange } = useAuth(); // 取得會員資料
+  // console.log('pay', pay);
 
-  console.log('pay', pay);
+  //shopCartData為購物車local storage接完資料庫的整體一筆一筆的資料
+  const [shopCartData, setShopCartData] = useState([]);
+  //cartLocal為購物車的local storage
+  const [cartLocal, setCartLocal] = useState([]);
 
   //取得local storage轉為陣列的資料 ProductOrder
   function getCartFromLocalStorage() {
     const ProductOrder =
       JSON.parse(localStorage.getItem('ProductOrderDetail')) || '[]';
-    console.log('ProductOrder', ProductOrder);
-    setNavbarLocalCart(ProductOrder);
+    // console.log(ProductOrder);
+    setCartLocal(ProductOrder);
   }
+  //一進畫面先讀取local storage
   useEffect(() => {
     getCartFromLocalStorage();
   }, []);
+
+  //local storage接API --> shopCartData
+  useEffect(() => {
+    var ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
+    //api
+    async function getProductData() {
+      try {
+        //抓購物車的商品資料
+        var orderArray = [];
+        for (let i = 0; i < ProductOrder.length; i++) {
+          const productOrderData = await axios.get(
+            `${shopURL}/product-detail/${ProductOrder[i].id}`
+          );
+          //productOrderData.data[0]為資料庫商品資料 ProductOrder[i]為localstorage的購物車資料
+          // console.log(productOrderData.data[0], ProductOrder[i]);
+          //合併物件Object.assign 合併後原物件也會被改變
+          let assignedObj = Object.assign(
+            productOrderData.data[0],
+            ProductOrder[i]
+          );
+          // console.log('productOrderData.data[0]', productOrderData.data[0]);
+          // console.log('assignedObj', assignedObj);
+          orderArray.unshift(productOrderData.data[0]);
+        }
+        console.log('new_orderArray', orderArray);
+        setShopCartData(orderArray);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getProductData();
+  }, [cartLocal]);
+
+  // 計算總價用的函式
+  const sum = (items) => {
+    let total = 0;
+    for (let i = 0; i < items.length; i++) {
+      total += items[i].num * items[i].price;
+    }
+    return total;
+  };
+
+  const [zipGroup, setZipGroup] = useState(null);
+  const [zipCode, setZipCode] = useState(null);
+
+  useEffect(() => {
+    async function getZipGroup() {
+      try {
+        const zipGroupRes = await axios.get(zipGroupURL);
+        let data = zipGroupRes.data;
+        setZipGroup(data);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getZipGroup();
+
+    async function getZipCode() {
+      try {
+        const zipCodeRes = await axios.get(zipCodeURL);
+        let data2 = zipCodeRes.data;
+        // 6.3 設定 setZipCode 狀態，取得 code.json 所有資料。
+        setZipCode(data2);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getZipCode();
+  }, []);
+
+  const [isSubmit, setIsSubmit] = useState(false);
+
+  // 準備 INSERT INTO 資料庫 start
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // console.log('submit_pay:', pay);
+
+      let responsePayInfo = await axios.post(
+        `${shopcartPayURL}/pay-info`,
+        { ...pay },
+        {
+          withCredentials: true,
+        }
+      );
+
+      // let responseOrderDetail = await axios.post(
+      //   `${shopcartPayURL}/order-detail`,
+      //   { ...shopCartData },
+      //   {
+      //     withCredentials: true,
+      //   }
+      // );
+      // console.log('submit:', response);
+      // console.log('submit_pay:', pay);
+
+      //清空購物車
+      const clearCart = (e) => {
+        e.preventDefault();
+        localStorage.removeItem('ProductOrderDetail');
+        setCartChange(true);
+        setCartLocal([]);
+      };
+      setIsSubmit(true);
+    } catch (e) {
+      console.error(e.response);
+    }
+  };
+
+  useEffect(() => {
+    if (isSubmit === true) {
+      return <Redirect to="/shopcart/credit-card" />;
+    }
+  }, [isSubmit]);
+  // 準備 INSERT INTO 資料庫 end
 
   useEffect(() => {
     // progress-bar
@@ -147,46 +271,87 @@ function ShopCartCheck() {
           <div className="col-12 mt-3">
             <h3 className="text-center mt-4 shopcart-title-dash">資料確認</h3>
             <h5 className="text-center mt-4">請確認以下資料是否正確？</h5>
-            <table className="table table-borderless d-flex justify-content-center">
-              <tbody>
-                <tr>
-                  <th scope="row">收件人姓名：</th>
-                  <td>{pay.name}</td>
-                </tr>
-                <tr>
-                  <th scope="row">收件人聯絡電話：</th>
-                  <td>{pay.phone}</td>
-                </tr>
-                <tr>
-                  <th scope="row">收件地址（收件超商）：</th>
-                  <td>{pay.addr}</td>
-                </tr>
-                <tr>
-                  <th scope="row">發票類型：</th>
-                  <td>{pay.invoice}</td>
-                </tr>
-                <tr>
-                  <th scope="row">付款方式：</th>
-                  <td>{pay.pay_way}</td>
-                </tr>
-              </tbody>
-            </table>
-            {/* <!-- button --> */}
-            <div className="shopcart-button-container text-right my-5">
-              <Link
-                to="/shoppingcart/step2-pay"
-                className="shopcart-btn btn-prev btn btn-outline-primary mr-3"
-              >
-                上一步
-              </Link>
-              <div></div>
-              <Link
-                to="/shoppingcart/step4-finish"
-                className="shopcart-btn btn-next btn btn-primary mr-3"
-              >
-                下一步
-              </Link>
-            </div>
+            <form onSubmit={handleSubmit}>
+              <table className="table table-borderless d-flex justify-content-center">
+                <tbody>
+                  <tr>
+                    <th scope="row">收件人姓名：</th>
+                    <td>{pay && pay.name}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">收件人聯絡電話：</th>
+                    <td>{pay && pay.phone}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">收件方式：</th>
+                    <td>{pay && pay.ship == 1 ? '宅配到府' : '超商取貨'}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">收件地址：</th>
+                    <td>
+                      {pay &&
+                        zipCode &&
+                        zipCode[pay.zip_code].city +
+                          zipCode[pay.zip_code].district +
+                          pay.addr}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">發票類型：</th>
+                    <td>
+                      {pay && pay.invoice == 1 ? '二聯式發票' : '三聯式發票'}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">付款方式：</th>
+                    <td>{pay && pay.pay_way == 1 ? '信用卡' : '貨到付款'}</td>
+                  </tr>
+                  {shopCartData.map((item, i) => (
+                    <div>
+                      <hr />
+                      <tr>
+                        <th scope="row">訂購商品名稱：</th>
+                        <td>{item.product_name}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">訂購單一品項數量：</th>
+                        <td>{item.num}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">訂購單一品項小計：</th>
+                        {/* <td>NT$ {item.price.toLocaleString()}</td> */}
+                        <td>
+                          NT${' '}
+                          {(parseInt(item.price) * item.num).toLocaleString()}
+                        </td>
+                      </tr>
+                      <hr />
+                    </div>
+                  ))}
+                  <hr />
+                  <tr>
+                    <th scope="row">訂購商品總額：</th>
+                    <td>NT$ {sum(shopCartData).toLocaleString()}</td>
+                  </tr>
+                </tbody>
+              </table>
+              {/* <!-- button --> */}
+              <div className="shopcart-button-container text-right my-5">
+                <Link
+                  to="/shoppingcart/step2-pay"
+                  className="shopcart-btn btn-prev btn btn-outline-primary mr-3"
+                >
+                  否，進行修改
+                </Link>
+                <div></div>
+                <button
+                  type="submit"
+                  className="shopcart-btn btn-next btn btn-primary mr-3"
+                >
+                  是，進行付款
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

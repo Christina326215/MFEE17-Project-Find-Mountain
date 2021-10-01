@@ -47,7 +47,6 @@ function MemberComment() {
         );
         // console.log(CommentData.data.dbResults); //for check
         setData(CommentData.data.dbResults);
-
         // let data = CommentData.data;
         setTotalPage(CommentData.data.pagination.lastPage);
       } catch (e) {
