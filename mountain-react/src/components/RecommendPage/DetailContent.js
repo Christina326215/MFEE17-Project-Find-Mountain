@@ -83,8 +83,8 @@ function DetailContent(props) {
   //   setLikeUserId(member.id);
   // }, [member]);
 
-  console.log('外面member', member);
-  // console.log('auth', auth);
+  // console.log('測試 member', member);
+  // console.log('測試 auth', auth);
 
   useEffect(() => {
     // FIXME: 沒登入的跳轉頁面 沒登入無法看見文章

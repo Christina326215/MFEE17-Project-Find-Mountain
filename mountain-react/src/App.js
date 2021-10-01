@@ -62,7 +62,7 @@ function App() {
 
   //=== 彈跳視窗開關 star ===//
   const [show, setShow] = useState(false);
-  console.log('outside-show', show);
+  // console.log('outside-show', show);
   //=== 彈跳視窗開關 end ===//
 
   useEffect(() => {
@@ -73,7 +73,6 @@ function App() {
         const PersonalData = await axios.get(memberURL, {
           withCredentials: true,
         });
-
         setMember(PersonalData.data);
       } catch (e) {
         console.log(e);
@@ -82,7 +81,14 @@ function App() {
     getPersonalData();
   }, [show, mapRouteShow, auth]);
 
-  console.log('outside-member', member);
+  // 重整後要重新設定auth
+  useEffect(() => {
+    if (member !== null) {
+      setAuth(true);
+    }
+  }, [member]);
+
+  // console.log('outside-member', member);
 
   return (
     <AuthContext.Provider
