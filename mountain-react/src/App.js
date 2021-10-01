@@ -168,9 +168,6 @@ function App() {
               <Route path="/shoppingcart/step3-check">
                 <ShopCartCheck />
               </Route>
-              <Route path="/shoppingcart/credit-card-pay">
-                <ShopCartFinish />
-              </Route>
               <Route path="/shoppingcart/step4-final">
                 <ShopCartFinal />
               </Route>
