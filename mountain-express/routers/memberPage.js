@@ -4,6 +4,7 @@ const connection = require("../utils/db");
 
 router.get("", async function (req, res, next) {
   // console.log("req.session.account.id", req.session.account.id);
+  // 因為後面會用到 req.session.account 所以要先判斷有沒有 沒有會一直pending
   if (req.session.account === null) {
     res.json(null)
   }

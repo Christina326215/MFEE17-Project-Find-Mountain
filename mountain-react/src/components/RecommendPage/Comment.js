@@ -74,13 +74,14 @@ function Comment(props) {
       setContent('');
       setPic('');
       setFileSrc('請選擇檔案');
+      setUserID(member.id);
     }
   };
 
   // 新增評論資料庫
   const InsertComment = async (e) => {
     // console.log('member.id', member.id);
-    setUserID(member.id);
+    // setUserID(member.id);
     // 評論資料驗證
     if (content === '') {
       $('.contentVal').show();
