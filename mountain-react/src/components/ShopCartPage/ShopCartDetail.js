@@ -5,17 +5,13 @@ import $ from 'jquery';
 import { pages_btn } from '../MapPage/pages/PagesBtn'; //分頁按鈕
 import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
 import { shopURL, IMAGE_URL } from '../../utils/config';
-import { useAuth } from '../../context/auth'; // 取得會員資料
+import { useAuth } from '../../context/auth'; // 取得setCartChange狀態
 
 import axios from 'axios';
 
 //====== below icon star ======//
 import { BsPlus, BsDash, BsTrash, BsCheck } from 'react-icons/bs';
 //====== below icon end ======//
-
-//====== below img import start ======//
-import ShopCartImg from '../../img/shoes-pic7.jpeg';
-//====== above img import end ======//
 
 function ShopCartDetail() {
   const { setCartChange } = useAuth(); // 取得會員資料
@@ -25,6 +21,7 @@ function ShopCartDetail() {
   const [historyItems, setHistoryItems] = useState([]);
   //cartLocal為購物車的local storage
   const [cartLocal, setCartLocal] = useState([]);
+  const [randomProduct, setRandomProduct] = useState([]);
   //取得local storage轉為陣列的資料 ProductOrder
   function getCartFromLocalStorage() {
     const ProductOrder =
@@ -59,6 +56,7 @@ function ShopCartDetail() {
         JSON.stringify(currentProductOrder)
       );
       console.log('有這個訂購資料');
+      setCartChange(true);
       setCartLocal(currentProductOrder);
       //TODO:提示已刪除商品
       //刪除後重整頁面
@@ -66,6 +64,13 @@ function ShopCartDetail() {
     } else {
       console.log('哎呦沒有東西可以刪耶');
     }
+  };
+  //清空購物車
+  const clearCart = (e) => {
+    e.preventDefault();
+    localStorage.removeItem('ProductOrderDetail');
+    setCartChange(true);
+    setCartLocal([]);
   };
   //更新購物車數量
   const UpdateAmounts = (items, isAdded) => {
@@ -76,11 +81,22 @@ function ShopCartDetail() {
     const amountIndex = newProductOrder.findIndex(
       (v) => v.id === items.id && v.size === items.size
     );
-    console.log('amountIndex', amountIndex);
+    // console.log('amountIndex', amountIndex);
     if (amountIndex > -1) {
-      isAdded
-        ? newProductOrder[amountIndex].num++
-        : newProductOrder[amountIndex].num--;
+      if (isAdded) {
+        //限制可以選擇的數量
+        if (newProductOrder[amountIndex].num < 10) {
+          newProductOrder[amountIndex].num++;
+        } else {
+          return;
+        }
+      } else {
+        if (newProductOrder[amountIndex].num > 1) {
+          newProductOrder[amountIndex].num--;
+        } else {
+          return;
+        }
+      }
     }
     localStorage.setItem('ProductOrderDetail', JSON.stringify(newProductOrder));
     setCartChange(true);
@@ -94,51 +110,81 @@ function ShopCartDetail() {
     }
     return total;
   };
-  //local storage接API --> shopCartData
+  // 隨機打亂陣列函式
+  const shuffle = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
+  //更多推薦 api
   useEffect(() => {
-    var ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
-    //api
-    async function getProductData() {
+    //FIXME:應該要在隨機排序商品資料中，刪除購物車中有的品項 (little bug)
+    async function getAllRandomProductData() {
       try {
-        //抓瀏覽紀錄資料
-        var ProductViewHistory = JSON.parse(
-          localStorage.getItem('ProductViewHistory')
-        );
-        var historyArray = [];
-        for (let i = 0; i < ProductViewHistory.length; i++) {
-          // console.log(ProductViewHistory[i]);
-          const productHistoryData = await axios.get(
-            `${shopURL}/product-detail/${ProductViewHistory[i]}`
-          );
-          // console.log(productHistoryData.data[0]);
-          historyArray.unshift(productHistoryData.data[0]);
-        }
-        // console.log('historyArray', historyArray);
-        setHistoryItems(historyArray);
-        //抓購物車的商品資料
-        var orderArray = [];
-        for (let i = 0; i < ProductOrder.length; i++) {
-          const productOrderData = await axios.get(
-            `${shopURL}/product-detail/${ProductOrder[i].id}`
-          );
-          //productOrderData.data[0]為資料庫商品資料 ProductOrder[i]為localstorage的購物車資料
-          // console.log(productOrderData.data[0], ProductOrder[i]);
-          //合併物件Object.assign 合併後原物件也會被改變
-          let assignedObj = Object.assign(
-            productOrderData.data[0],
-            ProductOrder[i]
-          );
-          // console.log('productOrderData.data[0]', productOrderData.data[0]);
-          // console.log('assignedObj', assignedObj);
-          orderArray.unshift(productOrderData.data[0]);
-        }
-        console.log('orderArray', orderArray);
-        setShopCartData(orderArray);
+        const allProductData = await axios.get(`${shopURL}/`);
+        const RandomProductData = shuffle(allProductData.data).slice(0, 5);
+        // console.log('RandomProductData', RandomProductData);
+        setRandomProduct(RandomProductData);
       } catch (e) {
         console.log(e);
       }
     }
-    getProductData();
+    getAllRandomProductData();
+  }, []);
+  //local storage接API --> shopCartData
+  useEffect(() => {
+    var ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
+    //api
+    if (ProductOrder !== [] && ProductOrder !== null) {
+      async function getProductData() {
+        try {
+          //抓瀏覽紀錄資料
+          var ProductViewHistory = JSON.parse(
+            localStorage.getItem('ProductViewHistory')
+          );
+          var historyArray = [];
+          for (let i = 0; i < ProductViewHistory.length; i++) {
+            // console.log(ProductViewHistory[i]);
+            const productHistoryData = await axios.get(
+              `${shopURL}/product-detail/${ProductViewHistory[i]}`
+            );
+            // console.log(productHistoryData.data[0]);
+            historyArray.unshift(productHistoryData.data[0]);
+          }
+          // console.log('historyArray', historyArray);
+          setHistoryItems(historyArray);
+          //抓購物車的商品資料
+          var orderArray = [];
+          for (let i = 0; i < ProductOrder.length; i++) {
+            //對應尺寸剩餘庫存及售出量的api
+            const productOrderData = await axios.get(
+              `${shopURL}/size-storage/${ProductOrder[i].id}/${ProductOrder[i].size}`
+            );
+            //productOrderData.data[0]為資料庫商品資料 ProductOrder[i]為localstorage的購物車資料
+            console.log(productOrderData.data[0], ProductOrder[i]);
+            //合併物件Object.assign 合併後原物件也會被改變
+            let assignedObj = Object.assign(
+              productOrderData.data[0],
+              ProductOrder[i]
+            );
+            // console.log('productOrderData.data[0]', productOrderData.data[0]);
+            // console.log('assignedObj', assignedObj);
+            orderArray.unshift(productOrderData.data[0]);
+          }
+          console.log('orderArray', orderArray);
+          setShopCartData(orderArray);
+        } catch (e) {
+          console.log(e);
+        }
+      }
+      getProductData();
+    } else {
+      console.log('沒有商品');
+      setShopCartData([]);
+      return;
+    }
   }, [cartLocal]);
   //FIXME:一些待整理的東西
   useEffect(() => {
@@ -206,11 +252,6 @@ function ShopCartDetail() {
         .addClass('shopcart-step-' + prevStepNum)
         .data('current-step', prevStepNum);
     });
-    //product order size選擇
-    // $('.shopcart-size-btn').on('click', function () {
-    //   $(this).toggleClass('shopcart-active');
-    //   $(this).siblings().removeClass('shopcart-active');
-    // });
   }, []);
   return (
     <>
@@ -256,177 +297,117 @@ function ShopCartDetail() {
           <div className="col-lg-12 mt-3">
             <h3 className="text-center mt-4">購物車明細</h3>
             <hr />
-            {/* abby */}
-            {shopCartData.map((items, index) => {
-              return (
-                <div className="shopcart-product-infobox row my-3">
-                  <div className="col-4 col-lg-3">
-                    <figure className="shopcart-product-infobox-img p-2">
-                      <Link to={`/shop/product-detail/${items.id}`}>
-                        <img
-                          src={`${IMAGE_URL}/img/product-img/${items.pic}`}
-                          alt={items.name}
-                          title={items.name}
-                          className="shopcart-product-infobox-cover-fit"
-                        />
-                      </Link>
-                    </figure>
-                  </div>
-                  <div className="col-5">
-                    <div className="shopcart-product-infobox-name">
-                      <input
-                        type="text"
-                        value={items.name}
-                        name="name"
-                        readOnly
-                        className="my-3 form-control"
-                      />
-                      <input type="text" value="productId" hidden />
-                    </div>
-                    {items.type === '2' ? (
-                      <div className="button-box my-3">
-                        <p>尺寸選擇</p>
-                        <input
-                          type="button"
-                          value="F"
-                          name="size"
-                          className="shopcart-size-btn mx-1 shopcart-active"
-                        />
-                      </div>
-                    ) : items.size === 'S' ? (
-                      <div className="button-box my-3">
-                        <p>尺寸選擇</p>
-                        <input
-                          type="button"
-                          value="S"
-                          name="size"
-                          className="shopcart-size-btn mx-1 shopcart-active"
-                        />
-                        <input
-                          type="button"
-                          value="M"
-                          name="size"
-                          className="shopcart-size-btn mx-1"
-                          disabled
-                        />
-                        <input
-                          type="button"
-                          value="L"
-                          name="size"
-                          className="shopcart-size-btn mx-1"
-                          disabled
-                        />
-                      </div>
-                    ) : items.size === 'M' ? (
-                      <div className="button-box my-3">
-                        <p>尺寸選擇</p>
-                        <input
-                          type="button"
-                          value="S"
-                          name="size"
-                          className="shopcart-size-btn mx-1"
-                          disabled
-                        />
-                        <input
-                          type="button"
-                          value="M"
-                          name="size"
-                          className="shopcart-size-btn mx-1 shopcart-active"
-                        />
-                        <input
-                          type="button"
-                          value="L"
-                          name="size"
-                          className="shopcart-size-btn mx-1"
-                          disabled
-                        />
-                      </div>
-                    ) : (
-                      <div className="button-box my-3">
-                        <p>尺寸選擇</p>
-                        <input
-                          type="button"
-                          value="S"
-                          name="size"
-                          className="shopcart-size-btn mx-1"
-                          disabled
-                        />
-                        <input
-                          type="button"
-                          value="M"
-                          name="size"
-                          className="shopcart-size-btn mx-1"
-                          disabled
-                        />
-                        <input
-                          type="button"
-                          value="L"
-                          name="size"
-                          className="shopcart-size-btn mx-1 shopcart-active"
-                        />
-                      </div>
-                    )}
-                    <div className="shopcart-product-infobox-storage">
-                      <p className="m-0">庫存剩餘：10</p>
-                    </div>
-                  </div>
-                  <div className="col-3 col-lg-4">
-                    <div className="d-flex align-items-end flex-column bd-highlight shopcart-product-infobox-right">
-                      <div className="bd-highlight">
-                        <p className="my-3">數量</p>
-                        <button
-                          className="btn shopcart-minus-btn"
-                          onClick={() => {
-                            UpdateAmounts(items, false);
-                          }}
-                        >
-                          <BsDash size={24} />
-                        </button>
-                        {/* <input
-                          type="text"
-                          className="shopcart-order-number"
-                          // defaultValue={items.num}
-                          value={num[index]}
-                          name="num"
-                          // onChange={handleChange}
-                        /> */}
-                        {items.num}
-                        <button
-                          className="btn shopcart-add-btn"
-                          // onClick={() => {
-                          //   const newNum = parseInt(num[index]) + 1;
-                          //   setNum(newNum);
-                          // }}
-                          onClick={() => {
-                            UpdateAmounts(items, true);
-                          }}
-                        >
-                          <BsPlus size={24} />
-                        </button>
-                        <hr className="my-0" />
-                      </div>
-                      <div className="bd-highlight">
-                        <p className="shopcart-product-infobox-price">
-                          NT${' '}
-                          {(parseInt(items.price) * items.num).toLocaleString()}
-                        </p>
-                      </div>
-                      <div className="mt-auto mb-2 bd-highlight">
-                        <button
-                          className="shopcart-delete-btn"
-                          onClick={() => {
-                            deleteItem(items);
-                          }}
-                        >
-                          <BsTrash size={20} className="text-white"/>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+            {cartLocal.length > 0 ? (
+              <div>
+                <div className="d-flex justify-content-end">
+                  <button onClick={clearCart}>清空購物車</button>
                 </div>
-              );
-            })}
-            {/* abby */}
+                {/* abby */}
+                {shopCartData.map((items, index) => {
+                  return (
+                    <div
+                      className="shopcart-product-infobox row my-3"
+                      key={`${items.id}${items.size}`}
+                    >
+                      <div className="col-4 col-lg-3">
+                        <figure className="shopcart-product-infobox-img p-2">
+                          <Link to={`/shop/product-detail/${items.id}`}>
+                            <img
+                              src={`${IMAGE_URL}/img/product-img/${items.pic}`}
+                              alt={items.name}
+                              title={items.name}
+                              className="shopcart-product-infobox-cover-fit"
+                            />
+                          </Link>
+                        </figure>
+                      </div>
+                      <div className="col-5">
+                        <div className="shopcart-product-infobox-name">
+                          <input
+                            type="text"
+                            value={items.name}
+                            name="name"
+                            readOnly
+                            className="my-3 form-control"
+                          />
+                        </div>
+                        <div className="my-3">
+                          <p>所選尺寸</p>
+                          {items.type === '2' ? (
+                            <select value="F" className="form-control" readOnly>
+                              <option value="F">F</option>
+                            </select>
+                          ) : items.size === 'S' ? (
+                            <select value="S" className="form-control" readOnly>
+                              <option value="S">S</option>
+                            </select>
+                          ) : items.size === 'M' ? (
+                            <select value="M" className="form-control" readOnly>
+                              <option value="M">M</option>
+                            </select>
+                          ) : (
+                            <select value="L" className="form-control" readOnly>
+                              <option value="L">L</option>
+                            </select>
+                          )}
+                        </div>
+                        <div className="shopcart-product-infobox-storage">
+                          <p className="m-0">庫存剩餘：{items.size_storage}</p>
+                        </div>
+                      </div>
+                      <div className="col-3 col-lg-4">
+                        <div className="d-flex align-items-end flex-column bd-highlight shopcart-product-infobox-right">
+                          <div className="bd-highlight">
+                            <p className="my-3">數量</p>
+                            <button
+                              className="btn shopcart-minus-btn"
+                              onClick={() => {
+                                UpdateAmounts(items, false);
+                              }}
+                            >
+                              <BsDash size={24} />
+                            </button>
+                            {items.num}
+                            <button
+                              className="btn shopcart-add-btn"
+                              onClick={() => {
+                                UpdateAmounts(items, true);
+                              }}
+                            >
+                              <BsPlus size={24} />
+                            </button>
+                            <hr className="my-0" />
+                          </div>
+                          <div className="bd-highlight">
+                            <p className="shopcart-product-infobox-price">
+                              NT${' '}
+                              {(
+                                parseInt(items.price) * items.num
+                              ).toLocaleString()}
+                            </p>
+                          </div>
+                          <div className="mt-auto mb-2 bd-highlight">
+                            <button
+                              className="shopcart-delete-btn"
+                              onClick={() => {
+                                deleteItem(items);
+                              }}
+                            >
+                              <BsTrash size={20} className="text-white" />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+                {/* abby */}
+              </div>
+            ) : (
+              <div className="d-flex shopcart-noproduct-box text-center justify-content-center align-items-center">
+                <p className="p-0">購物車內沒有商品呦</p>
+              </div>
+            )}
             {/* <!-- 分頁 start  --> */}
             {pages_btn}
             {/* <!-- 分頁 end  --> */}
@@ -447,27 +428,27 @@ function ShopCartDetail() {
             </div>
 
             <div>
+              {/* FIXME:樣式設計再改一下 */}
               <h5>更多推薦</h5>
               <hr />
               <div className="row">
-                <Link to="/#">
-                  <figure className="shopcart-more-product-img-box ml-5">
-                    <img
-                      src={ShopCartImg}
-                      alt=""
-                      className="shopcart-cover-fit"
-                    />
-                  </figure>
-                </Link>
-                <Link to="/#">
-                  <figure className="shopcart-more-product-img-box ml-5">
-                    <img
-                      src={ShopCartImg}
-                      alt=""
-                      className="shopcart-cover-fit"
-                    />
-                  </figure>
-                </Link>
+                {randomProduct.map((randomItems, index) => {
+                  return (
+                    <Link
+                      to={`/shop/product-detail/${randomItems.id}`}
+                      key={`${randomItems.id}`}
+                    >
+                      <figure className="shopcart-more-product-img-box ml-5">
+                        <img
+                          src={`${IMAGE_URL}/img/product-img/${randomItems.pic}`}
+                          alt={randomItems.name}
+                          title={randomItems.name}
+                          className="shopcart-cover-fit"
+                        />
+                      </figure>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
             <div>
@@ -476,7 +457,10 @@ function ShopCartDetail() {
               <div className="row">
                 {historyItems.slice(0, 7).map((hisItems, hisIndex) => {
                   return (
-                    <Link to={`/shop/product-detail/${hisItems.id}`}>
+                    <Link
+                      to={`/shop/product-detail/${hisItems.id}`}
+                      key={`${hisItems.id}00`}
+                    >
                       <figure className="shopcart-more-product-img-box ml-5 mb-5">
                         <img
                           src={`${IMAGE_URL}/img/product-img/${hisItems.pic}`}

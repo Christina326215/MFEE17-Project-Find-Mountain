@@ -99,8 +99,18 @@
 .login-social-container {
   margin: 20px 0;
 }
-
 .login-social-container .login-icon {
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  display: inline-flex;
+  /* justify-content: center; */
+  /* align-items: center; */
+  margin: 0 5px;
+  width: 100px;
+  /* height: 100px; */
+  transition: 0.3s;
+}
+/* .login-social-container .login-icon {
   border: 1px solid #ddd;
   border-radius: 50%;
   display: inline-flex;
@@ -111,14 +121,14 @@
   width: 40px;
   position: relative;
   transition: 0.3s;
-}
-.login-h3 {
+} */
+/* .login-h3 {
   width: 20px;
   height: 20px;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-}
+} */
 .login-icon-FB:hover {
   border: 1px solid rgb(24, 119, 242);
   color: rgb(24, 119, 242);

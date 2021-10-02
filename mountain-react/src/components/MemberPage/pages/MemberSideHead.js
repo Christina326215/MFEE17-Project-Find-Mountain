@@ -1,14 +1,14 @@
-import { Link } from 'react-router-dom'; //a標籤要變成link
+// import { Link } from 'react-router-dom'; //a標籤要變成link
 import $ from 'jquery';
 import { useAuth } from '../../../context/auth';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 //====== below icon star ======//
 import { BsQuestionCircle } from 'react-icons/bs';
 //====== below icon end ======//
 
 //====== below img import start ======//
-import Avatar from '../../../img/signin.jpg';
+// import Avatar from '../../../img/signin.jpg';
 import MemberLevel_L from '../../../img/low.svg';
 import MemberLevel_M from '../../../img/medium.svg';
 import MemberLevel_H from '../../../img/high.svg';

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom'; //a標籤要變成link
+import { useAuth } from '../../context/auth'; // 取得setCartChange狀態
 // import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import $ from 'jquery';
@@ -24,20 +25,15 @@ import shop from '../../img/product-img/illustration/shop.svg';
 import bearbear from '../../img/product-img/illustration/bearbear.png';
 
 function ProductDetail(props) {
+  const { setCartChange } = useAuth(); // 取得購物車數字狀態
   const [productData, setProductData] = useState([]);
   const [historyData, setHistoryData] = useState([]);
-  // const [orderInfo, setOrderInfo] = useState([]);
+  const [orderSize, setOrderSize] = useState('');
+  const [orderInfo, setOrderInfo] = useState([]);
   const { id } = useParams();
   useEffect(() => {
     const ProductOrder =
       JSON.parse(localStorage.getItem('ProductOrderDetail')) || [];
-    //TODO:NavBar cart icon 數字顯示 start//
-    var cartTotalNum = 0;
-    for (let i = 0; i < ProductOrder.length; i++) {
-      cartTotalNum += ProductOrder[i].num;
-    }
-    console.log('cartTotalNum', cartTotalNum);
-    //NavBar cart icon 數字顯示 end//
 
     console.log('ProductOrder', ProductOrder);
     //local storage for 瀏覽紀錄
@@ -102,77 +98,50 @@ function ProductDetail(props) {
       }
     }
     getProductData();
-    //加入購物車
-    $('.productdetail-add-cart-btn').on('click', function () {
-      //確認是否有選擇尺寸
-      let sizeChosen = Boolean($('.productdetail-active').length > 0);
-      if (!sizeChosen) {
-        Swal.fire({
-          icon: 'error',
-          title: '請選擇尺寸！',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        return;
-      }
-      let orderDetailSize = $('.productdetail-active').val();
-      let orderDetailNum = parseInt($('.productdetail-order-number').val());
-      console.log(orderDetailNum);
-      let orderDetail = { id: id, size: orderDetailSize, num: orderDetailNum };
-      console.log(orderDetail);
-      //localstorage for order detail start//
-      const index = ProductOrder.findIndex(
-        (v) => v.id === orderDetail.id && v.size === orderDetail.size
-      );
-      if (index > -1) {
-        //改變同款項訂購數量
-        ProductOrder[index].num += orderDetailNum;
-        localStorage.setItem(
-          'ProductOrderDetail',
-          JSON.stringify(ProductOrder)
-        );
-        console.log('這個商品已經加過了');
-        // return;
-      } else {
-        ProductOrder.push(orderDetail);
-        localStorage.setItem(
-          'ProductOrderDetail',
-          JSON.stringify(ProductOrder)
-        );
-        console.log('哎呦還沒喔');
-      }
-      //localstorage for order detail end//
-
-      //display none -> block
-      // let cartDisplay = $('.cart-num').css('display');
-      // if (cartDisplay === 'none') {
-      //   $('.cart-num').css('display', 'block');
-      // }
-      // alert("已將商品加入購物車！");
+    setOrderInfo(ProductOrder);
+    setOrderSize('');
+  }, [id]);
+  //加入購物車
+  const addCart = () => {
+    //確認是否有選擇尺寸
+    let sizeChosen = Boolean(orderSize !== '');
+    if (!sizeChosen) {
       Swal.fire({
-        icon: 'success',
-        title: '已將商品加入購物車！',
+        icon: 'error',
+        title: '請選擇尺寸！',
         showConfirmButton: false,
         timer: 1500,
       });
-      // //cart-num ++
-      // let cartNum = parseInt($('.cart-num').text());
-      // let orderNum = parseInt($('.productdetail-order-number').val());
-      // //限制一次加進購物車數量
-      // if (orderNum + cartNum > 10) {
-      //   Swal.fire({
-      //     icon: 'error',
-      //     title: '一次最多只能放入10樣商品喔',
-      //     showConfirmButton: false,
-      //     timer: 1500,
-      //   });
-      // } else {
-      //   cartNum += orderNum;
-      //   $('.cart-num').text(cartNum);
-      // }
+      return;
+    }
+    let orderDetailNum = parseInt($('.productdetail-order-number').val());
+    console.log(orderDetailNum);
+    let orderDetail = { id: id, size: orderSize, num: orderDetailNum };
+    console.log(orderDetail);
+    //localstorage for order detail start//
+    const index = orderInfo.findIndex(
+      (v) => v.id === orderDetail.id && v.size === orderDetail.size
+    );
+    if (index > -1) {
+      //改變同款項訂購數量
+      orderInfo[index].num += orderDetailNum;
+      localStorage.setItem('ProductOrderDetail', JSON.stringify(orderInfo));
+      console.log('這個商品已經加過了');
+      // return;
+    } else {
+      orderInfo.push(orderDetail);
+      localStorage.setItem('ProductOrderDetail', JSON.stringify(orderInfo));
+      console.log('哎呦還沒喔');
+    }
+    //localstorage for order detail end//
+    Swal.fire({
+      icon: 'success',
+      title: '已將商品加入購物車！',
+      showConfirmButton: false,
+      timer: 1500,
     });
-    // setOrderInfo(ProductOrder);
-  }, [id]);
+    setCartChange(true);
+  };
   useEffect(() => {
     //heart icon
     $('.productdetail-heart-icon-bkg').on('click', function () {
@@ -215,11 +184,6 @@ function ProductDetail(props) {
     //like-icon
     $('.productdetail-like-btn').on('click', function () {
       $(this).toggleClass('productdetail-active');
-    });
-    //product order size選擇
-    $('.productdetail-size-btn').on('click', function () {
-      $(this).toggleClass('productdetail-active');
-      $(this).siblings().removeClass('productdetail-active');
     });
     //product order 數量部分
     $('.productdetail-add-btn').on('click', function () {
@@ -321,33 +285,35 @@ function ProductDetail(props) {
                 </div>
                 <div className="productdetail-size-box">
                   <p>SIZE 選擇</p>
-                  {productData.type === '2' ? (
-                    <div className="productdetail-button-box m-3">
-                      <input
-                        type="button"
-                        value="F"
-                        className="productdetail-size-btn mx-1 productdetail-active"
-                      />
-                    </div>
-                  ) : (
-                    <div className="productdetail-button-box m-3">
-                      <input
-                        type="button"
-                        value="S"
-                        className="productdetail-size-btn mx-1 productdetail-active"
-                      />
-                      <input
-                        type="button"
-                        value="M"
-                        className="productdetail-size-btn mx-1"
-                      />
-                      <input
-                        type="button"
-                        value="L"
-                        className="productdetail-size-btn mx-1"
-                      />
-                    </div>
-                  )}
+                  <div className="productdetail-button-box m-3">
+                    {productData.type === '2' ? (
+                      <select
+                        value={orderSize}
+                        name="order-size"
+                        className="form-control"
+                        onChange={(e) => {
+                          setOrderSize(e.target.value);
+                        }}
+                      >
+                        <option value="">請選擇尺寸</option>
+                        <option value="F">F</option>
+                      </select>
+                    ) : (
+                      <select
+                        value={orderSize}
+                        name="order-size"
+                        className="form-control"
+                        onChange={(e) => {
+                          setOrderSize(e.target.value);
+                        }}
+                      >
+                        <option value="">請選擇尺寸</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                      </select>
+                    )}
+                  </div>
                 </div>
                 <div className="productdetail-number-box">
                   <p>數量</p>
@@ -382,7 +348,10 @@ function ProductDetail(props) {
                   <button className="productdetail-like-btn mx-1">
                     <HeartFill className="mb-2" />
                   </button>
-                  <button className="productdetail-add-cart-btn mx-1 btn">
+                  <button
+                    className="productdetail-add-cart-btn mx-1 btn"
+                    onClick={addCart}
+                  >
                     加入購物車
                   </button>
                   <div className="position-absolute productdetail-about-membership position-relative">

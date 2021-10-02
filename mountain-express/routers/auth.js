@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const connection = require('../utils/db')
 const nodemailer = require('nodemailer')
+// 給 react 用
+const passport = require('passport')
 
 const { body, validationResult } = require('express-validator')
 //建立註冊規則
@@ -50,7 +52,6 @@ router.post('/register', upload.none(), registerRule, async function (req, res, 
     //3.建立使用者存進資料庫
     //密碼不可以是明文
     //格式驗證
-
     let hashPassword = await bcrypt.hash(req.body.password, 10)
     let dbResults = await connection.queryAsync('INSERT INTO user SET ?', [
         {
@@ -61,6 +62,7 @@ router.post('/register', upload.none(), registerRule, async function (req, res, 
             phone: req.body.phone,
             zip_code: req.body.zip_code,
             addr: req.body.addr,
+            valid: 1,
         },
     ]) // 等資料庫查詢資料
 
@@ -173,12 +175,117 @@ router.post('/forget', async (req, res, next) => {
     }
 })
 
-//======= 登出 =======
-// router.post('/logout', (req, res) => {
-//     req.session.destroy()
-//     req.logout()
-//     res.redirect('/')
-// })
+// ======= FB 登入 =======
+const FacebookTokenStrategy = require('passport-facebook-token')
+passport.use(
+    new FacebookTokenStrategy(
+        {
+            clientID: process.env.FACEBOOK_CLIENT_ID,
+            clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+        },
+        async function (accessToken, refreshToken, profile, cb) {
+            // 取得資料
+            console.log('Fb profile', profile)
+            let member = await connection.queryAsync('SELECT * FROM user WHERE account=?;', [profile.emails[0].value])
+            let returnMember = null
+            if (member.length > 0) {
+                // 已經註冊過
+                member = member[0]
+                returnMember = {
+                    id: member.id,
+                    account: member.email,
+                    name: member.name,
+                }
+            } else {
+                // 找不到，尚未註冊，註冊一下
+                let result = await connection.queryAsync(
+                    'INSERT INTO user (account, password, name,valid) VALUES (?);',
+                    [[profile.emails[0].value, 'fb login', profile.name.givenName, '1']]
+                )
+                // FB登入就不會有密碼，一開始 user資料庫設計的時候可以把密碼欄位設定成 nullable
+                // 因為我們設計的時候不允許 null，所以這裡就塞一個字串給他
+                console.log(result)
+                returnMember = {
+                    id: result.insertId,
+                    account: profile.emails[0].value,
+                    name: profile.name.givenName,
+                }
+            }
+            cb(null, returnMember)
+        }
+    )
+)
+
+router.post('/facebook', passport.authenticate('facebook-token', { session: false }), (req, res, next) => {
+    if (!req.user) {
+        console.log('FB Login 登入失敗')
+        return res.json(401)
+    }
+    console.log('FB 登入成功')
+    // 一般登入，帳號密碼驗證後，應該要做的事
+    req.session.account = req.user
+    // 回覆給前端
+    res.json({
+        returnMember,
+    })
+})
+// ======= google 登入 =======
+// const GoogleTokenStrategy = require('passport-google-oauth-token').Strategy
+const GoogleTokenStrategy = require('passport-google-token').Strategy
+
+passport.use(
+    new GoogleTokenStrategy(
+        {
+            clientID: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        },
+        async function (accessToken, refreshToken, profile, cb) {
+            console.log('Google profile', profile)
+            // 以下其實跟 FB 登入一模一樣
+            let member = await connection.queryAsync('SELECT * FROM user WHERE account=?;', [profile.emails[0].value])
+            let returnMember = null
+            if (member.length > 0) {
+                // 已經註冊過
+                member = member[0]
+                returnMember = {
+                    id: member.id,
+                    account: member.email,
+                    name: member.name,
+                }
+            } else {
+                // 找不到，尚未註冊，註冊一下
+                let result = await connection.queryAsync(
+                    'INSERT INTO user (account, password, name,valid) VALUES (?);',
+                    [[profile.emails[0].value, 'google login', profile.name.givenName, '1']]
+                )
+                // FB登入就不會有密碼，一開始 members 表設計的時候可以把密碼欄位設定成 nullable
+                // 因為我們設計的時候不允許 null，所以這裡就塞一個字串給他
+                console.log(result)
+                returnMember = {
+                    id: result.insertId,
+                    account: profile.emails[0].value,
+                    name: profile.name.givenName,
+                }
+            }
+            cb(null, returnMember)
+        }
+    )
+)
+
+router.post('/google', passport.authenticate('google-token', { session: false }), function (req, res, next) {
+    if (!req.user) {
+        console.log('Google Login 登入失敗')
+        return res.json(401)
+    }
+    console.log('Google 登入成功')
+    // 一般登入，帳號密碼驗證後，應該要做的事
+    req.session.account = req.user
+    // 回覆給前端
+    res.json({
+        name: req.user.name,
+    })
+})
+//登出
 router.get('/logout', (req, res, next) => {
     console.log('HelloHello')
     console.log('req.session.account', req.session.account)

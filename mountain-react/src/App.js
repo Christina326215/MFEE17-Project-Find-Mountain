@@ -54,6 +54,10 @@ function App() {
   const [pay, setPay] = useState(null);
   const [cartChange, setCartChange] = useState(false);
   const [mapRouteShow, setMapRouteShow] = useState(false); //會員路線地圖，新增路線重算積分，會員level需重抓
+  // 記錄現在在第幾頁
+  const [page, setPage] = useState(1);
+  // 總共有幾頁
+  const [totalPage, setTotalPage] = useState(0);
 
   //=== 彈跳視窗開關 star ===//
   const [show, setShow] = useState(false);
@@ -89,6 +93,10 @@ function App() {
         setMapRouteShow,
         auth,
         setAuth,
+        page,
+        setPage,
+        totalPage,
+        setTotalPage,
       }}
     >
       <Router>

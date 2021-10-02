@@ -26,6 +26,7 @@ function SignUp(props) {
     email: '',
     password: '',
     repassword: '',
+    valid: 0,
   });
   // 存入錯誤訊息用 start //
   const [fieldErrors, setFieldErrors] = useState({
