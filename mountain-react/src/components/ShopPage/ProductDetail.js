@@ -22,8 +22,6 @@ function ProductDetail(props) {
   //同等級商品及文章
   const [sameLevelP, setSameLevelP] = useState([]);
   const [sameLevelA, setSameLevelA] = useState([]);
-  //收藏清單資料
-  // const [wishList, setWishList] = useState([]);
   const { id } = useParams();
   // 隨機打亂陣列函式
   const shuffle = (array) => {
@@ -174,7 +172,7 @@ function ProductDetail(props) {
     if (auth === false) {
       Swal.fire({
         icon: 'error',
-        title: '請先登入會員！',
+        title: '需要先登入才能加入收藏',
         showConfirmButton: false,
         timer: 1500,
       });
@@ -206,6 +204,12 @@ function ProductDetail(props) {
     } catch (e) {
       console.log(e);
     }
+    Swal.fire({
+      icon: 'error',
+      title: '已移除收藏商品',
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
   const addWishList = async () => {
     try {
@@ -218,11 +222,18 @@ function ProductDetail(props) {
     } catch (e) {
       console.log(e);
     }
+    Swal.fire({
+      icon: 'success',
+      title: '已加入收藏',
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
   //get wish-list api
   useEffect(() => {
     async function getWishList() {
+      console.log('auth, member', auth, member);
       if (auth === false) {
         console.log('尚未登入');
         $('.productdetail-like-btn').removeClass('productdetail-active');
@@ -239,10 +250,10 @@ function ProductDetail(props) {
             (v) => v.product_id === parseInt(id)
           );
           if (wishIndex > -1) {
-            console.log('有收藏喔');
+            // console.log('有收藏喔');
             $('.productdetail-like-btn').addClass('productdetail-active');
           } else {
-            console.log('還沒收藏喔');
+            // console.log('還沒收藏喔');
             $('.productdetail-like-btn').removeClass('productdetail-active');
           }
         }
