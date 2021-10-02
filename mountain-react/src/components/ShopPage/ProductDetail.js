@@ -13,7 +13,7 @@ import shop from '../../img/product-img/illustration/shop.svg';
 import bearbear from '../../img/product-img/illustration/bearbear.png';
 
 function ProductDetail(props) {
-  const { setCartChange } = useAuth(); // 取得購物車數字狀態
+  const { setCartChange, auth, member } = useAuth(); // 取得購物車數字狀態 會員登入狀態
   const [productData, setProductData] = useState([]);
   const [historyData, setHistoryData] = useState([]);
   const [orderNum, setOrderNum] = useState(1);
@@ -22,6 +22,8 @@ function ProductDetail(props) {
   //同等級商品及文章
   const [sameLevelP, setSameLevelP] = useState([]);
   const [sameLevelA, setSameLevelA] = useState([]);
+  //收藏清單資料
+  // const [wishList, setWishList] = useState([]);
   const { id } = useParams();
   // 隨機打亂陣列函式
   const shuffle = (array) => {
@@ -168,14 +170,62 @@ function ProductDetail(props) {
   const showMemberBubble = () => {
     $('.productdetail-about-membership-bubble').toggle('display');
   };
-
-  //FIXME:待整理
+  const addToWishList = () => {
+    if (auth === false) {
+      Swal.fire({
+        icon: 'error',
+        title: '請先登入會員！',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    }
+    console.log('product id, member id', id, member.id);
+    //用class來判斷是否有收藏
+    let ifFavorite = $('.productdetail-like-btn').hasClass(
+      'productdetail-active'
+    );
+    console.log('ifFavorite', ifFavorite);
+  };
+  //wish-list api
   useEffect(() => {
-    //like-icon
-    $('.productdetail-like-btn').on('click', function () {
-      $(this).toggleClass('productdetail-active');
-    });
-  }, []);
+    async function getWishList() {
+      if (auth === false) {
+        console.log('尚未登入');
+        $('.productdetail-like-btn').removeClass('productdetail-active');
+        return;
+      }
+      try {
+        if (member !== null) {
+          const wishListData = await axios.post(`${shopURL}/wish-list`, {
+            member,
+          });
+          // console.log('wishListData', wishListData.data);
+          // product_id:number id:string
+          const wishIndex = wishListData.data.findIndex(
+            (v) => v.product_id === parseInt(id)
+          );
+          if (wishIndex > -1) {
+            console.log('有收藏喔');
+            $('.productdetail-like-btn').addClass('productdetail-active');
+          } else {
+            console.log('還沒收藏喔');
+            $('.productdetail-like-btn').removeClass('productdetail-active');
+          }
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getWishList();
+  }, [member, id, auth]);
+  //FIXME:待整理
+  // useEffect(() => {
+  //   //like-icon
+  //   $('.productdetail-like-btn').on('click', function () {
+  //     $(this).toggleClass('productdetail-active');
+  //   });
+  // }, []);
   return (
     <>
       <main>
@@ -337,7 +387,10 @@ function ProductDetail(props) {
                   position-relative
                 "
                 >
-                  <button className="productdetail-like-btn mx-1">
+                  <button
+                    className="productdetail-like-btn mx-1"
+                    onClick={addToWishList}
+                  >
                     <HeartFill className="mb-2" />
                   </button>
                   <button
