@@ -191,6 +191,7 @@ function ProductDetail(props) {
       removeWishList();
     } else {
       //要加入收藏
+      addWishList();
     }
   };
   //remove from wish-list
@@ -202,6 +203,18 @@ function ProductDetail(props) {
         id,
       });
       $('.productdetail-like-btn').removeClass('productdetail-active');
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const addWishList = async () => {
+    try {
+      console.log('add product id, member id', id, member.id);
+      await axios.post(`${shopURL}/add-wish`, {
+        member,
+        id,
+      });
+      $('.productdetail-like-btn').addClass('productdetail-active');
     } catch (e) {
       console.log(e);
     }

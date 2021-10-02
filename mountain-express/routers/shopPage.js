@@ -56,10 +56,13 @@ router.post("/wish-list", async function(req, res, next) {
 
 //add to wish list
 router.post("/add-wish", async function(req, res, next) {
-  let toDelete = {
+  let toAdd = {
     user_id: req.body.member.id,
-    product_id: req.body.id
+    product_id: parseInt(req.body.id)
   }
+  // console.log('toAdd.user_id, toAdd.product_id', toAdd.user_id, toAdd.product_id)
+  let dbResults = await connection.queryAsync("INSERT INTO user_product (user_id, product_id) VALUES (?, ?)", [toAdd.user_id, toAdd.product_id]);
+  res.json(dbResults);
 })
 
 //remove from wish list
