@@ -16,7 +16,7 @@ import { mapURL, weatherURL, IMAGE_URL } from '../../utils/config';
 //====== below api connect tool end ======//
 
 //====== below pages components star ======//
-import { map_M } from './pages/Map_M';
+import MapMiddle from './pages/Map_M';
 import { map_btn } from './pages/MapBtn_M';
 import { pages_btn } from './pages/PagesBtn';
 import ProductRecM from './pages/ProductRec_M';
@@ -43,6 +43,7 @@ function MapM() {
   const [productData, setProductData] = useState([]);
   const [weatherData, setWeatherData] = useState([]);
   const [userLocation, setUserLocation] = useState([]);
+  const [userLocationBtn, setUserLocationBtn] = useState(false);
 
   //=== 計算兩點距離 star ===//
   function distance(lat1, lon1, lat2, lon2, unit) {
@@ -114,6 +115,16 @@ function MapM() {
         if (navigator.geolocation) {
           // 使用者不提供權限，或是發生其它錯誤
           function error() {
+            //設開關每過 1 sec 跑出彈跳視窗直到使用者開啟位置給追蹤
+            setTimeout(() => {
+              // console.log('in'); //for check
+              if (userLocationBtn === false) {
+                setUserLocationBtn(true);
+              } else {
+                setUserLocationBtn(false);
+              }
+            }, 10000);
+            //彈出視窗
             Swal.fire({
               icon: 'error',
               title: '無法取得您的位置，請提供權限！利於計算您到景點距離。',
@@ -127,6 +138,11 @@ function MapM() {
             let LatLon = { Lat, Lon };
             setUserLocation(LatLon);
             // console.log(userLocation);
+          }
+          // 有拿到位置就return
+          if (userLocation.Lat !== undefined) {
+            // console.log('in in'); //for check
+            return;
           }
           // 跟使用者拿所在位置的權限
           navigator.geolocation.getCurrentPosition(success, error);
@@ -148,7 +164,22 @@ function MapM() {
     // 0.7秒後關閉指示器 star
     setTimeout(() => {}, 700);
     // 0.7秒後關閉指示器 end
-  }, []);
+  }, [userLocationBtn, userLocation]);
+
+  //====== weather 所代表的icon start ======//
+  let weatherMap = {};
+  weatherMap['晴'] = <BrightnessHigh className="mr-1 mb-1" />;
+  weatherMap['陰'] = <Cloud className="mr-1 mb-1" />;
+  weatherMap['多雲'] = <Clouds className="mr-1 mb-1" />;
+  weatherMap['多雲有雷'] = <CloudLightning className="mr-1 mb-1" />;
+  weatherMap['陰有雷'] = <CloudLightning className="mr-1 mb-1" />;
+  weatherMap['多雲有雷雨'] = <CloudLightningRain className="mr-1 mb-1" />;
+  weatherMap['陰有雷雨'] = <CloudLightningRain className="mr-1 mb-1" />;
+  weatherMap['多雲有雨'] = <CloudDrizzle className="mr-1 mb-1" />;
+  weatherMap['陰有雨'] = <CloudDrizzle className="mr-1 mb-1" />;
+
+  // console.log('weatherMap:', weatherMap); //for check
+  //====== weather 所代表的icon end ======//
 
   return (
     <>
@@ -156,7 +187,7 @@ function MapM() {
       <div>
         <div className="mountain_bg"></div>
         {/* <!-- =========part1 map start========= --> */}
-        {map_M}
+        <MapMiddle listData={listData} />
         {/* <!-- =========part1 map end========= --> */}
 
         <div className="container mountain_container">
@@ -216,30 +247,12 @@ function MapM() {
                         <p className="mountain_M_list_title mr-2">天氣</p>
                         <p className="mountain_M_list_distance text-primary">
                           {/* <BrightnessHigh className="mr-1 mb-1" /> */}
-                          {/* FIXME: ("晴有雷"會進去'多雲有雷' || '陰有雷'那個判斷裡面)判斷氣象的城市名等於資料庫城市名時，帶入該城市的天氣icon */}
+                          {/* 判斷氣象的城市名等於資料庫城市名時，帶入該城市的天氣icon */}
                           {weatherData.map((item, i) =>
                             item.parameter[0].parameterValue ===
                             `${list.city}` ? (
-                              item.weatherElement[1].elementValue === '晴' ? (
-                                <BrightnessHigh key={i} className="mr-1 mb-1" />
-                              ) : item.weatherElement[1].elementValue ===
-                                '多雲' ? (
-                                <Clouds key={i} className="mr-1 mb-1" />
-                              ) : item.weatherElement[1].elementValue ===
-                                '陰' ? (
-                                <Cloud key={i} className="mr-1 mb-1" />
-                              ) : item.weatherElement[1].elementValue ===
-                                  '多雲有雷' || '陰有雷' ? (
-                                <CloudLightning key={i} className="mr-1 mb-1" />
-                              ) : item.weatherElement[1].elementValue ===
-                                  '多雲有雷雨' || '陰有雷雨' ? (
-                                <CloudLightningRain
-                                  key={i}
-                                  className="mr-1 mb-1"
-                                />
-                              ) : item.weatherElement[1].elementValue ===
-                                  '多雲有雨' || '陰有雨' ? (
-                                <CloudDrizzle key={i} className="mr-1 mb-1" />
+                              item.weatherElement[1].elementValue ? (
+                                weatherMap[item.weatherElement[1].elementValue]
                               ) : (
                                 <Cloud key={i} className="mr-1 mb-1" />
                               )
@@ -251,9 +264,15 @@ function MapM() {
                           {weatherData.map((item, i) =>
                             item.parameter[0].parameterValue ===
                             `${list.city}` ? (
-                              <span key={i} className="mr-3">
-                                {item.weatherElement[1].elementValue}
-                              </span>
+                              item.weatherElement[1].elementValue === '-99' ? (
+                                <span key={i} className="mr-3">
+                                  無天氣資料
+                                </span>
+                              ) : (
+                                <span key={i} className="mr-3">
+                                  {item.weatherElement[1].elementValue}
+                                </span>
+                              )
                             ) : (
                               ''
                             )
@@ -357,7 +376,7 @@ function MapM() {
                     </div>
                     {/* <!-- Time bar end --> */}
                   </div>
-                  {/* FIXME: (少抹茶山) 要連到山的文章 */}
+                  {/* 要連到山的文章 */}
                   <Link
                     to={`/recommend/detail/${list.id}`}
                     className="mountain_M_article_button btn btn-primary btn-lg"

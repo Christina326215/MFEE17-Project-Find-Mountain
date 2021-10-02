@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 //====== below modal end ======//
 import loginPic from '../img/needLogin.PNG';
 
-function error(props) {
+function error() {
   Swal.fire({
     title: '很抱歉!此頁面需要登入才能使用!',
     // text: 'Modal with a custom image.',
@@ -17,11 +17,11 @@ function error(props) {
     confirmButtonText: '來去登入~',
   }).then(function () {
     console.log('triggered redirect here');
-    window.location.href = '/login';
-    // <Redirect to="/login" />;
+    // window.location.href = '/login';
+    // return <Redirect to="/login" />;
     // Swal.close();
-    props.history.replace('/login');
   });
+  // return <Redirect to="/login" />;
 }
 
 export const needLogin = (
