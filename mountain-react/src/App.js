@@ -47,6 +47,10 @@ import { AuthContext } from './context/auth';
 import { memberURL } from './utils/config';
 import axios from 'axios';
 
+//====== below utils for 沒登入時的畫面 star ======//
+import { needLogin } from './utils/needLogin';
+//====== above utils for 沒登入時的畫面 end ======//
+
 //====== above components end ======//
 
 function App() {
@@ -163,35 +167,43 @@ function App() {
                 <ShopCartDetail />
               </Route>
               <Route path="/shoppingcart/step2-pay">
-                <ShopCartPay />
+                {member ? <ShopCartPay /> : needLogin}
               </Route>
               <Route path="/shoppingcart/step3-check">
-                <ShopCartCheck />
+                {member ? <ShopCartCheck /> : needLogin}
               </Route>
               <Route path="/shoppingcart/step4-final">
-                <ShopCartFinal />
+                {member ? <ShopCartFinal /> : needLogin}
               </Route>
               <Route path="/outfit">
                 <Outfit />
               </Route>
 
               <Route path="/member/order">
-                <MemberOrder />
+                {member ? <MemberOrder /> : needLogin}
               </Route>
               <Route path="/member/product-article">
-                <MemberProductArticle />
+                {member ? <MemberProductArticle /> : needLogin}
               </Route>
               <Route path="/member/comment">
-                <MemberComment />
+                {member ? <MemberComment /> : needLogin}
               </Route>
               <Route path="/member/personal">
-                <MemberPersonal show={show} setShow={setShow} />
+                {member ? (
+                  <MemberPersonal show={show} setShow={setShow} />
+                ) : (
+                  needLogin
+                )}
               </Route>
               <Route path="/member/edit">
-                <MemberEdit show={show} setShow={setShow} />
+                {member ? (
+                  <MemberEdit show={show} setShow={setShow} />
+                ) : (
+                  needLogin
+                )}
               </Route>
               <Route path="/member">
-                <MemberMapRoute />
+                {member ? <MemberMapRoute /> : needLogin}
               </Route>
               <Route path="/signup">
                 <SignUp />

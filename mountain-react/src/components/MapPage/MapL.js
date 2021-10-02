@@ -44,6 +44,8 @@ function MapL() {
   const [weatherData, setWeatherData] = useState([]);
   const [userLocation, setUserLocation] = useState([]);
 
+  console.log('userLocation:', userLocation); //for check FIXME:
+
   //=== 計算兩點距離 star ===//
   function distance(lat1, lon1, lat2, lon2, unit) {
     // console.log('lat1', lat1);
