@@ -148,12 +148,12 @@ function ProductDetail(props) {
       //改變同款項訂購數量
       orderInfo[index].num += orderNum;
       localStorage.setItem('ProductOrderDetail', JSON.stringify(orderInfo));
-      console.log('這個商品已經加過了');
+      // console.log('這個商品已經加過了');
       // return;
     } else {
       orderInfo.push(orderDetail);
       localStorage.setItem('ProductOrderDetail', JSON.stringify(orderInfo));
-      console.log('哎呦還沒喔');
+      // console.log('哎呦還沒喔');
     }
     //localstorage for order detail end//
     Swal.fire({
@@ -183,7 +183,7 @@ function ProductDetail(props) {
     let isFavorite = $('.productdetail-like-btn').hasClass(
       'productdetail-active'
     );
-    console.log('isFavorite', isFavorite);
+    // console.log('isFavorite', isFavorite);
     if (isFavorite) {
       //要取消收藏
       removeWishList();
@@ -195,7 +195,7 @@ function ProductDetail(props) {
   //remove from wish-list
   const removeWishList = async () => {
     try {
-      console.log('remove product id, member id', id, member.id);
+      // console.log('remove product id, member id', id, member.id);
       await axios.post(`${shopURL}/remove-wish`, {
         member,
         id,
@@ -213,7 +213,7 @@ function ProductDetail(props) {
   };
   const addWishList = async () => {
     try {
-      console.log('add product id, member id', id, member.id);
+      // console.log('add product id, member id', id, member.id);
       await axios.post(`${shopURL}/add-wish`, {
         member,
         id,
@@ -233,9 +233,9 @@ function ProductDetail(props) {
   //get wish-list api
   useEffect(() => {
     async function getWishList() {
-      console.log('auth, member', auth, member);
+      // console.log('auth, member', auth, member);
       if (auth === false) {
-        console.log('尚未登入');
+        // console.log('尚未登入');
         $('.productdetail-like-btn').removeClass('productdetail-active');
         return;
       }
