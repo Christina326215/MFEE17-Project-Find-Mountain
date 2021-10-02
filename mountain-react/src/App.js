@@ -6,9 +6,6 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
 import HomeMountain from './components/HomePage/HomeMountain';
-import HomeArticle from './components/HomePage/HomeArticle';
-import HomeOutfit from './components/HomePage/HomeOutfit';
-import HomeShop from './components/HomePage/HomeShop';
 
 import Recommend from './components/RecommendPage/Recommend';
 import Bear from './components/RecommendPage/Bear';
@@ -29,7 +26,7 @@ import ScrollToTop from './components/ScrollToTop';
 import ShopCartDetail from './components/ShopCartPage/ShopCartDetail';
 import ShopCartPay from './components/ShopCartPage/ShopCartPay';
 import ShopCartCheck from './components/ShopCartPage/ShopCartCheck';
-import ShopCartFinish from './components/ShopCartPage/ShopCartFinish';
+// import ShopCartFinish from './components/ShopCartPage/ShopCartFinish';
 import ShopCartFinal from './components/ShopCartPage/ShopCartFinal';
 import MemberMapRoute from './components/MemberPage/MemberMapRoute';
 import MemberProductArticle from './components/MemberPage/MemberProductArticle';
@@ -46,6 +43,10 @@ import Login from './components/LoginPage/Login';
 import { AuthContext } from './context/auth';
 import { memberURL } from './utils/config';
 import axios from 'axios';
+
+//====== below utils for 沒登入時的畫面 star ======//
+import { needLogin } from './utils/needLogin';
+//====== above utils for 沒登入時的畫面 end ======//
 
 //====== above components end ======//
 
@@ -163,42 +164,47 @@ function App() {
                 <ShopCartDetail />
               </Route>
               <Route path="/shoppingcart/step2-pay">
-                <ShopCartPay />
+                {member ? <ShopCartPay /> : needLogin}
               </Route>
               <Route path="/shoppingcart/step3-check">
-                <ShopCartCheck />
+                {member ? <ShopCartCheck /> : needLogin}
               </Route>
               <Route path="/shoppingcart/step4-final">
-                <ShopCartFinal />
+                {member ? <ShopCartFinal /> : needLogin}
               </Route>
               <Route path="/outfit">
                 <Outfit />
               </Route>
 
               <Route path="/member/order">
-                <MemberOrder />
+                {member ? <MemberOrder /> : needLogin}
               </Route>
               <Route path="/member/product-article">
-                <MemberProductArticle />
+                {member ? <MemberProductArticle /> : needLogin}
               </Route>
               <Route path="/member/comment">
-                <MemberComment />
+                {member ? <MemberComment /> : needLogin}
               </Route>
               <Route path="/member/personal">
-                <MemberPersonal show={show} setShow={setShow} />
+                {member ? (
+                  <MemberPersonal show={show} setShow={setShow} />
+                ) : (
+                  needLogin
+                )}
               </Route>
               <Route path="/member/edit">
-                <MemberEdit show={show} setShow={setShow} />
+                {member ? (
+                  <MemberEdit show={show} setShow={setShow} />
+                ) : (
+                  needLogin
+                )}
               </Route>
               <Route path="/member">
-                <MemberMapRoute />
+                {member ? <MemberMapRoute /> : needLogin}
               </Route>
               <Route path="/signup">
                 <SignUp />
               </Route>
-              {/* <Route path="/signup-acct">
-                <SignUpAcct />
-              </Route> */}
               <Route path="/login">
                 <Login />
               </Route>
@@ -206,9 +212,6 @@ function App() {
               {/* //===homepage 路由放最下面===// */}
               <Route exact path="/">
                 <HomeMountain />
-                {/* <HomeArticle />
-              <HomeShop />
-              <HomeOutfit /> */}
               </Route>
             </Switch>
           </ScrollToTop>

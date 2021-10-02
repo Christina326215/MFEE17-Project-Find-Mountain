@@ -44,6 +44,8 @@ function MapL() {
   const [weatherData, setWeatherData] = useState([]);
   const [userLocation, setUserLocation] = useState([]);
 
+  console.log('userLocation:', userLocation); //for check FIXME:
+
   //=== 計算兩點距離 star ===//
   function distance(lat1, lon1, lat2, lon2, unit) {
     // console.log('lat1', lat1);
@@ -89,7 +91,7 @@ function MapL() {
     async function mapLData() {
       try {
         // map api star //
-        const mapData = await axios.get(mapURL);
+        const mapData = await axios.get(mapURL + '1');
         console.log('mapData:', mapData.data); //for check
         setListData(mapData.data);
         // map api end //
@@ -150,8 +152,8 @@ function MapL() {
     setTimeout(() => {}, 700);
     // 0.7秒後關閉指示器 end
   }, []);
-  // console.log('userLat', userLocation.Lat);
-  // console.log('userLon', userLocation.Lon);
+  // console.log('userLat', userLocation.Lat); //for check
+  // console.log('userLon', userLocation.Lon); //for check
 
   return (
     <>
@@ -182,11 +184,17 @@ function MapL() {
                 </div>
                 <div className="mountain_list_detail">
                   <div>
-                    <div className="mountain_list_detail_box align-items-center">
+                    <div className="mountain_list_detail_box align-items-center justify-content-between">
                       <div className="mountain_list_font_box">
                         <p className="mountain_list_title mr-2">{list.name}</p>
                         <p className="mountain_list_star text-warning">
-                          <span className="text-dark mr-1">4.8</span>
+                          {list.starAverage === 0 ? (
+                            <span className="text-dark mr-1">暫無星級評分</span>
+                          ) : (
+                            <span className="text-dark mr-1">
+                              {list.starAverage}
+                            </span>
+                          )}
                           <StarFill className="mb-1" />
                         </p>
                       </div>
@@ -284,12 +292,16 @@ function MapL() {
                           {weatherData.map((item, i) =>
                             item.parameter[0].parameterValue ===
                             `${list.city}` ? (
-                              <span key={i}>
-                                {Math.floor(
-                                  item.weatherElement[0].elementValue
-                                )}
-                                度
-                              </span>
+                              item.weatherElement[0].elementValue === '-99' ? (
+                                <span key={i}>無溫度資料</span>
+                              ) : (
+                                <span key={i}>
+                                  {Math.floor(
+                                    item.weatherElement[0].elementValue
+                                  )}
+                                  度
+                                </span>
+                              )
                             ) : (
                               ''
                             )

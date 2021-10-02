@@ -370,9 +370,9 @@
 }
 .mountain_list_distance_title {
   display: flex;
-  position: absolute;
+  /* position: absolute;
   left: 40%;
-  transform: translateX(55%);
+  transform: translateX(55%); 10/1 歐陽delete*/
 }
 /* map list end */
 
@@ -381,7 +381,8 @@
   display: flex;
   margin-top: 4px;
   margin-bottom: 20px;
-  margin-left: 40px;
+  margin-left: 20px;/* 10/1 歐陽 change 40px->20px*/
+  margin-right: 20px;/* 10/1 歐陽 add*/
 }
 .mountain_progress-bg {
   margin: 0 auto;
@@ -742,10 +743,10 @@
 
 /*********** ============below media 1200px============ *************/
 @media screen and (max-width: 1200px) {
-  .mountain_list_distance_title {
+  /* .mountain_list_distance_title {
     left: 30%;
     transform: translateX(55%);
-  }
+  } 10/1 歐陽delete */
   .mountain_downLowBear {
     margin-left: -100px;
   }
@@ -767,9 +768,9 @@
     display: block;
   }
   .mountain_list_distance_title {
-    position: static;
+    /* position: static;
     left: 0%;
-    transform: translateX(0%);
+    transform: translateX(0%); 10/1 歐陽delete*/
     justify-content: center;
   }
   .mountain_Xiangshan_pic{
@@ -978,9 +979,9 @@
     display: block;
   }
   .mountain_list_distance_title {
-    position: static;
+    /* position: static;
     left: 0%;
-    transform: translateX(0%);
+    transform: translateX(0%); 10/1 歐陽delete*/
     justify-content: center;
   }
   .mountain_bar_list {
