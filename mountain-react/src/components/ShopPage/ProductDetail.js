@@ -180,14 +180,34 @@ function ProductDetail(props) {
       });
       return;
     }
-    console.log('product id, member id', id, member.id);
+    // console.log('product id, member id', id, member.id);
     //用class來判斷是否有收藏
-    let ifFavorite = $('.productdetail-like-btn').hasClass(
+    let isFavorite = $('.productdetail-like-btn').hasClass(
       'productdetail-active'
     );
-    console.log('ifFavorite', ifFavorite);
+    console.log('isFavorite', isFavorite);
+    if (isFavorite) {
+      //要取消收藏
+      removeWishList();
+    } else {
+      //要加入收藏
+    }
   };
-  //wish-list api
+  //remove from wish-list
+  const removeWishList = async () => {
+    try {
+      console.log('remove product id, member id', id, member.id);
+      await axios.post(`${shopURL}/remove-wish`, {
+        member,
+        id,
+      });
+      $('.productdetail-like-btn').removeClass('productdetail-active');
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  //get wish-list api
   useEffect(() => {
     async function getWishList() {
       if (auth === false) {

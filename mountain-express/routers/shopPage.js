@@ -50,13 +50,28 @@ router.post("/wish-list", async function(req, res, next) {
   let dbResults = await connection.queryAsync("SELECT * FROM user_product WHERE user_id=?", [[req.body.member.id]]);
   // console.log('req.body.id', req.body.id);
   // console.log('req.member.id', req.member.id);
-  console.log(dbResults);
+  // console.log(dbResults);
   res.json(dbResults);
 })
 
 //add to wish list
+router.post("/add-wish", async function(req, res, next) {
+  let toDelete = {
+    user_id: req.body.member.id,
+    product_id: req.body.id
+  }
+})
 
 //remove from wish list
+router.post("/remove-wish", async function(req, res, next) {
+  let toDelete = {
+    user_id: req.body.member.id,
+    product_id: req.body.id
+  }
+  let dbResults = await connection.queryAsync("DELETE FROM user_product WHERE user_id=? AND product_id=?", [toDelete.user_id, toDelete.product_id]);
+  // console.log('req.body.member.id, req.body.id', req.body.member.id, req.body.id)
+  res.json(dbResults);
+})
 
 //ranking
 router.get("/ranking", async function (req, res, next) {
