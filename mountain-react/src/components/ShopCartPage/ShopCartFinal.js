@@ -18,57 +18,58 @@ import ShopCartImg from '../../img/shoes-pic7.jpeg';
 function ShopCartFinish() {
   //historyItems為瀏覽紀錄local storage接完資料庫的整體一筆一筆的資料
   const [historyItems, setHistoryItems] = useState([]);
-  //shopCartData為購物車local storage接完資料庫的整體一筆一筆的資料
-  const [shopCartData, setShopCartData] = useState([]);
-  //cartLocal為購物車的local storage
-  const [cartLocal, setCartLocal] = useState([]);
+  const [randomProduct, setRandomProduct] = useState([]);
 
-  //local storage接API --> shopCartData
+  // 隨機打亂陣列函式
+  const shuffle = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
+  //更多推薦 api
   useEffect(() => {
-    var ProductOrder = JSON.parse(localStorage.getItem('ProductOrderDetail'));
-    //api
-    async function getProductData() {
+    //FIXME:應該要在隨機排序商品資料中，刪除購物車中有的品項 (little bug)
+    async function getAllRandomProductData() {
+      try {
+        const allProductData = await axios.get(`${shopURL}/`);
+        const RandomProductData = shuffle(allProductData.data).slice(0, 5);
+        // console.log('RandomProductData', RandomProductData);
+        setRandomProduct(RandomProductData);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getAllRandomProductData();
+  }, []);
+
+  useEffect(() => {
+    async function getViewedData() {
       try {
         //抓瀏覽紀錄資料
         var ProductViewHistory = JSON.parse(
           localStorage.getItem('ProductViewHistory')
         );
-        var historyArray = [];
-        for (let i = 0; i < ProductViewHistory.length; i++) {
-          // console.log(ProductViewHistory[i]);
-          const productHistoryData = await axios.get(
-            `${shopURL}/product-detail/${ProductViewHistory[i]}`
-          );
-          // console.log(productHistoryData.data[0]);
-          historyArray.unshift(productHistoryData.data[0]);
+        if (ProductViewHistory !== null && ProductViewHistory.length > 0) {
+          var historyArray = [];
+          for (let i = 0; i < ProductViewHistory.length; i++) {
+            // console.log('ProductViewHistory[i]', ProductViewHistory[i]);
+            const productHistoryData = await axios.get(
+              `${shopURL}/product-detail/${ProductViewHistory[i]}`
+            );
+            // console.log(productHistoryData.data[0]);
+            historyArray.unshift(productHistoryData.data[0]);
+          }
+          // console.log('historyArray', historyArray);
+          setHistoryItems(historyArray);
         }
-        // console.log('historyArray', historyArray);
-        setHistoryItems(historyArray);
-        //抓購物車的商品資料
-        var orderArray = [];
-        for (let i = 0; i < ProductOrder.length; i++) {
-          const productOrderData = await axios.get(
-            `${shopURL}/product-detail/${ProductOrder[i].id}`
-          );
-          //productOrderData.data[0]為資料庫商品資料 ProductOrder[i]為localstorage的購物車資料
-          // console.log(productOrderData.data[0], ProductOrder[i]);
-          //合併物件Object.assign 合併後原物件也會被改變
-          let assignedObj = Object.assign(
-            productOrderData.data[0],
-            ProductOrder[i]
-          );
-          // console.log('productOrderData.data[0]', productOrderData.data[0]);
-          // console.log('assignedObj', assignedObj);
-          orderArray.unshift(productOrderData.data[0]);
-        }
-        console.log('orderArray', orderArray);
-        setShopCartData(orderArray);
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
     }
-    getProductData();
-  }, [cartLocal]);
+    getViewedData();
+  }, []);
 
   useEffect(() => {
     // progress-bar
@@ -186,41 +187,21 @@ function ShopCartFinish() {
               結帳完成，訂單處理中。
             </h3>
             <div>
+              {/* FIXME:樣式設計再改一下 */}
               <h5>更多推薦</h5>
               <hr />
               <div className="row">
-                <Link to="/#">
-                  <figure className="shopcart-more-product-img-box ml-5">
-                    <img
-                      src={ShopCartImg}
-                      alt=""
-                      className="shopcart-cover-fit"
-                    />
-                  </figure>
-                </Link>
-                <Link to="/#">
-                  <figure className="shopcart-more-product-img-box ml-5">
-                    <img
-                      src={ShopCartImg}
-                      alt=""
-                      className="shopcart-cover-fit"
-                    />
-                  </figure>
-                </Link>
-              </div>
-            </div>
-            <div>
-              <h5 className="mt-5">瀏覽紀錄</h5>
-              <hr />
-              <div className="row">
-                {historyItems.slice(0, 7).map((hisItems, hisIndex) => {
+                {randomProduct.map((randomItems, index) => {
                   return (
-                    <Link to={`/shop/product-detail/${hisItems.id}`}>
-                      <figure className="shopcart-more-product-img-box ml-5 mb-5">
+                    <Link
+                      to={`/shop/product-detail/${randomItems.id}`}
+                      key={`${randomItems.id}`}
+                    >
+                      <figure className="shopcart-more-product-img-box ml-5">
                         <img
-                          src={`${IMAGE_URL}/img/product-img/${hisItems.pic}`}
-                          alt={hisItems.name}
-                          title={hisItems.name}
+                          src={`${IMAGE_URL}/img/product-img/${randomItems.pic}`}
+                          alt={randomItems.name}
+                          title={randomItems.name}
                           className="shopcart-cover-fit"
                         />
                       </figure>
@@ -228,6 +209,35 @@ function ShopCartFinish() {
                   );
                 })}
               </div>
+            </div>
+            <div>
+              <h5 className="mt-5">瀏覽紀錄</h5>
+              <hr />
+              {historyItems === [] || historyItems.length === 0 ? (
+                <div className="d-flex shopcart-no-historyproduct text-center justify-content-center align-items-center my-3">
+                  <p className="p-0">尚未有瀏覽紀錄</p>
+                </div>
+              ) : (
+                <div className="row">
+                  {historyItems.slice(0, 7).map((hisItems, hisIndex) => {
+                    return (
+                      <Link
+                        to={`/shop/product-detail/${hisItems.id}`}
+                        key={`${hisItems.id}00`}
+                      >
+                        <figure className="shopcart-more-product-img-box ml-5 mb-5">
+                          <img
+                            src={`${IMAGE_URL}/img/product-img/${hisItems.pic}`}
+                            alt={hisItems.name}
+                            title={hisItems.name}
+                            className="shopcart-cover-fit"
+                          />
+                        </figure>
+                      </Link>
+                    );
+                  })}
+                </div>
+              )}
             </div>
             {/* <!-- button --> */}
             <div className="shopcart-button-container text-right mb-5">

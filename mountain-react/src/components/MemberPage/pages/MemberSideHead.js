@@ -24,6 +24,7 @@ const bubble = () => {
 const MemberSideHead = () => {
   // 把 member 從 useContext中拿出來
   const { member } = useAuth();
+  // console.log('member', member);
 
   return (
     <>

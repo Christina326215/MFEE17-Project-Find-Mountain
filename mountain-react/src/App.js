@@ -55,6 +55,8 @@ function App() {
   const [pay, setPay] = useState(null);
   const [cartChange, setCartChange] = useState(false);
   const [mapRouteShow, setMapRouteShow] = useState(false); //會員路線地圖，新增路線重算積分，會員level需重抓
+  // 新增去過或移除去過會影響level會員等級
+  const [flagHandle, setFlagHandle] = useState(true);
   // 記錄現在在第幾頁
   const [page, setPage] = useState(1);
   // 總共有幾頁
@@ -79,7 +81,7 @@ function App() {
       }
     }
     getPersonalData();
-  }, [show, mapRouteShow, auth]);
+  }, [show, mapRouteShow, auth, flagHandle]);
 
   // 重整後要重新設定auth
   useEffect(() => {
@@ -125,7 +127,10 @@ function App() {
                 <Manual />
               </Route>
               <Route path="/recommend/detail/:id?">
-                <DetailContent />
+                <DetailContent
+                  flagHandle={flagHandle}
+                  setFlagHandle={setFlagHandle}
+                />
               </Route>
               <Route path="/map/levelH">
                 <MapH />
@@ -162,9 +167,6 @@ function App() {
               </Route>
               <Route path="/shoppingcart/step3-check">
                 <ShopCartCheck />
-              </Route>
-              <Route path="/shoppingcart/credit-card-pay">
-                <ShopCartFinish />
               </Route>
               <Route path="/shoppingcart/step4-final">
                 <ShopCartFinal />
