@@ -251,15 +251,16 @@ function Manual() {
   // 4 設定執行狀態
   useEffect(() => {
     let newArticle = [];
-    // 處理勾選標記
-    newArticle = handleTags(listData, tags);
-    newArticle = seasonTags(newArticle, season);
-    newArticle = timeRange(newArticle, time);
-    newArticle = typeTags(newArticle, mtype);
+    if (listData.length > 0 && listData[0].pic) {
+      // 處理勾選標記
+      newArticle = handleTags(listData, tags);
+      newArticle = seasonTags(newArticle, season);
+      newArticle = timeRange(newArticle, time);
+      newArticle = typeTags(newArticle, mtype);
+    }
     // console.log('11newArticle', newArticle);
-
     setResult(newArticle);
-    // console.log('listData', listData);
+    // console.log('newArticle', newArticle);
   }, [listData, tags, season, time, mtype, setResult]);
 
   useEffect(() => {
