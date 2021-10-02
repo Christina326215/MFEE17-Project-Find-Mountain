@@ -1,5 +1,4 @@
 import React from 'react';
-// import { useEffect } from 'react';
 import { IMAGE_URL } from '../../utils/config';
 import { Link } from 'react-router-dom';
 

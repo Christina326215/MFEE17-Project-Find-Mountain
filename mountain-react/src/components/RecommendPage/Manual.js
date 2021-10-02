@@ -70,6 +70,7 @@ function Manual() {
 
   // 2 等級勾選按鈕存成usestate陣列
   const handleChecked = (e) => {
+    $(e.currentTarget).toggleClass('active');
     // const newtags = [];
     const value = e.target.value;
     // console.log('tags', tags);
@@ -108,6 +109,7 @@ function Manual() {
 
   // 2 季節勾選按鈕存成usestate陣列
   const seasonChecked = (e) => {
+    $(e.currentTarget).toggleClass('active');
     const value = e.target.value;
     if (!season.includes(value)) {
       return setSeason([...season, value]);
@@ -144,6 +146,7 @@ function Manual() {
 
   // 2 時間勾選按鈕存成usestate陣列
   const timeChecked = (e) => {
+    $(e.currentTarget).toggleClass('active');
     const value = e.target.value;
     // console.log('value', value);
     if (!time.includes(value)) {
@@ -213,6 +216,7 @@ function Manual() {
 
   // 2 步道 勾選按鈕存成usestate陣列
   const typeChecked = (e) => {
+    $(e.currentTarget).toggleClass('active');
     // const newtags = [];
     const value = e.target.value;
     // console.log('tags', tags);
@@ -262,24 +266,6 @@ function Manual() {
     setResult(newArticle);
     // console.log('newArticle', newArticle);
   }, [listData, tags, season, time, mtype, setResult]);
-
-  useEffect(() => {
-    $('.recommend-level-btn').click(function () {
-      $(this).toggleClass('active');
-    });
-    $('.recommend-season-btn').click(function () {
-      $(this).toggleClass('active');
-    });
-    $('.recommend-time-btn').click(function () {
-      $(this).toggleClass('active');
-    });
-    $('.recommend-mountain-type-btn').click(function () {
-      $(this).toggleClass('active');
-    });
-    $('i').click(function () {
-      $(this).toggleClass('active');
-    });
-  }, []);
 
   return (
     <div>

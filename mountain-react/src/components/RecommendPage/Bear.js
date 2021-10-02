@@ -8,13 +8,6 @@ import { useState } from 'react';
 import axios from 'axios';
 import { recommendURL } from '../../utils/config';
 import Card from './Card';
-import Result from './Result';
-// import {
-//   BsChevronBarLeft,
-//   BsChevronLeft,
-//   BsChevronRight,
-//   BsChevronBarRight,
-// } from 'react-icons/bs';
 
 function Bear() {
   // 原始資料庫狀態
@@ -66,29 +59,12 @@ function Bear() {
       }
     }
     recommendData();
-
-    // 按鈕單選
-    $('.recommend-go-btn').click(function () {
-      $(this).toggleClass('active');
-      // $(this).siblings().removeClass('active');
-      $('.recommend-step3').show();
-    });
-
-    $('.recommend-level-btn').click(function () {
-      $(this).toggleClass('active');
-      // $(this).siblings().removeClass('active');
-      $('.recommend-step2').show();
-    });
-
-    $('.recommend-season-btn').click(function () {
-      $(this).toggleClass('active');
-      // $(this).siblings().removeClass('active');
-      $('.recommend-step4').show();
-    });
   }, []);
 
   // 2 等級勾選按鈕存成usestate陣列
   const handleChecked = (e) => {
+    $(e.currentTarget).toggleClass('active');
+    $('.recommend-step2').show();
     // const newtags = [];
     const value = e.target.name;
     // console.log('tags', tags);
@@ -128,6 +104,8 @@ function Bear() {
 
   // 2 季節勾選按鈕存成usestate陣列
   const seasonChecked = (e) => {
+    $(e.currentTarget).toggleClass('active');
+    $('.recommend-step4').show();
     const value = e.target.value;
     if (!season.includes(value)) {
       return setSeason([...season, value]);
@@ -208,6 +186,10 @@ function Bear() {
                     type="button"
                     className="btn btn-primary recommend-go-btn"
                     value="Go"
+                    onClick={(e) => {
+                      $(e.currentTarget).toggleClass('active');
+                      $('.recommend-step3').show();
+                    }}
                   />
                 </div>
               </div>
@@ -326,29 +308,22 @@ function Bear() {
                   </div>
                 </div>
                 <div className="recommend-btngroup">
-                  {/* <Link className="btn btn-primary" to="/recommend/bear/result">
-                    查看路線
-                  </Link> */}
-                  <div
-                    className="recommend-btngroup"
-                    onClick={() => {
-                      window.scrollTo({
-                        top: 1500,
-                        left: 0,
-                        behavior: 'smooth',
-                      });
-                    }}
-                  >
+                  <div className="recommend-btngroup">
                     <input
                       type="button"
                       className="btn btn-primary recommend-go-btn"
                       value="查看路線"
+                      onClick={(e) => {
+                        $(e.currentTarget).toggleClass('active');
+                        window.scrollTo({
+                          top: 1500,
+                          left: 0,
+                          behavior: 'smooth',
+                        });
+                      }}
                     />
                   </div>
                 </div>
-                {/* <Result result={result} star={star} setStar={setStar}>
-                  >
-                </Result> */}
                 <Card result={result} star={star} setStar={setStar}></Card>
               </div>
               <a

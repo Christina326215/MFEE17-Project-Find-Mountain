@@ -12,7 +12,6 @@ import HomeShop from './components/HomePage/HomeShop';
 
 import Recommend from './components/RecommendPage/Recommend';
 import Bear from './components/RecommendPage/Bear';
-import Result from './components/RecommendPage/Result';
 import Manual from './components/RecommendPage/Manual';
 import DetailContent from './components/RecommendPage/DetailContent';
 import ShopMain from './components/ShopPage/ShopMain';
@@ -117,9 +116,6 @@ function App() {
           <ScrollToTop>
             <Switch>
               {/* //===other 路由放homepage上面 */}
-              <Route path="/recommend/bear/result">
-                <Result />
-              </Route>
               <Route path="/recommend/bear">
                 <Bear />
               </Route>
