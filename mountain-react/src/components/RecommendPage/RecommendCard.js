@@ -1,6 +1,7 @@
 import React from 'react';
 import { IMAGE_URL } from '../../utils/config';
 import { Link } from 'react-router-dom';
+import $ from 'jquery';
 
 function RecommendCard(props) {
   const { levelCard } = props;
@@ -17,9 +18,23 @@ function RecommendCard(props) {
                   <div className="col-lg-4 px-0" key={i}>
                     <div className="recommend-article-card">
                       <div className="recommend-article-img-box">
-                        <Link to={'/recommend/detail/' + article.id}>
+                        <Link
+                          to={'/recommend/detail/' + article.id}
+                          onMouseEnter={(e) => {
+                            $(e.target).css(
+                              'border',
+                              '5px solid rgba(1, 126, 72, 0.1)'
+                            );
+                          }}
+                          onMouseLeave={(e) => {
+                            $(e.target).css(
+                              'border',
+                              '0px solid rgba(1, 126, 72, 0.1)'
+                            );
+                          }}
+                        >
                           <img
-                            className="recommend-cover-fit"
+                            className="recommend-cover-fit picture"
                             src={`${IMAGE_URL}/img/article-img/${article.pic}`}
                             alt=""
                           />

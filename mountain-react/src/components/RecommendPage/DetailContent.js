@@ -666,7 +666,7 @@ function DetailContent(props) {
           <ProductTag></ProductTag>
         </div>
       </div>
-      <Comment detail={detail}></Comment>
+      <Comment detail={detail} flagHandle={flagHandle}></Comment>
       <RecommendCard levelCard={levelCard}></RecommendCard>
     </div>
   );

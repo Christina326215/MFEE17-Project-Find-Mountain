@@ -23,7 +23,7 @@ function Comment(props) {
   // 登入會員狀態
   const { member } = useAuth();
   // 文章資料
-  const { detail } = props;
+  const { detail, flagHandle } = props;
   const { id } = useParams();
   // console.log('id', id);
   // console.log('detail111', detail);
@@ -165,7 +165,7 @@ function Comment(props) {
       }
     }
     commentData();
-  }, [props.match.params.id, show]);
+  }, [props.match.params.id, show, flagHandle]);
 
   return (
     <div>
