@@ -47,34 +47,71 @@ function Outfit(props) {
   const [cartSize, setCartSize] = useState('');
   const [cartPrice, setCartPrice] = useState(0);
   const [productOrder, setProductOrder] = useState([]);
-  const [productOrderNew, setProductOrderNew] = useState([]);
+  const [productOrderPush, setProductOrderPush] = useState([]);
+  const [productOrderFilter, setProductOrderFilter] = useState([]);
   console.log('productOrder', productOrder);
-  // var outfitOrderArray = [];
+
   useEffect(() => {
-    // outfitOrderArray.push(productOrder);
-    // console.log('outfitOrderArray', outfitOrderArray);
-    setProductOrderNew([...productOrderNew, productOrder]);
+    // setProductOrderPush([...productOrderPush, productOrder]);
+    console.log('productOrderPush', productOrderPush);
+
+    // 篩選掉空陣列
+    let productOrderFilters = productOrderPush.filter(
+      (v) => v.length != 0 && v.size !== ''
+    );
+    // setProductOrderFilter(productOrderFilters);
+    console.log('productOrderFilters', productOrderFilters);
+
+    function ClearDuplicatedItem(value) {
+      return value.id !== productOrder.id;
+    }
+    const newObjArray = productOrderFilters.filter(ClearDuplicatedItem);
+    newObjArray.push(productOrder);
+    console.log('newObjArray', newObjArray);
+    setProductOrderPush([...productOrderFilters, newObjArray]);
+
+    // 陣列中有相同物件時，可以取代物件
+    // let mergeArrayWithObject = (productOrderFilters, productOrder) =>
+    //   productOrderFilters.map((obj) =>
+    //     productOrder.id === obj.id ? productOrder : obj
+    //   );
+    // console.log(
+    //   'mergeArrayWithObject',
+    //   mergeArrayWithObject(productOrderFilters, productOrder)
+    // );
+
+    // let mergeArrayWithObject = productOrderFilters.map((obj) =>
+    //   productOrder.id === obj.id ? productOrder : obj
+    // );
+    // console.log('mergeArrayWithObject', mergeArrayWithObject);
+
+    // 陣列中去除某物件屬性重複值
+    // const set = new Set();
+    // const result = mergeArrayWithObject(
+    //   productOrderFilters,
+    //   productOrder
+    // ).filter((item) => (!set.has(item.id) ? set.add(item.id) : false));
+    // console.log('productOrderFilterResult', result);
+    // [{name: "alex", value: 10}, {name: "tom", value: 30}]
   }, [productOrder]);
-  console.log('productOrderNew', productOrderNew);
 
-  // const handleChange = (e) => {
-  //   const value = e.target.value;
-  //   // 如果目前在這狀態陣列 -> 移出
-  //   if (checkedValueList.includes(value)) {
-  //     // 1. 先從狀態陣列拷貝出新陣列
-  //     // 2. 在拷貝的新陣列上處理
-  //     const newLikeList = checkedValueList.filter((v, i) => {
-  //       return v !== value;
-  //     });
-  //     // 3. 設定回狀態陣列
-  //     return setCheckedValueList(newLikeList);
-  //   }
-  //   // 如果沒在這狀態陣列中 -> 加入
-  //   setCheckedValueList([...checkedValueList, value]);
-  // };
+  // let arr = [
+  //   { id: 1, name: 'Bir' },
+  //   { id: 2, name: 'Iki' },
+  //   { id: 3, name: 'Uc' },
+  // ];
+  // let obj1 = { id: 3, name: 'Name changed' };
+  // var newArr = arr.map((obj) => (obj1.id === obj.id ? obj1 : obj));
+  // console.log('newArr', newArr);
 
-  // let price = productLocal[0].productPrice;
-  // console.log('price', price);
+  // 在陣列中，當物件內id相同時，num有新的值時，要取代新的值
+  // productOrderFilter.findIndex((v)=>v.id === )
+
+  // let index = productOrderFilter.findIndex(
+
+  //   (v) => v.id === productOrderFilter.id
+  // );
+  // console.log('index', index);
 
   // const handleDragStart = (e) => {
   //   console.log('e', e);
@@ -253,26 +290,6 @@ function Outfit(props) {
               productType: productType,
             });
             localStorage.setItem('products', JSON.stringify(product_records));
-          }
-          let ProductOrderDetail = localStorage.getItem('ProductOrderDetail')
-            ? JSON.parse(localStorage.getItem('ProductOrderDetail'))
-            : [];
-          if (
-            ProductOrderDetail.some((v) => {
-              return v.id == productId;
-            })
-          ) {
-            console.log('duplicate data');
-          } else {
-            ProductOrderDetail.push({
-              id: productId,
-              size: 'F',
-              num: 1,
-            });
-            localStorage.setItem(
-              'ProductOrderDetail',
-              JSON.stringify(ProductOrderDetail)
-            );
           }
         }
         showSelectedData();
@@ -454,7 +471,6 @@ function Outfit(props) {
                 key={product.productId}
                 show={show}
                 setShow={setShow}
-                productOrder={productOrder}
                 setProductOrder={setProductOrder}
               />
             );

@@ -6,16 +6,8 @@ function OutfitProductModal(props) {
   const [cartNum, setCartNum] = useState(1);
   const [cartSize, setCartSize] = useState('');
   const [cartPrice, setCartPrice] = useState(0);
-  const {
-    productId,
-    price,
-    picture,
-    name,
-    type,
-    show,
-    productOrder,
-    setProductOrder,
-  } = props;
+  const { productId, price, picture, name, type, show, setProductOrder } =
+    props;
 
   useEffect(() => {
     setCartNum(1);
@@ -26,13 +18,9 @@ function OutfitProductModal(props) {
     setCartPrice(cartNum * price);
     // console.log(cartPrice);
   }, [cartNum, cartPrice, price]);
-  // useEffect(() => {
-  //   let modalId = document.getElementById('modalId').value;
-  //   console.log('modalId', modalId);
-  // }, []);
 
   useEffect(() => {
-    let orderDetail = { id: productId, size: cartSize, num: cartNum };
+    let orderDetail = { id: productId, size: cartSize, num: parseInt(cartNum) };
     setProductOrder(orderDetail);
     // console.log('orderDetail child', orderDetail);
   }, [cartNum, cartSize]);
