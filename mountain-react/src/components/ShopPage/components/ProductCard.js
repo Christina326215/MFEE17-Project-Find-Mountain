@@ -43,13 +43,56 @@ function ProductCard(props) {
     if (member !== null) {
       console.log('productId, memberId', productId, member.id);
       if (heart === true) {
-        //取消收藏
-        console.log('收藏中');
+        //取消收藏 productId 為 number
+        // console.log('收藏中');
+        removeWishList();
       } else {
         //加入收藏
-        console.log('沒收藏');
+        // console.log('沒收藏');
+        addWishList();
       }
     }
+  };
+  //remove wish
+  const removeWishList = async () => {
+    try {
+      let id = productId;
+      // console.log('remove product id, member id', id, member.id);
+      await axios.post(`${shopURL}/remove-wish`, {
+        member,
+        id,
+      });
+      setHeart(false);
+    } catch (e) {
+      console.log(e);
+    }
+    Swal.fire({
+      icon: 'error',
+      title: '已移除收藏商品',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  };
+  //add wish
+
+  const addWishList = async () => {
+    try {
+      let id = productId;
+      // console.log('add product id, member id', id, member.id);
+      await axios.post(`${shopURL}/add-wish`, {
+        member,
+        id,
+      });
+      setHeart(true);
+    } catch (e) {
+      console.log(e);
+    }
+    Swal.fire({
+      icon: 'success',
+      title: '已加入收藏',
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
   //get Wish List
   useEffect(() => {
