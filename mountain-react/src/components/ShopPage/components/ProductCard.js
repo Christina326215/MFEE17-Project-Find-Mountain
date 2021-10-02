@@ -12,13 +12,15 @@ import axios from 'axios';
 
 function ProductCard(props) {
   const { productId, price, picture, name, brand, type } = props;
-  const { setCartChange, member } = useAuth(); // 取得購物車數字狀態
+  const { setCartChange, member, auth } = useAuth(); // 取得購物車數字狀態
   const [show, setShow] = useState(false);
   const [cartNum, setCartNum] = useState(1);
   const [cartSize, setCartSize] = useState('');
   const [cartPrice, setCartPrice] = useState(0);
   //cartLocal為購物車的local storage
   const [cardCartLocal, setCardCartLocal] = useState([]);
+  //愛心顏色狀態 true為紅色 false為白色
+  const [heart, setHeart] = useState(false);
   //取得local storage轉為陣列的資料 ProductOrder
   function getCartFromLocalStorage() {
     const ProductOrder =
@@ -28,18 +30,58 @@ function ProductCard(props) {
   }
   const heartIconClick = function (e) {
     // console.log(e.currentTarget);
-    $(e.currentTarget).toggleClass('shopmain-heart-icon-bkg-click');
-    console.log('productId, memberId', productId, member.id);
+    // $(e.currentTarget).toggleClass('shopmain-heart-icon-bkg-click');
+    if (auth === false) {
+      Swal.fire({
+        icon: 'error',
+        title: '需要先登入才能加入收藏',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    }
+    if (member !== null) {
+      console.log('productId, memberId', productId, member.id);
+      if (heart === true) {
+        //取消收藏
+        console.log('收藏中');
+      } else {
+        //加入收藏
+        console.log('沒收藏');
+      }
+    }
+  };
+  //get Wish List
+  useEffect(() => {
     async function getWishListData() {
       try {
-        const wishListData = await axios.post(`${shopURL}/wish-list`, member);
-        console.log('wishListData', wishListData.data);
+        if (auth === false) {
+          console.log('尚未登入');
+          $('.shopmain-heart-icon-bkg').removeClass(
+            'shopmain-heart-icon-bkg-click'
+          );
+          return;
+        }
+        const wishListData = await axios.post(`${shopURL}/wish-list`, {
+          member,
+        });
+        // console.log('wishListData', wishListData.data);
+        const wishIndex = wishListData.data.findIndex(
+          (v) => v.product_id === parseInt(productId)
+        );
+        if (wishIndex > -1) {
+          // console.log('有收藏喔');
+          setHeart(true);
+        } else {
+          // console.log('還沒收藏喔');
+          setHeart(false);
+        }
       } catch (e) {
         console.log(e);
       }
     }
     getWishListData();
-  };
+  }, [auth, member, productId]);
   //控制modal show or not show
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -244,15 +286,23 @@ function ProductCard(props) {
                 title={`${brand}${name}`}
               />
             </Link>
-            <button
-              className="position-absolute shopmain-heart-icon-bkg position-relative"
-              onClick={heartIconClick}
-            >
-              <HeartFill className="position-absolute shopmain-heart-icon" />
-            </button>
+            {heart ? (
+              <button
+                className="position-absolute shopmain-heart-icon-bkg position-relative shopmain-heart-icon-bkg-click"
+                onClick={heartIconClick}
+              >
+                <HeartFill className="position-absolute shopmain-heart-icon" />
+              </button>
+            ) : (
+              <button
+                className="position-absolute shopmain-heart-icon-bkg position-relative"
+                onClick={heartIconClick}
+              >
+                <HeartFill className="position-absolute shopmain-heart-icon" />
+              </button>
+            )}
             <button
               className="position-absolute shopmain-cart-icon-bkg position-relative"
-              // onClick={cartIconClick}
               onClick={() => {
                 showModal();
               }}
