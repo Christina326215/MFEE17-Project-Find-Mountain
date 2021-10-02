@@ -30,6 +30,7 @@ import ShopCartDetail from './components/ShopCartPage/ShopCartDetail';
 import ShopCartPay from './components/ShopCartPage/ShopCartPay';
 import ShopCartCheck from './components/ShopCartPage/ShopCartCheck';
 import ShopCartFinish from './components/ShopCartPage/ShopCartFinish';
+import ShopCartFinal from './components/ShopCartPage/ShopCartFinal';
 import MemberMapRoute from './components/MemberPage/MemberMapRoute';
 import MemberProductArticle from './components/MemberPage/MemberProductArticle';
 import MemberOrder from './components/MemberPage/MemberOrder';
@@ -54,6 +55,8 @@ function App() {
   const [pay, setPay] = useState(null);
   const [cartChange, setCartChange] = useState(false);
   const [mapRouteShow, setMapRouteShow] = useState(false); //會員路線地圖，新增路線重算積分，會員level需重抓
+  // 新增去過或移除去過會影響level會員等級
+  const [flagHandle, setFlagHandle] = useState(true);
   // 記錄現在在第幾頁
   const [page, setPage] = useState(1);
   // 總共有幾頁
@@ -61,6 +64,7 @@ function App() {
 
   //=== 彈跳視窗開關 star ===//
   const [show, setShow] = useState(false);
+  // console.log('outside-show', show);
   //=== 彈跳視窗開關 end ===//
 
   useEffect(() => {
@@ -71,14 +75,22 @@ function App() {
         const PersonalData = await axios.get(memberURL, {
           withCredentials: true,
         });
-
         setMember(PersonalData.data);
       } catch (e) {
         console.log(e);
       }
     }
     getPersonalData();
-  }, [show, mapRouteShow]);
+  }, [show, mapRouteShow, auth, flagHandle]);
+
+  // 重整後要重新設定auth
+  useEffect(() => {
+    if (member !== null) {
+      setAuth(true);
+    }
+  }, [member]);
+
+  // console.log('outside-member', member);
 
   return (
     <AuthContext.Provider
@@ -115,7 +127,10 @@ function App() {
                 <Manual />
               </Route>
               <Route path="/recommend/detail/:id?">
-                <DetailContent />
+                <DetailContent
+                  flagHandle={flagHandle}
+                  setFlagHandle={setFlagHandle}
+                />
               </Route>
               <Route path="/map/levelH">
                 <MapH />
@@ -153,8 +168,8 @@ function App() {
               <Route path="/shoppingcart/step3-check">
                 <ShopCartCheck />
               </Route>
-              <Route path="/shoppingcart/step4-finish">
-                <ShopCartFinish />
+              <Route path="/shoppingcart/step4-final">
+                <ShopCartFinal />
               </Route>
               <Route path="/outfit">
                 <Outfit />

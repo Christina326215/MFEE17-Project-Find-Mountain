@@ -4,8 +4,9 @@ import { withRouter } from 'react-router-dom'; //可以獲取history,location,ma
 import $ from 'jquery';
 import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
 import { useAuth } from '../../context/auth'; // 取得會員資料
-import { shopcartPayURL, zipGroupURL, zipCodeURL } from '../../utils/config';
+import { zipGroupURL, zipCodeURL } from '../../utils/config';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 //====== below icon star ======//
 import { BsCheck } from 'react-icons/bs';
@@ -15,7 +16,7 @@ import { BsCheck } from 'react-icons/bs';
 
 //====== above img import end ======//
 
-function ShopCartPay() {
+function ShopCartPay(props) {
   // 1. 首先，建立好 html 在 return(<>...</>)。
   // 2. 設定狀態，關於共用會員資料使用useAuth()，關於地址資料放在靜態檔案中則使用useState()。
   const { member, pay, setPay } = useAuth(); // 取得會員資料
@@ -28,16 +29,16 @@ function ShopCartPay() {
   // 3.
   const [cartData, setCartData] = useState({
     ship: 1,
-    pay_way: '信用卡付款',
+    pay_way: 1,
     zip_code: null,
     addr: '',
-    invoice: '二聯式發票',
+    invoice: 1,
     name: '',
     phone: '',
   });
   useEffect(() => {
     if (pay !== null) {
-      console.log('hellooooo');
+      // console.log('hellooooo');
       setCartData({
         ...cartData,
         addr: pay.addr,
@@ -45,7 +46,7 @@ function ShopCartPay() {
         name: pay.name,
         pay_way: pay.pay_way,
         phone: pay.phone,
-        ship: pay.ship,
+        ship: 1,
         zip_code: pay.zip_code,
       });
     }
@@ -86,7 +87,7 @@ function ShopCartPay() {
   }, []);
 
   useEffect(() => {
-    if (cartData && zipCode && zipGroup && cities) {
+    if (cartData && zipCode && zipGroup && cities.length > 0) {
       // 表示上述資料都已經有了！
       if (cartData.zip_code) {
         // 表示這個使用者的 zip code 已經設定過了
@@ -111,10 +112,6 @@ function ShopCartPay() {
   // 自動填入會員收件地址 start //
   function checkAutoInputAddr(e) {
     if (e.target.checked) {
-      document.getElementById('city').value =
-        zipCode[member && member.zip_code].city;
-      setCartData({ ...cartData, zip_code: member.zip_code });
-      document.getElementById('addr').value = member.addr;
       setCartData({
         ...cartData,
         zip_code: member.zip_code,
@@ -144,8 +141,6 @@ function ShopCartPay() {
   // 自動填入會員姓名及電話 start //
   function checkAutoNamePhone(e) {
     if (e.target.checked) {
-      document.getElementById('name').value = member.name;
-      document.getElementById('phone').value = member.phone;
       setCartData({ ...cartData, name: member.name, phone: member.phone });
     }
   }
@@ -165,25 +160,29 @@ function ShopCartPay() {
   }
   // 處理付款方式 end //
 
-  // 準備 INSERT INTO 資料庫 start
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      let formData = new FormData();
-      formData.append('ship', cartData.ship);
-      formData.append('pay_way', cartData.pay_way);
-      formData.append('zip_code', cartData.zip_code);
-      formData.append('addr', cartData.addr);
-      formData.append('invoice', cartData.invoice);
-      formData.append('name', cartData.name);
-      formData.append('phone', cartData.phone);
-      let response = await axios.post(`${shopcartPayURL}`, formData);
-      console.log(response);
-    } catch (e) {
-      console.error(e.response);
+  /* 處理 local storage 是否為空  start */
+  function getCartFromLocalStorage() {
+    const ProductOrder =
+      JSON.parse(localStorage.getItem('ProductOrderDetail')) || '[]';
+    console.log('檢查購物車', ProductOrder);
+    if (ProductOrder === '[]') {
+      console.log('購物車是空的喔！');
+      Swal.fire({
+        icon: 'warning',
+        title: '您的購物車目前是空的喲！',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      props.history.goBack();
     }
-  };
-  // 準備 INSERT INTO 資料庫 end
+  }
+  //一進畫面先讀取local storage
+  useEffect(() => {
+    getCartFromLocalStorage();
+    // console.log('cartLocal', cartLocal);
+  }, []);
+
+  /* 處理 local storage 是否為空  end */
 
   useEffect(() => {
     // progress-bar
@@ -301,7 +300,7 @@ function ShopCartPay() {
             <h3 className="text-center mt-4 shopcart-title-dash">
               付款與運送方式
             </h3>
-            <form onSubmit={handleSubmit}>
+            <form>
               <fieldset className="form-group row mt-4">
                 <legend className="col-form-label col-sm-2 float-sm-left pt-0 mb-4">
                   收件方式：
@@ -446,7 +445,7 @@ function ShopCartPay() {
                       id="addr"
                       placeholder="請輸入路名"
                       name="addr"
-                      // value={cartData && cartData.addr}
+                      value={cartData && cartData.addr}
                       onChange={handleChange}
                     />
                   </div>
@@ -506,9 +505,9 @@ function ShopCartPay() {
                       type="radio"
                       name="invoice"
                       id="duplicateForm"
-                      value="二聯式發票"
+                      value="1"
                       onChange={invoiceChange}
-                      checked={cartData && cartData.invoice == '二聯式發票'}
+                      checked={cartData && cartData.invoice == 1}
                     />
                     <label className="form-check-label" for="duplicateForm">
                       二聯式發票
@@ -520,9 +519,9 @@ function ShopCartPay() {
                       type="radio"
                       name="invoice"
                       id="VATNumber"
-                      value="三聯式發票"
+                      value="2"
                       onChange={invoiceChange}
-                      checked={cartData && cartData.invoice == '三聯式發票'}
+                      checked={cartData && cartData.invoice == 2}
                     />
                     <label className="form-check-label" for="VATNumber">
                       三聯式發票
@@ -540,9 +539,9 @@ function ShopCartPay() {
                       type="radio"
                       name="pay_way"
                       id="creditCard"
-                      value="信用卡付款"
+                      value="1"
                       onChange={payWayChange}
-                      checked={cartData && cartData.pay_way == '信用卡付款'}
+                      checked={cartData && cartData.pay_way == 1}
                     />
                     <label className="form-check-label" for="creditCard">
                       信用卡付款
@@ -554,9 +553,9 @@ function ShopCartPay() {
                       type="radio"
                       name="pay_way"
                       id="homePay"
-                      value="貨到付款"
+                      value="2"
                       onChange={payWayChange}
-                      checked={cartData && cartData.pay_way == '貨到付款'}
+                      checked={cartData && cartData.pay_way == 2}
                     />
                     <label className="form-check-label" for="homePay">
                       貨到付款
@@ -564,12 +563,6 @@ function ShopCartPay() {
                   </div>
                 </div>
               </fieldset>
-              {/* <button
-                type="submit"
-                className="border-bottom-left-radius my-5 mx-3 text-right btn btn-primary"
-              >
-                確定
-              </button> */}
             </form>
 
             {/* <!-- button --> */}

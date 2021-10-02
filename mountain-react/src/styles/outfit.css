@@ -335,6 +335,7 @@
 .outfit-btnGroup {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin: 20px 0;
 }
 .outfit-fb {
@@ -367,4 +368,30 @@
   height: 18px;
   border-radius: 50%;
   display: none;
+}
+.fb-share-button {
+  color: #3b5998;
+  width: 38.59px;
+  height: 38.59px;
+}
+
+.fb-share-button:hover {
+  cursor: pointer;
+  color: #213a6f;
+}
+
+.twitter-share-button {
+  color: #2daae1;
+  width: 38.59px;
+  height: 38.59px;
+}
+
+/* .twitter-share-button:hover {
+  cursor: pointer;
+  background: #213a6f;
+} */
+.line-share-button {
+  color: #00b900;
+  width: 38.59px;
+  height: 38.59px;
 }

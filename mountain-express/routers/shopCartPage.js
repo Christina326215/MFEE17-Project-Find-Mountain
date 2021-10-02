@@ -1,3 +1,5 @@
+/* 此頁目前沒有用到 */
+
 const express = require("express");
 const router = express.Router();
 const connection = require("../utils/db");
@@ -9,3 +11,4 @@ router.get("", async function (req, res, next) {
 });
 
 module.exports = router;
+/* 此頁目前沒有用到 */

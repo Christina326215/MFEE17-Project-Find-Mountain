@@ -22,11 +22,9 @@ function MemberPersonal(props) {
     // 從靜態檔案抓資料
     async function getZipCode() {
       try {
-        const zipCodeRes = await axios.get(zipCodeURL);
-        // console.log(zipCodeRes.data);
-        // key  ：zip_code
-        // value：縣市、行政區
-        // member.zip_code當作key，要去對應到code.json取得縣市與行政區。
+        const zipCodeRes = await axios.get(zipCodeURL, {
+          withCredentials: true,
+        });
         setZipCode(zipCodeRes.data);
       } catch (e) {
         console.log(e);

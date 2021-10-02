@@ -4,12 +4,9 @@ import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
 import $ from 'jquery';
 import '../../styles/MemberPage/MemberProductArticle.scss'; //member product and article style
+import MemberHeartArticle from './MemberHeartArticle';
 
-import {
-  memberProductURL,
-  memberArticleURL,
-  IMAGE_URL,
-} from '../../utils/config';
+import { memberProductURL, IMAGE_URL } from '../../utils/config';
 import axios from 'axios';
 
 //====== below pages star ======//
@@ -24,13 +21,15 @@ import { Cart } from 'react-bootstrap-icons';
 
 function MemberProductArticle() {
   const [dataProduct, setProductData] = useState([]);
-  const [dataArticle, setArticleData] = useState([]);
+
   useEffect(() => {
     async function getProductData() {
       try {
-        const ProductData = await axios.get(memberProductURL);
+        const ProductData = await axios.get(memberProductURL, {
+          withCredentials: true,
+        });
 
-        console.log(ProductData.data); //for check
+        // console.log(ProductData.data); //for check
 
         setProductData(ProductData.data);
 
@@ -40,21 +39,6 @@ function MemberProductArticle() {
       }
     }
     getProductData();
-
-    async function getArticleData() {
-      try {
-        const ArticleData = await axios.get(memberArticleURL);
-
-        console.log(ArticleData.data); //for check
-
-        setArticleData(ArticleData.data);
-
-        // let dataArticle = ArticleData.data;
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    getArticleData();
 
     // 切換區域tab-switch
     let menu = document.querySelectorAll('#menu');
@@ -235,7 +219,7 @@ function MemberProductArticle() {
                       </tr>
                     </thead>
                     {dataProduct.map((items, i) => (
-                      <tbody>
+                      <tbody key={i}>
                         <tr>
                           <td
                             scope="row"
@@ -277,81 +261,7 @@ function MemberProductArticle() {
                   {/* <!-- 分頁 end  --> */}
                   {/* <!-- product table end--> */}
                 </div>
-                <div id="content" className="member-product-article-content2">
-                  {/* <!-- article table start--> */}
-                  <table className="table member-product-article-table-all text-center p-md-4 p-lg-5">
-                    <thead>
-                      <tr>
-                        <th scope="col">文章照片</th>
-                        <th scope="col">文章名稱</th>
-                        <th scope="col">使用者總體評分</th>
-                        <th scope="col">取消收藏</th>
-                      </tr>
-                    </thead>
-                    {dataArticle.map((items, i) => (
-                      <tbody>
-                        <tr>
-                          <td
-                            scope="row"
-                            className="member-product-article-article-picture-img-wrapper"
-                          >
-                            <div className="member-product-article-article-picture-img-box">
-                              <img
-                                src={`${IMAGE_URL}/img/article-img/${items.article_pic}`}
-                                alt=""
-                                className="member-product-article-article-picture-img"
-                              />
-                            </div>
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-product-article-text-weight align-middle"
-                          >
-                            {items.article_name}
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-product-article-text-weight align-middle"
-                          >
-                            <BsStarFill
-                              className="member-product-article-star-icon"
-                              size={20}
-                            />
-                            <BsStarFill
-                              className="member-product-article-star-icon"
-                              size={20}
-                            />
-                            <BsStarFill
-                              className="member-product-article-star-icon"
-                              size={20}
-                            />
-                            <BsStar
-                              className="member-product-article-star-icon"
-                              size={20}
-                            />
-                            <BsStar
-                              className="member-product-article-star-icon"
-                              size={20}
-                            />
-                          </td>
-                          <td
-                            scope="row"
-                            className="member-product-article-text-weight align-middle"
-                          >
-                            <BsXSquareFill
-                              className="member-product-article-cancel-icon"
-                              size={20}
-                            />
-                          </td>
-                        </tr>
-                      </tbody>
-                    ))}
-                  </table>
-                  {/* <!-- 分頁 start  --> */}
-                  {pages_btn}
-                  {/* <!-- 分頁 end  --> */}
-                  {/* <!-- article table end--> */}
-                </div>
+                <MemberHeartArticle></MemberHeartArticle>
               </div>
             </div>
           </div>

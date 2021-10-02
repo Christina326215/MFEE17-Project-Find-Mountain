@@ -2,25 +2,25 @@ const express = require("express");
 const router = express.Router();
 const connection = require("../utils/db");
 
-router.get("", async function (req, res, next) {
-  let dbResults = await connection.queryAsync("SELECT article.name AS article_name, article.pic AS article_pic, user_article.* FROM user_article JOIN article ON user_article.article_id = article.id"); // 等資料庫查詢資料
-  res.json(dbResults);
+// user抓取文章收藏功能 user_heart
+router.post('/', async function (req, res, next) {
+  // console.log("req.body.member.id",req.body.member.id);
+  // let likeData = await connection.queryAsync('SELECT * FROM user_heart WHERE user_id = ? ORDER BY id',[[req.body.member.id]]) 
+  let likeData = await connection.queryAsync('SELECT user_heart.*, article.level AS article_level, article.name AS article_name, article.pic AS article_pic, article.city AS article_city FROM user_heart JOIN article ON user_heart.article_id = article.id WHERE user_id = ? ORDER BY article_id',[[req.body.member.id]]) 
+  // console.log("likeData",likeData);
+  res.json(likeData);
 });
-// router.get("", async function (req, res, next) {
-//   let dbResults = await connection.queryAsync("SELECT article.*, article_status.name AS status_name, article_level.name AS level_name, article_mountain_type.name AS mountain_type_name ,article_apply.name AS apply_name FROM article JOIN article_status ON article.status = article_status.id JOIN article_level ON article.level = article_level.id JOIN article_mountain_type ON article.mountain_type = article_mountain_type.id JOIN article_apply ON article.apply = article_apply.id ORDER BY article.id"); // 等資料庫查詢資料
-//   res.json(dbResults);
-// });
-
-// let perData = dbResults.map((item, index) => {
-//   item.season = item.season.replace('1', '春季');
-//   item.season = item.season.replace('2', '夏季');
-//   item.season = item.season.replace('3', '秋季');
-//   item.season = item.season.replace('4', '冬季');
-//   return item;
-// })
 
 
-// res.json(perData);
+// user刪除文章收藏功能 user_heart
+router.post('/deleteheart', async function (req, res, next) {
+  // console.log("req.body.delArticleId",req.body.delArticleId);
+  let deleteData = await connection.queryAsync('DELETE FROM user_heart WHERE id=? ',[[req.body.delArticleId]]) 
+  // console.log("deleteData",deleteData);
+  res.json(deleteData);
+});
+
+
 
 module.exports = router;
 

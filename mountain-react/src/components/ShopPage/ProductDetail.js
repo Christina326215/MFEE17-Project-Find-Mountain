@@ -7,20 +7,8 @@ import $ from 'jquery';
 import Swal from 'sweetalert2';
 import '../../styles/productdetail.css';
 import { shopURL, IMAGE_URL } from '../../utils/config';
-import {
-  Dash,
-  Plus,
-  QuestionCircle,
-  CartFill,
-  HeartFill,
-} from 'react-bootstrap-icons';
-
-import bagsPic2 from '../../img/product-img/bags-pic2.jpeg';
-import bagsPic8 from '../../img/product-img/bags-pic8.jpeg';
-import clothesPic5 from '../../img/product-img/clothes-pic5.jpeg';
-import Tapachien from '../../img/article-img/Tapachien.jpeg';
-import wuling from '../../img/article-img/wuling.jpeg';
-import Mayang from '../../img/article-img/Mayang.jpeg';
+import ProductCard from './components/ProductCard';
+import { Dash, Plus, QuestionCircle, HeartFill } from 'react-bootstrap-icons';
 import shop from '../../img/product-img/illustration/shop.svg';
 import bearbear from '../../img/product-img/illustration/bearbear.png';
 
@@ -28,14 +16,25 @@ function ProductDetail(props) {
   const { setCartChange } = useAuth(); // 取得購物車數字狀態
   const [productData, setProductData] = useState([]);
   const [historyData, setHistoryData] = useState([]);
+  const [orderNum, setOrderNum] = useState(1);
   const [orderSize, setOrderSize] = useState('');
   const [orderInfo, setOrderInfo] = useState([]);
+  //同等級商品及文章
+  const [sameLevelP, setSameLevelP] = useState([]);
+  const [sameLevelA, setSameLevelA] = useState([]);
   const { id } = useParams();
+  // 隨機打亂陣列函式
+  const shuffle = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
   useEffect(() => {
     const ProductOrder =
       JSON.parse(localStorage.getItem('ProductOrderDetail')) || [];
-
-    console.log('ProductOrder', ProductOrder);
+    // console.log('ProductOrder', ProductOrder);
     //local storage for 瀏覽紀錄
     var GetProductHistory = localStorage.getItem('ProductViewHistory');
     if (GetProductHistory === null) {
@@ -78,8 +77,9 @@ function ProductDetail(props) {
     //api
     async function getProductData() {
       try {
+        //抓當頁商品資料
         const productData = await axios.get(`${shopURL}/product-detail/${id}`);
-        console.log(productData.data[0]); //for check
+        // console.log(productData.data[0]); //for check
         setProductData(productData.data[0]);
         //抓瀏覽紀錄的商品資料
         var historyArray = [];
@@ -91,8 +91,31 @@ function ProductDetail(props) {
           // console.log(productHistoryData.data[0]);
           historyArray.unshift(productHistoryData.data[0]);
         }
-        console.log(historyArray);
+        // console.log(historyArray);
         setHistoryData(historyArray);
+        //抓同等級商品資料
+        const productLevel = productData.data[0].level;
+        const sameLevelProduct = await axios.get(
+          `${shopURL}/product-detail/level/${productLevel}`
+        );
+        //過濾掉當前頁面商品資料 避免推薦其他商品出現自己
+        function ClearDuplicatedItem(value) {
+          //value.id為數字 id為string
+          return value.id !== parseInt(id);
+        }
+        const lastSameLevelP =
+          sameLevelProduct.data.filter(ClearDuplicatedItem);
+        // console.log('lastSameLevelP', lastSameLevelP);
+        const randomSameLevelP = shuffle(lastSameLevelP).slice(0, 3);
+        // console.log('randomSameLevelP', randomSameLevelP);
+        setSameLevelP(randomSameLevelP);
+        //抓同等級文章資料
+        const sameLevelArticle = await axios.get(
+          `${shopURL}/product-detail/article/level/${productLevel}`
+        );
+        const randomSameLevelA = shuffle(sameLevelArticle.data).slice(0, 3);
+        // console.log('randomSameLevelA', randomSameLevelA);
+        setSameLevelA(randomSameLevelA);
       } catch (e) {
         console.log(e);
       }
@@ -100,6 +123,7 @@ function ProductDetail(props) {
     getProductData();
     setOrderInfo(ProductOrder);
     setOrderSize('');
+    setOrderNum(1);
   }, [id]);
   //加入購物車
   const addCart = () => {
@@ -114,9 +138,7 @@ function ProductDetail(props) {
       });
       return;
     }
-    let orderDetailNum = parseInt($('.productdetail-order-number').val());
-    console.log(orderDetailNum);
-    let orderDetail = { id: id, size: orderSize, num: orderDetailNum };
+    let orderDetail = { id: id, size: orderSize, num: orderNum };
     console.log(orderDetail);
     //localstorage for order detail start//
     const index = orderInfo.findIndex(
@@ -124,7 +146,7 @@ function ProductDetail(props) {
     );
     if (index > -1) {
       //改變同款項訂購數量
-      orderInfo[index].num += orderDetailNum;
+      orderInfo[index].num += orderNum;
       localStorage.setItem('ProductOrderDetail', JSON.stringify(orderInfo));
       console.log('這個商品已經加過了');
       // return;
@@ -142,63 +164,16 @@ function ProductDetail(props) {
     });
     setCartChange(true);
   };
+  //會員泡泡顯示
+  const showMemberBubble = () => {
+    $('.productdetail-about-membership-bubble').toggle('display');
+  };
+
+  //FIXME:待整理
   useEffect(() => {
-    //heart icon
-    $('.productdetail-heart-icon-bkg').on('click', function () {
-      $(this).toggleClass('productdetail-heart-icon-bkg-click');
-    });
-    //cart icon
-    $('.productdetail-cart-icon-bkg').on('click', () => {
-      //display none -> block
-      let cartDisplay = $('.cart-num').css('display');
-      if (cartDisplay === 'none') {
-        $('.cart-num').css('display', 'block');
-      }
-      // alert("已將商品加入購物車！");
-      Swal.fire({
-        icon: 'success',
-        title: '已將商品加入購物車！',
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      //cart-num ++
-      let cartNum = parseInt($('.cart-num').text());
-      let orderNum = parseInt($('.productdetail-order-number').val());
-      //限制一次加進購物車數量
-      if (cartNum >= 10) {
-        Swal.fire({
-          icon: 'error',
-          title: '一次最多只能放入10樣商品喔',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      } else {
-        cartNum += orderNum;
-        $('.cart-num').text(cartNum);
-      }
-    });
-    //會員制度泡泡
-    $('.productdetail-see-member').on('click', function () {
-      $('.productdetail-about-membership-bubble').toggle('display');
-    });
     //like-icon
     $('.productdetail-like-btn').on('click', function () {
       $(this).toggleClass('productdetail-active');
-    });
-    //product order 數量部分
-    $('.productdetail-add-btn').on('click', function () {
-      let num = parseInt($('.productdetail-order-number').val());
-      num += 1;
-      $('.productdetail-order-number').val(num);
-      // console.log(num);
-    });
-    $('.productdetail-minus-btn').on('click', function () {
-      let num = parseInt($('.productdetail-order-number').val());
-      if (num > 1) {
-        num -= 1;
-        $('.productdetail-order-number').val(num);
-      }
-      // console.log(num);
     });
   }, []);
   return (
@@ -317,24 +292,41 @@ function ProductDetail(props) {
                 </div>
                 <div className="productdetail-number-box">
                   <p>數量</p>
-                  <div className="productdetail-number-input-box m-3">
-                    <button className="btn productdetail-minus-btn">
+                  <div className="productdetail-number-input-box m-3 d-flex align-items-center">
+                    <button
+                      className="btn productdetail-minus-btn"
+                      onClick={() => {
+                        if (orderNum > 1) {
+                          setOrderNum(orderNum - 1);
+                        }
+                      }}
+                      // onClick={UpdateOrderNum(false)}
+                    >
                       <Dash className="mb-1" />
                     </button>
-                    <input
-                      type="text"
-                      className="productdetail-order-number"
-                      value="1"
-                      readOnly
-                    />
-                    <button className="btn productdetail-add-btn">
+                    <p className="productdetail-order-number py-1 m-0">
+                      {orderNum}
+                    </p>
+                    <button
+                      className="btn productdetail-add-btn"
+                      onClick={() => {
+                        if (orderNum < 10) {
+                          setOrderNum(orderNum + 1);
+                        }
+                      }}
+                      // onClick={UpdateOrderNum(true)}
+                    >
                       <Plus className="mb-1" />
                     </button>
                   </div>
                 </div>
                 <div className="productdetail-line-box my-4"></div>
-                <div className="productdetail-price-box text-right pb-5">
-                  <p>NT ${parseInt(productData.price).toLocaleString()}</p>
+                <div className="productdetail-price-box text-right pb-5 d-flex justify-content-between">
+                  <p>總計</p>
+                  <p>
+                    NT $
+                    {parseInt(productData.price * orderNum).toLocaleString()}
+                  </p>
                 </div>
                 <div
                   className="
@@ -355,7 +347,11 @@ function ProductDetail(props) {
                     加入購物車
                   </button>
                   <div className="position-absolute productdetail-about-membership position-relative">
-                    <button id="seeMember" className="productdetail-see-member">
+                    <button
+                      id="seeMember"
+                      className="productdetail-see-member"
+                      onClick={showMemberBubble}
+                    >
                       了解會員積分折扣制度
                       <QuestionCircle />
                     </button>
@@ -399,9 +395,6 @@ function ProductDetail(props) {
                   __html: productData.introduction,
                 }}
               ></div>
-              {/* {orderInfo.map((item, index) => {
-                return <p>{item.id}</p>;
-              })} */}
             </div>
           </div>
           {/* <!-- =========product introduce end========= --> */}
@@ -414,66 +407,30 @@ function ProductDetail(props) {
               <span>商品相關攻略</span>
             </h4>
             <div className="productdetail-guideline-box row">
-              <div className="col-6 col-lg-3 px-0">
-                <div className="productdetail-article-card">
-                  <div className="productdetail-article-img-box">
-                    <Link to="/recommend/detail/3">
-                      <img
-                        className="productdetail-cover-fit"
-                        src={Tapachien}
-                        alt="大霸北稜線"
-                        title="大霸北稜線"
-                      />
-                    </Link>
+              {sameLevelA.map((itemA, indexA) => {
+                return (
+                  <div className="col-6 col-lg-3 px-0" key={itemA.id}>
+                    <div className="productdetail-article-card">
+                      <div className="productdetail-article-img-box">
+                        <Link to={`/recommend/detail/${itemA.id}`}>
+                          <img
+                            className="productdetail-cover-fit"
+                            src={`${IMAGE_URL}/img/article-img/${itemA.pic}`}
+                            alt={itemA.name}
+                            title={itemA.name}
+                          />
+                        </Link>
+                      </div>
+                      <Link
+                        to={`/recommend/detail/${itemA.id}`}
+                        className="productdetail-article-name"
+                      >
+                        {itemA.name}
+                      </Link>
+                    </div>
                   </div>
-                  <Link
-                    to="/recommend/detail/3"
-                    className="productdetail-article-name"
-                  >
-                    大霸北稜線
-                  </Link>
-                </div>
-              </div>
-              <div className="col-6 col-lg-3 px-0">
-                <div className="productdetail-article-card">
-                  <div className="productdetail-article-img-box">
-                    <Link to="/recommend/detail/6">
-                      <img
-                        className="productdetail-cover-fit"
-                        src={wuling}
-                        alt="武陵四秀登山步道"
-                        title="武陵四秀登山步道"
-                      />
-                    </Link>
-                  </div>
-                  <Link
-                    to="/recommend/detail/6"
-                    className="productdetail-article-name"
-                  >
-                    武陵四秀登山步道
-                  </Link>
-                </div>
-              </div>
-              <div className="col-6 col-lg-3 px-0">
-                <div className="productdetail-article-card">
-                  <div className="productdetail-article-img-box">
-                    <Link to="/recommend/detail/9">
-                      <img
-                        className="productdetail-cover-fit"
-                        src={Mayang}
-                        alt="馬洋山登山步道"
-                        title="馬洋山登山步道"
-                      />
-                    </Link>
-                  </div>
-                  <Link
-                    to="/recommend/detail/9"
-                    className="productdetail-article-name"
-                  >
-                    馬洋山登山步道
-                  </Link>
-                </div>
-              </div>
+                );
+              })}
             </div>
           </div>
           {/* <!-- =========guideline end========= --> */}
@@ -484,106 +441,36 @@ function ProductDetail(props) {
               <span>更多推薦好物</span>
             </h4>
             <div className="productdetail-recommended-items-box row">
-              <div className="col-6 col-lg-3 px-0">
-                <div className="productdetail-product-card">
-                  <div className="productdetail-product-img-box position-relative">
-                    <Link to="/shop/product-detail/11">
-                      <img
-                        className="productdetail-cover-fit"
-                        src={bagsPic2}
-                        alt="The North Face 黑灰色休閒後背包"
-                        title="The North Face 黑灰色休閒後背包"
-                      />
-                    </Link>
-                    <button className="position-absolute productdetail-heart-icon-bkg position-relative">
-                      <HeartFill className="position-absolute productdetail-heart-icon" />
-                    </button>
-                    <button className="position-absolute productdetail-cart-icon-bkg position-relative">
-                      <CartFill className="position-absolute productdetail-cart-icon" />
-                    </button>
-                  </div>
-                  <Link
-                    to="/shop/product-detail/11"
-                    className="text-left productdetail-product-name"
-                  >
-                    The North Face
-                    <br />
-                    黑灰色休閒後背包
-                  </Link>
-                  <p className="text-right productdetail-product-price">
-                    NT $2,180
-                  </p>
-                </div>
-              </div>
-              <div className="col-6 col-lg-3 px-0">
-                <div className="productdetail-product-card">
-                  <div className="productdetail-product-img-box position-relative">
-                    <Link to="/shop/product-detail/17">
-                      <img
-                        className="productdetail-cover-fit"
-                        src={bagsPic8}
-                        alt="The North Face 藍色專業登山後背包"
-                        title="The North Face 藍色專業登山後背包"
-                      />
-                    </Link>
-                    <button className="position-absolute productdetail-heart-icon-bkg position-relative">
-                      <HeartFill className="position-absolute productdetail-heart-icon" />
-                    </button>
-                    <button className="position-absolute productdetail-cart-icon-bkg position-relative">
-                      <CartFill className="position-absolute productdetail-cart-icon" />
-                    </button>
-                  </div>
-                  <Link
-                    to="/shop/product-detail/17"
-                    className="text-left productdetail-product-name"
-                  >
-                    The North Face
-                    <br />
-                    藍色專業登山後背包
-                  </Link>
-                  <p className="text-right productdetail-product-price">
-                    NT $8,380
-                  </p>
-                </div>
-              </div>
-              <div className="col-6 col-lg-3 px-0">
-                <div className="productdetail-product-card">
-                  <div className="productdetail-product-img-box position-relative">
-                    <Link to="/shop/product-detail/23">
-                      <img
-                        className="productdetail-cover-fit"
-                        src={clothesPic5}
-                        alt="The North Face 戶外保暖羽絨外套"
-                        title="The North Face 戶外保暖羽絨外套"
-                      />
-                    </Link>
-                    <button className="position-absolute productdetail-heart-icon-bkg position-relative">
-                      <HeartFill className="position-absolute productdetail-heart-icon" />
-                    </button>
-                    <button className="position-absolute productdetail-cart-icon-bkg position-relative">
-                      <CartFill className="position-absolute productdetail-cart-icon" />
-                    </button>
-                  </div>
-                  <Link
-                    to="/shop/product-detail/23"
-                    className="text-left productdetail-product-name"
-                  >
-                    The North Face
-                    <br />
-                    戶外保暖羽絨外套
-                  </Link>
-                  <p className="text-right productdetail-product-price">
-                    NT $8,310
-                  </p>
-                </div>
-              </div>
+              {sameLevelP.map((item, index) => {
+                return (
+                  <ProductCard
+                    productId={item.id}
+                    brand={item.product_brand}
+                    name={item.product_name}
+                    price={item.price}
+                    picture={item.pic}
+                    type={item.type}
+                    key={item.id}
+                  />
+                );
+              })}
             </div>
           </div>
           {/* <!-- =========recommended items end========= --> */}
           {/* <!-- =========outfit start========= --> */}
           <div className="my-4 productdetail-outfit-box position-relative">
             <div className="position-absolute position-relative productdetail-shop-svg">
-              <Link to="/outfit">
+              <Link
+                to="/outfit"
+                onMouseEnter={(e) => {
+                  // e.target.className += 'animate__heartBeat';
+                  $(e.target).addClass('animate__heartBeat');
+                }}
+                onMouseLeave={(e) => {
+                  // e.target.className -= 'animate__heartBeat';
+                  $(e.target).removeClass('animate__heartBeat');
+                }}
+              >
                 <img src={shop} alt="穿搭商店" title="穿搭商店" />
               </Link>
               <div className="position-absolute productdetail-bearbear">

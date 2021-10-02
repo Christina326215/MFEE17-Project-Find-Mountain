@@ -32,13 +32,10 @@
     "react-rating-stars-component": "^2.2.0",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
-    "react-simple-image-slider": "^2.1.2",
     "sass": "^1.39.0",
     "slick-carousel": "^1.8.1",
-    "sweetalert": "^2.1.2",
     "sweetalert2": "^11.1.5",
     "uuid": "^8.3.2",
-    "vegas": "^2.5.4",
     "web-vitals": "^1.0.1"
   },
   "scripts": {

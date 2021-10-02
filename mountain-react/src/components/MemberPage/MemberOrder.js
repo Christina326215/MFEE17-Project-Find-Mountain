@@ -26,7 +26,9 @@ function MemberOrder() {
   useEffect(() => {
     async function getOrderDetail() {
       try {
-        const orderDetailData = await axios.get(memberOrderURL);
+        const orderDetailData = await axios.get(memberOrderURL, {
+          withCredentials: true,
+        });
         // console.log(orderDetailData.data); //for check
         setOrderDetail(orderDetailData.data.result);
         setInfo(orderDetailData.data.totalInfo);

@@ -23,9 +23,7 @@ import { useAuth } from '../../context/auth';
 //====== below catch member info end ======//
 
 function DetailContent(props) {
-  // const { star, setStar } = props;
-  // 當頁文章星星評分
-  const [star, setStar] = useState(0);
+  const { flagHandle, setFlagHandle } = props;
   // 登入會員狀態
   const { member } = useAuth(); // 把 member 從 useContext中拿出來
   // {account: "lily516liu@gmail.com"
@@ -72,15 +70,36 @@ function DetailContent(props) {
   const [likeArticlePast, setLikeArticlePast] = useState('');
   // 判斷有沒有收藏過的狀態 true收藏 fasle沒收藏
   const [heartHandle, setHeartHandle] = useState(true);
-  // 判斷有沒有去過的狀態
-  // const [flgHandle, setFlgHandle] = useState(true);
+  // // 判斷有沒有去過的狀態
+  // const [flagHandle, setFlagHandle] = useState(true);
+  // 去過路線會影響到member level等級 設定一個level影響user的狀態
+  // const [userLevel, setUserLevel] = useState(false);
+
+  // useEffect(() => {
+  //   // 判斷user是否有登入 有登入才帶入使用者ID 繼續執行下面動作!!
+  //   if (member === null) {
+  //     console.log('沒有member', member);
+  //     return;
+  //   }
+
+  //   console.log('member', member.id); // for check
+  //   setLikeUserId(member.id);
+  // }, [member]);
+
+  // console.log('測試 member', member);
+  // console.log('測試 auth', auth);
 
   useEffect(() => {
-    // 判斷是否有登入 有登入才繼續
-    if (member === null) {
-      return;
-    }
-    // console.log('member', member.id); // for check
+    // js
+    //  about-membership-bubble start
+    $('.recommend-see-member').click((e) => {
+      $('.recommend-about-membership-bubble').toggle('display');
+    });
+    //  about-membership-bubble end
+
+    $('i').click(function () {
+      $(this).toggleClass('active');
+    });
 
     // 連線當頁的資料庫
     async function recommendData() {
@@ -100,44 +119,33 @@ function DetailContent(props) {
         const RecommentCard = totalDetail.filter((v) => {
           return v.level === newDetail.level;
         });
-        if (RecommentCard) setLevelCard(RecommentCard);
+        // console.log('RecommentCard', RecommentCard);
+        const top3 = RecommentCard.slice(0, 3);
+        // console.log('top3', top3);
+        if (RecommentCard) setLevelCard(top3);
 
-        // 全部文章星星資料
-        const totalStarData = await axios.get(`${recommendURL}/star`);
-        const starData = totalStarData.data;
-        // 當篇文章星星資料
-        //計算星星平均分數
-        let stararray = [];
-        starData.filter((e) => {
-          if (e.article_id === id) {
-            stararray.push(e.star_grade);
-          }
-          return null;
-        });
-        // console.log('stararray', stararray);
-        const total = stararray.reduce((acc, cur) => {
-          return acc + cur;
-        });
-
-        // console.log('tota/l', total);
-        // 分數四捨五入
-        let starResult = Math.round(total / stararray.length);
-        // console.log('starResult', starResult);
-        setStar(starResult);
-
-        // FIXME:帶入使用者ID
-        setLikeUserId(member.id);
         setLikeArticleId(id);
         setLikeArticlePast(id);
 
-        /// 資料庫檢查是否有收藏過此文章
-        // console.log('id', id);
+        // console.log('裡面member', member); // for check
+        // 判斷user是否有登入 有登入才帶入使用者ID 繼續執行下面動作!!
+        if (member === null) {
+          setHeartHandle(false);
+          setFlagHandle(false);
+          $('.recommend-bi-heart-fill').css('color', '#e2e3e1');
+          $('.recommend-bi-flag-fill').css('color', '#e2e3e1');
+          return;
+        }
+        // console.log('member', member.id); // for check
+        setLikeUserId(member.id);
+
+        /// 資料庫檢查user是否有收藏過此文章 heart
         const response = await axios.post(`${recommendURL}/like`, { member });
         const likeData = response.data;
         // console.log('likeData', likeData);
         const likeArray = [];
         likeData.filter((e) => {
-          if (e.article_id === props.match.params.id) {
+          if (e.article_id == id) {
             likeArray.push(id);
           }
           return null;
@@ -156,78 +164,163 @@ function DetailContent(props) {
           // console.log('true');
         }
 
-        /// 資料庫檢查是否去過此文章
-        // const response = await axios.post(`${recommendURL}/like`, { member });
-        // const likeData = response.data;
-        // const likeArray = [];
-        // likeData.filter((e) => {
-        //   if (e.article_id === props.match.params.id) {
-        //     likeArray.push(id);
-        //   }
-        //   return null;
-        // });
-        // if (!likeArray[0]) {
-        //   setHeartHandle(false);
-        //   $('.recommend-bi-heart-fill').css('color', '#e2e3e1');
-        // } else {
-        //   setHeartHandle(true);
-        //   $('.recommend-bi-heart-fill').css('color', '#cc543a');
-        // }
+        /// 資料庫檢查user是否有去過此文章 flag
+        const Past = await axios.post(`${recommendURL}/past`, { member });
+        const pastData = Past.data;
+        // console.log('pastData', pastData);
+        const pastArray = [];
+        pastData.filter((e) => {
+          if (e.article_id_past == id) {
+            pastArray.push(id);
+          }
+          return null;
+        });
+        // console.log('pastArray', pastArray);
+        if (!pastArray[0]) {
+          // console.log('沒去過');
+          setFlagHandle(false);
+          $('.recommend-bi-flag-fill').css('color', '#e2e3e1');
+          // console.log('false');
+        } else {
+          // addHeart();
+          // console.log('有去過');
+          setFlagHandle(true);
+          $('.recommend-bi-flag-fill').css('color', '#ffb943');
+          // console.log('true');
+        }
       } catch (e) {
         console.log(e);
       }
     }
     recommendData();
-
-    // js
-    //  about-membership-bubble start
-    $('.recommend-see-member').click((e) => {
-      $('.recommend-about-membership-bubble').toggle('display');
-    });
-    //  about-membership-bubble end
-
-    $('i').click(function () {
-      $(this).toggleClass('active');
-    });
   }, [props.match.params.id, member]);
-
-  // 移除收藏功能
-  const deleteHeart = async (e) => {
-    setHeartHandle(false);
-    $(e.currentTarget.firstChild).css('color', '#e2e3e1');
-    await axios.post(`${recommendURL}/deleteLikeArticle`, {
-      likeUserId,
-      likeArticleId,
-    });
-    // console.log('response', response);
-
-    // 使用sweetalert2彈跳視窗
-    Swal.fire({
-      icon: 'error',
-      title: '已移除文章',
-      showConfirmButton: false,
-      timer: 1500,
-    });
-  };
 
   //加入收藏功能
   const addHeart = async (e) => {
-    setHeartHandle(true);
-    $(e.currentTarget.firstChild).css('color', '#cc543a');
-    await axios.post(`${recommendURL}/likeArticle`, {
-      likeUserId,
-      likeArticleId,
-      likeArticlePast,
-    });
-    // console.log('response', response);
+    // 判斷user是否有登入 有登入才帶入使用者ID 繼續執行下面動作!!
+    if (member === null) {
+      // 使用sweetalert2彈跳視窗
+      Swal.fire({
+        icon: 'warning',
+        title: '需要先登入才能加入收藏',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    } else {
+      // setLikeUserId(member.id);
+      setHeartHandle(true);
+      $(e.currentTarget.firstChild).css('color', '#cc543a');
+      await axios.post(`${recommendURL}/likeArticle`, {
+        likeUserId,
+        likeArticleId,
+        likeArticlePast,
+      });
+      // console.log('response', response);
 
-    // 使用sweetalert2彈跳視窗
-    Swal.fire({
-      icon: 'success',
-      title: '已加入收藏文章',
-      showConfirmButton: false,
-      timer: 1500,
-    });
+      // 使用sweetalert2彈跳視窗
+      Swal.fire({
+        icon: 'success',
+        title: '已加入收藏文章',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
+
+  // 移除收藏功能
+  const deleteHeart = async (e) => {
+    // 判斷user是否有登入 有登入才帶入使用者ID 繼續執行下面動作!!
+    if (member === null) {
+      // 使用sweetalert2彈跳視窗
+      Swal.fire({
+        icon: 'warning',
+        title: '需要先登入才能加入收藏',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    } else {
+      setHeartHandle(false);
+      $(e.currentTarget.firstChild).css('color', '#e2e3e1');
+      await axios.post(`${recommendURL}/deleteLikeArticle`, {
+        likeUserId,
+        likeArticleId,
+      });
+      // console.log('response', response);
+
+      // 使用sweetalert2彈跳視窗
+      Swal.fire({
+        icon: 'error',
+        title: '已移除收藏文章',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
+
+  //加入去過功能
+  const addFlag = async (e) => {
+    if (member === null) {
+      // 使用sweetalert2彈跳視窗
+      Swal.fire({
+        icon: 'warning',
+        title: '需要先登入才能加入去過路線',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    } else {
+      setFlagHandle(true);
+      $(e.currentTarget.firstChild).css('color', '#ffb943');
+      await axios.post(`${recommendURL}/addPast`, {
+        likeUserId,
+        likeArticleId,
+        likeArticlePast,
+        member,
+      });
+      // console.log('123response', response);
+
+      // 使用sweetalert2彈跳視窗
+      Swal.fire({
+        icon: 'success',
+        title: '已加入去過路線',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
+
+  // 移除去過功能
+  const deleteFlag = async (e) => {
+    if (member === null) {
+      // 使用sweetalert2彈跳視窗
+      Swal.fire({
+        icon: 'warning',
+        title: '需要先登入才能加入去過路線',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    } else {
+      setFlagHandle(false);
+      $(e.currentTarget.firstChild).css('color', '#e2e3e1');
+      await axios.post(`${recommendURL}/deletePast`, {
+        likeUserId,
+        likeArticleId,
+        likeArticlePast,
+        member,
+      });
+      // console.log('response', response);
+
+      // 使用sweetalert2彈跳視窗
+      Swal.fire({
+        icon: 'error',
+        title: '已移除去過路線',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
   };
 
   return (
@@ -261,7 +354,7 @@ function DetailContent(props) {
               <div className="col-12">
                 <div className="d-flex align-items-center justify-content-end">
                   <div className="mr-3">
-                    {star === 0 ? (
+                    {!detail.average || detail.average === 0 ? (
                       <>
                         <BsStarFill
                           className="bi recommend-bi-star-fill mr-1"
@@ -287,7 +380,7 @@ function DetailContent(props) {
                     ) : (
                       ''
                     )}
-                    {star === 1 ? (
+                    {detail.average === 1 ? (
                       <>
                         <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
                         <BsStarFill
@@ -310,7 +403,7 @@ function DetailContent(props) {
                     ) : (
                       ''
                     )}
-                    {star === 2 ? (
+                    {detail.average === 2 ? (
                       <>
                         <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
                         <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
@@ -330,7 +423,7 @@ function DetailContent(props) {
                     ) : (
                       ''
                     )}
-                    {star === 3 ? (
+                    {detail.average === 3 ? (
                       <>
                         <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
                         <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
@@ -347,7 +440,7 @@ function DetailContent(props) {
                     ) : (
                       ''
                     )}
-                    {star === 4 ? (
+                    {detail.average === 4 ? (
                       <>
                         <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
                         <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
@@ -361,7 +454,7 @@ function DetailContent(props) {
                     ) : (
                       ''
                     )}
-                    {star === 5 ? (
+                    {detail.average === 5 ? (
                       <>
                         <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
                         <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
@@ -410,13 +503,6 @@ function DetailContent(props) {
                         addHeart(e);
                       }
                     }}
-                    // FIXME:愛心hover
-                    // onMouseEnter={(e) => {
-                    //   console.log(
-                    //     'e.currentTarget.nextElementSibling',
-                    //     e.currentTarget.nextElementSibling
-                    //   );
-                    // }}
                     style={{ cursor: 'pointer' }}
                   >
                     <BsHeartFill className="bi recommend-bi-heart-fill mr-1 mt-1"></BsHeartFill>
@@ -424,13 +510,14 @@ function DetailContent(props) {
                   </div>
                   <div
                     className="d-flex align-items-center"
-                    // onClick={(e) => {
-                    //   if (flgHandle) {
-                    //     deleteFlg(e);
-                    //   } else {
-                    //     addFlg(e);
-                    //   }
-                    // }}
+                    onClick={(e) => {
+                      if (flagHandle) {
+                        deleteFlag(e);
+                      } else {
+                        addFlag(e);
+                      }
+                    }}
+                    style={{ cursor: 'pointer' }}
                   >
                     <BsFlagFill
                       className="bi recommend-bi-flag-fill mr-1 mt-1"

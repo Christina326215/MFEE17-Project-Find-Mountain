@@ -6,6 +6,7 @@ import { pages_btn } from '../MapPage/pages/PagesBtn'; //分頁按鈕
 import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
 import { shopURL, IMAGE_URL } from '../../utils/config';
 import { useAuth } from '../../context/auth'; // 取得setCartChange狀態
+import Swal from 'sweetalert2';
 
 import axios from 'axios';
 
@@ -26,41 +27,52 @@ function ShopCartDetail() {
   function getCartFromLocalStorage() {
     const ProductOrder =
       JSON.parse(localStorage.getItem('ProductOrderDetail')) || '[]';
-    console.log(ProductOrder);
+    // console.log(ProductOrder);
     setCartLocal(ProductOrder);
   }
   //一進畫面先讀取local storage
   useEffect(() => {
     getCartFromLocalStorage();
+    // console.log('cartLocal', cartLocal);
   }, []);
   //刪除商品
-  //TODO:刪除商品提示msg
   const deleteItem = (items) => {
     const currentProductOrder =
       JSON.parse(localStorage.getItem('ProductOrderDetail')) || '[]';
     //抓這裡的商品ID
-    console.log(items.id, items.size);
+    // console.log(items.id, items.size);
     //找到對應資料的index
     const deleteIndex = currentProductOrder.findIndex(
       (v) => v.id === items.id && v.size === items.size
     );
     if (deleteIndex > -1) {
-      //if 有找到一樣id一樣尺寸的local storage
-      //把想刪除的商品資料從陣列中刪除
-      console.log('deleteIndex', deleteIndex);
-      currentProductOrder.splice(deleteIndex, 1);
-      console.log('splicedProductOrder', currentProductOrder);
-      //把處理好的資料塞回local storage
-      localStorage.setItem(
-        'ProductOrderDetail',
-        JSON.stringify(currentProductOrder)
-      );
-      console.log('有這個訂購資料');
-      setCartChange(true);
-      setCartLocal(currentProductOrder);
-      //TODO:提示已刪除商品
+      Swal.fire({
+        title: '確定要刪除此商品嗎？',
+        text: '可以再稍微考慮一下呦',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#6da77f',
+        cancelButtonColor: '#BDC0BA',
+        confirmButtonText: '刪除！',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          //if 有找到一樣id一樣尺寸的local storage
+          //把想刪除的商品資料從陣列中刪除
+          // console.log('deleteIndex', deleteIndex);
+          currentProductOrder.splice(deleteIndex, 1);
+          // console.log('splicedProductOrder', currentProductOrder);
+          //把處理好的資料塞回local storage
+          localStorage.setItem(
+            'ProductOrderDetail',
+            JSON.stringify(currentProductOrder)
+          );
+          // console.log('有這個訂購資料');
+          setCartChange(true);
+          setCartLocal(currentProductOrder);
+          Swal.fire('已刪除商品', '歡迎繼續選購好物', 'success');
+        }
+      });
       //刪除後重整頁面
-      // window.location.reload(false);
     } else {
       console.log('哎呦沒有東西可以刪耶');
     }
@@ -68,9 +80,22 @@ function ShopCartDetail() {
   //清空購物車
   const clearCart = (e) => {
     e.preventDefault();
-    localStorage.removeItem('ProductOrderDetail');
-    setCartChange(true);
-    setCartLocal([]);
+    Swal.fire({
+      title: '確定要清空購物車嗎？',
+      text: '將無法回復購物車資料',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#6da77f',
+      cancelButtonColor: '#BDC0BA',
+      confirmButtonText: '清空！',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem('ProductOrderDetail');
+        setCartChange(true);
+        setCartLocal([]);
+        Swal.fire('已清空購物車', '您的購物車已被清空', 'success');
+      }
+    });
   };
   //更新購物車數量
   const UpdateAmounts = (items, isAdded) => {
@@ -144,17 +169,19 @@ function ShopCartDetail() {
           var ProductViewHistory = JSON.parse(
             localStorage.getItem('ProductViewHistory')
           );
-          var historyArray = [];
-          for (let i = 0; i < ProductViewHistory.length; i++) {
-            // console.log(ProductViewHistory[i]);
-            const productHistoryData = await axios.get(
-              `${shopURL}/product-detail/${ProductViewHistory[i]}`
-            );
-            // console.log(productHistoryData.data[0]);
-            historyArray.unshift(productHistoryData.data[0]);
+          if (ProductViewHistory !== null && ProductViewHistory.length > 0) {
+            var historyArray = [];
+            for (let i = 0; i < ProductViewHistory.length; i++) {
+              // console.log('ProductViewHistory[i]', ProductViewHistory[i]);
+              const productHistoryData = await axios.get(
+                `${shopURL}/product-detail/${ProductViewHistory[i]}`
+              );
+              // console.log(productHistoryData.data[0]);
+              historyArray.unshift(productHistoryData.data[0]);
+            }
+            // console.log('historyArray', historyArray);
+            setHistoryItems(historyArray);
           }
-          // console.log('historyArray', historyArray);
-          setHistoryItems(historyArray);
           //抓購物車的商品資料
           var orderArray = [];
           for (let i = 0; i < ProductOrder.length; i++) {
@@ -163,7 +190,7 @@ function ShopCartDetail() {
               `${shopURL}/size-storage/${ProductOrder[i].id}/${ProductOrder[i].size}`
             );
             //productOrderData.data[0]為資料庫商品資料 ProductOrder[i]為localstorage的購物車資料
-            console.log(productOrderData.data[0], ProductOrder[i]);
+            // console.log(productOrderData.data[0], ProductOrder[i]);
             //合併物件Object.assign 合併後原物件也會被改變
             let assignedObj = Object.assign(
               productOrderData.data[0],
@@ -173,7 +200,7 @@ function ShopCartDetail() {
             // console.log('assignedObj', assignedObj);
             orderArray.unshift(productOrderData.data[0]);
           }
-          console.log('orderArray', orderArray);
+          // console.log('orderArray', orderArray);
           setShopCartData(orderArray);
         } catch (e) {
           console.log(e);
@@ -181,9 +208,33 @@ function ShopCartDetail() {
       }
       getProductData();
     } else {
+      //如果購物車為空 還是要抓瀏覽紀錄
+      async function getProductData() {
+        try {
+          //抓瀏覽紀錄資料
+          var ProductViewHistory = JSON.parse(
+            localStorage.getItem('ProductViewHistory')
+          );
+          if (ProductViewHistory !== null && ProductViewHistory.length > 0) {
+            var historyArray = [];
+            for (let i = 0; i < ProductViewHistory.length; i++) {
+              // console.log('ProductViewHistory[i]', ProductViewHistory[i]);
+              const productHistoryData = await axios.get(
+                `${shopURL}/product-detail/${ProductViewHistory[i]}`
+              );
+              // console.log(productHistoryData.data[0]);
+              historyArray.unshift(productHistoryData.data[0]);
+            }
+            // console.log('historyArray', historyArray);
+            setHistoryItems(historyArray);
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      }
+      getProductData();
       console.log('沒有商品');
       setShopCartData([]);
-      return;
     }
   }, [cartLocal]);
   //FIXME:一些待整理的東西
@@ -297,10 +348,12 @@ function ShopCartDetail() {
           <div className="col-lg-12 mt-3">
             <h3 className="text-center mt-4">購物車明細</h3>
             <hr />
-            {cartLocal.length > 0 ? (
+            {cartLocal.length > 0 && cartLocal !== '[]' ? (
               <div>
                 <div className="d-flex justify-content-end">
-                  <button onClick={clearCart}>清空購物車</button>
+                  <button className="btn-primary btn" onClick={clearCart}>
+                    清空購物車
+                  </button>
                 </div>
                 {/* abby */}
                 {shopCartData.map((items, index) => {
@@ -409,6 +462,7 @@ function ShopCartDetail() {
               </div>
             )}
             {/* <!-- 分頁 start  --> */}
+            {/* FIXME: page btn 功能 */}
             {pages_btn}
             {/* <!-- 分頁 end  --> */}
             <div className="text-right mt-3 text-right">
@@ -454,25 +508,31 @@ function ShopCartDetail() {
             <div>
               <h5 className="mt-5">瀏覽紀錄</h5>
               <hr />
-              <div className="row">
-                {historyItems.slice(0, 7).map((hisItems, hisIndex) => {
-                  return (
-                    <Link
-                      to={`/shop/product-detail/${hisItems.id}`}
-                      key={`${hisItems.id}00`}
-                    >
-                      <figure className="shopcart-more-product-img-box ml-5 mb-5">
-                        <img
-                          src={`${IMAGE_URL}/img/product-img/${hisItems.pic}`}
-                          alt={hisItems.name}
-                          title={hisItems.name}
-                          className="shopcart-cover-fit"
-                        />
-                      </figure>
-                    </Link>
-                  );
-                })}
-              </div>
+              {historyItems === [] || historyItems.length === 0 ? (
+                <div className="d-flex shopcart-no-historyproduct text-center justify-content-center align-items-center my-3">
+                  <p className="p-0">尚未有瀏覽紀錄</p>
+                </div>
+              ) : (
+                <div className="row">
+                  {historyItems.slice(0, 7).map((hisItems, hisIndex) => {
+                    return (
+                      <Link
+                        to={`/shop/product-detail/${hisItems.id}`}
+                        key={`${hisItems.id}00`}
+                      >
+                        <figure className="shopcart-more-product-img-box ml-5 mb-5">
+                          <img
+                            src={`${IMAGE_URL}/img/product-img/${hisItems.pic}`}
+                            alt={hisItems.name}
+                            title={hisItems.name}
+                            className="shopcart-cover-fit"
+                          />
+                        </figure>
+                      </Link>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
         </div>
