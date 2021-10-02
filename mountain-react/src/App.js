@@ -6,9 +6,6 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
 import HomeMountain from './components/HomePage/HomeMountain';
-import HomeArticle from './components/HomePage/HomeArticle';
-import HomeOutfit from './components/HomePage/HomeOutfit';
-import HomeShop from './components/HomePage/HomeShop';
 
 import Recommend from './components/RecommendPage/Recommend';
 import Bear from './components/RecommendPage/Bear';
@@ -29,7 +26,7 @@ import ScrollToTop from './components/ScrollToTop';
 import ShopCartDetail from './components/ShopCartPage/ShopCartDetail';
 import ShopCartPay from './components/ShopCartPage/ShopCartPay';
 import ShopCartCheck from './components/ShopCartPage/ShopCartCheck';
-import ShopCartFinish from './components/ShopCartPage/ShopCartFinish';
+// import ShopCartFinish from './components/ShopCartPage/ShopCartFinish';
 import ShopCartFinal from './components/ShopCartPage/ShopCartFinal';
 import MemberMapRoute from './components/MemberPage/MemberMapRoute';
 import MemberProductArticle from './components/MemberPage/MemberProductArticle';
@@ -208,9 +205,6 @@ function App() {
               <Route path="/signup">
                 <SignUp />
               </Route>
-              {/* <Route path="/signup-acct">
-                <SignUpAcct />
-              </Route> */}
               <Route path="/login">
                 <Login />
               </Route>
@@ -218,9 +212,6 @@ function App() {
               {/* //===homepage 路由放最下面===// */}
               <Route exact path="/">
                 <HomeMountain />
-                {/* <HomeArticle />
-              <HomeShop />
-              <HomeOutfit /> */}
               </Route>
             </Switch>
           </ScrollToTop>

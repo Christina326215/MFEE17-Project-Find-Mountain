@@ -15,7 +15,7 @@ import { BsPlus, BsDash, BsTrash, BsCheck } from 'react-icons/bs';
 //====== below icon end ======//
 
 function ShopCartDetail() {
-  const { setCartChange } = useAuth(); // 取得會員資料
+  const { setCartChange, auth } = useAuth(); // 取得navbar偵測購物車變化用的狀態 會員登入狀態
   //shopCartData為購物車local storage接完資料庫的整體一筆一筆的資料
   const [shopCartData, setShopCartData] = useState([]);
   //historyItems為瀏覽紀錄local storage接完資料庫的整體一筆一筆的資料
@@ -237,6 +237,23 @@ function ShopCartDetail() {
       setShopCartData([]);
     }
   }, [cartLocal]);
+  //進行結帳btn
+  const checkout = (e) => {
+    console.log('auth', auth);
+    if (auth === false) {
+      e.preventDefault();
+      //FIXME:等羽柔寫好sweetalert放進來
+      console.log('請先進行登入');
+    } else {
+      const ProductOrderForCheckout = JSON.parse(
+        localStorage.getItem('ProductOrderDetail')
+      );
+      if (ProductOrderForCheckout === null && ProductOrderForCheckout === []) {
+        e.preventDefault();
+        console.log('no product in cart');
+      }
+    }
+  };
   //FIXME:一些待整理的東西
   useEffect(() => {
     // progress-bar
@@ -249,9 +266,11 @@ function ShopCartDetail() {
       var nextStep = $('.shopcart-step.shopcart-step-' + nextStepNum);
       var progressBar = $('#shopcart-checkout-progress');
       $('.shopcart-btn-prev').removeClass('shopcart-disabled');
+      // eslint-disable-next-line eqeqeq
       if (currentStepNum == 5) {
         return false;
       }
+      // eslint-disable-next-line eqeqeq
       if (nextStepNum == 5) {
         $(this).addClass('shopcart-disabled');
       }
@@ -281,9 +300,11 @@ function ShopCartDetail() {
       var prevStep = $('.shopcart-step.shopcart-step-' + prevStepNum);
       var progressBar = $('#shopcart-checkout-progress');
       $('.shopcart-btn-next').removeClass('shopcart-disabled');
+      // eslint-disable-next-line eqeqeq
       if (currentStepNum == 1) {
         return false;
       }
+      // eslint-disable-next-line eqeqeq
       if (prevStepNum == 1) {
         $(this).addClass('shopcart-disabled');
       }
@@ -476,6 +497,7 @@ function ShopCartDetail() {
                 type="button"
                 to="/shoppingcart/step2-pay"
                 className="shopcart-btn btn-next btn btn-primary"
+                onClick={checkout}
               >
                 進行結帳
               </Link>
