@@ -17,7 +17,7 @@ import { mapURL, weatherURL, IMAGE_URL } from '../../utils/config';
 
 //====== below pages components star ======//
 import { map_H } from './pages/Map_H';
-import { map_btn } from './pages/MapBtn';
+import { map_btn } from './pages/MapBtn_H';
 import { pages_btn } from './pages/PagesBtn';
 import ProductRecH from './pages/ProductRec_H';
 //====== below pages components end ======//
@@ -179,13 +179,19 @@ function MapH() {
                 </div>
                 <div className="mountain_H_list_detail">
                   <div>
-                    <div className="mountain_H_list_detail_box align-items-center">
+                    <div className="mountain_H_list_detail_box align-items-center justify-content-between">
                       <div className="mountain_H_list_font_box">
                         <p className="mountain_H_list_title mr-2">
                           {list.name}
                         </p>
                         <p className="mountain_H_list_star text-warning">
-                          <span className="text-dark mr-1">4.8</span>
+                          {list.starAverage === 0 ? (
+                            <span className="text-dark mr-1">暫無星級評分</span>
+                          ) : (
+                            <span className="text-dark mr-1">
+                              {list.starAverage}
+                            </span>
+                          )}
                           <StarFill className="mb-1" />
                         </p>
                       </div>
