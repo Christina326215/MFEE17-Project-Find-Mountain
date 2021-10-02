@@ -41,27 +41,27 @@ function DetailContent(props) {
   const [levelCard, setLevelCard] = useState([]);
   // 當頁文章資料
   const [detail, setDetail] = useState([
-    {
-      id: 0,
-      name: '',
-      status: 0,
-      city: '',
-      season: '0',
-      time: 0,
-      height: 0,
-      level: 0,
-      distance: 0,
-      mountain_type: 0,
-      apply: 0,
-      gap: 0,
-      road_status: '',
-      traffic: '',
-      pic: '',
-      content: '',
-      level_name: '',
-      mountain_type_name: '',
-      apply_name: '',
-    },
+    // {
+    //   id: 0,
+    //   name: '',
+    //   status: 0,
+    //   city: '',
+    //   season: '0',
+    //   time: 0,
+    //   height: 0,
+    //   level: 0,
+    //   distance: 0,
+    //   mountain_type: 0,
+    //   apply: 0,
+    //   gap: 0,
+    //   road_status: '',
+    //   traffic: '',
+    //   pic: '',
+    //   content: '',
+    //   level_name: '',
+    //   mountain_type_name: '',
+    //   apply_name: '',
+    // },
   ]);
 
   // 新增收藏文章狀態
@@ -70,49 +70,35 @@ function DetailContent(props) {
   const [likeArticlePast, setLikeArticlePast] = useState('');
   // 判斷有沒有收藏過的狀態 true收藏 fasle沒收藏
   const [heartHandle, setHeartHandle] = useState(true);
-  // // 判斷有沒有去過的狀態
-  // const [flagHandle, setFlagHandle] = useState(true);
-  // 去過路線會影響到member level等級 設定一個level影響user的狀態
-  // const [userLevel, setUserLevel] = useState(false);
-
-  // useEffect(() => {
-  //   // 判斷user是否有登入 有登入才帶入使用者ID 繼續執行下面動作!!
-  //   if (member === null) {
-  //     console.log('沒有member', member);
-  //     return;
-  //   }
-
-  //   console.log('member', member.id); // for check
-  //   setLikeUserId(member.id);
-  // }, [member]);
+  // 判斷toggle狀態
+  const [diaplay, setDiaplay] = useState(false);
 
   // console.log('測試 member', member);
   // console.log('測試 auth', auth);
 
-  useEffect(() => {
-    // js
-    //  about-membership-bubble start
-    $('.recommend-see-member').click((e) => {
+  // 會員積分
+  const memberBubble = () => {
+    setDiaplay(!diaplay);
+    if (diaplay) {
       $('.recommend-about-membership-bubble').toggle('display');
-    });
-    //  about-membership-bubble end
+    } else {
+      $('.recommend-about-membership-bubble').toggle('display');
+    }
+  };
 
-    $('i').click(function () {
-      $(this).toggleClass('active');
-    });
-
+  useEffect(() => {
     // 連線當頁的資料庫
     async function recommendData() {
       try {
         // 全部文章資料
         const recommendData = await axios.get(recommendURL);
         const totalDetail = recommendData.data;
-
         // 網址id判斷此篇文章資料
         const id = Number(props.match.params.id);
         const newDetail = totalDetail.find((v) => {
           return v.id === id;
         });
+        // console.log('newDetail', newDetail);
         if (newDetail) setDetail(newDetail);
 
         // 推薦同等級文章
@@ -527,7 +513,13 @@ function DetailContent(props) {
                   </div>
                   {/* =========about-membership-bubble start========= */}
                   <div className="recommend-about-membership">
-                    <div to="" id="seeMember" className="recommend-see-member">
+                    <div
+                      to=""
+                      id="seeMember"
+                      className="recommend-see-member"
+                      onClick={memberBubble}
+                      style={{ cursor: 'pointer' }}
+                    >
                       <i className="bi recommend-bi-question-circle">
                         <BsQuestionCircle></BsQuestionCircle>
                       </i>

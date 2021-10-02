@@ -30,18 +30,18 @@ function Comment(props) {
 
   // 評論資料
   const [comment, setComment] = useState([
-    {
-      id: 0,
-      pic: '',
-      content: '',
-      time: '',
-      user_id: 0,
-      article_id: 0,
-      valid: 0,
-      users_id: 0,
-      users_name: '',
-      article_name: '',
-    },
+    // {
+    //   id: 0,
+    //   pic: '',
+    //   content: '',
+    //   time: '',
+    //   user_id: 0,
+    //   article_id: 0,
+    //   valid: 0,
+    //   users_id: 0,
+    //   users_name: '',
+    //   article_name: '',
+    // },
   ]);
   // 新增評論欄位
   const [userID, setUserID] = useState('');
@@ -147,7 +147,6 @@ function Comment(props) {
 
   // 評論資料連線
   useEffect(() => {
-    // FIXME: 沒登入的跳轉頁面
     async function commentData() {
       try {
         const commentData = await axios.get(articlecommentURL);
@@ -160,6 +159,7 @@ function Comment(props) {
         // console.log('newcommentDetail', newcommentDetail);
 
         if (newcommentDetail) setComment(newcommentDetail);
+        // console.log('newcommentDetail', newcommentDetail);
       } catch (e) {
         console.log(e);
       }
