@@ -5,7 +5,7 @@ import $ from 'jquery';
 import '../../styles/MemberPage/MemberComment.scss'; //member comment style
 import { useAuth } from '../../context/auth'; // 取得會員資料
 
-import { memberCommentURL, IMAGE_URL } from '../../utils/config';
+import { memberCommentURL, IMAGE_URL, authURL } from '../../utils/config';
 import axios from 'axios';
 
 //====== below pages star ======//
@@ -19,7 +19,7 @@ import { FcApproval, FcVlc } from 'react-icons/fc';
 //====== below icon end ======//
 
 function MemberComment() {
-  const { member, page, setPage, totalPage, setTotalPage } = useAuth(); // 取得會員資料
+  const { member, page, setPage, totalPage, setTotalPage, setAuth } = useAuth(); // 取得會員資料
   const [data, setData] = useState([]);
 
   // 分頁屬性
@@ -55,6 +55,16 @@ function MemberComment() {
     }
     getCommentData();
   }, [page, member]);
+
+  //====== 登出 start ======//
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    await axios.get(authURL + '/logout', {
+      withCredentials: true,
+    });
+    setAuth(false);
+  };
+  //====== 登出 end ======//
 
   return (
     <>
@@ -118,9 +128,12 @@ function MemberComment() {
                 </tr>
                 <tr>
                   <td scope="row" className="text-center">
-                    <Link to="" className="member-left-href-color">
+                    <button
+                      onClick={handleLogout}
+                      className="member-left-href-color btn border-0 p-0"
+                    >
                       登出
-                    </Link>
+                    </button>
                   </td>
                 </tr>
               </tbody>
