@@ -239,6 +239,7 @@ passport.use(
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         },
+        //如果資料合法拿到profile
         async function (accessToken, refreshToken, profile, cb) {
             console.log('Google profile', profile)
             // 以下其實跟 FB 登入一模一樣
@@ -258,6 +259,7 @@ passport.use(
                     'INSERT INTO user (account, password, name,valid) VALUES (?);',
                     [[profile.emails[0].value, 'google login', profile.name.givenName, '1']]
                 )
+                //因為資料庫password必填->塞一個字串給他->google login
                 // FB登入就不會有密碼，一開始 members 表設計的時候可以把密碼欄位設定成 nullable
                 // 因為我們設計的時候不允許 null，所以這裡就塞一個字串給他
                 console.log(result)
@@ -271,7 +273,7 @@ passport.use(
         }
     )
 )
-
+//前端token傳過來進入 passport.authenticate中間件
 router.post('/google', passport.authenticate('google-token', { session: false }), function (req, res, next) {
     if (!req.user) {
         console.log('Google Login 登入失敗')

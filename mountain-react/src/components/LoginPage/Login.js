@@ -95,6 +95,7 @@ function Login(props) {
   //===第三方登入 star
   //FB
   const responseFacebook = async (res) => {
+    console.log('Hello FB', res.accessToken);
     let response = await axios.post(
       `${authURL}/facebook`,
       {
@@ -111,6 +112,7 @@ function Login(props) {
   };
 
   const responseGoogle = async (res) => {
+    console.log('Hello Google', res.accessToken);
     let response = await axios.post(
       `${authURL}/google`,
       {
@@ -126,7 +128,9 @@ function Login(props) {
       setAuth(true);
     }
   };
-
+  const onFailure = (error) => {
+    console.log(error);
+  };
   //===第三方登入 end
 
   return (
@@ -217,15 +221,13 @@ function Login(props) {
                         backgroundColor: '#4267b2',
                         color: '#f5f5f5',
                       }}
-                      appId="4122031167908837"
-                      onSuccess={responseFacebook}
-                      fields="name,email,picture"
-                      // icon={<FaFacebookSquare size={20} />}
-                      scope="public_profile,user_friends,user_actions.books"
+                      appId={process.env.REACT_APP_FACEBOOK_CLIENT_ID}
+                      // fields="name,email,picture"
+                      autoLoad={false}
+                      callback={responseFacebook}
                     >
                       <FaFacebookSquare
                         color="white"
-                        // className="login-h3"
                         style={{
                           verticalAlign: 'middle',
                           marginRight: '10px',
@@ -238,22 +240,12 @@ function Login(props) {
                     <span>&nbsp;&nbsp;</span>
                     <GoogleLogin
                       className="btn btn-primary"
-                      clientId="234968124416-76g3tua0318gr37b87g1v5vraqpqslfk.apps.googleusercontent.com"
+                      clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
                       buttonText="Google登入"
                       onSuccess={responseGoogle}
-                      onFailure={responseGoogle}
+                      onFailure={onFailure}
                       cookiePolicy={'single_host_origin'}
                     />
-
-                    {/* <FaGoogle className="login-h3" /> */}
-
-                    {/* <span>&nbsp;&nbsp;</span> */}
-                    {/* <button
-                      onClick={handleLineLogin}
-                      className="login-icon login-icon-Line"
-                    >
-                      <FaLine className="login-h3" />
-                    </button> */}
                   </div>
                 </div>
               </form>
