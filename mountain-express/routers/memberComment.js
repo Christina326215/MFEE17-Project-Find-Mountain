@@ -23,7 +23,7 @@ router.post("", async function (req, res, next) {
   // OFFSET: 要跳過幾筆資料
   let offset = (page - 1) * perPage;
 
-  let dbResults = await connection.queryAsync("SELECT comments.*, user.name AS user_name, article.name AS article_name, dislike.dislike_status AS dislike_status FROM comments JOIN user on comments.user_id = user.id JOIN article ON comments.article_id = article.id JOIN dislike ON comments.id = dislike.comments_id WHERE comments.user_id = ? ORDER BY comments.id LIMIT ? OFFSET ?",[req.body.member.id, perPage, offset]); 
+  let dbResults = await connection.queryAsync("SELECT comments.*, user.name AS user_name, article.name AS article_name, dislike.dislike_status AS dislike_status FROM comments JOIN user on comments.user_id = user.id JOIN article ON comments.article_id = article.id JOIN dislike ON comments.id = dislike.comments_id WHERE comments.user_id = ? ORDER BY comments.time LIMIT ? OFFSET ?",[req.body.member.id, perPage, offset]); 
   
   let pagination = {
     total,
