@@ -48,76 +48,80 @@ function Outfit(props) {
   const [cartPrice, setCartPrice] = useState(0);
   const [productOrder, setProductOrder] = useState([]);
   const [productOrderPush, setProductOrderPush] = useState([]);
-  const [productOrderFilter, setProductOrderFilter] = useState([]);
-  console.log('productOrder', productOrder);
 
   useEffect(() => {
-    // setProductOrderPush([...productOrderPush, productOrder]);
+    setProductOrderPush([...productOrderPush, productOrder]);
     console.log('productOrderPush', productOrderPush);
-
-    // 篩選掉空陣列
-    let productOrderFilters = productOrderPush.filter(
-      (v) => v.length != 0 && v.size !== ''
-    );
-    // setProductOrderFilter(productOrderFilters);
-    console.log('productOrderFilters', productOrderFilters);
-
-    function ClearDuplicatedItem(value) {
-      return value.id !== productOrder.id;
-    }
-    const newObjArray = productOrderFilters.filter(ClearDuplicatedItem);
-    newObjArray.push(productOrder);
-    console.log('newObjArray', newObjArray);
-    setProductOrderPush([...productOrderFilters, newObjArray]);
-
-    // 陣列中有相同物件時，可以取代物件
-    // let mergeArrayWithObject = (productOrderFilters, productOrder) =>
-    //   productOrderFilters.map((obj) =>
-    //     productOrder.id === obj.id ? productOrder : obj
-    //   );
-    // console.log(
-    //   'mergeArrayWithObject',
-    //   mergeArrayWithObject(productOrderFilters, productOrder)
-    // );
-
-    // let mergeArrayWithObject = productOrderFilters.map((obj) =>
-    //   productOrder.id === obj.id ? productOrder : obj
-    // );
-    // console.log('mergeArrayWithObject', mergeArrayWithObject);
-
-    // 陣列中去除某物件屬性重複值
-    // const set = new Set();
-    // const result = mergeArrayWithObject(
-    //   productOrderFilters,
-    //   productOrder
-    // ).filter((item) => (!set.has(item.id) ? set.add(item.id) : false));
-    // console.log('productOrderFilterResult', result);
-    // [{name: "alex", value: 10}, {name: "tom", value: 30}]
   }, [productOrder]);
 
-  // let arr = [
-  //   { id: 1, name: 'Bir' },
-  //   { id: 2, name: 'Iki' },
-  //   { id: 3, name: 'Uc' },
-  // ];
-  // let obj1 = { id: 3, name: 'Name changed' };
-  // var newArr = arr.map((obj) => (obj1.id === obj.id ? obj1 : obj));
-  // console.log('newArr', newArr);
+  const addCart = () => {
+    console.log('productOrderPush', productOrderPush);
+    function ClearDuplicatedItem(value) {
+      return (
+        value.id !== productOrder.id && value.length !== 0 && value.size !== ''
+      );
+    }
+    let newObjArray = productOrderPush.filter(ClearDuplicatedItem);
+    // 改寫 filter內放需要回傳的東西的篩選條件
+    // let newObjArray = productOrderPush.filter(
+    //   (value) =>
+    //     value.id !== productOrder.id && value.length !== 0 && value.size !== ''
+    // );
+    console.log('newObjArray', newObjArray);
+    // newObjArray.push(productOrder);
+    // const index = newObjArray.findIndex((v) => v.size === '');
+    // //FIXME: 只要有一個有選size就可以用 不太對
+    // if (index > -1) {
+    //   console.log('有size為空');
+    //   Swal.fire({
+    //     icon: 'error',
+    //     title: '請先選擇尺寸',
+    //     showConfirmButton: false,
+    //     timer: 1500,
+    //   });
+    // } else {
+    //   console.log('newObjArray', newObjArray);
+    //   var localCart =
+    //     JSON.parse(localStorage.getItem('ProductOrderDetail')) || [];
+    //   // 預防重複同樣id size的資料
+    //   for (let i = 0; i < newObjArray.length; i++) {
+    //     const index = localCart.findIndex(
+    //       (v) => v.id === newObjArray[i].id && v.size === newObjArray[i].size
+    //     );
+    //     if (index > -1) {
+    //       localCart[index].num += newObjArray[i].num;
+    //     } else {
+    //       localCart.push(newObjArray[i]);
+    //     }
+    //   }
+    //   console.log('localCart', localCart);
 
-  // 在陣列中，當物件內id相同時，num有新的值時，要取代新的值
-  // productOrderFilter.findIndex((v)=>v.id === )
-
-  // let index = productOrderFilter.findIndex(
-
-  //   (v) => v.id === productOrderFilter.id
-  // );
-  // console.log('index', index);
+    //   // localStorage.setItem('ProductOrderDetail', JSON.stringify(localCart));
+    //   //最後要重置
+    //   setCartChange(true);
+    //   setProductOrderPush([]);
+    //   // handleClose();
+    // }
+  };
 
   // const handleDragStart = (e) => {
   //   console.log('e', e);
   //   // e.dataTransfer.setData('text/plain', e.currentTarget.id);
   //   // console.log('e.currentTarget.id', e.currentTarget.id);
   // };
+
+  //控制modal show or not show
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const showModal = () => {
+    handleShow();
+  };
+
+  useEffect(() => {
+    setCartNum(1);
+    setCartSize('');
+    setCartPrice(0);
+  }, [show]);
 
   useEffect(() => {
     // 網頁重新整理時，清空localStorage
@@ -256,7 +260,7 @@ function Outfit(props) {
         return false;
       }
       function saveData() {
-        console.log('selectedImgs save', selectedImgs);
+        // console.log('selectedImgs save', selectedImgs);
         for (let i = 0; i < selectedImgs.length; i++) {
           let productId = document.getElementById(selectedImgs[i]).id;
           // console.log('productId', productId);
@@ -302,7 +306,7 @@ function Outfit(props) {
         let product_records = localStorage.getItem('products')
           ? JSON.parse(localStorage.getItem('products'))
           : [];
-        console.log('product_records', product_records);
+        // console.log('product_records', product_records);
 
         if (product_records) {
           let subtotal = 0;
@@ -355,92 +359,6 @@ function Outfit(props) {
       // console.log('productLocal[0]', productLocal[0].productId);
     }, 500);
   }, []);
-  //控制modal show or not show
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const showModal = () => {
-    handleShow();
-  };
-  const addCart = () => {
-    // const newProductOrder = JSON.parse(
-    //   localStorage.getItem('ProductOrderDetail') || '[]'
-    // );
-    let modalId = document.getElementById('modalId').value;
-    console.log('modalId', modalId);
-    // console.log('cartSize', cartSize);
-    // if (cartSize === '') {
-    //   console.log('choose size plz');
-    //   Swal.fire({
-    //     icon: 'error',
-    //     title: '請先選擇尺寸',
-    //     showConfirmButton: false,
-    //     timer: 1500,
-    //   });
-    //   return;
-    // }
-    // else {
-    //   console.log('cartSize', cartSize);
-    //   console.log('cartNum', cartNum);
-
-    //為了符合local storage格式 字串 字串 數字
-    // let orderDetail = {
-    // id: productId.toString(),
-    //   size: cartSize,
-    //   num: parseInt(cartNum),
-    // };
-    // //localstorage for order detail start//
-    // //確認local storage裡面有無相同id size的資料
-    // const index = newProductOrder.findIndex(
-    //   (v) => v.id === orderDetail.id && v.size === orderDetail.size
-    // );
-    // console.log('index', index);
-    // console.log('orderDetail', orderDetail);
-    // console.log('newProductOrder', newProductOrder);
-    // if (index > -1) {
-    //   //改變同款項訂購數量
-    //   newProductOrder[index].num += orderDetail.num;
-    //   localStorage.setItem(
-    //     'ProductOrderDetail',
-    //     JSON.stringify(newProductOrder)
-    //   );
-    //   console.log('這個商品已經加過了');
-    //   // return;
-    // } else {
-    //   newProductOrder.push(orderDetail);
-    //   localStorage.setItem(
-    //     'ProductOrderDetail',
-    //     JSON.stringify(newProductOrder)
-    //   );
-    //   console.log('哎呦還沒喔');
-    // }
-    // //更新localstorage資料cartLocal
-    // // getCartFromLocalStorage();
-    // setCardCartLocal(newProductOrder);
-    // //localstorage for order detail end//
-    // }
-    // Swal.fire({
-    //   icon: 'success',
-    //   title: '已加入購物車',
-    //   showConfirmButton: false,
-    //   timer: 1500,
-    // });
-    // setCartChange(true);
-    // // setTimeout(() => {
-    // //   window.location.reload(false);
-    // // }, 1500);
-    handleClose();
-  };
-
-  useEffect(() => {
-    setCartNum(1);
-    setCartSize('');
-    setCartPrice(0);
-  }, [show]);
-
-  // useEffect(() => {
-  //   setCartPrice(cartNum * price);
-  //   console.log(cartPrice);
-  // }, [cartNum, cartPrice, price]);
 
   return (
     <>
