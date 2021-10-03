@@ -10,13 +10,10 @@ import '../../styles/product.css';
 import RankingItems from './components/RankingItems';
 import SelectedItems from './components/SelectedItems';
 import RankingArticles from './components/RankingArticles';
-
+//slick輪播圖
 import display1 from '../../img/display-photo1.jpeg';
 import display2 from '../../img/display-photo2.jpeg';
 import display3 from '../../img/display-photo3.jpeg';
-import xiangshan from '../../img/article-img/xiangshan.jpeg';
-import Yangmingshan from '../../img/article-img/Yangmingshan.jpeg';
-import Tapachien from '../../img/article-img/Tapachien.jpeg';
 
 function ShopMain(props) {
   useEffect(() => {
