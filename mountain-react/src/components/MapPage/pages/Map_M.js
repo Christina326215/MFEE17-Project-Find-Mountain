@@ -5,7 +5,7 @@ import middleMapPng from '../../../img/mountain-img/middleMap.png';
 import middleBearPng from '../../../img/mountain-img/middleBear.png';
 //====== above img import end ======//
 
-//====== below icon star ======//
+//====== below icon start ======//
 import { StarFill } from 'react-bootstrap-icons';
 //====== below icon end ======//
 

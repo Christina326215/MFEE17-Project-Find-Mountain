@@ -2,27 +2,27 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/MapStyle/mountain_index_H.css'; //高階Map樣式
 import { Link } from 'react-router-dom'; //a標籤要變成link
 
-//====== below modal star ======//
+//====== below modal start ======//
 import Swal from 'sweetalert2';
 //====== below modal end ======//
 
-//====== below utils star ======//
+//====== below utils start ======//
 import { weather } from '../../utils/weather';
 //====== below utils end ======//
 
-//====== below api connect tool star ======//
+//====== below api connect tool start ======//
 import axios from 'axios';
 import { mapURL, weatherURL, IMAGE_URL } from '../../utils/config';
 //====== below api connect tool end ======//
 
-//====== below pages components star ======//
+//====== below pages components start ======//
 import MapHigh from './pages/Map_H';
 import { map_btn } from './pages/MapBtn_H';
 import { pages_btn } from './pages/PagesBtn';
 import ProductRecH from './pages/ProductRec_H';
 //====== below pages components end ======//
 
-//====== below icon star ======//
+//====== below icon start ======//
 import {
   StarFill,
   Cloud,
@@ -45,7 +45,7 @@ function MapH() {
   const [userLocation, setUserLocation] = useState([]);
   const [userLocationBtn, setUserLocationBtn] = useState(false);
 
-  //=== 計算兩點距離 star ===//
+  //=== 計算兩點距離 start ===//
   function distance(lat1, lon1, lat2, lon2, unit) {
     // console.log('lat1', lat1);
     // console.log('lat1', lon1);
@@ -77,7 +77,7 @@ function MapH() {
   //=== 計算兩點距離 end ===//
 
   useEffect(() => {
-    //=== weather variable star ===//
+    //=== weather variable start ===//
     const locations = weather.map((location) => location.locationName);
     // console.log(locations); //for check
     const elements = weather.map((element) => element.elementName);
@@ -86,22 +86,22 @@ function MapH() {
     // console.log(parameters); //for check
     //=== weather variable end ===//
 
-    //=== Api star ===//
+    //=== Api start ===//
     async function mapLData() {
       try {
-        // map api star //
+        // map api start //
         const mapData = await axios.get(mapURL + '3');
         console.log(mapData.data); //for check
         setListData(mapData.data);
         // map api end //
 
-        // product api star //
+        // product api start //
         const productData = await axios.get(mapURL + 'product/3');
         console.log('productData:', productData.data); //for check
         setProductData(productData.data);
         // product api end //
 
-        // weather api star //
+        // weather api start //
         const weatherData = await axios.get(
           `${weatherURL}&locationName=${locations}&elementName=${elements}&parameterName=${parameters}`
         );
@@ -110,7 +110,7 @@ function MapH() {
         setWeatherData(location);
         // weather api end //
 
-        //=== user geolocation star ===//
+        //=== user geolocation start ===//
         // 先確認使用者裝置能不能抓地點
         if (navigator.geolocation) {
           // 使用者不提供權限，或是發生其它錯誤
@@ -183,7 +183,7 @@ function MapH() {
 
   return (
     <>
-      {/* <!-- =========content star========= --> */}
+      {/* <!-- =========content start========= --> */}
       <div>
         <div className="mountain_bg"></div>
         {/* <!-- =========part1 map start========= --> */}
@@ -327,7 +327,7 @@ function MapH() {
                       </div>
                     </div>
 
-                    {/* <!-- Level bar star --> */}
+                    {/* <!-- Level bar start --> */}
                     <div className="mountain_H_bar_list align-items-center">
                       <p className="mountain_H_list_title mr-2 mb-0">難度</p>
                       <div className="mountain_H_progress-bg">
@@ -344,7 +344,7 @@ function MapH() {
                     </div>
                     {/* <!-- Level bar end --> */}
 
-                    {/* <!-- Distance bar star --> */}
+                    {/* <!-- Distance bar start --> */}
                     <div className="mountain_H_bar_list align-items-center">
                       <p className="mountain_H_list_title mr-2 mb-0">公里</p>
                       <div className="mountain_H_progress-bg">
@@ -359,7 +359,7 @@ function MapH() {
                     </div>
                     {/* <!-- Distance bar end --> */}
 
-                    {/* <!-- Time bar star --> */}
+                    {/* <!-- Time bar start --> */}
                     <div className="mountain_H_bar_list align-items-center">
                       <p className="mountain_H_list_title mr-2 mb-0">時間</p>
                       <div className="mountain_H_progress-bg">
@@ -412,7 +412,7 @@ function MapH() {
           </div>
           {/* <!-- =========map list end========= --> */}
 
-          {/* <!-- =========pages_btn star========= --> */}
+          {/* <!-- =========pages_btn start========= --> */}
           {pages_btn}
           {/* <!-- =========pages_btn end========= --> */}
           <div className="ountain_content_line"></div>

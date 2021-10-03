@@ -55,7 +55,7 @@ function App() {
   const [member, setMember] = useState(null);
   const [pay, setPay] = useState(null);
   const [cartChange, setCartChange] = useState(false);
-  const [mapRouteShow, setMapRouteShow] = useState(false); //會員路線地圖，新增路線重算積分，會員level需重抓
+  const [mapRouteShow, setMapRouteShow] = useState(false); //會員路線地圖，新增路線or刪除重算積分，會員level需重抓
   // 新增去過或移除去過會影響level會員等級
   const [flagHandle, setFlagHandle] = useState(true);
   // 記錄現在在第幾頁
