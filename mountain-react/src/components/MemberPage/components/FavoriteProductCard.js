@@ -54,16 +54,75 @@ function FavoriteProductCard(props) {
   const showModal = () => {
     handleShow();
   };
+  useEffect(() => {
+    setCartPrice(cartNum * productPrice);
+    // console.log(cartPrice);
+  }, [cartNum, cartPrice, productPrice]);
   // modal計算總價
   useEffect(() => {
     setCartNum(1);
     setCartSize('');
     setCartPrice(0);
   }, [show]);
-  useEffect(() => {
-    setCartPrice(cartNum * productPrice);
-    // console.log(cartPrice);
-  }, [cartNum, cartPrice, productPrice]);
+
+  const addCart = () => {
+    const newProductOrder = JSON.parse(
+      localStorage.getItem('ProductOrderDetail') || '[]'
+    );
+    if (cartSize === '') {
+      console.log('choose size plz');
+      Swal.fire({
+        icon: 'error',
+        title: '請先選擇尺寸',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    } else {
+      //為了符合local storage格式 字串 字串 數字
+      let orderDetail = {
+        id: productId.toString(),
+        size: cartSize,
+        num: parseInt(cartNum),
+      };
+      //localstorage for order detail start//
+      //確認local storage裡面有無相同id size的資料
+      const index = newProductOrder.findIndex(
+        (v) => v.id === orderDetail.id && v.size === orderDetail.size
+      );
+      console.log('index', index);
+      console.log('orderDetail', orderDetail);
+      console.log('newProductOrder', newProductOrder);
+      if (index > -1) {
+        //改變同款項訂購數量
+        newProductOrder[index].num += orderDetail.num;
+        localStorage.setItem(
+          'ProductOrderDetail',
+          JSON.stringify(newProductOrder)
+        );
+        console.log('這個商品已經加過了');
+        // return;
+      } else {
+        newProductOrder.push(orderDetail);
+        localStorage.setItem(
+          'ProductOrderDetail',
+          JSON.stringify(newProductOrder)
+        );
+        console.log('哎呦還沒喔');
+      }
+      //更新localstorage資料cartLocal
+      //localstorage for order detail end//
+    }
+    Swal.fire({
+      icon: 'success',
+      title: '已加入購物車',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    setCartChange(true);
+    handleClose();
+  };
+
   const messageModal = (
     <Modal
       show={show}
@@ -168,7 +227,7 @@ function FavoriteProductCard(props) {
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        <Button>Add</Button>
+        <Button onClick={addCart}>Add</Button>
       </Modal.Footer>
     </Modal>
   );

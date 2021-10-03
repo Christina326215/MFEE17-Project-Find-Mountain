@@ -20,7 +20,7 @@ function MemberHeartProducts(props) {
       }
     }
     getFavoriteData();
-  }, [favChange]);
+  }, [favChange, member]);
 
   //刪除收藏重跑收藏清單資料後
   useEffect(() => {
