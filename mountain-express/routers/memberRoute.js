@@ -2,25 +2,21 @@ const express = require("express");
 const router = express.Router();
 const connection = require("../utils/db");
 
-//============ 從資料庫撈資料傳去前端的路線地圖顯示 star ============//
+//============ 從資料庫撈資料傳去前端的路線地圖顯示 start ============//
 router.post("", async function (req, res, next) {
   // console.log("req.body member:", req.body.id); //for check 登入的會員id
 
-  //=== 全部去過的文章 star ===//
+  //=== 全部去過的文章 start ===//
   let dbResults = await connection.queryAsync(
-
     "SELECT article.name AS article_name, article.distance AS article_distance, article.height AS article_height, article.level AS article_level, article.pic AS article_pic, user_article.* FROM user_article JOIN article ON user_article.article_id_past = article.id WHERE user_id = ?",
     [req.body.id]
-
   ); // 等資料庫查詢資料
   //=== 全部去過的文章 end ===//
 
-  //=== 去過後有評分的文章 star ===//
+  //=== 去過後有評分的文章 start ===//
   let dbResultsStar = await connection.queryAsync(
-
     "SELECT article.name AS article_name, article_star.star_grade AS star, user_article.* FROM user_article JOIN article ON user_article.article_id_past = article.id JOIN article_star ON user_article.user_id = article_star.user_id WHERE user_article.user_id = article_star.user_id AND user_article.article_id = article_star.article_id AND user_article.user_id = ?",
     [req.body.id]
-
   );
   //=== 去過後有評分的文章 end ===//
 
@@ -68,7 +64,7 @@ router.post("", async function (req, res, next) {
     totalHeight,
   };
 
-  //=== 依照totalPoints給user不同level後，塞進資料庫 star ===//
+  //=== 依照totalPoints給user不同level後，塞進資料庫 start ===//
   // 完成積分:0~19 level 1(肉腳) //
   let level = "";
   if (totalPoints >= 0 && totalPoints < 20) {
@@ -99,7 +95,7 @@ router.post("", async function (req, res, next) {
 });
 //============ 從資料庫撈資料傳去前端的路線地圖顯示 end ============//
 
-//============ 傳去前端：給新增路線的文章 star ============//
+//============ 傳去前端：給新增路線的文章 start ============//
 router.post("/catchArticle", async function (req, res, next) {
   // console.log("req.body member:", req.body.id); //for check 登入的會員id
 
@@ -131,7 +127,7 @@ router.post("/catchArticle", async function (req, res, next) {
   });
   //=== 將去過的文章從全部文章裡刪掉 end ===//
 
-  //=== 文章中被刪掉變空的obj從陣列中移除 star ===//
+  //=== 文章中被刪掉變空的obj從陣列中移除 start ===//
   let invalidEntries = 0;
 
   function isNumber(obj) {
@@ -152,7 +148,7 @@ router.post("/catchArticle", async function (req, res, next) {
 });
 //============ 傳去前端：給新增路線的文章 end ============//
 
-//============ 前端傳來：新增路線的文章 insert to db star ============//
+//============ 前端傳來：新增路線的文章 insert to db start ============//
 router.post("/wentRoute", async function (req, res, next) {
   // console.log("req.body member id:", req.body.member.id); //for check 登入的會員id
 
@@ -167,7 +163,7 @@ router.post("/wentRoute", async function (req, res, next) {
   let pastStar = req.body.selectedOption;
   let pastWentData = [];
   let starWentData = [];
-  //=== 將去過路線換成文章的id star ===//
+  //=== 將去過路線換成文章的id start ===//
   result.map((data) => {
     let name = data.name;
 
@@ -179,7 +175,7 @@ router.post("/wentRoute", async function (req, res, next) {
   });
   //=== 將去過路線換成文章的id end ===//
 
-  //=== 將去過路線有評分的換成文章的id＆加入評分 star ===//
+  //=== 將去過路線有評分的換成文章的id＆加入評分 start ===//
   result.map((data) => {
     let name = data.name;
 
@@ -241,7 +237,7 @@ router.post("/wentRoute", async function (req, res, next) {
 });
 //============ 前端傳來：新增路線的文章 insert to db end ============//
 
-//============ 前端傳來：文章的星星評分 insert to db star ============//
+//============ 前端傳來：文章的星星評分 insert to db start ============//
 router.post("/catchStar", async function (req, res, next) {
   // console.log("hello req.body.member", req.body.member.id); //for check 登入的會員id
   // console.log("hello req.body.star", req.body.star); //for check 文章星星評分
@@ -251,16 +247,20 @@ router.post("/catchStar", async function (req, res, next) {
   let id = tempArr[0]; //被評分的文章id
   let star = tempArr[1]; //文章的星星評分
   let memberId = req.body.member.id;
-  // console.log('id:',id); //for check
-  // console.log('star:',star); //for check
-  // console.log('memberId:',memberId); //for check
+  console.log("id:", id); //for check
+  console.log("star:", star); //for check
+  console.log("memberId:", memberId); //for check
 
   //=== 文章的星星評分 db star ===//
-  let dbResults = await connection.queryAsync("INSERT INTO article_star SET ?",[{
-    article_id: id,
-    user_id: memberId,
-    star_grade: star,
-  }]
+  let dbResults = await connection.queryAsync(
+    "INSERT INTO article_star SET ?",
+    [
+      {
+        article_id: id,
+        user_id: memberId,
+        star_grade: star,
+      },
+    ]
   );
   //=== 文章的星星評分 db end ===//
 
@@ -268,6 +268,52 @@ router.post("/catchStar", async function (req, res, next) {
 });
 //============ 前端傳來：文章的星星評分 insert to db end ============//
 
-module.exports = router;
+//============ 前端傳來：renew文章的星星評分 update to db start ============//
+router.post("/updateStar", async function (req, res, next) {
+  console.log("hello req.body.member", req.body.member.id); //for check 登入的會員id
+  console.log("hello req.body.updateStar", req.body.updateStar); //for check 文章星星評分
+  let tempStr = req.body.updateStar;
+  let tempArr = tempStr.split(":"); //將字串依':'分離成陣列
 
-// SELECT * FROM user_article WHERE user_id = 1
+  let id = tempArr[0]; //被評分的文章id
+  let updateStar = tempArr[1]; //文章的星星評分
+  let memberId = req.body.member.id;
+  console.log("id:", id); //for check
+  console.log("star:", updateStar); //for check
+  console.log("memberId:", memberId); //for check
+
+  //=== update文章的星星評分 db start ===//
+  await connection.queryAsync(
+    "UPDATE article_star SET star_grade=? WHERE user_id=? AND article_id=?",
+    [updateStar, memberId, id]
+  );
+  //=== update文章的星星評分 db end ===//
+
+  res.json({});
+});
+//============ 前端傳來：renew文章的星星評分 update to db end ============//
+
+//============ 前端傳來：移除去過路線 delete to db start ============//
+router.post("/deletePast", async function (req, res, next) {
+  // console.log("hello req.body.member", req.body.member.id); //for check 登入的會員id
+  // console.log("hello req.body.delArticleId", req.body.delArticleId); //for check 刪除去過文章id
+
+  //=== delete 去過文章 db start ===//
+  await connection.queryAsync(
+    "DELETE FROM user_article WHERE user_id=? AND article_id_past=?",
+    [req.body.member.id, req.body.delArticleId]
+  );
+  //=== delete 去過文章 db end ===//
+
+  //=== delete 去過文章星星評分 db start ===//
+  await connection.queryAsync(
+    "DELETE FROM article_star WHERE user_id=? AND article_id=?",
+    [req.body.member.id, req.body.delArticleId]
+  );
+  //=== delete 去過文章星星評分 db end ===//
+
+  res.json({});
+});
+//============ 前端傳來：移除去過路線 delete to db end ============//
+
+module.exports = router;

@@ -6,23 +6,23 @@ const connection = require("../utils/db");
 router.get("/:level", async function (req, res, next) {
   // console.log("hi map in:", req.params.level); //for check "1"
 
-  //=== 查詢文章資料 star ===//
+  //=== 查詢文章資料 start ===//
   let dbResults = await connection.queryAsync(
     "SELECT id,name,city,time,level,distance,pic FROM article WHERE level = ?",
     [req.params.level]
   ); // 等資料庫查詢資料
   //=== 查詢文章資料 end ===//
 
-  //=== 查詢文章被星星評分的資料 star ===//
+  //=== 查詢文章被星星評分的資料 start ===//
   let starData = await connection.queryAsync(
     "SELECT article_id,star_grade FROM article_star ORDER BY article_id"
   );
   // console.log("map starData:", starData); //for check
   //=== 查詢文章被星星評分的資料 end ===//
 
-  //=== 算同樣的文章id 的星星平均 star ===//
+  //=== 算同樣的文章id 的星星平均 start ===//
   let starResult = {};
-  // 將資料依article_id整理成陣列 star //
+  // 將資料依article_id整理成陣列 start //
   starData.map((data) => {
     if (!starResult[data.article_id]) {
       starResult[data.article_id] = [];
@@ -32,7 +32,7 @@ router.get("/:level", async function (req, res, next) {
   console.log('starResult',starResult); //for check '整理後的json'
   // 將資料依article_id整理成陣列 end //
 
-  // 將抓取出來的文章資料，有星星評分的就塞星星平均進去 star //
+  // 將抓取出來的文章資料，有星星評分的就塞星星平均進去 start //
   dbResults.map((data) => {
     //沒有此文章的評分時平均給'0'並return
     if (starResult[data.id] === undefined) { 
@@ -124,7 +124,7 @@ router.get("/:level", async function (req, res, next) {
 });
 //============ map end ============//
 
-//============ product star ============//
+//============ product start ============//
 router.get("/product/:level", async function (req, res, next) {
   // console.log('req.params.level',req.params.level);
   let dbResults = await connection.queryAsync(
@@ -132,7 +132,7 @@ router.get("/product/:level", async function (req, res, next) {
     [req.params.level]
   ); // 等資料庫查詢資料
 
-  //=== 隨機打亂陣列函式 star ===//
+  //=== 隨機打亂陣列函式 start ===//
   const shuffle = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
@@ -148,7 +148,7 @@ router.get("/product/:level", async function (req, res, next) {
 });
 //============ product end ============//
 
-//============ for test star ============//
+//============ for test start ============//
 router.get("/test", async function (req, res, next) {
   let dbResults = await connection.queryAsync(
     "SELECT article.*, article_status.name AS status_name, article_level.name AS level_name, article_mountain_type.name AS mountain_type_name ,article_apply.name AS apply_name FROM article JOIN article_status ON article.status = article_status.id JOIN article_level ON article.level = article_level.id JOIN article_mountain_type ON article.mountain_type = article_mountain_type.id JOIN article_apply ON article.apply = article_apply.id ORDER BY article.id"
