@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom'; //可以獲取history,location,ma
 import $ from 'jquery';
 import '../../styles/MemberPage/MemberProductArticle.scss'; //member product and article style
 import MemberHeartArticle from './MemberHeartArticle';
+import MemberHeartProducts from './MemberHeartProducts';
 
 import { memberProductURL, IMAGE_URL, authURL } from '../../utils/config';
 import axios from 'axios';
@@ -15,7 +16,7 @@ import MemberSideHead from './pages/MemberSideHead'; //member Side Head
 //====== below pages end ======//
 
 //====== below icon star ======//
-import { BsTrash, BsStar, BsStarFill, BsXSquareFill } from 'react-icons/bs';
+import { BsXSquareFill } from 'react-icons/bs';
 import { Cart } from 'react-bootstrap-icons';
 //====== below icon end ======//
 
@@ -25,26 +26,8 @@ import { useAuth } from '../../context/auth';
 
 function MemberProductArticle() {
   const { setAuth } = useAuth();
-  const [dataProduct, setProductData] = useState([]);
 
   useEffect(() => {
-    async function getProductData() {
-      try {
-        const ProductData = await axios.get(memberProductURL, {
-          withCredentials: true,
-        });
-
-        // console.log(ProductData.data); //for check
-
-        setProductData(ProductData.data);
-
-        // let dataProduct = ProductData.data;
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    getProductData();
-
     // 切換區域tab-switch
     let menu = document.querySelectorAll('#menu');
     let content = document.querySelectorAll('#content');
@@ -63,22 +46,6 @@ function MemberProductArticle() {
         this.classList.add('active');
       });
     }
-
-    //product order 數量部分
-    $('.add-btn').click(function () {
-      let num = parseInt($('.order-number').val());
-      num += 1;
-      $('.order-number').val(num);
-      // console.log(num);
-    });
-    $('.minus-btn').click(function () {
-      let num = parseInt($('.order-number').val());
-      if (num > 1) {
-        num -= 1;
-        $('.order-number').val(num);
-      }
-      // console.log(num);
-    });
   }, []);
 
   //====== 登出 start ======//
@@ -194,92 +161,7 @@ function MemberProductArticle() {
                 </div>
               </div>
               <div className="tab-content">
-                <div id="content" className="content1">
-                  {/* <!-- product table start--> */}
-                  <table className="table member-product-article-table-all text-center p-md-4 p-lg-5">
-                    <thead>
-                      <tr>
-                        <th
-                          scope="col-1 col-md-1"
-                          className="align-middle member-product-article-product-img"
-                        >
-                          產品照片
-                        </th>
-                        <th
-                          scope="col-1 col-md-1"
-                          className="align-middle member-product-article-product-name"
-                        >
-                          產品名稱
-                        </th>
-                        <th
-                          scope="col-2 col-md-2"
-                          className="align-middle member-product-article-product-size"
-                        >
-                          尺寸
-                        </th>
-                        <th
-                          scope="col-4 col-md-4"
-                          className="align-middle member-product-article-product-price"
-                        >
-                          單價
-                        </th>
-                        <th
-                          scope="col-1 col-md-1"
-                          className="align-middle member-product-article-product-buy"
-                        >
-                          加入購物車
-                        </th>
-                        <th
-                          scope="col-1"
-                          className="align-middle member-product-article-product-delete"
-                        >
-                          刪除
-                        </th>
-                      </tr>
-                    </thead>
-                    {dataProduct.map((items, i) => (
-                      <tbody key={i}>
-                        <tr>
-                          <td
-                            scope="row"
-                            className="member-product-article-product-picture-img-wrapper"
-                          >
-                            <div className="member-product-article-product-picture-img-box">
-                              <img
-                                src={`${IMAGE_URL}/img/product-img/${items.product_pic}`}
-                                alt=""
-                                className="member-product-article-product-picture-img"
-                              />
-                            </div>
-                          </td>
-                          <td scope="row" className="align-middle">
-                            {items.product_name}
-                          </td>
-                          <td scope="row" className="align-middle">
-                            {items.product_size}
-                          </td>
-                          <td scope="row" className="align-middle">
-                            {items.product_price}
-                          </td>
-                          <td scope="row" className="align-middle">
-                            <Link to="">
-                              <Cart size={20} />
-                            </Link>
-                          </td>
-                          <td scope="row" className="align-middle">
-                            <Link to="">
-                              <BsTrash size={20} />
-                            </Link>
-                          </td>
-                        </tr>
-                      </tbody>
-                    ))}
-                  </table>
-                  {/* <!-- 分頁 start  --> */}
-                  {pages_btn}
-                  {/* <!-- 分頁 end  --> */}
-                  {/* <!-- product table end--> */}
-                </div>
+                <MemberHeartProducts />
                 <MemberHeartArticle></MemberHeartArticle>
               </div>
             </div>
