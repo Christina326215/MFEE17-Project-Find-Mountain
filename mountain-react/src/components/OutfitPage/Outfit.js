@@ -4,6 +4,7 @@ import '../../styles/outfit.css';
 import { outfitURL, IMAGE_URL } from '../../utils/config';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import { Modal, Button, Row, Col } from 'react-bootstrap';
+import { useAuth } from '../../context/auth'; // 取得setCartChange狀態
 
 //=== package start===
 import $ from 'jquery';
@@ -18,6 +19,7 @@ import SelectProduct from './SelectProduct';
 import OutfitProductSliderL from './OutfitProductSliderL';
 import OutfitProductSliderM from './OutfitProductSliderM';
 import OutfitProductSliderH from './OutfitProductSliderH';
+import OutfitProductModal from './OutfitProductModal';
 //=== components end===
 
 // ===icon start===
@@ -36,6 +38,7 @@ import clothesPic3Removebg from '../../img/img-outfit/clothes-pic3-removebg-prev
 //===import img end===
 
 function Outfit(props) {
+  const { setCartChange } = useAuth(); //navbar 改變購物車狀態
   const [listData, setListData] = useState([]);
   const [outfitProducts, setOutfitProducts] = useState([]);
   const [productLocal, setProdcutLocal] = useState([]);
@@ -43,6 +46,33 @@ function Outfit(props) {
   const [cartNum, setCartNum] = useState(1);
   const [cartSize, setCartSize] = useState('');
   const [cartPrice, setCartPrice] = useState(0);
+  const [productOrder, setProductOrder] = useState([]);
+  const [productOrderNew, setProductOrderNew] = useState([]);
+  console.log('productOrder', productOrder);
+  // var outfitOrderArray = [];
+  useEffect(() => {
+    // outfitOrderArray.push(productOrder);
+    // console.log('outfitOrderArray', outfitOrderArray);
+    setProductOrderNew([...productOrderNew, productOrder]);
+  }, [productOrder]);
+  console.log('productOrderNew', productOrderNew);
+
+  // const handleChange = (e) => {
+  //   const value = e.target.value;
+  //   // 如果目前在這狀態陣列 -> 移出
+  //   if (checkedValueList.includes(value)) {
+  //     // 1. 先從狀態陣列拷貝出新陣列
+  //     // 2. 在拷貝的新陣列上處理
+  //     const newLikeList = checkedValueList.filter((v, i) => {
+  //       return v !== value;
+  //     });
+  //     // 3. 設定回狀態陣列
+  //     return setCheckedValueList(newLikeList);
+  //   }
+  //   // 如果沒在這狀態陣列中 -> 加入
+  //   setCheckedValueList([...checkedValueList, value]);
+  // };
+
   // let price = productLocal[0].productPrice;
   // console.log('price', price);
 
@@ -200,18 +230,14 @@ function Outfit(props) {
           // ./img/img-outfit/clothes-pic1-removebg-preview.png
           let productName = document.getElementById(selectedImgs[i]).dataset
             .productname;
-          // console.log('productName',productName);
-          // Arcteryx 始祖鳥 單件式GORE-TEX化纖保暖外套
           let productPrice = document.getElementById(selectedImgs[i]).dataset
             .price;
           let productType = document.getElementById(selectedImgs[i]).dataset
             .type;
-          // console.log('productPrice',productPrice); //5000
           // let product_records = new Array();
           let product_records = localStorage.getItem('products')
             ? JSON.parse(localStorage.getItem('products'))
             : [];
-          // console.log('product_records', product_records);
           if (
             product_records.some((v) => {
               return v.productName == productName;
@@ -227,6 +253,26 @@ function Outfit(props) {
               productType: productType,
             });
             localStorage.setItem('products', JSON.stringify(product_records));
+          }
+          let ProductOrderDetail = localStorage.getItem('ProductOrderDetail')
+            ? JSON.parse(localStorage.getItem('ProductOrderDetail'))
+            : [];
+          if (
+            ProductOrderDetail.some((v) => {
+              return v.id == productId;
+            })
+          ) {
+            console.log('duplicate data');
+          } else {
+            ProductOrderDetail.push({
+              id: productId,
+              size: 'F',
+              num: 1,
+            });
+            localStorage.setItem(
+              'ProductOrderDetail',
+              JSON.stringify(ProductOrderDetail)
+            );
           }
         }
         showSelectedData();
@@ -260,6 +306,7 @@ function Outfit(props) {
           }
         }
         setProdcutLocal(product_records);
+        setCartChange(true);
       }
       var images = document.querySelectorAll('.outfit-product-img img');
       [].forEach.call(images, function (img) {
@@ -298,64 +345,62 @@ function Outfit(props) {
     handleShow();
   };
   const addCart = () => {
-    const newProductOrder = JSON.parse(
-      localStorage.getItem('ProductOrderDetail') || '[]'
-    );
-    // let modalId = document.getElementById('modalId').value;
-    // console.log('modalId', modalId);
-    // let modalIds = [];
-    // modalIds.push(modalId);
-    // console.log('modalIds', modalIds);
+    // const newProductOrder = JSON.parse(
+    //   localStorage.getItem('ProductOrderDetail') || '[]'
+    // );
+    let modalId = document.getElementById('modalId').value;
+    console.log('modalId', modalId);
+    // console.log('cartSize', cartSize);
+    // if (cartSize === '') {
+    //   console.log('choose size plz');
+    //   Swal.fire({
+    //     icon: 'error',
+    //     title: '請先選擇尺寸',
+    //     showConfirmButton: false,
+    //     timer: 1500,
+    //   });
+    //   return;
+    // }
+    // else {
+    //   console.log('cartSize', cartSize);
+    //   console.log('cartNum', cartNum);
 
-    if (cartSize === '') {
-      console.log('choose size plz');
-      Swal.fire({
-        icon: 'error',
-        title: '請先選擇尺寸',
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      return;
-    } else {
-      console.log('cartSize', cartSize);
-      console.log('cartNum', cartNum);
-
-      //為了符合local storage格式 字串 字串 數字
-      let orderDetail = {
-        // id: productId.toString(),
-        size: cartSize,
-        num: parseInt(cartNum),
-      };
-      // //localstorage for order detail start//
-      // //確認local storage裡面有無相同id size的資料
-      // const index = newProductOrder.findIndex(
-      //   (v) => v.id === orderDetail.id && v.size === orderDetail.size
-      // );
-      // console.log('index', index);
-      // console.log('orderDetail', orderDetail);
-      // console.log('newProductOrder', newProductOrder);
-      // if (index > -1) {
-      //   //改變同款項訂購數量
-      //   newProductOrder[index].num += orderDetail.num;
-      //   localStorage.setItem(
-      //     'ProductOrderDetail',
-      //     JSON.stringify(newProductOrder)
-      //   );
-      //   console.log('這個商品已經加過了');
-      //   // return;
-      // } else {
-      //   newProductOrder.push(orderDetail);
-      //   localStorage.setItem(
-      //     'ProductOrderDetail',
-      //     JSON.stringify(newProductOrder)
-      //   );
-      //   console.log('哎呦還沒喔');
-      // }
-      // //更新localstorage資料cartLocal
-      // // getCartFromLocalStorage();
-      // setCardCartLocal(newProductOrder);
-      // //localstorage for order detail end//
-    }
+    //為了符合local storage格式 字串 字串 數字
+    // let orderDetail = {
+    // id: productId.toString(),
+    //   size: cartSize,
+    //   num: parseInt(cartNum),
+    // };
+    // //localstorage for order detail start//
+    // //確認local storage裡面有無相同id size的資料
+    // const index = newProductOrder.findIndex(
+    //   (v) => v.id === orderDetail.id && v.size === orderDetail.size
+    // );
+    // console.log('index', index);
+    // console.log('orderDetail', orderDetail);
+    // console.log('newProductOrder', newProductOrder);
+    // if (index > -1) {
+    //   //改變同款項訂購數量
+    //   newProductOrder[index].num += orderDetail.num;
+    //   localStorage.setItem(
+    //     'ProductOrderDetail',
+    //     JSON.stringify(newProductOrder)
+    //   );
+    //   console.log('這個商品已經加過了');
+    //   // return;
+    // } else {
+    //   newProductOrder.push(orderDetail);
+    //   localStorage.setItem(
+    //     'ProductOrderDetail',
+    //     JSON.stringify(newProductOrder)
+    //   );
+    //   console.log('哎呦還沒喔');
+    // }
+    // //更新localstorage資料cartLocal
+    // // getCartFromLocalStorage();
+    // setCardCartLocal(newProductOrder);
+    // //localstorage for order detail end//
+    // }
     // Swal.fire({
     //   icon: 'success',
     //   title: '已加入購物車',
@@ -399,95 +444,19 @@ function Outfit(props) {
         <Modal.Body>
           {productLocal.map((product, i) => {
             return (
-              <Row>
-                <Col xs={12} md={6} key={i}>
-                  <input
-                    type="hidden"
-                    id="modalId"
-                    value={product.productId}
-                  ></input>
-                  <img
-                    className="shopmain-cover-fit shadow-sm bg-white rounded"
-                    src={product.productPicUrl}
-                    alt={product.productName}
-                    title={product.productName}
-                  />
-                </Col>
-                <Col xs={6} md={6}>
-                  <div className="input-group mb-3">
-                    <div className="input-group-prepend">
-                      <span
-                        className="input-group-text"
-                        id="inputGroup-sizing-default"
-                      >
-                        數量
-                      </span>
-                    </div>
-                    {/* FIXME:記得寫判斷和提示訊息 數量不能多於10小於1 */}
-                    <input
-                      type="number"
-                      className="form-control"
-                      aria-label="Default"
-                      aria-describedby="inputGroup-sizing-default"
-                      value={cartNum}
-                      name="cartnum"
-                      min="1"
-                      max="10"
-                      //防止使用者亂key數字
-                      onKeyDown={(e) => {
-                        e.preventDefault();
-                      }}
-                      onChange={(e) => {
-                        setCartNum(e.target.value);
-                      }}
-                    />
-                  </div>
-
-                  <div className="input-group mb-3">
-                    <div className="input-group-prepend">
-                      <label className="input-group-text">尺寸</label>
-                    </div>
-                    {product.productType === '2' ? (
-                      <select
-                        className="custom-select"
-                        name="size"
-                        value={cartSize}
-                        onChange={(e) => {
-                          setCartSize(e.target.value);
-                        }}
-                      >
-                        <option value="">請選擇尺寸</option>
-                        <option value="F">F</option>
-                      </select>
-                    ) : (
-                      <select
-                        className="custom-select"
-                        name="size"
-                        value={cartSize}
-                        onChange={(e) => {
-                          setCartSize(e.target.value);
-                        }}
-                      >
-                        <option value="">請選擇尺寸</option>
-                        <option value="S">S</option>
-                        <option value="M">M</option>
-                        <option value="L">L</option>
-                      </select>
-                    )}
-                  </div>
-                  <Row className="my-3">
-                    <Col xs={6} md={6}>
-                      總價：
-                    </Col>
-                    <Col xs={6} md={6}>
-                      <div className="text-right">
-                        {/* NT$ {cartPrice.toLocaleString()} */}
-                        {/* NT$ {product.productPrice.toLocaleString()} */}
-                      </div>
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
+              <OutfitProductModal
+                productId={product.productId}
+                // brand={product.product_brand}
+                name={product.productName}
+                price={product.productPrice}
+                picture={product.productPicUrl}
+                type={product.productType}
+                key={product.productId}
+                show={show}
+                setShow={setShow}
+                productOrder={productOrder}
+                setProductOrder={setProductOrder}
+              />
             );
           })}
         </Modal.Body>
@@ -583,7 +552,7 @@ function Outfit(props) {
                   </p>
                 </div>
                 <div id="newItems">
-                  {/* 要用js innerHTML的內容 */}
+                  {/* 要用js innerHTML的內容 start*/}
                   {/* <div class="newItem">
                     <div style={{ width: '100px' }}>
                       <img class="cover-fit" src={clothesPic1Removebg} alt="" />
@@ -591,9 +560,19 @@ function Outfit(props) {
                     <div style={{ width: '60%' }}>
                       SALOMON EVASION GORE-TEX登山健行鞋
                     </div>
+                    <div>
+                      <select>
+                        <option value="">請選擇尺寸</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                      </select>
+                      <Option />
+                    </div>
                     <div style={{ width: '80px' }}>NT$ 1000</div>
                     <div style={{ width: '60px' }}>Ｘ１</div>
                   </div> */}
+                  {/* 要用js innerHTML的內容 end*/}
                 </div>
               </div>
               {/* 訂購單 end */}

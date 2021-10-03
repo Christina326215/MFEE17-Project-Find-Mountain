@@ -5,7 +5,7 @@ import $ from 'jquery';
 import '../../styles/MemberPage/MemberComment.scss'; //member comment style
 import { useAuth } from '../../context/auth'; // 取得會員資料
 
-import { memberCommentURL, IMAGE_URL } from '../../utils/config';
+import { memberCommentURL, IMAGE_URL, authURL } from '../../utils/config';
 import axios from 'axios';
 
 //====== below pages star ======//
@@ -19,7 +19,7 @@ import { FcApproval, FcVlc } from 'react-icons/fc';
 //====== below icon end ======//
 
 function MemberComment() {
-  const { member, page, setPage, totalPage, setTotalPage } = useAuth(); // 取得會員資料
+  const { member, page, setPage, totalPage, setTotalPage, setAuth } = useAuth(); // 取得會員資料
   const [data, setData] = useState([]);
 
   // 分頁屬性
@@ -55,6 +55,16 @@ function MemberComment() {
     }
     getCommentData();
   }, [page, member]);
+
+  //====== 登出 start ======//
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    await axios.get(authURL + '/logout', {
+      withCredentials: true,
+    });
+    setAuth(false);
+  };
+  //====== 登出 end ======//
 
   return (
     <>
@@ -118,9 +128,12 @@ function MemberComment() {
                 </tr>
                 <tr>
                   <td scope="row" className="text-center">
-                    <Link to="" className="member-left-href-color">
+                    <button
+                      onClick={handleLogout}
+                      className="member-left-href-color btn border-0 p-0"
+                    >
                       登出
-                    </Link>
+                    </button>
                   </td>
                 </tr>
               </tbody>
@@ -143,6 +156,7 @@ function MemberComment() {
                   <th
                     scope="col-4 col-md-3"
                     className="member-comment-text-weight-bold align-moddle"
+                    style={{ width: '110px' }}
                   >
                     評論文章
                   </th>
@@ -162,38 +176,41 @@ function MemberComment() {
               </thead>
               {/* FIXME:三元運算子，如果沒資料的話，顯示沒資料 */}
               {/* {data == null ? ():} */}
-              {data.map((items) => (
-                <tbody key={items.id}>
-                  <tr>
-                    <td
-                      scope="row"
-                      className="member-comment-picture-img-wrapper"
-                    >
-                      <div className="member-comment-picture-img-box">
-                        <img
-                          src={`${IMAGE_URL}/img/comment-img/${items.pic}`}
-                          alt=""
-                          className="member-comment-picture-img"
-                        />
-                      </div>
-                    </td>
-                    <td
-                      scope="row"
-                      className="member-comment-text-weight align-middle"
-                    >
-                      {items.article_name}
-                    </td>
-                    <td
-                      scope="row"
-                      className="member-comment-text-weight align-middle"
-                    >
-                      {items.content}
-                    </td>
-                    <td
-                      scope="row"
-                      className="member-comment-text-weight align-middle"
-                    >
-                      {/* {items.dislike_status === 2 ? (
+              {data.length > 0 && data !== '[]' ? (
+                <tbody>
+                  {data.map((items) => (
+                    <tr>
+                      <td
+                        key={items.id}
+                        scope="row"
+                        className="member-comment-picture-img-wrapper"
+                      >
+                        <div className="member-comment-picture-img-box">
+                          <img
+                            src={`${IMAGE_URL}/img/comment-img/${items.pic}`}
+                            alt=""
+                            className="member-comment-picture-img"
+                          />
+                        </div>
+                      </td>
+                      <td
+                        scope="row"
+                        className="member-comment-text-weight align-middle"
+                      >
+                        {items.article_name}
+                      </td>
+                      <td
+                        scope="row"
+                        className="member-comment-text-weight align-middle"
+                      >
+                        {items.content}
+                      </td>
+                      <td
+                        scope="row"
+                        className="member-comment-text-weight align-middle"
+                        style={{ width: '70px' }}
+                      >
+                        {/* {items.dislike_status === 2 ? (
                         <FcApproval size={20} />
                       ) : items.dislike_status === 3 ? (
                         <FcVlc size={20} />
@@ -203,38 +220,51 @@ function MemberComment() {
                           size={20}
                         />
                       )} */}
-                      <div className="d-flex flex-wrap justify-content-center">
-                        {items.dislike_status === 2 ? (
-                          <FcApproval size={24} />
-                        ) : items.dislike_status === 3 ? (
-                          <FcVlc size={24} />
-                        ) : (
-                          <BsExclamationTriangleFill
-                            className="member-comment-warning-icon"
-                            size={24}
-                          />
-                        )}
-                        {items.dislike_status === 2 ? (
-                          <span className="member-comment-status">
-                            評論通過
-                          </span>
-                        ) : items.dislike_status === 3 ? (
-                          <span className="member-comment-status">
-                            被檢舉審核中
-                          </span>
-                        ) : (
-                          <span className="member-comment-status">
-                            評論不通過
-                          </span>
-                        )}
-                      </div>
+                        <div className="d-flex flex-wrap justify-content-center">
+                          {items.dislike_status === 2 ? (
+                            <FcApproval size={24} />
+                          ) : items.dislike_status === 3 ? (
+                            <FcVlc size={24} />
+                          ) : (
+                            <BsExclamationTriangleFill
+                              className="member-comment-warning-icon"
+                              size={24}
+                            />
+                          )}
+                          {items.dislike_status === 2 ? (
+                            <span className="member-comment-status">
+                              評論通過
+                            </span>
+                          ) : items.dislike_status === 3 ? (
+                            <span className="member-comment-status">
+                              被檢舉審核中
+                            </span>
+                          ) : (
+                            <span className="member-comment-status">
+                              評論不通過
+                            </span>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              ) : (
+                <tbody>
+                  {/* <tr className="d-flex member-nocomment-box text-center justify-content-center align-items-center">
+                    <p className="p-0">目前尚未新增評論</p>
+                  </tr> */}
+                  <tr>
+                    <td colspan="4" className="member-nocomment-box">
+                      <p className="nocomment">目前尚未新增評論</p>
                     </td>
                   </tr>
                 </tbody>
-              ))}
+              )}
             </table>
             {/* <!-- 分頁 start  --> */}
-            <PagesBtn />
+            {data.length > 0 && data !== '[]' ? <PagesBtn /> : <div></div>}
+
             {/* <!-- 分頁 end  --> */}
           </div>
           {/* <!-- manage-right-side end--> */}

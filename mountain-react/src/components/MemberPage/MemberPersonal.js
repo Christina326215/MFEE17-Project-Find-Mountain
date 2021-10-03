@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'; //可以獲取history,location,ma
 import $ from 'jquery';
 import '../../styles/MemberPage/MemberPersonal.scss'; //member product and article style
 import { useAuth } from '../../context/auth';
-import { zipCodeURL } from '../../utils/config';
+import { zipCodeURL, authURL } from '../../utils/config';
 import axios from 'axios';
 
 //====== below pages star ======//
@@ -13,7 +13,7 @@ import MemberSideHead from './pages/MemberSideHead'; //member Side Head
 
 function MemberPersonal(props) {
   // 把 member 從 useContext中拿出來
-  const { member } = useAuth();
+  const { member, setAuth } = useAuth();
   const [zipCode, setZipCode] = useState(null);
   const { show, setShow } = props;
   const handleShow = () => setShow(true);
@@ -32,6 +32,17 @@ function MemberPersonal(props) {
     }
     getZipCode();
   }, []);
+
+  //====== 登出 start ======//
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    await axios.get(authURL + '/logout', {
+      withCredentials: true,
+    });
+    setAuth(false);
+  };
+  //====== 登出 end ======//
+
   return (
     <>
       <div className="container">
@@ -94,9 +105,12 @@ function MemberPersonal(props) {
                 </tr>
                 <tr>
                   <td scope="row" className="text-center">
-                    <Link to="" className="member-left-href-color">
+                    <button
+                      onClick={handleLogout}
+                      className="member-left-href-color btn border-0 p-0"
+                    >
                       登出
-                    </Link>
+                    </button>
                   </td>
                 </tr>
               </tbody>

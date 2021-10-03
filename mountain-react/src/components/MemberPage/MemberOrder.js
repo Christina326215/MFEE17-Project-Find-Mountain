@@ -4,7 +4,12 @@ import { withRouter } from 'react-router-dom'; //可以獲取history,location,ma
 import $ from 'jquery';
 import Swal from 'sweetalert2';
 import '../../styles/MemberPage/MemberOrder.scss'; //member map and route style
-import { memberOrderURL, IMAGE_URL, zipCodeURL } from '../../utils/config';
+import {
+  memberOrderURL,
+  IMAGE_URL,
+  authURL,
+  zipCodeURL,
+} from '../../utils/config';
 import axios from 'axios';
 
 //====== below pages star ======//
@@ -15,11 +20,16 @@ import MemberSideHead from './pages/MemberSideHead'; //member Side Head
 import { BsTrash } from 'react-icons/bs';
 //====== below icon end ======//
 
+//====== below catch member info star ======//
+import { useAuth } from '../../context/auth';
+//====== above catch member info end ======//
+
 function MemberOrder() {
   const [zipCode, setZipCode] = useState(null);
   const [overAllData, setOverAllData] = useState([]);
   const [detailDatas, setDetailDatas] = useState([]);
   const [productDatas, setProductDatas] = useState([]);
+  const { setAuth } = useAuth();
 
   useEffect(() => {
     // 從靜態檔案抓資料
@@ -68,6 +78,17 @@ function MemberOrder() {
       });
     }
   }, []);
+
+  //====== 登出 start ======//
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    await axios.get(authURL + '/logout', {
+      withCredentials: true,
+    });
+    setAuth(false);
+  };
+  //====== 登出 end ======//
+
   return (
     <>
       <div className="container">
@@ -130,9 +151,12 @@ function MemberOrder() {
                 </tr>
                 <tr>
                   <td scope="row" className="text-center">
-                    <Link to="" className="member-left-href-color">
+                    <button
+                      onClick={handleLogout}
+                      className="member-left-href-color btn border-0 p-0"
+                    >
                       登出
-                    </Link>
+                    </button>
                   </td>
                 </tr>
               </tbody>

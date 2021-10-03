@@ -6,7 +6,7 @@ import $ from 'jquery';
 import '../../styles/MemberPage/MemberProductArticle.scss'; //member product and article style
 import MemberHeartArticle from './MemberHeartArticle';
 
-import { memberProductURL, IMAGE_URL } from '../../utils/config';
+import { memberProductURL, IMAGE_URL, authURL } from '../../utils/config';
 import axios from 'axios';
 
 //====== below pages star ======//
@@ -19,7 +19,12 @@ import { BsTrash, BsStar, BsStarFill, BsXSquareFill } from 'react-icons/bs';
 import { Cart } from 'react-bootstrap-icons';
 //====== below icon end ======//
 
+//====== below catch member info star ======//
+import { useAuth } from '../../context/auth';
+//====== above catch member info end ======//
+
 function MemberProductArticle() {
+  const { setAuth } = useAuth();
   const [dataProduct, setProductData] = useState([]);
 
   useEffect(() => {
@@ -75,6 +80,17 @@ function MemberProductArticle() {
       // console.log(num);
     });
   }, []);
+
+  //====== 登出 start ======//
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    await axios.get(authURL + '/logout', {
+      withCredentials: true,
+    });
+    setAuth(false);
+  };
+  //====== 登出 end ======//
+
   return (
     <>
       <div className="container">
@@ -137,9 +153,12 @@ function MemberProductArticle() {
                 </tr>
                 <tr>
                   <td scope="row" className="text-center">
-                    <Link to="" className="member-left-href-color">
+                    <button
+                      onClick={handleLogout}
+                      className="member-left-href-color btn border-0 p-0"
+                    >
                       登出
-                    </Link>
+                    </button>
                   </td>
                 </tr>
               </tbody>
