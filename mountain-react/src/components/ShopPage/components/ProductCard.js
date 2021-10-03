@@ -41,7 +41,7 @@ function ProductCard(props) {
       return;
     }
     if (member !== null) {
-      console.log('productId, memberId', productId, member.id);
+      // console.log('productId, memberId', productId, member.id);
       if (heart === true) {
         //取消收藏 productId 為 number
         // console.log('收藏中');
@@ -188,9 +188,6 @@ function ProductCard(props) {
       timer: 1500,
     });
     setCartChange(true);
-    // setTimeout(() => {
-    //   window.location.reload(false);
-    // }, 1500);
     handleClose();
   };
   //一進畫面先讀取local storage
