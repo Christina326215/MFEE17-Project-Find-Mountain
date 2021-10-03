@@ -1,24 +1,17 @@
 /* eslint-disable jsx-a11y/scope */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
-import $ from 'jquery';
 import '../../styles/MemberPage/MemberProductArticle.scss'; //member product and article style
 import MemberHeartArticle from './MemberHeartArticle';
 import MemberHeartProducts from './MemberHeartProducts';
 
-import { memberProductURL, IMAGE_URL, authURL } from '../../utils/config';
+import { authURL } from '../../utils/config';
 import axios from 'axios';
 
 //====== below pages star ======//
-import { pages_btn } from '../MapPage/pages/PagesBtn'; //分頁按鈕
 import MemberSideHead from './pages/MemberSideHead'; //member Side Head
 //====== below pages end ======//
-
-//====== below icon star ======//
-import { BsXSquareFill } from 'react-icons/bs';
-import { Cart } from 'react-bootstrap-icons';
-//====== below icon end ======//
 
 //====== below catch member info star ======//
 import { useAuth } from '../../context/auth';
