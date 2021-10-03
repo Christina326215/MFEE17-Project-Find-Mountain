@@ -7,4 +7,16 @@ router.post("/", async function(req, res, next) {
   res.json(dbResults);
 })
 
+
+//remove from wish list
+router.post("/remove-favorite", async function(req, res, next) {
+  let toDelete = {
+    user_id: req.body.member.id,
+    product_id: req.body.id
+  }
+  let dbResults = await connection.queryAsync("DELETE FROM user_product WHERE user_id=? AND product_id=?", [toDelete.user_id, toDelete.product_id]);
+  // console.log('req.body.member.id, req.body.id', req.body.member.id, req.body.id)
+  res.json(dbResults);
+})
+
 module.exports = router;
