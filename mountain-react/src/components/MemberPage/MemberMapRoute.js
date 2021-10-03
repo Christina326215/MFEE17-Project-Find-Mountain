@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
-// import $ from 'jquery';
 import '../../styles/MemberPage/MemberMapRoute.scss'; //member map and route style
 
 //====== below catch member info star ======//
 import { useAuth } from '../../context/auth';
-//====== below catch member info end ======//
+//====== above catch member info end ======//
 
 //====== below api connect tool star ======//
-import { memberRouteURL, IMAGE_URL } from '../../utils/config';
+import { memberRouteURL, IMAGE_URL, authURL } from '../../utils/config';
 import axios from 'axios';
 //====== above api connect tool end ======//
 
@@ -32,7 +31,7 @@ import { BsStarFill } from 'react-icons/bs';
 //====== above img import end ======//
 
 function MemberMapRoute() {
-  const { member } = useAuth(); //把 member 從 useContext中拿出來
+  const { member, setAuth } = useAuth(); //把 member 從 useContext中拿出來
   //=== 彈跳視窗開關 star ===//
   const [show, setShow] = useState(false);
   //=== 彈跳視窗開關 end ===//
@@ -103,6 +102,16 @@ function MemberMapRoute() {
     }
   }, [show, member, star]);
 
+  //====== 登出 start ======//
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    await axios.get(authURL + '/logout', {
+      withCredentials: true,
+    });
+    setAuth(false);
+  };
+  //====== 登出 end ======//
+
   return (
     <>
       <div className="container">
@@ -165,9 +174,12 @@ function MemberMapRoute() {
                 </tr>
                 <tr>
                   <td scope="row" className="text-center">
-                    <Link to="" className="member-left-href-color">
+                    <button
+                      onClick={handleLogout}
+                      className="member-left-href-color btn border-0 p-0"
+                    >
                       登出
-                    </Link>
+                    </button>
                   </td>
                 </tr>
               </tbody>

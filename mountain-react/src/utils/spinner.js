@@ -2,12 +2,11 @@
 export const spinner = (
   <>
     <div
-      className="d-flex justify-content-center align-items-center"
+      className="d-flex flex-column justify-content-center align-items-center"
       style={{ height: '500px' }}
     >
-      <div className="spinner-border text-success" role="status">
-        <span className="sr-only">Loading...</span>
-      </div>
+      <div className="spinner-border text-success" role="status"></div>
+      <span>Loading...</span>
     </div>
   </>
 );

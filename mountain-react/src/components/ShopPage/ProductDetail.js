@@ -13,7 +13,7 @@ import shop from '../../img/product-img/illustration/shop.svg';
 import bearbear from '../../img/product-img/illustration/bearbear.png';
 
 function ProductDetail(props) {
-  const { setCartChange } = useAuth(); // 取得購物車數字狀態
+  const { setCartChange, auth, member } = useAuth(); // 取得購物車數字狀態 會員登入狀態
   const [productData, setProductData] = useState([]);
   const [historyData, setHistoryData] = useState([]);
   const [orderNum, setOrderNum] = useState(1);
@@ -148,12 +148,12 @@ function ProductDetail(props) {
       //改變同款項訂購數量
       orderInfo[index].num += orderNum;
       localStorage.setItem('ProductOrderDetail', JSON.stringify(orderInfo));
-      console.log('這個商品已經加過了');
+      // console.log('這個商品已經加過了');
       // return;
     } else {
       orderInfo.push(orderDetail);
       localStorage.setItem('ProductOrderDetail', JSON.stringify(orderInfo));
-      console.log('哎呦還沒喔');
+      // console.log('哎呦還沒喔');
     }
     //localstorage for order detail end//
     Swal.fire({
@@ -168,14 +168,108 @@ function ProductDetail(props) {
   const showMemberBubble = () => {
     $('.productdetail-about-membership-bubble').toggle('display');
   };
-
-  //FIXME:待整理
-  useEffect(() => {
-    //like-icon
-    $('.productdetail-like-btn').on('click', function () {
-      $(this).toggleClass('productdetail-active');
+  const addToWishList = () => {
+    if (auth === false) {
+      Swal.fire({
+        icon: 'error',
+        title: '需要先登入才能加入收藏',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    }
+    // console.log('product id, member id', id, member.id);
+    //用class來判斷是否有收藏
+    let isFavorite = $('.productdetail-like-btn').hasClass(
+      'productdetail-active'
+    );
+    // console.log('isFavorite', isFavorite);
+    if (isFavorite) {
+      //要取消收藏
+      removeWishList();
+    } else {
+      //要加入收藏
+      addWishList();
+    }
+  };
+  //remove from wish-list
+  const removeWishList = async () => {
+    try {
+      // console.log('remove product id, member id', id, member.id);
+      await axios.post(`${shopURL}/remove-wish`, {
+        member,
+        id,
+      });
+      $('.productdetail-like-btn').removeClass('productdetail-active');
+    } catch (e) {
+      console.log(e);
+    }
+    Swal.fire({
+      icon: 'error',
+      title: '已移除收藏商品',
+      showConfirmButton: false,
+      timer: 1500,
     });
-  }, []);
+  };
+  const addWishList = async () => {
+    try {
+      // console.log('add product id, member id', id, member.id);
+      await axios.post(`${shopURL}/add-wish`, {
+        member,
+        id,
+      });
+      $('.productdetail-like-btn').addClass('productdetail-active');
+    } catch (e) {
+      console.log(e);
+    }
+    Swal.fire({
+      icon: 'success',
+      title: '已加入收藏',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  };
+
+  //get wish-list api
+  useEffect(() => {
+    async function getWishList() {
+      // console.log('auth, member', auth, member);
+      if (auth === false) {
+        // console.log('尚未登入');
+        $('.productdetail-like-btn').removeClass('productdetail-active');
+        return;
+      }
+      try {
+        if (member !== null) {
+          const wishListData = await axios.post(`${shopURL}/wish-list`, {
+            member,
+          });
+          // console.log('wishListData', wishListData.data);
+          // product_id:number id:string
+          const wishIndex = wishListData.data.findIndex(
+            (v) => v.product_id === parseInt(id)
+          );
+          if (wishIndex > -1) {
+            // console.log('有收藏喔');
+            $('.productdetail-like-btn').addClass('productdetail-active');
+          } else {
+            // console.log('還沒收藏喔');
+            $('.productdetail-like-btn').removeClass('productdetail-active');
+          }
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getWishList();
+  }, [member, id, auth]);
+  //FIXME:待整理
+  // useEffect(() => {
+  //   //like-icon
+  //   $('.productdetail-like-btn').on('click', function () {
+  //     $(this).toggleClass('productdetail-active');
+  //   });
+  // }, []);
   return (
     <>
       <main>
@@ -337,7 +431,10 @@ function ProductDetail(props) {
                   position-relative
                 "
                 >
-                  <button className="productdetail-like-btn mx-1">
+                  <button
+                    className="productdetail-like-btn mx-1"
+                    onClick={addToWishList}
+                  >
                     <HeartFill className="mb-2" />
                   </button>
                   <button
