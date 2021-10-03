@@ -4,8 +4,12 @@ import { withRouter } from 'react-router-dom'; //可以獲取history,location,ma
 import $ from 'jquery';
 import Swal from 'sweetalert2';
 import '../../styles/MemberPage/MemberOrder.scss'; //member map and route style
-
-import { memberOrderURL, IMAGE_URL, authURL } from '../../utils/config';
+import {
+  memberOrderURL,
+  IMAGE_URL,
+  authURL,
+  zipCodeURL,
+} from '../../utils/config';
 import axios from 'axios';
 
 //====== below pages star ======//
@@ -21,29 +25,39 @@ import { useAuth } from '../../context/auth';
 //====== above catch member info end ======//
 
 function MemberOrder() {
+  const [zipCode, setZipCode] = useState(null);
+  const [overAllData, setOverAllData] = useState([]);
+  const [detailDatas, setDetailDatas] = useState([]);
+  const [productDatas, setProductDatas] = useState([]);
   const { setAuth } = useAuth();
-  const [orderDetail, setOrderDetail] = useState([]);
-  const [info, setInfo] = useState([]);
-  // const [totalPrice, setTotalPrice] = useState([]);
-  // const [totalTime, setTotalTime] = useState([]);
-  // const [totalNumber, setTotalNumber] = useState([]);
 
   useEffect(() => {
-    async function getOrderDetail() {
+    // 從靜態檔案抓資料
+    async function getZipCode() {
       try {
-        const orderDetailData = await axios.get(memberOrderURL, {
+        const zipCodeRes = await axios.get(zipCodeURL, {
           withCredentials: true,
         });
-        // console.log(orderDetailData.data); //for check
-        setOrderDetail(orderDetailData.data.result);
-        setInfo(orderDetailData.data.totalInfo);
-
-        // console.log(orderDetailData.data.totalPrice);
+        setZipCode(zipCodeRes.data);
       } catch (e) {
         console.log(e);
       }
     }
-    getOrderDetail();
+    getZipCode();
+    async function getOrders() {
+      try {
+        const OrderDatas = await axios.get(`${memberOrderURL}/order-product`, {
+          withCredentials: true,
+        });
+        // console.log('product:', OrderDatas.data.datas[0].details);
+        setOverAllData(OrderDatas.data.totalInfo);
+        setDetailDatas(OrderDatas.data.datas);
+        setProductDatas(OrderDatas.data.datas[0].details);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getOrders();
 
     // 切換區域tab-switch
     let menu = document.querySelectorAll('#menu');
@@ -201,7 +215,7 @@ function MemberOrder() {
                           scope="row"
                           className="member-comment-text-weight-top"
                         >
-                          {info.number}
+                          {overAllData.number}
                         </td>
                       </tr>
                       <tr>
@@ -215,7 +229,7 @@ function MemberOrder() {
                           scope="row"
                           className="member-comment-text-weight-top"
                         >
-                          {info.time}
+                          {overAllData.time}
                         </td>
                       </tr>
                       <tr>
@@ -230,7 +244,7 @@ function MemberOrder() {
                           scope="row"
                           className="member-comment-text-weight-top"
                         >
-                          ${info.price}
+                          NT$ {parseInt(overAllData.price).toLocaleString()}
                         </td>
                       </tr>
                       <tr>
@@ -244,41 +258,7 @@ function MemberOrder() {
                           scope="row"
                           className="member-comment-text-weight-top"
                         >
-                          <div className="progress_bar_inline_block">
-                            {/* <!-- class change to current "step-2" --> */}
-                            <div
-                              className="step-1"
-                              id="member_order_checkout-progress"
-                              data-current-step="1"
-                            >
-                              <div className="member_order_progress-bar1">
-                                {/* <!-- "active" change to "valid" --> */}
-                                <div className="member_order_step step-1 member_order_active">
-                                  <span></span>
-                                  {/* <!-- "opaque" change to "" --> */}
-                                  <div className="member_order_fa member_order_fa-check member_order_opaque"></div>
-                                  <div className="member_order_step-label">
-                                    未處理
-                                  </div>
-                                </div>
-                                {/* <!-- add class "active" --> */}
-                                <div className="member_order_step member_order_step-2">
-                                  <span></span>
-                                  <div className="member_order_fa member_order_fa-check member_order_opaque"></div>
-                                  <div className="member_order_step-label">
-                                    處理中
-                                  </div>
-                                </div>
-                                <div className="member_order_step member_order_step-3">
-                                  <span></span>
-                                  <div className="member_order_fa member_order_fa-check member_order_opaque"></div>
-                                  <div className="member_order_step-label">
-                                    已完成
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                          {overAllData.status}
                         </td>
                       </tr>
                     </tbody>
@@ -333,15 +313,9 @@ function MemberOrder() {
                           >
                             小計
                           </th>
-                          <th
-                            scope="col col-md-1"
-                            className="member-comment-text-weight-top align-middle member-comment-product-delete"
-                          >
-                            刪除
-                          </th>
                         </tr>
                       </thead>
-                      {orderDetail.map((items, i) => (
+                      {productDatas.map((items, i) => (
                         <tbody className="tbody-tr-border">
                           <tr>
                             <td
@@ -366,33 +340,29 @@ function MemberOrder() {
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              <span>{items.user_order_size}</span>
+                              <span>{items.size}</span>
                             </td>
                             <td
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              {'$' + items.product_price}
+                              NT${' '}
+                              {parseInt(items.product_price).toLocaleString()}
                             </td>
                             <td
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              <span>{items.user_order_num}</span>
+                              <span>{items.num}</span>
                             </td>
                             <td
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              {'$' + items.product_price * items.user_order_num}
-                            </td>
-                            <td
-                              scope="row"
-                              className="member-comment-text-weight-middle align-middle"
-                            >
-                              <Link to="/#">
-                                <BsTrash size={20} />
-                              </Link>
+                              NT${' '}
+                              {(
+                                parseInt(items.product_price) * items.num
+                              ).toLocaleString()}
                             </td>
                           </tr>
                         </tbody>
@@ -414,7 +384,7 @@ function MemberOrder() {
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              {info.usersName}
+                              {overAllData.name}
                             </td>
                           </tr>
                           <tr>
@@ -422,13 +392,21 @@ function MemberOrder() {
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              收件地址（取件超商）：
+                              收件地址：
                             </td>
                             <td
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              {info.shipName}
+                              {zipCode &&
+                                overAllData &&
+                                overAllData.zip_code &&
+                                zipCode[overAllData.zip_code].city}
+                              {zipCode &&
+                                overAllData &&
+                                overAllData.zip_code &&
+                                zipCode[overAllData.zip_code].district}
+                              {overAllData && overAllData.addr}
                             </td>
                           </tr>
                           <tr>
@@ -442,7 +420,7 @@ function MemberOrder() {
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              {info.usersPhone}
+                              {overAllData.phone}
                             </td>
                           </tr>
                           <tr>
@@ -456,7 +434,7 @@ function MemberOrder() {
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              {info.payWayName}
+                              {overAllData.payWay}
                             </td>
                           </tr>
                         </tbody>
@@ -486,7 +464,7 @@ function MemberOrder() {
                           scope="row"
                           className="member-comment-text-weight-top"
                         >
-                          {info.number}
+                          {overAllData.number}
                         </td>
                       </tr>
                       <tr>
@@ -500,7 +478,7 @@ function MemberOrder() {
                           scope="row"
                           className="member-comment-text-weight-top"
                         >
-                          {info.time}
+                          {overAllData.time}
                         </td>
                       </tr>
                       <tr>
@@ -514,7 +492,7 @@ function MemberOrder() {
                           scope="row"
                           className="member-comment-text-weight-top"
                         >
-                          ${info.price}
+                          NT$ {parseInt(overAllData.price).toLocaleString()}
                         </td>
                       </tr>
                       <tr>
@@ -582,16 +560,9 @@ function MemberOrder() {
                           >
                             小計
                           </th>
-                          <th
-                            scope="col col-md-1"
-                            className="member-comment-text-weight-top align-middle member-comment-product-delete"
-                          >
-                            刪除
-                          </th>
                         </tr>
                       </thead>
-
-                      {orderDetail.map((items, i) => (
+                      {productDatas.map((items, i) => (
                         <tbody className="tbody-tr-border">
                           <tr>
                             <td
@@ -616,33 +587,29 @@ function MemberOrder() {
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              <span>{items.user_order_size}</span>
+                              <span>{items.size}</span>
                             </td>
                             <td
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              {'$' + items.product_price}
+                              NT${' '}
+                              {parseInt(items.product_price).toLocaleString()}
                             </td>
                             <td
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              <span>{items.user_order_num}</span>
+                              <span>{items.num}</span>
                             </td>
                             <td
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              {'$' + items.product_price * items.user_order_num}
-                            </td>
-                            <td
-                              scope="row"
-                              className="member-comment-text-weight-middle align-middle"
-                            >
-                              <Link to="">
-                                <BsTrash size={20} />
-                              </Link>
+                              NT${' '}
+                              {(
+                                parseInt(items.product_price) * items.num
+                              ).toLocaleString()}
                             </td>
                           </tr>
                         </tbody>
@@ -664,7 +631,7 @@ function MemberOrder() {
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              {info.usersName}
+                              {overAllData.name}
                             </td>
                           </tr>
                           <tr>
@@ -672,13 +639,21 @@ function MemberOrder() {
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              收件地址（取件超商）：
+                              收件地址：
                             </td>
                             <td
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              {info.shipName}
+                              {zipCode &&
+                                overAllData &&
+                                overAllData.zip_code &&
+                                zipCode[overAllData.zip_code].city}
+                              {zipCode &&
+                                overAllData &&
+                                overAllData.zip_code &&
+                                zipCode[overAllData.zip_code].district}
+                              {overAllData && overAllData.addr}
                             </td>
                           </tr>
                           <tr>
@@ -692,7 +667,7 @@ function MemberOrder() {
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              {info.usersPhone}
+                              {overAllData.phone}
                             </td>
                           </tr>
                           <tr>
@@ -706,7 +681,7 @@ function MemberOrder() {
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              {info.payWayName}
+                              {overAllData.payWay}
                             </td>
                           </tr>
                         </tbody>

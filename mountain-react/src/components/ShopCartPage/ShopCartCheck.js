@@ -195,12 +195,10 @@ function ShopCartCheck(props) {
   const handleSubmit = async (e) => {
     // e.preventDefault();
     try {
-      // pay.order_detail = shopCartData;
-      pay.order_detail = cartLocal;
-      console.log('所有資料：', pay);
+      console.log('所有pay資料：', pay);
       let responsePayInfo = await axios.post(
         `${shopcartPayURL}/pay-info`,
-        { ...pay },
+        { ...pay, cartLocal },
         {
           withCredentials: true,
         }
