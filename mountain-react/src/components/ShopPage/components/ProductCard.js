@@ -17,17 +17,9 @@ function ProductCard(props) {
   const [cartNum, setCartNum] = useState(1);
   const [cartSize, setCartSize] = useState('');
   const [cartPrice, setCartPrice] = useState(0);
-  //cartLocal為購物車的local storage
-  const [cardCartLocal, setCardCartLocal] = useState([]);
   //愛心顏色狀態 true為紅色 false為白色
   const [heart, setHeart] = useState(false);
   //取得local storage轉為陣列的資料 ProductOrder
-  function getCartFromLocalStorage() {
-    const ProductOrder =
-      JSON.parse(localStorage.getItem('ProductOrderDetail')) || '[]';
-    // console.log(ProductOrder);
-    setCardCartLocal(ProductOrder);
-  }
   const heartIconClick = function (e) {
     // console.log(e.currentTarget);
     // $(e.currentTarget).toggleClass('shopmain-heart-icon-bkg-click');
@@ -99,12 +91,13 @@ function ProductCard(props) {
     async function getWishListData() {
       try {
         if (auth === false) {
-          console.log('尚未登入');
+          // console.log('尚未登入');
           $('.shopmain-heart-icon-bkg').removeClass(
             'shopmain-heart-icon-bkg-click'
           );
           return;
         }
+        // console.log('登入囉');
         const wishListData = await axios.post(`${shopURL}/wish-list`, {
           member,
         });
@@ -176,9 +169,6 @@ function ProductCard(props) {
         );
         console.log('哎呦還沒喔');
       }
-      //更新localstorage資料cartLocal
-      // getCartFromLocalStorage();
-      setCardCartLocal(newProductOrder);
       //localstorage for order detail end//
     }
     Swal.fire({
@@ -190,10 +180,6 @@ function ProductCard(props) {
     setCartChange(true);
     handleClose();
   };
-  //一進畫面先讀取local storage
-  useEffect(() => {
-    getCartFromLocalStorage();
-  }, []);
   // 計算總價
   useEffect(() => {
     setCartNum(1);
