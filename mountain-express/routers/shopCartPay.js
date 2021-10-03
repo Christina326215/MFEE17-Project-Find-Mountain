@@ -5,7 +5,7 @@ const connection = require("../utils/db");
 router.post("/pay-info", async function (req, res, next) {
   const moment = require('moment');
   // console.log("req.body:",req.body);
-  let dbResultsPayInfo = await connection.queryAsync("INSERT INTO user_order_all SET ?",[{
+  let dbResultsPayInfo = await connection.queryAsync("INSERT INTO user_order SET ?",[{
     ship: req.body.ship, 
     zip_code: req.body.zip_code, 
     addr: req.body.addr, 
@@ -15,7 +15,7 @@ router.post("/pay-info", async function (req, res, next) {
     phone: req.body.phone,
     user_id: req.session.account.id,
     time: moment().format('YYYY/MM/DD HH:mm:ss'),
-    order_detail: JSON.stringify(req.body.order_detail)
+    status: 1,
   }]
   ); 
 
