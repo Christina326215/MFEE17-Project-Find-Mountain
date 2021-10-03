@@ -7,6 +7,7 @@ import axios from 'axios';
 
 function MemberHeartProducts(props) {
   const { member } = useAuth(); // 取得購物車數字狀態
+  const [favChange, setFavChange] = useState(false);
   const [favoriteProduct, setFavoriteProduct] = useState([]);
   useEffect(() => {
     async function getFavoriteData() {
@@ -19,7 +20,12 @@ function MemberHeartProducts(props) {
       }
     }
     getFavoriteData();
-  }, []);
+  }, [favChange]);
+
+  //刪除收藏重跑收藏清單資料後
+  useEffect(() => {
+    setFavChange(false);
+  }, [favoriteProduct]);
   return (
     <>
       <div id="content" className="content1">
@@ -70,6 +76,7 @@ function MemberHeartProducts(props) {
                   productId={product.product_id}
                   productType={product.type}
                   key={product.product_id}
+                  setFavChange={setFavChange}
                 />
               );
             })}

@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { IMAGE_URL } from '../../../utils/config';
+import { IMAGE_URL, memberProductURL } from '../../../utils/config';
 //====== below icon star ======//
 import { BsXSquareFill } from 'react-icons/bs';
 import { Cart } from 'react-bootstrap-icons';
 //====== below icon end ======//
 import { useAuth } from '../../../context/auth'; // 取得setCartChange狀態
-
+import axios from 'axios';
 //bootstrap彈出視窗
 import { Modal, Button, Row, Col } from 'react-bootstrap';
+import Swal from 'sweetalert2';
 
 function FavoriteProductCard(props) {
   const {
@@ -18,20 +19,42 @@ function FavoriteProductCard(props) {
     productPrice,
     productId,
     productType,
+    setFavChange,
   } = props;
-  const { setCartChange } = useAuth(); // 取得購物車數字狀態
+  const { setCartChange, member } = useAuth(); // 取得購物車數字狀態
   const [show, setShow] = useState(false);
   const [cartNum, setCartNum] = useState(1);
   const [cartSize, setCartSize] = useState('');
   const [cartPrice, setCartPrice] = useState(0);
 
+  //移除收藏
+  const removeFavorite = async () => {
+    try {
+      let id = productId;
+      // console.log('remove product id, member id', id, member.id);
+      await axios.post(`${memberProductURL}/remove-favorite`, {
+        member,
+        id,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+    Swal.fire({
+      icon: 'error',
+      title: '已移除收藏商品',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    //讓父元件重新render收藏清單
+    setFavChange(true);
+  };
   //控制modal show or not show
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const showModal = () => {
     handleShow();
   };
-  // 計算總價
+  // modal計算總價
   useEffect(() => {
     setCartNum(1);
     setCartSize('');
@@ -181,9 +204,11 @@ function FavoriteProductCard(props) {
             <Cart size={20} />
           </button>
         </td>
-        <td className="member-product-article-text-weight align-middle">
+        <td
+          className="member-product-article-text-weight align-middle"
+          onClick={removeFavorite}
+        >
           <BsXSquareFill
-            id={productId}
             className="member-product-article-cancel-icon"
             size={28}
             style={{ color: '#cc543a', cursor: 'pointer' }}
