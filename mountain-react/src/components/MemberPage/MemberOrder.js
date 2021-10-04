@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
-import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
+import { withRouter, useParams, useHistory } from 'react-router-dom'; //可以獲取history,location,match,來使用
 import $ from 'jquery';
 import Swal from 'sweetalert2';
 import '../../styles/MemberPage/MemberOrder.scss'; //member map and route style
@@ -25,6 +25,15 @@ import { useAuth } from '../../context/auth';
 //====== above catch member info end ======//
 
 function MemberOrder() {
+  const { currentPage } = useParams();
+  // 分頁屬性
+  // 紀錄我現在在第幾頁
+  // 如果 currentPage 沒有設定，那就預設第一頁
+  const [page, setPage] = useState(parseInt(currentPage, 10) || 1);
+  // 偵測網址上的變化
+  useEffect(() => {
+    setPage(parseInt(currentPage, 10) || 1);
+  }, [currentPage]);
   const [zipCode, setZipCode] = useState(null);
   const [overAllData, setOverAllData] = useState([]);
   const [detailDatas, setDetailDatas] = useState([]);
@@ -46,13 +55,18 @@ function MemberOrder() {
     getZipCode();
     async function getOrders() {
       try {
-        const OrderDatas = await axios.get(`${memberOrderURL}/order-product`, {
-          withCredentials: true,
-        });
+        const OrderDatas = await axios.get(
+          `${memberOrderURL}/order-product?page=${page}`,
+          {
+            withCredentials: true,
+          }
+        );
         // console.log('product:', OrderDatas.data.datas[0].details);
         setOverAllData(OrderDatas.data.totalInfo);
-        setDetailDatas(OrderDatas.data.datas);
-        setProductDatas(OrderDatas.data.datas[0].details);
+        setDetailDatas(OrderDatas.data.result);
+        setProductDatas(OrderDatas.data.result[0].details);
+        // setProductDatas(OrderDatas.data.result);
+        setTotalPage(OrderDatas.data.pagination.lastPage);
       } catch (e) {
         console.log(e);
       }
@@ -77,7 +91,40 @@ function MemberOrder() {
         this.classList.add('active');
       });
     }
-  }, []);
+  }, [page]);
+
+  let history = useHistory();
+  // 總共有幾頁
+  const [totalPage, setTotalPage] = useState(0);
+  const getPages = () => {
+    let pages = [];
+    for (let i = 1; i <= totalPage; i++) {
+      pages.push(
+        <li
+          style={{
+            display: 'inline-block',
+            margin: '2px',
+            backgroundColor: page === i ? '#24936e' : '',
+            borderColor: page === i ? '#00d1b2' : '#dbdbdb',
+            color: page === i ? '#fff' : '#363636',
+            borderWidth: '1px',
+            width: '28px',
+            height: '28px',
+            borderRadius: '3px',
+            textAlign: 'center',
+          }}
+          key={i}
+          onClick={(e) => {
+            history.push(`/member/order/${i}`, { page: i });
+            setPage(i);
+          }}
+        >
+          {i}
+        </li>
+      );
+    }
+    return pages;
+  };
 
   //====== 登出 start ======//
   const handleLogout = async (e) => {
@@ -167,35 +214,10 @@ function MemberOrder() {
           <div className="col-12 col-lg-9 mt-5 zindex-low">
             <h2 className="member-comment-title-main">我的訂單狀態</h2>
             <div className="wrapper">
-              <div className="tab">
-                <div
-                  className="btn-group member-comment-switch-category"
-                  role="group"
-                  aria-label="Basic example"
-                >
-                  <Link
-                    type="button"
-                    id="menu"
-                    className="btn btn-outline-primary menu active"
-                    click=""
-                    to="#/"
-                  >
-                    待完成
-                  </Link>
-                  <Link
-                    type="button"
-                    id="menu"
-                    className="btn btn-outline-primary menu"
-                    click=""
-                    to="#/"
-                  >
-                    已完成
-                  </Link>
-                </div>
-              </div>
               <div className="tab-content">
                 <div id="content" className="content1">
                   {/* <!-- order progress table start--> */}
+
                   <table
                     className="
                     table table-bordered member-comment-table-all
@@ -203,65 +225,67 @@ function MemberOrder() {
                     p-md-4 p-lg-5
                   "
                   >
-                    <tbody>
-                      <tr>
-                        <td
-                          scope="row"
-                          className="member-comment-text-weight-top"
-                        >
-                          訂單編號：
-                        </td>
-                        <td
-                          scope="row"
-                          className="member-comment-text-weight-top"
-                        >
-                          {overAllData.number}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          scope="row"
-                          className="member-comment-text-weight-top"
-                        >
-                          訂單時間：
-                        </td>
-                        <td
-                          scope="row"
-                          className="member-comment-text-weight-top"
-                        >
-                          {overAllData.time}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          scope="row"
-                          className="member-comment-text-weight-top"
-                        >
-                          訂單金額：
-                        </td>
+                    {detailDatas.map((item, i) => (
+                      <tbody>
+                        <tr>
+                          <td
+                            scope="row"
+                            className="member-comment-text-weight-top"
+                          >
+                            訂單編號：
+                          </td>
+                          <td
+                            scope="row"
+                            className="member-comment-text-weight-top"
+                          >
+                            {item.time}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            scope="row"
+                            className="member-comment-text-weight-top"
+                          >
+                            訂單時間：
+                          </td>
+                          <td
+                            scope="row"
+                            className="member-comment-text-weight-top"
+                          >
+                            {item.time}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            scope="row"
+                            className="member-comment-text-weight-top"
+                          >
+                            訂單金額：
+                          </td>
 
-                        <td
-                          scope="row"
-                          className="member-comment-text-weight-top"
-                        >
-                          NT$ {parseInt(overAllData.price).toLocaleString()}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          scope="row"
-                          className="member-comment-text-weight-top align-middle"
-                        >
-                          訂單狀態：
-                        </td>
-                        <td
-                          scope="row"
-                          className="member-comment-text-weight-top"
-                        >
-                          {overAllData.status}
-                        </td>
-                      </tr>
-                    </tbody>
+                          <td
+                            scope="row"
+                            className="member-comment-text-weight-top"
+                          >
+                            NT$ {parseInt(item.price).toLocaleString()}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            scope="row"
+                            className="member-comment-text-weight-top align-middle"
+                          >
+                            訂單狀態：
+                          </td>
+                          <td
+                            scope="row"
+                            className="member-comment-text-weight-top"
+                          >
+                            {item.status}
+                          </td>
+                        </tr>
+                      </tbody>
+                    ))}
                   </table>
 
                   {/* <!-- <hr /> --> */}
@@ -315,7 +339,7 @@ function MemberOrder() {
                           </th>
                         </tr>
                       </thead>
-                      {productDatas.map((items, i) => (
+                      {productDatas.map((item, i) => (
                         <tbody className="tbody-tr-border">
                           <tr>
                             <td
@@ -324,7 +348,7 @@ function MemberOrder() {
                             >
                               <div className="member-comment-picture-img-box">
                                 <img
-                                  src={`${IMAGE_URL}/img/product-img/${items.product_pic}`}
+                                  src={`${IMAGE_URL}/img/product-img/${item.product_pic}`}
                                   alt=""
                                   className="member-comment-picture-img"
                                 />
@@ -334,26 +358,26 @@ function MemberOrder() {
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              {items.product_name}
+                              {item.product_name}
                             </td>
                             <td
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              <span>{items.size}</span>
+                              <span>{item.size}</span>
                             </td>
                             <td
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
                               NT${' '}
-                              {parseInt(items.product_price).toLocaleString()}
+                              {parseInt(item.product_price).toLocaleString()}
                             </td>
                             <td
                               scope="row"
                               className="member-comment-text-weight-middle align-middle"
                             >
-                              <span>{items.num}</span>
+                              <span>{item.num}</span>
                             </td>
                             <td
                               scope="row"
@@ -361,7 +385,7 @@ function MemberOrder() {
                             >
                               NT${' '}
                               {(
-                                parseInt(items.product_price) * items.num
+                                parseInt(item.product_price) * item.num
                               ).toLocaleString()}
                             </td>
                           </tr>
@@ -372,324 +396,82 @@ function MemberOrder() {
                     <div className="">
                       <h2>配送資訊</h2>
                       <table className="table table-borderless mt-2 p-md-4 p-lg-5">
-                        <tbody>
-                          <tr>
-                            <td
-                              scope="row"
-                              className="member-comment-text-weight-middle align-middle"
-                            >
-                              收件人姓名：
-                            </td>
-                            <td
-                              scope="row"
-                              className="member-comment-text-weight-middle align-middle"
-                            >
-                              {overAllData.name}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td
-                              scope="row"
-                              className="member-comment-text-weight-middle align-middle"
-                            >
-                              收件地址：
-                            </td>
-                            <td
-                              scope="row"
-                              className="member-comment-text-weight-middle align-middle"
-                            >
-                              {zipCode &&
-                                overAllData &&
-                                overAllData.zip_code &&
-                                zipCode[overAllData.zip_code].city}
-                              {zipCode &&
-                                overAllData &&
-                                overAllData.zip_code &&
-                                zipCode[overAllData.zip_code].district}
-                              {overAllData && overAllData.addr}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td
-                              scope="row"
-                              className="member-comment-text-weight-middle align-middle"
-                            >
-                              收件人電話
-                            </td>
-                            <td
-                              scope="row"
-                              className="member-comment-text-weight-middle align-middle"
-                            >
-                              {overAllData.phone}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td
-                              scope="row"
-                              className="member-comment-text-weight-middle align-middle"
-                            >
-                              付款方式
-                            </td>
-                            <td
-                              scope="row"
-                              className="member-comment-text-weight-middle align-middle"
-                            >
-                              {overAllData.payWay}
-                            </td>
-                          </tr>
-                        </tbody>
+                        {detailDatas.map((item, i) => (
+                          <tbody>
+                            <tr>
+                              <td
+                                scope="row"
+                                className="member-comment-text-weight-middle align-middle"
+                              >
+                                收件人姓名：
+                              </td>
+                              <td
+                                scope="row"
+                                className="member-comment-text-weight-middle align-middle"
+                              >
+                                {item.name}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td
+                                scope="row"
+                                className="member-comment-text-weight-middle align-middle"
+                              >
+                                收件地址：
+                              </td>
+                              <td
+                                scope="row"
+                                className="member-comment-text-weight-middle align-middle"
+                              >
+                                {zipCode &&
+                                  item &&
+                                  item.zip_code &&
+                                  zipCode[item.zip_code].city}
+                                {zipCode &&
+                                  item &&
+                                  item.zip_code &&
+                                  zipCode[item.zip_code].district}
+                                {item && item.addr}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td
+                                scope="row"
+                                className="member-comment-text-weight-middle align-middle"
+                              >
+                                收件人電話：
+                              </td>
+                              <td
+                                scope="row"
+                                className="member-comment-text-weight-middle align-middle"
+                              >
+                                {item.phone}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td
+                                scope="row"
+                                className="member-comment-text-weight-middle align-middle"
+                              >
+                                付款方式：
+                              </td>
+                              <td
+                                scope="row"
+                                className="member-comment-text-weight-middle align-middle"
+                              >
+                                {item.pay_way}
+                              </td>
+                            </tr>
+                          </tbody>
+                        ))}
                       </table>
                     </div>
                   </div>
                   {/* <!-- order progress table end--> */}
                 </div>
-                <div id="content" className="member-comment-content2">
-                  {/* <!-- order complete table start--> */}
-                  <table
-                    className="
-                    table table-bordered member-comment-table-all
-                    text-center
-                    p-md-4 p-lg-5
-                  "
-                  >
-                    <tbody>
-                      <tr>
-                        <td
-                          scope="row"
-                          className="member-comment-text-weight-top"
-                        >
-                          訂單編號：
-                        </td>
-                        <td
-                          scope="row"
-                          className="member-comment-text-weight-top"
-                        >
-                          {overAllData.number}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          scope="row"
-                          className="member-comment-text-weight-top"
-                        >
-                          訂單時間：
-                        </td>
-                        <td
-                          scope="row"
-                          className="member-comment-text-weight-top"
-                        >
-                          {overAllData.time}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          scope="row"
-                          className="member-comment-text-weight-top"
-                        >
-                          訂單金額：
-                        </td>
-                        <td
-                          scope="row"
-                          className="member-comment-text-weight-top"
-                        >
-                          NT$ {parseInt(overAllData.price).toLocaleString()}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          scope="row"
-                          className="member-comment-text-weight-top"
-                        >
-                          訂單狀態：
-                        </td>
-                        <td
-                          scope="row"
-                          className="member-comment-text-weight-top"
-                        >
-                          已完成
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  {/* <!-- <hr /> --> */}
-                  <div className="mt-5">
-                    <h2>商品明細</h2>
-                    <table
-                      className="
-                      table table-borderless
-                      mt-2
-                      text-center
-                      p-md-4 p-lg-5
-                    "
-                    >
-                      <thead className="thead-tr-border">
-                        <tr>
-                          <th
-                            scope="col col-md-2"
-                            className="member-comment-text-weight-top align-middle"
-                          >
-                            照片
-                          </th>
-                          <th
-                            scope="col col-md-1"
-                            className="member-comment-text-weight-top align-middle member-comment-product-name"
-                          >
-                            名稱
-                          </th>
-                          <th
-                            scope="col col-md-2"
-                            className="member-comment-text-weight-top align-middle member-comment-product-size"
-                          >
-                            尺寸
-                          </th>
-                          <th
-                            scope="col col-md-3"
-                            className="member-comment-text-weight-top align-middle member-comment-product-perprice"
-                          >
-                            單價
-                          </th>
-                          <th
-                            scope="col col-md-2"
-                            className="member-comment-text-weight-top align-middle member-comment-product-count"
-                          >
-                            數量
-                          </th>
-                          <th
-                            scope="col col-md-2"
-                            className="member-comment-text-weight-top align-middle member-comment-product-subtotal"
-                          >
-                            小計
-                          </th>
-                        </tr>
-                      </thead>
-                      {productDatas.map((items, i) => (
-                        <tbody className="tbody-tr-border">
-                          <tr>
-                            <td
-                              scope="row"
-                              className="member-comment-picture-img-wrapper align-middle"
-                            >
-                              <div className="member-comment-picture-img-box">
-                                <img
-                                  src={`${IMAGE_URL}/img/product-img/${items.product_pic}`}
-                                  alt=""
-                                  className="member-comment-picture-img"
-                                />
-                              </div>
-                            </td>
-                            <td
-                              scope="row"
-                              className="member-comment-text-weight-middle align-middle"
-                            >
-                              {items.product_name}
-                            </td>
-                            <td
-                              scope="row"
-                              className="member-comment-text-weight-middle align-middle"
-                            >
-                              <span>{items.size}</span>
-                            </td>
-                            <td
-                              scope="row"
-                              className="member-comment-text-weight-middle align-middle"
-                            >
-                              NT${' '}
-                              {parseInt(items.product_price).toLocaleString()}
-                            </td>
-                            <td
-                              scope="row"
-                              className="member-comment-text-weight-middle align-middle"
-                            >
-                              <span>{items.num}</span>
-                            </td>
-                            <td
-                              scope="row"
-                              className="member-comment-text-weight-middle align-middle"
-                            >
-                              NT${' '}
-                              {(
-                                parseInt(items.product_price) * items.num
-                              ).toLocaleString()}
-                            </td>
-                          </tr>
-                        </tbody>
-                      ))}
-                    </table>
-                    <hr />
-                    <div className="">
-                      <h2>配送資訊</h2>
-                      <table className="table table-borderless mt-2 p-md-4 p-lg-5">
-                        <tbody>
-                          <tr>
-                            <td
-                              scope="row"
-                              className="member-comment-text-weight-middle align-middle"
-                            >
-                              收件人姓名：
-                            </td>
-                            <td
-                              scope="row"
-                              className="member-comment-text-weight-middle align-middle"
-                            >
-                              {overAllData.name}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td
-                              scope="row"
-                              className="member-comment-text-weight-middle align-middle"
-                            >
-                              收件地址：
-                            </td>
-                            <td
-                              scope="row"
-                              className="member-comment-text-weight-middle align-middle"
-                            >
-                              {zipCode &&
-                                overAllData &&
-                                overAllData.zip_code &&
-                                zipCode[overAllData.zip_code].city}
-                              {zipCode &&
-                                overAllData &&
-                                overAllData.zip_code &&
-                                zipCode[overAllData.zip_code].district}
-                              {overAllData && overAllData.addr}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td
-                              scope="row"
-                              className="member-comment-text-weight-middle align-middle"
-                            >
-                              收件人電話
-                            </td>
-                            <td
-                              scope="row"
-                              className="member-comment-text-weight-middle align-middle"
-                            >
-                              {overAllData.phone}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td
-                              scope="row"
-                              className="member-comment-text-weight-middle align-middle"
-                            >
-                              付款方式
-                            </td>
-                            <td
-                              scope="row"
-                              className="member-comment-text-weight-middle align-middle"
-                            >
-                              {overAllData.payWay}
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  {/* <!-- order complete table end--> */}
-                </div>
+              </div>
+              <div classnName="d-flex justify-content-right">
+                <ul>{getPages()}</ul>
               </div>
             </div>
           </div>

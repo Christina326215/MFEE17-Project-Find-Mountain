@@ -3,33 +3,6 @@ const router = express.Router();
 const connection = require("../utils/db");
 
 router.get("/order-product", async function (req, res, next) {
-  // 列出使用者所有訂單
-  let page = req.query.page || 1; // 目前在第幾頁，預設是第一頁
-  const perPage = 1; //每一頁的資料是 1 筆
-  // 總共有幾筆 / 總共有幾頁
-  let count = await connection.queryAsync(
-    "SELECT COUNT(*) AS total FROM user_order WHERE user_id=?",
-    [req.session.account.id]
-  );
-  let total = count[0].total;
-  const lastPage = Math.ceil(total / perPage); // 無條件進位
-  // console.log(total, lastPage);
-
-  // 取得這一頁應該要有的資料
-  // LIMIT: 要取幾筆資料（這一頁要幾筆資料）
-  // OFFSET: 要跳過多少
-  let offset = (page - 1) * perPage;
-  let singlePage = await connection.queryAsync(
-    "SELECT * FROM user_order WHERE user_id=? ORDER BY id LIMIT ? OFFSET ?",
-    [req.session.account.id, perPage, offset]
-  );
-  let pagination = {
-    total, // 總共有幾筆
-    perPage, // 一頁有幾筆
-    lastPage, // 總共有幾頁（最後一頁）
-    page, // 目前在第幾頁
-  };
-
   // 找到同一個使用者的所有訂單資訊
   let orders = await connection.queryAsync("SELECT * FROM user_order WHERE user_id = ?;", [req.session.account.id]);
 
@@ -87,12 +60,37 @@ router.get("/order-product", async function (req, res, next) {
         break;
     }
   });
+  let datas = result;
 
-  res.json({result,pagination,singlePage});
+  /* 未處理狀態訂單 start */
+  let price = 0;
+  for (i = 0; i < result[0].details.length; i++){
+    price += parseInt(details[i].product_price)*parseInt(details[i].num);
+    console.log(price)
+  }
+  let time = result[0].time;
+  let status = result[0].status;
+  let name = result[0].name;
+  let ship = result[0].ship;
+  let phone = result[0].phone;
+  let payWay = result[0].pay_way;
+  let invoice = result[0].invoice;
+  let number = result[0].time.replace(/[^0-9]/gm, '').match(/.{8}/)[0] + '0' + result[0].id;
+  let productItem = result[0].details
+  let zip_code = result[0].zip_code;
+  let addr = result[0].addr;
+  
+  let totalInfo = {
+    price, time, status, number, name, ship, phone, payWay, invoice, zip_code, addr, productItem, 
+  }
+  /* 未處理狀態訂單 end */
+
+  res.json({datas,totalInfo});
 
   // res.json(result);
   });
 
 module.exports = router;
 
+// SELECT * FROM user_article WHERE user_id = 1
 
