@@ -19,6 +19,7 @@ function ProductCard(props) {
   const [cartPrice, setCartPrice] = useState(0);
   //愛心顏色狀態 true為紅色 false為白色
   const [heart, setHeart] = useState(false);
+  const [heartChange, setHeartChange] = useState(false);
   //取得local storage轉為陣列的資料 ProductOrder
   const heartIconClick = function (e) {
     // console.log(e.currentTarget);
@@ -38,10 +39,12 @@ function ProductCard(props) {
         //取消收藏 productId 為 number
         // console.log('收藏中');
         removeWishList();
+        setHeartChange(true);
       } else {
         //加入收藏
         // console.log('沒收藏');
         addWishList();
+        setHeartChange(true);
       }
     }
   };
@@ -117,7 +120,7 @@ function ProductCard(props) {
       }
     }
     getWishListData();
-  }, [auth, member, productId]);
+  }, [auth, member, productId, heartChange]);
   //控制modal show or not show
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
