@@ -6,7 +6,7 @@ import highMapPng from '../../../img/mountain-img/highMap.png';
 import highBearPng from '../../../img/mountain-img/highBear.png';
 //====== above img import end ======//
 
-//====== below icon star ======//
+//====== below icon start ======//
 import { StarFill } from 'react-bootstrap-icons';
 //====== below icon end ======//
 
