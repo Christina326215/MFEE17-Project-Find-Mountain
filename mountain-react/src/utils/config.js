@@ -51,15 +51,19 @@ export const recommendURL =
   process.env.REACT_APP_recommendURL || 'http://localhost:3500/api/recommend';
 //=== recommend url star ===//
 
+//=== googlemap url star ===//
+export const apiKey = process.env.REACT_APP_apiKey;
+//=== googlemap url end ===//
+
 //=== tag url star ===//
 export const tagURL =
   process.env.REACT_APP_tagURL || 'http://localhost:3500/api/tag';
-//=== tag url star ===//
+//=== tag url end ===//
 
 //=== comment url star ===//
 export const articlecommentURL =
   process.env.REACT_APP_commentURL || 'http://localhost:3500/api/comment';
-//=== comment url star ===//
+//=== comment url end ===//
 
 //=== log url star ===//
 export const authURL =

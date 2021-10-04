@@ -17,6 +17,7 @@ import { BsHeartFill } from 'react-icons/bs';
 import { BsStarFill, BsFlagFill, BsQuestionCircle } from 'react-icons/bs';
 // 使用sweetalert2彈跳視窗
 import Swal from 'sweetalert2';
+import GoogleMapDemo from './GoogleMapDemo';
 
 //====== below catch member info star ======//
 import { useAuth } from '../../context/auth';
@@ -660,12 +661,21 @@ function DetailContent(props) {
               </div>
             </div>
           </div>
-          {/* googlemap */}
-          {/* <GoogleMap></GoogleMap> */}
-          {/* googlemap */}
           <ProductTag></ProductTag>
+          {/* googlemap */}
+          <GoogleMapDemo></GoogleMapDemo>
+          {/* googlemap */}
         </div>
       </div>
+      {/* <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.1968628827135!2d121.5686393150062!3d25.027392383975414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442abb286dcae25%3A0x326b083d1fba31ba!2z6LGh5bGx6Kaq5bGx5q2l6YGT!5e0!3m2!1szh-TW!2stw!4v1633243686479!5m2!1szh-TW!2stw"
+        width="600"
+        height="450"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+      ></iframe> */}
+
       <Comment detail={detail} flagHandle={flagHandle}></Comment>
       <RecommendCard levelCard={levelCard}></RecommendCard>
     </div>
