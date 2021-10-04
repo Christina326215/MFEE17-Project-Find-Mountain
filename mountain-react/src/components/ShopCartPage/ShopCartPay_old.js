@@ -184,31 +184,6 @@ function ShopCartPay(props) {
 
   /* 處理 local storage 是否為空  end */
 
-  /* 處理錯誤訊息 start */
-  // 存入錯誤訊息用
-  const [fieldErrors, setFieldErrors] = useState({
-    addr: '',
-    name: '',
-    phone: '',
-    invoice: '',
-    pay_way: '',
-  });
-
-  // 當表單有不合法的檢查出現時
-  const handleFormInvalid = (e) => {
-    // 擋住錯誤訊息的預設呈現的方式(popup)
-    e.preventDefault();
-
-    const updatedFieldErrors = {
-      ...fieldErrors,
-      [e.target.name]: e.target.validationMessage,
-    };
-
-    // 3. 設定回原狀態物件
-    setFieldErrors(updatedFieldErrors);
-  };
-  /* 處理錯誤訊息 end */
-
   useEffect(() => {
     // progress-bar
     $('.shopcart-btn-next').on('click', function () {
@@ -325,7 +300,7 @@ function ShopCartPay(props) {
             <h3 className="text-center mt-4 shopcart-title-dash">
               付款與運送方式
             </h3>
-            <form onInvalid={handleFormInvalid}>
+            <form>
               <fieldset className="form-group row mt-4">
                 <legend className="col-form-label col-sm-2 float-sm-left pt-0 mb-4">
                   收件方式：
@@ -473,9 +448,6 @@ function ShopCartPay(props) {
                       value={cartData && cartData.addr}
                       onChange={handleChange}
                     />
-                    {fieldErrors.addr !== '' && (
-                      <small className="error">{fieldErrors.addr}</small>
-                    )}
                   </div>
                   {/* 選擇地址 end */}
                 </div>
@@ -511,9 +483,6 @@ function ShopCartPay(props) {
                       placeholder="請輸入收件人姓名"
                       onChange={handleChange}
                     />
-                    {fieldErrors.name !== '' && (
-                      <small className="error">{fieldErrors.name}</small>
-                    )}
                     <input
                       type="text"
                       className="form-control mt-3"
@@ -523,9 +492,6 @@ function ShopCartPay(props) {
                       placeholder="請輸入聯絡電話"
                       onChange={handleChange}
                     />
-                    {fieldErrors.phone !== '' && (
-                      <small className="error">{fieldErrors.phone}</small>
-                    )}
                   </div>
                 </div>
 

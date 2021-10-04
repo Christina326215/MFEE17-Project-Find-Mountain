@@ -68,6 +68,7 @@ function MemberOrder() {
         setProductDatas(OrderDatas.data.result[0].details);
         // setProductDatas(OrderDatas.data.result);
         setTotalPage(OrderDatas.data.pagination.lastPage);
+        history.push(`/member/order/${page}`);
       } catch (e) {
         console.log(e);
       }
@@ -82,27 +83,20 @@ function MemberOrder() {
     let pages = [];
     for (let i = 1; i <= totalPage; i++) {
       pages.push(
-        <li
-          style={{
-            display: 'inline-block',
-            margin: '2px',
-            backgroundColor: page === i ? '#24936e' : '',
-            borderColor: page === i ? '#00d1b2' : '#dbdbdb',
-            color: page === i ? '#fff' : '#363636',
-            borderWidth: '1px',
-            width: '28px',
-            height: '28px',
-            borderRadius: '3px',
-            textAlign: 'center',
-          }}
-          key={i}
-          onClick={(e) => {
-            history.push(`/member/order/${i}`, { page: i });
-            setPage(i);
-          }}
-        >
-          {i}
-        </li>
+        <div className="btn-group mr-2" role="group" aria-label="Second group">
+          <button
+            type="button"
+            className="btn btn-primary"
+            key={i}
+            style={{ backgroundColor: page === i ? '#24936e' : '' }}
+            onClick={(e) => {
+              console.log('i', i);
+              setPage(i);
+            }}
+          >
+            {i}
+          </button>
+        </div>
       );
     }
     return pages;
@@ -450,12 +444,82 @@ function MemberOrder() {
                   </div>
                 ))}
               </div>
-              <div classnName="d-flex justify-content-right">
-                <ul>{getPages()}</ul>
+              <div
+                className="btn-toolbar justify-content-center mountain_btn-toolbar"
+                role="toolbar"
+                aria-label="Toolbar with button groups"
+              >
+                <div
+                  className="btn-group mr-2"
+                  role="group"
+                  aria-label="Third group"
+                >
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => {
+                      setPage(1);
+                    }}
+                  >
+                    |&lt;
+                  </button>
+                </div>
+                <div
+                  className="btn-group mr-2"
+                  role="group"
+                  aria-label="First group"
+                >
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={(e) => {
+                      if (page == 1) {
+                        e.preventDefault();
+                        // return;
+                      } else {
+                        setPage(page - 1);
+                      }
+                    }}
+                  >
+                    &lt;
+                  </button>
+                </div>
+                {getPages()}
+                <div
+                  className="btn-group mr-2"
+                  role="group"
+                  aria-label="Third group"
+                >
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={(e) => {
+                      if (page === totalPage) {
+                        e.preventDefault();
+                      } else {
+                        setPage(page + 1);
+                      }
+                    }}
+                  >
+                    &gt;
+                  </button>
+                </div>
+                <div
+                  className="btn-group"
+                  role="group"
+                  aria-label="Third group"
+                >
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => {
+                      setPage(totalPage);
+                    }}
+                  >
+                    &gt;|
+                  </button>
+                </div>
               </div>
-              {/* <!-- 分頁 start  --> */}
-              {pages_btn}
-              {/* <!-- 分頁 end  --> */}
             </div>
           </div>
           {/* <!-- manage-right-side end--> */}
