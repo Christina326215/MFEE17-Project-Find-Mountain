@@ -88,6 +88,67 @@ router.get("/order-product", async function (req, res, next) {
     }
   });
 
+  
+  singlePage.map((data) => {
+    switch (data.ship) {
+      case 1:
+        data.ship = '宅配到府';
+        break;
+      case 2:
+        data.ship = '超商取貨';
+        break;
+    }
+    switch (data.status){
+      case 1:
+        data.status = '未處理';
+        break;
+      case 2:
+        data.status = '處理中';
+        break;
+      case 3:
+        data.status = '已完成';
+        break;
+    }
+    switch (data.pay_status){
+      case 1:
+        data.pay_status = '已付款';
+        break;
+      case 2:
+        data.pay_status = '未付款';
+        break;
+    }
+    switch (data.pay_way){
+      case 1:
+        data.pay_way = '信用卡';
+        break;
+      case 2:
+        data.pay_way = '貨到付款';
+        break;
+    }
+    switch (data.invoice){
+      case 1:
+        data.invoice = '二聯式發票';
+        break;
+      case 2:
+        data.invoice = '三聯式發票';
+        break;
+    }
+  });
+
+  singlePage.map(order => {
+    order.details = details.filter(detail => {
+      return detail.user_order_id === order.id;
+    });
+  });
+
+  singlePage[0].totalPrice = 0;
+  for (i = 0; i < singlePage[0].details.length; i++){
+    singlePage[0].totalPrice += parseInt(singlePage[0].details[i].product_price)*parseInt(singlePage[0].details[i].num);
+  }
+  
+  singlePage[0].orderNumber = "";
+  let orderNumber = singlePage[0].time.replace(/[^0-9]/gm, '').match(/.{8}/)[0] + '0' + singlePage[0].id;
+  singlePage[0].orderNumber = orderNumber;
   res.json({result,pagination,singlePage});
 
   // res.json(result);
