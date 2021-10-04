@@ -117,6 +117,18 @@ function ShopCartPay(props) {
         zip_code: member.zip_code,
         addr: member.addr,
       });
+      const updatedFieldErrors = {
+        ...fieldErrors,
+        addr: '',
+      };
+      setFieldErrors(updatedFieldErrors);
+    } else {
+      // 取消勾選的時候，不用特別處理錯誤訊息，只要處理有填寫但有錯誤訊息的情況。
+      setCartData({
+        ...cartData,
+        zip_code: zipGroup[cities[0]][0].zip_code,
+        addr: '',
+      });
     }
   }
   // 自動填入會員收件地址 end //
@@ -138,21 +150,21 @@ function ShopCartPay(props) {
     setCartData({ ...cartData, [e.target.name]: e.target.value });
   }
 
-  // // 自動填入會員姓名及電話 start //
-  // function checkAutoNamePhone(e) {
-  //   if (e.target.checked) {
-  //     setCartData({ ...cartData, name: member.name, phone: member.phone });
-  //     const updatedFieldErrors = {
-  //       ...fieldErrors,
-  //       name: '',
-  //       phone: '',
-  //     };
-
-  //     // 3. 設定回原狀態物件
-  //     setFieldErrors(updatedFieldErrors);
-  //   }
-  // }
-  // // 自動填入會員收件地址 end //
+  // 自動填入會員姓名及電話 start //
+  function checkAutoNamePhone(e) {
+    if (e.target.checked) {
+      setCartData({ ...cartData, name: member.name, phone: member.phone });
+      const updatedFieldErrors = {
+        ...fieldErrors,
+        name: '',
+        phone: '',
+      };
+      setFieldErrors(updatedFieldErrors);
+    } else {
+      setCartData({ ...cartData, name: '', phone: '' });
+    }
+  }
+  // 自動填入會員收件地址 end //
 
   // 處理發票類型 start //
   function invoiceChange(e) {
@@ -240,22 +252,6 @@ function ShopCartPay(props) {
     setFieldErrors(updatedFieldErrors);
   };
   /* 處理錯誤訊息 end */
-
-  // 自動填入會員姓名及電話 start //
-  function checkAutoNamePhone(e) {
-    if (e.target.checked) {
-      setCartData({ ...cartData, name: member.name, phone: member.phone });
-      const updatedFieldErrors = {
-        ...fieldErrors,
-        name: '',
-        phone: '',
-      };
-
-      // 3. 設定回原狀態物件
-      setFieldErrors(updatedFieldErrors);
-    }
-  }
-  // 自動填入會員收件地址 end //
 
   useEffect(() => {
     // progress-bar
@@ -526,7 +522,9 @@ function ShopCartPay(props) {
                       onChange={handleChange}
                       required
                     />
-                    {fieldErrors.addr !== '' && (
+                    {cartData.addr !== '' ? (
+                      <small className="shopcart_pay_error"></small>
+                    ) : (
                       <small className="shopcart_pay_error">
                         {fieldErrors.addr}
                       </small>
@@ -567,7 +565,9 @@ function ShopCartPay(props) {
                       onChange={handleChange}
                       required
                     />
-                    {fieldErrors.name !== '' && (
+                    {cartData.name !== '' ? (
+                      <small className="shopcart_pay_error"></small>
+                    ) : (
                       <small className="shopcart_pay_error">
                         {fieldErrors.name}
                       </small>
@@ -582,7 +582,9 @@ function ShopCartPay(props) {
                       onChange={handleChange}
                       required
                     />
-                    {fieldErrors.phone !== '' && (
+                    {cartData.phone !== '' ? (
+                      <small className="shopcart_pay_error"></small>
+                    ) : (
                       <small className="shopcart_pay_error">
                         {fieldErrors.phone}
                       </small>
