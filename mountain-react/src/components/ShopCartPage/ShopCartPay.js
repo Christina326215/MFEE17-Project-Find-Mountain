@@ -29,10 +29,10 @@ function ShopCartPay(props) {
   // 3.
   const [cartData, setCartData] = useState({
     ship: 1,
-    pay_way: 1,
+    pay_way: null,
     zip_code: null,
     addr: '',
-    invoice: 1,
+    invoice: null,
     name: '',
     phone: '',
   });
@@ -138,13 +138,21 @@ function ShopCartPay(props) {
     setCartData({ ...cartData, [e.target.name]: e.target.value });
   }
 
-  // 自動填入會員姓名及電話 start //
-  function checkAutoNamePhone(e) {
-    if (e.target.checked) {
-      setCartData({ ...cartData, name: member.name, phone: member.phone });
-    }
-  }
-  // 自動填入會員收件地址 end //
+  // // 自動填入會員姓名及電話 start //
+  // function checkAutoNamePhone(e) {
+  //   if (e.target.checked) {
+  //     setCartData({ ...cartData, name: member.name, phone: member.phone });
+  //     const updatedFieldErrors = {
+  //       ...fieldErrors,
+  //       name: '',
+  //       phone: '',
+  //     };
+
+  //     // 3. 設定回原狀態物件
+  //     setFieldErrors(updatedFieldErrors);
+  //   }
+  // }
+  // // 自動填入會員收件地址 end //
 
   // 處理發票類型 start //
   function invoiceChange(e) {
@@ -184,6 +192,15 @@ function ShopCartPay(props) {
 
   /* 處理 local storage 是否為空  end */
 
+  /* 送出資料到下一步 start */
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('hello');
+    setPay({ ...cartData });
+    props.history.replace('/shoppingcart/step3-check');
+  };
+  /* 送出資料到下一步 end */
+
   /* 處理錯誤訊息 start */
   // 存入錯誤訊息用
   const [fieldErrors, setFieldErrors] = useState({
@@ -194,6 +211,7 @@ function ShopCartPay(props) {
     pay_way: '',
   });
 
+  // useEffect(() => {}, []);
   // 當表單有不合法的檢查出現時
   const handleFormInvalid = (e) => {
     // 擋住錯誤訊息的預設呈現的方式(popup)
@@ -207,7 +225,37 @@ function ShopCartPay(props) {
     // 3. 設定回原狀態物件
     setFieldErrors(updatedFieldErrors);
   };
+
+  //  整個表單有變動時(ex.其中一個欄位有輸入時)
+  // 認定使用者正在改正某個有錯誤的欄位
+  // 清除某個欄位錯誤訊
+  const handleFormChange = (e) => {
+    console.log('目前更新欄位 ', e.target.name);
+    const updatedFieldErrors = {
+      ...fieldErrors,
+      [e.target.name]: '',
+    };
+
+    // 3. 設定回原狀態物件
+    setFieldErrors(updatedFieldErrors);
+  };
   /* 處理錯誤訊息 end */
+
+  // 自動填入會員姓名及電話 start //
+  function checkAutoNamePhone(e) {
+    if (e.target.checked) {
+      setCartData({ ...cartData, name: member.name, phone: member.phone });
+      const updatedFieldErrors = {
+        ...fieldErrors,
+        name: '',
+        phone: '',
+      };
+
+      // 3. 設定回原狀態物件
+      setFieldErrors(updatedFieldErrors);
+    }
+  }
+  // 自動填入會員收件地址 end //
 
   useEffect(() => {
     // progress-bar
@@ -325,7 +373,11 @@ function ShopCartPay(props) {
             <h3 className="text-center mt-4 shopcart-title-dash">
               付款與運送方式
             </h3>
-            <form onInvalid={handleFormInvalid}>
+            <form
+              onInvalid={handleFormInvalid}
+              onSubmit={handleSubmit}
+              onChange={handleFormChange}
+            >
               <fieldset className="form-group row mt-4">
                 <legend className="col-form-label col-sm-2 float-sm-left pt-0 mb-4">
                   收件方式：
@@ -472,9 +524,12 @@ function ShopCartPay(props) {
                       name="addr"
                       value={cartData && cartData.addr}
                       onChange={handleChange}
+                      required
                     />
                     {fieldErrors.addr !== '' && (
-                      <small className="error">{fieldErrors.addr}</small>
+                      <small className="shopcart_pay_error">
+                        {fieldErrors.addr}
+                      </small>
                     )}
                   </div>
                   {/* 選擇地址 end */}
@@ -510,9 +565,12 @@ function ShopCartPay(props) {
                       value={cartData && cartData.name}
                       placeholder="請輸入收件人姓名"
                       onChange={handleChange}
+                      required
                     />
                     {fieldErrors.name !== '' && (
-                      <small className="error">{fieldErrors.name}</small>
+                      <small className="shopcart_pay_error">
+                        {fieldErrors.name}
+                      </small>
                     )}
                     <input
                       type="text"
@@ -522,9 +580,12 @@ function ShopCartPay(props) {
                       value={cartData && cartData.phone}
                       placeholder="請輸入聯絡電話"
                       onChange={handleChange}
+                      required
                     />
                     {fieldErrors.phone !== '' && (
-                      <small className="error">{fieldErrors.phone}</small>
+                      <small className="shopcart_pay_error">
+                        {fieldErrors.phone}
+                      </small>
                     )}
                   </div>
                 </div>
@@ -542,6 +603,7 @@ function ShopCartPay(props) {
                       value="1"
                       onChange={invoiceChange}
                       checked={cartData && cartData.invoice == 1}
+                      required
                     />
                     <label className="form-check-label" for="duplicateForm">
                       二聯式發票
@@ -561,6 +623,11 @@ function ShopCartPay(props) {
                       三聯式發票
                     </label>
                   </div>
+                  {fieldErrors.invoice !== '' && (
+                    <small className="shopcart_pay_error">
+                      {fieldErrors.invoice}
+                    </small>
+                  )}
                 </div>
 
                 <legend className="col-form-label col-sm-2 float-sm-left pt-0 mb-4">
@@ -576,6 +643,7 @@ function ShopCartPay(props) {
                       value="1"
                       onChange={payWayChange}
                       checked={cartData && cartData.pay_way == 1}
+                      required
                     />
                     <label className="form-check-label" for="creditCard">
                       信用卡付款
@@ -595,28 +663,34 @@ function ShopCartPay(props) {
                       貨到付款
                     </label>
                   </div>
+                  {fieldErrors.pay_way !== '' && (
+                    <small className="shopcart_pay_error">
+                      {fieldErrors.pay_way}
+                    </small>
+                  )}
                 </div>
               </fieldset>
+              <div className="shopcart-button-container text-right mb-5">
+                <Link
+                  to="/shoppingcart/step1-detail"
+                  className="shopcart-btn btn-prev btn btn-outline-primary mr-3"
+                >
+                  上一步
+                </Link>
+                <button
+                  // to="/shoppingcart/step3-check"
+                  className="shopcart-btn btn-next btn btn-primary mr-3"
+                  // onClick={() => {
+                  //   console.log('hello');
+                  //   setPay({ ...cartData });
+                  // }}
+                >
+                  下一步
+                </button>
+              </div>
             </form>
 
             {/* <!-- button --> */}
-            <div className="shopcart-button-container text-right mb-5">
-              <Link
-                to="/shoppingcart/step1-detail"
-                className="shopcart-btn btn-prev btn btn-outline-primary mr-3"
-              >
-                上一步
-              </Link>
-              <Link
-                to="/shoppingcart/step3-check"
-                className="shopcart-btn btn-next btn btn-primary mr-3"
-                onClick={() => {
-                  setPay({ ...cartData });
-                }}
-              >
-                下一步
-              </Link>
-            </div>
           </div>
         </div>
       </div>
