@@ -45,6 +45,8 @@ function MapL() {
   const [userLocation, setUserLocation] = useState([]);
   const [userLocationBtn, setUserLocationBtn] = useState(false);
 
+  // console.log('userLocation:', userLocation); //for check
+
   //=== 計算兩點距離 start ===//
   function distance(lat1, lon1, lat2, lon2, unit) {
     // console.log('lat1', lat1);

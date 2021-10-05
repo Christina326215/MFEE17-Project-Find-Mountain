@@ -44,9 +44,11 @@ import { AuthContext } from './context/auth';
 import { memberURL } from './utils/config';
 import axios from 'axios';
 
-//====== below utils for 沒登入時的畫面 star ======//
+//====== below utils for 沒登入時的畫面 start ======//
 import { needLogin } from './utils/needLogin';
 //====== above utils for 沒登入時的畫面 end ======//
+
+import { spinner } from './utils/spinner'; //bootstrap spinner
 
 //====== above components end ======//
 
@@ -62,6 +64,7 @@ function App() {
   const [page, setPage] = useState(1);
   // 總共有幾頁
   const [totalPage, setTotalPage] = useState(0);
+  const [isLoading, setIsLoading] = useState(true); //緩衝畫面不會閃一下
 
   //=== 彈跳視窗開關 star ===//
   const [show, setShow] = useState(false);
@@ -69,6 +72,10 @@ function App() {
   //=== 彈跳視窗開關 end ===//
 
   useEffect(() => {
+    //=== 先開起載入指示器 start ===//
+    setIsLoading(true);
+    //=== 先開起載入指示器 end ===//
+
     // 每次重新整理或開啟頁面時，都去確認一下是否在已經登入的狀態。
     // 從資料庫抓資料
     async function getPersonalData() {
@@ -82,6 +89,12 @@ function App() {
       }
     }
     getPersonalData();
+
+    //=== 0.7秒後關閉指示器 start ===//
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 700);
+    //=== 0.7秒後關閉指示器 end ===//
   }, [show, mapRouteShow, auth, flagHandle]);
 
   // 重整後要重新設定auth
@@ -91,7 +104,7 @@ function App() {
     }
   }, [member]);
 
-  // console.log('outside-member', member);
+  console.log('outside-member', member);
 
   return (
     <AuthContext.Provider
@@ -164,30 +177,38 @@ function App() {
                 <ShopCartDetail />
               </Route>
               <Route path="/shoppingcart/step2-pay">
-                {member ? <ShopCartPay /> : needLogin}
+                {member ? <ShopCartPay /> : isLoading ? spinner : needLogin}
               </Route>
               <Route path="/shoppingcart/step3-check">
-                {member ? <ShopCartCheck /> : needLogin}
+                {member ? <ShopCartCheck /> : isLoading ? spinner : needLogin}
               </Route>
               <Route path="/shoppingcart/step4-final">
-                {member ? <ShopCartFinal /> : needLogin}
+                {member ? <ShopCartFinal /> : isLoading ? spinner : needLogin}
               </Route>
               <Route path="/outfit">
                 <Outfit />
               </Route>
 
               <Route path="/member/order">
-                {member ? <MemberOrder /> : needLogin}
+                {member ? <MemberOrder /> : isLoading ? spinner : needLogin}
               </Route>
               <Route path="/member/product-article">
-                {member ? <MemberProductArticle /> : needLogin}
+                {member ? (
+                  <MemberProductArticle />
+                ) : isLoading ? (
+                  spinner
+                ) : (
+                  needLogin
+                )}
               </Route>
               <Route path="/member/comment">
-                {member ? <MemberComment /> : needLogin}
+                {member ? <MemberComment /> : isLoading ? spinner : needLogin}
               </Route>
               <Route path="/member/personal">
                 {member ? (
                   <MemberPersonal show={show} setShow={setShow} />
+                ) : isLoading ? (
+                  spinner
                 ) : (
                   needLogin
                 )}
@@ -195,12 +216,14 @@ function App() {
               <Route path="/member/edit">
                 {member ? (
                   <MemberEdit show={show} setShow={setShow} />
+                ) : isLoading ? (
+                  spinner
                 ) : (
                   needLogin
                 )}
               </Route>
               <Route path="/member">
-                {member ? <MemberMapRoute /> : needLogin}
+                {member ? <MemberMapRoute /> : isLoading ? spinner : needLogin}
               </Route>
               <Route path="/signup">
                 <SignUp />
