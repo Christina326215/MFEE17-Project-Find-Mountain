@@ -7,6 +7,7 @@ import levelHigh from '../../img/article-img/level_high.svg';
 import { FaShoePrints } from 'react-icons/fa';
 import { BsStarFill } from 'react-icons/bs';
 import { IMAGE_URL } from '../../utils/config';
+
 // import PagesBtn from '../PagesBtn'; //分頁按鈕
 // import { useAuth } from '../../context/auth'; // 取得會員資料
 
@@ -56,7 +57,7 @@ function Card(props) {
       <p className="recommend-inline ml-2">共 {length} 筆資料</p>
       {result.map((detail, i) => {
         return (
-          <div className="row-cols-1 mt-3 mb-3" key={i}>
+          <div className="articleCard row-cols-1 mt-3 mb-3" key={i}>
             <div className="recommend-card card">
               <div className="row no-gutters">
                 <div className="col-md-4 recommend-pic-box">

@@ -15,6 +15,7 @@ import levelHigh from '../../img/article-img/level_high.svg';
 import { FaShoePrints } from 'react-icons/fa';
 import { BsHeartFill } from 'react-icons/bs';
 import { BsStarFill, BsFlagFill, BsQuestionCircle } from 'react-icons/bs';
+import { gsap } from 'gsap';
 // 使用sweetalert2彈跳視窗
 import Swal from 'sweetalert2';
 import GoogleMapDemo from './GoogleMapDemo';
@@ -90,6 +91,9 @@ function DetailContent(props) {
   };
 
   useEffect(() => {
+    // gsap動畫
+    gsap.from('.recommend-detailBg', { opacity: 0, y: 100, duration: 1.2 });
+
     // 連線當頁的資料庫
     async function recommendData() {
       try {
@@ -369,7 +373,7 @@ function DetailContent(props) {
           <div className="d-flex justify-content-between">
             <h2 className="col-5 recommend-h2">{detail.name}</h2>
             <div className="col-7 row align-items-center my-1">
-              <div className="col-12">
+              <div className="col-12 titleText">
                 <div className="d-flex align-items-center justify-content-end">
                   <div className="mr-3">{articleStars(detail.average)}</div>
                   <div className="text-primary recommend-body-content mr-3">
