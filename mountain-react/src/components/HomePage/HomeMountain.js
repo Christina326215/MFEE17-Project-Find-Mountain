@@ -70,7 +70,7 @@ function HomeMountain(props) {
           `${weatherURL}&locationName=${locations}&elementName=${elements}&parameterName=${parameters}`
         );
         let location = weatherData.data.records.location;
-        console.log('weatherData:', location); //for check
+        // console.log('weatherData:', location); //for check
         setWeatherData(location);
         //確認使用者裝置是否抓到地點位置
         if (navigator.geolocation) {
@@ -104,7 +104,7 @@ function HomeMountain(props) {
       }
     }
     homeData();
-  }, [listData, userLocation]);
+  }, [listData]);
   const changeLevel = () => {
     let btn = document.querySelectorAll('.homepage-sliderBtn');
     let content = document.querySelectorAll('.homepage-wrapper-Taiwan');

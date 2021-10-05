@@ -2,6 +2,12 @@ const express = require('express')
 const router = express.Router()
 const connection = require('../utils/db')
 const nodemailer = require('nodemailer')
+const mailgun = require('mailgun-js')
+require('dotenv').config() // 透過dotenv設定連線資料，以免資料外洩
+
+//token
+// import { uuid, isUuid } from 'uuidv4'
+
 // 給 react 用
 const passport = require('passport')
 
@@ -66,6 +72,35 @@ router.post('/register', upload.none(), registerRule, async function (req, res, 
         },
     ]) // 等資料庫查詢資料
 
+    //發送驗證碼
+    const api_key = process.env.MAILGUN_API_KEY
+    const domain = process.env.MAILGUN_DOMAIN
+    // const mg = new mailgun({ apiKey: api_key, domain: domain })
+    let mailgun = require('mailgun-js')({ apiKey: api_key, domain: domain })
+    let data = {
+        // from: '找靠山 <sandbox0ff7e060e8724664ab35c95257bb2a46.mailgun.org>',
+        from: `找靠山 <mailgun@${domain}>`,
+        to: `<${dbResults.account}>`,
+        // to: '<def2446@yahoo.com.tw>',
+        subject: 'Hello',
+        text:
+            `您的註冊驗證碼為3n4b6c2a\n\n` +
+            '請將此驗證碼輸入至註冊表單\n\n' +
+            '如果您已輸入驗證碼，請自行忽略此封信件，感謝配合！\n',
+        // `http://localhost:3000/reset/${uuidv4(token)}\n\n`,
+    }
+
+    console.log('start')
+    mailgun.messages().send(data, function (error, body) {
+        console.log('sending email')
+        if (error) {
+            console.log('error', error)
+        }
+        console.log('body', body)
+    })
+    console.log('end')
+    res.json(result)
+
     // res.json(dbResults)
     res.json({})
 })
@@ -124,56 +159,83 @@ router.post('/login', upload.none(), async (req, res, next) => {
 //======= 忘記密碼 =======
 router.post('/forget', async (req, res, next) => {
     console.log(req.body)
-    let result = await connection.queryAsync('SELECT account FROM user WHERE account = ?', [req.body.email])
-    if (req.body.email === '') {
-        res.json('email required')
+    console.log('email', req.body.forgetData)
+    let forgetDataObj = {
+        email: req.body.forgetData,
     }
-    console.log(req.body.email)
-
-    if (result.account === 0) {
-        // return next({
-        //     // code: "330002",
-        //     status: 400,
-        //     message: '找不到帳號',
-        // })
+    let result = await connection.queryAsync('SELECT id,account,password FROM user WHERE account = ?', [
+        forgetDataObj.email,
+    ])
+    console.log('result', result)
+    console.log('id', result[0].id)
+    console.log('password', result[0].password)
+    // if (req.body.email === '') {
+    //     res.json('email required')
+    // }
+    if (result.length === 0) {
         console.log('查無此帳號')
-        res.json('查無此帳號')
+        return next({
+            // code: "330002",
+            status: 400,
+            message: '1',
+            //msg:1->找不到帳號
+        })
+        // res.json('查無此帳號')
     } else {
-        const token = bcrypt.hash(req.body.password, 10)
-        console.log(token)
-        result.account.update({
-            resetPasswordToken: token,
-            resetPasswordExpires: Date.now() + 60000,
-        })
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                account: `${process.env.EMAIL_ADDRESS}`,
-                pass: `${process.env.EMAIL_PASSWORD}`,
+        // console.log(uuidv4())
+        //設定token
+        // let token = {
+        //     random: [0x10, 0x91, 0x56, 0xbe, 0xc4, 0xfb, 0xc1, 0xea, 0x71, 0xb4, 0xef, 0xe1, 0x67, 0x1c, 0x58, 0x36],
+        // }
+        // uuidv4(token)
+        // let maxNum = 15
+        // let minNum = 6
+        let password = '1234567'
+        let hashPassword = await bcrypt.hash(password, 10)
+        const resetPassword = await connection.queryAsync('UPDATE user SET ? WHERE id=?', [
+            {
+                password: hashPassword,
             },
-        })
-        const mailOptions = {
-            from: `mySqlDemoEmail@gmail.com`,
-            to: `${result.account}`,
-            subject: '重新設定密碼',
-            text:
-                'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-                'Please click on the following link, or paste this into your browser to complete the process within one hour of receiving it:\n\n' +
-                `http://localhost:3031/reset/${token}\n\n` +
-                'If you did not request this, please ignore this email and your password will remain unchanged.\n',
-        }
-        console.log('信件寄出')
+            result[0].id,
+        ])
 
-        transporter.sendMail(mailOptions, (err, response) => {
-            if (err) {
-                console.error('there was an error: ', err)
-            } else {
-                console.log('here is the res: ', response)
-                res.status(200).json('recovery email sent')
+        console.log('data', req.body.forgetData)
+
+        const api_key = process.env.MAILGUN_API_KEY
+        const domain = process.env.MAILGUN_DOMAIN
+        // const mg = new mailgun({ apiKey: api_key, domain: domain })
+        let mailgun = require('mailgun-js')({ apiKey: api_key, domain: domain })
+        let data = {
+            // from: '找靠山 <sandbox0ff7e060e8724664ab35c95257bb2a46.mailgun.org>',
+            from: `找靠山 <mailgun@${domain}>`,
+            to: `<${req.body.forgetData}>`,
+            // to: '<def2446@yahoo.com.tw>',
+            subject: 'Hello',
+            text:
+                `您的暫時密碼：${password}\n\n` +
+                '確保帳戶安全性,' +
+                '請儘速至[會員專區]更新您的密碼\n\n' +
+                '如果您已更新密碼，請自行忽略此封信件，感謝配合！\n',
+            // `http://localhost:3000/reset/${uuidv4(token)}\n\n`,
+        }
+
+        console.log('start')
+        mailgun.messages().send(data, function (error, body) {
+            console.log('sending email')
+            if (error) {
+                console.log('error', error)
             }
+            console.log('body', body)
         })
+        console.log('end')
+        res.json(result)
     }
 })
+//======= reset =======
+// router.post(`/reset/${token}`, async (req, res, next) => {
+//     console.log('hello')
+//     res.send('hello')
+// })
 
 // ======= FB 登入 =======
 const FacebookTokenStrategy = require('passport-facebook-token')
@@ -226,7 +288,7 @@ router.post('/facebook', passport.authenticate('facebook-token', { session: fals
     req.session.account = req.user
     // 回覆給前端
     res.json({
-        returnMember,
+        returnMember: req.user,
     })
 })
 // ======= google 登入 =======
@@ -273,7 +335,7 @@ passport.use(
         }
     )
 )
-//前端token傳過來進入 passport.authenticate中間件
+//前端token傳過來進入 跑passport.authenticate中間件
 router.post('/google', passport.authenticate('google-token', { session: false }), function (req, res, next) {
     if (!req.user) {
         console.log('Google Login 登入失敗')
@@ -284,7 +346,7 @@ router.post('/google', passport.authenticate('google-token', { session: false })
     req.session.account = req.user
     // 回覆給前端
     res.json({
-        name: req.user.name,
+        returnMember: req.user,
     })
 })
 //登出

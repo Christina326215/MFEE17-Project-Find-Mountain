@@ -13,6 +13,7 @@ function SignUp(props) {
   // 設定zip_code狀態 start //
   const [zipGroup, setZipGroup] = useState(null);
   const [zipCode, setZipCode] = useState(null);
+  const [email, setEmail] = useState(null);
   const [cities, setCities] = useState([]); // 各縣市陣列
   const [districts, setDistricts] = useState([]); //各行政區陣列
   // 設定zip_code狀態 end //
@@ -145,6 +146,7 @@ function SignUp(props) {
       formData.append('phone', registerData.phone);
       formData.append('zip_code', registerData.zip_code);
       formData.append('addr', registerData.addr);
+      formData.append('verification', registerData.verification);
       formData.append('email', registerData.email);
       formData.append('password', registerData.password);
       formData.append('repassword', registerData.repassword);
@@ -183,22 +185,16 @@ function SignUp(props) {
   if (prevContent) {
     prevContent.addEventListener('click', prev, false);
   }
-
-  // for (let i = 0; i < menu.length; i++) {
-  //   menu[i].addEventListener('click', function () {
-  //     for (let k = 0; k < content.length; k++) {
-  //       if (i === k) {
-  //         content[k].style.display = 'block';
-  //       } else {
-  //         content[k].style.display = 'none';
-  //       }
-  //     }
-  //     for (let j = 0; j < menu.length; j++) {
-  //       menu[j].classList.remove('active');
-  //     }
-  //     this.classList.add('active');
-  //   });
-  // }
+  //=== 發送驗證碼
+  const [time, setTime] = useState(60);
+  const [isShowCode, setIsShowCode] = useState(false);
+  const SendEmail = async (e) => {
+    e.preventDefault();
+    if (registerData.email) {
+      setEmail(true);
+    }
+    
+  };
 
   return (
     <>
@@ -373,6 +369,7 @@ function SignUp(props) {
                               name="addr"
                               value={registerData && registerData.addr}
                               onChange={handleChange}
+                              minLength="1"
                             />
                             {fieldErrors.addr !== '' && (
                               <small className="login-error">
@@ -424,12 +421,24 @@ function SignUp(props) {
                                 className="form-control"
                                 id="inputEmail3"
                                 placeholder="請輸入驗證碼"
+                                value={
+                                  registerData && registerData.verification
+                                }
+                                onChange={handleChange}
+                                required
                               />
+                              {fieldErrors.verification !== '' && (
+                                <small className="login-error">
+                                  {fieldErrors.verification}
+                                </small>
+                              )}
                             </div>
                             <div className="col-6">
                               <button
                                 type="button"
                                 className="btn btn-outline-primary float-right"
+                                onClick={SendEmail}
+                                onInvalid={handleFormInvalid}
                               >
                                 發送驗證碼
                               </button>

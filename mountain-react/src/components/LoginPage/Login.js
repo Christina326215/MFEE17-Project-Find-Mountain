@@ -14,7 +14,7 @@ import { useAuth } from '../../context/auth';
 import ForgetPassword from './ForgetPassword';
 
 // ===icon start===
-import { FaFacebookSquare, FaGoogle, FaLine } from 'react-icons/fa';
+import { FaFacebookSquare, FaGoogle } from 'react-icons/fa';
 // ===icon end===
 
 //===import img start===
@@ -26,7 +26,7 @@ import Swal from 'sweetalert2';
 //===import img end===
 
 //===第三方登入===
-import FacebookLogin from '@greatsumini/react-facebook-login';
+import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -95,7 +95,7 @@ function Login(props) {
   //===第三方登入 star
   //FB
   const responseFacebook = async (res) => {
-    console.log('Hello FB', res.accessToken);
+    // console.log('Hello FB', res.accessToken);
     let response = await axios.post(
       `${authURL}/facebook`,
       {
@@ -106,13 +106,13 @@ function Login(props) {
       }
     );
     console.log(response.data);
-    if (response.data.id) {
+    if (response.data) {
       setAuth(true);
     }
   };
 
   const responseGoogle = async (res) => {
-    console.log('Hello Google', res.accessToken);
+    // console.log('Hello Google', res.accessToken);
     let response = await axios.post(
       `${authURL}/google`,
       {
@@ -124,7 +124,7 @@ function Login(props) {
     );
 
     console.log(response.data);
-    if (response.data.id) {
+    if (response.data) {
       setAuth(true);
     }
   };
@@ -216,30 +216,24 @@ function Login(props) {
                   <div className="login-social-container">
                     <FacebookLogin
                       // className="login-icon login-icon-FB"
-                      className="btn btn-primary"
-                      style={{
-                        backgroundColor: '#4267b2',
-                        color: '#f5f5f5',
-                      }}
+                      textButton="&nbsp;&nbsp;Facebook 登入"
+                      cssClass="btn btnFacebook"
                       appId={process.env.REACT_APP_FACEBOOK_CLIENT_ID}
                       // fields="name,email,picture"
                       autoLoad={false}
                       callback={responseFacebook}
+                      icon={
+                        <FaFacebookSquare
+                          className="fbIcon"
+                          style={{ marginLeft: '5px' }}
+                        />
+                      }
                     >
-                      <FaFacebookSquare
-                        color="white"
-                        style={{
-                          verticalAlign: 'middle',
-                          marginRight: '10px',
-                          fontSize: '12px',
-                        }}
-                        size="26"
-                      />{' '}
                       Facebook登入
                     </FacebookLogin>
                     <span>&nbsp;&nbsp;</span>
                     <GoogleLogin
-                      className="btn btn-primary"
+                      className="btnGoogle"
                       clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
                       buttonText="Google登入"
                       onSuccess={responseGoogle}

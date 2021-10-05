@@ -7,18 +7,10 @@ import axios from 'axios';
 //===api end====
 
 function ForgetPassword(props) {
-  const [show, setShow] = useState(false);
   const [forgetData, setForgetData] = useState({
     email: '',
   });
-  //=== 彈跳視窗開關 star ===//
-  const handleClose = () => setShow(false);
-  const handleShow = (e) => {
-    //因為button在form裡面但不想要提交form,擋掉預設動作->submit
-    e.preventDefault();
-    setShow(true);
-  };
-  //=== 彈跳視窗開關 end ===//
+
   const [email, setEmail] = useState(null);
   // 存入錯誤訊息用 start //
   const [fieldErrors, setFieldErrors] = useState(null);
@@ -39,13 +31,11 @@ function ForgetPassword(props) {
       if (memberData.data === 'recovery email sent') {
         setEmail(true);
       }
-      setShow(false);
     } catch (e) {
       console.log(e);
       if (!email) {
         setEmail(false);
       }
-      setShow(true);
     }
   };
   const handleFormInvalid = (e) => {
@@ -63,12 +53,12 @@ function ForgetPassword(props) {
   return (
     <>
       {/* <div className="title">重新設定密碼</div> */}
-      <button className="btn login-forgetPassword" onClick={handleShow}>
-        忘記密碼
+      <button className="btn btn-outline-primary float-right">
+        發送驗證碼
       </button>
 
       {/* ==== modal === */}
-      <Modal size="md" show={show} onHide={handleClose}>
+      <Modal size="md">
         <Modal.Header closeButton>
           <Modal.Title>忘記密碼？</Modal.Title>
         </Modal.Header>
@@ -87,9 +77,9 @@ function ForgetPassword(props) {
               name="email"
               placeholder="Email 帳號"
             />
-            {fieldErrors.email !== '' && (
-              <small className="login-error">{fieldErrors.email}</small>
-            )}
+            {/* {fieldErrors.phone !== '' && (
+              <small className="login-error">{fieldErrors.phone}</small>
+            )} */}
           </form>
         </Modal.Body>
 
