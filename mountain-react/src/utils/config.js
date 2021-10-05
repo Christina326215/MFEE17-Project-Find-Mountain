@@ -46,6 +46,15 @@ export const zipGroupURL = baseZipURL + '/group.json';
 
 export const zipCodeURL = baseZipURL + '/code.json';
 
+//=== openweather url star ===//
+// export const openWeatherURL =
+//   process.env.REACT_APP_openWeatherURL || 'http://localhost:3500/api/recommend';
+//=== openweather url end ===//
+
+//=== openweather key star ===//
+export const openWeatherKey = process.env.REACT_APP_openWeather;
+//=== openweather key end ===//
+
 //=== recommend url star ===//
 export const recommendURL =
   process.env.REACT_APP_recommendURL || 'http://localhost:3500/api/recommend';
