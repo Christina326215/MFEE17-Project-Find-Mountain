@@ -111,6 +111,46 @@ function CommmentList(props) {
     }
   };
 
+  // userlevel icon判斷
+  const userLevel = (level) => {
+    let userLevel = [];
+    switch (level) {
+      case '1':
+        userLevel.push(
+          <i
+            className="bi recommend-bi-person-circle"
+            style={{ color: '#4E4E4E' }}
+          >
+            <BsPeopleCircle></BsPeopleCircle>
+          </i>
+        );
+        break;
+      case '2':
+        userLevel.push(
+          <i
+            className="bi recommend-bi-person-circle"
+            style={{ color: '#6DA77F' }}
+          >
+            <BsPeopleCircle></BsPeopleCircle>
+          </i>
+        );
+        break;
+      case '3':
+        userLevel.push(
+          <i
+            className="bi recommend-bi-person-circle"
+            style={{ color: '#FFB943' }}
+          >
+            <BsPeopleCircle></BsPeopleCircle>
+          </i>
+        );
+        break;
+      default:
+        break;
+    }
+    return userLevel;
+  };
+
   return (
     <div>
       {comment.length < 1 ? (
@@ -136,36 +176,7 @@ function CommmentList(props) {
               <div className="d-flex flex-column justify-content-between col-lg-9 px-0">
                 <div className="d-flex">
                   <div className="recommend-memberLevel1">
-                    {comment.user_level === '1' ? (
-                      <i
-                        className="bi recommend-bi-person-circle"
-                        style={{ color: '#4E4E4E' }}
-                      >
-                        <BsPeopleCircle></BsPeopleCircle>
-                      </i>
-                    ) : (
-                      ''
-                    )}
-                    {comment.user_level === '2' ? (
-                      <i
-                        className="bi recommend-bi-person-circle"
-                        style={{ color: '#6DA77F' }}
-                      >
-                        <BsPeopleCircle></BsPeopleCircle>
-                      </i>
-                    ) : (
-                      ''
-                    )}
-                    {comment.user_level === '3' ? (
-                      <i
-                        className="bi recommend-bi-person-circle"
-                        style={{ color: '#FFB943' }}
-                      >
-                        <BsPeopleCircle></BsPeopleCircle>
-                      </i>
-                    ) : (
-                      ''
-                    )}
+                    {userLevel(comment.user_level)}
                   </div>
                   <div className="">
                     {comment.user_level === '1' ? (

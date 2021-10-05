@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
-import levelLow from '../../img/article-img/level_low.svg';
+import { useEffect } from 'react';
+// import levelLow from '../../img/article-img/level_low.svg';
 
 // 申請的google api key
 import { apiKey } from '../../utils/config';
@@ -211,8 +212,16 @@ export class SingleMapDetail extends Component {
   };
 
   onMapReady = (mapProps, map) => {
+    console.log('好了');
     this.map = map;
   };
+
+  // useEffect(()=>{},[])
+
+  // constructor(props) {
+  //   super(props);
+  //   this.state = { date: new Date() };
+  // }
 
   componentDidUpdate(prevProps, prevState) {
     console.log(
@@ -222,19 +231,32 @@ export class SingleMapDetail extends Component {
       prevProps.lng,
       this.props.lng
     );
-
+    ////////
+    console.log('prevProps.google', prevProps.google);
+    console.log('this.props.google', this.props.google);
     if (prevProps.google !== this.props.google) {
       this.loadMap();
+      console.log('OK');
     }
+    console.log('不知道為什麼這邊卡住？？要重整才會出現？');
 
     if (prevProps.lat !== this.props.lat || prevProps.lng !== this.props.lng) {
       this.recenterMap();
     }
+    // this.recenterMap();
+    console.log('prevProps.lat ', prevProps.lat);
+    console.log('this.props.lat ', this.props.lat);
+    console.log('prevProps.lng', prevProps.lng);
+    console.log('this.props.lng', this.props.lng);
+    // console.log('卡住2');
+    // return;
   }
 
   recenterMap = () => {
     const map = this.map;
     const curr = { lat: this.props.lat, lng: this.props.lng };
+    console.log('this.props.lat', this.props.lat);
+    console.log('this.props.lng', this.props.lng);
 
     const google = this.props.google;
     const maps = google.maps;

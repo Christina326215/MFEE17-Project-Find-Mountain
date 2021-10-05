@@ -313,6 +313,34 @@ function DetailContent(props) {
     }
   };
 
+  // 星星平均分數
+  const articleStars = (average) => {
+    // 給一個空陣列
+    let content = [];
+    for (let i = 0; i < average; i++) {
+      // 推入獲得的星星數
+      content.push(
+        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
+      );
+    }
+    for (let j = 0; j < 5 - average; j++) {
+      // 推入少的星星數
+      content.push(
+        <BsStarFill
+          className="bi recommend-bi-star-fill mr-1"
+          style={{ color: '#e2e3e1' }}
+        ></BsStarFill>
+      );
+    }
+    return content;
+  };
+
+  // 山等級判斷
+  let mountainLevel = {};
+  mountainLevel['低'] = <img className="mr-1" src={levelLow} alt="..." />;
+  mountainLevel['中'] = <img className="mr-1" src={levelMiddle} alt="..." />;
+  mountainLevel['高'] = <img className="mr-1" src={levelHigh} alt="..." />;
+
   return (
     <div>
       {/* "id": 1,
@@ -343,135 +371,9 @@ function DetailContent(props) {
             <div className="col-7 row align-items-center my-1">
               <div className="col-12">
                 <div className="d-flex align-items-center justify-content-end">
-                  <div className="mr-3">
-                    {!detail.average || detail.average === 0 ? (
-                      <>
-                        <BsStarFill
-                          className="bi recommend-bi-star-fill mr-1"
-                          style={{ color: '#e2e3e1' }}
-                        ></BsStarFill>{' '}
-                        <BsStarFill
-                          className="bi recommend-bi-star-fill mr-1"
-                          style={{ color: '#e2e3e1' }}
-                        ></BsStarFill>
-                        <BsStarFill
-                          className="bi recommend-bi-star-fill mr-1"
-                          style={{ color: '#e2e3e1' }}
-                        ></BsStarFill>
-                        <BsStarFill
-                          className="bi recommend-bi-star-fill mr-1"
-                          style={{ color: '#e2e3e1' }}
-                        ></BsStarFill>
-                        <BsStarFill
-                          className="bi recommend-bi-star-fill"
-                          style={{ color: '#e2e3e1' }}
-                        ></BsStarFill>
-                      </>
-                    ) : (
-                      ''
-                    )}
-                    {detail.average === 1 ? (
-                      <>
-                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
-                        <BsStarFill
-                          className="bi recommend-bi-star-fill mr-1"
-                          style={{ color: '#e2e3e1' }}
-                        ></BsStarFill>
-                        <BsStarFill
-                          className="bi recommend-bi-star-fill mr-1"
-                          style={{ color: '#e2e3e1' }}
-                        ></BsStarFill>
-                        <BsStarFill
-                          className="bi recommend-bi-star-fill mr-1"
-                          style={{ color: '#e2e3e1' }}
-                        ></BsStarFill>
-                        <BsStarFill
-                          className="bi recommend-bi-star-fill"
-                          style={{ color: '#e2e3e1' }}
-                        ></BsStarFill>
-                      </>
-                    ) : (
-                      ''
-                    )}
-                    {detail.average === 2 ? (
-                      <>
-                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
-                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
-                        <BsStarFill
-                          className="bi recommend-bi-star-fill mr-1"
-                          style={{ color: '#e2e3e1' }}
-                        ></BsStarFill>
-                        <BsStarFill
-                          className="bi recommend-bi-star-fill mr-1"
-                          style={{ color: '#e2e3e1' }}
-                        ></BsStarFill>
-                        <BsStarFill
-                          className="bi recommend-bi-star-fill"
-                          style={{ color: '#e2e3e1' }}
-                        ></BsStarFill>
-                      </>
-                    ) : (
-                      ''
-                    )}
-                    {detail.average === 3 ? (
-                      <>
-                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
-                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
-                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
-                        <BsStarFill
-                          className="bi recommend-bi-star-fill mr-1"
-                          style={{ color: '#e2e3e1' }}
-                        ></BsStarFill>
-                        <BsStarFill
-                          className="bi recommend-bi-star-fill"
-                          style={{ color: '#e2e3e1' }}
-                        ></BsStarFill>
-                      </>
-                    ) : (
-                      ''
-                    )}
-                    {detail.average === 4 ? (
-                      <>
-                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
-                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
-                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
-                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
-                        <BsStarFill
-                          className="bi recommend-bi-star-fill"
-                          style={{ color: '#e2e3e1' }}
-                        ></BsStarFill>
-                      </>
-                    ) : (
-                      ''
-                    )}
-                    {detail.average === 5 ? (
-                      <>
-                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
-                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
-                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
-                        <BsStarFill className="bi recommend-bi-star-fill mr-1"></BsStarFill>
-                        <BsStarFill className="bi recommend-bi-star-fill"></BsStarFill>
-                      </>
-                    ) : (
-                      ''
-                    )}
-                  </div>
+                  <div className="mr-3">{articleStars(detail.average)}</div>
                   <div className="text-primary recommend-body-content mr-3">
-                    {detail.level_name === '低' ? (
-                      <img className="mr-1" src={levelLow} alt="..." />
-                    ) : (
-                      ''
-                    )}
-                    {detail.level_name === '中' ? (
-                      <img className="mr-1" src={levelMiddle} alt="..." />
-                    ) : (
-                      ''
-                    )}
-                    {detail.level_name === '高' ? (
-                      <img className="mr-1" src={levelHigh} alt="..." />
-                    ) : (
-                      ''
-                    )}
+                    {mountainLevel[detail.level_name]}
                     難度{detail.level_name}
                   </div>
                   <div className="text-primary recommend-body-content">

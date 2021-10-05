@@ -10,11 +10,11 @@ function GoogleMapDemo(props) {
   // 景點地址
   const [searchAddress, setSearchAddress] = useState('');
   useEffect(() => {
-    console.log(lat);
+    // console.log(lat);
   }, [lat]);
 
   useEffect(() => {
-    console.log(lng);
+    // console.log(lng);
   }, [lng]);
 
   return (
