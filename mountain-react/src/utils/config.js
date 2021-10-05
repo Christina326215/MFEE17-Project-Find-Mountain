@@ -46,71 +46,66 @@ export const zipGroupURL = baseZipURL + '/group.json';
 
 export const zipCodeURL = baseZipURL + '/code.json';
 
-//=== openweather url star ===//
-// export const openWeatherURL =
-//   process.env.REACT_APP_openWeatherURL || 'http://localhost:3500/api/recommend';
-//=== openweather url end ===//
-
 //=== openweather key star ===//
 export const openWeatherKey = process.env.REACT_APP_openWeather;
 //=== openweather key end ===//
 
-//=== recommend url star ===//
+//=== recommend url start ===//
 export const recommendURL =
   process.env.REACT_APP_recommendURL || 'http://localhost:3500/api/recommend';
-//=== recommend url star ===//
+//=== recommend url end ===//
 
 //=== googlemap url star ===//
 export const apiKey = process.env.REACT_APP_apiKey;
 //=== googlemap url end ===//
 
-//=== tag url star ===//
+//=== tag url start ===//
 export const tagURL =
   process.env.REACT_APP_tagURL || 'http://localhost:3500/api/tag';
 //=== tag url end ===//
 
-//=== comment url star ===//
+//=== comment url start ===//
 export const articlecommentURL =
   process.env.REACT_APP_commentURL || 'http://localhost:3500/api/comment';
 //=== comment url end ===//
 
-//=== log url star ===//
+//=== log url start ===//
 export const authURL =
   process.env.REACT_APP_authURL || 'http://localhost:3500/api/auth';
 //=== log url end ===//
 
-//=== home url star ===//
+//=== home url start ===//
 export const homeURL =
   process.env.REACT_APP_homeURL || 'http://localhost:3500/api/home/';
 //=== home url end ===//
 
-//=== comment url star ===//
+//=== comment url start ===//
 export const commentURL =
   process.env.REACT_APP_commentURL || 'http://localhost:3500/api/home/comment';
 //=== comment url end ===//
-//=== comment url star ===//
+
+//=== comment url start ===//
 export const productURL =
   process.env.REACT_APP_productURL || 'http://localhost:3500/api/home/product';
 //=== comment url end ===//
 
-//=== for all url star ===//
+//=== for all url start ===//
 export const IMAGE_URL =
   process.env.REACT_APP_API_URL || 'http://localhost:3500';
-
 export const weatherURL = process.env.REACT_APP_weatherURL;
-//=== for all star ===//
+//=== for all end ===//
 
-//=== map url star ===//
+//=== map url start ===//
 export const mapURL =
   process.env.REACT_APP_mapURL || 'http://localhost:3500/api/map/';
 //=== map url end ===//
 
-//=== outfit url star ===//
+//=== outfit url start ===//
 export const outfitURL =
   process.env.REACT_APP_outfitURL || 'http://localhost:3500/api/outfit/';
 //=== outfit url end ===//
 
-//=== shop url star ===//
+//=== shop url start ===//
 export const shopURL =
   process.env.REACT_APP_shopURL || 'http://localhost:3500/api/shop/';
 //=== shop url end ===//

@@ -379,9 +379,9 @@
 }
 .mountain_H_list_distance_title {
   display: flex;
-  position: absolute;
+  /* position: absolute;
   left: 40%;
-  transform: translateX(40%);
+  transform: translateX(40%); 10/1 歐陽delete*/
 }
 /* map list end */
 
@@ -390,7 +390,8 @@
   display: flex;
   margin-top: 4px;
   margin-bottom: 20px;
-  margin-left: 40px;
+  margin-left: 20px;/* 10/1 歐陽 change 40px->20px*/
+  margin-right: 20px;/* 10/1 歐陽 add*/
 }
 .mountain_H_progress-bg {
   margin: 0 auto;
@@ -749,10 +750,10 @@
 
 /*********** ============below media 1200px============ *************/
 @media screen and (max-width: 1200px) {
-  .mountain_H_list_distance_title {
+  /* .mountain_H_list_distance_title {
     left: 31%;
     transform: translateX(55%);
-  }
+  } 10/1 歐陽delete */
   .mountain_H_downLowBear {
     margin-left: -170px;
   }
@@ -776,9 +777,9 @@
     display: block;
   }
   .mountain_H_list_distance_title {
-    position: static;
+    /* position: static;
     left: 0%;
-    transform: translateX(0%);
+    transform: translateX(0%); 10/1 歐陽delete */
     justify-content: center;
   }
   .mountain_H_Xiangshan_pic,
@@ -842,10 +843,10 @@
     width: 646px;
     max-width: 100%;
   }
-  .mountain_H_list_distance_title {
+  /* .mountain_H_list_distance_title {
     left: 0%;
     transform: translateX(0%);
-  }
+  }10/1 歐陽delete */
   .mountain_H_article_button {
     position: absolute;
     right: 10%;
@@ -996,9 +997,9 @@
     /* margin-bottom: 50px; */
   }
   .mountain_H_list_distance_title {
-    position: static;
+    /* position: static;
     left: 0%;
-    transform: translateX(0%);
+    transform: translateX(0%);10/1 歐陽delete */
     justify-content: center;
   }
   .mountain_H_bar_list {
@@ -1008,13 +1009,13 @@
 
   .mountain_H_downLowBear {
     right: 50%;
-    transform: translateX(-10%); /* 9/14 add */
+    transform: translateX(5%); /* 9/14 add */
     /* transform: translateX(-50%); */ /* 9/14 del */
     top: 70%;
   }
   .mountain_H_bearSpeak {
     right: 50%;
-    transform: translateX(115%); /* 9/14 add */
+    transform: translateX(125%); /* 9/14 add */
     /* transform: translateX(45%); */ /* 9/14 del */
     /* top: 70%; */ /* 9/14 del */
   }

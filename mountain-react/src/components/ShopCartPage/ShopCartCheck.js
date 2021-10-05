@@ -172,35 +172,28 @@ function ShopCartCheck(props) {
   const [showCreditCard, setShowCreditCard] = useState(false);
   const handleClose = () => setShowCreditCard(false);
   const creditCardPay = () => setShowCreditCard(true);
-
-  useEffect(() => {
-    $('#payment-button').click(function (e) {
-      // Fetch form to apply Bootstrap validation
-      var form = $(this).parents('form');
-
-      if (form[0].checkValidity() === false) {
-        e.preventDefault();
-        e.stopPropagation();
-      } else {
-        // Perform ajax submit here
-        // form.submit();
-      }
-
-      form.addClass('was-validated');
-    });
-  }, []);
   /* 信用卡彈出式視窗 end */
+
+  const validSubmit = (e) => {
+    var form = $(e.currentTarget).parent().siblings('.modal-body').find('form');
+    if (form[0].checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    } else {
+      console.log('格式ok');
+      handleSubmit();
+    }
+    form.addClass('was-validated');
+  };
 
   /* 準備 INSERT INTO 資料庫 start */
   const handleSubmit = async (e) => {
     // e.preventDefault();
     try {
-      // pay.order_detail = shopCartData;
-      pay.order_detail = cartLocal;
-      console.log('所有資料：', pay);
+      console.log('所有pay資料：', pay);
       let responsePayInfo = await axios.post(
         `${shopcartPayURL}/pay-info`,
-        { ...pay },
+        { ...pay, cartLocal },
         {
           withCredentials: true,
         }
@@ -461,13 +454,11 @@ function ShopCartCheck(props) {
                     <Modal.Title>信用卡支付</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    {/* Woohoo, you're reading this text in a modal! */}
                     <div id="pay-invoice" className="card">
                       <div className="card-body">
                         <div className="card-title">
                           <h3 className="text-center">Credit Card</h3>
                         </div>
-                        {/* <hr> */}
                         <form
                           action="/echo"
                           method="post"
@@ -504,6 +495,7 @@ function ShopCartCheck(props) {
                               aria-required="true"
                               aria-invalid="false"
                               aria-describedby="cc-name-error"
+                              pattern="[^0-9]+"
                             />
                             <span className="invalid-feedback">
                               Enter the name as shown on credit card
@@ -521,7 +513,7 @@ function ShopCartCheck(props) {
                               name="cc-number"
                               type="tel"
                               className="form-control cc-number identified visa"
-                              required=""
+                              required
                               pattern="[0-9]{16}"
                             />
                             <span className="invalid-feedback">
@@ -545,6 +537,7 @@ function ShopCartCheck(props) {
                                   required
                                   placeholder="MM / YY"
                                   autocomplete="cc-exp"
+                                  pattern="[0-9]{4}"
                                 />
                                 <span className="invalid-feedback">
                                   Enter the expiration date
@@ -566,6 +559,7 @@ function ShopCartCheck(props) {
                                   className="form-control cc-cvc"
                                   required
                                   autocomplete="off"
+                                  pattern="[0-9]{3}"
                                 />
                                 <span className="invalid-feedback order-last">
                                   Enter the 3-digit code on back
@@ -604,8 +598,8 @@ function ShopCartCheck(props) {
                     </Button>
                     <Button
                       variant="primary"
-                      onClick={handleSubmit}
                       id="payment-button"
+                      onClick={validSubmit}
                     >
                       確認支付
                     </Button>
