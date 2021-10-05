@@ -54,17 +54,17 @@ function FavoriteProductCard(props) {
   const showModal = () => {
     handleShow();
   };
-  useEffect(() => {
-    setCartPrice(cartNum * productPrice);
-    // console.log(cartPrice);
-  }, [cartNum, cartPrice, productPrice]);
   // modal計算總價
   useEffect(() => {
     setCartNum(1);
     setCartSize('');
     setCartPrice(0);
   }, [show]);
-
+  useEffect(() => {
+    setCartPrice(cartNum * productPrice);
+    // console.log(cartPrice);
+  }, [cartNum, cartPrice, productPrice]);
+  
   const addCart = () => {
     const newProductOrder = JSON.parse(
       localStorage.getItem('ProductOrderDetail') || '[]'
