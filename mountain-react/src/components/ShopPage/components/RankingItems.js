@@ -11,6 +11,7 @@ import '../../../../node_modules/slick-carousel/slick/slick.min.js';
 import '../../../../node_modules/slick-carousel/slick/slick-theme.css';
 
 function RankingItems(props) {
+  const { favoriteBtn, setFavoriteBtn } = props;
   const [rankingData, setRankingData] = useState([]);
   useEffect(() => {
     async function getRankingData() {
@@ -102,6 +103,8 @@ function RankingItems(props) {
                   type={item.type}
                   picture={item.pic}
                   key={item.id}
+                  favoriteBtn={favoriteBtn}
+                  setFavoriteBtn={setFavoriteBtn}
                 />
               );
             })}

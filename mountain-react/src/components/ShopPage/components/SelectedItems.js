@@ -3,6 +3,7 @@ import axios from 'axios';
 import { shopURL } from '../../../utils/config';
 import ProductCard from './ProductCard';
 function SelectedItems(props) {
+  const { favoriteBtn, setFavoriteBtn } = props;
   const [selectedItemsData, setSelectedItemsData] = useState([]);
   useEffect(() => {
     async function getSelectedItemsData() {
@@ -34,6 +35,8 @@ function SelectedItems(props) {
                 type={selectedP.type}
                 picture={selectedP.pic}
                 key={selectedP.id}
+                favoriteBtn={favoriteBtn}
+                setFavoriteBtn={setFavoriteBtn}
               />
             );
           })}

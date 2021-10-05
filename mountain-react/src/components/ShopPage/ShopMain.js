@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link .
 import $ from 'jquery';
 import '../../../node_modules/slick-carousel/slick/slick.css';
@@ -16,6 +16,8 @@ import display2 from '../../img/display-photo2.jpeg';
 import display3 from '../../img/display-photo3.jpeg';
 
 function ShopMain(props) {
+  const [favoriteBtn, setFavoriteBtn] = useState(false);
+  console.log('favoriteBtn', favoriteBtn);
   useEffect(() => {
     //slick
     $('.shopmain-display-photo-box').slick({
@@ -91,10 +93,16 @@ function ShopMain(props) {
           </div>
           {/* <!-- =========vegas end========= --> */}
           {/* <!-- =========編輯嚴選 start========= --> */}
-          <SelectedItems />
+          <SelectedItems
+            favoriteBtn={favoriteBtn}
+            setFavoriteBtn={setFavoriteBtn}
+          />
           {/* <!-- =========編輯嚴選 end========= --> */}
           {/* <!-- =========熱銷不敗(本月暢銷排行) start========= --> */}
-          <RankingItems />
+          <RankingItems
+            favoriteBtn={favoriteBtn}
+            setFavoriteBtn={setFavoriteBtn}
+          />
           {/* <!-- =========熱銷不敗(本月暢銷排行) end========= --> */}
           {/* <!-- =========熱門登山攻略 start========= --> */}
           <RankingArticles />
