@@ -1,74 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { CartFill, HeartFill } from 'react-bootstrap-icons';
-//bootstrap彈出視窗
-import { Modal, Button, Row, Col } from 'react-bootstrap';
-import '../../../styles/product.css';
-import { shopURL, IMAGE_URL } from '../../../utils/config';
-import $ from 'jquery';
-import Swal from 'sweetalert2';
+import { IMAGE_URL, memberProductURL } from '../../../utils/config';
+//====== below icon star ======//
+import { BsXSquareFill } from 'react-icons/bs';
+import { Cart } from 'react-bootstrap-icons';
+//====== below icon end ======//
 import { useAuth } from '../../../context/auth'; // 取得setCartChange狀態
 import axios from 'axios';
+//bootstrap彈出視窗
+import { Modal, Button, Row, Col } from 'react-bootstrap';
+import Swal from 'sweetalert2';
 
-function ProductCard(props) {
+function FavoriteProductCard(props) {
   const {
+    productPic,
+    productBrand,
+    productName,
+    productPrice,
     productId,
-    price,
-    picture,
-    name,
-    brand,
-    type,
-    favoriteBtn,
-    setFavoriteBtn,
+    productType,
+    setFavChange,
   } = props;
-  const { setCartChange, member, auth } = useAuth(); // 取得購物車數字狀態
+  const { setCartChange, member } = useAuth(); // 取得購物車數字狀態
   const [show, setShow] = useState(false);
   const [cartNum, setCartNum] = useState(1);
   const [cartSize, setCartSize] = useState('');
   const [cartPrice, setCartPrice] = useState(0);
-  //愛心顏色狀態 true為紅色 false為白色
-  const [heart, setHeart] = useState(false);
-  //取得local storage轉為陣列的資料 ProductOrder
-  const heartIconClick = function (e) {
-    // console.log(e.currentTarget);
-    // $(e.currentTarget).toggleClass('shopmain-heart-icon-bkg-click');
-    if (auth === false) {
-      Swal.fire({
-        icon: 'error',
-        title: '需要先登入才能加入收藏',
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      return;
-    }
-    if (member !== null) {
-      // console.log('productId, memberId', productId, member.id);
-      if (heart === true) {
-        //取消收藏 productId 為 number
-        // console.log('收藏中');
-        removeWishList();
-      } else {
-        //加入收藏
-        // console.log('沒收藏');
-        addWishList();
-      }
-    }
-  };
-  //remove wish
-  const removeWishList = async () => {
+
+  //移除收藏
+  const removeFavorite = async () => {
     try {
       let id = productId;
       // console.log('remove product id, member id', id, member.id);
-      await axios.post(`${shopURL}/remove-wish`, {
+      await axios.post(`${memberProductURL}/remove-favorite`, {
         member,
         id,
       });
-      setHeart(false);
-      if (favoriteBtn === false) {
-        setFavoriteBtn(true);
-      } else {
-        setFavoriteBtn(false);
-      }
     } catch (e) {
       console.log(e);
     }
@@ -78,71 +45,26 @@ function ProductCard(props) {
       showConfirmButton: false,
       timer: 1500,
     });
+    //讓父元件重新render收藏清單
+    setFavChange(true);
   };
-  //add wish
-
-  const addWishList = async () => {
-    try {
-      let id = productId;
-      // console.log('add product id, member id', id, member.id);
-      await axios.post(`${shopURL}/add-wish`, {
-        member,
-        id,
-      });
-      setHeart(true);
-      if (favoriteBtn === false) {
-        setFavoriteBtn(true);
-      } else {
-        setFavoriteBtn(false);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-    Swal.fire({
-      icon: 'success',
-      title: '已加入收藏',
-      showConfirmButton: false,
-      timer: 1500,
-    });
-  };
-  //get Wish List
-  useEffect(() => {
-    async function getWishListData() {
-      try {
-        if (auth === false) {
-          // console.log('尚未登入');
-          $('.shopmain-heart-icon-bkg').removeClass(
-            'shopmain-heart-icon-bkg-click'
-          );
-          return;
-        }
-        // console.log('登入囉');
-        const wishListData = await axios.post(`${shopURL}/wish-list`, {
-          member,
-        });
-        // console.log('wishListData', wishListData.data);
-        const wishIndex = wishListData.data.findIndex(
-          (v) => v.product_id === parseInt(productId)
-        );
-        if (wishIndex > -1) {
-          // console.log('有收藏喔');
-          setHeart(true);
-        } else {
-          // console.log('還沒收藏喔');
-          setHeart(false);
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    getWishListData();
-  }, [auth, member, productId, favoriteBtn]);
   //控制modal show or not show
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const showModal = () => {
     handleShow();
   };
+  // modal計算總價
+  useEffect(() => {
+    setCartNum(1);
+    setCartSize('');
+    setCartPrice(0);
+  }, [show]);
+  useEffect(() => {
+    setCartPrice(cartNum * productPrice);
+    // console.log(cartPrice);
+  }, [cartNum, cartPrice, productPrice]);
+  
   const addCart = () => {
     const newProductOrder = JSON.parse(
       localStorage.getItem('ProductOrderDetail') || '[]'
@@ -188,6 +110,7 @@ function ProductCard(props) {
         );
         console.log('哎呦還沒喔');
       }
+      //更新localstorage資料cartLocal
       //localstorage for order detail end//
     }
     Swal.fire({
@@ -199,16 +122,7 @@ function ProductCard(props) {
     setCartChange(true);
     handleClose();
   };
-  // 計算總價
-  useEffect(() => {
-    setCartNum(1);
-    setCartSize('');
-    setCartPrice(0);
-  }, [show]);
-  useEffect(() => {
-    setCartPrice(cartNum * price);
-    // console.log(cartPrice);
-  }, [cartNum, cartPrice, price]);
+
   const messageModal = (
     <Modal
       show={show}
@@ -221,7 +135,7 @@ function ProductCard(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter" className="h5">
-          {`${brand}${name}`}
+          {`${productBrand}${productName}`}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -229,9 +143,9 @@ function ProductCard(props) {
           <Col xs={12} md={6}>
             <img
               className="shopmain-cover-fit shadow-sm bg-white rounded"
-              src={`${IMAGE_URL}/img/product-img/${picture}`}
-              alt={`${brand}${name}`}
-              title={`${brand}${name}`}
+              src={`${IMAGE_URL}/img/product-img/${productPic}`}
+              alt={`${productBrand}${productName}`}
+              title={`${productBrand}${productName}`}
             />
           </Col>
           <Col xs={6} md={6}>
@@ -268,7 +182,7 @@ function ProductCard(props) {
               <div className="input-group-prepend">
                 <label className="input-group-text">尺寸</label>
               </div>
-              {type === '2' ? (
+              {productType === '2' ? (
                 <select
                   className="custom-select"
                   name="size"
@@ -320,57 +234,48 @@ function ProductCard(props) {
   return (
     <>
       {messageModal}
-      <div className="col-6 col-md-4 col-lg-3 px-0 my-2">
-        <div className="shopmain-product-card">
-          <div className="shopmain-product-img-box position-relative">
-            <Link to={`/shop/product-detail/${productId}`} id={productId}>
+      <tr>
+        <td className="member-product-article-product-picture-img-wrapper">
+          <div className="member-product-article-product-picture-img-box">
+            <Link to={`/shop/product-detail/${productId}`}>
               <img
-                className="shopmain-cover-fit"
-                src={`${IMAGE_URL}/img/product-img/${picture}`}
-                alt={`${brand}${name}`}
-                title={`${brand}${name}`}
+                src={`${IMAGE_URL}/img/product-img/${productPic}`}
+                alt={productName}
+                title={productName}
+                className="member-product-article-product-picture-img"
               />
             </Link>
-            {heart ? (
-              <button
-                className="position-absolute shopmain-heart-icon-bkg position-relative shopmain-heart-icon-bkg-click"
-                onClick={heartIconClick}
-              >
-                <HeartFill className="position-absolute shopmain-heart-icon" />
-              </button>
-            ) : (
-              <button
-                className="position-absolute shopmain-heart-icon-bkg position-relative"
-                onClick={heartIconClick}
-              >
-                <HeartFill className="position-absolute shopmain-heart-icon" />
-              </button>
-            )}
-            <button
-              className="position-absolute shopmain-cart-icon-bkg position-relative"
-              onClick={() => {
-                showModal();
-              }}
-            >
-              <CartFill className="position-absolute shopmain-cart-icon" />
-            </button>
           </div>
-          <Link
-            to={`/shop/product-detail/${productId}`}
-            id={productId}
-            className="text-left shopmain-product-name"
+        </td>
+        <td className="align-middle">
+          {productBrand}
+          <br />
+          {productName}
+        </td>
+        <td className="align-middle">NT ${productPrice.toLocaleString()}</td>
+        <td className="align-middle">
+          <button
+            className="member-product-article-cart-icon btn btn-primary"
+            onClick={() => {
+              showModal();
+            }}
           >
-            {brand}
-            <br />
-            {name}
-          </Link>
-          <p className="text-right shopmain-product-price">
-            NT ${parseInt(price).toLocaleString()}
-          </p>
-        </div>
-      </div>
+            <Cart size={20} />
+          </button>
+        </td>
+        <td
+          className="member-product-article-text-weight align-middle"
+          onClick={removeFavorite}
+        >
+          <BsXSquareFill
+            className="member-product-article-cancel-icon"
+            size={28}
+            style={{ color: '#cc543a', cursor: 'pointer' }}
+          />
+        </td>
+      </tr>
     </>
   );
 }
 
-export default ProductCard;
+export default FavoriteProductCard;

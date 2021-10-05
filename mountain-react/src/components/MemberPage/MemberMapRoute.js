@@ -1,30 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
-// import $ from 'jquery';
 import '../../styles/MemberPage/MemberMapRoute.scss'; //member map and route style
+import Swal from 'sweetalert2';
 
-//====== below catch member info star ======//
+//====== below catch member info start ======//
 import { useAuth } from '../../context/auth';
-//====== below catch member info end ======//
+//====== above catch member info end ======//
 
-//====== below api connect tool star ======//
-import { memberRouteURL, IMAGE_URL } from '../../utils/config';
+//====== below api connect tool start ======//
+import { memberRouteURL, IMAGE_URL, authURL } from '../../utils/config';
 import axios from 'axios';
 //====== above api connect tool end ======//
 
-//====== below 星星評分 star ======//
+//====== below 星星評分 start ======//
 import ReactStars from 'react-rating-stars-component';
-//====== above 星星評分 star ======//
+//====== above 星星評分 end ======//
 
-//====== below pages star ======//
+//====== below pages start ======//
 import { pages_btn } from '../MapPage/pages/PagesBtn'; //分頁按鈕
 import MemberSideHead from './pages/MemberSideHead'; //member Side Head
 import MemberMapAddRoute from './pages/MemberMapAddRoute';
 //====== above pages end ======//
 
-//====== below icon star ======//
-import { BsStarFill } from 'react-icons/bs';
+//====== below icon start ======//
+import { BsStarFill, BsXSquareFill } from 'react-icons/bs';
 //====== above icon end ======//
 
 //====== below img import start ======//
@@ -32,15 +32,16 @@ import { BsStarFill } from 'react-icons/bs';
 //====== above img import end ======//
 
 function MemberMapRoute() {
-  const { member } = useAuth(); //把 member 從 useContext中拿出來
-  //=== 彈跳視窗開關 star ===//
+  const { member, setAuth, auth, mapRouteShow, setMapRouteShow } = useAuth(); //把 member 從 useContext中拿出來
+  //=== 彈跳視窗開關 start ===//
   const [show, setShow] = useState(false);
   //=== 彈跳視窗開關 end ===//
   const [star, setStar] = useState();
+  const [updateStar, setUpdateStar] = useState();
   const [data, setData] = useState([]);
   const [info, setInfo] = useState([]);
 
-  //====== 接星星評分的資料 star ======//
+  //====== 接星星評分的資料 start ======//
   useEffect(() => {
     if (star === undefined) {
       return;
@@ -50,8 +51,8 @@ function MemberMapRoute() {
     }
     async function getStarData() {
       try {
-        console.log('star:', star); //for check
-        console.log('star memberID:', member); //for check
+        // console.log('star:', star); //for check
+        // console.log('star memberID:', member); //for check
         // const starData =
         await axios.post(memberRouteURL + '/catchStar', {
           member,
@@ -65,6 +66,56 @@ function MemberMapRoute() {
     getStarData();
   }, [star, member]);
   //====== 接星星評分的資料 end ======//
+
+  //====== renew星星評分的資料 start ======//
+  useEffect(() => {
+    if (updateStar === undefined) {
+      return;
+    }
+    if (member === null) {
+      return;
+    }
+    async function getStarData() {
+      try {
+        // console.log('updateStar:', updateStar); //for check
+        // console.log('updateStar memberID:', member); //for check
+        // const updateStarData =
+        await axios.post(memberRouteURL + '/updateStar', {
+          member,
+          updateStar,
+        });
+        //console.log('updateStarData:', updateStarData); //for check
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getStarData();
+  }, [updateStar, member]);
+  //====== renew星星評分的資料 end ======//
+
+  //====== 移除去過路線 start ======//
+  const deletePast = async (e) => {
+    const delArticleId = e.currentTarget.id;
+    console.log('delArticleId', delArticleId); //for check
+    await axios.post(memberRouteURL + '/deletePast', {
+      member,
+      delArticleId,
+    });
+    if (mapRouteShow === false) {
+      setMapRouteShow(true);
+    } else {
+      setMapRouteShow(false);
+    }
+
+    // 彈跳視窗
+    Swal.fire({
+      icon: 'error',
+      title: '已移除去過路線及評分',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  };
+  //====== 移除去過路線 end ======//
 
   useEffect(() => {
     if (member === null) {
@@ -101,7 +152,17 @@ function MemberMapRoute() {
         this.classList.add('active');
       });
     }
-  }, [show, member, star]);
+  }, [show, member, star, auth, updateStar, mapRouteShow]);
+
+  //====== 登出 start ======//
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    await axios.get(authURL + '/logout', {
+      withCredentials: true,
+    });
+    setAuth(false);
+  };
+  //====== 登出 end ======//
 
   return (
     <>
@@ -165,9 +226,12 @@ function MemberMapRoute() {
                 </tr>
                 <tr>
                   <td scope="row" className="text-center">
-                    <Link to="" className="member-left-href-color">
+                    <button
+                      onClick={handleLogout}
+                      className="member-left-href-color btn border-0 p-0"
+                    >
                       登出
-                    </Link>
+                    </button>
                   </td>
                 </tr>
               </tbody>
@@ -281,8 +345,9 @@ function MemberMapRoute() {
                           <h5 className="mt-2">去過：</h5>
                         </th>
                         <th scope="col-3"></th>
-                        <th scope="col-5"></th>
-                        <th scope="col-2">
+                        <th scope="col-4"></th>
+                        <th scope="col-2"></th>
+                        <th scope="col-1">
                           {/* 給新(舊)會員選擇去過路線 */}
                           <MemberMapAddRoute show={show} setShow={setShow} />
                         </th>
@@ -294,6 +359,7 @@ function MemberMapRoute() {
                           <td className="member-map-route-picture-img-wrapper"></td>
                           <td className="member-map-route-text-weight align-middle"></td>
                           <td className="member-map-route-star-group member-map-route-text-weight align-middle"></td>
+                          <td className="member-map-route-text-weight align-middle"></td>
                           <td className="member-map-route-text-weight align-middle"></td>
                         </tr>
                       </tbody>
@@ -317,93 +383,103 @@ function MemberMapRoute() {
                             {items.star !== undefined ? (
                               items.star === 5 ? (
                                 <td className="member-map-route-star-group member-map-route-text-weight align-middle">
-                                  <i className="bi member-map-route-starNo active">
-                                    <BsStarFill></BsStarFill>
-                                  </i>
-                                  <i className="bi member-map-route-starNo active">
-                                    <BsStarFill></BsStarFill>
-                                  </i>
-                                  <i className="bi member-map-route-starNo active">
-                                    <BsStarFill></BsStarFill>
-                                  </i>
-                                  <i className="bi member-map-route-starNo active">
-                                    <BsStarFill></BsStarFill>
-                                  </i>
-                                  <i className="bi member-map-route-starNo active">
-                                    <BsStarFill></BsStarFill>
-                                  </i>
+                                  <ReactStars
+                                    classNames="mx-auto"
+                                    count={5}
+                                    value={items.star}
+                                    emptyIcon={
+                                      <BsStarFill className="bi member-map-route-star" />
+                                    }
+                                    filledIcon={
+                                      <BsStarFill className="bi member-map-route-star active" />
+                                    }
+                                    onChange={(newValue) => {
+                                      setUpdateStar(
+                                        items.article_id + ':' + newValue
+                                      );
+                                    }}
+                                    size={24}
+                                  />
                                 </td>
                               ) : items.star === 4 ? (
                                 <td className="member-map-route-star-group member-map-route-text-weight align-middle">
-                                  <i className="bi member-map-route-starNo active">
-                                    <BsStarFill></BsStarFill>
-                                  </i>
-                                  <i className="bi member-map-route-starNo active">
-                                    <BsStarFill></BsStarFill>
-                                  </i>
-                                  <i className="bi member-map-route-starNo active">
-                                    <BsStarFill></BsStarFill>
-                                  </i>
-                                  <i className="bi member-map-route-starNo active">
-                                    <BsStarFill></BsStarFill>
-                                  </i>
-                                  <i className="bi member-map-route-starNo">
-                                    <BsStarFill></BsStarFill>
-                                  </i>
+                                  <ReactStars
+                                    classNames="mx-auto"
+                                    count={5}
+                                    value={items.star}
+                                    emptyIcon={
+                                      <BsStarFill className="bi member-map-route-star" />
+                                    }
+                                    filledIcon={
+                                      <BsStarFill className="bi member-map-route-star active" />
+                                    }
+                                    onChange={(newValue) => {
+                                      setUpdateStar(
+                                        items.article_id + ':' + newValue
+                                      );
+                                    }}
+                                    size={24}
+                                  />
                                 </td>
                               ) : items.star === 3 ? (
                                 <td className="member-map-route-star-group member-map-route-text-weight align-middle">
-                                  <i className="bi member-map-route-starNo active">
-                                    <BsStarFill></BsStarFill>
-                                  </i>
-                                  <i className="bi member-map-route-starNo active">
-                                    <BsStarFill></BsStarFill>
-                                  </i>
-                                  <i className="bi member-map-route-starNo active">
-                                    <BsStarFill></BsStarFill>
-                                  </i>
-                                  <i className="bi member-map-route-starNo">
-                                    <BsStarFill></BsStarFill>
-                                  </i>
-                                  <i className="bi member-map-route-starNo">
-                                    <BsStarFill></BsStarFill>
-                                  </i>
+                                  <ReactStars
+                                    classNames="mx-auto"
+                                    count={5}
+                                    value={items.star}
+                                    emptyIcon={
+                                      <BsStarFill className="bi member-map-route-star" />
+                                    }
+                                    filledIcon={
+                                      <BsStarFill className="bi member-map-route-star active" />
+                                    }
+                                    onChange={(newValue) => {
+                                      setUpdateStar(
+                                        items.article_id + ':' + newValue
+                                      );
+                                    }}
+                                    size={24}
+                                  />
                                 </td>
                               ) : items.star === 2 ? (
                                 <td className="member-map-route-star-group member-map-route-text-weight align-middle">
-                                  <i className="bi member-map-route-starNo active">
-                                    <BsStarFill></BsStarFill>
-                                  </i>
-                                  <i className="bi member-map-route-starNo active">
-                                    <BsStarFill></BsStarFill>
-                                  </i>
-                                  <i className="bi member-map-route-starNo">
-                                    <BsStarFill></BsStarFill>
-                                  </i>
-                                  <i className="bi member-map-route-starNo">
-                                    <BsStarFill></BsStarFill>
-                                  </i>
-                                  <i className="bi member-map-route-starNo">
-                                    <BsStarFill></BsStarFill>
-                                  </i>
+                                  <ReactStars
+                                    classNames="mx-auto"
+                                    count={5}
+                                    value={items.star}
+                                    emptyIcon={
+                                      <BsStarFill className="bi member-map-route-star" />
+                                    }
+                                    filledIcon={
+                                      <BsStarFill className="bi member-map-route-star active" />
+                                    }
+                                    onChange={(newValue) => {
+                                      setUpdateStar(
+                                        items.article_id + ':' + newValue
+                                      );
+                                    }}
+                                    size={24}
+                                  />
                                 </td>
                               ) : (
                                 <td className="member-map-route-star-group member-map-route-text-weight align-middle">
-                                  <i className="bi member-map-route-starNo active">
-                                    <BsStarFill></BsStarFill>
-                                  </i>
-                                  <i className="bi member-map-route-starNo">
-                                    <BsStarFill></BsStarFill>
-                                  </i>
-                                  <i className="bi member-map-route-starNo">
-                                    <BsStarFill></BsStarFill>
-                                  </i>
-                                  <i className="bi member-map-route-starNo">
-                                    <BsStarFill></BsStarFill>
-                                  </i>
-                                  <i className="bi member-map-route-starNo">
-                                    <BsStarFill></BsStarFill>
-                                  </i>
+                                  <ReactStars
+                                    classNames="mx-auto"
+                                    count={5}
+                                    value={items.star}
+                                    emptyIcon={
+                                      <BsStarFill className="bi member-map-route-star" />
+                                    }
+                                    filledIcon={
+                                      <BsStarFill className="bi member-map-route-star active" />
+                                    }
+                                    onChange={(newValue) => {
+                                      setUpdateStar(
+                                        items.article_id + ':' + newValue
+                                      );
+                                    }}
+                                    size={24}
+                                  />
                                 </td>
                               )
                             ) : (
@@ -424,7 +500,7 @@ function MemberMapRoute() {
                                 />
                               </td>
                             )}
-                            {items.star !== undefined ? (
+                            {items.star !== undefined && items.star !== 0 ? (
                               <td className="member-map-route-text-weight align-middle">
                                 給評{items.star}分
                               </td>
@@ -433,6 +509,16 @@ function MemberMapRoute() {
                                 未評分
                               </td>
                             )}
+                            <td className="align-middle">
+                              <p>刪除</p>
+                              <BsXSquareFill
+                                id={items.article_id}
+                                className="member-product-article-cancel-icon"
+                                size={28}
+                                style={{ color: '#cc543a', cursor: 'pointer' }}
+                                onClick={deletePast}
+                              />
+                            </td>
                           </tr>
                         </tbody>
                       ))

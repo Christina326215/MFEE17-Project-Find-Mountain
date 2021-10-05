@@ -3,7 +3,12 @@ import { Link } from 'react-router-dom'; //a標籤要變成link
 import { withRouter } from 'react-router-dom'; //可以獲取history,location,match,來使用
 import '../../styles/MemberPage/MemberPersonal.scss';
 import { useAuth } from '../../context/auth'; // 取得會員資料
-import { zipCodeURL, zipGroupURL, memberEditURL } from '../../utils/config'; // 取得郵遞區號資料
+import {
+  zipCodeURL,
+  zipGroupURL,
+  memberEditURL,
+  authURL,
+} from '../../utils/config'; // 取得郵遞區號資料
 import axios from 'axios';
 
 //====== below pages star ======//
@@ -13,7 +18,7 @@ import MemberSideHead from './pages/MemberSideHead'; //member Side Head
 function MemberEdit(props) {
   // 1. 首先，建立好 html 在 return(<>...</>)。
   // 2. 設定狀態，關於共用會員資料使用useAuth()，關於地址資料放在靜態檔案中則使用useState()。
-  const { member } = useAuth(); // 取得會員資料
+  const { member, setAuth } = useAuth(); // 取得會員資料
   const [zipGroup, setZipGroup] = useState(null);
   // zipGroup是一個物件，key為city(是字串)，value為一陣列(陣列中由多個小物件組成)。
   const [zipCode, setZipCode] = useState(null);
@@ -135,6 +140,7 @@ function MemberEdit(props) {
       formData.append('birthday', tempMember.birthday);
       formData.append('zip_code', tempMember.zip_code);
       formData.append('addr', tempMember.addr);
+      formData.append('password', tempMember.password);
       let response = await axios.post(`${memberEditURL}`, formData, {
         withCredentials: true,
       });
@@ -145,6 +151,16 @@ function MemberEdit(props) {
       console.error(e.response);
     }
   };
+
+  //====== 登出 start ======//
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    await axios.get(authURL + '/logout', {
+      withCredentials: true,
+    });
+    setAuth(false);
+  };
+  //====== 登出 end ======//
 
   return (
     <>
@@ -208,9 +224,12 @@ function MemberEdit(props) {
                 </tr>
                 <tr>
                   <td scope="row" className="text-center">
-                    <Link to="" className="member-left-href-color">
+                    <button
+                      onClick={handleLogout}
+                      className="member-left-href-color btn border-0 p-0"
+                    >
                       登出
-                    </Link>
+                    </button>
                   </td>
                 </tr>
               </tbody>
@@ -333,6 +352,7 @@ function MemberEdit(props) {
                     />
                   </div>
 
+                  {/* FIXME: 密碼要可以改 */}
                   <div className="member-personal-text-weight-bold">
                     <label for="inputPassword" className="mt-3">
                       密碼：

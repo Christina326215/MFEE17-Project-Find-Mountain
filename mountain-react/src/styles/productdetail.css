@@ -169,15 +169,15 @@ body {
   line-height: 48px;
   border: 1px solid #9b9c9a;
   border-radius: 8px;
-  color: #f89090;
-  -webkit-text-stroke: 1px;
-  -webkit-text-stroke-color: #cc543a;
+  color: #9b9c9a;
+  /* -webkit-text-stroke: 1px;
+  -webkit-text-stroke-color: #cc543a; */
   font-size: 18px;
   transition: 0.4s;
   background: none;
 }
 .productdetail-like-btn:hover {
-  color: #eea9a9;
+  color: #f89090;
 }
 .productdetail-like-btn.productdetail-active {
   color: #cc543a;

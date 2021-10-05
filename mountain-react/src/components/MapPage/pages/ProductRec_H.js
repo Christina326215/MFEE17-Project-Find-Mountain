@@ -5,15 +5,15 @@ import $ from 'jquery';
 import { Modal, Button, Row, Col } from 'react-bootstrap';
 import { useAuth } from '../../../context/auth'; // 取得setCartChange狀態
 
-//====== below modal star ======//
+//====== below modal start ======//
 import Swal from 'sweetalert2';
 //====== below modal end ======//
 
-//====== below icon star ======//
+//====== below icon start ======//
 import { HeartFill, CartFill } from 'react-bootstrap-icons';
 //====== below icon end ======//
 
-//====== below api connect tool star ======//
+//====== below api connect tool start ======//
 import { IMAGE_URL } from '../../../utils/config';
 //====== below api connect tool end ======//
 
@@ -21,7 +21,7 @@ function ProductRec_H(props) {
   const { productId, price, picture, name, brand, type } = props;
   const { setCartChange } = useAuth(); // 取得購物車數字狀態
 
-  //=== 彈跳視窗所需 useState star ===//
+  //=== 彈跳視窗所需 useState start ===//
   const [cartNum, setCartNum] = useState(1);
   const [cartSize, setCartSize] = useState('');
   const [cartPrice, setCartPrice] = useState(0);
@@ -29,13 +29,13 @@ function ProductRec_H(props) {
   const [cardCartLocal, setCardCartLocal] = useState([]);
   //=== 彈跳視窗所需 useState end ===//
 
-  //=== 彈跳視窗開關 star ===//
+  //=== 彈跳視窗開關 start ===//
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   //=== 彈跳視窗開關 end ===//
 
-  //====== clone product 彈跳視窗所需function star ======//
+  //====== clone product 彈跳視窗所需function start ======//
   //取得local storage轉為陣列的資料 ProductOrder
   function getCartFromLocalStorage() {
     const ProductOrder =

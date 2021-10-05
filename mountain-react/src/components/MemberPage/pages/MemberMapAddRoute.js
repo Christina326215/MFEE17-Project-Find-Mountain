@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 
-//====== below pages star ======//
+//====== below pages start ======//
 import CheckBox from './CheckBox';
 //====== above pages end ======//
 
-//====== below catch member info star ======//
+//====== below catch member info start ======//
 import { useAuth } from '../../../context/auth';
 //====== below catch member info end ======//
 
-//====== below api connect tool star ======//
+//====== below api connect tool start ======//
 import axios from 'axios';
 import { memberRouteURL } from '../../../utils/config';
 //====== above api connect tool end ======//
@@ -21,7 +21,7 @@ function MemberMapAddRoute(props) {
   const { show, setShow } = props;
   const [data, setData] = useState([]);
 
-  //=== 彈跳視窗開關 star ===//
+  //=== 彈跳視窗開關 start ===//
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   //=== 彈跳視窗開關 end ===//
@@ -31,7 +31,7 @@ function MemberMapAddRoute(props) {
   //checkbox(multi)
   const [wentList, setWentList] = useState([]);
 
-  //====== 接表單輸入的資料(Form) star ======//
+  //====== 接表單輸入的資料(Form) start ======//
   const handleSumbmit = async (e) => {
     setShow(false); //將彈跳視窗關閉
     e.preventDefault(); //記住你輸入時的值,submit時不會清空(也可以用在btn在form時不讓它提交)
@@ -83,7 +83,7 @@ function MemberMapAddRoute(props) {
 
   return (
     <>
-      {/* Button trigger modal star */}
+      {/* Button trigger modal start */}
       <button className="btn btn-primary" onClick={handleShow}>
         新增去過路線
       </button>
