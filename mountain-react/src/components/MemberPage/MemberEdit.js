@@ -349,6 +349,7 @@ function MemberEdit(props) {
                       name="account"
                       value={tempMember && tempMember.account}
                       onChange={handleChange}
+                      readOnly
                     />
                   </div>
 
