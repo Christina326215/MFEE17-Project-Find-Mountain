@@ -140,6 +140,7 @@ function MemberEdit(props) {
       formData.append('birthday', tempMember.birthday);
       formData.append('zip_code', tempMember.zip_code);
       formData.append('addr', tempMember.addr);
+      formData.append('password', tempMember.password);
       let response = await axios.post(`${memberEditURL}`, formData, {
         withCredentials: true,
       });
@@ -351,6 +352,7 @@ function MemberEdit(props) {
                     />
                   </div>
 
+                  {/* FIXME: 密碼要可以改 */}
                   <div className="member-personal-text-weight-bold">
                     <label for="inputPassword" className="mt-3">
                       密碼：
