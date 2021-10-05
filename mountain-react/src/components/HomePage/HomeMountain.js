@@ -27,6 +27,7 @@ import HomeOutfit from './HomeOutfit';
 import HomeArticle from './HomeArticle';
 import HomeShop from './HomeShop';
 import Swal from 'sweetalert2';
+import { spinner } from '../../utils/spinner'; //bootstrap spinner
 // import $ from 'jquery';
 //===icon start===
 import { GeoAlt, LightbulbFill } from 'react-bootstrap-icons';
@@ -157,9 +158,11 @@ function HomeMountain(props) {
                       />
                     </div>
                     <div className="">
-                      <div style={{ fontSize: 18, fontFamily: 'sans-serif' }}>
+                      <div style={{ fontSize: 20, fontFamily: 'sans-serif' }}>
                         <GeoAlt size="24" className=" mr-2" />
-                        {cityName}
+                        {/* API城市為英文先寫死 */}
+                        {/* {cityName} */}
+                        桃園市
                       </div>
                       <div
                         className="text-right mt-2"
@@ -177,10 +180,21 @@ function HomeMountain(props) {
                   </div>
                 </div>
               ) : (
-                <div>再稍等一下！</div>
+                <div
+                  className="d-flex flex-column justify-content-center align-items-center"
+                  style={{
+                    height: '610px',
+                    transform: `translate(45px, -250px)`,
+                  }}
+                >
+                  <div
+                    className="spinner-border text-success"
+                    role="status"
+                  ></div>
+                  <div className="h5 mt-4">抓取裝置位置</div>
+                </div>
               )}
             </div>
-
             <div className="align-content-start homepage-blobs animate__animated animate__fadeInLeft">
               <img className="cover-fit" src={Blobs} alt="" />
             </div>
