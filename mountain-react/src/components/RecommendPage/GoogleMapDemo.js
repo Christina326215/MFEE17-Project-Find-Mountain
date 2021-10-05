@@ -2,11 +2,13 @@ import SingleMapDetail from './SingleMapDetail';
 import GeocodeSearch from './GeocodeSearch';
 import { useState, useEffect } from 'react';
 
-function GoogleMapDemo() {
+function GoogleMapDemo(props) {
+  const { detail, setDetail, id } = props;
   // 給一個預設的中心點
   const [lat, setLat] = useState(25.02766458451496);
   const [lng, setLng] = useState(121.57075289536297);
-
+  // 景點地址
+  const [searchAddress, setSearchAddress] = useState('');
   useEffect(() => {
     console.log(lat);
   }, [lat]);
@@ -18,12 +20,21 @@ function GoogleMapDemo() {
   return (
     <>
       {/* <div style={{ height: 500, background: 'red' }}> */}
-      {/* <GeocodeSearch setLat={setLat} setLng={setLng} /> */}
+      <GeocodeSearch
+        setSearchAddress={setSearchAddress}
+        detail={detail}
+        setLat={setLat}
+        setLng={setLng}
+      />
       <SingleMapDetail
         lat={lat}
         lng={lng}
-        infoTitle="象山親山步道"
-        infoContent="110台北市信義區信義路五段150巷342弄"
+        infoTitle={detail.name}
+        infoContent={searchAddress}
+        // style={{ mapStyle }}
+        // options={{
+        //   styles: mapStyle,
+        // }}
       />
 
       {/* <h2>捷運科技大樓站</h2>

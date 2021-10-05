@@ -73,6 +73,8 @@ function DetailContent(props) {
   const [heartHandle, setHeartHandle] = useState(true);
   // 判斷toggle狀態
   const [diaplay, setDiaplay] = useState(false);
+  // 地圖params id狀態
+  const [id, setId] = useState(1);
 
   // console.log('測試 member', member);
   // console.log('測試 auth', auth);
@@ -96,6 +98,7 @@ function DetailContent(props) {
         const totalDetail = recommendData.data;
         // 網址id判斷此篇文章資料
         const id = Number(props.match.params.id);
+        setId(id);
         const newDetail = totalDetail.find((v) => {
           return v.id === id;
         });
@@ -663,19 +666,14 @@ function DetailContent(props) {
           </div>
           <ProductTag></ProductTag>
           {/* googlemap */}
-          <GoogleMapDemo></GoogleMapDemo>
+          <GoogleMapDemo
+            detail={detail}
+            setDetail={setDetail}
+            id={id}
+          ></GoogleMapDemo>
           {/* googlemap */}
         </div>
       </div>
-      {/* <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.1968628827135!2d121.5686393150062!3d25.027392383975414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442abb286dcae25%3A0x326b083d1fba31ba!2z6LGh5bGx6Kaq5bGx5q2l6YGT!5e0!3m2!1szh-TW!2stw!4v1633243686479!5m2!1szh-TW!2stw"
-        width="600"
-        height="450"
-        style="border:0;"
-        allowfullscreen=""
-        loading="lazy"
-      ></iframe> */}
-
       <Comment detail={detail} flagHandle={flagHandle}></Comment>
       <RecommendCard levelCard={levelCard}></RecommendCard>
     </div>

@@ -150,11 +150,19 @@ function HomeMountain(props) {
               {weatherIcon ? (
                 <div>
                   <div className="homepage-weatherTop d-flex align-items-center mb-1">
-                    <div style={{ width: 100, height: 100 }}>
+                    <div
+                      style={{
+                        width: 100,
+                        height: 100,
+                        borderRadius: 100,
+                        background: `rgba(255,255,255,0.3)`,
+                      }}
+                      className="mr-3 mb-2"
+                    >
                       <img
                         src={`http://openweathermap.org/img/wn/${weatherIcon}@2x.png`}
+                        // src={`http://openweathermap.org/img/wn/01d@2x.png`}
                         alt=""
-                        className="mt-1"
                       />
                     </div>
                     <div className="">

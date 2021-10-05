@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
+import levelLow from '../../img/article-img/level_low.svg';
 
 // 申請的google api key
 import { apiKey } from '../../utils/config';
@@ -9,6 +10,177 @@ import { FileX } from 'react-bootstrap-icons';
 //   width: '90%',
 //   height: '100vh',
 // };
+
+// const mapStyle = [
+//   {
+//     featureType: 'all',
+//     elementType: 'geometry.fill',
+//     stylers: [
+//       {
+//         weight: '2.00',
+//       },
+//     ],
+//   },
+//   {
+//     featureType: 'all',
+//     elementType: 'geometry.stroke',
+//     stylers: [
+//       {
+//         color: '#9c9c9c',
+//       },
+//     ],
+//   },
+//   {
+//     featureType: 'all',
+//     elementType: 'labels.text',
+//     stylers: [
+//       {
+//         visibility: 'on',
+//       },
+//     ],
+//   },
+//   {
+//     featureType: 'landscape',
+//     elementType: 'all',
+//     stylers: [
+//       {
+//         color: '#f2f2f2',
+//       },
+//     ],
+//   },
+//   {
+//     featureType: 'landscape',
+//     elementType: 'geometry.fill',
+//     stylers: [
+//       {
+//         color: '#ffffff',
+//       },
+//     ],
+//   },
+//   {
+//     featureType: 'landscape.man_made',
+//     elementType: 'geometry.fill',
+//     stylers: [
+//       {
+//         color: '#ffffff',
+//       },
+//     ],
+//   },
+//   {
+//     featureType: 'poi',
+//     elementType: 'all',
+//     stylers: [
+//       {
+//         visibility: 'off',
+//       },
+//     ],
+//   },
+//   {
+//     featureType: 'road',
+//     elementType: 'all',
+//     stylers: [
+//       {
+//         saturation: -100,
+//       },
+//       {
+//         lightness: 45,
+//       },
+//     ],
+//   },
+//   {
+//     featureType: 'road',
+//     elementType: 'geometry.fill',
+//     stylers: [
+//       {
+//         color: '#eeeeee',
+//       },
+//     ],
+//   },
+//   {
+//     featureType: 'road',
+//     elementType: 'labels.text.fill',
+//     stylers: [
+//       {
+//         color: '#7b7b7b',
+//       },
+//     ],
+//   },
+//   {
+//     featureType: 'road',
+//     elementType: 'labels.text.stroke',
+//     stylers: [
+//       {
+//         color: '#ffffff',
+//       },
+//     ],
+//   },
+//   {
+//     featureType: 'road.highway',
+//     elementType: 'all',
+//     stylers: [
+//       {
+//         visibility: 'simplified',
+//       },
+//     ],
+//   },
+//   {
+//     featureType: 'road.arterial',
+//     elementType: 'labels.icon',
+//     stylers: [
+//       {
+//         visibility: 'off',
+//       },
+//     ],
+//   },
+//   {
+//     featureType: 'transit',
+//     elementType: 'all',
+//     stylers: [
+//       {
+//         visibility: 'off',
+//       },
+//     ],
+//   },
+//   {
+//     featureType: 'water',
+//     elementType: 'all',
+//     stylers: [
+//       {
+//         color: '#46bcec',
+//       },
+//       {
+//         visibility: 'on',
+//       },
+//     ],
+//   },
+//   {
+//     featureType: 'water',
+//     elementType: 'geometry.fill',
+//     stylers: [
+//       {
+//         color: '#c8d7d4',
+//       },
+//     ],
+//   },
+//   {
+//     featureType: 'water',
+//     elementType: 'labels.text.fill',
+//     stylers: [
+//       {
+//         color: '#070707',
+//       },
+//     ],
+//   },
+//   {
+//     featureType: 'water',
+//     elementType: 'labels.text.stroke',
+//     stylers: [
+//       {
+//         color: '#ffffff',
+//       },
+//     ],
+//   },
+// ];
 
 export class SingleMapDetail extends Component {
   static defaultProps = {
@@ -92,12 +264,16 @@ export class SingleMapDetail extends Component {
           height: '400px',
           position: 'relative',
         }}
-        zoom={17}
+        zoom={18}
         mapTypeControl={false}
         scaleControl={false}
         streetViewControl={false}
         fullscreenControl={false}
         // style={mapStyles}
+        // style={mapStyle}
+        // options={{
+        //   styles: mapStyle,
+        // }}
         initialCenter={{
           lat: this.props.lat,
           lng: this.props.lng,
@@ -106,6 +282,14 @@ export class SingleMapDetail extends Component {
         onReady={this.onMapReady}
       >
         <Marker
+          // icon={{
+          //   url: levelLow,
+          //   scale: 4,
+          //   // scaledSize: this.props.google.maps.Size(15, 25),
+          //   // scaledSize: this.props.google.maps.Size(500, 500),
+          //   // anchor: new google.maps.Point(17, 46),
+          //   // scaledSize: new google.maps.Size(37, 37),
+          // }}
           onClick={this.onMarkerClick}
           name={'物件位置'}
           position={{ lat: this.props.lat, lng: this.props.lng }}
@@ -115,8 +299,8 @@ export class SingleMapDetail extends Component {
           visible={this.state.showingInfoWindow}
         >
           <div>
-            <h1>{this.props.infoTitle}</h1>
-            <p>{this.props.infoContent}</p>
+            <h5 className="mr-5">{this.props.infoTitle}</h5>
+            <p className="mr-3">{this.props.infoContent}</p>
           </div>
         </InfoWindow>
       </Map>
