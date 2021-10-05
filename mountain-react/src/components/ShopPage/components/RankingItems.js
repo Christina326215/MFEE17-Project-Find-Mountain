@@ -11,6 +11,7 @@ import '../../../../node_modules/slick-carousel/slick/slick.min.js';
 import '../../../../node_modules/slick-carousel/slick/slick-theme.css';
 
 function RankingItems(props) {
+  const { favoriteBtn, setFavoriteBtn } = props;
   const [rankingData, setRankingData] = useState([]);
   useEffect(() => {
     async function getRankingData() {
@@ -69,43 +70,35 @@ function RankingItems(props) {
   return (
     <>
       {/* <!-- =========熱銷不敗(本月暢銷排行) start========= --> */}
-      <div>
-        <div className="position-relative shopmain-title-box">
-          <h3 className="shopmain-selected-title text-center">
-            熱銷不敗(本月暢銷排行)
-          </h3>
-          <div className="shopmain-title-underline position-absolute"></div>
-        </div>
-        <div className="shopmain-product-list my-4 position-relative">
-          <Link
-            to="#/"
-            className="position-absolute shopmain-slider-arrows-left text-center shopmain-prev"
-          >
-            {/* <i className="bi bi-chevron-left"></i> */}
-            <CaretLeftFill className="shopmain-slider-arrows-left-height" />
-          </Link>
-          <Link
-            to="#/"
-            className="position-absolute shopmain-slider-arrows-right text-center shopmain-next"
-          >
-            {/* <i className="bi bi-chevron-right"></i> */}
-            <CaretRightFill className="shopmain-slider-arrows-right-height" />
-          </Link>
-          <div className="shopmain-product-slider row">
-            {rankingData.map((item, i) => {
-              return (
-                <ProductCard
-                  productId={item.id}
-                  brand={item.product_brand}
-                  name={item.product_name}
-                  price={item.price}
-                  type={item.type}
-                  picture={item.pic}
-                  key={item.id}
-                />
-              );
-            })}
-          </div>
+      <div className="shopmain-product-list my-4 position-relative">
+        <Link
+          to="#/"
+          className="position-absolute shopmain-slider-arrows-left text-center shopmain-prev"
+        >
+          <CaretLeftFill className="shopmain-slider-arrows-left-height" />
+        </Link>
+        <Link
+          to="#/"
+          className="position-absolute shopmain-slider-arrows-right text-center shopmain-next"
+        >
+          <CaretRightFill className="shopmain-slider-arrows-right-height" />
+        </Link>
+        <div className="shopmain-product-slider row">
+          {rankingData.map((item, i) => {
+            return (
+              <ProductCard
+                productId={item.id}
+                brand={item.product_brand}
+                name={item.product_name}
+                price={item.price}
+                type={item.type}
+                picture={item.pic}
+                key={item.id}
+                favoriteBtn={favoriteBtn}
+                setFavoriteBtn={setFavoriteBtn}
+              />
+            );
+          })}
         </div>
       </div>
       {/* <!-- =========熱銷不敗(本月暢銷排行) end========= --> */}
