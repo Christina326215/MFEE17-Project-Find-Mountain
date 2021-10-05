@@ -17,7 +17,7 @@ import display3 from '../../img/display-photo3.jpeg';
 
 function ShopMain(props) {
   const [favoriteBtn, setFavoriteBtn] = useState(false);
-  console.log('favoriteBtn', favoriteBtn);
+  // console.log('favoriteBtn', favoriteBtn);
   useEffect(() => {
     //slick
     $('.shopmain-display-photo-box').slick({
@@ -93,16 +93,30 @@ function ShopMain(props) {
           </div>
           {/* <!-- =========vegas end========= --> */}
           {/* <!-- =========編輯嚴選 start========= --> */}
-          <SelectedItems
-            favoriteBtn={favoriteBtn}
-            setFavoriteBtn={setFavoriteBtn}
-          />
+          <div>
+            <div className="position-relative shopmain-title-box">
+              <h3 className="shopmain-selected-title text-center">編輯嚴選</h3>
+              <div className="shopmain-title-underline position-absolute"></div>
+            </div>
+            <SelectedItems
+              favoriteBtn={favoriteBtn}
+              setFavoriteBtn={setFavoriteBtn}
+            />
+          </div>
           {/* <!-- =========編輯嚴選 end========= --> */}
           {/* <!-- =========熱銷不敗(本月暢銷排行) start========= --> */}
-          <RankingItems
-            favoriteBtn={favoriteBtn}
-            setFavoriteBtn={setFavoriteBtn}
-          />
+          <div>
+            <div className="position-relative shopmain-title-box">
+              <h3 className="shopmain-selected-title text-center">
+                熱銷不敗(本月暢銷排行)
+              </h3>
+              <div className="shopmain-title-underline position-absolute"></div>
+            </div>
+            <RankingItems
+              favoriteBtn={favoriteBtn}
+              setFavoriteBtn={setFavoriteBtn}
+            />
+          </div>
           {/* <!-- =========熱銷不敗(本月暢銷排行) end========= --> */}
           {/* <!-- =========熱門登山攻略 start========= --> */}
           <RankingArticles />
