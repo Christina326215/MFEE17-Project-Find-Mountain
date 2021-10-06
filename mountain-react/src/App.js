@@ -9,7 +9,6 @@ import HomeMountain from './components/HomePage/HomeMountain';
 
 import Recommend from './components/RecommendPage/Recommend';
 import Bear from './components/RecommendPage/Bear';
-import Result from './components/RecommendPage/Result';
 import Manual from './components/RecommendPage/Manual';
 import DetailContent from './components/RecommendPage/DetailContent';
 import ShopMain from './components/ShopPage/ShopMain';
@@ -104,7 +103,9 @@ function App() {
     }
   }, [member]);
 
-  console.log('outside-member', member);
+  console.log('outside-member', member); //for check
+  console.log('isLoading:', isLoading); //for check
+  console.log('outside-auth:', auth); //for check
 
   return (
     <AuthContext.Provider
@@ -131,9 +132,6 @@ function App() {
           <ScrollToTop>
             <Switch>
               {/* //===other 路由放homepage上面 */}
-              <Route path="/recommend/bear/result">
-                <Result />
-              </Route>
               <Route path="/recommend/bear">
                 <Bear />
               </Route>

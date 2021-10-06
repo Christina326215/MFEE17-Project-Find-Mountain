@@ -28,143 +28,206 @@ function OutfitProductSlider(props) {
             <div className="outfit-product-img">
               <img
                 src={bagsPic7Removebg}
-                alt=""
+                alt="GREGORY JADE 38 登山背包"
+                title="GREGORY JADE 38 登山背包"
                 className="outfit-slider-image outfit-cover-fit"
+                draggable
                 id="16"
-                data-productName="GREGORY JADE 38 登山背包"
+                data-productbrand="GREGORY"
+                data-productname="JADE 38 登山背包"
                 data-price="6070"
+                data-type="2"
               />
             </div>
             <div className="outfit-product-info">
-              <p>GREGORY JADE 38 登山背包</p>
+              <p>
+                GREGORY
+                <br />
+                JADE 38 登山背包
+              </p>
             </div>
           </div>
           <div className="outfit-product">
             <div className="outfit-product-img">
               <img
                 src={bagsPic8Removebg}
-                alt=""
+                alt="The North Face 藍色專業登山後背包"
+                title="The North Face 藍色專業登山後背包"
                 className="outfit-slider-image outfit-cover-fit"
                 draggable
                 id="17"
-                data-productName="The North Face 藍色專業登山後背包"
+                data-productbrand="The North Face"
+                data-productname="藍色專業登山後背包"
                 data-price="8380"
+                data-type="2"
               />
             </div>
             <div className="outfit-product-info">
-              <p>The North Face 藍色專業登山後背包</p>
+              <p>
+                The North Face
+                <br />
+                藍色專業登山後背包
+              </p>
             </div>
           </div>
           <div className="outfit-product">
             <div className="outfit-product-img">
               <img
                 src={bagsPic9Removebg}
-                alt=""
+                alt="The North Face 黑色舒適防護專業後背包"
+                title="The North Face 黑色舒適防護專業後背包"
                 className="outfit-slider-image outfit-cover-fit"
                 draggable
                 id="18"
-                data-productName="The North Face 黑色舒適防護專業後背包"
+                data-productbrand="The North Face"
+                data-productname="黑色舒適防護專業後背包"
                 data-price="4923"
+                data-type="2"
               />
             </div>
             <div className="outfit-product-info">
-              <p>The North Face 黑色舒適防護專業後背包</p>
+              <p>
+                The North Face
+                <br />
+                黑色舒適防護專業後背包
+              </p>
             </div>
           </div>
           <div className="outfit-product">
             <div className="outfit-product-img">
               <img
                 src={shoesPic7Removebg}
-                alt=""
+                alt="CARPA GORE-TEX登山鞋"
+                title="CARPA GORE-TEX登山鞋"
                 className="outfit-slider-image outfit-cover-fit"
                 draggable
                 id="7"
-                data-productName="CARPA GORE-TEX登山鞋"
+                data-productbrand="CARPA"
+                data-productname="GORE-TEX登山鞋"
                 data-price="4779"
+                data-type="1"
               />
             </div>
             <div className="outfit-product-info">
-              <p>CARPA GORE-TEX登山鞋</p>
+              <p>
+                CARPA
+                <br />
+                GORE-TEX登山鞋
+              </p>
             </div>
           </div>
           <div className="outfit-product">
             <div className="outfit-product-img">
               <img
                 src={shoesPic8Removebg}
-                alt=""
+                alt="ASOLO 阿空加瓜牛皮冰攀靴"
+                title="ASOLO 阿空加瓜牛皮冰攀靴"
                 className="outfit-slider-image outfit-cover-fit"
                 draggable
                 id="8"
-                data-productName="ASOLO 阿空加瓜牛皮冰攀靴"
+                data-productbrand="ASOLO"
+                data-productname="阿空加瓜牛皮冰攀靴"
                 data-price="8980"
+                data-type="1"
               />
             </div>
             <div className="outfit-product-info">
-              <p>ASOLO 阿空加瓜牛皮冰攀靴</p>
+              <p>
+                ASOLO
+                <br />
+                阿空加瓜牛皮冰攀靴
+              </p>
             </div>
           </div>
           <div className="outfit-product">
             <div className="outfit-product-img">
               <img
                 src={shoesPic9Removebg}
-                alt=""
+                alt="Zamberlan 皮革登山靴"
+                title="Zamberlan 皮革登山靴"
                 className="outfit-slider-image outfit-cover-fit"
                 draggable
                 id="9"
-                data-productName="Zamberlan 皮革登山靴"
+                data-productbrand="Zamberlan"
+                data-productname="皮革登山靴"
                 data-price="14580"
+                data-type="1"
               />
             </div>
             <div className="outfit-product-info">
-              <p>Zamberlan 皮革登山靴</p>
+              <p>
+                Zamberlan
+                <br />
+                皮革登山靴
+              </p>
             </div>
           </div>
           <div className="outfit-product">
             <div className="outfit-product-img">
               <img
                 src={clothesPic7Removebg}
-                alt=""
+                alt="Arcteryx 始祖鳥 單件式GORE-TEX化纖保暖外套"
+                title="Arcteryx 始祖鳥 單件式GORE-TEX化纖保暖外套"
                 className="outfit-slider-image outfit-cover-fit"
                 draggable
                 id="25"
-                data-productName="Arcteryx 始祖鳥 單件式GORE-TEX化纖保暖外套"
+                data-productbrand="Arcteryx 始祖鳥"
+                data-productname="單件式GORE-TEX化纖保暖外套"
                 data-price="27360"
+                data-type="3"
               />
             </div>
             <div className="outfit-product-info">
-              <p>Arcteryx 始祖鳥 單件式GORE-TEX化纖保暖外套</p>
+              <p>
+                Arcteryx 始祖鳥
+                <br />
+                單件式GORE-TEX化纖保暖外套
+              </p>
             </div>
           </div>
           <div className="outfit-product">
             <div className="outfit-product-img">
               <img
                 src={clothesPic8Removebg}
-                alt=""
+                alt="The North Face Summit L5 FUTURELIGHT"
+                title="The North Face Summit L5 FUTURELIGHT"
                 className="outfit-slider-image outfit-cover-fit"
                 draggable
                 id="26"
-                data-productName="The North Face Summit L5 FUTURELIGHT"
+                data-productbrand="The North Face"
+                data-productname="Summit L5 FUTURELIGHT"
                 data-price="18200"
+                data-type="3"
               />
             </div>
             <div className="outfit-product-info">
-              <p>The North Face Summit L5 FUTURELIGHT</p>
+              <p>
+                The North Face
+                <br />
+                Summit L5 FUTURELIGHT
+              </p>
             </div>
           </div>
           <div className="outfit-product">
             <div className="outfit-product-img">
               <img
                 src={clothesPic9Removebg}
-                alt=""
+                alt="歐都納 女款專業登山兩件式防水外套"
+                title="歐都納 女款專業登山兩件式防水外套"
                 className="outfit-slider-image outfit-cover-fit"
                 draggable
                 id="27"
-                data-productName="女款專業登山GORE-TEX 3L+PRIMALOF科技纖維兩件式防水外套"
+                data-productbrand="歐都納"
+                data-productname="女款專業登山兩件式防水外套"
                 data-price="13650"
+                data-type="3"
               />
             </div>
             <div className="outfit-product-info">
-              <p>女款專業登山GORE-TEX 3L+PRIMALOF科技纖維兩件式防水外套</p>
+              <p>
+                歐都納 <br />
+                女款專業登山兩件式防水外套
+              </p>
             </div>
           </div>
         </div>

@@ -10,10 +10,10 @@ function OutfitProductModal(props) {
     productId,
     price,
     picture,
+    brand,
     name,
     type,
     show,
-    productOrder,
     setProductOrder,
   } = props;
 
@@ -26,13 +26,9 @@ function OutfitProductModal(props) {
     setCartPrice(cartNum * price);
     // console.log(cartPrice);
   }, [cartNum, cartPrice, price]);
-  // useEffect(() => {
-  //   let modalId = document.getElementById('modalId').value;
-  //   console.log('modalId', modalId);
-  // }, []);
 
   useEffect(() => {
-    let orderDetail = { id: productId, size: cartSize, num: cartNum };
+    let orderDetail = { id: productId, size: cartSize, num: parseInt(cartNum) };
     setProductOrder(orderDetail);
     // console.log('orderDetail child', orderDetail);
   }, [cartNum, cartSize]);
@@ -49,6 +45,13 @@ function OutfitProductModal(props) {
           />
         </Col>
         <Col xs={6} md={6}>
+          <div>
+            <p>
+              {brand}
+              <br />
+              {name}
+            </p>
+          </div>
           <div className="input-group mb-3">
             <div className="input-group-prepend">
               <span className="input-group-text" id="inputGroup-sizing-default">
@@ -81,7 +84,7 @@ function OutfitProductModal(props) {
             </div>
             {type === '2' ? (
               <select
-                className="custom-select"
+                className="custom-select select-size"
                 name="size"
                 value={cartSize}
                 onChange={(e) => {
@@ -93,7 +96,7 @@ function OutfitProductModal(props) {
               </select>
             ) : (
               <select
-                className="custom-select"
+                className="custom-select select-size"
                 name="size"
                 value={cartSize}
                 onChange={(e) => {
