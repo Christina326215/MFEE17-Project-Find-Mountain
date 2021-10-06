@@ -28,143 +28,206 @@ function OutfitProductSlider(props) {
             <div className="outfit-product-img">
               <img
                 src={bagsPic4Removebg}
-                alt=""
+                alt="Karrimor sector 25 休閒登山後背包"
+                title="Karrimor sector 25 休閒登山後背包"
                 className="outfit-slider-image outfit-cover-fit"
+                draggable
                 id="13"
-                data-productName="Karrimor sector 25 休閒登山後背包"
+                data-productbrand="Karrimor"
+                data-productname="sector 25 休閒登山後背包"
                 data-price="3510"
+                data-type="2"
               />
             </div>
             <div className="outfit-product-info">
-              <p>Karrimor sector 25 休閒登山後背包</p>
+              <p>
+                Karrimor
+                <br />
+                sector 25 休閒登山後背包
+              </p>
             </div>
           </div>
           <div className="outfit-product">
             <div className="outfit-product-img">
               <img
                 src={bagsPic5Removebg}
-                alt=""
+                alt="MAMMUT長毛象 Lithium Speed 20L"
+                title="MAMMUT長毛象 Lithium Speed 20L"
                 className="outfit-slider-image outfit-cover-fit"
                 draggable
                 id="14"
-                data-productName="MAMMUT長毛象 Lithium Speed 20L"
+                data-productbrand="MAMMUT長毛象"
+                data-productname="Lithium Speed 20L"
                 data-price="4480"
+                data-type="2"
               />
             </div>
             <div className="outfit-product-info">
-              <p>MAMMUT長毛象 Lithium Speed 20L</p>
+              <p>
+                MAMMUT長毛象
+                <br />
+                Lithium Speed 20L
+              </p>
             </div>
           </div>
           <div className="outfit-product">
             <div className="outfit-product-img">
               <img
                 src={bagsPic6Removebg}
-                alt=""
+                alt="Arcteryx 始祖鳥 徒步背包 Brize 32"
+                title="Arcteryx 始祖鳥 徒步背包 Brize 32"
                 className="outfit-slider-image outfit-cover-fit"
                 draggable
                 id="15"
-                data-productName="Arcteryx 始祖鳥 徒步背包 Brize 32"
+                data-productbrand="Arcteryx 始祖鳥"
+                data-productname="徒步背包 Brize 32"
                 data-price="8341"
+                data-type="2"
               />
             </div>
             <div className="outfit-product-info">
-              <p>Arcteryx 始祖鳥 徒步背包 Brize 32</p>
+              <p>
+                Arcteryx 始祖鳥
+                <br />
+                徒步背包 Brize 32
+              </p>
             </div>
           </div>
           <div className="outfit-product">
             <div className="outfit-product-img">
               <img
                 src={shoesPic4Removebg}
-                alt=""
+                alt="SALOMON EVASION 登山健行鞋"
+                title="SALOMON EVASION 登山健行鞋"
                 className="outfit-slider-image outfit-cover-fit"
                 draggable
                 id="4"
-                data-productName="SALOMON EVASION GORE-TEX登山健行鞋"
+                data-productbrand="SALOMON"
+                data-productname="EVASION 登山健行鞋"
                 data-price="4577"
+                data-type="1"
               />
             </div>
             <div className="outfit-product-info">
-              <p>SALOMON EVASION GORE-TEX登山健行鞋</p>
+              <p>
+                SALOMON
+                <br />
+                EVASION 登山健行鞋
+              </p>
             </div>
           </div>
           <div className="outfit-product">
             <div className="outfit-product-img">
               <img
                 src={shoesPic5Removebg}
-                alt=""
+                alt="Caravan C403 登山健行鞋"
+                title="Caravan C403 登山健行鞋"
                 className="outfit-slider-image outfit-cover-fit"
                 draggable
                 id="5"
-                data-productName="Caravan C403 登山健行鞋"
+                data-productbrand="Caravan"
+                data-productname="C403 登山健行鞋"
                 data-price="4740"
+                data-type="1"
               />
             </div>
             <div className="outfit-product-info">
-              <p>Caravan C403 登山健行鞋</p>
+              <p>
+                Caravan
+                <br />
+                C403 登山健行鞋
+              </p>
             </div>
           </div>
           <div className="outfit-product">
             <div className="outfit-product-img">
               <img
                 src={shoesPic6Removebg}
-                alt=""
+                alt="SALOMON X Ultra2 低筒登山鞋"
+                title="SALOMON X Ultra2 低筒登山鞋"
                 className="outfit-slider-image outfit-cover-fit"
                 draggable
                 id="6"
-                data-productName="SALOMON X Ultra2 GORE-TEX低筒登山鞋"
+                data-productbrand="SALOMON"
+                data-productname="X Ultra2 低筒登山鞋"
                 data-price="2790"
+                data-type="1"
               />
             </div>
             <div className="outfit-product-info">
-              <p>SALOMON X Ultra2 GORE-TEX低筒登山鞋</p>
+              <p>
+                SALOMON
+                <br />X Ultra2 低筒登山鞋
+              </p>
             </div>
           </div>
           <div className="outfit-product">
             <div className="outfit-product-img">
               <img
                 src={clothesPic4Removebg}
-                alt=""
+                alt="Arcteryx 始祖鳥 Cerium SV 保暖羽絨連帽外套"
+                title="Arcteryx 始祖鳥 Cerium SV 保暖羽絨連帽外套"
                 className="outfit-slider-image outfit-cover-fit"
                 draggable
                 id="22"
-                data-productName="Arcteryx 始祖鳥 Cerium SV 保暖羽絨連帽外套"
+                data-productbrand="Arcteryx 始祖鳥"
+                data-productname="Cerium SV 保暖羽絨連帽外套"
                 data-price="23800"
+                data-type="3"
               />
             </div>
             <div className="outfit-product-info">
-              <p>Arcteryx 始祖鳥 Cerium SV 保暖羽絨連帽外套</p>
+              <p>
+                Arcteryx 始祖鳥
+                <br />
+                Cerium SV 保暖羽絨連帽外套
+              </p>
             </div>
           </div>
           <div className="outfit-product">
             <div className="outfit-product-img">
               <img
                 src={clothesPic5Removebg}
-                alt=""
+                alt="The North Face 戶外保暖羽絨外套"
+                title="The North Face 戶外保暖羽絨外套"
                 className="outfit-slider-image outfit-cover-fit"
                 draggable
                 id="23"
-                data-productName="The North Face 戶外保暖羽絨外套"
+                data-productbrand="The North Face"
+                data-productname="戶外保暖羽絨外套"
                 data-price="8310"
+                data-type="3"
               />
             </div>
             <div className="outfit-product-info">
-              <p>The North Face 戶外保暖羽絨外套</p>
+              <p>
+                The North Face
+                <br />
+                戶外保暖羽絨外套
+              </p>
             </div>
           </div>
           <div className="outfit-product">
             <div className="outfit-product-img">
               <img
                 src={clothesPic6Removebg}
-                alt=""
+                alt="Mont-Bell Light Alpine 連帽羽絨外套"
+                title="Mont-Bell Light Alpine 連帽羽絨外套"
                 className="outfit-slider-image outfit-cover-fit"
                 draggable
                 id="24"
-                data-productName="Mont-Bell Light Alpine 連帽羽絨外套"
+                data-productbrand="Mont-Bell"
+                data-productname="Light Alpine 連帽羽絨外套"
                 data-price="5580"
+                data-type="3"
               />
             </div>
             <div className="outfit-product-info">
-              <p>Mont-Bell Light Alpine 連帽羽絨外套</p>
+              <p>
+                Mont-Bell
+                <br />
+                Light Alpine 連帽羽絨外套
+              </p>
             </div>
           </div>
         </div>

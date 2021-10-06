@@ -47,40 +47,134 @@ function Outfit(props) {
   const [cartSize, setCartSize] = useState('');
   const [cartPrice, setCartPrice] = useState(0);
   const [productOrder, setProductOrder] = useState([]);
-  const [productOrderNew, setProductOrderNew] = useState([]);
-  console.log('productOrder', productOrder);
-  // var outfitOrderArray = [];
+  const [productOrderPush, setProductOrderPush] = useState([]);
+
   useEffect(() => {
-    // outfitOrderArray.push(productOrder);
-    // console.log('outfitOrderArray', outfitOrderArray);
-    setProductOrderNew([...productOrderNew, productOrder]);
+    setProductOrderPush([...productOrderPush, productOrder]);
   }, [productOrder]);
-  console.log('productOrderNew', productOrderNew);
 
-  // const handleChange = (e) => {
-  //   const value = e.target.value;
-  //   // 如果目前在這狀態陣列 -> 移出
-  //   if (checkedValueList.includes(value)) {
-  //     // 1. 先從狀態陣列拷貝出新陣列
-  //     // 2. 在拷貝的新陣列上處理
-  //     const newLikeList = checkedValueList.filter((v, i) => {
-  //       return v !== value;
-  //     });
-  //     // 3. 設定回狀態陣列
-  //     return setCheckedValueList(newLikeList);
-  //   }
-  //   // 如果沒在這狀態陣列中 -> 加入
-  //   setCheckedValueList([...checkedValueList, value]);
-  // };
+  const addCart = () => {
+    // console.log('productOrder', productOrder);
+    // console.log('productOrderPush', productOrderPush);
+    function ClearDuplicatedItem(value) {
+      return (
+        value.id !== productOrder.id && value.length !== 0 && value.size !== ''
+      );
+    }
+    let newObjArray = productOrderPush.filter(ClearDuplicatedItem);
+    newObjArray.push(productOrder);
+    // console.log('newObjArray', newObjArray);
 
-  // let price = productLocal[0].productPrice;
-  // console.log('price', price);
+    var selectSize = [];
+    $('.select-size').each(function () {
+      selectSize.push($(this).val());
+      // console.log('select size', $(this).val());
+    });
+    // console.log('selectSize', selectSize);
+    const index = selectSize.findIndex((v) => v === '');
+    // console.log('index', index);
+
+    if (index > -1) {
+      console.log('有size為空');
+      Swal.fire({
+        icon: 'error',
+        title: '請先選擇尺寸',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else {
+      console.log('newObjArray', newObjArray);
+      var localCart =
+        JSON.parse(localStorage.getItem('ProductOrderDetail')) || [];
+      // 預防重複同樣id size的資料
+      for (let i = 0; i < newObjArray.length; i++) {
+        const index = localCart.findIndex(
+          (v) => v.id === newObjArray[i].id && v.size === newObjArray[i].size
+        );
+        console.log('index', index);
+        if (index > -1) {
+          localCart[index].num += newObjArray[i].num;
+        } else {
+          localCart.push(newObjArray[i]);
+        }
+      }
+      console.log('localCart', localCart);
+
+      localStorage.setItem('ProductOrderDetail', JSON.stringify(localCart));
+      //最後要重置
+      setCartChange(true);
+      setProductOrderPush([]);
+      // handleClose();
+    }
+  };
 
   // const handleDragStart = (e) => {
   //   console.log('e', e);
   //   // e.dataTransfer.setData('text/plain', e.currentTarget.id);
   //   // console.log('e.currentTarget.id', e.currentTarget.id);
   // };
+
+  //控制modal show or not show
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const showModal = () => {
+    if (productLocal.length === 0) {
+      Swal.fire({
+        icon: 'error',
+        title: '請先拖曳商品，組合穿搭！',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else {
+      handleShow();
+    }
+  };
+
+  useEffect(() => {
+    setCartNum(1);
+    setCartSize('');
+    setCartPrice(0);
+  }, [show]);
+  // facebook分享按鈕
+  const fbWindow = () => {
+    window.open(
+      // 'https://www.facebook.com/sharer/shcarer.php?u=http://127.0.0.1:5501/outfit.html',
+      'https://www.facebook.com/dialog/share?app_id=168633835347111&href=http://127.0.0.1:5501/outfit.html&hashtag=%23%E6%89%BE%E9%9D%A0%E5%B1%B1%E5%BB%BA%E8%AD%B0%E7%A9%BF%E6%90%AD%E5%80%8B%E4%BA%BA%E5%8C%96%E6%98%8E%E4%BF%A1%E7%89%87',
+      'facebook-share-dialog',
+      // 'width=800,height=600'
+      'height=600, width=800, top=' +
+        ($(window).height() / 2 - 300) +
+        ', left=' +
+        ($(window).width() / 2 - 400) +
+        ''
+    );
+  };
+  // twitter分享按鈕
+  const twitterWindow = () => {
+    window.open(
+      'http://twitter.com/share?text=%23%E6%89%BE%E9%9D%A0%E5%B1%B1%20%23%E5%BB%BA%E8%AD%B0%E7%A9%BF%E6%90%AD%20%23%E5%80%8B%E4%BA%BA%E5%8C%96%E6%98%8E%E4%BF%A1%E7%89%87&url=http://127.0.0.1:5501/outfit.html',
+      'twitter-share-dialog',
+      'height=600, width=800, top=' +
+        ($(window).height() / 2 - 300) +
+        ', left=' +
+        ($(window).width() / 2 - 400) +
+        ''
+    );
+    return false;
+  };
+  // line分享按鈕
+  const lineWindow = () => {
+    window.open(
+      'https://social-plugins.line.me/lineit/share?text=%23%E6%89%BE%E9%9D%A0%E5%B1%B1%20%23%E5%BB%BA%E8%AD%B0%E7%A9%BF%E6%90%AD%20%23%E5%80%8B%E4%BA%BA%E5%8C%96%E6%98%8E%E4%BF%A1%E7%89%87&url=http://127.0.0.1:5501/outfit.html',
+      'line-share-dialog',
+      'height=600, width=800, top=' +
+        ($(window).height() / 2 - 300) +
+        ', left=' +
+        ($(window).width() / 2 - 400) +
+        ''
+    );
+    return false;
+  };
 
   useEffect(() => {
     // 網頁重新整理時，清空localStorage
@@ -128,35 +222,6 @@ function Outfit(props) {
     });
     $('#slideRight3').click(function () {
       document.getElementById('slider3').scrollLeft += 180;
-    });
-
-    // facebook分享按鈕
-    $('.fb-share-button').click(function () {
-      window.open(
-        // 'https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:5501/outfit.html',
-        'https://www.facebook.com/dialog/share?app_id=168633835347111&href=http://127.0.0.1:5501/outfit.html&hashtag=%23%E6%89%BE%E9%9D%A0%E5%B1%B1%E5%BB%BA%E8%AD%B0%E7%A9%BF%E6%90%AD%E5%80%8B%E4%BA%BA%E5%8C%96%E6%98%8E%E4%BF%A1%E7%89%87',
-        'facebook-share-dialog',
-        'width=800,height=600'
-      );
-      return false;
-    });
-    // twitter分享按鈕
-    $('.twitter-share-button').click(function () {
-      window.open(
-        'http://twitter.com/share?text=%23%E6%89%BE%E9%9D%A0%E5%B1%B1%20%23%E5%BB%BA%E8%AD%B0%E7%A9%BF%E6%90%AD%20%23%E5%80%8B%E4%BA%BA%E5%8C%96%E6%98%8E%E4%BF%A1%E7%89%87&url=http://127.0.0.1:5501/outfit.html',
-        'twitter-share-dialog',
-        'width=800,height=600'
-      );
-      return false;
-    });
-    // twitter分享按鈕
-    $('.line-share-button').click(function () {
-      window.open(
-        'https://social-plugins.line.me/lineit/share?text=%23%E6%89%BE%E9%9D%A0%E5%B1%B1%20%23%E5%BB%BA%E8%AD%B0%E7%A9%BF%E6%90%AD%20%23%E5%80%8B%E4%BA%BA%E5%8C%96%E6%98%8E%E4%BF%A1%E7%89%87&url=http://127.0.0.1:5501/outfit.html',
-        'line-share-dialog',
-        'width=800,height=600'
-      );
-      return false;
     });
 
     setTimeout(() => {
@@ -219,7 +284,7 @@ function Outfit(props) {
         return false;
       }
       function saveData() {
-        console.log('selectedImgs save', selectedImgs);
+        // console.log('selectedImgs save', selectedImgs);
         for (let i = 0; i < selectedImgs.length; i++) {
           let productId = document.getElementById(selectedImgs[i]).id;
           // console.log('productId', productId);
@@ -228,6 +293,8 @@ function Outfit(props) {
             .getAttribute('src');
           // console.log('productPicUrl',productPicUrl);
           // ./img/img-outfit/clothes-pic1-removebg-preview.png
+          let productBrand = document.getElementById(selectedImgs[i]).dataset
+            .productbrand;
           let productName = document.getElementById(selectedImgs[i]).dataset
             .productname;
           let productPrice = document.getElementById(selectedImgs[i]).dataset
@@ -239,40 +306,19 @@ function Outfit(props) {
             ? JSON.parse(localStorage.getItem('products'))
             : [];
           if (
-            product_records.some((v) => {
+            !product_records.some((v) => {
               return v.productName == productName;
             })
           ) {
-            console.log('duplicate data');
-          } else {
             product_records.push({
               productId: productId,
               productPicUrl: productPicUrl,
+              productBrand: productBrand,
               productName: productName,
               productPrice: productPrice,
               productType: productType,
             });
             localStorage.setItem('products', JSON.stringify(product_records));
-          }
-          let ProductOrderDetail = localStorage.getItem('ProductOrderDetail')
-            ? JSON.parse(localStorage.getItem('ProductOrderDetail'))
-            : [];
-          if (
-            ProductOrderDetail.some((v) => {
-              return v.id == productId;
-            })
-          ) {
-            console.log('duplicate data');
-          } else {
-            ProductOrderDetail.push({
-              id: productId,
-              size: 'F',
-              num: 1,
-            });
-            localStorage.setItem(
-              'ProductOrderDetail',
-              JSON.stringify(ProductOrderDetail)
-            );
           }
         }
         showSelectedData();
@@ -285,10 +331,10 @@ function Outfit(props) {
         let product_records = localStorage.getItem('products')
           ? JSON.parse(localStorage.getItem('products'))
           : [];
-        console.log('product_records', product_records);
+        // console.log('product_records', product_records);
 
         if (product_records) {
-          let subtotal = 0;
+          // let subtotal = 0;
           for (let i = 0; i < product_records.length; i++) {
             let addDiv = document.createElement('div');
             addDiv.className = 'newItem';
@@ -296,13 +342,12 @@ function Outfit(props) {
               '<div class="productPic"><img class="cover-fit" src="' +
               product_records[i].productPicUrl +
               '"/></div><div class="productName">' +
+              product_records[i].productBrand +
               product_records[i].productName +
-              '</div><div class="productPrice">NT$ ' +
-              product_records[i].productPrice +
-              '</div><div class="productCount">Ｘ１</div></div>';
-            subtotal += parseInt(product_records[i].productPrice, 10);
+              '</div></div>';
+            // subtotal += parseInt(product_records[i].productPrice, 10);
             document.getElementById('newItems').appendChild(addDiv);
-            document.getElementById('subtotal').innerText = subtotal;
+            // document.getElementById('subtotal').innerText = subtotal;
           }
         }
         setProdcutLocal(product_records);
@@ -318,7 +363,6 @@ function Outfit(props) {
       canvasTarget.addEventListener('dragover', handleDragOver, false);
       // canvasTarget.addEventListener('dragleave', handleDragLeave, false);
       canvasTarget.addEventListener('drop', handleDrop, false);
-
       // 使用html2canvas截圖，儲存照片
       $('#save').click(function () {
         // console.log(document.getElementById('canvasBox'));
@@ -338,92 +382,6 @@ function Outfit(props) {
       // console.log('productLocal[0]', productLocal[0].productId);
     }, 500);
   }, []);
-  //控制modal show or not show
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const showModal = () => {
-    handleShow();
-  };
-  const addCart = () => {
-    // const newProductOrder = JSON.parse(
-    //   localStorage.getItem('ProductOrderDetail') || '[]'
-    // );
-    let modalId = document.getElementById('modalId').value;
-    console.log('modalId', modalId);
-    // console.log('cartSize', cartSize);
-    // if (cartSize === '') {
-    //   console.log('choose size plz');
-    //   Swal.fire({
-    //     icon: 'error',
-    //     title: '請先選擇尺寸',
-    //     showConfirmButton: false,
-    //     timer: 1500,
-    //   });
-    //   return;
-    // }
-    // else {
-    //   console.log('cartSize', cartSize);
-    //   console.log('cartNum', cartNum);
-
-    //為了符合local storage格式 字串 字串 數字
-    // let orderDetail = {
-    // id: productId.toString(),
-    //   size: cartSize,
-    //   num: parseInt(cartNum),
-    // };
-    // //localstorage for order detail start//
-    // //確認local storage裡面有無相同id size的資料
-    // const index = newProductOrder.findIndex(
-    //   (v) => v.id === orderDetail.id && v.size === orderDetail.size
-    // );
-    // console.log('index', index);
-    // console.log('orderDetail', orderDetail);
-    // console.log('newProductOrder', newProductOrder);
-    // if (index > -1) {
-    //   //改變同款項訂購數量
-    //   newProductOrder[index].num += orderDetail.num;
-    //   localStorage.setItem(
-    //     'ProductOrderDetail',
-    //     JSON.stringify(newProductOrder)
-    //   );
-    //   console.log('這個商品已經加過了');
-    //   // return;
-    // } else {
-    //   newProductOrder.push(orderDetail);
-    //   localStorage.setItem(
-    //     'ProductOrderDetail',
-    //     JSON.stringify(newProductOrder)
-    //   );
-    //   console.log('哎呦還沒喔');
-    // }
-    // //更新localstorage資料cartLocal
-    // // getCartFromLocalStorage();
-    // setCardCartLocal(newProductOrder);
-    // //localstorage for order detail end//
-    // }
-    // Swal.fire({
-    //   icon: 'success',
-    //   title: '已加入購物車',
-    //   showConfirmButton: false,
-    //   timer: 1500,
-    // });
-    // setCartChange(true);
-    // // setTimeout(() => {
-    // //   window.location.reload(false);
-    // // }, 1500);
-    handleClose();
-  };
-
-  useEffect(() => {
-    setCartNum(1);
-    setCartSize('');
-    setCartPrice(0);
-  }, [show]);
-
-  // useEffect(() => {
-  //   setCartPrice(cartNum * price);
-  //   console.log(cartPrice);
-  // }, [cartNum, cartPrice, price]);
 
   return (
     <>
@@ -446,7 +404,7 @@ function Outfit(props) {
             return (
               <OutfitProductModal
                 productId={product.productId}
-                // brand={product.product_brand}
+                brand={product.productBrand}
                 name={product.productName}
                 price={product.productPrice}
                 picture={product.productPicUrl}
@@ -454,7 +412,6 @@ function Outfit(props) {
                 key={product.productId}
                 show={show}
                 setShow={setShow}
-                productOrder={productOrder}
                 setProductOrder={setProductOrder}
               />
             );
@@ -475,10 +432,10 @@ function Outfit(props) {
         <div className="outfit-sub-content">
           <div className="container">
             <div className="row my-3 d-flex justify-content-center">
-              <div className="col col-lg-4">
+              <div className="outfit-right-side-container">
                 <SelectProduct />
               </div>
-              <div className="outfit-right-side col col-lg-8">
+              <div className="outfit-right-side">
                 <div id="div1" className="target">
                   {/* <OutfitProductSliderL dragStart={handleDragStart()} /> */}
                   <OutfitProductSliderL />
@@ -489,40 +446,6 @@ function Outfit(props) {
                 <div id="div3" className="target">
                   <OutfitProductSliderH />
                 </div>
-                {/* <div id="div1" className="outfit-target"> */}
-                {/* product-warpper start */}
-                {/* <div className="outfit-product-slider">
-                    <BsFillCaretLeftFill
-                      className="outfit-prev mb-1"
-                      id="slideLeft"
-                    />
-                    <BsFillCaretRightFill
-                      className="outfit-next mb-1"
-                      id="slideRight"
-                    /> */}
-                {/* <div className="outfit-product-wrapper" id="slider"> */}
-
-                {/* 連資料庫寫法 start */}
-                {/* {outfitProducts.map((outfitProduct, i) => (
-                        <div className="outfit-product" key={i}>
-                          <div className="outfit-product-img">
-                            <img
-                              src={`${IMAGE_URL}/img/img-outfit/${outfitProduct.pic}`}
-                              alt=""
-                              className="outfit-slider-image outfit-cover-fit"
-                              draggable
-                            />
-                          </div>
-                          <div className="outfit-product-info">
-                            <p>{outfitProduct.name}</p>
-                          </div>
-                        </div>
-                      ))} */}
-                {/* 連資料庫寫法 end */}
-                {/* </div> */}
-                {/* </div> */}
-                {/* product-warpper end */}
-                {/* </div> */}
               </div>
               {/* 製作個人化明信片 start */}
               <div className="canvasWrap">
@@ -546,10 +469,10 @@ function Outfit(props) {
               {/* 訂購單 start */}
               <div class="order">
                 <div class="orderTitle">
-                  <p class="order-head mr-3">穿搭組合</p>
-                  <p class="order-head">
+                  <p class="order-head">穿搭組合</p>
+                  {/* <p class="order-head">
                     NT$ <span id="subtotal">0</span>
-                  </p>
+                  </p> */}
                 </div>
                 <div id="newItems">
                   {/* 要用js innerHTML的內容 start*/}
@@ -582,9 +505,12 @@ function Outfit(props) {
       </div>
       <div className="outfit-btnGroup">
         <span>分享：</span>
-        <FaFacebookSquare className="fb-share-button" />
-        <FaTwitterSquare className="twitter-share-button" />
-        <FaLine className="line-share-button" />
+        <FaFacebookSquare className="fb-share-button" onClick={fbWindow} />
+        <FaTwitterSquare
+          className="twitter-share-button"
+          onClick={twitterWindow}
+        />
+        <FaLine className="line-share-button" onClick={lineWindow} />
         <button className="btn btn-outline-primary" id="save">
           <BsDownload className="outfit-downloadBtn mb-1" />
           儲存明信片
