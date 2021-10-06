@@ -10,7 +10,7 @@ function GeocodeSearch(props) {
   const { setLng, setLat, detail, setSearchAddress, lat, lng } = props;
 
   useEffect(() => {
-    console.log('detail', detail);
+    // console.log('detail', detail);
     if (detail.length === 0) {
       return;
     } else {
@@ -35,12 +35,12 @@ function GeocodeSearch(props) {
       Geocode.fromAddress(detail.name).then(
         (response) => {
           const { lat, lng } = response.results[0].geometry.location;
-          console.log(
-            'response.results[0].formatted_address',
-            response.results[0].formatted_address
-          );
+          // console.log(
+          //   'response.results[0].formatted_address',
+          //   response.results[0].formatted_address
+          // );
           setSearchAddress(response.results[0].formatted_address);
-          console.log('lat, lng', lat, lng);
+          // console.log('lat, lng', lat, lng);
           setLat(lat);
           setLng(lng);
         },

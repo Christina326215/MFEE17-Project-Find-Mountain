@@ -41,7 +41,7 @@ export class SingleMapDetail extends Component {
   };
 
   onMapReady = (mapProps, map) => {
-    console.log('好了');
+    // console.log('好了');
     this.map = map;
   };
 
@@ -55,30 +55,31 @@ export class SingleMapDetail extends Component {
   // }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log(
-      'componentDidUpdate',
-      prevProps.lat,
-      this.props.lat,
-      prevProps.lng,
-      this.props.lng
-    );
+    // console.log(
+    //   'componentDidUpdate',
+    //   prevProps.lat,
+    //   this.props.lat,
+    //   prevProps.lng,
+    //   this.props.lng
+    // );
     ////////
-    console.log('prevProps.google', prevProps.google);
-    console.log('this.props.google', this.props.google);
+    // console.log('prevProps.google', prevProps.google);
+    // console.log('this.props.google', this.props.google);
     if (prevProps.google !== this.props.google) {
+      // console.log('沒進來1');
       this.loadMap();
-      console.log('OK');
     }
-    console.log('不知道為什麼這邊卡住？？要重整才會出現？');
+    // console.log('不知道為什麼這邊卡住？？要重整才會出現？');
 
     if (prevProps.lat !== this.props.lat || prevProps.lng !== this.props.lng) {
+      // console.log('沒進來2');
       this.recenterMap();
     }
     // this.recenterMap();
-    console.log('prevProps.lat ', prevProps.lat);
-    console.log('this.props.lat ', this.props.lat);
-    console.log('prevProps.lng', prevProps.lng);
-    console.log('this.props.lng', this.props.lng);
+    // console.log('prevProps.lat ', prevProps.lat);
+    // console.log('this.props.lat ', this.props.lat);
+    // console.log('prevProps.lng', prevProps.lng);
+    // console.log('this.props.lng', this.props.lng);
     // console.log('卡住2');
     // return;
   }
@@ -86,13 +87,13 @@ export class SingleMapDetail extends Component {
   recenterMap = () => {
     const map = this.map;
     const curr = { lat: this.props.lat, lng: this.props.lng };
-    console.log('this.props.lat', this.props.lat);
-    console.log('this.props.lng', this.props.lng);
+    // console.log('this.props.lat', this.props.lat);
+    // console.log('this.props.lng', this.props.lng);
 
     const google = this.props.google;
     const maps = google.maps;
 
-    console.log(this.props, this.map);
+    // console.log(this.props, this.map);
 
     if (map) {
       //console.log(this.markerOne.current.marker)
