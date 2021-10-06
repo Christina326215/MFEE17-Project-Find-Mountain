@@ -15,7 +15,7 @@ import levelHigh from '../../img/article-img/level_high.svg';
 import { FaShoePrints } from 'react-icons/fa';
 import { BsHeartFill } from 'react-icons/bs';
 import { BsStarFill, BsFlagFill, BsQuestionCircle } from 'react-icons/bs';
-import { gsap } from 'gsap';
+// import { gsap } from 'gsap';
 // 使用sweetalert2彈跳視窗
 import Swal from 'sweetalert2';
 import GoogleMapDemo from './GoogleMapDemo';
@@ -445,11 +445,11 @@ function DetailContent(props) {
                       </span>
                       <br />
                       <span className="recommend-membership recommend-membership-medium">
-                        山友 ：結帳時93折優惠{' '}
+                        山友 ：結帳時9折優惠{' '}
                       </span>
                       <br />
                       <span className="recommend-membership recommend-membership-high">
-                        山神 ：結帳時9折優惠
+                        山神 ：結帳時85折優惠
                       </span>
                     </div>
                     {/* =========about-membership-bubble end========= */}
