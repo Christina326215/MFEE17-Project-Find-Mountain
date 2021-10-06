@@ -28,6 +28,7 @@ function SignUp(props) {
     password: '',
     repassword: '',
     valid: 0,
+    verification: '',
   });
   // 存入錯誤訊息用 start //
   const [fieldErrors, setFieldErrors] = useState({
@@ -39,6 +40,7 @@ function SignUp(props) {
     email: '',
     password: '',
     repassword: '',
+    verification: '',
   });
   // 存入錯誤訊息用 end //
 
@@ -186,14 +188,20 @@ function SignUp(props) {
     prevContent.addEventListener('click', prev, false);
   }
   //=== 發送驗證碼
-  const [time, setTime] = useState(60);
-  const [isShowCode, setIsShowCode] = useState(false);
   const SendEmail = async (e) => {
-    e.preventDefault();
     if (registerData.email) {
+      console.log('registerData.email', registerData.email);
       setEmail(true);
     }
-    
+    try {
+      let result = await axios.post(`${authURL}/ver`);
+      console.log('result', result);
+    } catch (e) {
+      console.log(e);
+      if (!email) {
+        setEmail(false);
+      }
+    }
   };
 
   return (
@@ -421,6 +429,7 @@ function SignUp(props) {
                                 className="form-control"
                                 id="inputEmail3"
                                 placeholder="請輸入驗證碼"
+                                name="verification"
                                 value={
                                   registerData && registerData.verification
                                 }

@@ -72,15 +72,47 @@ router.post('/register', upload.none(), registerRule, async function (req, res, 
         },
     ]) // 等資料庫查詢資料
 
+    // //發送驗證碼
+    // const api_key = process.env.MAILGUN_API_KEY
+    // const domain = process.env.MAILGUN_DOMAIN
+    // // const mg = new mailgun({ apiKey: api_key, domain: domain })
+    // let mailgun = require('mailgun-js')({ apiKey: api_key, domain: domain })
+    // let data = {
+    //     // from: '找靠山 <sandbox0ff7e060e8724664ab35c95257bb2a46.mailgun.org>',
+    //     from: `找靠山 <mailgun@${domain}>`,
+    //     to: `<${req.body.email}>`,
+    //     // to: '<def2446@yahoo.com.tw>',
+    //     subject: 'Hello',
+    //     text:
+    //         `您的註冊驗證碼為3n4b6c2a\n\n` +
+    //         '請將此驗證碼輸入至註冊表單\n\n' +
+    //         '如果您已輸入驗證碼，請自行忽略此封信件，感謝配合！\n',
+    //     // `http://localhost:3000/reset/${uuidv4(token)}\n\n`,
+    // }
+
+    // console.log('start')
+    // mailgun.messages().send(data, function (error, body) {
+    //     console.log('sending email')
+    //     if (error) {
+    //         console.log('error', error)
+    //     }
+    //     console.log('body', body)
+    // })
+    // console.log('end')
+    // res.json(result)
+
+    // res.json(dbResults)
+    res.json({})
+})
+router.post('/ver', (req, res, next) => {
     //發送驗證碼
     const api_key = process.env.MAILGUN_API_KEY
     const domain = process.env.MAILGUN_DOMAIN
-    // const mg = new mailgun({ apiKey: api_key, domain: domain })
     let mailgun = require('mailgun-js')({ apiKey: api_key, domain: domain })
     let data = {
         // from: '找靠山 <sandbox0ff7e060e8724664ab35c95257bb2a46.mailgun.org>',
         from: `找靠山 <mailgun@${domain}>`,
-        to: `<${dbResults.account}>`,
+        to: `<j412988921241@gmail.com>`,
         // to: '<def2446@yahoo.com.tw>',
         subject: 'Hello',
         text:
@@ -99,12 +131,8 @@ router.post('/register', upload.none(), registerRule, async function (req, res, 
         console.log('body', body)
     })
     console.log('end')
-    res.json(result)
-
-    // res.json(dbResults)
     res.json({})
 })
-
 router.post('/login', upload.none(), async (req, res, next) => {
     // console.log(req.body)
     // - 確認有沒有帳號 (email 是否存在)

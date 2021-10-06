@@ -87,9 +87,9 @@ function ForgetPassword(props) {
               name="email"
               placeholder="Email 帳號"
             />
-            {fieldErrors.email !== '' && (
+            {/* {fieldErrors.email !== '' && (
               <small className="login-error">{fieldErrors.email}</small>
-            )}
+            )} */}
           </form>
         </Modal.Body>
 
