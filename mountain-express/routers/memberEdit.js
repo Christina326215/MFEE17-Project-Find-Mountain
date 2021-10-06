@@ -4,14 +4,14 @@ const connection = require("../utils/db");
 // const path = require("path");
 const multer = require("multer");
 const upload = multer();
+const bcrypt = require('bcrypt')
 //加密 bycypt.hash(明文,salt)
 
-const bcrypt = require('bcrypt')
 // 格式驗證 -> 後端絕對不可以相信來自前端的資料！
 const { body, validationResult } = require("express-validator");
 const registerRules = [
   body("password").isLength({ min: 6 }).withMessage("密碼長度至少為 6"),
-  body("confirmPassword")
+  body("repassword")
     .custom((value, { req }) => {
       return value === req.body.password;
     })
@@ -19,14 +19,10 @@ const registerRules = [
 ];
 
 router.post("", upload.none(), registerRules, async function (req, res, next) {
-
-const bcrypt = require("bcrypt");
-
   // console.log('req.body.password:',req.body.password); //for check
   // console.log("req.body.repassword:", req.body.repassword); //for check
 
   if(!req.body.password){ //密碼沒值時跑這邊
-
     console.log('密碼不更改'); //for check
 
     //=== didn't change password  start ===//
