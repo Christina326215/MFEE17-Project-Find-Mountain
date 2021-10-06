@@ -6,8 +6,16 @@ function OutfitProductModal(props) {
   const [cartNum, setCartNum] = useState(1);
   const [cartSize, setCartSize] = useState('');
   const [cartPrice, setCartPrice] = useState(0);
-  const { productId, price, picture, name, type, show, setProductOrder } =
-    props;
+  const {
+    productId,
+    price,
+    picture,
+    brand,
+    name,
+    type,
+    show,
+    setProductOrder,
+  } = props;
 
   useEffect(() => {
     setCartNum(1);
@@ -37,6 +45,13 @@ function OutfitProductModal(props) {
           />
         </Col>
         <Col xs={6} md={6}>
+          <div>
+            <p>
+              {brand}
+              <br />
+              {name}
+            </p>
+          </div>
           <div className="input-group mb-3">
             <div className="input-group-prepend">
               <span className="input-group-text" id="inputGroup-sizing-default">
@@ -69,7 +84,7 @@ function OutfitProductModal(props) {
             </div>
             {type === '2' ? (
               <select
-                className="custom-select"
+                className="custom-select select-size"
                 name="size"
                 value={cartSize}
                 onChange={(e) => {
@@ -81,7 +96,7 @@ function OutfitProductModal(props) {
               </select>
             ) : (
               <select
-                className="custom-select"
+                className="custom-select select-size"
                 name="size"
                 value={cartSize}
                 onChange={(e) => {
