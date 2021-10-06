@@ -5,9 +5,23 @@ const connection = require("../utils/db");
 const multer = require("multer");
 const upload = multer();
 //加密 bycypt.hash(明文,salt)
+
+const bcrypt = require('bcrypt')
+// 格式驗證 -> 後端絕對不可以相信來自前端的資料！
+const { body, validationResult } = require("express-validator");
+const registerRules = [
+  body("password").isLength({ min: 6 }).withMessage("密碼長度至少為 6"),
+  body("confirmPassword")
+    .custom((value, { req }) => {
+      return value === req.body.password;
+    })
+    .withMessage("密碼驗證不一致"),
+];
+
+router.post("", upload.none(), registerRules, async function (req, res, next) {
+
 const bcrypt = require("bcrypt");
 
-router.post("", upload.none(), async function (req, res, next) {
   // console.log('req.body.password:',req.body.password); //for check
   // console.log("req.body.repassword:", req.body.repassword); //for check
 

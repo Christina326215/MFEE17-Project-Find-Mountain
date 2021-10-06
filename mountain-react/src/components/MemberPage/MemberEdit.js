@@ -409,6 +409,7 @@ function MemberEdit(props) {
                       name="account"
                       value={tempMember && tempMember.account}
                       onChange={handleChange}
+                      readOnly
                     />
                   </div>
                   {/* 更改密碼 */}
