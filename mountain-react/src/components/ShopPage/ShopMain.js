@@ -32,15 +32,6 @@ function ShopMain(props) {
       <main>
         <div className="container">
           {/* <!-- =========search bar start========= --> */}
-          <form className="form my-4">
-            <div className="form-row justify-content-center">
-              <input
-                type="search"
-                placeholder="搜尋"
-                className="form-control search-bar col-5"
-              />
-            </div>
-          </form>
           {/* <!-- =========search bar end========= --> */}
           {/* <!-- =========category bar start========= --> */}
           <div className="shopmain-category-bar">
