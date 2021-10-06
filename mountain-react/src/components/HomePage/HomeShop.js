@@ -82,6 +82,7 @@ function HomeShop(props) {
             <img src={Blobs2} alt="" />
           </div>
           <div className="homepage-contentShop">
+            <h2 className="text-center pb-5">經典熱銷</h2>
             <RankingItems />
             {/* <h2 className="text-center pb-5">經典熱銷</h2>
             <div className="row">
@@ -106,6 +107,7 @@ function HomeShop(props) {
             </div>
 
             <div className="homepage-contentShop">
+              <h2 className="text-center pb-5">編輯嚴選</h2>
               <SelectedItems />
 
               {/* <h2 className="text-center pb-5">編輯嚴選</h2>
