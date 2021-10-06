@@ -104,7 +104,7 @@ function Outfit(props) {
       //最後要重置
       setCartChange(true);
       setProductOrderPush([]);
-      // handleClose();
+      handleClose();
     }
   };
 
