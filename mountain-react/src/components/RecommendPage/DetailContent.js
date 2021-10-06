@@ -92,7 +92,7 @@ function DetailContent(props) {
 
   useEffect(() => {
     // gsap動畫
-    gsap.from('.recommend-detailBg', { opacity: 0, y: 100, duration: 1.2 });
+    // gsap.from('.recommend-detailBg', { opacity: 0, y: 100, duration: 1.2 });
 
     // 連線當頁的資料庫
     async function recommendData() {

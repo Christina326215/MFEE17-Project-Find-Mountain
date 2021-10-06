@@ -92,7 +92,7 @@ function MemberEdit(props) {
   }, []);
 
   useEffect(() => {
-    if (tempMember && zipCode && zipGroup && cities) {
+    if (tempMember && zipCode && zipGroup && cities.length > 0) {
       // 表示上述資料都已經有了！
       if (tempMember.zip_code) {
         // 表示這個使用者的 zip code 已經設定過了
@@ -443,7 +443,7 @@ function MemberEdit(props) {
                       className="form-control"
                       id="repassword"
                       name="repassword"
-                      minLength="6"
+                      // minLength="6"
                       onChange={handleChange}
                     />
                     {passwordError !== '' && (
@@ -456,6 +456,19 @@ function MemberEdit(props) {
                     className="border-bottom-left-radius my-5 mx-3 text-right btn btn-primary"
                     onClick={() => {
                       // FIXME: (兩個密碼都打'123'會給過) 存密碼不一樣的錯誤
+                      if (tempMember.password.length !== 0) {
+                        if (tempMember.password.length < 6) {
+                          setPasswordError('密碼需至少六位');
+                          return;
+                        }
+                      }
+                      if (tempMember.repassword.length !== 0) {
+                        if (tempMember.repassword.length < 6) {
+                          setPasswordError('確認密碼需至少六位');
+                          return;
+                        }
+                      }
+
                       if (tempMember.password !== tempMember.repassword) {
                         setPasswordError('密碼不一致');
                         return;
