@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import '../../styles/HomePage/HomeMountain.scss';
 //api start
 import { authURL } from '../../utils/config';
+import { openWeatherKey } from '../../utils/config';
+
 import axios from 'axios';
 import { mapURL, weatherURL, IMAGE_URL } from '../../utils/config';
 //weather
@@ -32,23 +34,36 @@ import TaiwanBearH from '../../img/contentTop/high/taiwanBearH.png';
 import HomeOutfit from './HomeOutfit';
 import HomeArticle from './HomeArticle';
 import HomeShop from './HomeShop';
+import Swal from 'sweetalert2';
+import { spinner } from '../../utils/spinner'; //bootstrap spinner
+// import $ from 'jquery';
 //===icon start===
-import {
-  BrightnessHigh,
-  ThermometerHalf,
-  GeoAlt,
-  LightbulbFill,
-  Cloud,
-  Clouds,
-  CloudLightning,
-  CloudLightningRain,
-  CloudDrizzle,
-} from 'react-bootstrap-icons';
+
+import { GeoAlt, LightbulbFill } from 'react-bootstrap-icons';
+
 
 function HomeMountain(props) {
   const [weatherData, setWeatherData] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
   const [listData, setListData] = useState([]);
+  // 天氣api
+  // const [weatherData, setWeatherData] = useState([]);
+  const [cityName, setCityName] = useState('');
+  const [weatherText, setWeatherText] = useState('');
+  const [weatherTemp, setWeatherTemp] = useState('');
+  const [weatherIcon, setWeatherIcon] = useState('');
+  // const [showWeather, setShowWeather] = useState(false);
+
+  useEffect(() => {
+    // geolocation
+    if (navigator.geolocation) {
+      // 執行要權限的function
+      navigator.geolocation.getCurrentPosition(success, error, options);
+    } else {
+      alert('Sorry, 你的裝置不支援地理位置功能。');
+    }
+  }, []);
+
   useEffect(() => {
     //=== weather variable star ===//
     const locations = weather.map((location) => location.locationName);
@@ -62,7 +77,7 @@ function HomeMountain(props) {
     async function homeData() {
       try {
         const homeData = await axios.get(authURL);
-        console.log(homeData.data); //for check
+        // console.log(homeData.data); //for check
         setListData(homeData.data);
 
         //=== weather API + location
@@ -105,6 +120,57 @@ function HomeMountain(props) {
     }
     homeData();
   }, [listData]);
+
+  function success(pos) {
+    /// 抓 geolocation
+    var crd = pos.coords;
+    // console.log('Your current position is:');
+    // console.log('Latitude : ' + crd.latitude);
+    const geoLat = crd.latitude;
+    // console.log('Longitude: ' + crd.longitude);
+    const geoLon = crd.longitude;
+    // console.log('More or less ' + crd.accuracy + ' meters.');
+    // console.log('geoLat', geoLat);
+    // console.log('geoLon', geoLon);
+    /// openweather API
+    async function weatherData() {
+      try {
+        // console.log('openWeatherKey', openWeatherKey);
+        const weatherData = await axios.get(
+          `http://api.openweathermap.org/data/2.5/weather?lat=${geoLat}&lon=${geoLon}&appid=${openWeatherKey}&lang=zh_tw&units=metric`
+        );
+        // console.log('weatherData.data', weatherData.data);
+        setCityName(weatherData.data.name);
+        setWeatherText(weatherData.data.weather[0].description);
+        setWeatherTemp(weatherData.data.main.temp);
+        setWeatherIcon(weatherData.data.weather[0].icon);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    weatherData();
+  }
+
+  function error(err) {
+    Swal.fire({
+      icon: 'error',
+      title: '裝置抓取地理位置錯誤',
+      text: '請檢查是否已啟用位置資訊存取功能',
+      footer:
+        '<a href="https://support.google.com/chrome/answer/142065?hl=zh-Hant&co=GENIE.Platform%3DDesktop">如何啟用分享您的位置資訊?</a>',
+    });
+    console.warn('ERROR(' + err.code + '): ' + err.message);
+  }
+
+  var options = {
+    enableHighAccuracy: true,
+    timeout: 4000,
+    maximumAge: 0,
+  };
+
+  ////// 天氣api
+
+
   const changeLevel = () => {
     let btn = document.querySelectorAll('.homepage-sliderBtn');
     let content = document.querySelectorAll('.homepage-wrapper-Taiwan');
@@ -138,17 +204,61 @@ function HomeMountain(props) {
               </h1>
             </div>
             <div className="homepage-weather position-absolute">
-              <div className="homepage-weatherTop d-flex align-items-center mb-3">
-                <BrightnessHigh size="40" className="mx-3" />
-                <div className="homepage-location">
-                  <GeoAlt size="20" className=" mr-2" />
-                  桃園市
+              {weatherIcon ? (
+                <div>
+                  <div className="homepage-weatherTop d-flex align-items-center mb-1">
+                    <div
+                      style={{
+                        width: 100,
+                        height: 100,
+                        borderRadius: 100,
+                        background: `rgba(255,255,255,0.3)`,
+                      }}
+                      className="mr-3 mb-2"
+                    >
+                      <img
+                        src={`http://openweathermap.org/img/wn/${weatherIcon}@2x.png`}
+                        // src={`http://openweathermap.org/img/wn/01d@2x.png`}
+                        alt=""
+                      />
+                    </div>
+                    <div className="">
+                      <div style={{ fontSize: 20, fontFamily: 'sans-serif' }}>
+                        <GeoAlt size="24" className=" mr-2" />
+                        {/* API城市為英文先寫死 */}
+                        {/* {cityName} */}
+                        桃園市
+                      </div>
+                      <div
+                        className="text-right mt-2"
+                        style={{ fontSize: 28, fontFamily: 'sans-serif' }}
+                      >
+                        {weatherTemp}°C
+                      </div>
+                    </div>
+                  </div>
+                  <div className="homepage-notice d-flex justify-content-center align-items-center">
+                    <LightbulbFill size="20" className="mr-2" />
+                    <div style={{ fontSize: 18, fontFamily: 'sans-serif' }}>
+                      {weatherText}
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="homepage-notice">
-                <LightbulbFill size="20" className="mr-2" />
-                請注意防曬!!
-              </div>
+              ) : (
+                <div
+                  className="d-flex flex-column justify-content-center align-items-center"
+                  style={{
+                    height: '610px',
+                    transform: `translate(45px, -250px)`,
+                  }}
+                >
+                  <div
+                    className="spinner-border text-success"
+                    role="status"
+                  ></div>
+                  <div className="h5 mt-4">抓取裝置位置</div>
+                </div>
+              )}
             </div>
             <div className="align-content-start homepage-blobs animate__animated animate__fadeInLeft">
               <img className="cover-fit" src={Blobs} alt="" />
