@@ -139,7 +139,7 @@ function Outfit(props) {
   const fbWindow = () => {
     window.open(
       // 'https://www.facebook.com/sharer/shcarer.php?u=http://127.0.0.1:5501/outfit.html',
-      'https://www.facebook.com/dialog/share?app_id=168633835347111&href=http://127.0.0.1:5501/outfit.html&hashtag=%23%E6%89%BE%E9%9D%A0%E5%B1%B1%E5%BB%BA%E8%AD%B0%E7%A9%BF%E6%90%AD%E5%80%8B%E4%BA%BA%E5%8C%96%E6%98%8E%E4%BF%A1%E7%89%87',
+      `https://www.facebook.com/dialog/share?app_id=${process.env.REACT_APP_FACEBOOK_CLIENT_ID}&href=http://127.0.0.1:5501/outfit.html&hashtag=%23%E6%89%BE%E9%9D%A0%E5%B1%B1%E5%BB%BA%E8%AD%B0%E7%A9%BF%E6%90%AD%E5%80%8B%E4%BA%BA%E5%8C%96%E6%98%8E%E4%BF%A1%E7%89%87`,
       'facebook-share-dialog',
       // 'width=800,height=600'
       'height=600, width=800, top=' +
