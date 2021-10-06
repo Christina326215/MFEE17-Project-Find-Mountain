@@ -36,10 +36,13 @@ function OutfitProductSlider(props) {
             >
               <img
                 src={bagsPic1Removebg}
-                alt=""
+                alt="The North Face 黑色便捷休閒腰包"
+                title="The North Face 黑色便捷休閒腰包"
                 className="outfit-slider-image outfit-cover-fit"
+                draggable
                 id="10"
-                data-productName="The North Face 黑色便捷休閒腰包"
+                data-productbrand="The North Face"
+                data-productname="黑色便捷休閒腰包"
                 data-price="1780"
                 data-type="2"
                 // draggable="true"
@@ -47,143 +50,195 @@ function OutfitProductSlider(props) {
               />
             </div>
             <div className="outfit-product-info">
-              <p>The North Face 黑色便捷休閒腰包</p>
+              <p>
+                The North Face
+                <br />
+                黑色便捷休閒腰包
+              </p>
             </div>
           </div>
           <div className="outfit-product">
             <div className="outfit-product-img">
               <img
                 src={bagsPic2Removebg}
-                alt=""
+                alt="The North Face 黑灰色休閒後背包"
+                title="The North Face 黑灰色休閒後背包"
                 className="outfit-slider-image outfit-cover-fit"
                 draggable
                 id="11"
-                data-productName="The North Face 黑灰色休閒後背包"
+                data-productbrand="The North Face"
+                data-productname="黑灰色休閒後背包"
                 data-price="2180"
                 data-type="2"
               />
             </div>
             <div className="outfit-product-info">
-              <p>The North Face 黑灰色休閒後背包</p>
+              <p>
+                The North Face
+                <br />
+                黑灰色休閒後背包
+              </p>
             </div>
           </div>
           <div className="outfit-product">
             <div className="outfit-product-img">
               <img
                 src={bagsPic3Removebg}
-                alt=""
+                alt="The North Face 黑色舒適休閒後背包"
+                title="The North Face 黑色舒適休閒後背包"
                 className="outfit-slider-image outfit-cover-fit"
                 draggable
                 id="12"
-                data-productName="The North Face 黑色舒適休閒後背包"
+                data-productbrand="The North Face"
+                data-productname="黑色舒適休閒後背包"
                 data-price="5292"
                 data-type="2"
               />
             </div>
             <div className="outfit-product-info">
-              <p>The North Face 黑色舒適休閒後背包</p>
+              <p>
+                The North Face
+                <br />
+                黑色舒適休閒後背包
+              </p>
             </div>
           </div>
           <div className="outfit-product">
             <div className="outfit-product-img">
               <img
                 src={shoesPic1Removebg}
-                alt=""
+                alt="MERRELL 女水陸三棲鞋"
+                title="MERRELL 女水陸三棲鞋"
                 className="outfit-slider-image outfit-cover-fit"
                 draggable
                 id="1"
-                data-productName="MERRELL Tetrex Crest Wrap 女水陸三棲鞋"
+                data-productbrand="MERRELL"
+                data-productname="女水陸三棲鞋"
                 data-price="2680"
                 data-type="1"
               />
             </div>
             <div className="outfit-product-info">
-              <p>MERRELL Tetrex Crest Wrap 女水陸三棲鞋</p>
+              <p>
+                MERRELL
+                <br />
+                女水陸三棲鞋
+              </p>
             </div>
           </div>
           <div className="outfit-product">
             <div className="outfit-product-img">
               <img
                 src={shoesPic2Removebg}
-                alt=""
+                alt="TEVA 低筒防潑水休閒鞋"
+                title="TEVA 低筒防潑水休閒鞋"
                 className="outfit-slider-image outfit-cover-fit"
                 draggable
                 id="2"
-                data-productName="TEVA Arrowood 2 Low WP 低筒防潑水休閒鞋"
+                data-productbrand="TEVA"
+                data-productname="低筒防潑水休閒鞋"
                 data-price="2706"
                 data-type="1"
               />
             </div>
             <div className="outfit-product-info">
-              <p>TEVA Arrowood 2 Low WP 低筒防潑水休閒鞋</p>
+              <p>
+                TEVA
+                <br />
+                低筒防潑水休閒鞋
+              </p>
             </div>
           </div>
           <div className="outfit-product">
             <div className="outfit-product-img">
               <img
                 src={shoesPic3Removebg}
-                alt=""
+                alt="KEEN 戶外防水登山鞋"
+                title="KEEN 戶外防水登山鞋"
                 className="outfit-slider-image outfit-cover-fit"
                 draggable
                 id="3"
-                data-productName="KEEN Terradora Mid 女戶外防水 登山鞋"
+                data-productbrand="KEEN"
+                data-productname="戶外防水登山鞋"
                 data-price="3915"
                 data-type="1"
               />
             </div>
             <div className="outfit-product-info">
-              <p>KEEN Terradora Mid 女戶外防水 登山鞋</p>
+              <p>
+                KEEN
+                <br />
+                戶外防水登山鞋
+              </p>
             </div>
           </div>
           <div className="outfit-product">
             <div className="outfit-product-img">
               <img
                 src={clothesPic1Removebg}
-                alt=""
+                alt="QUECHUA 男透氣休閒健行外套"
+                title="QUECHUA 男透氣休閒健行外套"
                 className="outfit-slider-image outfit-cover-fit"
                 draggable
                 id="19"
-                data-productName="【2000mm 防水】男透氣休閒健行外套 QUECHUA"
+                data-productbrand="QUECHUA"
+                data-productname="男透氣休閒健行外套"
                 data-price="499"
                 data-type="3"
               />
             </div>
             <div className="outfit-product-info">
-              <p>【2000mm 防水】男透氣休閒健行外套 QUECHUA</p>
+              <p>
+                QUECHUA
+                <br />
+                男透氣休閒健行外套
+              </p>
             </div>
           </div>
           <div className="outfit-product">
             <div className="outfit-product-img">
               <img
                 src={clothesPic2Removebg}
-                alt=""
+                alt="KALENJI男士透氣連帽跑步風衣"
+                title="KALENJI男士透氣連帽跑步風衣"
                 className="outfit-slider-image outfit-cover-fit"
                 draggable
                 id="20"
-                data-productName="男士透氣連帽跑步 風衣 KALENJI RUN WIND"
+                data-productbrand=""
+                data-productname="KALENJI 男士透氣連帽跑步風衣"
                 data-price="499"
                 data-type="3"
               />
             </div>
             <div className="outfit-product-info">
-              <p>男士透氣連帽跑步 風衣 KALENJI RUN WIND</p>
+              <p>
+                KALENJI
+                <br />
+                男士透氣連帽跑步風衣
+              </p>
             </div>
           </div>
           <div className="outfit-product">
             <div className="outfit-product-img">
               <img
                 src={clothesPic3Removebg}
-                alt=""
+                alt="QUECHUA 女透氣健行外套"
+                title="QUECHUA 女透氣健行外套"
                 className="outfit-slider-image outfit-cover-fit"
                 draggable
                 id="21"
-                data-productName="【2000mm 防水】女透氣健行外套 QUECHUA"
+                data-productbrand="QUECHUA"
+                data-productname="女透氣健行外套"
                 data-price="499"
                 data-type="3"
               />
             </div>
             <div className="outfit-product-info">
-              <p>【2000mm 防水】女透氣健行外套 QUECHUA</p>
+              <p>
+                QUECHUA
+                <br />
+                女透氣健行外套
+              </p>
             </div>
           </div>
         </div>
