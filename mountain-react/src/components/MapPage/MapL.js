@@ -131,8 +131,10 @@ function MapL() {
             //彈出視窗
             Swal.fire({
               icon: 'error',
-              title: '無法取得您的位置，請提供權限！利於計算您到景點距離。',
-              showConfirmButton: true,
+              title: '裝置抓取地理位置錯誤',
+              text: '請檢查是否已啟用位置資訊存取功能',
+              footer:
+                '<a href="https://support.google.com/chrome/answer/142065?hl=zh-Hant&co=GENIE.Platform%3DDesktop">如何啟用分享您的位置資訊?</a>',
             });
           }
           // 使用者允許抓目前位置，回傳經緯度
