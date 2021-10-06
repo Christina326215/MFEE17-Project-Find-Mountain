@@ -10,9 +10,6 @@ function ForgetPassword(props) {
   const [show, setShow] = useState(false);
   const [forgetData, setForgetData] = useState({
     email: '',
-    showError: false,
-    messageFromServer: '',
-    showNullError: false,
   });
   //=== 彈跳視窗開關 star ===//
   const handleClose = () => setShow(false);
@@ -23,47 +20,44 @@ function ForgetPassword(props) {
   };
   //=== 彈跳視窗開關 end ===//
   const [email, setEmail] = useState(null);
-  const [showError, setShowError] = useState(null);
-  const [messageFromServer, setMessageFromServer] = useState(null);
-  const [showNullError, setShowNullError] = useState(null);
+  // 存入錯誤訊息用 start //
+  const [fieldErrors, setFieldErrors] = useState(null);
 
   function handleChange(e) {
-    setForgetData({ ...forgetData, [e.target.name]: e.target.value });
+    setForgetData(e.target.value);
   }
   //   const [data, setData] = useState(null);
   const SendEmail = async (e) => {
     e.preventDefault();
-    if (email === '') {
-      setEmail({
-        showError: false,
-        messageFromServer: '',
-        showNullError: true,
-      });
-    } else {
-      //api
-      try {
-        let formData = new FormData();
-        formData.append('email', forgetData.email);
-        let memberData = await axios.post(`${authURL}/forget`, formData);
-        console.log(memberData.data); //for check
-        if (memberData.data === 'recovery email sent') {
-          setEmail({
-            showError: false,
-            messageFromServer: 'recovery email sent',
-            showNullError: false,
-          });
-        }
-      } catch (e) {
-        console.log(e);
-        if (e === 'email not in db') {
-          setEmail({
-            showError: true,
-            messageFromServer: '',
-            showNullError: false,
-          });
-        }
+
+    try {
+      // let formData = new FormData();
+      // formData.append('email', forgetData.email);
+      // setForgetData(forgetData.email);
+      let memberData = await axios.post(`${authURL}/forget`, { forgetData });
+      console.log(memberData.data); //for check
+      if (memberData.data === 'recovery email sent') {
+        setEmail(true);
       }
+      setShow(false);
+    } catch (e) {
+      console.log(e);
+      if (!email) {
+        setEmail(false);
+      }
+      setShow(true);
     }
+  };
+  const handleFormInvalid = (e) => {
+    // 擋住錯誤訊息的預設呈現的方式(popup)
+    e.preventDefault();
+
+    const updatedFieldErrors = {
+      ...fieldErrors,
+      [e.target.name]: e.target.validationMessage,
+    };
+    // 3. 設定回原狀態物件
+    setFieldErrors(updatedFieldErrors);
   };
 
   return (
@@ -93,29 +87,19 @@ function ForgetPassword(props) {
               name="email"
               placeholder="Email 帳號"
             />
+            {/* {fieldErrors.email !== '' && (
+              <small className="login-error">{fieldErrors.email}</small>
+            )} */}
           </form>
-          {showNullError && (
-            <div>
-              <p id="alert">The email address field is empty.</p>
-            </div>
-          )}
-          {showError && (
-            <div>
-              <p id="alert">
-                That email address isn&apos;t recognized. Please try again or
-                register for a new account.
-              </p>
-            </div>
-          )}
-          {messageFromServer === 'recovery email sent' && (
-            <div>
-              <p id="alert">Password Reset Email Successfully Sent!</p>
-            </div>
-          )}
         </Modal.Body>
 
         <Modal.Footer>
-          <button type="submit" className="btn btn-primary" onClick={SendEmail}>
+          <button
+            type="submit"
+            className="btn btn-primary"
+            onClick={SendEmail}
+            onInvalid={handleFormInvalid}
+          >
             重設密碼
           </button>
         </Modal.Footer>

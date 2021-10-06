@@ -45,12 +45,15 @@ function MapL() {
   const [userLocation, setUserLocation] = useState([]);
   const [userLocationBtn, setUserLocationBtn] = useState(false);
 
+  // console.log('userLocation:', userLocation); //for check
+
   //=== 計算兩點距離 start ===//
   function distance(lat1, lon1, lat2, lon2, unit) {
     // console.log('lat1', lat1);
     // console.log('lat1', lon1);
     // console.log('lat2', lat2);
     // console.log('lat2', lon2);
+    // eslint-disable-next-line eqeqeq
     if (lat1 == lat2 && lon1 == lon2) {
       return 0;
     } else {
@@ -67,6 +70,7 @@ function MapL() {
       dist = Math.acos(dist);
       dist = (dist * 180) / Math.PI;
       dist = dist * 60 * 1.1515;
+      // eslint-disable-next-line eqeqeq
       if (unit == 'K') {
         //K: 公里
         dist = Math.floor(dist * 1.609344);
@@ -184,7 +188,7 @@ function MapL() {
 
   return (
     <>
-      {/* <!-- =========content star========= --> */}
+      {/* <!-- =========content start========= --> */}
       <div>
         <div className="mountain_bg"></div>
         {/* <!-- =========part1 map start========= --> */}
@@ -325,7 +329,7 @@ function MapL() {
                       </div>
                     </div>
 
-                    {/* <!-- Level bar star --> */}
+                    {/* <!-- Level bar start --> */}
                     <div className="mountain_bar_list align-items-center">
                       <p className="mountain_list_title mr-2 mb-0">難度</p>
                       <div className="mountain_progress-bg">
@@ -342,7 +346,7 @@ function MapL() {
                     </div>
                     {/* <!-- Level bar end --> */}
 
-                    {/* <!-- Distance bar star --> */}
+                    {/* <!-- Distance bar start --> */}
                     <div className="mountain_bar_list align-items-center">
                       <p className="mountain_list_title mr-2 mb-0">公里</p>
                       <div className="mountain_progress-bg">
@@ -357,7 +361,7 @@ function MapL() {
                     </div>
                     {/* <!-- Distance bar end --> */}
 
-                    {/* <!-- Time bar star --> */}
+                    {/* <!-- Time bar start --> */}
                     <div className="mountain_bar_list align-items-center">
                       <p className="mountain_list_title mr-2 mb-0">時間</p>
                       <div className="mountain_progress-bg">
@@ -391,7 +395,7 @@ function MapL() {
           </div>
           {/* <!-- =========map list end========= --> */}
 
-          {/* <!-- =========pages_btn star========= --> */}
+          {/* <!-- =========pages_btn start========= --> */}
           {pages_btn}
           {/* <!-- =========pages_btn end========= --> */}
           <div className="mountain_content_line"></div>
