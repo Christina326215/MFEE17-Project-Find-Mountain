@@ -15,6 +15,10 @@ import axios from 'axios';
 import MemberSideHead from './pages/MemberSideHead'; //member Side Head
 //====== below pages end ======//
 
+//====== below modal star ======//
+import Swal from 'sweetalert2';
+//====== below modal end ======//
+
 function MemberEdit(props) {
   // 1. 首先，建立好 html 在 return(<>...</>)。
   // 2. 設定狀態，關於共用會員資料使用useAuth()，關於地址資料放在靜態檔案中則使用useState()。
@@ -24,15 +28,18 @@ function MemberEdit(props) {
   const [zipCode, setZipCode] = useState(null);
   const [cities, setCities] = useState([]); // 各縣市陣列
   const [districts, setDistricts] = useState([]); //各行政區陣列
+  const [passwordError, setPasswordError] = useState(''); //密碼不一致存error FIXME:
 
   const { show, setShow } = props;
 
   // 3. 因為不能直接去改動member的資料，需要先設定一個tempMember變數，將由資料庫而來的member放進setTempMember中改變狀態，最後才會把改變後的狀態存進資料庫。
   const [tempMember, setTempMember] = useState(null);
+  console.log('tempMember:', tempMember); //for check FIXME:
   // 4. 當member有資料時，就會使用useEffect，以setTempMember改變狀態(原為null)。
   useEffect(() => {
     if (member !== null) {
       setTempMember({ ...member });
+      setTempMember({ ...member, password: '', repassword: '' }); //將一開始的密碼&re密碼設為''FIXME:
     }
   }, [member]);
 
@@ -125,6 +132,58 @@ function MemberEdit(props) {
     setTempMember({ ...tempMember, [e.target.name]: e.target.value });
   }
 
+  //====== 10/5 歐陽add start ======//
+  //存入錯誤訊息用 start
+  const [fieldErrors, setFieldErrors] = useState({
+    name: '',
+    birthday: '',
+    phone: '',
+    zip_code: null,
+    addr: '',
+    email: '',
+    password: '',
+    repassword: '',
+  });
+  //存入錯誤訊息用 end
+
+  // === 當表單有不合法的檢查出現時
+  const handleFormInvalid = (e) => {
+    // 擋住錯誤訊息的預設呈現的方式(popup)
+    e.preventDefault();
+
+    const updatedFieldErrors = {
+      ...fieldErrors,
+      [e.target.name]: e.target.validationMessage,
+    };
+    // 3. 設定回原狀態物件
+    setFieldErrors(updatedFieldErrors);
+  };
+
+  // === 整個表單有變動時(ex.其中一個欄位有輸入時)
+  // 認定使用者正在改正某個有錯誤的欄位
+  // 清除某個欄位錯誤訊
+  const handleFormChange = (e) => {
+    console.log('目前更新欄位 ', e.target.name);
+    const updatedFieldErrors = {
+      ...fieldErrors,
+      [e.target.name]: '',
+    };
+
+    // 3. 設定回原狀態物件
+    setFieldErrors(updatedFieldErrors);
+  };
+
+  async function backLogin() {
+    // 登出 start //
+    await axios.get(authURL + '/logout', {
+      withCredentials: true,
+    });
+    setAuth(false);
+    // 登出 end //
+  }
+
+  //====== 10/5 歐陽add end ======//
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -140,7 +199,8 @@ function MemberEdit(props) {
       formData.append('birthday', tempMember.birthday);
       formData.append('zip_code', tempMember.zip_code);
       formData.append('addr', tempMember.addr);
-      formData.append('password', tempMember.password);
+      formData.append('password', tempMember.password); //10/4 歐陽add
+      formData.append('repassword', tempMember.repassword); //10/5 歐陽add
       let response = await axios.post(`${memberEditURL}`, formData, {
         withCredentials: true,
       });
@@ -240,7 +300,11 @@ function MemberEdit(props) {
           <div className="col-12 col-lg-9 mt-5 zindex-low">
             <h2 className="member-personal-title-main">我的會員資料</h2>
             <div className="member-personal-right-side mt-5">
-              <form onSubmit={handleSubmit}>
+              <form
+                onSubmit={handleSubmit}
+                onInvalid={handleFormInvalid}
+                onChange={handleFormChange}
+              >
                 <div className="m-4">
                   <div className="member-personal-text-weight-bold">
                     <label for="inputName" className="mt-2">
@@ -256,7 +320,6 @@ function MemberEdit(props) {
                       onChange={handleChange}
                     />
                   </div>
-
                   <div className="member-personal-text-weight-bold">
                     <label for="inputPhone" className="mt-3">
                       電話：
@@ -271,7 +334,6 @@ function MemberEdit(props) {
                       onChange={handleChange}
                     />
                   </div>
-
                   <div className="member-personal-text-weight-bold">
                     <label for="inputBirth" className="mt-3">
                       生日：
@@ -285,7 +347,6 @@ function MemberEdit(props) {
                       onChange={handleChange}
                     />
                   </div>
-
                   <div className="member-personal-text-weight-bold">
                     <label for="inputAddress" className="mt-3">
                       地址：
@@ -336,7 +397,6 @@ function MemberEdit(props) {
                       onChange={handleChange}
                     />
                   </div>
-
                   <div className="member-personal-text-weight-bold">
                     <label for="inputAccount" className="mt-3">
                       帳號：
@@ -351,26 +411,66 @@ function MemberEdit(props) {
                       onChange={handleChange}
                     />
                   </div>
-
-                  {/* FIXME: 密碼要可以改 */}
+                  {/* 更改密碼 */}
                   <div className="member-personal-text-weight-bold">
                     <label for="inputPassword" className="mt-3">
-                      密碼：
+                      更改密碼<small> (不填寫即不做更改)</small>：
                     </label>
                     <input
                       type="password"
                       className="form-control"
                       id="password"
                       name="password"
-                      value={tempMember && tempMember.password}
+                      minLength="6"
+                      // value={tempMember && tempMember.password}
                       onChange={handleChange}
                     />
+                    {fieldErrors.password !== '' && (
+                      <small className="login-error">
+                        {fieldErrors.password}
+                      </small>
+                    )}
+                  </div>
+
+                  {/* FIXME: 密碼要更改確認 */}
+                  <div className="member-personal-text-weight-bold">
+                    <label for="inputRePassword" className="mt-3">
+                      確認更改密碼：
+                    </label>
+                    <input
+                      type="repassword"
+                      className="form-control"
+                      id="repassword"
+                      name="repassword"
+                      minLength="6"
+                      onChange={handleChange}
+                    />
+                    {passwordError !== '' && (
+                      <small className="login-error">{passwordError}</small>
+                    )}
                   </div>
 
                   <button
                     type="submit"
                     className="border-bottom-left-radius my-5 mx-3 text-right btn btn-primary"
                     onClick={() => {
+                      // FIXME: (兩個密碼都打'123'會給過) 存密碼不一樣的錯誤
+                      if (tempMember.password !== tempMember.repassword) {
+                        setPasswordError('密碼不一致');
+                        return;
+                      }
+
+                      //=== 10/5 歐陽add 改密碼時登出 start ===//
+                      if (
+                        tempMember.password !== '' &&
+                        tempMember.repassword !== ''
+                      ) {
+                        // logout
+                        backLogin();
+                        return;
+                      }
+                      //=== 10/5 歐陽add 改密碼時登出 end ===//
+
                       props.history.goBack();
                     }}
                   >

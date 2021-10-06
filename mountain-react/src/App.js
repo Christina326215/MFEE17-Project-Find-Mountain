@@ -104,7 +104,9 @@ function App() {
     }
   }, [member]);
 
-  console.log('outside-member', member);
+  console.log('outside-member', member); //for check
+  console.log('isLoading:', isLoading); //for check
+  console.log('outside-auth:', auth); //for check
 
   return (
     <AuthContext.Provider
