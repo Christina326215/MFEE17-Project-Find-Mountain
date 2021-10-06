@@ -3,6 +3,7 @@ import GeocodeSearch from './GeocodeSearch';
 import { useState, useEffect } from 'react';
 
 function GoogleMapDemo(props) {
+  // detail 是文章來的資料要帶入到 GeocodeSearch
   const { detail, setDetail, id } = props;
   // 給一個預設的中心點
   const [lat, setLat] = useState(25.02766458451496);
