@@ -14,7 +14,7 @@ import { useAuth } from '../../context/auth';
 import ForgetPassword from './ForgetPassword';
 
 // ===icon start===
-import { FaFacebookSquare, FaGoogle, FaLine } from 'react-icons/fa';
+import { FaFacebookSquare, FaGoogle } from 'react-icons/fa';
 // ===icon end===
 
 //===import img start===
@@ -53,148 +53,6 @@ function Login(props) {
       cssEase: 'linear',
     });
   }, []);
-  //===第三方登入 star
-  //FB
-  const responseFacebook = async (token) => {
-    let response = await axios.get(
-      `/users/auth/facebook?access_token=${token}`,
-      {
-        withCredentials: true,
-      }
-    );
-    console.log(response.data);
-    if (response.data.id) {
-      setAuth(true);
-    }
-  };
-
-  // const responseFacebook = (response) => {
-  //   UserDataService.facebookAuthToken(response.accessToken).then((res) => {
-  //     console.log(res.data);
-  //     if (res.data.id) {
-  //       setAuth(true);
-  //     }
-  //   });
-  // };
-  //google
-  const responseGoogle = async (token) => {
-    let response = await axios.get(`/users/auth/google?access_token=${token}`, {
-      withCredentials: true,
-    });
-    console.log(response.data);
-    if (response.data.id) {
-      setAuth(true);
-    }
-  };
-  // const responseGoogle = async (response) => {
-  //   UserDataService.googleAuthToken(response.accessToken).then((res) => {
-  //     console.log(res.data);
-  //     if (res.data.id) {
-  //       setAuth(true);
-  //     }
-  //   });
-  // };
-  //Line
-  // const responseLine = async (token) => {
-  //   let response = await axios.get(`/users/auth/line?access_token=${token}`, {
-  //     withCredentials: true,
-  //   });
-  //   console.log(response.data);
-  //   if (response.data.id) {
-  //     setAuth(true);
-  //   }
-  // };
-  // // const responseLine = (token) => {
-  // //   UserDataService.lineAuthToken(token).then((res) => {
-  // //     console.log(res.data);
-  // //     if (res.data.id) {
-  // //       setAuth(true);
-  // //     }
-  // //   });
-  // // };
-  // useEffect(() => {
-  //   const token = localStorage.getItem('line');
-  //   console.log('line token', token);
-  //   if (token) {
-  //     responseLine(token);
-  //   }
-  // }, []);
-
-  // function PopupCenter(url, title, w, h) {
-  //   var userAgent = navigator.userAgent,
-  //     mobile = function () {
-  //       return (
-  //         /\b(iPhone|iP[ao]d)/.test(userAgent) ||
-  //         /\b(iP[ao]d)/.test(userAgent) ||
-  //         /Android/i.test(userAgent) ||
-  //         /Mobile/i.test(userAgent)
-  //       );
-  //     },
-  //     screenX =
-  //       typeof window.screenX != 'undefined'
-  //         ? window.screenX
-  //         : window.screenLeft,
-  //     screenY =
-  //       typeof window.screenY != 'undefined'
-  //         ? window.screenY
-  //         : window.screenTop,
-  //     outerWidth =
-  //       typeof window.outerWidth != 'undefined'
-  //         ? window.outerWidth
-  //         : document.documentElement.clientWidth,
-  //     outerHeight =
-  //       typeof window.outerHeight != 'undefined'
-  //         ? window.outerHeight
-  //         : document.documentElement.clientHeight - 22,
-  //     targetWidth = mobile() ? null : w,
-  //     targetHeight = mobile() ? null : h,
-  //     V = screenX < 0 ? window.screen.width + screenX : screenX,
-  //     left = parseInt(V + (outerWidth - targetWidth) / 2, 10),
-  //     right = parseInt(screenY + (outerHeight - targetHeight) / 2.5, 10),
-  //     features = [];
-  //   if (targetWidth !== null) {
-  //     features.push('width=' + targetWidth);
-  //   }
-  //   if (targetHeight !== null) {
-  //     features.push('height=' + targetHeight);
-  //   }
-  //   features.push('left=' + left);
-  //   features.push('top=' + right);
-  //   features.push('scrollbars=1');
-
-  //   var newWindow = window.open(url, title, features.join(','));
-
-  //   if (window.focus) {
-  //     newWindow.focus();
-  //   }
-
-  //   return newWindow;
-  // }
-
-  // const handleLineLogin = () => {
-  //   // https://developers.line.biz/en/docs/line-login/
-  //   // integrate - line - login /#making - an - authorization - request
-  //   const params = new URLSearchParams({
-  //     response_type: 'code',
-  //     client_id: '1656282282',
-  //     state: uuidv4(),
-  //     scope: 'profile',
-  //     ui_locales: 'zh-Hant',
-  //     prompt: 'consent',
-  //     bot_prompt: 'normal',
-  //     redirect_uri: 'http://localhost:3000/lineauth',
-  //   });
-
-  //   console.log(params.toString());
-
-  //   //1. open a new window for line login
-
-  //   const url =
-  //     'https://access.line.me/oauth2/v2.1/authorize?' + params.toString();
-
-  //   newWindow.current = PopupCenter(url, 'LinelogInPopup', 400, 600);
-
-  //===第三方登入 end
 
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
@@ -209,7 +67,6 @@ function Login(props) {
   //     console.log(e);
   //   }
   // };
-  // 準備 INSERT INTO 資料庫 start
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -234,6 +91,47 @@ function Login(props) {
   };
   console.log(auth);
   // 準備 INSERT INTO 資料庫 end
+
+  //===第三方登入 star
+  //FB
+  const responseFacebook = async (res) => {
+    // console.log('Hello FB', res.accessToken);
+    let response = await axios.post(
+      `${authURL}/facebook`,
+      {
+        access_token: res.accessToken,
+      },
+      {
+        withCredentials: true,
+      }
+    );
+    console.log(response.data);
+    if (response.data) {
+      setAuth(true);
+    }
+  };
+
+  const responseGoogle = async (res) => {
+    // console.log('Hello Google', res.accessToken);
+    let response = await axios.post(
+      `${authURL}/google`,
+      {
+        access_token: res.accessToken,
+      },
+      {
+        withCredentials: true,
+      }
+    );
+
+    console.log(response.data);
+    if (response.data) {
+      setAuth(true);
+    }
+  };
+  const onFailure = (error) => {
+    console.log(error);
+  };
+  //===第三方登入 end
 
   return (
     <>
@@ -317,33 +215,31 @@ function Login(props) {
                   <span>&nbsp;&nbsp;</span>
                   <div className="login-social-container">
                     <FacebookLogin
-                      className="login-icon login-icon-FB"
-                      // style={{
-                      //   backgroundColor: '#4267b2',
-                      // }}
-                      appId="4122031167908837"
-                      onSuccess={responseFacebook}
+                      // className="login-icon login-icon-FB"
+                      textButton="&nbsp;&nbsp;Facebook 登入"
+                      cssClass="btn btnFacebook"
+                      appId={process.env.REACT_APP_FACEBOOK_CLIENT_ID}
+                      // fields="name,email,picture"
+                      autoLoad={false}
+                      callback={responseFacebook}
+                      icon={
+                        <FaFacebookSquare
+                          className="fbIcon"
+                          style={{ marginLeft: '5px' }}
+                        />
+                      }
                     >
-                      <FaFacebookSquare className="login-h3" />
+                      Facebook登入
                     </FacebookLogin>
                     <span>&nbsp;&nbsp;</span>
-                    <Link to="#" className="login-icon login-icon-Google">
-                      <GoogleLogin
-                        clientId="234968124416-76g3tua0318gr37b87g1v5vraqpqslfk.apps.googleusercontent.com"
-                        buttonText="登入"
-                        onSuccess={responseGoogle}
-                        onFailure={responseGoogle}
-                        cookiePolicy={'single_host_origin'}
-                      />
-                      {/* <FaGoogle className="login-h3" /> */}
-                    </Link>
-                    <span>&nbsp;&nbsp;</span>
-                    {/* <button
-                      onClick={handleLineLogin}
-                      className="login-icon login-icon-Line"
-                    >
-                      <FaLine className="login-h3" />
-                    </button> */}
+                    <GoogleLogin
+                      className="btnGoogle"
+                      clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                      buttonText="Google登入"
+                      onSuccess={responseGoogle}
+                      onFailure={onFailure}
+                      cookiePolicy={'single_host_origin'}
+                    />
                   </div>
                 </div>
               </form>
