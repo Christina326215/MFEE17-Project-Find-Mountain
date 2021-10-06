@@ -1,6 +1,6 @@
-const express = require("express");
-const router = express.Router();
-const connection = require("../utils/db");
+const express = require('express')
+const router = express.Router()
+const connection = require('../utils/db')
 
 router.get("", async function (req, res, next) {
   // console.log("req.session.account.id", req.session.account.id);
@@ -36,4 +36,4 @@ router.get("", async function (req, res, next) {
   res.json(member);
 });
 
-module.exports = router;
+module.exports = router

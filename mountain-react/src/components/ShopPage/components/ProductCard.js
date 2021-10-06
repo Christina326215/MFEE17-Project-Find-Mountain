@@ -11,7 +11,16 @@ import { useAuth } from '../../../context/auth'; // 取得setCartChange狀態
 import axios from 'axios';
 
 function ProductCard(props) {
-  const { productId, price, picture, name, brand, type } = props;
+  const {
+    productId,
+    price,
+    picture,
+    name,
+    brand,
+    type,
+    favoriteBtn,
+    setFavoriteBtn,
+  } = props;
   const { setCartChange, member, auth } = useAuth(); // 取得購物車數字狀態
   const [show, setShow] = useState(false);
   const [cartNum, setCartNum] = useState(1);
@@ -55,6 +64,11 @@ function ProductCard(props) {
         id,
       });
       setHeart(false);
+      if (favoriteBtn === false) {
+        setFavoriteBtn(true);
+      } else {
+        setFavoriteBtn(false);
+      }
     } catch (e) {
       console.log(e);
     }
@@ -76,6 +90,11 @@ function ProductCard(props) {
         id,
       });
       setHeart(true);
+      if (favoriteBtn === false) {
+        setFavoriteBtn(true);
+      } else {
+        setFavoriteBtn(false);
+      }
     } catch (e) {
       console.log(e);
     }
@@ -117,7 +136,7 @@ function ProductCard(props) {
       }
     }
     getWishListData();
-  }, [auth, member, productId]);
+  }, [auth, member, productId, favoriteBtn]);
   //控制modal show or not show
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
