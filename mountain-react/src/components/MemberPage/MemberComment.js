@@ -233,7 +233,9 @@ function MemberComment() {
                           )}
                           {items.dislike_status === 2 ? (
                             <span className="member-comment-status">
-                              評論通過
+                              評論
+                              <br />
+                              已通過
                             </span>
                           ) : items.dislike_status === 3 ? (
                             <span className="member-comment-status">
@@ -241,7 +243,9 @@ function MemberComment() {
                             </span>
                           ) : (
                             <span className="member-comment-status">
-                              評論不通過
+                              評論
+                              <br />
+                              不通過
                             </span>
                           )}
                         </div>
