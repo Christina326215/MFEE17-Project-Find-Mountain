@@ -109,7 +109,7 @@ function ProductCard(props) {
   useEffect(() => {
     async function getWishListData() {
       try {
-        if (auth === false) {
+        if (member === null) {
           // console.log('尚未登入');
           $('.shopmain-heart-icon-bkg').removeClass(
             'shopmain-heart-icon-bkg-click'

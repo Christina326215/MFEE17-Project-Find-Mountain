@@ -48,7 +48,7 @@ function HomeOutfit(props) {
           </svg>
         </div>
 
-        <Link to="./outfit.html">
+        <Link to="/outfit">
           <div className="homepage-house position-absolute">
             <img className="cover-fit" src={Shop} alt="" />
           </div>
