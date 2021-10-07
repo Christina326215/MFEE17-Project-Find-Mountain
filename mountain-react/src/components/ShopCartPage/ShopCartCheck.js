@@ -569,7 +569,7 @@ function ShopCartCheck(props) {
                                   for="cc-exp"
                                   className="control-label mb-1"
                                 >
-                                  信用卡有效月年(MM/YY)
+                                  信用卡有效月年(MMYY)
                                 </label>
                                 <input
                                   id="cc-exp"
@@ -577,7 +577,7 @@ function ShopCartCheck(props) {
                                   type="tel"
                                   className="form-control cc-exp"
                                   required
-                                  placeholder="MM / YY"
+                                  placeholder="MMYY"
                                   autocomplete="cc-exp"
                                   pattern="[0-9]{4}"
                                 />
