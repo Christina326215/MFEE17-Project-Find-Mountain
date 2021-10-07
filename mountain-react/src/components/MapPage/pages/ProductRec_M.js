@@ -14,12 +14,13 @@ import { HeartFill, CartFill } from 'react-bootstrap-icons';
 //====== below icon end ======//
 
 //====== below api connect tool start ======//
-import { IMAGE_URL } from '../../../utils/config';
+import { IMAGE_URL, shopURL } from '../../../utils/config';
+import axios from 'axios';
 //====== below api connect tool end ======//
 
 function ProductRec_M(props) {
   const { productId, price, picture, name, brand, type } = props;
-  const { setCartChange } = useAuth(); // 取得購物車數字狀態
+  const { setCartChange, member, auth } = useAuth(); // 取得購物車數字狀態
 
   //=== 彈跳視窗所需 useState start ===//
   const [cartNum, setCartNum] = useState(1);
@@ -28,6 +29,10 @@ function ProductRec_M(props) {
   //cartLocal為購物車的local storage
   const [cardCartLocal, setCardCartLocal] = useState([]);
   //=== 彈跳視窗所需 useState end ===//
+
+  const [favoriteBtn, setFavoriteBtn] = useState([]); //愛心重置開關
+  //愛心顏色狀態 true為紅色 false為白色
+  const [heart, setHeart] = useState(false);
 
   //=== 彈跳視窗開關 start ===//
   const [show, setShow] = useState(false);
@@ -123,27 +128,147 @@ function ProductRec_M(props) {
   //====== clone product 彈跳視窗所需function end ======//
 
   const heartIcon = (e) => {
-    $(e.currentTarget).toggleClass('mountain_heart-icon-bkg-click');
+    // $(e.currentTarget).toggleClass('mountain_heart-icon-bkg-click');
+
+    // console.log(e.currentTarget);
+    // $(e.currentTarget).toggleClass('shopmain-heart-icon-bkg-click');
+    if (auth === false) {
+      Swal.fire({
+        icon: 'error',
+        title: '需要先登入才能加入收藏',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    }
+    if (member !== null) {
+      // console.log('productId, memberId', productId, member.id);
+      if (heart === true) {
+        //取消收藏 productId 為 number
+        // console.log('收藏中');
+        removeWishList();
+      } else {
+        //加入收藏
+        // console.log('沒收藏');
+        addWishList();
+      }
+    }
   };
+
+  //remove wish
+  const removeWishList = async () => {
+    try {
+      let id = productId;
+      // console.log('remove product id, member id', id, member.id);
+      await axios.post(`${shopURL}/remove-wish`, {
+        member,
+        id,
+      });
+      setHeart(false);
+      if (favoriteBtn === false) {
+        setFavoriteBtn(true);
+      } else {
+        setFavoriteBtn(false);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    Swal.fire({
+      icon: 'error',
+      title: '已移除收藏商品',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  };
+
+  //add wish
+  const addWishList = async () => {
+    try {
+      let id = productId;
+      // console.log('add product id, member id', id, member.id);
+      await axios.post(`${shopURL}/add-wish`, {
+        member,
+        id,
+      });
+      setHeart(true);
+      if (favoriteBtn === false) {
+        setFavoriteBtn(true);
+      } else {
+        setFavoriteBtn(false);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    Swal.fire({
+      icon: 'success',
+      title: '已加入收藏',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  };
+
+  //get Wish List
+  useEffect(() => {
+    async function getWishListData() {
+      try {
+        if (auth === false) {
+          // console.log('尚未登入');
+          $('.mountain_heart-icon-bkg').removeClass(
+            'mountain_heart-icon-bkg-click'
+          );
+          return;
+        }
+        // console.log('登入囉');
+        const wishListData = await axios.post(`${shopURL}/wish-list`, {
+          member,
+        });
+        // console.log('wishListData', wishListData.data);
+        const wishIndex = wishListData.data.findIndex(
+          (v) => v.product_id === parseInt(productId)
+        );
+        if (wishIndex > -1) {
+          // console.log('有收藏喔');
+          setHeart(true);
+        } else {
+          // console.log('還沒收藏喔');
+          setHeart(false);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getWishListData();
+  }, [auth, member, productId, favoriteBtn]);
 
   return (
     <>
       <div className="px-0">
         <div className="mountain_product-card">
           <div className="mountain_product-img-box position-relative">
-            {/* 產品照或許從後端抓 */}
-            <img
-              className="mountain_cover-fit"
-              src={`${IMAGE_URL}/img/product-img/${picture}`}
-              alt=""
-            />
-            {/* FIXME: 將產品加到收藏裡 & Link */}
-            <button
-              className="position-absolute mountain_heart-icon-bkg position-relative"
-              onClick={heartIcon}
-            >
-              <HeartFill className="position-absolute shopmain-heart-icon" />
-            </button>
+            {/* 產品照點擊可到商品詳細頁 */}
+            <Link to={`/shop/product-detail/${productId}`} id={productId}>
+              <img
+                className="mountain_cover-fit"
+                src={`${IMAGE_URL}/img/product-img/${picture}`}
+                alt=""
+              />
+            </Link>
+            {/* 將產品加到收藏裡 */}
+            {heart ? (
+              <button
+                className="position-absolute mountain_heart-icon-bkg position-relative mountain_heart-icon-bkg-click"
+                onClick={heartIcon}
+              >
+                <HeartFill className="position-absolute shopmain-heart-icon" />
+              </button>
+            ) : (
+              <button
+                className="position-absolute mountain_heart-icon-bkg position-relative"
+                onClick={heartIcon}
+              >
+                <HeartFill className="position-absolute shopmain-heart-icon" />
+              </button>
+            )}
             {/* 用彈跳視窗，將產品加到購物車裡*/}
             <button
               className="position-absolute mountain_cart-icon-bkg position-relative"

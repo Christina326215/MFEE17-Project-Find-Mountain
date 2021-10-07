@@ -75,7 +75,7 @@ function MemberComment() {
             <table
               className="
               table table-hover table-bordered member-table-all-left
-              p-md-4 p-lg-5
+              p-md-4 p-lg-5 table-hover
             "
             >
               <thead>

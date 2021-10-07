@@ -7,10 +7,11 @@ import { apiKey } from '../../utils/config';
 function GeocodeSearch(props) {
   const [address, setAddress] = useState('');
   // 回送lat與lng的父母層callback函式
-  const { setLng, setLat, detail, setSearchAddress } = props;
+  const { setLng, setLat, detail, setSearchAddress, lat, lng } = props;
 
   useEffect(() => {
-    if (!detail) {
+    // console.log('detail', detail);
+    if (detail.length === 0) {
       return;
     } else {
       // console.log('detail', detail);
@@ -34,12 +35,12 @@ function GeocodeSearch(props) {
       Geocode.fromAddress(detail.name).then(
         (response) => {
           const { lat, lng } = response.results[0].geometry.location;
-          console.log(
-            'response.results[0].formatted_address',
-            response.results[0].formatted_address
-          );
+          // console.log(
+          //   'response.results[0].formatted_address',
+          //   response.results[0].formatted_address
+          // );
           setSearchAddress(response.results[0].formatted_address);
-          console.log('lat, lng', lat, lng);
+          // console.log('lat, lng', lat, lng);
           setLat(lat);
           setLng(lng);
         },

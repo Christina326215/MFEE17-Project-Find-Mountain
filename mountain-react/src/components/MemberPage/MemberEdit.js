@@ -15,10 +15,6 @@ import axios from 'axios';
 import MemberSideHead from './pages/MemberSideHead'; //member Side Head
 //====== below pages end ======//
 
-//====== below modal star ======//
-import Swal from 'sweetalert2';
-//====== below modal end ======//
-
 function MemberEdit(props) {
   // 1. 首先，建立好 html 在 return(<>...</>)。
   // 2. 設定狀態，關於共用會員資料使用useAuth()，關於地址資料放在靜態檔案中則使用useState()。
@@ -28,18 +24,17 @@ function MemberEdit(props) {
   const [zipCode, setZipCode] = useState(null);
   const [cities, setCities] = useState([]); // 各縣市陣列
   const [districts, setDistricts] = useState([]); //各行政區陣列
-  const [passwordError, setPasswordError] = useState(''); //密碼不一致存error FIXME:
+  const [passwordError, setPasswordError] = useState(''); // 10/5 歐陽 add 密碼不一致存error
 
   const { show, setShow } = props;
 
   // 3. 因為不能直接去改動member的資料，需要先設定一個tempMember變數，將由資料庫而來的member放進setTempMember中改變狀態，最後才會把改變後的狀態存進資料庫。
   const [tempMember, setTempMember] = useState(null);
-  console.log('tempMember:', tempMember); //for check FIXME:
   // 4. 當member有資料時，就會使用useEffect，以setTempMember改變狀態(原為null)。
   useEffect(() => {
     if (member !== null) {
       setTempMember({ ...member });
-      setTempMember({ ...member, password: '', repassword: '' }); //將一開始的密碼&re密碼設為''FIXME:
+      setTempMember({ ...member, password: '', repassword: '' }); // 10/5 歐陽 add 將一開始的密碼&re密碼設為''
     }
   }, [member]);
 
@@ -92,7 +87,7 @@ function MemberEdit(props) {
   }, []);
 
   useEffect(() => {
-    if (tempMember && zipCode && zipGroup && cities) {
+    if (tempMember && zipCode && zipGroup && cities.length > 0) {
       // 表示上述資料都已經有了！
       if (tempMember.zip_code) {
         // 表示這個使用者的 zip code 已經設定過了
@@ -433,7 +428,7 @@ function MemberEdit(props) {
                     )}
                   </div>
 
-                  {/* FIXME: 密碼要更改確認 */}
+                  {/* 密碼要更改確認 */}
                   <div className="member-personal-text-weight-bold">
                     <label for="inputRePassword" className="mt-3">
                       確認更改密碼：
@@ -443,7 +438,7 @@ function MemberEdit(props) {
                       className="form-control"
                       id="repassword"
                       name="repassword"
-                      minLength="6"
+                      // minLength="6"
                       onChange={handleChange}
                     />
                     {passwordError !== '' && (
@@ -455,7 +450,20 @@ function MemberEdit(props) {
                     type="submit"
                     className="border-bottom-left-radius my-5 mx-3 text-right btn btn-primary"
                     onClick={() => {
-                      // FIXME: (兩個密碼都打'123'會給過) 存密碼不一樣的錯誤
+                      if (tempMember.password.length !== 0) {
+                        if (tempMember.password.length < 6) {
+                          setPasswordError('密碼需至少六位');
+                          return;
+                        }
+                      }
+                      if (tempMember.repassword.length !== 0) {
+                        if (tempMember.repassword.length < 6) {
+                          setPasswordError('確認密碼需至少六位');
+                          return;
+                        }
+                      }
+
+                      // 10/5 歐陽 add 存密碼不一樣的錯誤
                       if (tempMember.password !== tempMember.repassword) {
                         setPasswordError('密碼不一致');
                         return;

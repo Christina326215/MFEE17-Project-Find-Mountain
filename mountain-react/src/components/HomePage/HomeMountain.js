@@ -52,72 +52,22 @@ function HomeMountain(props) {
   const [weatherIcon, setWeatherIcon] = useState('');
   // const [showWeather, setShowWeather] = useState(false);
 
+  const [userLocationBtn, setUserLocationBtn] = useState(false); //10/6 歐陽add
+
   useEffect(() => {
     // geolocation
     if (navigator.geolocation) {
+      // 10/6 歐陽add 有拿到位置就return start //
+      if (userLocation !== null) {
+        return;
+      }
+      // 10/6 歐陽add 有拿到位置就return end //
       // 執行要權限的function
       navigator.geolocation.getCurrentPosition(success, error, options);
     } else {
       alert('Sorry, 你的裝置不支援地理位置功能。');
     }
-  }, []);
-
-  useEffect(() => {
-    //=== weather variable star ===//
-    const locations = weather.map((location) => location.locationName);
-    // console.log(locations); //for check
-    const elements = weather.map((element) => element.elementName);
-    // console.log(elements); //for check
-    const parameters = weather.map((parameter) => parameter.parameterName);
-    // console.log(parameters); //for check
-    //=== weather variable end ===//
-
-    async function homeData() {
-      try {
-        const homeData = await axios.get(authURL);
-        // console.log(homeData.data); //for check
-        setListData(homeData.data);
-
-        //=== weather API + location
-        const weatherData = await axios.get(
-          `${weatherURL}&locationName=${locations}&elementName=${elements}&parameterName=${parameters}`
-        );
-        let location = weatherData.data.records.location;
-        // console.log('weatherData:', location); //for check
-        setWeatherData(location);
-        //確認使用者裝置是否抓到地點位置
-        if (navigator.geolocation) {
-          // 使用者不提供權限，或是發生其它錯誤
-          function error() {
-            Swal.fire({
-              icon: 'error',
-              title: '無法取得您的位置，請提供權限！利於計算您到景點距離。',
-              showConfirmButton: true,
-            });
-          }
-          // 使用者允許抓目前位置，回傳經緯度
-          function success(position) {
-            let Lat = position.coords.latitude;
-            let Lon = position.coords.longitude;
-            let LatLon = { Lat, Lon };
-            setUserLocation(LatLon);
-            // console.log(userLocation);
-          }
-          // 跟使用者拿所在位置的權限
-          navigator.geolocation.getCurrentPosition(success, error);
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Sorry, 你的裝置不支援地理位置功能。',
-            showConfirmButton: true,
-          });
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    homeData();
-  }, [listData]);
+  }, [userLocation, userLocationBtn]);
 
   function success(pos) {
     /// 抓 geolocation
@@ -130,6 +80,8 @@ function HomeMountain(props) {
     // console.log('More or less ' + crd.accuracy + ' meters.');
     // console.log('geoLat', geoLat);
     // console.log('geoLon', geoLon);
+    setUserLocation(geoLat); //10/6 歐陽add 把 lat 放進usestate讓useeffect判斷有沒有值
+
     /// openweather API
     async function weatherData() {
       try {
@@ -150,6 +102,17 @@ function HomeMountain(props) {
   }
 
   function error(err) {
+    // 10/6 歐陽add 設開關每過 1 sec 跑出彈跳視窗直到使用者開啟位置給追蹤 start //
+    setTimeout(() => {
+      // console.log('in'); //for check
+      if (userLocationBtn === false) {
+        setUserLocationBtn(true);
+      } else {
+        setUserLocationBtn(false);
+      }
+    }, 10000);
+    // 10/6 歐陽add 設開關每過 1 sec 跑出彈跳視窗直到使用者開啟位置給追蹤 end //
+
     Swal.fire({
       icon: 'error',
       title: '裝置抓取地理位置錯誤',

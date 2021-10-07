@@ -455,11 +455,11 @@ function ProductDetail(props) {
                       </span>
                       <br />
                       <span className="productdetail-membership productdetail-membership-medium">
-                        山友 ：結帳時93折優惠
+                        山友 ：結帳時9折優惠
                       </span>
                       <br />
                       <span className="productdetail-membership productdetail-membership-high">
-                        山神 ：結帳時9折優惠
+                        山神 ：結帳時85折優惠
                       </span>
                     </div>
                     {/* <!-- =========about-membership-bubble end========= --> */}
