@@ -168,11 +168,11 @@ function ShopCartCheck(props) {
   }, [cartLocal]);
   /* 購物車明細local storage end */
 
-  /* 信用卡彈出式視窗 start */
+  /* 若選擇信用卡支付，就會有彈出視窗填寫信用卡資料才會將資料送出。 start */
   const [showCreditCard, setShowCreditCard] = useState(false);
   const handleClose = () => setShowCreditCard(false);
   const creditCardPay = () => setShowCreditCard(true);
-  /* 信用卡彈出式視窗 end */
+  /* 若選擇信用卡支付，就會有彈出視窗填寫信用卡資料才會將資料送出。 end */
 
   const validSubmit = (e) => {
     var form = $(e.currentTarget).parent().siblings('.modal-body').find('form');
@@ -418,15 +418,22 @@ function ShopCartCheck(props) {
                     {member &&
                       (member.level === '1' ? (
                         <td className="member-membership-low h5">
-                          NT$ {(sum(shopCartData) * 0.95).toLocaleString()}
+                          NT${' '}
+                          {Math.round(
+                            sum(shopCartData) * 0.95
+                          ).toLocaleString()}
                         </td>
                       ) : member.level === '2' ? (
                         <td className="member-membership-medium h5">
-                          NT$ {(sum(shopCartData) * 0.9).toLocaleString()}
+                          NT${' '}
+                          {Math.round(sum(shopCartData) * 0.9).toLocaleString()}
                         </td>
                       ) : (
                         <td className="member-membership-high h5">
-                          NT$ {(sum(shopCartData) * 0.85).toLocaleString()}
+                          NT${' '}
+                          {Math.round(
+                            sum(shopCartData) * 0.85
+                          ).toLocaleString()}
                         </td>
                       ))}
                   </tr>
@@ -441,23 +448,58 @@ function ShopCartCheck(props) {
                   否，進行修改
                 </Link>
                 <div></div>
-                <Button
-                  variant="primary"
-                  onClick={creditCardPay}
-                  className="shopcart-btn btn-next btn btn-primary mr-3"
-                >
-                  是，進行付款
-                </Button>
+                {pay && pay.pay_way == 1 ? (
+                  <Button
+                    variant="primary"
+                    onClick={creditCardPay}
+                    className="shopcart-btn btn-next btn btn-primary mr-3"
+                  >
+                    是，進行付款
+                  </Button>
+                ) : (
+                  <Button
+                    variant="primary"
+                    onClick={handleSubmit}
+                    className="shopcart-btn btn-next btn btn-primary mr-3"
+                  >
+                    是，訂單成立
+                  </Button>
+                )}
 
                 <Modal show={showCreditCard} onHide={handleClose}>
                   <Modal.Header closeButton>
-                    <Modal.Title>信用卡支付</Modal.Title>
+                    <Modal.Title>
+                      本筆訂單需支付金額：
+                      {member &&
+                        (member.level === '1' ? (
+                          <td className="member-membership-low h5">
+                            NT${' '}
+                            {Math.round(
+                              sum(shopCartData) * 0.95
+                            ).toLocaleString()}
+                          </td>
+                        ) : member.level === '2' ? (
+                          <td className="member-membership-medium h5">
+                            NT${' '}
+                            {Math.round(
+                              sum(shopCartData) * 0.9
+                            ).toLocaleString()}
+                          </td>
+                        ) : (
+                          <td className="member-membership-high h5">
+                            NT${' '}
+                            {Math.round(
+                              sum(shopCartData) * 0.85
+                            ).toLocaleString()}
+                          </td>
+                        ))}
+                    </Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
                     <div id="pay-invoice" className="card">
                       <div className="card-body">
                         <div className="card-title">
-                          <h3 className="text-center">Credit Card</h3>
+                          <h5 className="text-center">請填寫您的信用卡資訊</h5>
                         </div>
                         <form
                           action="/echo"
@@ -483,7 +525,7 @@ function ShopCartCheck(props) {
                           </div>
                           <div className="form-group has-success">
                             <label for="cc-name" className="control-label mb-1">
-                              Name on card
+                              持卡人姓名
                             </label>
                             <input
                               id="cc-name"
@@ -506,7 +548,7 @@ function ShopCartCheck(props) {
                               for="cc-number"
                               className="control-label mb-1"
                             >
-                              Card number
+                              信用卡號(16碼)
                             </label>
                             <input
                               id="cc-number"
@@ -527,7 +569,7 @@ function ShopCartCheck(props) {
                                   for="cc-exp"
                                   className="control-label mb-1"
                                 >
-                                  Expiration
+                                  信用卡有效月年(MM/YY)
                                 </label>
                                 <input
                                   id="cc-exp"
@@ -549,7 +591,7 @@ function ShopCartCheck(props) {
                                 for="x_card_code"
                                 className="control-label mb-1"
                               >
-                                Security code
+                                信用卡背面末三碼
                               </label>
                               <div className="input-group">
                                 <input
