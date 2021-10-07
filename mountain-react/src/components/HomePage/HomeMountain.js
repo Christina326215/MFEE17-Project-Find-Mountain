@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom'; //a標籤要變成link
 import '../../styles/HomePage/HomeMountain.scss';
 //api start
 import { authURL } from '../../utils/config';
@@ -229,22 +230,22 @@ function HomeMountain(props) {
             </div>
             <div id="homepage-pagination">
               <div className="active homepage-sliderBtn" data-slide="0">
-                <a href="#/" onClick={changeLevel}>
+                <Link to="#/" onClick={changeLevel}>
                   <div className="homepage-center active"></div>
                   <div className="homepage-level">初級</div>
-                </a>
+                </Link>
               </div>
               <div className="homepage-sliderBtn homepage-med" data-slide="1">
-                <a href="#/" onClick={changeLevel}>
+                <Link to="#/" onClick={changeLevel}>
                   <div className="homepage-center"></div>
                   <div className="homepage-level">中級</div>
-                </a>
+                </Link>
               </div>
               <div className="homepage-sliderBtn" data-slide="2">
-                <a href="#/" onClick={changeLevel}>
+                <Link to="#/" onClick={changeLevel}>
                   <div className="homepage-center"></div>
                   <div className="homepage-level">高級</div>
-                </a>
+                </Link>
               </div>
             </div>
 

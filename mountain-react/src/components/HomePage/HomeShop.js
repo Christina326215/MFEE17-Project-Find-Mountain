@@ -23,6 +23,8 @@ function HomeShop(props) {
   // let heartStyle = { color: '#eea9a9', fontSize: '20px', position: 'absolute' };
   const [homeproductData, setProductData] = useState(null);
   const { price, className, picture } = props;
+  const [favoriteBtn, setFavoriteBtn] = useState(false);
+
   useEffect(() => {
     //api
     async function homeProductData() {
@@ -83,7 +85,10 @@ function HomeShop(props) {
           </div>
           <div className="homepage-contentShop">
             <h2 className="text-center pb-5">經典熱銷</h2>
-            <RankingItems />
+            <RankingItems
+              favoriteBtn={favoriteBtn}
+              setFavoriteBtn={setFavoriteBtn}
+            />
             {/* <h2 className="text-center pb-5">經典熱銷</h2>
             <div className="row">
               {homeproductData &&
@@ -100,16 +105,19 @@ function HomeShop(props) {
                   );
                 })}
             </div> */}
-            <div className="homepage-btnMore">
+            {/* <div className="homepage-btnMore">
               <Link to="/shop" className="btn btn-primary homepage-more">
                 更多產品
               </Link>
-            </div>
+            </div> */}
 
             <div className="homepage-contentShop">
               <h2 className="text-center pb-5">編輯嚴選</h2>
-              <SelectedItems />
-
+              <SelectedItems
+                favoriteBtn={favoriteBtn}
+                setFavoriteBtn={setFavoriteBtn}
+              />
+              ;
               {/* <h2 className="text-center pb-5">編輯嚴選</h2>
               <div className="row">
                 <div className="col-6 col-md-4 col-lg-3 px-0">
@@ -262,10 +270,15 @@ function HomeShop(props) {
                 </div>
               </div> */}
               <div className="homepage-btnMore">
+                <Link to="/shop" className="btn btn-primary homepage-more">
+                  更多產品
+                </Link>
+              </div>
+              {/* <div className="homepage-btnMore">
                 <button className="btn btn-primary homepage-more">
                   更多產品
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
