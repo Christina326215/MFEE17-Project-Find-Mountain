@@ -15,7 +15,7 @@ import { BsPlus, BsDash, BsTrash, BsCheck } from 'react-icons/bs';
 //====== below icon end ======//
 
 function ShopCartDetail() {
-  const { setCartChange, auth } = useAuth(); // 取得navbar偵測購物車變化用的狀態 會員登入狀態
+  const { setCartChange, member } = useAuth(); // 取得navbar偵測購物車變化用的狀態 會員登入狀態
   //shopCartData為購物車local storage接完資料庫的整體一筆一筆的資料
   const [shopCartData, setShopCartData] = useState([]);
   //historyItems為瀏覽紀錄local storage接完資料庫的整體一筆一筆的資料
@@ -239,19 +239,32 @@ function ShopCartDetail() {
   }, [cartLocal]);
   //進行結帳btn
   const checkout = (e) => {
-    console.log('auth', auth);
-    if (auth === false) {
+    const ProductOrderForCheckout = JSON.parse(
+      localStorage.getItem('ProductOrderDetail')
+    );
+    // console.log('ProductOrderForCheckout', ProductOrderForCheckout);
+    console.log('member', member);
+    if (member === null) {
       e.preventDefault();
-      //FIXME:等羽柔寫好sweetalert放進來
       console.log('請先進行登入');
-    } else {
-      const ProductOrderForCheckout = JSON.parse(
-        localStorage.getItem('ProductOrderDetail')
-      );
-      if (ProductOrderForCheckout === null && ProductOrderForCheckout === []) {
-        e.preventDefault();
-        console.log('no product in cart');
-      }
+      Swal.fire({
+        icon: 'error',
+        title: '需要先登入才能進行結帳喔',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else if (
+      ProductOrderForCheckout === null ||
+      ProductOrderForCheckout === []
+    ) {
+      e.preventDefault();
+      console.log('no product in cart');
+      Swal.fire({
+        icon: 'warning',
+        title: '你的購物車內還沒有商品喔',
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
   };
   //FIXME:一些待整理的東西

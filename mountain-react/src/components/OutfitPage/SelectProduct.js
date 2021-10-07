@@ -15,7 +15,9 @@ function SelectProduct(props) {
           <div
             class="
                       outfit-dialogBox1
-                      animate__animated animate__shakeX
+                      animate__animated
+                      animate__bounceInUp
+                      animate__slow
                       position-absolute
                     "
           >
@@ -24,13 +26,15 @@ function SelectProduct(props) {
           <div
             class="
                       outfit-dialogBox2
-                      animate__animated animate__headShake
+                      animate__animated animate__bounceInDown animate__slow
                       position-absolute
                     "
           >
             <img src={dialogBox2} alt="" />
           </div>
-          <img src={bear} alt="" />
+          <div class="animate__animated animate__backInLeft animate__fast">
+            <img src={bear} alt="" />
+          </div>
           <div class="outfit-mountains position-absolute position-relative">
             <div class="outfit-low-mountain outfit-single" target="1">
               <span>初階</span>

@@ -127,7 +127,7 @@ function MemberProductArticle() {
           {/* <!-- manage-left-side end --> */}
           {/* <!-- manage-right-side start--> */}
           <div className="col-12 col-lg-9 mt-5 zindex-low">
-            <h2 className="member-product-article-title-main">我的產品收藏</h2>
+            <h2 className="member-product-article-title-main">我的收藏</h2>
             <div className="wrapper">
               <div className="tab">
                 <div

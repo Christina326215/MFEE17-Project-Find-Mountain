@@ -159,7 +159,7 @@ function Login(props) {
               </div>
             </div>
             <div className="login-w-50-l p-5 align-self-center">
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} novalidate>
                 <h2 className="text-center pb-5 login-title">會員登入</h2>
                 <div className="mb-3">
                   <label
@@ -177,6 +177,7 @@ function Login(props) {
                     name="email"
                     value={loginData && loginData.email}
                     onChange={handleChange}
+                    required
                   />
                 </div>
                 <div className="mb-3">
@@ -194,6 +195,7 @@ function Login(props) {
                     name="password"
                     value={loginData && loginData.password}
                     onChange={handleChange}
+                    required
                   />
                 </div>
 

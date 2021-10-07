@@ -22,10 +22,11 @@ import { BsTrash } from 'react-icons/bs';
 //====== below icon end ======//
 
 //====== below catch member info star ======//
-import { useAuth } from '../../context/auth';
+import { useAuth, member } from '../../context/auth';
 //====== above catch member info end ======//
 
 function MemberOrder() {
+  const { member } = useAuth(); // 取得會員資料
   const { currentPage } = useParams();
   // 分頁屬性
   // 紀錄我現在在第幾頁
@@ -239,12 +240,41 @@ function MemberOrder() {
                             訂單金額：
                           </td>
 
-                          <td
-                            scope="row"
-                            className="member-comment-text-weight-top"
-                          >
-                            NT$ {parseInt(item.totalPrice).toLocaleString()}
-                          </td>
+                          {member &&
+                            (member.level === '1' ? (
+                              <td
+                                scope="row"
+                                className="member-comment-text-weight-top"
+                              >
+                                NT${' '}
+                                {Math.round(
+                                  parseInt(item.totalPrice) * 0.95
+                                ).toLocaleString()}{' '}
+                                (會員肉腳價)
+                              </td>
+                            ) : member.level === '2' ? (
+                              <td
+                                scope="row"
+                                className="member-comment-text-weight-top"
+                              >
+                                NT${' '}
+                                {Math.round(
+                                  parseInt(item.totalPrice) * 0.9
+                                ).toLocaleString()}{' '}
+                                (會員山友價)
+                              </td>
+                            ) : (
+                              <td
+                                scope="row"
+                                className="member-comment-text-weight-top"
+                              >
+                                NT${' '}
+                                {Math.round(
+                                  parseInt(item.totalPrice) * 0.85
+                                ).toLocaleString()}{' '}
+                                (會員山神價)
+                              </td>
+                            ))}
                         </tr>
                         <tr>
                           <td

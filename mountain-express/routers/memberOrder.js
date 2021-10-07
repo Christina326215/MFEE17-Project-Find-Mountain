@@ -20,7 +20,7 @@ router.get("/order-product", async function (req, res, next) {
   // OFFSET: 要跳過多少
   let offset = (page - 1) * perPage;
   let singlePage = await connection.queryAsync(
-    "SELECT * FROM user_order WHERE user_id=? ORDER BY id LIMIT ? OFFSET ?",
+    "SELECT * FROM user_order WHERE user_id=? ORDER BY id DESC LIMIT ? OFFSET ?",
     [req.session.account.id, perPage, offset]
   );
   let pagination = {
