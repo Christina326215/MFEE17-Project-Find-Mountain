@@ -15,7 +15,7 @@ import { BsPlus, BsDash, BsTrash, BsCheck } from 'react-icons/bs';
 //====== below icon end ======//
 
 function ShopCartDetail() {
-  const { setCartChange, auth, member } = useAuth(); // 取得navbar偵測購物車變化用的狀態 會員登入狀態
+  const { setCartChange, member } = useAuth(); // 取得navbar偵測購物車變化用的狀態 會員登入狀態
   //shopCartData為購物車local storage接完資料庫的整體一筆一筆的資料
   const [shopCartData, setShopCartData] = useState([]);
   //historyItems為瀏覽紀錄local storage接完資料庫的整體一筆一筆的資料
