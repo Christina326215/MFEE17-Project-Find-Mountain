@@ -213,6 +213,9 @@ router.post('/deletePast', async function (req, res, next) {
   // 將user level塞進資料庫
   let updateUserLevel = await connection.queryAsync("UPDATE user SET ? WHERE id=?", [{level: level,},req.body.likeUserId]);
 
+  //=== delete 去過文章星星評分 db start ===//
+  let deleteStar = await connection.queryAsync("DELETE FROM article_star WHERE user_id=? AND article_id=?",[req.body.member.id, req.body.likeArticleId]);
+  //=== delete 去過文章星星評分 db end ===//
 
   res.json(updateUserLevel);
 });
