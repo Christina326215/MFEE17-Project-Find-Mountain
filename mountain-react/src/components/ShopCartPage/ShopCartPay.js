@@ -111,6 +111,9 @@ function ShopCartPay(props) {
 
   // 自動填入會員收件地址 start //
   function checkAutoInputAddr(e) {
+    // if (member.addr === null) {
+    //   e.target.disabled = true;
+    // }
     if (e.target.checked) {
       setCartData({
         ...cartData,
@@ -152,6 +155,9 @@ function ShopCartPay(props) {
 
   // 自動填入會員姓名及電話 start //
   function checkAutoNamePhone(e) {
+    // if (member.phone === null) {
+    //   e.target.disabled = true;
+    // }
     if (e.target.checked) {
       setCartData({ ...cartData, name: member.name, phone: member.phone });
       const updatedFieldErrors = {
@@ -459,20 +465,29 @@ function ShopCartPay(props) {
                   請填寫收件地址：
                 </legend>
                 <div className="col-sm-10 mb-4">
-                  <div className="form-check mb-2">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="autoInputAddr"
-                      name="autoInputAddr"
-                      value="autoComplete"
-                      onChange={checkAutoInputAddr}
-                      // checked
-                    />
-                    <label className="form-check-label" for="autoInputAddr">
-                      自動填入會員聯絡地址
-                    </label>
-                  </div>
+                  {member &&
+                  member.zip_code !== null &&
+                  member.addr !== null ? (
+                    <div className="form-check mb-2">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        id="autoInputAddr"
+                        name="autoInputAddr"
+                        value="autoComplete"
+                        onChange={checkAutoInputAddr}
+                      />
+                      <label className="form-check-label" for="autoInputAddr">
+                        自動填入會員聯絡地址
+                      </label>
+                    </div>
+                  ) : (
+                    <label
+                      className="form-check-label"
+                      for="autoInputAddr"
+                    ></label>
+                  )}
+
                   {/* 選擇地址 start */}
                   <div className="form-group">
                     {/* 請選擇縣市 */}
@@ -537,23 +552,33 @@ function ShopCartPay(props) {
                   請填寫收件人資訊：
                 </legend>
                 <div className="col-sm-10 mb-4">
-                  <div className="form-check mb-2">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="autoInputNamePhone"
-                      name="autoInputNamePhone"
-                      value="autoCompleteNamePhone"
-                      onChange={checkAutoNamePhone}
-                      // checked
-                    />
+                  {member &&
+                  member.zip_code !== null &&
+                  member.addr !== null ? (
+                    <div className="form-check mb-2">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        id="autoInputNamePhone"
+                        name="autoInputNamePhone"
+                        value="autoCompleteNamePhone"
+                        onChange={checkAutoNamePhone}
+                        // checked
+                      />
+                      <label
+                        className="form-check-label"
+                        for="autoInputNamePhone"
+                      >
+                        自動填入會員姓名及電話
+                      </label>
+                    </div>
+                  ) : (
                     <label
                       className="form-check-label"
                       for="autoInputNamePhone"
-                    >
-                      自動填入會員個人姓名及電話
-                    </label>
-                  </div>
+                    ></label>
+                  )}
+
                   <div className="form-group">
                     <input
                       type="text"

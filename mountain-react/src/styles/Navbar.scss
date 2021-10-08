@@ -1,9 +1,9 @@
 /*body font*/
 
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;500;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;500;700&display=swap');
 
 body {
-  font-family: "Noto Sans TC", Arial, Helvetica, sans-serif;
+  font-family: 'Noto Sans TC', Arial, Helvetica, sans-serif;
 }
 ::-webkit-scrollbar {
   display: none;
@@ -11,7 +11,7 @@ body {
 /*shopping cart-num*/
 .cart-num {
   top: -6px;
-  right:-8px;
+  right: -8px;
   font-size: 8px;
   background: #cc543a;
   color: #fff;
@@ -86,7 +86,7 @@ body {
 .footer {
   position: relative;
   background: #19634a;
-  height: 345px;
+  max-height: 600px; //FIXME:
 }
 .footer_box {
   padding-top: 50px;
@@ -127,8 +127,12 @@ body {
   margin: 0 10px;
   margin-top: 50px;
 }
+.footer_img img { //FIXME:
+  height: 35px;
+}
 .footer_copy {
   margin-top: 80px;
+  padding-bottom: 10px;
   color: #fafafa;
 }
 

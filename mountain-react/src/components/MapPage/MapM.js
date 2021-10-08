@@ -109,61 +109,61 @@ function MapM() {
         console.log('weatherData:', location); //for check
         setWeatherData(location);
         // weather api end //
-
-        //=== user geolocation start ===//
-        // 先確認使用者裝置能不能抓地點
-        if (navigator.geolocation) {
-          // 使用者不提供權限，或是發生其它錯誤
-          function error() {
-            //設開關每過 1 sec 跑出彈跳視窗直到使用者開啟位置給追蹤
-            setTimeout(() => {
-              // console.log('in'); //for check
-              if (userLocationBtn === false) {
-                setUserLocationBtn(true);
-              } else {
-                setUserLocationBtn(false);
-              }
-            }, 10000);
-            //彈出視窗
-            Swal.fire({
-              icon: 'error',
-              title: '無法取得您的位置，請提供權限！利於計算您到景點距離。',
-              showConfirmButton: true,
-            });
-          }
-          // 使用者允許抓目前位置，回傳經緯度
-          function success(position) {
-            let Lat = position.coords.latitude;
-            let Lon = position.coords.longitude;
-            let LatLon = { Lat, Lon };
-            setUserLocation(LatLon);
-            // console.log(userLocation);
-          }
-          // 有拿到位置就return
-          if (userLocation.Lat !== undefined) {
-            // console.log('in in'); //for check
-            return;
-          }
-          // 跟使用者拿所在位置的權限
-          navigator.geolocation.getCurrentPosition(success, error);
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Sorry, 你的裝置不支援地理位置功能。',
-            showConfirmButton: true,
-          });
-        }
-        //=== user geolocation  end ===//
       } catch (e) {
         console.log(e);
       }
     }
     mapLData();
     //=== Api end ===//
+  }, []);
 
-    // 0.7秒後關閉指示器 star
-    setTimeout(() => {}, 700);
-    // 0.7秒後關閉指示器 end
+  useEffect(() => {
+    //=== user geolocation start ===//
+    // 先確認使用者裝置能不能抓地點
+    if (navigator.geolocation) {
+      // 使用者不提供權限，或是發生其它錯誤
+      function error() {
+        //設開關每過 1 sec 跑出彈跳視窗直到使用者開啟位置給追蹤
+        setTimeout(() => {
+          // console.log('in'); //for check
+          if (userLocationBtn === false) {
+            setUserLocationBtn(true);
+          } else {
+            setUserLocationBtn(false);
+          }
+        }, 10000);
+        //彈出視窗
+        Swal.fire({
+          icon: 'error',
+          title: '裝置抓取地理位置錯誤',
+          text: '請檢查是否已啟用位置資訊存取功能',
+          footer:
+            '<a href="https://support.google.com/chrome/answer/142065?hl=zh-Hant&co=GENIE.Platform%3DDesktop">如何啟用分享您的位置資訊?</a>',
+        });
+      }
+      // 使用者允許抓目前位置，回傳經緯度
+      function success(position) {
+        let Lat = position.coords.latitude;
+        let Lon = position.coords.longitude;
+        let LatLon = { Lat, Lon };
+        setUserLocation(LatLon);
+        // console.log(userLocation);
+      }
+      // 有拿到位置就return
+      if (userLocation.Lat !== undefined) {
+        // console.log('in in'); //for check
+        return;
+      }
+      // 跟使用者拿所在位置的權限
+      navigator.geolocation.getCurrentPosition(success, error);
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Sorry, 你的裝置不支援地理位置功能。',
+        showConfirmButton: true,
+      });
+    }
+    //=== user geolocation  end ===//
   }, [userLocationBtn, userLocation]);
 
   //====== weather 所代表的icon start ======//

@@ -5,6 +5,14 @@ import '../styles/Navbar.scss'; //header & footer 樣式
 import logoPng from '../img/logo.png';
 //====== above img import end ======//
 
+//====== below img import start ======//
+import northface from '../img/footer-img/northface.png';
+import atunas from '../img/footer-img/atunas.png';
+import decathlon from '../img/footer-img/decathlon.png';
+import mybest from '../img/footer-img/mybest.png';
+import branding from '../img/footer-img/branding.png';
+//====== above img import end ======//
+
 function Footer() {
   return (
     <>
@@ -39,14 +47,36 @@ function Footer() {
 
           <div className="footer_line"></div>
 
-          <div className="d-flex justify-content-center">
-            <div className="footer_info">聯絡資訊</div>
-            <div className="footer_info">參考資訊</div>
+          <div className="d-flex flex-wrap justify-content-center">
+            <div className="footer_info d-flex align-items-center">
+              <p className="mr-2">聯絡資訊:</p>
+              <p>def2446@yahoo.com.tw</p>
+            </div>
+
+            <div className="d-flex align-items-center footer_info">
+              <p className="mr-2">參考資訊:</p>
+              <p className="mr-2 footer_img">
+                <img src={northface} alt="northface" />
+              </p>
+              <p className="mr-2 footer_img">
+                <img src={atunas} alt="atunas" />
+              </p>
+              <p className="mr-2 footer_img">
+                <img src={decathlon} alt="decathlon" />
+              </p>
+              <p className="mr-2 footer_img">
+                <img src={mybest} alt="mybest" />
+              </p>
+              <p className="footer_img">
+                <img src={branding} alt="branding" />
+              </p>
+            </div>
           </div>
         </div>
 
         <div className="footer_copy d-flex justify-content-center">
           &copy;Copyright, Inc. 2021. MFEE17-第五組專題
+          (僅供資策會學員專題之發表，若有侵權之疑慮，請私訊)
         </div>
       </footer>
       {/* <!-- =========footer end========= --> */}
