@@ -41,7 +41,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 // app.use("/img/comment", express.static("/Applications/XAMPP/xamppfiles/htdocs/project/comments/upload"))
 
 // react yarn build star
-// app.use(express.static(path.join(__dirname, "react")));
+app.use(express.static(path.join(__dirname, "react")));
 // react yarn build end
 
 //HTTP Method: get, post, put, patch, delete
