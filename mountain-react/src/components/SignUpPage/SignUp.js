@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, useHistory } from 'react-router-dom';
 
 import '../../styles/SignUpStyle/SignUp.css';
 //api start
@@ -139,6 +139,8 @@ function SignUp(props) {
   }
 
   // 準備 INSERT INTO 資料庫 start
+  let history = useHistory();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -154,6 +156,7 @@ function SignUp(props) {
       formData.append('repassword', registerData.repassword);
       let response = await axios.post(`${authURL}/register`, formData);
       console.log(response);
+      history.push('/login');
     } catch (e) {
       console.error(e.response);
     }
@@ -169,10 +172,18 @@ function SignUp(props) {
   let prevContent = document.querySelector('#clickPrev');
   //=== 按了下一步
   function next() {
-    contentInfo.style.display = 'none';
-    contentRegister.style.display = 'block';
-    step1.classList.remove('signup-active');
-    step2.classList.add('signup-active');
+    if (
+      fieldErrors.name === '' &&
+      fieldErrors.birthday === '' &&
+      fieldErrors.phone === '' &&
+      fieldErrors.zip_code === '' &&
+      fieldErrors.addr === ''
+    ) {
+      contentInfo.style.display = 'none';
+      contentRegister.style.display = 'block';
+      step1.classList.remove('signup-active');
+      step2.classList.add('signup-active');
+    }
   }
   //=== 按了上一步
   function prev() {
@@ -188,6 +199,7 @@ function SignUp(props) {
     prevContent.addEventListener('click', prev, false);
   }
   //=== 發送驗證碼
+
   const SendEmail = async (e) => {
     if (registerData.email) {
       console.log('registerData.email', registerData.email);
@@ -377,7 +389,7 @@ function SignUp(props) {
                               name="addr"
                               value={registerData && registerData.addr}
                               onChange={handleChange}
-                              minLength="1"
+                              required
                             />
                             {fieldErrors.addr !== '' && (
                               <small className="login-error">
@@ -390,9 +402,10 @@ function SignUp(props) {
                       </div>
                       <div className="signup-info-button-container my-5 col-12">
                         <button
-                          type="button"
+                          type="submit"
                           className="btn btn-next btn-primary"
                           id="clickNext"
+                          disabled={!registerData}
                         >
                           下一步
                         </button>

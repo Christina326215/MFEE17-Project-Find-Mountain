@@ -20,7 +20,7 @@
 }
 
 .homepage-text:nth-child(5n + 1) {
-  stroke: #ffe342;
+  stroke: #ffb943;
   -webkit-animation-delay: -1.2s;
   animation-delay: -1.2s;
 }
@@ -71,7 +71,7 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  top: -28%;
+  top: -10%;
 }
 #m-text {
   position: absolute;
@@ -136,6 +136,7 @@
   margin-left: 40px;
 }
 .homepage-say {
+  width: 240px;
   opacity: 0;
   margin-bottom: 30px;
 }
@@ -251,5 +252,10 @@
   }
   .homepage-banner-slider .slider.slider-for {
     height: auto;
+  }
+
+  .homepage-say {
+    width: 160px;
+    margin-bottom: 10px;
   }
 }

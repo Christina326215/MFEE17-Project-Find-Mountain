@@ -33,7 +33,6 @@
     max-width: 30%;
     height: 500px;
     overflow: hidden;
-    padding: 20px 0 0;
   }
 
   .banner-slider .slider.slider-for,
@@ -106,11 +105,12 @@
     left: 0;
     right: 0;
     z-index: 99;
+    transform: rotate(90deg);
   }
 
   .slick-prev {
     top: 10px;
-    background: #6da77f;
+    // background: #6da77f;
   }
 
   .slick-next {
@@ -133,7 +133,10 @@
     border-radius: 10px;
   }
   .ov-hidden {
-    line-height: 23px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
   .memory {
     border-radius: 10px;
@@ -233,15 +236,15 @@
     }
 
     .slick-arrow {
-      padding: 0;
+      // padding: 0;
       width: 30px;
-      height: 30px;
-      top: 50%;
+      // height: 30px;
+      // top: 50%;
       bottom: 0;
-      -webkit-transform: translateY(-50%) rotate(-90deg);
-      -moz-transform: translateY(-50%) rotate(-90deg);
-      -ms-transform: translateY(-50%) rotate(-90deg);
-      transform: translateY(-50%) rotate(-90deg);
+      -webkit-transform: translateY(-50%) rotate(90deg);
+      -moz-transform: translateY(-50%) rotate(90deg);
+      -ms-transform: translateY(-50%) rotate(90deg);
+      transform: translateY(-50%) rotate(90deg);
       background: #6da77f;
     }
 
@@ -276,23 +279,28 @@
       float: none;
     }
   }
+}
+@media screen and (max-width: 768px) {
+  .homepage-contentMountain {
+    padding: 180px 0px 100px;
 
-  @media screen and (max-width: 768px) {
     .contentMountain {
       padding: 150px 0px 80px;
     }
     .slider-banner-image {
       height: 400px;
     }
-
+    .banner-slider .slider.slider-for {
+      height: 400px;
+    }
     .slider.slider-nav.thumb-image {
       padding: 0px 20px 0;
       margin: 10px 0px 0;
     }
 
     .slider-nav .slick-slide.thumbnail-image .thumbImg {
-      width: 140px;
-      height: 80px;
+      // width: 140px;
+      height: 100px;
       overflow: hidden;
     }
 
@@ -309,14 +317,18 @@
       white-space: normal;
     }
   }
+}
 
-  @media screen and (max-width: 580px) {
+@media screen and (max-width: 580px) {
+  .homepage-contentMountain {
     .slider-banner-image {
       height: 340px;
     }
   }
+}
 
-  @media screen and (max-width: 480px) {
+@media screen and (max-width: 480px) {
+  .homepage-contentMountain {
     .slider-banner-image {
       height: 280px;
     }
