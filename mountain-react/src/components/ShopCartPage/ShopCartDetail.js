@@ -471,21 +471,37 @@ function ShopCartDetail() {
                         <div className="my-3">
                           <p>所選尺寸</p>
                           {items.type === '2' ? (
-                            <select value="F" className="form-control" readOnly>
-                              <option value="F">F</option>
-                            </select>
+                            <input
+                              type="text"
+                              value="F"
+                              name="size"
+                              readOnly
+                              className="form-control"
+                            />
                           ) : items.size === 'S' ? (
-                            <select value="S" className="form-control" readOnly>
-                              <option value="S">S</option>
-                            </select>
+                            <input
+                              type="text"
+                              value="S"
+                              name="size"
+                              readOnly
+                              className="form-control"
+                            />
                           ) : items.size === 'M' ? (
-                            <select value="M" className="form-control" readOnly>
-                              <option value="M">M</option>
-                            </select>
+                            <input
+                              type="text"
+                              value="M"
+                              name="size"
+                              readOnly
+                              className="form-control"
+                            />
                           ) : (
-                            <select value="L" className="form-control" readOnly>
-                              <option value="L">L</option>
-                            </select>
+                            <input
+                              type="text"
+                              value="L"
+                              name="size"
+                              readOnly
+                              className="form-control"
+                            />
                           )}
                         </div>
                         <div className="shopcart-product-infobox-storage">
@@ -539,6 +555,9 @@ function ShopCartDetail() {
                   );
                 })}
                 {/* abby */}
+                {/* FIXME: page btn 功能 */}
+                {pages_btn}
+                {/* <!-- 分頁 end  --> */}
               </div>
             ) : (
               <div className="d-flex shopcart-noproduct-box text-center justify-content-center align-items-center">
@@ -546,9 +565,6 @@ function ShopCartDetail() {
               </div>
             )}
             {/* <!-- 分頁 start  --> */}
-            {/* FIXME: page btn 功能 */}
-            {pages_btn}
-            {/* <!-- 分頁 end  --> */}
             <div className="text-right mt-3 text-right">
               <p className="shopcart-total">
                 商品總計： NT$ {sum(shopCartData).toLocaleString()}
