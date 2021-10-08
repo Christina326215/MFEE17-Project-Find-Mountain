@@ -207,7 +207,7 @@ function Login(props) {
                 <div className="mb-3 text-center">
                   <ForgetPassword />
                   <span>&nbsp;&nbsp; &nbsp;&nbsp;</span>
-                  <Link className="login-signUp" to="/signup">
+                  <Link className="login-signUp btn" to="/signup">
                     註冊會員
                   </Link>
                 </div>

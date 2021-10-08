@@ -12,23 +12,24 @@
   color: #19634a;
 }
 .login-stay {
-  color: #111;
+  color: rgb(31, 31, 31);
 }
 .login-account {
-  color: #111;
+  color: rgb(31, 31, 31);
 }
 .login-input {
   border-radius: px;
 }
 .login-password {
-  color: #111;
+  color: rgb(31, 31, 31);
 }
 .login-member {
-  color: #111;
+  color: rgb(31, 31, 31);
 }
 .login-forgetPassword {
   color: #cc543a;
-  padding-right: 25px;
+  /* padding-right: 25px; */
+  margin-right: -18px;
   border-right: 1px solid #c4c4c4;
 }
 .login-btn {
