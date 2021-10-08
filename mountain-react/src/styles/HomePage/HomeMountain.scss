@@ -27,7 +27,7 @@
   height: 500px;
   position: relative;
   overflow: hidden;
-  bottom: -300px;
+  bottom: -290px;
   /* z-index: 1; */
 }
 .homepage-wave {
@@ -166,8 +166,6 @@
   }
 }
 
-
-
 .homepage-carousel {
   top: 500px;
   left: 100px;
@@ -256,6 +254,7 @@
   top: 130px;
   left: 440px;
 }
+
 .homepage-low3 {
   top: 100px;
   left: 280px;
@@ -351,5 +350,9 @@
   .homepage-wrapper-Taiwan {
     right: -10%;
     transform: scale(0.7, 0.7);
+  }
+  .homepage-banner {
+    bottom: -400px;
+    /* z-index: 1; */
   }
 }

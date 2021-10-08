@@ -50,7 +50,8 @@ router.post('/register', upload.none(), registerRule, async function (req, res, 
         return next({
             // code: "330002",
             status: 400,
-            message: '已經註冊過了',
+            message: '00',
+            // 00->已經註冊過了
         })
     }
     //2.確認資料有拿到
