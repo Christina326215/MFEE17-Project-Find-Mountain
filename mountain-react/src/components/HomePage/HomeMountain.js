@@ -230,19 +230,19 @@ function HomeMountain(props) {
             </div>
             <div id="homepage-pagination">
               <div className="active homepage-sliderBtn" data-slide="0">
-                <Link to="#/" onClick={changeLevel}>
+                <Link to="/" onClick={changeLevel}>
                   <div className="homepage-center active"></div>
                   <div className="homepage-level">初級</div>
                 </Link>
               </div>
               <div className="homepage-sliderBtn homepage-med" data-slide="1">
-                <Link to="#/" onClick={changeLevel}>
+                <Link to="##" onClick={changeLevel}>
                   <div className="homepage-center"></div>
                   <div className="homepage-level">中級</div>
                 </Link>
               </div>
               <div className="homepage-sliderBtn" data-slide="2">
-                <Link to="#/" onClick={changeLevel}>
+                <Link to="/" onClick={changeLevel}>
                   <div className="homepage-center"></div>
                   <div className="homepage-level">高級</div>
                 </Link>
@@ -257,17 +257,17 @@ function HomeMountain(props) {
               <figure className="position-absolute homepage-taiwan">
                 <img src={Taiwan} alt="台灣" />
               </figure>
-              <figure className="position-absolute homepage-low">
+              <figure className="position-absolute homepage-low animate__animated animate__shakeX">
                 <img src={Low} alt="" />
               </figure>
-              <figure className="position-absolute homepage-low2">
+              <figure className="position-absolute homepage-low2 animate__animated animate__shakeX">
                 <img src={Low2} alt="" />
               </figure>
-              <figure className="position-absolute homepage-low3">
+              <figure className="position-absolute homepage-low3 animate__animated animate__shakeX">
                 <img src={Low3} alt="" />
               </figure>
               <div
-                className="position-absolute homepage-bear animate__animated animate__zoomIn"
+                className="position-absolute homepage-bear animate__animated animate__rubberBand"
                 id="bear"
               >
                 <img src={TaiwanBearL} alt="" />
@@ -291,18 +291,21 @@ function HomeMountain(props) {
               <figure className="position-absolute homepage-taiwan">
                 <img src={Taiwan} alt="" />
               </figure>
-              <figure className="position-absolute homepage-medium">
+              <figure className="position-absolute homepage-medium animate__animated animate__shakeX">
                 <img src={Medium} alt="" />
               </figure>
-              <figure className="position-absolute homepage-medium2">
+              <figure className="position-absolute homepage-medium2 animate__animated animate__shakeX">
                 <img src={Medium2} alt="" />
               </figure>
-              <figure className="position-absolute homepage-medium3">
+              <figure className="position-absolute homepage-medium3 animate__animated animate__shakeX">
                 <img src={Medium3} alt="" />
               </figure>
-              <figure className="position-absolute homepage-bearM" id="bear">
+              <div
+                className="position-absolute homepage-bearM animate__animated animate__rubberBand"
+                id="bear"
+              >
                 <img src={TaiwanBearM} alt="" />
-              </figure>
+              </div>
               <div className="homepage-cloud homepage-cloudTop position-absolute">
                 <img src={CloudMove} alt="" />
               </div>
@@ -322,16 +325,19 @@ function HomeMountain(props) {
               <figure className="position-absolute homepage-taiwan">
                 <img src={Taiwan} alt="" />
               </figure>
-              <figure className="position-absolute homepage-high">
+              <figure className="position-absolute homepage-high animate__animated animate__shakeX">
                 <img src={High} alt="" />
               </figure>
-              <figure className="position-absolute homepage-high2">
+              <figure className="position-absolute homepage-high2 animate__animated animate__shakeX">
                 <img src={High2} alt="" />
               </figure>
 
-              <figure className="position-absolute homepage-bearH" id="bear">
+              <div
+                className="position-absolute homepage-bearH animate__animated animate__rubberBand"
+                id="bear"
+              >
                 <img src={TaiwanBearH} alt="" />
-              </figure>
+              </div>
               <div className="homepage-cloud homepage-cloudTop position-absolute">
                 <img src={CloudMove} alt="" />
               </div>

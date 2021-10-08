@@ -276,7 +276,7 @@
   padding: 50px 30px;
 }
 .sign-input label {
-  color: #747474;
+  color: rgb(31, 31, 31);
 }
 .signup-info-button-container {
   position: absolute;

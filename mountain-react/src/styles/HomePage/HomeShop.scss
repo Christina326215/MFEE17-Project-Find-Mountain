@@ -108,8 +108,9 @@
   margin: 0 auto;
   padding: 10px 23px;
 }
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 768px) {
   .homepage-blobs2 {
-    // width: 200px;
+    width: 200px;
+    top: -150px;
   }
 }
