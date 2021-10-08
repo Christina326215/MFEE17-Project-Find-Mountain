@@ -6,8 +6,9 @@ import '../../styles/SignUpStyle/SignUp.css';
 //api start
 import { authURL, zipGroupURL, zipCodeURL } from '../../utils/config';
 import axios from 'axios';
+
 //api end
-// import { BsCheck } from 'react-icons/bs';
+import Swal from 'sweetalert2';
 
 function SignUp(props) {
   // 設定zip_code狀態 start //
@@ -155,8 +156,15 @@ function SignUp(props) {
       formData.append('password', registerData.password);
       formData.append('repassword', registerData.repassword);
       let response = await axios.post(`${authURL}/register`, formData);
-      console.log(response);
-      history.push('/login');
+      console.log('res', response);
+      console.log('hello');
+      Swal.fire({
+        icon: 'success',
+        title: '已註冊成功',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      props.history.push('/login');
     } catch (e) {
       console.error(e.response);
     }
@@ -176,9 +184,10 @@ function SignUp(props) {
       fieldErrors.name === '' &&
       fieldErrors.birthday === '' &&
       fieldErrors.phone === '' &&
-      fieldErrors.zip_code === '' &&
+      fieldErrors.zip_code === null &&
       fieldErrors.addr === ''
     ) {
+      console.log('hello 快進來');
       contentInfo.style.display = 'none';
       contentRegister.style.display = 'block';
       step1.classList.remove('signup-active');
@@ -208,6 +217,12 @@ function SignUp(props) {
     try {
       let result = await axios.post(`${authURL}/ver`);
       console.log('result', result);
+      Swal.fire({
+        icon: 'success',
+        title: '已發送驗證碼，請至信箱收信',
+        showConfirmButton: false,
+        timer: 1500,
+      });
     } catch (e) {
       console.log(e);
       if (!email) {
@@ -215,6 +230,16 @@ function SignUp(props) {
       }
     }
   };
+
+  //表單驗證
+  function submitform() {
+    var f = document.getElementsByTagName('form')[0];
+    if (f.checkValidity()) {
+      f.submit();
+    } else {
+      alert(document.getElementById('example').validationMessage);
+    }
+  }
 
   return (
     <>
@@ -406,6 +431,7 @@ function SignUp(props) {
                           className="btn btn-next btn-primary"
                           id="clickNext"
                           disabled={!registerData}
+                          onclick={submitform}
                         >
                           下一步
                         </button>

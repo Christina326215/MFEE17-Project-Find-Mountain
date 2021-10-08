@@ -84,14 +84,14 @@ function HomeShop(props) {
             <img src={Blobs2} alt="" />
           </div>
           <div className="homepage-contentShop">
-            <h2 className="text-center pb-5">經典熱銷</h2>
+            <h2 className="text-center pb-5 pb-md-0">經典熱銷</h2>
             <RankingItems
               favoriteBtn={favoriteBtn}
               setFavoriteBtn={setFavoriteBtn}
             />
 
             <div className="homepage-contentShop">
-              <h2 className="text-center pb-5">編輯嚴選</h2>
+              <h2 className="text-center pb-5 pb-md-0">編輯嚴選</h2>
               <SelectedItems
                 favoriteBtn={favoriteBtn}
                 setFavoriteBtn={setFavoriteBtn}
