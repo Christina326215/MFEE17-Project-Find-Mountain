@@ -14,6 +14,7 @@ import axios from 'axios';
 //====== below icon star ======//
 import { BsPlus, BsDash, BsTrash, BsCheck } from 'react-icons/bs';
 //====== below icon end ======//
+import Bear from '../../img/product-img/illustration/bearbear.png';
 
 function ShopCartDetail() {
   const { setCartChange, member } = useAuth(); // 取得navbar偵測購物車變化用的狀態 會員登入狀態
@@ -561,7 +562,12 @@ function ShopCartDetail() {
               </div>
             ) : (
               <div className="d-flex shopcart-noproduct-box text-center justify-content-center align-items-center">
-                <p className="p-0">購物車內沒有商品呦</p>
+                <p className="p-0 position-relative">
+                  購物車內沒有商品呦
+                  <div className="ml-2 position-absolute shopcart-noproduct-box-bear">
+                    <img src={Bear} alt="吉祥物熊熊" title="吉祥物熊熊" />
+                  </div>
+                </p>
               </div>
             )}
             {/* <!-- 分頁 start  --> */}
@@ -589,19 +595,26 @@ function ShopCartDetail() {
               <div className="row">
                 {randomProduct.map((randomItems, index) => {
                   return (
-                    <Link
-                      to={`/shop/product-detail/${randomItems.id}`}
+                    <div
                       key={`${randomItems.id}`}
+                      className="shopcart-more-product col-2 text-center"
                     >
-                      <figure className="shopcart-more-product-img-box ml-5">
-                        <img
-                          src={`${IMAGE_URL}/img/product-img/${randomItems.pic}`}
-                          alt={randomItems.name}
-                          title={randomItems.name}
-                          className="shopcart-cover-fit"
-                        />
-                      </figure>
-                    </Link>
+                      <Link to={`/shop/product-detail/${randomItems.id}`}>
+                        <figure className="shopcart-more-product-img-box">
+                          <img
+                            src={`${IMAGE_URL}/img/product-img/${randomItems.pic}`}
+                            alt={randomItems.name}
+                            title={randomItems.name}
+                            className="shopcart-cover-fit"
+                          />
+                        </figure>
+                      </Link>
+                      <div className="shopcart-more-product-name mt-2">
+                        <Link to={`/shop/product-detail/${randomItems.id}`}>
+                          {randomItems.name}
+                        </Link>
+                      </div>
+                    </div>
                   );
                 })}
               </div>
