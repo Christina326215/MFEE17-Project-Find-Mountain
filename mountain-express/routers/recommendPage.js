@@ -5,7 +5,7 @@ const connection = require('../utils/db')
 // 包含平均星星分數得所有文章資料
 router.get("/", async function (req, res, next) {
   let dbResults = await connection.queryAsync(
-    "SELECT article.*, article_status.name AS status_name, article_level.name AS level_name, article_mountain_type.name AS mountain_type_name ,article_apply.name AS apply_name FROM article JOIN article_status ON article.status = article_status.id JOIN article_level ON article.level = article_level.id JOIN article_mountain_type ON article.mountain_type = article_mountain_type.id JOIN article_apply ON article.apply = article_apply.id WHERE article.status = ? ORDER BY article.id",[[1]]
+    "SELECT article.*, article_status.name AS status_name, article_level.name AS level_name, article_mountain_type.name AS mountain_type_name ,article_apply.name AS apply_name FROM article JOIN article_status ON article.status = article_status.id JOIN article_level ON article.level = article_level.id JOIN article_mountain_type ON article.mountain_type = article_mountain_type.id JOIN article_apply ON article.apply = article_apply.id WHERE article.status = ? ORDER BY article.id DESC",[[1]]
   ); // 等資料庫查詢資料
   let perData = dbResults.map((item, index) => {
     item.season = item.season.replace("1", "春季");
@@ -14,59 +14,54 @@ router.get("/", async function (req, res, next) {
     item.season = item.season.replace("4", "冬季");
     return item;
   });
-  console.log("perData",perData);
+  // console.log("perData",perData);
 
   // join每個星星評分
-  let joinResults = await connection.queryAsync(
-    "SELECT article.*, article_status.name AS status_name, article_level.name AS level_name, article_mountain_type.name AS mountain_type_name ,article_apply.name AS apply_name, article_star.star_grade AS star_grade FROM article JOIN article_status ON article.status = article_status.id JOIN article_level ON article.level = article_level.id JOIN article_mountain_type ON article.mountain_type = article_mountain_type.id JOIN article_apply ON article.apply = article_apply.id JOIN article_star ON article.id = article_star.article_id ORDER BY article.id"
+  // let joinResults = await connection.queryAsync(
+  //   "SELECT article.*, article_status.name AS status_name, article_level.name AS level_name, article_mountain_type.name AS mountain_type_name ,article_apply.name AS apply_name, article_star.star_grade AS star_grade FROM article JOIN article_status ON article.status = article_status.id JOIN article_level ON article.level = article_level.id JOIN article_mountain_type ON article.mountain_type = article_mountain_type.id JOIN article_apply ON article.apply = article_apply.id JOIN article_star ON article.id = article_star.article_id ORDER BY article.id"
+  // );
+  // onsole.log("joinResults",joinResults);
+
+  ///////////////重構程式碼
+  let starAverage = await connection.queryAsync(
+    "SELECT article_id, ROUND(AVG(star_grade)) AS average_grade FROM article_star GROUP BY article_id"
   );
+  // console.log("starAverage", starAverage);
 
-  ///////////////
-  // let starAverage = await connection.queryAsync("SELECT article_id, ROUND(AVG(star_grade)) AS average_grade FROM article_star GROUP BY article_id");
-  // console.log("starAverage",starAverage);
-
-  // for (let i = 0; i < perData.length; i++) {
-  //   for (let j = 0; j < starAverage.length; j++) {
-  //     if (perData[i].id == starAverage[j].article_id) {
-  //       console.log("近來");
-  //       console.log("starAverage[j].average_grade",starAverage[j].average_grade);
-  //       star = starAverage[j].average_grade
-  //     }
-  //     console.log("star1",star);
-  //     return star
-  //     // var test = perData[i].average =starAverage[j].average_grade
-  //     // console.log("starAverage[j].average_grade",starAverage[j].average_grade);
-  //     // console.log("test",test);
-  //   }
-  //   console.log("star2",star);
-  //   console.log("perData[i].average",perData[i].average);
-  //   // var test = perData[i].average = star
-  //   // console.log("test",test);
-  // }
+  perData.map((a,i)=>{
+    for(let j = 0; j < starAverage.length; j++){
+      if(a.id == starAverage[j].article_id){
+        a.average = starAverage[j].average_grade
+      }
+    }
+    if(a.average == undefined){
+      a.average = 0
+    }
+  })
   // console.log("perData",perData);
-  ///////////////
+  /////////////// 重構程式碼
 
   //修改
   // perData的迴圈
-  for (let i = 0; i < perData.length; i++) {
-    var gradeArr = [];
-    // join每個星星評分的迴圈
-    for (let j = 0; j < joinResults.length; j++) {
-      if (joinResults[j].id === perData[i].id) {
-        // console.log('ij', i, joinResults[j]);
-        gradeArr.push(joinResults[j].star_grade);
-      }
-    }
-    // console.log("i gradeArr", i, gradeArr);
-     // 根據文id將平分的星星變成陣列 i gradeArr 1 [ 4, 5, 4, 5, 3 ]
-    const joinTotal = gradeArr.reduce((acc, cur) => {
-      return acc + cur;
-    });
-    // console.log('第i篇文章 的星星陣列gradeArr',i , gradeArr);
-    const joinAverage = Math.round(joinTotal / gradeArr.length);
-    // console.log("joinAverage", joinAverage);
-    perData[i].average = joinAverage;
-  }
+  // for (let i = 0; i < perData.length; i++) {
+  //   var gradeArr = [];
+  //   // join每個星星評分的迴圈
+  //   for (let j = 0; j < joinResults.length; j++) {
+  //     if (joinResults[j].id === perData[i].id) {
+  //       // console.log('ij', i, joinResults[j]);
+  //       gradeArr.push(joinResults[j].star_grade);
+  //     }
+  //   }
+  //   // console.log("i gradeArr", i, gradeArr);
+  //    // 根據文id將平分的星星變成陣列 i gradeArr 1 [ 4, 5, 4, 5, 3 ]
+  //   const joinTotal = gradeArr.reduce((acc, cur) => {
+  //     return acc + cur;
+  //   });
+  //   // console.log('第i篇文章 的星星陣列gradeArr',i , gradeArr);
+  //   const joinAverage = Math.round(joinTotal / gradeArr.length);
+  //   // console.log("joinAverage", joinAverage);
+  //   perData[i].average = joinAverage;
+  // }
   res.json(perData);
 });
 
