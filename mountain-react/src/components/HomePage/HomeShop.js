@@ -89,27 +89,6 @@ function HomeShop(props) {
               favoriteBtn={favoriteBtn}
               setFavoriteBtn={setFavoriteBtn}
             />
-            {/* <h2 className="text-center pb-5">經典熱銷</h2>
-            <div className="row">
-              {homeproductData &&
-                homeproductData.map((product, i) => {
-                  return (
-                    <>
-                      <Card
-                        name={product.name}
-                        price={product.price}
-                        picture={product.pic}
-                        key={product.id}
-                      />
-                    </>
-                  );
-                })}
-            </div> */}
-            {/* <div className="homepage-btnMore">
-              <Link to="/shop" className="btn btn-primary homepage-more">
-                更多產品
-              </Link>
-            </div> */}
 
             <div className="homepage-contentShop">
               <h2 className="text-center pb-5">編輯嚴選</h2>
@@ -117,168 +96,12 @@ function HomeShop(props) {
                 favoriteBtn={favoriteBtn}
                 setFavoriteBtn={setFavoriteBtn}
               />
-              ;
-              {/* <h2 className="text-center pb-5">編輯嚴選</h2>
-              <div className="row">
-                <div className="col-6 col-md-4 col-lg-3 px-0">
-                  <div className="homepage-product-card">
-                    <div className="homepage-product-img-box position-relative">
-                      <Link to="./product-detail.html">
-                        <img
-                          className="cover-fit"
-                          src={product}
-                          title="The North Face 黑灰色休閒後背包"
-                        />
-                      </Link>
 
-                      <a
-                        role="button"
-                        className="position-absolute homepage-heart-icon-bkg position-relative"
-                      >
-                        <HeartFill className="position-absolute homepage-heart-icon" />
-                      </a>
-                      <a
-                        role="button"
-                        className="position-absolute homepage-cart-icon-bkg position-relative"
-                      >
-                        <CartFill className="position-absolute homepage-cart-icon" />
-                      </a>
-                      <Link
-                        to="./product-detail.html"
-                        className="text-left homepage-product-name"
-                      >
-                        brand
-                        <br />
-                        阿空加瓜牛皮冰攀靴
-                      </Link>
-                      <p className="text-right homepage-product-price">
-                        NT $8,980
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-6 col-md-4 col-lg-3 px-0">
-                  <div className="homepage-product-card">
-                    <div className="homepage-product-img-box position-relative">
-                      <Link to="./product-detail.html">
-                        <img
-                          className="cover-fit"
-                          src={product}
-                          title="The North Face 黑灰色休閒後背包"
-                        />
-                      </Link>
-
-                      <a
-                        role="button"
-                        className="position-absolute homepage-heart-icon-bkg position-relative"
-                      >
-                        <HeartFill className="position-absolute homepage-heart-icon" />
-                      </a>
-                      <a
-                        role="button"
-                        className="position-absolute homepage-cart-icon-bkg position-relative"
-                      >
-                        <CartFill className="position-absolute homepage-cart-icon" />
-                      </a>
-                      <Link
-                        to="./product-detail.html"
-                        className="text-left homepage-product-name"
-                      >
-                        brand
-                        <br />
-                        阿空加瓜牛皮冰攀靴
-                      </Link>
-                      <p className="text-right homepage-product-price">
-                        NT $8,980
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-6 col-md-4 col-lg-3 px-0">
-                  <div className="homepage-product-card">
-                    <div className="homepage-product-img-box position-relative">
-                      <Link to="./product-detail.html">
-                        <img
-                          className="cover-fit"
-                          src={product}
-                          title="The North Face 黑灰色休閒後背包"
-                        />
-                      </Link>
-
-                      <a
-                        role="button"
-                        className="position-absolute homepage-heart-icon-bkg position-relative"
-                      >
-                        <HeartFill className="position-absolute homepage-heart-icon" />
-                      </a>
-                      <a
-                        role="button"
-                        className="position-absolute homepage-cart-icon-bkg position-relative"
-                      >
-                        <CartFill className="position-absolute homepage-cart-icon" />
-                      </a>
-                      <Link
-                        to="./product-detail.html"
-                        className="text-left homepage-product-name"
-                      >
-                        brand
-                        <br />
-                        阿空加瓜牛皮冰攀靴
-                      </Link>
-                      <p className="text-right homepage-product-price">
-                        NT $8,980
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-6 col-md-4 col-lg-3 px-0">
-                  <div className="homepage-product-card">
-                    <div className="homepage-product-img-box position-relative">
-                      <Link to="./product-detail.html">
-                        <img
-                          className="cover-fit"
-                          src={product}
-                          title="The North Face 黑灰色休閒後背包"
-                        />
-                      </Link>
-
-                      <a
-                        role="button"
-                        className="position-absolute homepage-heart-icon-bkg position-relative"
-                      >
-                        <HeartFill className="position-absolute homepage-heart-icon" />
-                      </a>
-                      <a
-                        role="button"
-                        className="position-absolute homepage-cart-icon-bkg position-relative"
-                      >
-                        <CartFill className="position-absolute homepage-cart-icon" />
-                      </a>
-                      <Link
-                        to="./product-detail.html"
-                        className="text-left homepage-product-name"
-                      >
-                        brand
-                        <br />
-                        阿空加瓜牛皮冰攀靴
-                      </Link>
-                      <p className="text-right homepage-product-price">
-                        NT $8,980
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
               <div className="homepage-btnMore">
                 <Link to="/shop" className="btn btn-primary homepage-more">
                   更多產品
                 </Link>
               </div>
-              {/* <div className="homepage-btnMore">
-                <button className="btn btn-primary homepage-more">
-                  更多產品
-                </button>
-              </div> */}
             </div>
           </div>
         </div>

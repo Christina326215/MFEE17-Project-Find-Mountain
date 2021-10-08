@@ -7,6 +7,7 @@ import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
 import { shopURL, IMAGE_URL } from '../../utils/config';
 import { useAuth } from '../../context/auth'; // 取得setCartChange狀態
 import Swal from 'sweetalert2';
+import Skeleton from 'react-loading-skeleton';
 
 import axios from 'axios';
 
@@ -23,6 +24,7 @@ function ShopCartDetail() {
   //cartLocal為購物車的local storage
   const [cartLocal, setCartLocal] = useState([]);
   const [randomProduct, setRandomProduct] = useState([]);
+  const [isLoadingCart, setIsLoadingCart] = useState(true);
   //取得local storage轉為陣列的資料 ProductOrder
   function getCartFromLocalStorage() {
     const ProductOrder =
@@ -267,6 +269,52 @@ function ShopCartDetail() {
       });
     }
   };
+  //spinner
+  const spinner = (
+    <div className="shopcart-product-infobox-spinner row my-3">
+      <div className="col-4 col-lg-3">
+        <figure className="shopcart-product-infobox-img p-2">
+          <Skeleton height={170} width={170} />
+        </figure>
+      </div>
+      <div className="col-5">
+        <div className="shopcart-product-infobox-name mt-2">
+          <Skeleton />
+        </div>
+        <div className="my-3">
+          <p>
+            <Skeleton width={70} />
+          </p>
+          <Skeleton />
+        </div>
+        <div className="shopcart-product-infobox-storage">
+          <p className="m-0">
+            <Skeleton width={90} />
+          </p>
+        </div>
+      </div>
+      <div className="col-3 col-lg-4">
+        <div className="d-flex align-items-end flex-column bd-highlight shopcart-product-infobox-right">
+          <div className="bd-highlight">
+            <p className="my-3">
+              <Skeleton />
+            </p>
+            <hr className="my-0" />
+          </div>
+          <div className="bd-highlight">
+            <p className="shopcart-product-infobox-price">
+              <Skeleton />
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoadingCart(false);
+    }, 1500);
+  }, []);
   //FIXME:一些待整理的東西
   useEffect(() => {
     // progress-bar
@@ -382,14 +430,16 @@ function ShopCartDetail() {
           <div className="col-lg-12 mt-3">
             <h3 className="text-center mt-4">購物車明細</h3>
             <hr />
-            {cartLocal.length > 0 && cartLocal !== '[]' ? (
+            {/* abby */}
+            {isLoadingCart ? (
+              spinner
+            ) : cartLocal.length > 0 && cartLocal !== '[]' ? (
               <div>
                 <div className="d-flex justify-content-end">
                   <button className="btn-primary btn" onClick={clearCart}>
                     清空購物車
                   </button>
                 </div>
-                {/* abby */}
                 {shopCartData.map((items, index) => {
                   return (
                     <div

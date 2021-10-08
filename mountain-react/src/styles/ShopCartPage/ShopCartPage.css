@@ -402,6 +402,12 @@
   margin: 0 auto;
   border-radius: 8px;
 }
+.shopcart-product-infobox-spinner {
+  width: 100%;
+  height: 200px;
+  margin: 0 auto;
+  border-radius: 8px;
+}
 .shopcart-product-infobox-img {
   width: 200px;
   height: 200px;
