@@ -210,7 +210,7 @@ function MapM() {
                 </div>
                 <div className="mountain_M_list_detail">
                   <div>
-                    <div className="mountain_M_list_detail_box align-items-center justify-content-between">
+                    <div className="mountain_M_list_detail_box align-items-center">
                       <div className="mountain_M_list_font_box">
                         <p className="mountain_M_list_title mr-2">
                           {list.name}

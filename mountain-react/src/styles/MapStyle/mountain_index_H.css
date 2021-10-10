@@ -5,8 +5,8 @@
   --button-color: #6da77f;
   --iconHover-color: rgb(249, 249, 173);
   --listContent-font: Source Sans Pro; */
-  --mountain_H_barShadow-color: #FFEEB4;
-  --mountain_H_barBackground-color: #FFB943;
+  --mountain_H_barShadow-color: #ffeeb4;
+  --mountain_H_barBackground-color: #ffb943;
   /* --barBackgroundSecond-color: transparent;
   --barFont-color: white;
   --map_hover: #c4c4c4;
@@ -109,7 +109,8 @@
 .mountain_H_triangle {
   clip-path: polygon(0% 0%, 100% 0%, 50% 50%);
 }
-.mountain_H_Xiangshan { /*大壩*/
+.mountain_H_Xiangshan {
+  /*大壩*/
   position: absolute;
   top: 406px;
   right: 293px;
@@ -170,7 +171,8 @@
   background: url(../../img/mountain-img/wuling.jpeg);
   background-size: cover;
 }
-.mountain_H_Jinmian { /*武陵*/
+.mountain_H_Jinmian {
+  /*武陵*/
   position: absolute;
   top: 483px;
   right: 350px;
@@ -225,7 +227,8 @@
   background: url(../../img/mountain-img/Mayang.jpeg);
   background-size: cover;
 }
-.mountain_H_Chi-hsing { /*馬洋*/
+.mountain_H_Chi-hsing {
+  /*馬洋*/
   position: absolute;
   top: 424px;
   right: 350px;
@@ -316,7 +319,8 @@
 
 .mountain_H_list {
   max-width: 1110px;
-  height: 282px;
+  /* height: 282px; 10/10del*/
+  height: 320px; /*10/10 add*/
   border: 1px solid lightgray;
   border-radius: 10px;
   margin: 15px auto 0 auto;
@@ -324,33 +328,13 @@
   box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
 }
 .mountain_H_Xiangshan_list {
-  width: 350px;
-  height: 280px;
+  width: 360px;
+  height: 319px;
 }
 .mountain_H_Xiangshan_pic {
   border-radius: 10px 0 0 10px;
   object-fit: cover;
-  width: 350px;
-  height: 100%;
-}
-.mountain_H_Jinmian_list {
-  width: 350px;
-  height: 280px;
-}
-.mountain_H_Jinmian_pic {
-  border-radius: 10px 0 0 10px;
-  object-fit: cover;
-  width: 350px;
-  height: 100%;
-}
-.mountain_H_Chi-hsing_list {
-  width: 350px;
-  height: 280px;
-}
-.mountain_H_Chi-hsing_pic {
-  border-radius: 10px 0 0 10px;
-  object-fit: cover;
-  width: 350px;
+  width: 360px;
   height: 100%;
 }
 .mountain_H_list_last {
@@ -367,9 +351,17 @@
   width: 700px;
   max-width: 100%;
 }
-.mountain_H_list_detail_box,
 .mountain_H_list_font_box {
   display: flex;
+}
+.mountain_H_list_detail_box {
+  /*10/10 add*/
+  display: block;
+}
+.mountain_H_list_font_box,
+.mountain_H_list_distance_title {
+  /*10/10 add*/
+  justify-content: center;
 }
 .mountain_H_list_title {
   font-size: 20px;
@@ -390,8 +382,8 @@
   display: flex;
   margin-top: 4px;
   margin-bottom: 20px;
-  margin-left: 20px;/* 10/1 歐陽 change 40px->20px*/
-  margin-right: 20px;/* 10/1 歐陽 add*/
+  margin-left: 20px; /* 10/1 歐陽 change 40px->20px*/
+  margin-right: 20px; /* 10/1 歐陽 add*/
 }
 .mountain_H_progress-bg {
   margin: 0 auto;
@@ -483,7 +475,7 @@
   padding: 0;
   text-align: center;
 }
-.mountain_H_progress-bg-font-Xiangshan_day{
+.mountain_H_progress-bg-font-Xiangshan_day {
   color: var(--font-color);
 }
 .mountain_H_progress_distance-bar {
@@ -922,18 +914,21 @@
     width: 450px;
   } */
 
-  .highBear{
+  .highBear {
     width: 200px;
   }
-  .mountain_H_Xiangshan { /*大霸*/
+  .mountain_H_Xiangshan {
+    /*大霸*/
     top: 300px;
     right: 220px;
   }
-  .mountain_H_Jinmian { /*武陵*/
+  .mountain_H_Jinmian {
+    /*武陵*/
     top: 350px;
     right: 260px;
   }
-  .mountain_H_Chi-hsing { /*馬洋*/
+  .mountain_H_Chi-hsing {
+    /*馬洋*/
     top: 310px;
     right: 260px;
   }
