@@ -118,4 +118,10 @@ router.get("/selected-items", async function(req, res, next){
   res.json(dbResults);
 })
 
+
+router.get("/tag-article/:productId", async function(req, res, next){
+  let dbResults = await connection.queryAsync("SELECT img_id, product_id, tag_photo.article_id AS article_id, article.name AS article_name, article.pic AS article_pic FROM tag JOIN tag_photo ON tag.img_id = tag_photo.id JOIN article ON tag_photo.article_id = article.id WHERE product_id=?", [req.params.productId]); 
+  res.json(dbResults);
+})
+
 module.exports = router;
