@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { withRouter } from 'react-router';
 import axios from 'axios';
 import $ from 'jquery';
-
+import bear from '../../img/article-img/bear.png';
 import { IMAGE_URL } from '../../utils/config';
 import { tagURL } from '../../utils/config';
 
@@ -78,6 +78,22 @@ function ProductTag(props) {
   return (
     <div>
       <h2 className="recommend-body-content-big-bold">此景點產品推薦</h2>
+      {filterTag.length > 0 ? (
+        ''
+      ) : (
+        <div
+          className="d-flex align-items-center p-3 mb-3"
+          style={{ background: '#eeee', borderRadius: '10px' }}
+        >
+          <div
+            className="recommend-bearwrap"
+            style={{ width: 100, height: 100 }}
+          >
+            <img className="recommend-bear" src={bear} alt="" />
+          </div>
+          <h5 className="ml-5">Sorry...目前暫無產品推薦</h5>
+        </div>
+      )}
       <div className="row">
         {picTag.map((tagImg, index) => {
           return (
