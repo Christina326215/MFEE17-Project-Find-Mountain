@@ -407,44 +407,49 @@ function MemberEdit(props) {
                       readOnly
                     />
                   </div>
-                  {/* 更改密碼 */}
-                  <div className="member-personal-text-weight-bold">
-                    <label for="inputPassword" className="mt-3">
-                      更改密碼<small> (不填寫即不做更改)</small>：
-                    </label>
-                    <input
-                      type="password"
-                      className="form-control"
-                      id="password"
-                      name="password"
-                      minLength="6"
-                      // value={tempMember && tempMember.password}
-                      onChange={handleChange}
-                    />
-                    {fieldErrors.password !== '' && (
-                      <small className="login-error">
-                        {fieldErrors.password}
-                      </small>
-                    )}
-                  </div>
 
-                  {/* 密碼要更改確認 */}
-                  <div className="member-personal-text-weight-bold">
-                    <label for="inputRePassword" className="mt-3">
-                      確認更改密碼：
-                    </label>
-                    <input
-                      type="repassword"
-                      className="form-control"
-                      id="repassword"
-                      name="repassword"
-                      // minLength="6"
-                      onChange={handleChange}
-                    />
-                    {passwordError !== '' && (
-                      <small className="login-error">{passwordError}</small>
-                    )}
-                  </div>
+                  {member &&
+                  member.password !== 'fb login' &&
+                  member.password !== 'google login' ? (
+                    <div className="member-personal-text-weight-bold">
+                      {/* 更改密碼 */}
+                      <label for="inputPassword" className="mt-3">
+                        更改密碼<small> (不填寫即不做更改)</small>：
+                      </label>
+                      <input
+                        type="password"
+                        className="form-control"
+                        id="password"
+                        name="password"
+                        minLength="6"
+                        // value={tempMember && tempMember.password}
+                        onChange={handleChange}
+                      />
+                      {fieldErrors.password !== '' && (
+                        <small className="login-error">
+                          {fieldErrors.password}
+                        </small>
+                      )}
+
+                      {/* 密碼要更改確認 */}
+                      <label for="inputRePassword" className="mt-3">
+                        確認更改密碼：
+                      </label>
+                      <input
+                        type="repassword"
+                        className="form-control"
+                        id="repassword"
+                        name="repassword"
+                        // minLength="6"
+                        onChange={handleChange}
+                      />
+                      {passwordError !== '' && (
+                        <small className="login-error">{passwordError}</small>
+                      )}
+                    </div>
+                  ) : (
+                    <div></div>
+                  )}
 
                   <button
                     type="submit"
