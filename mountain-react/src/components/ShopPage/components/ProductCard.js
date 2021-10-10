@@ -9,6 +9,7 @@ import $ from 'jquery';
 import Swal from 'sweetalert2';
 import { useAuth } from '../../../context/auth'; // 取得setCartChange狀態
 import axios from 'axios';
+import Skeleton from 'react-loading-skeleton';
 
 function ProductCard(props) {
   const {
@@ -28,6 +29,8 @@ function ProductCard(props) {
   const [cartPrice, setCartPrice] = useState(0);
   //愛心顏色狀態 true為紅色 false為白色
   const [heart, setHeart] = useState(false);
+  //spinner
+  const [isLoadingProduct, setIsLoadingProduct] = useState(true);
   //取得local storage轉為陣列的資料 ProductOrder
   const heartIconClick = function (e) {
     // console.log(e.currentTarget);
@@ -317,58 +320,86 @@ function ProductCard(props) {
       </Modal.Footer>
     </Modal>
   );
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoadingProduct(false);
+    }, 1500);
+  }, []);
+  const spinner = (
+    <div className="col-6 col-md-4 col-lg-3 px-0 my-2">
+      <div className="shopmain-product-card">
+        <div className="shopmain-product-img-box position-relative">
+          <Link to={`/shop/product-detail/${productId}`} id={productId}>
+            <Skeleton height={200} width={200} />
+          </Link>
+        </div>
+        <p className="mt-2">
+          <Skeleton width={70} />
+          <br />
+          <Skeleton width={100} />
+        </p>
+        <p className="text-right shopmain-product-price">
+          <Skeleton width={70} />
+        </p>
+      </div>
+    </div>
+  );
   return (
     <>
       {messageModal}
-      <div className="col-6 col-md-4 col-lg-3 px-0 my-2">
-        <div className="shopmain-product-card">
-          <div className="shopmain-product-img-box position-relative">
-            <Link to={`/shop/product-detail/${productId}`} id={productId}>
-              <img
-                className="shopmain-cover-fit"
-                src={`${IMAGE_URL}/img/product-img/${picture}`}
-                alt={`${brand}${name}`}
-                title={`${brand}${name}`}
-              />
-            </Link>
-            {heart ? (
+      {isLoadingProduct ? (
+        spinner
+      ) : (
+        <div className="col-6 col-md-4 col-lg-3 px-0 my-2">
+          <div className="shopmain-product-card">
+            <div className="shopmain-product-img-box position-relative">
+              <Link to={`/shop/product-detail/${productId}`} id={productId}>
+                <img
+                  className="shopmain-cover-fit"
+                  src={`${IMAGE_URL}/img/product-img/${picture}`}
+                  alt={`${brand}${name}`}
+                  title={`${brand}${name}`}
+                />
+              </Link>
+              {heart ? (
+                <button
+                  className="position-absolute shopmain-heart-icon-bkg position-relative shopmain-heart-icon-bkg-click"
+                  onClick={heartIconClick}
+                >
+                  <HeartFill className="position-absolute shopmain-heart-icon" />
+                </button>
+              ) : (
+                <button
+                  className="position-absolute shopmain-heart-icon-bkg position-relative"
+                  onClick={heartIconClick}
+                >
+                  <HeartFill className="position-absolute shopmain-heart-icon" />
+                </button>
+              )}
               <button
-                className="position-absolute shopmain-heart-icon-bkg position-relative shopmain-heart-icon-bkg-click"
-                onClick={heartIconClick}
+                className="position-absolute shopmain-cart-icon-bkg position-relative"
+                onClick={() => {
+                  showModal();
+                }}
               >
-                <HeartFill className="position-absolute shopmain-heart-icon" />
+                <CartFill className="position-absolute shopmain-cart-icon" />
               </button>
-            ) : (
-              <button
-                className="position-absolute shopmain-heart-icon-bkg position-relative"
-                onClick={heartIconClick}
-              >
-                <HeartFill className="position-absolute shopmain-heart-icon" />
-              </button>
-            )}
-            <button
-              className="position-absolute shopmain-cart-icon-bkg position-relative"
-              onClick={() => {
-                showModal();
-              }}
+            </div>
+            <Link
+              to={`/shop/product-detail/${productId}`}
+              id={productId}
+              className="text-left shopmain-product-name"
             >
-              <CartFill className="position-absolute shopmain-cart-icon" />
-            </button>
+              {brand}
+              <br />
+              {name}
+            </Link>
+            <p className="text-right shopmain-product-price">
+              NT ${parseInt(price).toLocaleString()}
+            </p>
           </div>
-          <Link
-            to={`/shop/product-detail/${productId}`}
-            id={productId}
-            className="text-left shopmain-product-name"
-          >
-            {brand}
-            <br />
-            {name}
-          </Link>
-          <p className="text-right shopmain-product-price">
-            NT ${parseInt(price).toLocaleString()}
-          </p>
         </div>
-      </div>
+      )}
     </>
   );
 }
