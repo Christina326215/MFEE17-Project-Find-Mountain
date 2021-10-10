@@ -96,9 +96,6 @@ function Navbar(props) {
           <img src={logoPng} alt="logo_top" />
         </Link>
         <div className="btns">
-          <a href="#/" className="search_button h4">
-            <BsSearch size={24} />
-          </a>
           <Link
             to="/shoppingcart/step1-detail"
             className="shopping_button h4 position-relative"
