@@ -269,13 +269,6 @@ function ProductDetail(props) {
     }
     getWishList();
   }, [member, id, auth]);
-  //FIXME:待整理
-  // useEffect(() => {
-  //   //like-icon
-  //   $('.productdetail-like-btn').on('click', function () {
-  //     $(this).toggleClass('productdetail-active');
-  //   });
-  // }, []);
   return (
     <>
       <main>
@@ -527,7 +520,9 @@ function ProductDetail(props) {
                   );
                 })
               ) : (
-                <div>no article</div>
+                <div className="d-flex productdetail-no-tag-article text-center justify-content-center align-items-center my-3">
+                  <p className="m-0">暫無提及此商品的相關攻略喔！</p>
+                </div>
               )}
             </div>
           </div>

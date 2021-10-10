@@ -624,7 +624,7 @@ function ShopCartDetail() {
               <hr />
               {historyItems === [] || historyItems.length === 0 ? (
                 <div className="d-flex shopcart-no-historyproduct text-center justify-content-center align-items-center my-3">
-                  <p className="p-0">尚未有瀏覽紀錄</p>
+                  <p className="m-0">尚未有瀏覽紀錄</p>
                 </div>
               ) : (
                 <div className="row">
