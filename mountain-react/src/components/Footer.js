@@ -11,6 +11,7 @@ import atunas from '../img/footer-img/atunas.png';
 import decathlon from '../img/footer-img/decathlon.png';
 import mybest from '../img/footer-img/mybest.png';
 import branding from '../img/footer-img/branding.png';
+import outdoorTao from '../img/footer-img/outdoorTao.jpg';
 //====== above img import end ======//
 
 function Footer() {
@@ -66,6 +67,9 @@ function Footer() {
               </p>
               <p className="mr-2 footer_img">
                 <img src={mybest} alt="mybest" />
+              </p>
+              <p className="mr-2 footer_img">
+                <img src={outdoorTao} alt="outdoorTao" />
               </p>
               <p className="footer_img">
                 <img src={branding} alt="branding" />

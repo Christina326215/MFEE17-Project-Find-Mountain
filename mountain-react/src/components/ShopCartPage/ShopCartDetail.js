@@ -14,6 +14,7 @@ import axios from 'axios';
 //====== below icon star ======//
 import { BsPlus, BsDash, BsTrash, BsCheck } from 'react-icons/bs';
 //====== below icon end ======//
+import Bear from '../../img/product-img/illustration/bearbear.png';
 
 function ShopCartDetail() {
   const { setCartChange, member } = useAuth(); // 取得navbar偵測購物車變化用的狀態 會員登入狀態
@@ -471,21 +472,37 @@ function ShopCartDetail() {
                         <div className="my-3">
                           <p>所選尺寸</p>
                           {items.type === '2' ? (
-                            <select value="F" className="form-control" readOnly>
-                              <option value="F">F</option>
-                            </select>
+                            <input
+                              type="text"
+                              value="F"
+                              name="size"
+                              readOnly
+                              className="form-control"
+                            />
                           ) : items.size === 'S' ? (
-                            <select value="S" className="form-control" readOnly>
-                              <option value="S">S</option>
-                            </select>
+                            <input
+                              type="text"
+                              value="S"
+                              name="size"
+                              readOnly
+                              className="form-control"
+                            />
                           ) : items.size === 'M' ? (
-                            <select value="M" className="form-control" readOnly>
-                              <option value="M">M</option>
-                            </select>
+                            <input
+                              type="text"
+                              value="M"
+                              name="size"
+                              readOnly
+                              className="form-control"
+                            />
                           ) : (
-                            <select value="L" className="form-control" readOnly>
-                              <option value="L">L</option>
-                            </select>
+                            <input
+                              type="text"
+                              value="L"
+                              name="size"
+                              readOnly
+                              className="form-control"
+                            />
                           )}
                         </div>
                         <div className="shopcart-product-infobox-storage">
@@ -539,16 +556,21 @@ function ShopCartDetail() {
                   );
                 })}
                 {/* abby */}
+                {/* FIXME: page btn 功能 */}
+                {pages_btn}
+                {/* <!-- 分頁 end  --> */}
               </div>
             ) : (
               <div className="d-flex shopcart-noproduct-box text-center justify-content-center align-items-center">
-                <p className="p-0">購物車內沒有商品呦</p>
+                <p className="p-0 position-relative">
+                  購物車內沒有商品呦
+                  <div className="ml-2 position-absolute shopcart-noproduct-box-bear">
+                    <img src={Bear} alt="吉祥物熊熊" title="吉祥物熊熊" />
+                  </div>
+                </p>
               </div>
             )}
             {/* <!-- 分頁 start  --> */}
-            {/* FIXME: page btn 功能 */}
-            {pages_btn}
-            {/* <!-- 分頁 end  --> */}
             <div className="text-right mt-3 text-right">
               <p className="shopcart-total">
                 商品總計： NT$ {sum(shopCartData).toLocaleString()}
@@ -573,19 +595,26 @@ function ShopCartDetail() {
               <div className="row">
                 {randomProduct.map((randomItems, index) => {
                   return (
-                    <Link
-                      to={`/shop/product-detail/${randomItems.id}`}
+                    <div
                       key={`${randomItems.id}`}
+                      className="shopcart-more-product col-2 text-center"
                     >
-                      <figure className="shopcart-more-product-img-box ml-5">
-                        <img
-                          src={`${IMAGE_URL}/img/product-img/${randomItems.pic}`}
-                          alt={randomItems.name}
-                          title={randomItems.name}
-                          className="shopcart-cover-fit"
-                        />
-                      </figure>
-                    </Link>
+                      <Link to={`/shop/product-detail/${randomItems.id}`}>
+                        <figure className="shopcart-more-product-img-box">
+                          <img
+                            src={`${IMAGE_URL}/img/product-img/${randomItems.pic}`}
+                            alt={randomItems.name}
+                            title={randomItems.name}
+                            className="shopcart-cover-fit"
+                          />
+                        </figure>
+                      </Link>
+                      <div className="shopcart-more-product-name mt-2">
+                        <Link to={`/shop/product-detail/${randomItems.id}`}>
+                          {randomItems.name}
+                        </Link>
+                      </div>
+                    </div>
                   );
                 })}
               </div>
@@ -595,7 +624,7 @@ function ShopCartDetail() {
               <hr />
               {historyItems === [] || historyItems.length === 0 ? (
                 <div className="d-flex shopcart-no-historyproduct text-center justify-content-center align-items-center my-3">
-                  <p className="p-0">尚未有瀏覽紀錄</p>
+                  <p className="m-0">尚未有瀏覽紀錄</p>
                 </div>
               ) : (
                 <div className="row">

@@ -199,7 +199,11 @@
   transition: 0.4s ease-in-out;
   /* outline: none; */
 }
-
+// abby start 把button預設border清除
+.homepage-sliderBtn button {
+  border: none;
+}
+// abby end
 .homepage-center:hover {
   width: 20px;
   height: 20px;

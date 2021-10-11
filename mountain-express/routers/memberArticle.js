@@ -6,7 +6,7 @@ const connection = require("../utils/db");
 router.post('/', async function (req, res, next) {
   // console.log("req.body.member.id",req.body.member.id);
   // let likeData = await connection.queryAsync('SELECT * FROM user_heart WHERE user_id = ? ORDER BY id',[[req.body.member.id]]) 
-  let likeData = await connection.queryAsync('SELECT user_heart.*, article.level AS article_level, article.name AS article_name, article.pic AS article_pic, article.city AS article_city FROM user_heart JOIN article ON user_heart.article_id = article.id WHERE user_id = ? ORDER BY article_id',[[req.body.member.id]]) 
+  let likeData = await connection.queryAsync('SELECT user_heart.*, article.level AS article_level, article.name AS article_name, article.pic AS article_pic, article.city AS article_city FROM user_heart JOIN article ON user_heart.article_id = article.id WHERE user_id = ? ORDER BY id DESC',[[req.body.member.id]]) 
   // console.log("likeData",likeData);
   res.json(likeData);
 });

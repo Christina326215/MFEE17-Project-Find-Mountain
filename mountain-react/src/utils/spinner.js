@@ -6,7 +6,12 @@ export const spinner = (
       style={{ height: '610px' }}
     >
       <div className="spinner-border text-success" role="status"></div>
-      <span>Loading...</span>
+      <span
+        className="mt-3"
+        style={{ color: '#6da77f', fontWeight: 'bolder', fontSize: 'large' }}
+      >
+        Loading...
+      </span>
     </div>
   </>
 );
