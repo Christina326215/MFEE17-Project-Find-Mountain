@@ -101,6 +101,12 @@ function Outfit(props) {
       console.log('localCart', localCart);
 
       localStorage.setItem('ProductOrderDetail', JSON.stringify(localCart));
+      Swal.fire({
+        icon: 'success',
+        title: '已加入購物車',
+        showConfirmButton: false,
+        timer: 1500,
+      });
       //最後要重置
       setCartChange(true);
       setProductOrderPush([]);
@@ -175,6 +181,11 @@ function Outfit(props) {
     );
     return false;
   };
+  // 選定初中高階種類，左右箭頭移動
+  const sliderMoveLeft = (e) => {
+    $('.slider').each.scrollLeft -= 180;
+  };
+  const sliderMoveRight = () => {};
 
   useEffect(() => {
     // 網頁重新整理時，清空localStorage
@@ -245,22 +256,17 @@ function Outfit(props) {
         e.dataTransfer.setData('text/plain', e.target.id);
       }
 
-      // function handleDragEnd(e) {}
-      // function handleDragEnter(e) {
-      // e.stopPropagation();
-      // }
       function handleDragOver(e) {
         e.preventDefault();
         e.dataTransfer.dropEffect = 'copy';
 
         // return false;
       }
-      // function handleDragLeave(e) {
-      // e.stopPropagation();
-      // }
+
       function handleDrop(e) {
         e.stopPropagation();
         document.getElementById('hide').style.display = 'none';
+        document.getElementById('newItemsNotice').style.display = 'none';
         let id = e.dataTransfer.getData('text/plain');
         // console.log('id', id)
         var img = document.getElementById(id);
@@ -287,12 +293,9 @@ function Outfit(props) {
         // console.log('selectedImgs save', selectedImgs);
         for (let i = 0; i < selectedImgs.length; i++) {
           let productId = document.getElementById(selectedImgs[i]).id;
-          // console.log('productId', productId);
           let productPicUrl = document
             .getElementById(selectedImgs[i])
             .getAttribute('src');
-          // console.log('productPicUrl',productPicUrl);
-          // ./img/img-outfit/clothes-pic1-removebg-preview.png
           let productBrand = document.getElementById(selectedImgs[i]).dataset
             .productbrand;
           let productName = document.getElementById(selectedImgs[i]).dataset
@@ -356,32 +359,38 @@ function Outfit(props) {
       var images = document.querySelectorAll('.outfit-product-img img');
       [].forEach.call(images, function (img) {
         img.addEventListener('dragstart', handleDragStart, false);
-        // img.addEventListener('dragend', handleDragEnd, false);
       });
 
-      // canvasTarget.addEventListener('dragenter', handleDragEnter, false);
       canvasTarget.addEventListener('dragover', handleDragOver, false);
-      // canvasTarget.addEventListener('dragleave', handleDragLeave, false);
       canvasTarget.addEventListener('drop', handleDrop, false);
-      // 使用html2canvas截圖，儲存照片
-      $('#save').click(function () {
-        // console.log(document.getElementById('canvasBox'));
-        html2canvas(document.getElementById('canvasBox')).then(function (
-          canvas
-        ) {
-          // document.body.appendChild(canvas);
-          var a = document.createElement('a');
-          a.href = canvas
-            .toDataURL('image/jpeg')
-            .replace('image/jpeg', 'image/octet-stream');
-          a.download = 'image.jpg';
-          a.click();
-        });
-      });
+
       // console.log('productLocal', productLocal);
       // console.log('productLocal[0]', productLocal[0].productId);
     }, 500);
   }, []);
+
+  // 使用html2canvas截圖，儲存照片
+  const save = () => {
+    if (productLocal.length === 0) {
+      Swal.fire({
+        icon: 'error',
+        title: '請先拖曳商品，製作明信片！',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else {
+      // console.log(document.getElementById('canvasBox'));
+      html2canvas(document.getElementById('canvasBox')).then(function (canvas) {
+        // document.body.appendChild(canvas);
+        var a = document.createElement('a');
+        a.href = canvas
+          .toDataURL('image/jpeg')
+          .replace('image/jpeg', 'image/octet-stream');
+        a.download = 'image.jpg';
+        a.click();
+      });
+    }
+  };
 
   return (
     <>
@@ -461,9 +470,6 @@ function Outfit(props) {
                     <canvas id="canvas"></canvas>
                   </div>
                 </div>
-                {/* canvas2image儲存圖片 start */}
-                {/* <div id="imgs"></div> */}
-                {/* canvas2image儲存圖片 start */}
               </div>
               {/* 製作個人化明信片 end */}
               {/* 訂購單 start */}
@@ -474,26 +480,28 @@ function Outfit(props) {
                     NT$ <span id="subtotal">0</span>
                   </p> */}
                 </div>
+
+                <div
+                  class="newItemsNotice"
+                  id="newItemsNotice"
+                  style={{ display: 'flex' }}
+                >
+                  <p>
+                    請將商品，拖曳至明信片處，
+                    <br />
+                    即可製作明信片並組合穿搭！
+                  </p>
+                </div>
+
                 <div id="newItems">
                   {/* 要用js innerHTML的內容 start*/}
                   {/* <div class="newItem">
-                    <div style={{ width: '100px' }}>
+                    <div class="productPic">
                       <img class="cover-fit" src={clothesPic1Removebg} alt="" />
                     </div>
-                    <div style={{ width: '60%' }}>
+                    <div class="productName">
                       SALOMON EVASION GORE-TEX登山健行鞋
                     </div>
-                    <div>
-                      <select>
-                        <option value="">請選擇尺寸</option>
-                        <option value="S">S</option>
-                        <option value="M">M</option>
-                        <option value="L">L</option>
-                      </select>
-                      <Option />
-                    </div>
-                    <div style={{ width: '80px' }}>NT$ 1000</div>
-                    <div style={{ width: '60px' }}>Ｘ１</div>
                   </div> */}
                   {/* 要用js innerHTML的內容 end*/}
                 </div>
@@ -511,16 +519,11 @@ function Outfit(props) {
           onClick={twitterWindow}
         />
         <FaLine className="line-share-button" onClick={lineWindow} />
-        <button className="btn btn-outline-primary" id="save">
+        <button className="btn btn-outline-primary" id="save" onClick={save}>
           <BsDownload className="outfit-downloadBtn mb-1" />
           儲存明信片
         </button>
-        <button
-          className="btn btn-primary"
-          onClick={() => {
-            showModal();
-          }}
-        >
+        <button className="btn btn-primary" onClick={showModal}>
           將所選商品加入購物車
         </button>
       </div>
