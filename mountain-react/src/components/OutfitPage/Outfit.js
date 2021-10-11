@@ -216,28 +216,24 @@ function Outfit(props) {
     });
 
     // 選定初中高階種類，左右箭頭移動
-    const sliderMoveLeft = () => {
-      $('.slider').each.scrollLeft -= 180;
-    };
-    const sliderMoveRight = () => {};
-    // $('#slideLeft').click(function () {
-    //   document.getElementById('slider').scrollLeft -= 180;
-    // });
-    // $('#slideRight').click(function () {
-    //   document.getElementById('slider').scrollLeft += 180;
-    // });
-    // $('#slideLeft2').click(function () {
-    //   document.getElementById('slider2').scrollLeft -= 180;
-    // });
-    // $('#slideRight2').click(function () {
-    //   document.getElementById('slider2').scrollLeft += 180;
-    // });
-    // $('#slideLeft3').click(function () {
-    //   document.getElementById('slider3').scrollLeft -= 180;
-    // });
-    // $('#slideRight3').click(function () {
-    //   document.getElementById('slider3').scrollLeft += 180;
-    // });
+    $('#slideLeft').click(function () {
+      document.getElementById('slider').scrollLeft -= 180;
+    });
+    $('#slideRight').click(function () {
+      document.getElementById('slider').scrollLeft += 180;
+    });
+    $('#slideLeft2').click(function () {
+      document.getElementById('slider2').scrollLeft -= 180;
+    });
+    $('#slideRight2').click(function () {
+      document.getElementById('slider2').scrollLeft += 180;
+    });
+    $('#slideLeft3').click(function () {
+      document.getElementById('slider3').scrollLeft -= 180;
+    });
+    $('#slideRight3').click(function () {
+      document.getElementById('slider3').scrollLeft += 180;
+    });
 
     setTimeout(() => {
       // 設定canvas fabric
