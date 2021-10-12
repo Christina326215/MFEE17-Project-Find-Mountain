@@ -427,7 +427,7 @@ function SignUp(props) {
                       </div>
                       <div className="signup-info-button-container my-5 col-12">
                         <button
-                          type="submit"
+                          type="btn"
                           className="btn btn-next btn-primary"
                           id="clickNext"
                           disabled={!registerData}
