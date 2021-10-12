@@ -408,7 +408,7 @@ function ShopCartCheck(props) {
                         </th>
                       ) : member.level === '2' ? (
                         <th scope="row" className="member-membership-medium h5">
-                          會員山友優惠價(90折)：
+                          會員山友優惠價(9折)：
                         </th>
                       ) : (
                         <th scope="row" className="member-membership-high h5">
