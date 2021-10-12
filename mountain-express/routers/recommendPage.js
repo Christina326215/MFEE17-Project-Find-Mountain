@@ -174,19 +174,23 @@ router.post('/deletePast', async function (req, res, next) {
   
   // 更改user level
   // 抓取這個user 全部文章的去過資料
-  let totalData = await connection.queryAsync('SELECT user_article.*, article.level AS article_level FROM user_article JOIN article ON user_article.article_id = article.id WHERE user_id = ? ORDER BY id',[[req.body.member.id]]) 
   let userPoint =[]
-  totalData.filter((e)=>{
-    if(e.article_level == 1 ){
-      userPoint.push(3)
-    }
-    if(e.article_level == 2 ){
-      userPoint.push(5)
-    }
-    if(e.article_level == 3 ){
-      userPoint.push(10)
-    }
-  })
+  let totalData = await connection.queryAsync('SELECT user_article.*, article.level AS article_level FROM user_article JOIN article ON user_article.article_id = article.id WHERE user_id = ? ORDER BY id',[[req.body.member.id]]) 
+  if(userPoint.length == 0){
+    userPoint.push(0);
+  }else{
+    totalData.filter((e)=>{
+      if(e.article_level == 1 ){
+        userPoint.push(3)
+      }
+      if(e.article_level == 2 ){
+        userPoint.push(5)
+      }
+      if (e.article_level == 3) {
+        userPoint.push(10);
+      }
+    })
+  }
   // console.log("userPoint",userPoint);
   const totalPoints = userPoint.reduce((acc, cur) => {
     return acc + cur;
