@@ -83,6 +83,7 @@
   opacity: 0;
   animation: loadUp 0.6s ease-in;
   animation-fill-mode: forwards;
+  z-index: 4;
 }
 @keyframes loadUp {
   0% {
@@ -126,6 +127,7 @@
   color: #fff;
   top: 5%;
   left: 5%;
+  z-index: 4;
 }
 .bi-brightness-high {
   font-size: 60px;
@@ -158,6 +160,7 @@
   max-width: 450px;
   animation: loadLeft 0.4s ease-in;
   animation-fill-mode: forwards;
+  z-index: 2;
 }
 @keyframes loadLeft {
   0% {
