@@ -332,13 +332,13 @@ function MapH() {
                       <p className="mountain_H_list_title mr-2 mb-0">難度</p>
                       <div className="mountain_H_progress-bg">
                         <div className="mountain_H_progress-bar-L-Xiangshan">
-                          <p className="raised">Low</p>
+                          <p className="raised">低</p>
                         </div>
                         <div className="mountain_H_progress-bar-M-Xiangshan">
-                          <p className="raised">Middle</p>
+                          <p className="raised">中</p>
                         </div>
                         <div className="mountain_H_progress-bar-H-Xiangshan">
-                          <p className="raised">High</p>
+                          <p className="raised">高</p>
                         </div>
                       </div>
                     </div>
@@ -349,7 +349,7 @@ function MapH() {
                       <p className="mountain_H_list_title mr-2 mb-0">公里</p>
                       <div className="mountain_H_progress-bg">
                         <span className="mountain_H_progress-bg-font-Xiangshan">
-                          {list.distance} km
+                          {list.distance} 公里
                         </span>
                         <div
                           style={{ width: `${list.distance}%` }}
@@ -368,26 +368,26 @@ function MapH() {
                             style={{ color: '#414141' }}
                             className="mountain_H_progress-bg-font-Xiangshan mountain_H_progress-bg-font-Xiangshan_day"
                           >
-                            {Math.floor(list.time / 60 / 24) + ' day '}
+                            {Math.floor(list.time / 60 / 24) + ' 天 '}
                             {Math.floor((list.time / 60) % 24) === 0
                               ? ''
-                              : Math.floor((list.time / 60) % 24) + ' hr'}
+                              : Math.floor((list.time / 60) % 24) + ' 小時'}
                             {Math.floor(list.time % 60) === 0
                               ? ''
-                              : Math.floor(list.time % 60) + ' m'}
+                              : Math.floor(list.time % 60) + ' 分鐘'}
                           </span>
                         ) : (
                           <span
                             style={{ color: 'white' }}
                             className="mountain_H_progress-bg-font-Xiangshan mountain_H_progress-bg-font-Xiangshan_day"
                           >
-                            {Math.floor(list.time / 60 / 24) + ' days '}
+                            {Math.floor(list.time / 60 / 24) + ' 天 '}
                             {Math.floor((list.time / 60) % 24) === 0
                               ? ''
-                              : Math.floor((list.time / 60) % 24) + ' hr'}
+                              : Math.floor((list.time / 60) % 24) + ' 小時'}
                             {Math.floor(list.time % 60) === 0
                               ? ''
-                              : Math.floor(list.time % 60) + ' m'}
+                              : Math.floor(list.time % 60) + ' 分鐘'}
                           </span>
                         )}
                         <div

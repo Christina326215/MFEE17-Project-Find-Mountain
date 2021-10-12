@@ -334,13 +334,13 @@ function MapL() {
                       <p className="mountain_list_title mr-2 mb-0">難度</p>
                       <div className="mountain_progress-bg">
                         <div className="mountain_progress-bar-L-Xiangshan">
-                          <p className="raised">Low</p>
+                          <p className="raised">低</p>
                         </div>
                         <div className="mountain_progress-bar-M-Xiangshan">
-                          <p className="unraised">Middle</p>
+                          <p className="unraised">中</p>
                         </div>
                         <div className="mountain_progress-bar-H-Xiangshan">
-                          <p className="unraised">High</p>
+                          <p className="unraised">高</p>
                         </div>
                       </div>
                     </div>
@@ -351,7 +351,7 @@ function MapL() {
                       <p className="mountain_list_title mr-2 mb-0">公里</p>
                       <div className="mountain_progress-bg">
                         <span className="mountain_progress-bg-font-Xiangshan">
-                          {list.distance} km
+                          {list.distance} 公里
                         </span>
                         <div
                           style={{ width: `${list.distance}%` }}
@@ -367,10 +367,10 @@ function MapL() {
                       <div className="mountain_progress-bg">
                         <span className="mountain_progress-bg-font-Xiangshan">
                           {/* below 將資料庫的分鐘轉換成小時&分鐘顯示 */}
-                          {Math.floor(list.time / 60) + ' hr '}
+                          {Math.floor(list.time / 60) + ' 小時 '}
                           {Math.floor(list.time % 60) === 0
                             ? ''
-                            : Math.floor(list.time % 60) + ' m'}
+                            : Math.floor(list.time % 60) + ' 分鐘'}
                         </span>
                         <div
                           //=== bellow bar條寬跑的長度 ===//
