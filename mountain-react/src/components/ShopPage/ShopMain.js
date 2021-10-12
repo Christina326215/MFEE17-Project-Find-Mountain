@@ -11,9 +11,10 @@ import RankingItems from './components/RankingItems';
 import SelectedItems from './components/SelectedItems';
 import RankingArticles from './components/RankingArticles';
 //slick輪播圖
-import display1 from '../../img/display-photo1.jpeg';
+import display1 from '../../img/display-photo1new.jpg';
 import display2 from '../../img/display-photo2.jpeg';
 import display3 from '../../img/display-photo3.jpeg';
+import display4 from '../../img/product-img/illustration/shopmain-display2.svg';
 
 function ShopMain(props) {
   const [favoriteBtn, setFavoriteBtn] = useState(false);
@@ -75,7 +76,7 @@ function ShopMain(props) {
             </div>
             <div className="shopmain-slick-photo-box">
               <img
-                src={display3}
+                src={display4}
                 alt=""
                 title=""
                 className="shopmain-cover-fit"
