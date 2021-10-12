@@ -158,7 +158,10 @@ function HomeMountain(props) {
         <div className="homepage-contentTop position-relative">
           <div className="d-flex">
             <div>
-              <h1 className="homepage-title" data-spotlight="和山一起森呼吸">
+              <h1
+                className="homepage-title mt-md-3"
+                data-spotlight="和山一起森呼吸"
+              >
                 和山一起森呼吸
               </h1>
             </div>
