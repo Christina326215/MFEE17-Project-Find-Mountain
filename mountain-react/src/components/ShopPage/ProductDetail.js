@@ -21,7 +21,7 @@ function ProductDetail(props) {
   const [orderInfo, setOrderInfo] = useState([]);
   //同等級商品及文章
   const [sameLevelP, setSameLevelP] = useState([]);
-  const [sameLevelA, setSameLevelA] = useState([]);
+  const [tagArticle, setTagArticle] = useState([]);
   const { id } = useParams();
   // 隨機打亂陣列函式
   const shuffle = (array) => {
@@ -109,13 +109,6 @@ function ProductDetail(props) {
         const randomSameLevelP = shuffle(lastSameLevelP).slice(0, 3);
         // console.log('randomSameLevelP', randomSameLevelP);
         setSameLevelP(randomSameLevelP);
-        //抓同等級文章資料
-        const sameLevelArticle = await axios.get(
-          `${shopURL}/product-detail/article/level/${productLevel}`
-        );
-        const randomSameLevelA = shuffle(sameLevelArticle.data).slice(0, 3);
-        // console.log('randomSameLevelA', randomSameLevelA);
-        setSameLevelA(randomSameLevelA);
       } catch (e) {
         console.log(e);
       }
@@ -124,6 +117,19 @@ function ProductDetail(props) {
     setOrderInfo(ProductOrder);
     setOrderSize('');
     setOrderNum(1);
+  }, [id]);
+  //抓提及商品的文章資料
+  useEffect(() => {
+    async function getTagArticle() {
+      try {
+        let tagArticle = await axios.get(`${shopURL}/tag-article/${id}`);
+        console.log('tagArticle', tagArticle.data);
+        setTagArticle(tagArticle.data);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getTagArticle();
   }, [id]);
   //加入購物車
   const addCart = () => {
@@ -263,13 +269,6 @@ function ProductDetail(props) {
     }
     getWishList();
   }, [member, id, auth]);
-  //FIXME:待整理
-  // useEffect(() => {
-  //   //like-icon
-  //   $('.productdetail-like-btn').on('click', function () {
-  //     $(this).toggleClass('productdetail-active');
-  //   });
-  // }, []);
   return (
     <>
       <main>
@@ -495,30 +494,36 @@ function ProductDetail(props) {
               <span>商品相關攻略</span>
             </h4>
             <div className="productdetail-guideline-box row">
-              {sameLevelA.map((itemA, indexA) => {
-                return (
-                  <div className="col-6 col-lg-3 px-0" key={itemA.id}>
-                    <div className="productdetail-article-card">
-                      <div className="productdetail-article-img-box">
-                        <Link to={`/recommend/detail/${itemA.id}`}>
-                          <img
-                            className="productdetail-cover-fit"
-                            src={`${IMAGE_URL}/img/article-img/${itemA.pic}`}
-                            alt={itemA.name}
-                            title={itemA.name}
-                          />
+              {tagArticle.length > 0 ? (
+                tagArticle.map((itemTag, index) => {
+                  return (
+                    <div className="col-6 col-lg-3 px-0" key={itemTag.id}>
+                      <div className="productdetail-article-card">
+                        <div className="productdetail-article-img-box">
+                          <Link to={`/recommend/detail/${itemTag.article_id}`}>
+                            <img
+                              className="productdetail-cover-fit"
+                              src={`${IMAGE_URL}/img/article-img/${itemTag.article_pic}`}
+                              alt={itemTag.article_name}
+                              title={itemTag.article_name}
+                            />
+                          </Link>
+                        </div>
+                        <Link
+                          to={`/recommend/detail/${itemTag.article_id}`}
+                          className="productdetail-article-name"
+                        >
+                          {itemTag.article_name}
                         </Link>
                       </div>
-                      <Link
-                        to={`/recommend/detail/${itemA.id}`}
-                        className="productdetail-article-name"
-                      >
-                        {itemA.name}
-                      </Link>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })
+              ) : (
+                <div className="d-flex productdetail-no-tag-article text-center justify-content-center align-items-center my-3">
+                  <p className="m-0">暫無提及此商品的相關攻略喔！</p>
+                </div>
+              )}
             </div>
           </div>
           {/* <!-- =========guideline end========= --> */}

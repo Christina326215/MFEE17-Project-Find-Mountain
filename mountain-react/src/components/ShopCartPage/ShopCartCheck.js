@@ -540,7 +540,7 @@ function ShopCartCheck(props) {
                               pattern="[^0-9]+"
                             />
                             <span className="invalid-feedback">
-                              Enter the name as shown on credit card
+                              請輸入信用卡持卡人姓名
                             </span>
                           </div>
                           <div className="form-group">
@@ -559,7 +559,7 @@ function ShopCartCheck(props) {
                               pattern="[0-9]{16}"
                             />
                             <span className="invalid-feedback">
-                              Enter a valid 16 digit card number
+                              請輸入16碼有效信用卡號
                             </span>
                           </div>
                           <div className="row">
@@ -582,7 +582,7 @@ function ShopCartCheck(props) {
                                   pattern="[0-9]{4}"
                                 />
                                 <span className="invalid-feedback">
-                                  Enter the expiration date
+                                  請輸入正確信用卡有效月年
                                 </span>
                               </div>
                             </div>
@@ -604,7 +604,7 @@ function ShopCartCheck(props) {
                                   pattern="[0-9]{3}"
                                 />
                                 <span className="invalid-feedback order-last">
-                                  Enter the 3-digit code on back
+                                  請輸入正確信用卡背面末三碼
                                 </span>
                                 <div className="input-group-append">
                                   <div className="input-group-text">

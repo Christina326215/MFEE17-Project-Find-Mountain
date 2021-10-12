@@ -93,7 +93,7 @@
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 .shopcart-more-product-img-box {
-  /* margin: 0 auto; */
+  margin: 0 auto;
   width: 100px;
   height: 100px;
   text-align: center;
@@ -402,6 +402,12 @@
   margin: 0 auto;
   border-radius: 8px;
 }
+.shopcart-product-infobox-spinner {
+  width: 100%;
+  height: 200px;
+  margin: 0 auto;
+  border-radius: 8px;
+}
 .shopcart-product-infobox-img {
   width: 200px;
   height: 200px;
@@ -436,4 +442,11 @@
 
 .shopcart_pay_error {
   color: red;
+}
+.shopcart-more-product-name{
+  font-size: small;
+}
+.shopcart-noproduct-box-bear {
+  right: -150px;
+  top: -20px;
 }

@@ -4,7 +4,7 @@ import '../../styles/HomePage/HomeMountain.scss';
 //api start
 import { authURL } from '../../utils/config';
 import { openWeatherKey } from '../../utils/config';
-
+import $ from 'jquery';
 import axios from 'axios';
 import { mapURL, weatherURL, IMAGE_URL } from '../../utils/config';
 //weather
@@ -130,26 +130,25 @@ function HomeMountain(props) {
   };
 
   ////// 天氣api
-
-  const changeLevel = () => {
-    let btn = document.querySelectorAll('.homepage-sliderBtn');
-    let content = document.querySelectorAll('.homepage-wrapper-Taiwan');
-    let center = document.querySelectorAll('.homepage-center');
-    let level = document.querySelectorAll('.homepage-level');
-    for (let i = 0; i < btn.length; i++) {
-      btn[i].addEventListener('click', function () {
-        for (let j = 0; j < btn.length; j++) {
-          btn[j].classList.remove('active');
-          content[j].classList.remove('active');
-          center[j].classList.remove('active');
-          level[j].classList.remove('active');
-        }
-        this.classList.add('active');
-        content[i].classList.add('active');
-        center[i].classList.add('active');
-        level[i].classList.remove('active');
-      });
-    }
+  //初中高階切換by abby 有在各個homepage-wrapper-Taiwan增加classname wrapper-Taiwan0之類的
+  const changeLevel = (e) => {
+    let i = $(e.currentTarget).data('btn');
+    // console.log('i', $(e.currentTarget).data('btn'));
+    //btn
+    $(e.currentTarget).parent().addClass('active');
+    $(e.currentTarget).parent().siblings().removeClass('active');
+    //center
+    $(e.currentTarget).parent().find('.homepage-center').addClass('active');
+    $(e.currentTarget)
+      .parent()
+      .siblings()
+      .find('.homepage-center')
+      .removeClass('active');
+    //homepage-wrapper-Taiwan
+    $(`.wrapper-Taiwan${i}`).addClass('active');
+    $(`.wrapper-Taiwan${i}`)
+      .siblings('.homepage-wrapper-Taiwan')
+      .removeClass('active');
   };
 
   return (
@@ -233,28 +232,28 @@ function HomeMountain(props) {
             </div>
             <div id="homepage-pagination">
               <div className="active homepage-sliderBtn" data-slide="0">
-                <Link to="/" onClick={changeLevel}>
+                <button onClick={changeLevel} data-btn="0">
                   <div className="homepage-center active"></div>
                   <div className="homepage-level">初級</div>
-                </Link>
+                </button>
               </div>
               <div className="homepage-sliderBtn homepage-med" data-slide="1">
-                <Link to="##" onClick={changeLevel}>
+                <button onClick={changeLevel} data-btn="1">
                   <div className="homepage-center"></div>
                   <div className="homepage-level">中級</div>
-                </Link>
+                </button>
               </div>
               <div className="homepage-sliderBtn" data-slide="2">
-                <Link to="/" onClick={changeLevel}>
+                <button onClick={changeLevel} data-btn="2">
                   <div className="homepage-center"></div>
                   <div className="homepage-level">高級</div>
-                </Link>
+                </button>
               </div>
             </div>
 
             {/*  ========= 初級 star=========  */}
             <div
-              className="homepage-wrapper-Taiwan cover-fit position-absolute active"
+              className="homepage-wrapper-Taiwan cover-fit position-absolute active wrapper-Taiwan0"
               id="low"
             >
               <figure className="position-absolute homepage-taiwan">
@@ -288,7 +287,7 @@ function HomeMountain(props) {
             {/* <!-- ========= 初級 end========= --> */}
             {/* <!-- ========= 中級 star========= --> */}
             <div
-              className="homepage-wrapper-Taiwan cover-fit position-absolute"
+              className="homepage-wrapper-Taiwan cover-fit position-absolute wrapper-Taiwan1"
               id="medium"
             >
               <figure className="position-absolute homepage-taiwan">
@@ -322,7 +321,7 @@ function HomeMountain(props) {
             {/* <!-- ========= 中級 end========= --> */}
             {/* <!-- ========= 高級 star========= --> */}
             <div
-              className="homepage-wrapper-Taiwan cover-fit position-absolute"
+              className="homepage-wrapper-Taiwan cover-fit position-absolute wrapper-Taiwan2"
               id="high"
             >
               <figure className="position-absolute homepage-taiwan">

@@ -34,12 +34,6 @@ router.get("/product-detail/level/:level", async function (req, res, next) {
   res.json(dbResults);
 });
 
-router.get("/product-detail/article/level/:level", async function (req, res, next) {
-  let dbResults = await connection.queryAsync("SELECT * FROM article WHERE level=?", [req.params.level]);
-
-  res.json(dbResults);
-});
-
 router.get("/size-storage/:id/:size", async function (req, res, next) {
   let dbResults = await connection.queryAsync("SELECT * FROM product_size_storage JOIN product ON product_size_storage.product_id = product.id WHERE product_size_storage.product_id=? and product_size_storage.product_size=?", [req.params.id, req.params.size]);
   res.json(dbResults);
@@ -115,6 +109,12 @@ router.get("/ranking", async function (req, res, next) {
 
 router.get("/selected-items", async function(req, res, next){
   let dbResults = await connection.queryAsync("SELECT * FROM product JOIN product_brand_name ON product.id = product_brand_name.id WHERE product.status=3"); 
+  res.json(dbResults);
+})
+
+
+router.get("/tag-article/:productId", async function(req, res, next){
+  let dbResults = await connection.queryAsync("SELECT tag.id, img_id, product_id, tag_photo.article_id AS article_id, article.name AS article_name, article.pic AS article_pic FROM tag JOIN tag_photo ON tag.img_id = tag_photo.id JOIN article ON tag_photo.article_id = article.id WHERE product_id=?", [req.params.productId]); 
   res.json(dbResults);
 })
 

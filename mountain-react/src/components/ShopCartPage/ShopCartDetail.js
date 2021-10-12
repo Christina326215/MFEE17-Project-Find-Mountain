@@ -7,12 +7,14 @@ import '../../styles/ShopCartPage/ShopCartPage.css'; //shopping-cart style
 import { shopURL, IMAGE_URL } from '../../utils/config';
 import { useAuth } from '../../context/auth'; // 取得setCartChange狀態
 import Swal from 'sweetalert2';
+import Skeleton from 'react-loading-skeleton';
 
 import axios from 'axios';
 
 //====== below icon star ======//
 import { BsPlus, BsDash, BsTrash, BsCheck } from 'react-icons/bs';
 //====== below icon end ======//
+import Bear from '../../img/product-img/illustration/bearbear.png';
 
 function ShopCartDetail() {
   const { setCartChange, member } = useAuth(); // 取得navbar偵測購物車變化用的狀態 會員登入狀態
@@ -23,6 +25,7 @@ function ShopCartDetail() {
   //cartLocal為購物車的local storage
   const [cartLocal, setCartLocal] = useState([]);
   const [randomProduct, setRandomProduct] = useState([]);
+  const [isLoadingCart, setIsLoadingCart] = useState(true);
   //取得local storage轉為陣列的資料 ProductOrder
   function getCartFromLocalStorage() {
     const ProductOrder =
@@ -267,6 +270,52 @@ function ShopCartDetail() {
       });
     }
   };
+  //spinner
+  const spinner = (
+    <div className="shopcart-product-infobox-spinner row my-3">
+      <div className="col-4 col-lg-3">
+        <figure className="shopcart-product-infobox-img p-2">
+          <Skeleton height={170} width={170} />
+        </figure>
+      </div>
+      <div className="col-5">
+        <div className="shopcart-product-infobox-name mt-2">
+          <Skeleton />
+        </div>
+        <div className="my-3">
+          <p>
+            <Skeleton width={70} />
+          </p>
+          <Skeleton />
+        </div>
+        <div className="shopcart-product-infobox-storage">
+          <p className="m-0">
+            <Skeleton width={90} />
+          </p>
+        </div>
+      </div>
+      <div className="col-3 col-lg-4">
+        <div className="d-flex align-items-end flex-column bd-highlight shopcart-product-infobox-right">
+          <div className="bd-highlight">
+            <p className="my-3">
+              <Skeleton />
+            </p>
+            <hr className="my-0" />
+          </div>
+          <div className="bd-highlight">
+            <p className="shopcart-product-infobox-price">
+              <Skeleton />
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoadingCart(false);
+    }, 1500);
+  }, []);
   //FIXME:一些待整理的東西
   useEffect(() => {
     // progress-bar
@@ -382,14 +431,16 @@ function ShopCartDetail() {
           <div className="col-lg-12 mt-3">
             <h3 className="text-center mt-4">購物車明細</h3>
             <hr />
-            {cartLocal.length > 0 && cartLocal !== '[]' ? (
+            {/* abby */}
+            {isLoadingCart ? (
+              spinner
+            ) : cartLocal.length > 0 && cartLocal !== '[]' ? (
               <div>
                 <div className="d-flex justify-content-end">
                   <button className="btn-primary btn" onClick={clearCart}>
                     清空購物車
                   </button>
                 </div>
-                {/* abby */}
                 {shopCartData.map((items, index) => {
                   return (
                     <div
@@ -421,21 +472,37 @@ function ShopCartDetail() {
                         <div className="my-3">
                           <p>所選尺寸</p>
                           {items.type === '2' ? (
-                            <select value="F" className="form-control" readOnly>
-                              <option value="F">F</option>
-                            </select>
+                            <input
+                              type="text"
+                              value="F"
+                              name="size"
+                              readOnly
+                              className="form-control"
+                            />
                           ) : items.size === 'S' ? (
-                            <select value="S" className="form-control" readOnly>
-                              <option value="S">S</option>
-                            </select>
+                            <input
+                              type="text"
+                              value="S"
+                              name="size"
+                              readOnly
+                              className="form-control"
+                            />
                           ) : items.size === 'M' ? (
-                            <select value="M" className="form-control" readOnly>
-                              <option value="M">M</option>
-                            </select>
+                            <input
+                              type="text"
+                              value="M"
+                              name="size"
+                              readOnly
+                              className="form-control"
+                            />
                           ) : (
-                            <select value="L" className="form-control" readOnly>
-                              <option value="L">L</option>
-                            </select>
+                            <input
+                              type="text"
+                              value="L"
+                              name="size"
+                              readOnly
+                              className="form-control"
+                            />
                           )}
                         </div>
                         <div className="shopcart-product-infobox-storage">
@@ -489,16 +556,21 @@ function ShopCartDetail() {
                   );
                 })}
                 {/* abby */}
+                {/* FIXME: page btn 功能 */}
+                {pages_btn}
+                {/* <!-- 分頁 end  --> */}
               </div>
             ) : (
               <div className="d-flex shopcart-noproduct-box text-center justify-content-center align-items-center">
-                <p className="p-0">購物車內沒有商品呦</p>
+                <p className="p-0 position-relative">
+                  購物車內沒有商品呦
+                  <div className="ml-2 position-absolute shopcart-noproduct-box-bear">
+                    <img src={Bear} alt="吉祥物熊熊" title="吉祥物熊熊" />
+                  </div>
+                </p>
               </div>
             )}
             {/* <!-- 分頁 start  --> */}
-            {/* FIXME: page btn 功能 */}
-            {pages_btn}
-            {/* <!-- 分頁 end  --> */}
             <div className="text-right mt-3 text-right">
               <p className="shopcart-total">
                 商品總計： NT$ {sum(shopCartData).toLocaleString()}
@@ -523,19 +595,26 @@ function ShopCartDetail() {
               <div className="row">
                 {randomProduct.map((randomItems, index) => {
                   return (
-                    <Link
-                      to={`/shop/product-detail/${randomItems.id}`}
+                    <div
                       key={`${randomItems.id}`}
+                      className="shopcart-more-product col-2 text-center"
                     >
-                      <figure className="shopcart-more-product-img-box ml-5">
-                        <img
-                          src={`${IMAGE_URL}/img/product-img/${randomItems.pic}`}
-                          alt={randomItems.name}
-                          title={randomItems.name}
-                          className="shopcart-cover-fit"
-                        />
-                      </figure>
-                    </Link>
+                      <Link to={`/shop/product-detail/${randomItems.id}`}>
+                        <figure className="shopcart-more-product-img-box">
+                          <img
+                            src={`${IMAGE_URL}/img/product-img/${randomItems.pic}`}
+                            alt={randomItems.name}
+                            title={randomItems.name}
+                            className="shopcart-cover-fit"
+                          />
+                        </figure>
+                      </Link>
+                      <div className="shopcart-more-product-name mt-2">
+                        <Link to={`/shop/product-detail/${randomItems.id}`}>
+                          {randomItems.name}
+                        </Link>
+                      </div>
+                    </div>
                   );
                 })}
               </div>
@@ -545,7 +624,7 @@ function ShopCartDetail() {
               <hr />
               {historyItems === [] || historyItems.length === 0 ? (
                 <div className="d-flex shopcart-no-historyproduct text-center justify-content-center align-items-center my-3">
-                  <p className="p-0">尚未有瀏覽紀錄</p>
+                  <p className="m-0">尚未有瀏覽紀錄</p>
                 </div>
               ) : (
                 <div className="row">

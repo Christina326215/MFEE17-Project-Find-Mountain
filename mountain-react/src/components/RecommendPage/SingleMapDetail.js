@@ -99,7 +99,7 @@ export class SingleMapDetail extends Component {
       //console.log(this.markerOne.current.marker)
       let center = new maps.LatLng(curr.lat, curr.lng);
       map.panTo(center);
-      map.setZoom(12);
+      map.setZoom(15);
 
       //console.log(this.infoWindowOne.current.infowindow)
       // let markerCurrent = this.markerOne.current.marker

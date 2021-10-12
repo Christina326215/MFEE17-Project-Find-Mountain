@@ -314,7 +314,8 @@
 } */
 .mountain_M_list {
   max-width: 1110px;
-  height: 282px;
+  /* height: 282px; 10/10del*/
+  height: 320px; /*10/10 add*/
   border: 1px solid lightgray;
   border-radius: 10px;
   margin: 15px auto 0 auto;
@@ -322,33 +323,13 @@
   box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
 }
 .mountain_M_Xiangshan_list {
-  width: 350px;
-  height: 280px;
+  width: 360px;
+  height: 319px;
 }
 .mountain_M_Xiangshan_pic {
   border-radius: 10px 0 0 10px;
   object-fit: cover;
-  width: 350px;
-  height: 100%;
-}
-.mountain_M_Jinmian_list {
-  width: 350px;
-  height: 280px;
-}
-.mountain_M_Jinmian_pic {
-  border-radius: 10px 0 0 10px;
-  object-fit: cover;
-  width: 350px;
-  height: 100%;
-}
-.mountain_M_Chi-hsing_list {
-  width: 350px;
-  height: 280px;
-}
-.mountain_M_Chi-hsing_pic {
-  border-radius: 10px 0 0 10px;
-  object-fit: cover;
-  width: 350px;
+  width: 360px;
   height: 100%;
 }
 .mountain_M_list_last {
@@ -365,9 +346,17 @@
   width: 700px;
   max-width: 100%;
 }
-.mountain_M_list_detail_box,
 .mountain_M_list_font_box {
   display: flex;
+}
+.mountain_M_list_detail_box {
+  /*10/10 add*/
+  display: block;
+}
+.mountain_M_list_font_box,
+.mountain_M_list_distance_title {
+  /*10/10 add*/
+  justify-content: center;
 }
 .mountain_M_list_title {
   font-size: 20px;
@@ -388,8 +377,8 @@
   display: flex;
   margin-top: 4px;
   margin-bottom: 20px;
-  margin-left: 20px;/* 10/1 歐陽 change 40px->20px*/
-  margin-right: 20px;/* 10/1 歐陽 add*/
+  margin-left: 20px; /* 10/1 歐陽 change 40px->20px*/
+  margin-right: 20px; /* 10/1 歐陽 add*/
 }
 .mountain_M_progress-bg {
   margin: 0 auto;
