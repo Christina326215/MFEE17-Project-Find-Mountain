@@ -298,7 +298,7 @@ function DetailContent(props) {
       return;
     } else {
       setFlagHandle(false);
-      $(e.currentTarget.firstChild).css('color', '#e2e3e1');
+      const response = $(e.currentTarget.firstChild).css('color', '#e2e3e1');
       await axios.post(`${recommendURL}/deletePast`, {
         likeUserId,
         likeArticleId,
