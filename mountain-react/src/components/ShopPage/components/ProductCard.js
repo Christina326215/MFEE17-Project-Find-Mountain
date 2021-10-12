@@ -314,9 +314,9 @@ function ProductCard(props) {
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
-          Close
+          取消
         </Button>
-        <Button onClick={addCart}>Add</Button>
+        <Button onClick={addCart}>加入購物車</Button>
       </Modal.Footer>
     </Modal>
   );
