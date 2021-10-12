@@ -12,6 +12,9 @@ import decathlon from '../img/footer-img/decathlon.png';
 import mybest from '../img/footer-img/mybest.png';
 import branding from '../img/footer-img/branding.png';
 import outdoorTao from '../img/footer-img/outdoorTao.jpg';
+import freepik from '../img/footer-img/freepik.png';
+import pixaboy from '../img/footer-img/pixaboy.png';
+import pexel from '../img/footer-img/pexel.jpg';
 //====== above img import end ======//
 
 function Footer() {
@@ -54,7 +57,7 @@ function Footer() {
               <p>def2446@yahoo.com.tw</p>
             </div>
 
-            <div className="d-flex align-items-center footer_info">
+            <div className="d-flex flex-wrap justify-content-center align-items-center footer_info">
               <p className="mr-2">參考資訊:</p>
               <p className="mr-2 footer_img">
                 <img src={northface} alt="northface" />
@@ -70,6 +73,12 @@ function Footer() {
               </p>
               <p className="mr-2 footer_img">
                 <img src={outdoorTao} alt="outdoorTao" />
+              </p>
+              <p className="mr-2 footer_img">
+                <img src={pixaboy} alt="pixaboy" />
+              </p>
+              <p className="mr-2 footer_img">
+                <img src={pexel} alt="pexel" />
               </p>
               <p className="footer_img">
                 <img src={branding} alt="branding" />

@@ -30,10 +30,11 @@ function MemberHeartArticle() {
     // }
     const delArticleId = e.currentTarget.id;
     // console.log('delArticleId', delArticleId);
-    setDeleteId(delArticleId);
+    // setDeleteId(delArticleId);
     const deleteres = await axios.post(`${memberArticleURL}/deleteheart`, {
       delArticleId,
     });
+    setDeleteId(delArticleId);
     // console.log('deleteres.data', deleteres.data);
 
     // 讓頁面重新抓資料
