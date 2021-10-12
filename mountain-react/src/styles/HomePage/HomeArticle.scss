@@ -303,7 +303,9 @@
       height: 100px;
       overflow: hidden;
     }
-
+    .thumbnail-image {
+      box-shadow: none;
+    }
     .slick-prev.slick-arrow {
       background-position: center 10px;
     }
