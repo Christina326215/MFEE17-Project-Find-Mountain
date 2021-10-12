@@ -27,7 +27,7 @@
   height: 500px;
   position: relative;
   overflow: hidden;
-  bottom: -290px;
+  bottom: -250px;
   /* z-index: 1; */
 }
 .homepage-wave {
@@ -67,7 +67,7 @@
   background: #fcfaf2;
   width: 100%;
   /* height: 100vh; */
-  max-width: 1920px;
+  // max-width: 1920px;
   padding-bottom: 200px;
 }
 .homepage-title {
@@ -344,10 +344,6 @@
   .homepage-display-photo-box {
     height: 300px;
     margin-bottom: 30px;
-  }
-
-  .homepage-contentMountain {
-    padding-top: 100px;
   }
 }
 @media screen and (max-width: 768px) {
