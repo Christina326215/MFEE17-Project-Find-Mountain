@@ -74,13 +74,19 @@ function ShopMain(props) {
                 className="shopmain-cover-fit"
               />
             </div>
-            <div className="shopmain-slick-photo-box">
+            <div className="shopmain-slick-photo-box position-relative">
               <img
                 src={display4}
                 alt=""
                 title=""
                 className="shopmain-cover-fit"
               />
+              <a
+                href="https://www.freepik.com/vectors/hand-drawn"
+                className="position-absolute text-white shopmain-slick-photo-attribute"
+              >
+                Hand drawn vector created by freepik - www.freepik.com
+              </a>
             </div>
           </div>
           {/* <!-- =========vegas end========= --> */}

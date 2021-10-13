@@ -12,7 +12,6 @@ import decathlon from '../img/footer-img/decathlon.png';
 import mybest from '../img/footer-img/mybest.png';
 import branding from '../img/footer-img/branding.png';
 import outdoorTao from '../img/footer-img/outdoorTao.jpg';
-import freepik from '../img/footer-img/freepik.png';
 import pixaboy from '../img/footer-img/pixaboy.png';
 import pexel from '../img/footer-img/pexel.jpg';
 //====== above img import end ======//
