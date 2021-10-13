@@ -228,6 +228,7 @@ function SignUp(props) {
       if (!email) {
         setEmail(false);
       }
+      
     }
   };
 
